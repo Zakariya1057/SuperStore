@@ -10,9 +10,15 @@ import Foundation
 import Tabman
 import Pageboy
 
-class GroceriesViewController: TabmanViewController {
+protocol GroceryDelegate {
+    func showGroceryItem()
+    func addToList()
+}
 
-    let headers:[String] = ["Breakfast","Drinks","Frozen","Treats","Bakery","Cleaning","Fruits","Vegetables"]
+class GroceriesViewController: TabmanViewController,GroceryDelegate {
+
+    let headers:[String] = ["Breakfast","Drinks","Frozen"]
+    let viewcontrollers:[GroceryTableViewController] = [GroceryTableViewController(),GroceryTableViewController(),GroceryTableViewController()]
     
     // Create bar
     let bar = TMBar.ButtonBar()
@@ -36,7 +42,17 @@ class GroceriesViewController: TabmanViewController {
         // Add to view
         addBar(bar, dataSource: self, at: .top)
         
+    }
+}
+
+extension GroceriesViewController {
+    
+    func showGroceryItem(){
         self.performSegue(withIdentifier: K.Paths.showGroceryItem, sender: self)
+    }
+    
+    func addToList(){
+        print("Adding To List")
     }
 }
 
@@ -54,7 +70,9 @@ extension GroceriesViewController: PageboyViewControllerDataSource, TMBarDataSou
 
     func viewController(for pageboyViewController: PageboyViewController,
                         at index: PageboyViewController.PageIndex) -> UIViewController? {
-        return GroceryViewController()
+        let viewController = viewcontrollers[index]
+        viewController.delegate = self
+        return viewController
     }
 
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {

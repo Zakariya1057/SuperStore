@@ -8,13 +8,16 @@
 
 import UIKit
 
-class GroceryViewController: UITableViewController {
+class GroceryTableViewController: UITableViewController {
 
     let items:[String] = ["Burger","Bread","Toast"]
     
+    var delegate:GroceryDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -29,10 +32,14 @@ class GroceryViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-        let cell = UITableViewCell()
-        cell.textLabel?.text = items[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
+        cell.delegate = self.delegate
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         self.delegate?.showGroceryItem()
     }
 
     /*
@@ -80,4 +87,7 @@ class GroceryViewController: UITableViewController {
     }
     */
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0;//Choose your custom row height
+    }
 }
