@@ -7,5 +7,7 @@ target 'SuperStore' do
 
   # Pods for SuperStore
   pod 'Tabman', '~> 2.9'
+  pod 'Cosmos', '~> 22.1'
+  pod 'IQKeyboardManagerSwift'
 
 end
