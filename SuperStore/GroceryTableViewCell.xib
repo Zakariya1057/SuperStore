@@ -113,22 +113,34 @@
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DER-6h-evT">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nBc-FW-dXw">
                                         <rect key="frame" x="403" y="0.0" width="40" height="146"/>
-                                        <color key="backgroundColor" red="0.098039215690000001" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DER-6h-evT">
+                                                <rect key="frame" x="-5" y="50.5" width="45" height="45"/>
+                                                <color key="backgroundColor" red="0.098039215690000001" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="45" id="oC0-a9-LYD"/>
+                                                    <constraint firstAttribute="height" constant="45" id="pNO-pX-aTX"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                                <state key="normal" title="+">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="groceryAddClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="avG-Az-uqn"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="oC0-a9-LYD"/>
+                                            <constraint firstAttribute="trailing" secondItem="DER-6h-evT" secondAttribute="trailing" id="3h9-DW-Dn9"/>
+                                            <constraint firstItem="DER-6h-evT" firstAttribute="centerY" secondItem="nBc-FW-dXw" secondAttribute="centerY" id="lJh-dR-H3a"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="43"/>
-                                        <state key="normal" title="+">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="groceryAddClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="avG-Az-uqn"/>
-                                        </connections>
-                                    </button>
+                                    </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="nBc-FW-dXw" secondAttribute="trailing" id="VYh-1C-bIq"/>
                                     <constraint firstItem="Qd5-S3-9HG" firstAttribute="top" secondItem="vHf-yf-kcT" secondAttribute="top" id="iVo-oa-3dg"/>
                                     <constraint firstAttribute="bottom" secondItem="Qd5-S3-9HG" secondAttribute="bottom" id="yQd-ha-W4K"/>
                                 </constraints>
