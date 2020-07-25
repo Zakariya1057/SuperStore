@@ -9,8 +9,10 @@
 import Foundation
 
 struct K {
+    
     struct Paths {
         static let showGroceryItem = "showGroceryItem"
+        static let showIngredients = "showIngredients"
     }
     
     struct Cells {
