@@ -19,7 +19,7 @@ class ProductViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        similarCollection.register(UINib(nibName: K.Cells.SimilarCell.CellNibName, bundle: nil), forCellWithReuseIdentifier:  K.Cells.SimilarCell.CellIdentifier)
+        similarCollection.register(UINib(nibName: K.Cells.ProductCollectionCell.CellNibName, bundle: nil), forCellWithReuseIdentifier:  K.Cells.ProductCollectionCell.CellIdentifier)
     
         similarCollection.delegate = self
         similarCollection.dataSource = self
@@ -44,7 +44,7 @@ extension ProductViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = similarCollection.dequeueReusableCell(withReuseIdentifier: K.Cells.SimilarCell.CellIdentifier, for: indexPath as IndexPath) as? SimilarCollectionViewCell {
+        if let cell = similarCollection.dequeueReusableCell(withReuseIdentifier: K.Cells.ProductCollectionCell.CellIdentifier, for: indexPath as IndexPath) as? ProductCollectionViewCell {
             
                 
             return cell

@@ -27,9 +27,14 @@ struct K {
             static let CellNibName    = "GroceryTableViewCell"
         }
         
-        struct SimilarCell {
-            static let CellIdentifier = "ReusableSimilarCollectionViewCell"
-            static let CellNibName    = "SimilarCollectionViewCell"
+        struct ProductCollectionCell {
+            static let CellIdentifier = "ReusableProductCollectionViewCell"
+            static let CellNibName    = "ProductCollectionViewCell"
+        }
+        
+        struct ProductCell {
+            static let CellIdentifier = "ReusableProductTableViewCell"
+            static let CellNibName    = "ProductTableViewCell"
         }
         
     }

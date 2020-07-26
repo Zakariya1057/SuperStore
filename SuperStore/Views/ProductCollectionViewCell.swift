@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SimilarCollectionViewCell: UICollectionViewCell {
+class ProductCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
