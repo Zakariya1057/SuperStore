@@ -47,6 +47,16 @@ struct K {
             static let CellNibName    = "StoresMapTableViewCell"
         }
         
+        struct SearchCell {
+            static let CellIdentifier = "ReusableSearchTableViewCell"
+            static let CellNibName    = "SearchTableViewCell"
+        }
+        
+        struct StoresResultsCell {
+            static let CellIdentifier = "ReusableStoresResultsTableViewCell"
+            static let CellNibName    = "StoresResultsTableViewCell"
+        }
+        
     }
     
 }

@@ -88,6 +88,6 @@ class GroceryTableViewController: UITableViewController {
     */
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0;//Choose your custom row height
+        return 130.0;//Choose your custom row height
     }
 }

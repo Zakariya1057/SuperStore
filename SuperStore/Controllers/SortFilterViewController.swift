@@ -1,15 +1,21 @@
 //
-//  MoreViewController.swift
+//  SortFilterViewController.swift
 //  SuperStore
 //
-//  Created by Zakariya Mohummed on 22/07/2020.
+//  Created by Zakariya Mohummed on 29/07/2020.
 //  Copyright © 2020 Zakariya Mohummed. All rights reserved.
 //
 
 import UIKit
 
-class MoreViewController: UIViewController {
+class SortFilterViewController: UIViewController {
 
+    @IBAction func donePressed(_ sender: Any) {
+        self.dismiss(animated: true) {
+            
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

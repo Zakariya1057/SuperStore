@@ -295,18 +295,29 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qBQ-nM-rQS">
+                                <rect key="frame" x="0.0" y="138" width="414" height="675"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="rj1-QC-1jG" firstAttribute="trailing" secondItem="3E9-Ge-Vmx" secondAttribute="trailing" id="230-gV-DIk"/>
+                            <constraint firstItem="qBQ-nM-rQS" firstAttribute="top" secondItem="rj1-QC-1jG" secondAttribute="bottom" id="4Gw-ue-bQ6"/>
+                            <constraint firstItem="3E9-Ge-Vmx" firstAttribute="bottom" secondItem="qBQ-nM-rQS" secondAttribute="bottom" id="6hl-Ys-ERH"/>
                             <constraint firstItem="rj1-QC-1jG" firstAttribute="leading" secondItem="3E9-Ge-Vmx" secondAttribute="leading" id="DcY-ZU-ldZ"/>
                             <constraint firstItem="rj1-QC-1jG" firstAttribute="top" secondItem="3E9-Ge-Vmx" secondAttribute="top" id="JdW-Yu-Ce9"/>
+                            <constraint firstItem="qBQ-nM-rQS" firstAttribute="leading" secondItem="3E9-Ge-Vmx" secondAttribute="leading" id="V40-mS-bqR"/>
+                            <constraint firstItem="3E9-Ge-Vmx" firstAttribute="trailing" secondItem="qBQ-nM-rQS" secondAttribute="trailing" id="kRI-6Q-3px"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3E9-Ge-Vmx"/>
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="YZc-ls-dbO"/>
                     <connections>
+                        <outlet property="searchBar" destination="rj1-QC-1jG" id="rcI-l9-zeC"/>
+                        <outlet property="searchTableView" destination="qBQ-nM-rQS" id="w6L-5J-dA0"/>
                         <segue destination="KFj-5f-9Wu" kind="show" identifier="showSearchResults" id="g3X-Fa-yHF"/>
+                        <segue destination="WbC-sT-OPu" kind="show" identifier="searchToStoreResults" id="zdn-Ua-fwR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jhl-3w-Bbw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -322,7 +333,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMe-bd-qXj">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Esg-GQ-VBU">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="937"/>
@@ -694,7 +705,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dNH-Jp-K3l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7100.0000000000009" y="135.9375"/>
+            <point key="canvasLocation" x="6438" y="136"/>
         </scene>
         <!--Groceries-->
         <scene sceneID="MbA-Ed-0LT">
@@ -713,7 +724,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s8J-8h-hjs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8113" y="136"/>
+            <point key="canvasLocation" x="7768" y="136"/>
         </scene>
         <!--Home-->
         <scene sceneID="VaP-2p-OvD">
@@ -810,24 +821,6 @@
             </objects>
             <point key="canvasLocation" x="3018.840579710145" y="135.9375"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="mK0-ck-hRK">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kSU-8n-6TN" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CDM-KC-OBT">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="hXH-95-1lc" kind="relationship" relationship="rootViewController" id="qDI-ZW-Run"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="v7w-D4-Jx9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6189.8550724637689" y="135.9375"/>
-        </scene>
         <!--Product View Controller-->
         <scene sceneID="ixV-0Q-BRA">
             <objects>
@@ -837,7 +830,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B66-zp-ux6">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZl-ID-aua">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1810"/>
@@ -878,8 +871,8 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zk9-e4-itb">
                                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                                                                         <subviews>
-                                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
-                                                                                <rect key="frame" x="74.333333333333314" y="5" width="235.33333333333337" height="30"/>
+                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
+                                                                                <rect key="frame" x="74.333333333333329" y="5" width="235.33333333333337" height="30"/>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="rating">
@@ -1107,7 +1100,7 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GIF-f9-m1E">
                                                                                         <rect key="frame" x="192" y="0.0" width="192" height="30"/>
                                                                                         <subviews>
-                                                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9JQ-Iv-pSY" customClass="CosmosView" customModule="Cosmos">
+                                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9JQ-Iv-pSY" customClass="CosmosView" customModule="Cosmos">
                                                                                                 <rect key="frame" x="18.666666666666657" y="5" width="173.33333333333334" height="20"/>
                                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                                                 <userDefinedRuntimeAttributes>
@@ -1197,7 +1190,7 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qym-4W-zks">
                                                                                         <rect key="frame" x="192" y="0.0" width="192" height="30"/>
                                                                                         <subviews>
-                                                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hc7-kY-ZkF" customClass="CosmosView" customModule="Cosmos">
+                                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hc7-kY-ZkF" customClass="CosmosView" customModule="Cosmos">
                                                                                                 <rect key="frame" x="18.666666666666657" y="5" width="173.33333333333334" height="20"/>
                                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                                                 <userDefinedRuntimeAttributes>
@@ -1608,7 +1601,7 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FGT-yZ-4As" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9148" y="136"/>
+            <point key="canvasLocation" x="8906" y="136"/>
         </scene>
         <!--Review-->
         <scene sceneID="EOY-pR-E4c">
@@ -1619,7 +1612,7 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wHi-Jc-3hb">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uo1-Ac-eSy">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="540"/>
@@ -1691,6 +1684,7 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                                                                 <constraints>
                                                                     <constraint firstItem="XU3-Nd-wUM" firstAttribute="centerX" secondItem="fz2-WX-h3t" secondAttribute="centerX" id="2CH-aG-LNc"/>
                                                                     <constraint firstAttribute="height" constant="50" id="5D6-PY-W6e"/>
+                                                                    <constraint firstItem="XU3-Nd-wUM" firstAttribute="centerX" secondItem="fz2-WX-h3t" secondAttribute="centerX" id="ZVt-Sx-UbV"/>
                                                                     <constraint firstItem="XU3-Nd-wUM" firstAttribute="centerY" secondItem="fz2-WX-h3t" secondAttribute="centerY" id="eNi-03-ksJ"/>
                                                                     <constraint firstItem="XU3-Nd-wUM" firstAttribute="centerX" secondItem="fz2-WX-h3t" secondAttribute="centerX" id="s4X-4z-O9b"/>
                                                                 </constraints>
@@ -1794,7 +1788,7 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IUV-wQ-093" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10239" y="714"/>
+            <point key="canvasLocation" x="10193" y="654"/>
         </scene>
         <!--Reviews-->
         <scene sceneID="49j-EO-8qB">
@@ -1804,8 +1798,8 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QpJ-hy-QQq">
-                                <rect key="frame" x="0.0" y="88" width="414" height="754"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QpJ-hy-QQq">
+                                <rect key="frame" x="0.0" y="88" width="414" height="705"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
@@ -1825,7 +1819,7 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CWW-co-2AR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10238" y="-422"/>
+            <point key="canvasLocation" x="10193" y="-374"/>
         </scene>
         <!--Ingredients-->
         <scene sceneID="I5A-7F-LHz">
@@ -1836,7 +1830,7 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wNK-Vv-qXw">
-                                <rect key="frame" x="0.0" y="88" width="414" height="754"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="705"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
@@ -1856,9 +1850,9 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iXh-u6-2jZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="11345" y="136"/>
+            <point key="canvasLocation" x="11599" y="136"/>
         </scene>
-        <!--Results-->
+        <!--Search Results View Controller-->
         <scene sceneID="XMg-x4-msD">
             <objects>
                 <viewController id="KFj-5f-9Wu" customClass="SearchResultsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -1879,8 +1873,8 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                                                         <rect key="frame" x="0.0" y="0.0" width="138" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nB2-5T-Yeu">
-                                                                <rect key="frame" x="15.000000000000004" y="12" width="47.333333333333343" height="26"/>
-                                                                <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="19"/>
+                                                                <rect key="frame" x="14.999999999999996" y="13.333333333333327" width="42.666666666666657" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="17"/>
                                                                 <color key="textColor" name="LogoBlue"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -1895,8 +1889,8 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                                                         <rect key="frame" x="138" y="0.0" width="138" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66 Products" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIu-L1-2uc">
-                                                                <rect key="frame" x="24.333333333333336" y="15.333333333333327" width="89.333333333333314" height="19.333333333333329"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                <rect key="frame" x="26.999999999999993" y="16" width="84.333333333333314" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <color key="textColor" red="0.28255553713527848" green="0.28255553713527848" blue="0.28255553713527848" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -1911,8 +1905,8 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                                                         <rect key="frame" x="276" y="0.0" width="138" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort By" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Clh-Ls-8Ve">
-                                                                <rect key="frame" x="57.333333333333321" y="12" width="65.666666666666686" height="26"/>
-                                                                <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="19"/>
+                                                                <rect key="frame" x="64.333333333333314" y="13.333333333333327" width="58.666666666666657" height="23.333333333333329"/>
+                                                                <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="17"/>
                                                                 <color key="textColor" name="LogoBlue"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -1926,7 +1920,7 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.88416984416445621" green="0.88416984416445621" blue="0.88416984416445621" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.9184660974801061" green="0.9184660974801061" blue="0.9184660974801061" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstItem="7wH-hE-Fdf" firstAttribute="top" secondItem="XtH-3Z-l5N" secondAttribute="top" id="G2W-di-qYA"/>
                                             <constraint firstItem="7wH-hE-Fdf" firstAttribute="leading" secondItem="XtH-3Z-l5N" secondAttribute="leading" id="Ppx-cs-JTB"/>
@@ -1960,7 +1954,7 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rzA-y6-4C9"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Results" id="bPE-zb-jXG"/>
+                    <navigationItem key="navigationItem" id="bPE-zb-jXG"/>
                     <connections>
                         <outlet property="filterView" destination="FTi-vE-DJX" id="4zq-ih-3n1"/>
                         <outlet property="resultsTableView" destination="aSa-81-33v" id="dTS-IF-hGU"/>
@@ -1970,12 +1964,12 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="552-YW-BCZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4909" y="136"/>
+            <point key="canvasLocation" x="5033" y="-374"/>
         </scene>
-        <!--View Controller-->
+        <!--Sort Filter View Controller-->
         <scene sceneID="X2P-yg-Lgc">
             <objects>
-                <viewController id="HXj-j2-Hvf" sceneMemberID="viewController">
+                <viewController id="HXj-j2-Hvf" customClass="SortFilterViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1992,26 +1986,24 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="daD-xw-Khf">
                                                         <rect key="frame" x="0.0" y="0.0" width="138" height="50"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxP-Ii-95d">
-                                                                <rect key="frame" x="15" y="12" width="51" height="26"/>
-                                                                <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="19"/>
-                                                                <color key="textColor" name="LogoBlue"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Oc-IL-nBn">
+                                                                <rect key="frame" x="15" y="6.6666666666666643" width="49" height="37"/>
+                                                                <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
+                                                                <state key="normal" title="Reset"/>
+                                                            </button>
                                                         </subviews>
                                                         <constraints>
+                                                            <constraint firstItem="4Oc-IL-nBn" firstAttribute="leading" secondItem="daD-xw-Khf" secondAttribute="leading" constant="15" id="6rQ-HX-hNa"/>
                                                             <constraint firstAttribute="height" constant="50" id="9FY-1L-m58"/>
-                                                            <constraint firstItem="yxP-Ii-95d" firstAttribute="leading" secondItem="daD-xw-Khf" secondAttribute="leading" constant="15" id="GWm-9y-W2p"/>
-                                                            <constraint firstItem="yxP-Ii-95d" firstAttribute="centerY" secondItem="daD-xw-Khf" secondAttribute="centerY" id="Oxe-nT-eZQ"/>
+                                                            <constraint firstItem="4Oc-IL-nBn" firstAttribute="centerY" secondItem="daD-xw-Khf" secondAttribute="centerY" id="fKJ-Ta-Fc2"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2AP-4k-ysv">
                                                         <rect key="frame" x="138" y="0.0" width="138" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s67-qy-ZN4">
-                                                                <rect key="frame" x="37.333333333333343" y="8.6666666666666643" width="63.333333333333343" height="33"/>
-                                                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="24"/>
-                                                                <color key="textColor" red="0.28816105769230771" green="0.28816105769230771" blue="0.28816105769230771" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <rect key="frame" x="44" y="12" width="50.333333333333343" height="26"/>
+                                                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="19"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -2024,17 +2016,19 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ju-G4-9Nq">
                                                         <rect key="frame" x="276" y="0.0" width="138" height="50"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PjU-I5-bzy">
-                                                                <rect key="frame" x="74.333333333333314" y="12" width="48.666666666666657" height="26"/>
-                                                                <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="19"/>
-                                                                <color key="textColor" name="LogoBlue"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ihw-Ib-UBN">
+                                                                <rect key="frame" x="76" y="6.6666666666666643" width="47" height="37"/>
+                                                                <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
+                                                                <state key="normal" title="Done"/>
+                                                                <connections>
+                                                                    <action selector="donePressed:" destination="HXj-j2-Hvf" eventType="touchUpInside" id="gtg-Em-vpy"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="PjU-I5-bzy" firstAttribute="centerY" secondItem="0ju-G4-9Nq" secondAttribute="centerY" id="RE8-46-Oas"/>
                                                             <constraint firstAttribute="height" constant="50" id="XFj-fL-bUD"/>
-                                                            <constraint firstAttribute="trailing" secondItem="PjU-I5-bzy" secondAttribute="trailing" constant="15" id="w4W-5c-iaV"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Ihw-Ib-UBN" secondAttribute="trailing" constant="15" id="l28-zD-9iU"/>
+                                                            <constraint firstItem="Ihw-Ib-UBN" firstAttribute="centerY" secondItem="0ju-G4-9Nq" secondAttribute="centerY" id="sKf-vI-Px1"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -2078,7 +2072,64 @@ By Appointment To Her Majesty the Queen Biscuit Manufacturers United Biscuits (U
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQk-So-2Ap" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4909" y="-763"/>
+            <point key="canvasLocation" x="6438" y="-763"/>
+        </scene>
+        <!--Search Stores Table View Controller-->
+        <scene sceneID="fhA-Mo-adI">
+            <objects>
+                <viewController id="WbC-sT-OPu" customClass="SearchStoresTableViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gnW-yJ-Xl9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hvl-iC-jmT">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qxP-hf-ryr">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rZi-NX-NXS">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="300" id="dRX-hl-pj2"/>
+                                                </constraints>
+                                            </tableView>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Gyf-aM-zrZ">
+                                                <rect key="frame" x="0.0" y="300" width="414" height="425"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            </tableView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="qxP-hf-ryr" secondAttribute="bottom" id="Bvb-0e-R3U"/>
+                                    <constraint firstAttribute="trailing" secondItem="qxP-hf-ryr" secondAttribute="trailing" id="QOW-yY-5bA"/>
+                                    <constraint firstItem="qxP-hf-ryr" firstAttribute="top" secondItem="Hvl-iC-jmT" secondAttribute="top" id="XXw-Mx-See"/>
+                                    <constraint firstItem="qxP-hf-ryr" firstAttribute="leading" secondItem="Hvl-iC-jmT" secondAttribute="leading" id="dC5-j8-bxP"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Hvl-iC-jmT" secondAttribute="trailing" id="2iZ-3g-f0q"/>
+                            <constraint firstItem="Ohs-3X-55z" firstAttribute="bottom" secondItem="Hvl-iC-jmT" secondAttribute="bottom" id="HPU-QU-avk"/>
+                            <constraint firstItem="Hvl-iC-jmT" firstAttribute="top" secondItem="Ohs-3X-55z" secondAttribute="top" id="kWD-Cr-Qp5"/>
+                            <constraint firstItem="Hvl-iC-jmT" firstAttribute="leading" secondItem="gnW-yJ-Xl9" secondAttribute="leading" id="xCP-6y-fNg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ohs-3X-55z"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="sOu-GF-B3k"/>
+                    <connections>
+                        <outlet property="mapTableView" destination="rZi-NX-NXS" id="XV0-Xa-wAC"/>
+                        <outlet property="storesTableView" destination="Gyf-aM-zrZ" id="5nS-Bs-Gne"/>
+                        <segue destination="hXH-95-1lc" kind="show" identifier="storeResultsToStore" id="OlX-E6-gV2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2BB-cw-nTX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5032" y="654"/>
         </scene>
     </scenes>
     <resources>
