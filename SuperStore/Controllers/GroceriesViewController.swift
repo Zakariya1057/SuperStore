@@ -10,11 +10,6 @@ import Foundation
 import Tabman
 import Pageboy
 
-protocol GroceryDelegate {
-    func showGroceryItem()
-    func addToList()
-}
-
 class GroceriesViewController: TabmanViewController,GroceryDelegate {
 
     let headers:[String] = ["Breakfast","Drinks","Frozen"]

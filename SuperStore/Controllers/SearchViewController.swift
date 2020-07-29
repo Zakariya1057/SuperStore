@@ -13,6 +13,7 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.performSegue(withIdentifier: "showSearchResults", sender: self)
         // Do any additional setup after loading the view.
     }
     

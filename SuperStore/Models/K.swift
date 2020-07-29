@@ -37,5 +37,16 @@ struct K {
             static let CellNibName    = "ProductTableViewCell"
         }
         
+        struct ListPriceUpdateCell {
+            static let CellIdentifier = "ReusableListPriceUpdateTableViewCell"
+            static let CellNibName    = "ListPriceUpdateTableViewCell"
+        }
+        
+        struct StoreMapCell {
+            static let CellIdentifier = "ReusableStoresMapTableViewCell"
+            static let CellNibName    = "StoresMapTableViewCell"
+        }
+        
     }
+    
 }

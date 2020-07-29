@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-SemiBold.ttf">
+            <string>OpenSans-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReusableStoresMapTableViewCell" rowHeight="311" id="KGk-i7-Jjw" customClass="StoresMapTableViewCell" customModule="SuperStore" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="311"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="311"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d37-ie-V9h">
+                        <rect key="frame" x="0.0" y="15" width="320" height="296"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9L0-bv-gWT">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDV-jw-Wsx">
+                                        <rect key="frame" x="15" y="2" width="58" height="26"/>
+                                        <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="19"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="UDV-jw-Wsx" firstAttribute="leading" secondItem="9L0-bv-gWT" secondAttribute="leading" constant="15" id="0XW-Y7-0vT"/>
+                                    <constraint firstAttribute="height" constant="30" id="T0X-HV-3I5"/>
+                                    <constraint firstItem="UDV-jw-Wsx" firstAttribute="centerY" secondItem="9L0-bv-gWT" secondAttribute="centerY" id="xIE-Pk-PGo"/>
+                                </constraints>
+                            </view>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7cD-2a-XgX">
+                                <rect key="frame" x="0.0" y="40" width="320" height="256"/>
+                            </mapView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="7cD-2a-XgX" secondAttribute="bottom" id="2BA-6s-jqu"/>
+                            <constraint firstItem="7cD-2a-XgX" firstAttribute="leading" secondItem="d37-ie-V9h" secondAttribute="leading" id="Nre-M6-yrs"/>
+                            <constraint firstAttribute="trailing" secondItem="7cD-2a-XgX" secondAttribute="trailing" id="OOU-KP-pCK"/>
+                            <constraint firstItem="7cD-2a-XgX" firstAttribute="top" secondItem="9L0-bv-gWT" secondAttribute="bottom" constant="10" id="kIy-AL-Zra"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="d37-ie-V9h" secondAttribute="bottom" id="Nud-Lr-Ga9"/>
+                    <constraint firstItem="d37-ie-V9h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fXN-xP-PlX"/>
+                    <constraint firstAttribute="trailing" secondItem="d37-ie-V9h" secondAttribute="trailing" id="h6p-TJ-mJD"/>
+                    <constraint firstItem="d37-ie-V9h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="krM-8z-znG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="mapView" destination="7cD-2a-XgX" id="F1s-mN-nPD"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="157.70089285714286"/>
+        </tableViewCell>
+    </objects>
+</document>

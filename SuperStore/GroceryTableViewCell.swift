@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol GroceryDelegate {
+    func showGroceryItem()
+    func addToList()
+}
+
 class GroceryTableViewCell: UITableViewCell {
     
     var delegate:GroceryDelegate?

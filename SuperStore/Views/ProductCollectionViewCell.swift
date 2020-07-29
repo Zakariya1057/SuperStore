@@ -9,7 +9,9 @@
 import UIKit
 
 class ProductCollectionViewCell: UICollectionViewCell {
-
+    
+    @IBOutlet weak var productLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
