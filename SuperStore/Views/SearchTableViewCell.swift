@@ -8,13 +8,38 @@
 
 import UIKit
 
+enum SearchType: String {
+    case product
+    case store
+}
+
 class SearchTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var contentImage: UIImageView!
+    
+    var search: SearchModel?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
+    func configureUI(){
+        
+        let searchType: SearchType = search!.type
+        let searchName: String     = search!.name
+        
+        if searchType == .product {
+            contentImage.image = UIImage(named: "Chicken")
+        } else {
+            contentImage.image = UIImage(named: "LidlLogo")
+        }
+        
+        nameLabel.text = searchName
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

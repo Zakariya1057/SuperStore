@@ -12,8 +12,10 @@ import Pageboy
 
 class GroceriesViewController: TabmanViewController,GroceryDelegate {
 
-    let headers:[String] = ["Breakfast","Drinks","Frozen"]
-    let viewcontrollers:[GroceryTableViewController] = [GroceryTableViewController(),GroceryTableViewController(),GroceryTableViewController()]
+    var listDelegate: NewProductDelegate?
+    
+    let headers:[String] = ["Fruits","Bakery","Potatoes","Meat & Poultry"]
+    let viewcontrollers:[GroceryTableViewController] = [GroceryTableViewController(),GroceryTableViewController(),GroceryTableViewController(),GroceryTableViewController()]
     
     // Create bar
     let bar = TMBar.ButtonBar()
@@ -22,10 +24,6 @@ class GroceriesViewController: TabmanViewController,GroceryDelegate {
         super.viewDidLoad()
 
         self.dataSource = self
-
-
-//        bar.layout.transitionStyle = .snap // Customize
-//        bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 20.0, bottom: 0.0, right: 20.0)
         
         bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 4.0, right: 16.0)
         bar.layout.interButtonSpacing = 24.0
@@ -46,7 +44,13 @@ extension GroceriesViewController {
         self.performSegue(withIdentifier: K.Paths.showGroceryItem, sender: self)
     }
     
-    func addToList(){
+    func addToList(_ product: ProductModel){
+        
+        if listDelegate != nil {
+            listDelegate?.productAdded(product: product)
+        } else {
+            
+        }
         print("Adding To List")
     }
 }

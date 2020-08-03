@@ -10,15 +10,44 @@ import UIKit
 
 protocol GroceryDelegate {
     func showGroceryItem()
-    func addToList()
+    func addToList(_ product: ProductModel)
 }
 
 class GroceryTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var storeNameLabel: UILabel!
+    
     var delegate:GroceryDelegate?
     
+    var product: ProductModel?
+    
+    var showAddButton:Bool = true
+    
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    
     @IBAction func groceryAddClicked(_ sender: Any) {
-        self.delegate?.addToList()
+        self.delegate?.addToList(self.product!)
+    }
+    
+    func configureUI(){
+        let currentProduct = product!
+        
+        productNameLabel.text = currentProduct.name
+        priceLabel.text = String(format: "%.2f", currentProduct.price)
+        // Product Image
+        
+        
+        if(!showAddButton){
+            if addButton != nil {
+                addButton.removeFromSuperview()
+            }
+            storeNameLabel.alpha = 1
+        } else {
+            storeNameLabel.removeFromSuperview()
+        }
     }
     
     override func awakeFromNib() {

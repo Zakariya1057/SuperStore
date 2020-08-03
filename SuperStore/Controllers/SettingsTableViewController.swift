@@ -9,15 +9,53 @@
 import UIKit
 
 class SettingsTableViewController: UIViewController {
-
+    
+    @IBOutlet weak var usernameStackView: UIStackView!
+    
+    @IBOutlet weak var emailStackView: UIStackView!
+    
+    @IBOutlet weak var passwordStackView: UIStackView!
+    
+    var fieldName:String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        let usernanmeGesture = UITapGestureRecognizer(target: self, action: #selector(usernamePressed))
+        usernameStackView.addGestureRecognizer(usernanmeGesture)
+        
+        let emailGesture = UITapGestureRecognizer(target: self, action: #selector(emailPressed))
+        emailStackView.addGestureRecognizer(emailGesture)
+        
+        let passwordGesture = UITapGestureRecognizer(target: self, action: #selector(passswordPressed))
+        passwordStackView.addGestureRecognizer(passwordGesture)
     }
+    
+    @objc func usernamePressed(){
+        print("Username Pressed")
+        fieldName = "Username"
+        self.performSegue(withIdentifier: "settingsToSettingChange", sender: self)
+    }
+    
+    @objc func emailPressed(){
+        print("Email Pressed")
+        fieldName = "Email"
+        self.performSegue(withIdentifier: "settingsToSettingChange", sender: self)
+    }
+    
+    @objc func passswordPressed(){
+        print("Password Pressed")
+        fieldName = "Password"
+        self.performSegue(withIdentifier: "settingsToChangePassword", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "settingsToSettingChange" {
+            let destinationVC = segue.destination as! SettingsChangeViewController
+            destinationVC.headerName = fieldName
+        } else {
 
+        }
+
+    }
 }

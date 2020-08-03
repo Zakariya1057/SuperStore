@@ -13,6 +13,8 @@ struct K {
     struct Paths {
         static let showGroceryItem = "showGroceryItem"
         static let showIngredients = "showIngredients"
+        static let favouritesToGroceryItem = "favouritesToGroceryItem"
+        static let settingsToChangePassword = "settingsToChangePassword"
     }
     
     struct Cells {
@@ -55,6 +57,16 @@ struct K {
         struct StoresResultsCell {
             static let CellIdentifier = "ReusableStoresResultsTableViewCell"
             static let CellNibName    = "StoresResultsTableViewCell"
+        }
+
+        struct ListCell {
+            static let CellIdentifier = "ReusableListsTableViewCell"
+            static let CellNibName    = "ListsTableViewCell"
+        }
+        
+        struct ListItemCell {
+            static let CellIdentifier = "ReusableListItemTableViewCell"
+            static let CellNibName    = "ListItemTableViewCell"
         }
         
     }

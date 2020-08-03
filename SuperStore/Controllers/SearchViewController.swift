@@ -14,10 +14,10 @@ class SearchViewController: UIViewController,UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var searchList:[String] = []
+    var searchList:[SearchModel] = []
     
-    var history:[String] = ["Fries","Burgers","Tesco"]
-    var suggestions:[String] = []
+    var history:[SearchModel] = [SearchModel(name: "Chicken", type: .product)]
+    var suggestions:[SearchModel] = [ SearchModel(name: "Tesco", type: .store) ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +48,6 @@ class SearchViewController: UIViewController,UISearchBarDelegate {
     
     func showSuggestions(){
         print("Show Suggestions")
-        suggestions = ["Fried","Fruits"]
         self.searchList = suggestions
         searchTableView.reloadData()
     }
@@ -72,15 +71,22 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = UITableViewCell()
         let cell = searchTableView.dequeueReusableCell(withIdentifier:K.Cells.SearchCell.CellIdentifier , for: indexPath) as! SearchTableViewCell
-//        cell.textLabel?.text = searchList[indexPath.row]
+        cell.search = searchList[indexPath.row]
+        cell.configureUI()
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        self.performSegue(withIdentifier: "searchToStoreResults", sender: self)
-        self.performSegue(withIdentifier: "showSearchResults", sender: self)
+        let selectedItem = searchList[indexPath.row]
+        
+        if selectedItem.type == .product {
+            self.performSegue(withIdentifier: "showSearchResults", sender: self)
+        } else {
+            self.performSegue(withIdentifier: "searchToStoreResults", sender: self)
+        }
+        
     }
+    
 }

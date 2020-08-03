@@ -8,23 +8,56 @@
 
 import UIKit
 
-class ListsViewController: UIViewController {
+protocol NewListDelegate {
+    func addNewList(_ list: ListModel)
+}
 
+class ListsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource,NewListDelegate {
+    
+    @IBOutlet weak var listsTableView: UITableView!
+    
+    var lists:[ListModel] = [
+        
+        ListModel(name: "Grocery List", store: StoreModel(name: "Asda"))
+        
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        listsTableView.register(UINib(nibName: K.Cells.ListCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ListCell.CellIdentifier)
+        
+        listsTableView.delegate = self
+        listsTableView.dataSource = self
+        listsTableView.rowHeight = 80;
+    }
 
-        // Do any additional setup after loading the view.
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return lists.count
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.ListCell.CellIdentifier , for: indexPath) as! ListsTableViewCell
+        cell.list = lists[indexPath.row]
+        cell.configureUI()
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        return cell
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "listToGroceryList", sender: self)
+    }
+    
+    @IBAction func newListPressed(_ sender: Any) {
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "newListViewController"))! as! NewListViewController
+        
+        destinationVC.delegate = self
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
+    func addNewList(_ list: ListModel) {
+        self.lists.append(list)
+        self.listsTableView.reloadData()
+    }
+    
 }

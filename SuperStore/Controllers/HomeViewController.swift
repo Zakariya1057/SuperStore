@@ -49,7 +49,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         listTableView.register(UINib(nibName: K.Cells.StoreMapCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.StoreMapCell.CellIdentifier)
         
-        listTableView.rowHeight = 280;
+        listTableView.rowHeight = 280
         
         listTableView.dataSource = self
         listTableView.delegate = self
