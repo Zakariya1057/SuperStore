@@ -18,7 +18,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     var lists:[ListModel] = [
         
-        ListModel(name: "Grocery List", store: StoreModel(name: "Asda"))
+        ListModel(name: "Grocery List", store: StoreModel(name: "Asda", logo: "", opening_hours: [], location: LocationModel(city: "Birmingham", address_line1: "", address_line2: "", address_line3: "", postcode: ""), facilities: []))
         
     ]
     

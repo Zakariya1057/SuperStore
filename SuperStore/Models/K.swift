@@ -10,6 +10,12 @@ import Foundation
 
 struct K {
     
+    static let Host = "http://192.168.1.187/api"
+    
+    struct Request {
+        static let Store = "store"
+    }
+    
     struct Paths {
         static let showGroceryItem = "showGroceryItem"
         static let showIngredients = "showIngredients"

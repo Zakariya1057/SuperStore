@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.2.1)
   - Cosmos (22.1.0)
   - IQKeyboardManagerSwift (6.5.5)
   - Pageboy (3.6.1)
@@ -6,23 +7,26 @@ PODS:
     - Pageboy (~> 3.6.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 5.2)
   - Cosmos (~> 22.1)
   - IQKeyboardManagerSwift
   - Tabman (~> 2.9)
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Cosmos
     - IQKeyboardManagerSwift
     - Pageboy
     - Tabman
 
 SPEC CHECKSUMS:
+  Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   Cosmos: 2795b36ad4bbea1af3050d6d65576ed63875f86a
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   Pageboy: 29a2d474ad99404b4d77f325e0ab6d705930a4fb
   Tabman: 085d89c65be9e883629bdaf5b1453a6397e57846
 
-PODFILE CHECKSUM: f207d1f87f52ed02facb627830630ec18c2640fa
+PODFILE CHECKSUM: b4091c896b5a1b1ebc3bb603356b3a45690edc29
 
 COCOAPODS: 1.9.1

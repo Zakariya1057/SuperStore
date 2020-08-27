@@ -46,7 +46,9 @@ class GroceryTableViewCell: UITableViewCell {
             }
             storeNameLabel.alpha = 1
         } else {
-            storeNameLabel.removeFromSuperview()
+            if storeNameLabel != nil {
+                storeNameLabel.removeFromSuperview()
+            }
         }
     }
     

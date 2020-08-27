@@ -49,7 +49,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         listTableView.register(UINib(nibName: K.Cells.StoreMapCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.StoreMapCell.CellIdentifier)
         
-        listTableView.rowHeight = 280
+        listTableView.rowHeight = 270
         
         listTableView.dataSource = self
         listTableView.delegate = self
@@ -107,4 +107,32 @@ protocol CustomElementModel: class {
 
 protocol CustomElementCell: class {
     func configure(withModel: CustomElementModel)
+}
+
+
+
+
+extension UIImageView {
+    func downloaded(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit)  {
+        
+        contentMode = mode
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data, error == nil,
+                let image = UIImage(data: data)
+                else { return }
+            DispatchQueue.main.async() { [weak self] in
+                self?.image = image
+            }
+        }.resume()
+    }
+    
+    func downloaded(from link: String, contentMode mode: UIView.ContentMode = .scaleAspectFit) {  // for swift 4.2 syntax just use ===> mode: UIView.ContentMode
+        guard let url = URL(string: link) else { return }
+        downloaded(from: url, contentMode: mode)
+    }
+    
 }

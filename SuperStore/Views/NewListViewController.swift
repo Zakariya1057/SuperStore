@@ -46,7 +46,7 @@ class NewListViewController: UIViewController,StoreSelectedDelegate {
     }
     
     @IBAction func addListPressed(_ sender: Any) {
-        self.delegate?.addNewList( ListModel(name: nameField.text!, store: StoreModel(name: storeName)) )
+        self.delegate?.addNewList( ListModel(name: nameField.text!, store: StoreModel(name: storeName, logo: "", opening_hours: [],location: LocationModel(city: "Birmingham", address_line1: "", address_line2: "", address_line3: "", postcode: ""), facilities: [])) )
         self.navigationController!.popViewController(animated: true)
     }
 }
