@@ -33,6 +33,8 @@ struct RequestHandler {
             "Authorizations": "Bearer \(token)"
         ]
         
+        print("GET REQUEST: \(urlString)")
+        
         AF
             .request(urlString, headers: headers,requestModifier: { $0.timeoutInterval = self.requestTimeout })
             .validate(statusCode: 200..<300)
@@ -48,6 +50,8 @@ struct RequestHandler {
         let urlString = parseURL(urlString: urlString)
         
 //        let token = userSession.getUserToken() ?? ""
+        
+        print("POST REQUEST: \(urlString)")
         
         let token = "S"
         

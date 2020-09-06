@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans-Regular</string>
+        </array>
+        <array key="OpenSans-SemiBold.ttf">
+            <string>OpenSans-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ListSectionHeader" customModule="SuperStore" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYr-U7-rU8">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="qZa-RZ-Nka">
+                            <rect key="frame" x="15" y="0.0" width="384" height="40"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVk-tB-vbC">
+                                    <rect key="frame" x="0.0" y="0.0" width="192" height="40"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fruits" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RrF-R5-1rh">
+                                            <rect key="frame" x="0.0" y="10.666666666666666" width="40" height="18.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="RrF-R5-1rh" firstAttribute="centerY" secondItem="YVk-tB-vbC" secondAttribute="centerY" id="Alr-Rj-TCn"/>
+                                        <constraint firstItem="RrF-R5-1rh" firstAttribute="leading" secondItem="YVk-tB-vbC" secondAttribute="leading" id="TSd-ik-9i4"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iac-j1-DAp">
+                                    <rect key="frame" x="192" y="0.0" width="192" height="40"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aisle A" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBw-d0-NIV">
+                                            <rect key="frame" x="143" y="0.0" width="49" height="40"/>
+                                            <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="HBw-d0-NIV" secondAttribute="trailing" id="GD6-nk-pWZ"/>
+                                        <constraint firstItem="HBw-d0-NIV" firstAttribute="top" secondItem="Iac-j1-DAp" secondAttribute="top" id="Veb-YD-4pm"/>
+                                        <constraint firstItem="HBw-d0-NIV" firstAttribute="centerY" secondItem="Iac-j1-DAp" secondAttribute="centerY" id="xsG-gZ-XH8"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="YVk-tB-vbC" firstAttribute="leading" secondItem="qZa-RZ-Nka" secondAttribute="leading" id="OAS-lG-KtC"/>
+                                <constraint firstItem="YVk-tB-vbC" firstAttribute="top" secondItem="qZa-RZ-Nka" secondAttribute="top" id="UJ0-zl-LM7"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" name="LogoBlue"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="qZa-RZ-Nka" secondAttribute="trailing" constant="15" id="Hgy-XG-cik"/>
+                        <constraint firstAttribute="height" constant="40" id="J9O-0E-sdc"/>
+                        <constraint firstItem="qZa-RZ-Nka" firstAttribute="centerY" secondItem="uYr-U7-rU8" secondAttribute="centerY" id="LG1-VT-a3G"/>
+                        <constraint firstItem="qZa-RZ-Nka" firstAttribute="leading" secondItem="uYr-U7-rU8" secondAttribute="leading" constant="15" id="ffV-Ow-yhR"/>
+                        <constraint firstItem="qZa-RZ-Nka" firstAttribute="top" secondItem="uYr-U7-rU8" secondAttribute="top" id="hzD-Zy-1fF"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="uYr-U7-rU8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9Kh-iM-eYj"/>
+                <constraint firstAttribute="trailing" secondItem="uYr-U7-rU8" secondAttribute="trailing" id="EwT-8v-8tU"/>
+                <constraint firstItem="uYr-U7-rU8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="S0L-vr-t0C"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="headingLabel" destination="RrF-R5-1rh" id="Znb-ge-qk0"/>
+                <outlet property="subHeadingLabel" destination="HBw-d0-NIV" id="ust-TS-FVs"/>
+            </connections>
+            <point key="canvasLocation" x="101" y="46"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="LogoBlue">
+            <color red="0.097999997437000275" green="0.46299999952316284" blue="0.80400002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

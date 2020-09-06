@@ -27,7 +27,7 @@ class SearchStoresTableViewController: UIViewController,UITableViewDelegate,UITa
         mapTableView.register(UINib(nibName: K.Cells.StoreMapCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.StoreMapCell.CellIdentifier)
         storesTableView.register(UINib(nibName: K.Cells.StoresResultsCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.StoresResultsCell.CellIdentifier)
         
-        storesTableView.rowHeight = 120;
+        storesTableView.rowHeight = 100;
         mapTableView.rowHeight = 300
     }
 
@@ -40,6 +40,10 @@ class SearchStoresTableViewController: UIViewController,UITableViewDelegate,UITa
         
         return 0
     }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return CGFloat(100)
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == mapTableView {

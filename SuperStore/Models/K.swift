@@ -14,6 +14,14 @@ struct K {
     
     struct Request {
         static let Store = "store"
+        
+        struct Grocery {
+            static let Categories = "grocery"
+            static let Products = "grocery/products"
+            static let Product = "product"
+            static let Reviews = "reviews"
+            static let Promotion = "promotion"
+        }
     }
     
     struct Paths {
@@ -21,6 +29,13 @@ struct K {
         static let showIngredients = "showIngredients"
         static let favouritesToGroceryItem = "favouritesToGroceryItem"
         static let settingsToChangePassword = "settingsToChangePassword"
+    }
+    
+    struct Sections {
+        struct ListHeader {
+            static let SectionIdentifier = "ResuableListSectionHeader"
+            static let SectionNibName    = "ListSectionHeader"
+        }
     }
     
     struct Cells {

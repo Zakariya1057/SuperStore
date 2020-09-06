@@ -15,9 +15,6 @@ protocol StoreDelegate {
 
 struct StoreHandler {
     
-    let contentPath:String = "contents"
-    let sourcesPath:String = "sources"
-    
     var delegate: StoreDelegate?
     
     let requestHandler = RequestHandler()

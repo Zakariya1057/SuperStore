@@ -12,10 +12,12 @@ class ListPriceUpdateElement: CustomElementModel {
     var title: String
     var type: CustomElementType { return .listPriceUpdate }
     var delegate: ListDelegate
+    var height: Float
     
-    init(title: String,delegate: ListDelegate) {
+    init(title: String,delegate: ListDelegate,height:Float) {
         self.title = title
         self.delegate = delegate
+        self.height = height
     }
 }
 

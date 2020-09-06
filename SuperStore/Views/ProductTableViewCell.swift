@@ -12,26 +12,30 @@ class ProductElement: CustomElementModel {
     var title: String
     var type: CustomElementType { return .products }
     var delegate: ProductDelegate
-    var products: [String]
+    var products: [ProductModel]
+    var height: Float
         
-    init(title: String,delegate: ProductDelegate,products: [String]) {
+    init(title: String,delegate: ProductDelegate,products: [ProductModel],height: Float) {
         self.title = title
         self.delegate = delegate
         self.products = products
+        self.height = height
     }
 }
 
 protocol ProductDelegate {
-    func showProduct(productId:Int)
+    func showProduct(product_id:Int)
 }
 
 class ProductTableViewCell: UITableViewCell,CustomElementCell {
     
-    var model: ProductElement!
+    @IBOutlet weak var productCollection: UICollectionView!
     
-    var productsList = ["Product 1","Product 2","Product 3","Product 4","Product 1","Product 2","Product 3","Product 4"]
+    var model: ProductElement!
+    var products: [ProductModel] = []
     
     var delegate:ProductDelegate?
+    
     @IBOutlet weak var titleLabel: UILabel!
     
     func configure(withModel elementModel: CustomElementModel) {
@@ -43,6 +47,7 @@ class ProductTableViewCell: UITableViewCell,CustomElementCell {
         self.model = model
         self.delegate = model.delegate
         
+        self.products = model.products
         self.productCollection.reloadData()
         
         configureUI()
@@ -52,18 +57,12 @@ class ProductTableViewCell: UITableViewCell,CustomElementCell {
         titleLabel.text = self.model.title
     }
     
-    
-    
-    @IBOutlet weak var productCollection: UICollectionView!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         productCollection.register(UINib(nibName: K.Cells.ProductCollectionCell.CellNibName, bundle: nil), forCellWithReuseIdentifier:  K.Cells.ProductCollectionCell.CellIdentifier)
         
         productCollection.delegate = self
         productCollection.dataSource = self
-        
-        // Initialization code
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -75,11 +74,13 @@ class ProductTableViewCell: UITableViewCell,CustomElementCell {
 extension ProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return productsList.count
+        return products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = productCollection.dequeueReusableCell(withReuseIdentifier: K.Cells.ProductCollectionCell.CellIdentifier, for: indexPath) as! ProductCollectionViewCell
+        cell.product = products[indexPath.row]
+        cell.configureUI()
 //        cell.productLabel.text = productsList[indexPath.row]
         return cell
     }
@@ -87,7 +88,7 @@ extension ProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Product Selected, Navigate
         print("Product Selected")
-        self.delegate?.showProduct(productId: 1)
+        self.delegate?.showProduct(product_id: products[indexPath.row].id)
     }
     
     

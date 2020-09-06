@@ -49,15 +49,27 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     }
     
     @IBAction func newListPressed(_ sender: Any) {
-        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "newListViewController"))! as! NewListViewController
-        
-        destinationVC.delegate = self
-        self.navigationController?.pushViewController(destinationVC, animated: true)
+        performSegue(withIdentifier: "listToNewList", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "listToNewList" {
+            let destinationVC = segue.destination as! NewListViewController
+            destinationVC.delegate = self
+        }
     }
     
     func addNewList(_ list: ListModel) {
         self.lists.append(list)
         self.listsTableView.reloadData()
+    }
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            lists.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
 }

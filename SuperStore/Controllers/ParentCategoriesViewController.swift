@@ -8,38 +8,51 @@
 
 import UIKit
 
-class GroceryGroupViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ParentCategoriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var groups: [GroceryGroupModel] = [
-        GroceryGroupModel(name: "Fresh Fruits & Bakery")
-    ]
+    var groceryHandler = GroceryCategoriesHandler()
     
     @IBOutlet weak var groupTableView: UITableView!
+    
+    var categories: [ChildCategoryModel]?
+    var header_text: String?
+    
+    var selected_category: ChildCategoryModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         groupTableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
         
+        self.title = header_text!
+        
         groupTableView.dataSource = self
         groupTableView.delegate = self
-        // Do any additional setup after loading the view.
+        
     }
     
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups.count
+        return categories!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = groups[indexPath.row].name
+        cell.textLabel?.text = categories![indexPath.row].name
         cell.accessoryType = .disclosureIndicator
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "groceryGroupToGrocery", sender: self)
+        selected_category = categories![indexPath.row]
+        self.performSegue(withIdentifier: "parentCategoriesToProducts", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "parentCategoriesToProducts" {
+            let destinationVC = segue.destination as! ChildCategoriesViewController
+            destinationVC.parent_category_id = selected_category!.id
+            destinationVC.header_text = selected_category!.name
+        }
     }
 
 }

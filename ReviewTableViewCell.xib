@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -16,17 +16,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="409" height="181"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1Jm-qi-2TO">
-                        <rect key="frame" x="10" y="10" width="389" height="161"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1Jm-qi-2TO">
+                        <rect key="frame" x="15" y="10" width="379" height="161"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oE2-x4-lDP">
-                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="379" height="25"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wlG-AE-0pe">
-                                        <rect key="frame" x="0.0" y="0.0" width="188" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="158" height="25"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zakariya" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxC-DT-6lw">
-                                                <rect key="frame" x="0.0" y="0.0" width="188" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="158" height="25"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                 <nil key="highlightedColor"/>
@@ -41,10 +41,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ifs-9u-RcV">
-                                        <rect key="frame" x="188" y="0.0" width="201" height="50"/>
+                                        <rect key="frame" x="158" y="0.0" width="221" height="25"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k69-f6-LuS" customClass="CosmosView" customModule="Cosmos">
-                                                <rect key="frame" x="17" y="12.5" width="184" height="25"/>
+                                                <rect key="frame" x="64" y="1.5" width="157" height="22"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="rating">
@@ -54,13 +54,13 @@
                                                         <integer key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="starSize">
-                                                        <real key="value" value="25"/>
+                                                        <real key="value" value="22"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
                                                         <integer key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="starMargin">
-                                                        <real key="value" value="7"/>
+                                                        <real key="value" value="4"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="updateOnTouch" value="NO"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="text" value="3/5"/>
@@ -81,14 +81,14 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="CZo-WF-z9h"/>
+                                    <constraint firstAttribute="height" constant="25" id="CZo-WF-z9h"/>
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NAr-4e-xi6">
-                                <rect key="frame" x="0.0" y="50" width="389" height="111"/>
+                                <rect key="frame" x="0.0" y="35" width="379" height="126"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYN-td-u2g" userLabel="Description">
-                                        <rect key="frame" x="0.0" y="0.0" width="389" height="111"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="379" height="126"/>
                                         <string key="text">Excellent taste and nice and crispy. Beautiful with a cup of tea. As my son put it, "A cup of tea is too wet without one." As you can probably guess he dunks his digestive! Excellent taste and nice and crispy. Beautiful with a cup of tea. As my son put it, "A cup of tea is too wet without one." As you can probably guess he dunks his digestive!</string>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -109,12 +109,17 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="1Jm-qi-2TO" secondAttribute="bottom" constant="10" id="18a-8h-uiS"/>
-                    <constraint firstItem="1Jm-qi-2TO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="2qX-Ia-4iu"/>
-                    <constraint firstAttribute="trailing" secondItem="1Jm-qi-2TO" secondAttribute="trailing" constant="10" id="BBx-kT-ROL"/>
+                    <constraint firstItem="1Jm-qi-2TO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="2qX-Ia-4iu"/>
+                    <constraint firstAttribute="trailing" secondItem="1Jm-qi-2TO" secondAttribute="trailing" constant="15" id="BBx-kT-ROL"/>
                     <constraint firstItem="1Jm-qi-2TO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Rau-0z-QTI"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="ratingView" destination="k69-f6-LuS" id="GHf-Hf-b8a"/>
+                <outlet property="reviewText" destination="tYN-td-u2g" id="gXs-qc-3lB"/>
+                <outlet property="usernameField" destination="zxC-DT-6lw" id="nG3-HF-LEv"/>
+            </connections>
             <point key="canvasLocation" x="202.17391304347828" y="198.54910714285714"/>
         </tableViewCell>
     </objects>

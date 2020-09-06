@@ -100,7 +100,9 @@ class StoreViewController: UIViewController, StoreDelegate {
     }
     
     func configureOpeningHours(opening_hours: [OpeningHoursModel]){
-        let day_of_week = Calendar.current.component(.weekday, from: Date()) - 2
+        let day_of_week = 7 - Calendar.current.component(.weekday, from: Date())
+        
+        print("Day Of Week: \(day_of_week)")
         
         for (index, hour_label) in hours_labels.enumerated() {
             let day = opening_hours[index]
@@ -118,7 +120,7 @@ class StoreViewController: UIViewController, StoreDelegate {
     
     func configureFacilites(facilities: [String]){
         
-        var check_facilities:[ [String: Any] ] = [
+        let check_facilities:[ [String: Any] ] = [
             ["view": carView!, "contains": "car park"],
             ["view": customerWCView!, "contains": "customer wc"],
             ["view": atmView!, "contains": "cash machine"],
@@ -144,10 +146,5 @@ class StoreViewController: UIViewController, StoreDelegate {
         let address_items = [location.address_line1, location.address_line2, location.address_line3, location.city ]
         storeAddressLabel.text = address_items.compactMap { $0 }.joined(separator: ", ")
     }
-    
-
-//    'Paypoint','10'
-//    'Photo Cake Machines','6'
-
 
 }

@@ -12,9 +12,11 @@ import MapKit
 class StoresMapElement: CustomElementModel {
     var title: String
     var type: CustomElementType { return .storesMap }
+    var height: Float
     
-    init(title: String) {
+    init(title: String,height: Float) {
         self.title = title
+        self.height = height
     }
 }
 
