@@ -67,7 +67,7 @@ struct ListItemsHandler {
                 var items:[ListItemModel] = []
                 
                 for item in category.items {
-                    items.append(ListItemModel(id: item.id, name: item.name, total_price: item.total_price, price: item.price, product_id: item.product_id, quantity: item.quantity, image: item.large_image ?? "", ticked_off: item.ticked_off))
+                    items.append(ListItemModel(id: item.id, name: item.name, total_price: item.total_price, price: item.price, product_id: item.product_id, quantity: item.quantity, image: item.large_image ?? "", ticked_off: item.ticked_off, weight: item.weight ?? ""))
                 }
                 
                 categories.append(ListCategoryModel(id: category.id, name: category.name, aisle_name: category.aisle_name, items: items))

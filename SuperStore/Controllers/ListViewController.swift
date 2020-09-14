@@ -279,7 +279,7 @@ extension ListViewController: NewProductDelegate{
         
         var categories = list?.categories ?? []
         
-        let item = ListItemModel(id: product.id, name: product.name, total_price: product.price, price: product.price, product_id: product.id, quantity: 1, image: product.image, ticked_off: false)
+        let item = ListItemModel(id: product.id, name: product.name, total_price: product.price, price: product.price, product_id: product.id, quantity: 1, image: product.image, ticked_off: false, weight: product.weight)
         var added: Bool = false
         
         if categories.count > 0 {

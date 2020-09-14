@@ -40,4 +40,5 @@ struct ListItemData: Decodable {
     var large_image: String?
     var small_image: String?
     var ticked_off: Bool
+    var weight: String?
 }

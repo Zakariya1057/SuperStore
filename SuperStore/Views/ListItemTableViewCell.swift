@@ -24,7 +24,6 @@ class ListItemTableViewCell: UITableViewCell {
     var row_index: Int = 0
     
     var productIndex: Int = 0
-    
 
     var product: ListItemModel?
     
@@ -39,6 +38,7 @@ class ListItemTableViewCell: UITableViewCell {
     func configureUI(){
         let currentProduct = product!
         
+//        weightLabel.text = currentProduct.weight ?? ""
 //        print("Configure UI: \(currentProduct.name)")
         
 //        priceLabel.text = "£" + String(format:"%.2f", currentProduct.price)

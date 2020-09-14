@@ -29,6 +29,7 @@ struct ProductData:Decodable {
     var allergen_info: String?
     
     var brand:String
+    var favourite: Bool?
     
     var reviews: [ReviewData]?
     var promotion: PromotionData?

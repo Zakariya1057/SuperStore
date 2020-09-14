@@ -22,6 +22,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     @IBOutlet weak var allergenView: UIStackView!
     @IBOutlet weak var promotionView: UIView!
 //    @IBOutlet weak var promotionExpiryView: UIView!
+    @IBOutlet weak var favouriteBarItem: UIBarButtonItem!
     
     //Field Labels
     @IBOutlet weak var productNameLabel: UILabel!
@@ -93,6 +94,8 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         ratingView.rating = product.avg_rating!
         ratingView.text = "(\(product.total_reviews_count!))"
         
+        showFavourite()
+        
         if(product.dietary_info == nil || product.dietary_info == ""){
             dietaryView.removeFromSuperview()
         } else {
@@ -142,6 +145,30 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     @objc func showPromotion(){
         self.performSegue(withIdentifier: "showProductPromotion", sender: self)
+    }
+    
+    @IBAction func favouritePressed(_ sender: Any) {
+        // Send Request To Update Favourite.
+        // Toggle Appearance
+        product!.favourite = !product!.favourite
+        productHandler.favourite(product_id: product_id,product_data: ["favourite": String(product!.favourite)])
+        showFavourite()
+    }
+    
+    func showFavourite(){
+        
+        let barItem:UIBarButtonItem
+        
+        if product!.favourite == true {
+            barItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(favouritePressed))
+            barItem.image = UIImage(systemName: "star.fill")
+        } else {
+            barItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(favouritePressed))
+            barItem.image = UIImage(systemName: "star")
+        }
+        
+        barItem.tintColor = .systemYellow
+        self.navigationItem.rightBarButtonItem = barItem
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

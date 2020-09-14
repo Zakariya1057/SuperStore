@@ -132,32 +132,34 @@
                                                             <constraint firstAttribute="trailing" secondItem="AUG-jC-3H6" secondAttribute="trailing" id="z8a-ko-o96"/>
                                                         </constraints>
                                                     </view>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qRZ-ss-3x7">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qRZ-ss-3x7">
                                                         <rect key="frame" x="171.5" y="0.0" width="171.5" height="35"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7Y-Cq-Kh8">
-                                                                <rect key="frame" x="0.0" y="8" width="30" height="19"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="30" id="TdH-fi-3jL"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vmu-VH-iGd">
-                                                                <rect key="frame" x="40" y="0.0" width="131.5" height="35"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="171.5" height="35"/>
                                                                 <subviews>
                                                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" value="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Dkq-5d-Un9">
-                                                                        <rect key="frame" x="37.5" y="1.5" width="94" height="32"/>
+                                                                        <rect key="frame" x="77.5" y="1.5" width="94" height="32"/>
                                                                         <connections>
                                                                             <action selector="stepper_pressed:" destination="KGk-i7-Jjw" eventType="valueChanged" id="UA6-Po-cXz"/>
                                                                         </connections>
                                                                     </stepper>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7Y-Cq-Kh8">
+                                                                        <rect key="frame" x="17.5" y="8" width="50" height="19"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="50" id="TdH-fi-3jL"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="Dkq-5d-Un9" firstAttribute="centerY" secondItem="vmu-VH-iGd" secondAttribute="centerY" id="4jj-Fv-Im6"/>
+                                                                    <constraint firstItem="Q7Y-Cq-Kh8" firstAttribute="centerY" secondItem="vmu-VH-iGd" secondAttribute="centerY" id="82L-4w-NP9"/>
                                                                     <constraint firstAttribute="trailing" secondItem="Dkq-5d-Un9" secondAttribute="trailing" id="dNM-Ng-Yyl"/>
+                                                                    <constraint firstItem="Dkq-5d-Un9" firstAttribute="leading" secondItem="Q7Y-Cq-Kh8" secondAttribute="trailing" constant="10" id="iAw-SJ-cng"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>

@@ -76,13 +76,13 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="cyB-Xt-3OM">
                                                 <rect key="frame" x="0.0" y="61" width="349" height="35"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Prq-yg-qak">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fFn-y6-8cp">
                                                         <rect key="frame" x="0.0" y="0.0" width="349" height="35"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£30.00" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="byE-z4-gfn">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£30.00" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHo-wP-Mpz">
                                                                 <rect key="frame" x="0.0" y="-2.5" width="349" height="40"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="CaF-8q-vxg"/>
+                                                                    <constraint firstAttribute="height" constant="40" id="Ir0-qJ-hh7"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="16"/>
                                                                 <nil key="textColor"/>
@@ -91,9 +91,9 @@
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="byE-z4-gfn" secondAttribute="trailing" id="NQT-ja-Qge"/>
-                                                            <constraint firstItem="byE-z4-gfn" firstAttribute="leading" secondItem="Prq-yg-qak" secondAttribute="leading" id="NkT-bu-cl2"/>
-                                                            <constraint firstItem="byE-z4-gfn" firstAttribute="centerY" secondItem="Prq-yg-qak" secondAttribute="centerY" id="eeF-5M-x3P"/>
+                                                            <constraint firstItem="YHo-wP-Mpz" firstAttribute="centerY" secondItem="fFn-y6-8cp" secondAttribute="centerY" id="IAr-t1-zzt"/>
+                                                            <constraint firstAttribute="trailing" secondItem="YHo-wP-Mpz" secondAttribute="trailing" id="VTC-b9-ISE"/>
+                                                            <constraint firstItem="YHo-wP-Mpz" firstAttribute="leading" secondItem="fFn-y6-8cp" secondAttribute="leading" id="Ybt-fj-mvc"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -126,7 +126,7 @@
             <connections>
                 <outlet property="nameLabel" destination="FBc-lb-vig" id="Ujn-FR-Miw"/>
                 <outlet property="tickBoxButton" destination="7uK-37-IZs" id="E8I-om-aZX"/>
-                <outlet property="totalLabel" destination="byE-z4-gfn" id="v2W-HQ-lT5"/>
+                <outlet property="totalLabel" destination="YHo-wP-Mpz" id="cKq-tB-BLX"/>
             </connections>
             <point key="canvasLocation" x="207.97101449275365" y="133.92857142857142"/>
         </tableViewCell>

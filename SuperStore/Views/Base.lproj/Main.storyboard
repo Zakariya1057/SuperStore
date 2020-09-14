@@ -1125,7 +1125,7 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opening Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eV-tb-S5d">
-                                                                                        <rect key="frame" x="0.0" y="4.6666666666666856" width="384" height="21"/>
+                                                                                        <rect key="frame" x="0.0" y="2.6666666666666856" width="384" height="24.666666666666668"/>
                                                                                         <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
@@ -1285,7 +1285,7 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facilities" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ziz-yC-EQo">
-                                                                                        <rect key="frame" x="0.0" y="19.666666666666629" width="384" height="21"/>
+                                                                                        <rect key="frame" x="0.0" y="17.666666666666629" width="384" height="24.666666666666671"/>
                                                                                         <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
@@ -1720,7 +1720,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zk9-e4-itb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
-                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
+                                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
                                                                                         <rect key="frame" x="87" y="2" width="210" height="26"/>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -1876,7 +1876,7 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="20"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reviews" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3c-8q-A5W">
-                                                                                        <rect key="frame" x="0.0" y="-0.33333333333337123" width="384" height="21"/>
+                                                                                        <rect key="frame" x="0.0" y="-2.3333333333333144" width="384" height="24.666666666666668"/>
                                                                                         <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
@@ -2171,7 +2171,7 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="25"/>
                                                                                         <subviews>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Life Style" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Foo-9B-LNw">
-                                                                                                <rect key="frame" x="0.0" y="2" width="384" height="21"/>
+                                                                                                <rect key="frame" x="0.0" y="0.33333333333325754" width="384" height="24.666666666666668"/>
                                                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                                 <nil key="textColor"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -2212,7 +2212,7 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="25"/>
                                                                                         <subviews>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allergen Information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tA6-ll-1q3">
-                                                                                                <rect key="frame" x="0.0" y="2" width="384" height="21"/>
+                                                                                                <rect key="frame" x="0.0" y="0.33333333333325754" width="384" height="24.666666666666668"/>
                                                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                                 <nil key="textColor"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -2315,7 +2315,12 @@
                         <viewLayoutGuide key="safeArea" id="rjZ-2f-BOF"/>
                     </view>
                     <navigationItem key="navigationItem" id="fkO-YJ-Jnf">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="star" catalog="system" id="l96-Ro-t0a"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="star" catalog="system" id="l96-Ro-t0a">
+                            <color key="tintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="favouritePressed:" destination="blb-Wd-ZdE" id="qdL-Ky-XRY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="allReviewsButton" destination="3XK-rV-xms" id="uHb-IZ-Qw0"/>
@@ -2324,6 +2329,7 @@
                         <outlet property="allergenView" destination="Yki-fB-o9A" id="7xA-PM-cGc"/>
                         <outlet property="descriptionView" destination="rML-Le-dqo" id="Icw-zD-bpm"/>
                         <outlet property="dietaryView" destination="Q4G-kq-2Pm" id="WbW-uf-yBo"/>
+                        <outlet property="favouriteBarItem" destination="l96-Ro-t0a" id="N9a-Nd-hlf"/>
                         <outlet property="ingredientsView" destination="orR-Jr-CrQ" id="zeW-Sj-VQP"/>
                         <outlet property="lifeStyleLabel" destination="byc-1t-N15" id="l0C-of-8sO"/>
                         <outlet property="productImageView" destination="Nrg-n9-WPK" id="fVg-Lt-eEl"/>
@@ -2396,7 +2402,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz2-WX-h3t">
                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="64.666666666666686" y="7.6666666666666572" width="255" height="35"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -2540,7 +2546,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QpJ-hy-QQq">
-                                <rect key="frame" x="0.0" y="88" width="414" height="705"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
@@ -2548,7 +2554,7 @@
                         <constraints>
                             <constraint firstItem="QpJ-hy-QQq" firstAttribute="leading" secondItem="86i-YB-gFn" secondAttribute="leading" id="FD0-U9-iq1"/>
                             <constraint firstItem="QpJ-hy-QQq" firstAttribute="top" secondItem="86i-YB-gFn" secondAttribute="top" id="iQN-4c-m2b"/>
-                            <constraint firstItem="86i-YB-gFn" firstAttribute="bottom" secondItem="QpJ-hy-QQq" secondAttribute="bottom" constant="20" id="lJn-BC-FNP"/>
+                            <constraint firstItem="86i-YB-gFn" firstAttribute="bottom" secondItem="QpJ-hy-QQq" secondAttribute="bottom" id="lJn-BC-FNP"/>
                             <constraint firstItem="86i-YB-gFn" firstAttribute="trailing" secondItem="QpJ-hy-QQq" secondAttribute="trailing" id="oZf-55-69X"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="86i-YB-gFn"/>

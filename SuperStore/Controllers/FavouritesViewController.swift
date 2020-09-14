@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavouritesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FavouritesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FavouritesDelegate {
 
     var products:[ProductModel] = []
     
@@ -16,20 +16,48 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var delegate:GroceryDelegate?
     
+    var favouritesHandler = FavouritesHandler()
+    
+    var refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         favouritesTableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
         
         favouritesTableView.dataSource = self
         favouritesTableView.delegate = self
+        
+        favouritesHandler.delegate = self
+        favouritesHandler.request()
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        favouritesTableView.addSubview(refreshControl)
     }
 
-    // MARK: - Table view data source
+    @objc func refresh(_ sender: AnyObject) {
+       // Code to refresh table view
+        favouritesHandler.request()
+    }
+    
+    func contentLoaded(products: [ProductModel]) {
+        refreshControl.endRefreshing()
+        self.products = products
+        favouritesTableView.reloadData()
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return products.count
     }
 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            favouritesHandler.delete(product_id: products[indexPath.row].id)
+            products.remove(at: indexPath.row)
+            favouritesTableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
         cell.delegate = self.delegate

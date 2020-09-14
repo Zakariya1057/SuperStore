@@ -17,8 +17,14 @@ struct K {
         
         struct Grocery {
             static let Categories = "grocery"
+            
             static let Products = "grocery/products"
+            static let ProductsFavourite = "favourite"
+            
             static let Product = "product"
+            static let Favourites = "favourites"
+            static let FavouritesDelete = "favourites/delete"
+            
             static let Reviews = "reviews"
             static let Promotion = "promotion"
             

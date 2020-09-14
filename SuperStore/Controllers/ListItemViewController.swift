@@ -24,15 +24,13 @@ class ListItemViewController: UIViewController {
     var selected_row: Int = 0
     var selected_section: Int = 0
     
-    var quantity: Int = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
     }
     
     @IBAction func quantityChanged(_ sender: UIStepper) {
-        quantity = Int(sender.value)
+        let quantity = Int(sender.value)
         stepper.value = Double(quantity)
         quantityLabel.text = String(quantity)
         product!.quantity = quantity
@@ -41,7 +39,7 @@ class ListItemViewController: UIViewController {
     
     func configureUI(){
         quantityLabel.text = String(product!.quantity)
-        productNameLabel.text = String(product!.name)
+        productNameLabel.text = String(product!.name) + " (\(product!.weight ?? ""))"
         stepper.value = Double(product!.quantity)
         productImageView.downloaded(from: product!.image)
         updateTotalPrice()
@@ -52,7 +50,7 @@ class ListItemViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-         self.delegate!.quantityChanged(section_index: selected_section, row_index: selected_row, quantity: quantity)
+         self.delegate!.quantityChanged(section_index: selected_section, row_index: selected_row, quantity: product!.quantity)
         self.navigationController?.popViewController(animated: true)
     }
     

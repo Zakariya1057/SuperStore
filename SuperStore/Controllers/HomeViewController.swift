@@ -33,7 +33,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             StoresMapElement(title: "Store Locations", height: 300),
 
              ProductElement(title: "Offers",delegate: self, products: [
-                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10)
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10)
              ],height: 280)
 //            ProductElement(title: "Offers",delegate: self, products: [
 //            ListProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10, quantity: 1, ticked: false),

@@ -1,51 +1,53 @@
 //
-//  PromotionController.swift
-//  SuperStore
+//  DataHandler.swift
+//  ZPlayer
 //
-//  Created by Zakariya Mohummed on 06/09/2020.
+//  Created by Zakariya Mohummed on 25/05/2020.
 //  Copyright © 2020 Zakariya Mohummed. All rights reserved.
 //
 
 import Foundation
 
-protocol PromotionDelegate {
-    func contentLoaded(promotion: PromotionModel)
+protocol FavouritesDelegate {
+    func contentLoaded(products: [ProductModel])
 //    func errorHandler(_ message:String)
 }
 
-
-struct PromotionHandler {
-        
-    var delegate: PromotionDelegate?
+struct FavouritesHandler {
+    
+    var delegate: FavouritesDelegate?
     
     let requestHandler = RequestHandler()
     
-    func request(promotion_id: Int){
-        let host_url = K.Host
-        let promotion_path = K.Request.Grocery.Promotion
-        let url_string = "\(host_url)/\(promotion_path)/\(promotion_id)"
+    func request(){
+        let url_string = "\(K.Host)/\(K.Request.Grocery.Favourites)"
         requestHandler.getRequest(url: url_string, complete: processResults,error:processError)
+    }
+    
+    func delete(product_id: Int){
+        let productHandler = ProductDetailsHandler()
+        productHandler.favourite(product_id: product_id,product_data: ["favourite": "false"])
     }
     
     func processResults(_ data:Data){
         
         do {
             
+            print("Processing Results")
+            
             let decoder = JSONDecoder()
-            let data = try decoder.decode(PromotionDataResponse.self, from: data)
-            let promotion_data = data.data
+            let data = try decoder.decode(FavouritesDataResponse.self, from: data)
+            let products_list = data.data
             
             var products:[ProductModel] = []
             
-            for product_item in promotion_data.products ?? [] {
+            for product_item in products_list {
                 products.append(ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, description: product_item.description, quantity: 0, weight: product_item.weight, price: product_item.price, location: "", avg_rating: product_item.avg_rating, total_reviews_count: product_item.total_reviews_count))
             }
-            let promotion = PromotionModel(id: promotion_data.id, name: promotion_data.name, ends_at: promotion_data.ends_at,products: products)
-
+            
             DispatchQueue.main.async {
-                self.delegate?.contentLoaded(promotion: promotion)
+                self.delegate?.contentLoaded(products: products)
             }
-
 
         } catch {
             print("Decoding Data Error: \(error)")
