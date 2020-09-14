@@ -1,0 +1,73 @@
+//
+//  DataHandler.swift
+//  ZPlayer
+//
+//  Created by Zakariya Mohummed on 25/05/2020.
+//  Copyright © 2020 Zakariya Mohummed. All rights reserved.
+//
+
+import Foundation
+
+protocol GroceriesCategoriesDelegate {
+    func contentLoaded(categories: [GroceryCategoriesModel])
+//    func errorHandler(_ message:String)
+}
+
+// Groceries -> Categories
+// Products  -> Categories
+
+struct GroceryCategoriesHandler {
+    
+    var delegate: GroceriesCategoriesDelegate?
+    
+    let requestHandler = RequestHandler()
+    
+    func request(store_type_id: Int){
+        // Get All Categories - Grand Parent Categories, Parent Categories
+        let host_url = K.Host
+        let grocery_path = K.Request.Grocery.Categories
+        let url_string = "\(host_url)/\(grocery_path)/\(store_type_id)"
+        requestHandler.getRequest(url: url_string, complete: processResults,error:processError)
+    }
+    
+    func processResults(_ data:Data){
+        
+        do {
+            
+            print("Processing Results")
+            
+            let decoder = JSONDecoder()
+            let grocery_data = try decoder.decode(GroceryCategoriesResponseData.self, from: data)
+            let grocery_categories_list = grocery_data.data
+            
+//            print(groceryDetails)
+            var grocery_categories:[GroceryCategoriesModel] = []
+            
+            for category in grocery_categories_list {
+                let child_categories_list = category.child_categories
+                
+                var child_categories:[ChildCategoryModel] = []
+                
+                for child_category in child_categories_list {
+                    child_categories.append( ChildCategoryModel(id: child_category.id, name: child_category.name) )
+                }
+                
+                grocery_categories.append( GroceryCategoriesModel(id: category.id, name: category.name, child_categories: child_categories) )
+            }
+            
+            DispatchQueue.main.async {
+                self.delegate?.contentLoaded(categories: grocery_categories)
+            }
+
+            
+        } catch {
+            print("Decoding Data Error: \(error)")
+        }
+        
+        
+    }
+    
+    func processError(_ message:String){
+//        self.delegate?.errorHandler(message)
+    }
+}

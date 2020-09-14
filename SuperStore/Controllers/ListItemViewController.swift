@@ -10,7 +10,7 @@ import UIKit
 
 class ListItemViewController: UIViewController {
     
-    var product: ListProductModel?
+    var product: ListItemModel?
     
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var productTotalLabel: UILabel!
@@ -21,7 +21,8 @@ class ListItemViewController: UIViewController {
     
     var delegate: ProductQuantityChangedDelegate?
     
-    var product_index: Int = 0
+    var selected_row: Int = 0
+    var selected_section: Int = 0
     
     var quantity: Int = 0
     
@@ -39,13 +40,11 @@ class ListItemViewController: UIViewController {
     }
     
     func configureUI(){
-        if product != nil {
-            quantityLabel.text = String(product!.quantity)
-            productNameLabel.text = String(product!.name)
-            stepper.value = Double(product!.quantity)
-            productImageView.downloaded(from: product!.image)
-            updateTotalPrice()
-        }
+        quantityLabel.text = String(product!.quantity)
+        productNameLabel.text = String(product!.name)
+        stepper.value = Double(product!.quantity)
+        productImageView.downloaded(from: product!.image)
+        updateTotalPrice()
     }
     
     func updateTotalPrice(){
@@ -53,11 +52,12 @@ class ListItemViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        self.delegate!.quantityChanged(product_index: product_index, quantity: quantity)
+         self.delegate!.quantityChanged(section_index: selected_section, row_index: selected_row, quantity: quantity)
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
+        self.delegate!.removeItem(section: selected_section, row: selected_row)
         self.navigationController?.popViewController(animated: true)
     }
     

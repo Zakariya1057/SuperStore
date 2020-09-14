@@ -45,7 +45,7 @@ struct GroceryProductsHandler {
                 var products:[ProductModel] = []
                 
                 for product in products_list {
-                    products.append( ProductModel(id: product.id, name: product.name, image: product.small_image, description: product.description, price: (product.price as NSString).doubleValue, location: "",avg_rating: product.avg_rating, total_reviews_count: product.total_reviews_count))
+                    products.append( ProductModel(id: product.id, name: product.name, image: product.small_image, description: product.description, quantity: 0, price: product.price, location: "",avg_rating: product.avg_rating, total_reviews_count: product.total_reviews_count))
                 }
                 
                 categories.append( GroceryProductsModel(id: category.id, name: category.name, products: products))

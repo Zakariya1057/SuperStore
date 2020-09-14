@@ -56,7 +56,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         self.delegate?.showGroceryItem(1)
+         self.delegate?.show_grocery_item(1)
     }
 
 

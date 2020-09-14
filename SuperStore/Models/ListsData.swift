@@ -1,44 +1,43 @@
 //
-//  ListModel.swift
+//  ReviewData.swift
 //  SuperStore
 //
-//  Created by Zakariya Mohummed on 01/08/2020.
+//  Created by Zakariya Mohummed on 29/08/2020.
 //  Copyright © 2020 Zakariya Mohummed. All rights reserved.
 //
 
 import Foundation
 
-struct ListModel {
+struct ListsDataResponse: Decodable {
+    var data: [ListData]
+}
+
+struct ListData: Decodable {
     var id: Int
-    var name: String
     var created_at: String
-    var status: ListStatus
+    var name: String
+    var status: String
     var store_id: Int
     var user_id: Int
     var total_price: Double
-    var categories: [ListCategoryModel]
+    var categories: [ListCategoryData]?
 }
 
-struct ListCategoryModel {
+struct ListCategoryData:Decodable {
     var id: Int
     var name: String
     var aisle_name: String?
-    var items: [ListItemModel]
+    var items: [ListItemData]
 }
 
-struct ListItemModel {
+struct ListItemData: Decodable {
     var id: Int
     var name: String
     var total_price: Double
     var price: Double
     var product_id: Int
     var quantity: Int
-    var image: String
+    var large_image: String?
+    var small_image: String?
     var ticked_off: Bool
-}
-
-enum ListStatus {
-    case completed
-    case inProgress
-    case notStarted
 }

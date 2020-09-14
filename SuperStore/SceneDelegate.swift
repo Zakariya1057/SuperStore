@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  SuperStore
+//  ShopHalal
 //
-//  Created by Zakariya Mohummed on 21/07/2020.
+//  Created by Zakariya Mohummed on 07/09/2020.
 //  Copyright © 2020 Zakariya Mohummed. All rights reserved.
 //
 

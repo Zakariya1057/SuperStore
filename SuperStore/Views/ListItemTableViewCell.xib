@@ -60,8 +60,8 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="349" height="51"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 x Ben &amp; Jerry's Non-Dairy &amp; Vegan Chocolate Fudge Brownie Ice Cream" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBc-lb-vig">
-                                                        <rect key="frame" x="0.0" y="15" width="349" height="41"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="15"/>
+                                                        <rect key="frame" x="0.0" y="15" width="349" height="44"/>
+                                                        <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -76,13 +76,13 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="cyB-Xt-3OM">
                                                 <rect key="frame" x="0.0" y="61" width="349" height="35"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pc8-rA-HKs">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Prq-yg-qak">
                                                         <rect key="frame" x="0.0" y="0.0" width="349" height="35"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3   X  £20  =  £30.00" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t0D-DY-0Wa">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£30.00" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="byE-z4-gfn">
                                                                 <rect key="frame" x="0.0" y="-2.5" width="349" height="40"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="XHB-nY-zrR"/>
+                                                                    <constraint firstAttribute="height" constant="40" id="CaF-8q-vxg"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="16"/>
                                                                 <nil key="textColor"/>
@@ -91,15 +91,14 @@
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="t0D-DY-0Wa" secondAttribute="trailing" id="Wfc-2X-qfS"/>
-                                                            <constraint firstItem="t0D-DY-0Wa" firstAttribute="leading" secondItem="pc8-rA-HKs" secondAttribute="leading" id="j1h-9X-NWY"/>
-                                                            <constraint firstItem="t0D-DY-0Wa" firstAttribute="centerY" secondItem="pc8-rA-HKs" secondAttribute="centerY" id="kpi-O1-fN2"/>
+                                                            <constraint firstAttribute="trailing" secondItem="byE-z4-gfn" secondAttribute="trailing" id="NQT-ja-Qge"/>
+                                                            <constraint firstItem="byE-z4-gfn" firstAttribute="leading" secondItem="Prq-yg-qak" secondAttribute="leading" id="NkT-bu-cl2"/>
+                                                            <constraint firstItem="byE-z4-gfn" firstAttribute="centerY" secondItem="Prq-yg-qak" secondAttribute="centerY" id="eeF-5M-x3P"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="RQ5-Ho-SrW"/>
-                                                    <constraint firstItem="pc8-rA-HKs" firstAttribute="leading" secondItem="cyB-Xt-3OM" secondAttribute="leading" id="mQg-vy-K2b"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
@@ -127,7 +126,7 @@
             <connections>
                 <outlet property="nameLabel" destination="FBc-lb-vig" id="Ujn-FR-Miw"/>
                 <outlet property="tickBoxButton" destination="7uK-37-IZs" id="E8I-om-aZX"/>
-                <outlet property="totalPriceLabel" destination="t0D-DY-0Wa" id="jga-F6-0mm"/>
+                <outlet property="totalLabel" destination="byE-z4-gfn" id="v2W-HQ-lT5"/>
             </connections>
             <point key="canvasLocation" x="207.97101449275365" y="133.92857142857142"/>
         </tableViewCell>

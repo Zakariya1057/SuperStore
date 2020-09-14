@@ -21,6 +21,19 @@ struct K {
             static let Product = "product"
             static let Reviews = "reviews"
             static let Promotion = "promotion"
+            
+        }
+        
+        struct Lists {
+            static let List = "list"
+            static let ListCreate  = "create"
+            static let ListDelete  = "delete"
+            static let ListUpdate  = "update"
+            static let ListRestart = "restart"
+            
+            static let ItemUpdate = "item/update"
+            static let ItemDelete = "item/delete"
+            static let ItemCreate = "item/create"
         }
     }
     

@@ -64,11 +64,13 @@
 		2C9C1B8E24CEEF6F001ACA35 /* StoresMapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9C1B8C24CEEF6F001ACA35 /* StoresMapTableViewCell.xib */; };
 		2C9C1B9124CEEF90001ACA35 /* ListPriceUpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C1B8F24CEEF8F001ACA35 /* ListPriceUpdateTableViewCell.swift */; };
 		2C9C1B9224CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9C1B9024CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib */; };
+		2C9CEED2250678590049E93D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CEED1250678590049E93D /* SceneDelegate.swift */; };
 		2C9DD12924FC1EEB00544563 /* PromotionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DD12824FC1EEB00544563 /* PromotionModel.swift */; };
 		2C9DD12B24FC201100544563 /* PromotionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DD12A24FC201100544563 /* PromotionData.swift */; };
 		2C9DD12D24FCFC3800544563 /* IngredientsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DD12C24FCFC3800544563 /* IngredientsData.swift */; };
 		2C9DD12F24FCFC6800544563 /* IngredientsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DD12E24FCFC6800544563 /* IngredientsModel.swift */; };
 		2C9DD13124FD022800544563 /* ReviewsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DD13024FD022800544563 /* ReviewsHandler.swift */; };
+		2CA7C779250E547B002FF1B6 /* ListEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7C778250E547B002FF1B6 /* ListEditViewController.swift */; };
 		2CABCB6F2505559500E26574 /* PromotionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CABCB6E2505559500E26574 /* PromotionHandler.swift */; };
 		2CB15C7124D18F4100461AFE /* SearchStoresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB15C7024D18F4100461AFE /* SearchStoresTableViewController.swift */; };
 		2CB15C7624D190E500461AFE /* StoresResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB15C7424D190E500461AFE /* StoresResultsTableViewCell.swift */; };
@@ -92,6 +94,11 @@
 		2CC1EA2324FAC4B9000A9BC4 /* ReviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA2224FAC4B9000A9BC4 /* ReviewData.swift */; };
 		2CC1EA2524FACADA000A9BC4 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA2424FACADA000A9BC4 /* ProductDetailsModel.swift */; };
 		2CE7AB0224D077C700A31782 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7AB0124D077C700A31782 /* SettingsTableViewController.swift */; };
+		2CF239B525094A7F00D4CE91 /* ListsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B425094A7F00D4CE91 /* ListsHandler.swift */; };
+		2CF239B725094A9000D4CE91 /* ListItemsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */; };
+		2CF239B925094BAC00D4CE91 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B825094BAC00D4CE91 /* MainViewController.swift */; };
+		2CF239BB25094C8700D4CE91 /* ListsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239BA25094C8600D4CE91 /* ListsData.swift */; };
+		2CF239BD2509549100D4CE91 /* ListItemsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239BC2509549100D4CE91 /* ListItemsData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -154,12 +161,15 @@
 		2C9C1B8C24CEEF6F001ACA35 /* StoresMapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoresMapTableViewCell.xib; sourceTree = "<group>"; };
 		2C9C1B8F24CEEF8F001ACA35 /* ListPriceUpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPriceUpdateTableViewCell.swift; sourceTree = "<group>"; };
 		2C9C1B9024CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListPriceUpdateTableViewCell.xib; sourceTree = "<group>"; };
+		2C9CEED1250678590049E93D /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2C9DD12824FC1EEB00544563 /* PromotionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionModel.swift; sourceTree = "<group>"; };
 		2C9DD12A24FC201100544563 /* PromotionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionData.swift; sourceTree = "<group>"; };
 		2C9DD12C24FCFC3800544563 /* IngredientsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsData.swift; sourceTree = "<group>"; };
 		2C9DD12E24FCFC6800544563 /* IngredientsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsModel.swift; sourceTree = "<group>"; };
 		2C9DD13024FD022800544563 /* ReviewsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsHandler.swift; sourceTree = "<group>"; };
+		2CA7C778250E547B002FF1B6 /* ListEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListEditViewController.swift; path = SuperStore/Views/ListEditViewController.swift; sourceTree = SOURCE_ROOT; };
 		2CABCB6E2505559500E26574 /* PromotionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionHandler.swift; sourceTree = "<group>"; };
+		2CABCB702506658100E26574 /* ListsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListsTableViewCell.swift; sourceTree = "<group>"; };
 		2CB15C7024D18F4100461AFE /* SearchStoresTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchStoresTableViewController.swift; path = SuperStore/Views/SearchStoresTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		2CB15C7424D190E500461AFE /* StoresResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresResultsTableViewCell.swift; sourceTree = "<group>"; };
 		2CB15C7524D190E500461AFE /* StoresResultsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoresResultsTableViewCell.xib; sourceTree = "<group>"; };
@@ -186,6 +196,11 @@
 		2CC1EA2224FAC4B9000A9BC4 /* ReviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewData.swift; sourceTree = "<group>"; };
 		2CC1EA2424FACADA000A9BC4 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
 		2CE7AB0124D077C700A31782 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		2CF239B425094A7F00D4CE91 /* ListsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsHandler.swift; sourceTree = "<group>"; };
+		2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemsHandler.swift; sourceTree = "<group>"; };
+		2CF239B825094BAC00D4CE91 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		2CF239BA25094C8600D4CE91 /* ListsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsData.swift; sourceTree = "<group>"; };
+		2CF239BC2509549100D4CE91 /* ListItemsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemsData.swift; sourceTree = "<group>"; };
 		78A3D23A2EFDF10530DC6D40 /* Pods-SuperStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuperStore.debug.xcconfig"; path = "Target Support Files/Pods-SuperStore/Pods-SuperStore.debug.xcconfig"; sourceTree = "<group>"; };
 		81D954E4C76C0EAE824B9E7D /* Pods-SuperStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuperStore.release.xcconfig"; path = "Target Support Files/Pods-SuperStore/Pods-SuperStore.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -225,6 +240,7 @@
 			children = (
 				2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */,
 				2C1567BB24C77FD800B8DCB5 /* SceneDelegate.swift */,
+				2C9CEED1250678590049E93D /* SceneDelegate.swift */,
 				2C1567CF24C8B2D500B8DCB5 /* Models */,
 				2C1567CE24C8B2CC00B8DCB5 /* Views */,
 				2C1567CD24C8B2B400B8DCB5 /* Controllers */,
@@ -244,8 +260,9 @@
 				2C5B5C6B24D084FD0095C920 /* SearchResultsViewController.swift */,
 				2CB15C7024D18F4100461AFE /* SearchStoresTableViewController.swift */,
 				2C1567D824C8B36E00B8DCB5 /* FavouritesViewController.swift */,
-				2C266DF424D5DC1400C66EA5 /* NewListViewController.swift */,
 				2C1567D624C8B36200B8DCB5 /* ListsViewController.swift */,
+				2C266DF424D5DC1400C66EA5 /* NewListViewController.swift */,
+				2CA7C778250E547B002FF1B6 /* ListEditViewController.swift */,
 				2CB15C9624D2FCD400461AFE /* ListViewController.swift */,
 				2CB3EDA225040E92000E7C7A /* ListItemViewController.swift */,
 				2C1567DC24C8B3F000B8DCB5 /* StoreViewController.swift */,
@@ -264,6 +281,7 @@
 				2C266DFE24D6FBC300C66EA5 /* SettingsChangeViewController.swift */,
 				2C266E0024D702BD00C66EA5 /* ChangePasswordViewController.swift */,
 				2CB15C9824D36E7E00461AFE /* StoreSelectViewController.swift */,
+				2CF239B825094BAC00D4CE91 /* MainViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -291,6 +309,7 @@
 				2CB15C8024D2D7FE00461AFE /* ListsTableViewCell.swift */,
 				2CB3EDA425041F31000E7C7A /* ListSectionHeader.swift */,
 				2CB3EDA825041FDD000E7C7A /* ListSectionHeader.xib */,
+				2CABCB702506658100E26574 /* ListsTableViewCell.swift */,
 				2CB15C8124D2D7FE00461AFE /* ListsTableViewCell.xib */,
 				2CB15C9324D2FB8900461AFE /* ListItemTableViewCell.xib */,
 				2CB15C9224D2FB8900461AFE /* ListItemTableViewCell.swift */,
@@ -316,13 +335,17 @@
 				2CC1EA2424FACADA000A9BC4 /* ProductDetailsModel.swift */,
 				2CABCB6E2505559500E26574 /* PromotionHandler.swift */,
 				2C9DD12A24FC201100544563 /* PromotionData.swift */,
+				2CF239B425094A7F00D4CE91 /* ListsHandler.swift */,
+				2CF239BA25094C8600D4CE91 /* ListsData.swift */,
+				2C266DF624D5DEDA00C66EA5 /* ListModel.swift */,
+				2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */,
+				2CF239BC2509549100D4CE91 /* ListItemsData.swift */,
 				2C9DD12824FC1EEB00544563 /* PromotionModel.swift */,
 				2C266DF024D5A6C900C66EA5 /* ProductModel.swift */,
 				2C266DF224D5A6EA00C66EA5 /* ListProductModel.swift */,
 				2C9DD13024FD022800544563 /* ReviewsHandler.swift */,
 				2CC1EA2224FAC4B9000A9BC4 /* ReviewData.swift */,
 				2CC1EA2024FAC46A000A9BC4 /* ReviewModel.swift */,
-				2C266DF624D5DEDA00C66EA5 /* ListModel.swift */,
 				2C21C3A524F6F36B00D90B4B /* StoreHandler.swift */,
 				2C21C3A724F6F4B200D90B4B /* StoreData.swift */,
 				2C266DF824D5DEF300C66EA5 /* StoreModel.swift */,
@@ -394,7 +417,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1170;
 				ORGANIZATIONNAME = "Zakariya Mohummed";
 				TargetAttributes = {
 					2C1567B524C77FD800B8DCB5 = {
@@ -503,9 +526,12 @@
 				2CB15C8224D2D7FE00461AFE /* ListsTableViewCell.swift in Sources */,
 				2C21C3AC24F8186A00D90B4B /* GroceryCategoriesData.swift in Sources */,
 				2CB3EDAB25054D3D000E7C7A /* PromotionViewController.swift in Sources */,
+				2C9CEED2250678590049E93D /* SceneDelegate.swift in Sources */,
 				2C5B5C6E24D085780095C920 /* ResultsViewController.swift in Sources */,
+				2CF239B525094A7F00D4CE91 /* ListsHandler.swift in Sources */,
 				2C266DF724D5DEDA00C66EA5 /* ListModel.swift in Sources */,
 				2C1567D924C8B36E00B8DCB5 /* FavouritesViewController.swift in Sources */,
+				2CF239BB25094C8700D4CE91 /* ListsData.swift in Sources */,
 				2CB15C9924D36E7E00461AFE /* StoreSelectViewController.swift in Sources */,
 				2C1567E524CAD08300B8DCB5 /* ReviewViewController.swift in Sources */,
 				2CB15C7D24D1A48E00461AFE /* SortFilterViewController.swift in Sources */,
@@ -531,16 +557,19 @@
 				2C266DFB24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift in Sources */,
 				2CC1EA2124FAC46A000A9BC4 /* ReviewModel.swift in Sources */,
 				2C1567E124C9A0DF00B8DCB5 /* GroceryTableViewController.swift in Sources */,
+				2CF239B725094A9000D4CE91 /* ListItemsHandler.swift in Sources */,
 				2C1567D124C8B33700B8DCB5 /* HomeViewController.swift in Sources */,
 				2C1567DB24C8B3B200B8DCB5 /* K.swift in Sources */,
 				2C1567F524CC845600B8DCB5 /* ProductDetailsViewController.swift in Sources */,
 				2CB15C9424D2FB8900461AFE /* ListItemTableViewCell.swift in Sources */,
+				2CA7C779250E547B002FF1B6 /* ListEditViewController.swift in Sources */,
 				2C1567EA24CADB6000B8DCB5 /* GroceryTableViewCell.swift in Sources */,
 				2C21C3AE24F8187100D90B4B /* GroceryCategoriesModel.swift in Sources */,
 				2C266DF924D5DEF300C66EA5 /* StoreModel.swift in Sources */,
 				2CE7AB0224D077C700A31782 /* SettingsTableViewController.swift in Sources */,
 				2CC1EA1D24FAC003000A9BC4 /* ProductDetailsHandler.swift in Sources */,
 				2C3F537E24D184C80095C4B1 /* SearchTableViewCell.swift in Sources */,
+				2CF239B925094BAC00D4CE91 /* MainViewController.swift in Sources */,
 				2CB3EDA525041F31000E7C7A /* ListSectionHeader.swift in Sources */,
 				2CB15C9724D2FCD400461AFE /* ListViewController.swift in Sources */,
 				2C9C1B7A24CCD07F001ACA35 /* ProductCollectionViewCell.swift in Sources */,
@@ -552,6 +581,7 @@
 				2CC1EA2324FAC4B9000A9BC4 /* ReviewData.swift in Sources */,
 				2C9DD12D24FCFC3800544563 /* IngredientsData.swift in Sources */,
 				2C9DD12924FC1EEB00544563 /* PromotionModel.swift in Sources */,
+				2CF239BD2509549100D4CE91 /* ListItemsData.swift in Sources */,
 				2CB15C7624D190E500461AFE /* StoresResultsTableViewCell.swift in Sources */,
 				2CC1EA1F24FAC0EB000A9BC4 /* ProductData.swift in Sources */,
 				2C9C1B8D24CEEF6F001ACA35 /* StoresMapTableViewCell.swift in Sources */,
@@ -636,7 +666,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -690,7 +720,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -708,7 +738,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5FCM3X5N8A;
 				INFOPLIST_FILE = SuperStore/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -728,7 +758,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5FCM3X5N8A;
 				INFOPLIST_FILE = SuperStore/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

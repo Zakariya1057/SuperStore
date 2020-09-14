@@ -25,8 +25,9 @@ class ProductDetailsModel: ProductModel {
     
     var recommended: [ProductModel] = []
     
-    init(id: Int, name: String,image: String,description: String?,price:Double,location:String?, avg_rating: Double?, total_reviews_count: Int?, storage: String?, weight: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel],promotion: PromotionModel?, ingredients: [String], recommended: [ProductModel]) {
-        super.init(id: id, name: name, image: image, description: description,price:price, location: location,avg_rating: avg_rating, total_reviews_count: total_reviews_count)
+    init(id: Int, name: String,image: String,description: String?, quantiy: Int,price:Double,location:String?, avg_rating: Double?, total_reviews_count: Int?, storage: String?, weight: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel],promotion: PromotionModel?, ingredients: [String], recommended: [ProductModel]) {
+        
+        super.init(id: id, name: name, image: image, description: description, quantity: quantiy, price:price, location: location,avg_rating: avg_rating, total_reviews_count: total_reviews_count)
         self.storage = storage
         self.weight = weight
         self.avg_rating = avg_rating

@@ -10,8 +10,10 @@ import UIKit
 import Cosmos
 
 protocol GroceryDelegate {
-    func showGroceryItem(_ product_id: Int)
-    func addToList(_ product: ProductModel)
+    func show_grocery_item(_ product_id: Int)
+    func add_to_list(_ product: ProductModel)
+    func remove_from_list(_ product: ProductModel)
+    func update_quantity(_ product: ProductModel)
 }
 
 class GroceryTableViewCell: UITableViewCell {
@@ -20,19 +22,29 @@ class GroceryTableViewCell: UITableViewCell {
     
     var delegate:GroceryDelegate?
     
+    @IBOutlet weak var stepper_stack_view: UIStackView!
+    @IBOutlet weak var stepper_label: UILabel!
     var product: ProductModel?
     
     var showAddButton:Bool = true
     var showStoreName: Bool = true
+    var show_quantity:Bool = false
     
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var reviewView: CosmosView!
+    @IBOutlet weak var left_info_view: UIView!
     
-    @IBAction func groceryAddClicked(_ sender: Any) {
-        self.delegate?.addToList(self.product!)
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        // Configure the view for the selected state
     }
     
     func configureUI(){
@@ -43,18 +55,13 @@ class GroceryTableViewCell: UITableViewCell {
         
         productImage.downloaded(from: current_product.image)
         
-        if(!showAddButton){
-            if addButton != nil {
-                addButton.removeFromSuperview()
-            }
-            
-            if showStoreName != false {
-                storeNameLabel.alpha = 1
-            }
-            
+        if(product!.quantity > 0){
+            show_quantity_view()
         } else {
-            if storeNameLabel != nil {
-                storeNameLabel.removeFromSuperview()
+            if(showAddButton){
+                show_add_button_view()
+            } else {
+                show_store_name_view()
             }
         }
         
@@ -65,15 +72,45 @@ class GroceryTableViewCell: UITableViewCell {
         reviewView.text = "(\(num))"
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    @IBAction func stepper_pressed(_ sender: UIStepper) {
+        let quantity = sender.value
+        stepper_label.text = String(format: "%.0f", quantity)
+        
+        product!.quantity = Int(quantity)
+        
+        if delegate != nil {
+            if(quantity == 0){
+                delegate?.remove_from_list(product!)
+                show_add_button_view()
+            } else {
+                delegate?.update_quantity(product!)
+            }
+        }
+        
     }
     
+    @IBAction func groceryAddClicked(_ sender: Any) {
+        show_quantity_view()
+        self.delegate?.add_to_list(self.product!)
+    }
+    
+    
+    func show_quantity_view(){
+        stepper_stack_view.isHidden = false
+        left_info_view.isHidden = true
+    }
+    
+    func show_add_button_view(){
+        left_info_view.isHidden = false
+        stepper_stack_view.isHidden = true
+        storeNameLabel.isHidden = true
+        addButton.isHidden = false
+    }
+    
+    func show_store_name_view(){
+        left_info_view.isHidden = false
+        stepper_stack_view.isHidden = true
+        storeNameLabel.isHidden = false
+        addButton.isHidden = true
+    }
 }

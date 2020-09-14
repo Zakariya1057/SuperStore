@@ -18,7 +18,7 @@ struct ProductData:Decodable {
     var large_image: String
     var small_image: String
     var description: String?
-    var price:String
+    var price:Double
     var storage: String?
     var weight: String?
     

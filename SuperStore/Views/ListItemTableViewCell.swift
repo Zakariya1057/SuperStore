@@ -10,18 +10,23 @@ import UIKit
 
 class ListItemTableViewCell: UITableViewCell {
     
-    var ticked:Bool = false
+    var ticked_off:Bool = false
     
-    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var totalLabel: UILabel!
+//    @IBOutlet weak var priceCalculationLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var stepper: UIStepper!
-    @IBOutlet weak var totalPriceLabel: UILabel!
+//    @IBOutlet weak var totalPriceLabel: UILabel!
+    
+    var section_index: Int = 0
+    var row_index: Int = 0
     
     var productIndex: Int = 0
     
-    var product: ListProductModel?
+
+    var product: ListItemModel?
     
     var delegate:PriceChangeDelegate?
     
@@ -47,14 +52,14 @@ class ListItemTableViewCell: UITableViewCell {
 //        locationLabel.text = currentProduct.location ?? ""
 //        setQuantity(currentProduct.quantity)
         
-        ticked = currentProduct.ticked
+        ticked_off = currentProduct.ticked_off
         showCheckBox()
         showPriceTotal()
     }
     
     @IBAction func checkBoxPressed(_ sender: UIButton) {
-        ticked = !ticked
-        product!.ticked = ticked
+        ticked_off = !ticked_off
+        product!.ticked_off = ticked_off
         reflectChange()
         showCheckBox()
     }
@@ -75,11 +80,14 @@ class ListItemTableViewCell: UITableViewCell {
         let priceText = "£" + String(format:"%.2f", product!.price)
         let quantityText = String(product!.quantity)
         let totalText = "£" + String(format: "%.2f", Double(product!.quantity) * product!.price)
-        totalPriceLabel.text = "\(totalText)"
+        
+//        priceCalculationLabel.text = "\(priceText)"
+        
+        totalLabel.text = "\(totalText)"
     }
     
     func showCheckBox(){
-        if !ticked {
+        if !ticked_off {
             tickBoxButton.tintColor = .label
             tickBoxButton.setImage(UIImage(systemName: "square"), for: .normal)
         } else {
@@ -95,7 +103,7 @@ class ListItemTableViewCell: UITableViewCell {
     }
     
     func reflectChange(){
-        delegate!.productChanged(product: product!, index: productIndex)
+        delegate!.productChanged(section_index: section_index, row_index: row_index,product: product!)
     }
     
 }

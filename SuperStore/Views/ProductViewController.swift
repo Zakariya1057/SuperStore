@@ -110,13 +110,6 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         } else {
             let promotion = product.promotion!
             promotionLabel.text = promotion.name
-            
-//            if(promotion.ends_at != nil){
-//                promotionExpiryLabel.text = promotion.ends_at!
-//            } else {
-//                promotionExpiryView.removeFromSuperview()
-//            }
-            
         }
         
         reviews = product.reviews

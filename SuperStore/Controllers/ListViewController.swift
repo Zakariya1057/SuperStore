@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PriceChangeDelegate {
-    func productChanged(product: ListProductModel, index: Int)
+    func productChanged(section_index: Int,row_index:Int, product: ListItemModel)
 }
 
 protocol StoreSelectedDelegate {
@@ -17,43 +17,49 @@ protocol StoreSelectedDelegate {
 }
 
 protocol NewProductDelegate {
-    func productAdded(product: ProductModel)
+    func productAdded(product: ProductModel,parent_category_id: Int,parent_category_name: String)
+    func productRemoved(product: ProductModel, parent_category_id: Int)
+    func productQuantityChanged(product: ProductModel,parent_category_id: Int)
 }
 
 protocol ProductQuantityChangedDelegate {
-    func quantityChanged(product_index: Int, quantity: Int)
+    func quantityChanged(section_index: Int,row_index:Int, quantity: Int)
+    func removeItem(section: Int, row: Int)
 }
 
-class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PriceChangeDelegate, ProductQuantityChangedDelegate {
-
+class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PriceChangeDelegate, ProductQuantityChangedDelegate, ListItemsDelegate {
+    
     @IBOutlet weak var totalPriceLabel: UILabel!
     
-    var sections: [String] = ["Fruits", "Vegetables", "Drinks"]
+    var listHandler = ListItemsHandler()
     
-    var products:[ListProductModel] = [
-        
-        ListProductModel(id: 1, name: "Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", price: 1.40, location: "Aisle A", avg_rating: 1, total_reviews_count: 1, quantity: 5, ticked: false),
-        ListProductModel(id: 1, name: "Shazans Halal Peri Peri Chicken Thighs", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", price: 2.40, location: "Aisle B", avg_rating: 1, total_reviews_count: 1,quantity: 2, ticked: false),
-        ListProductModel(id: 1, name: "McVitie's The Original Digestive Biscuits Twin Pack", image: "", description: "Bread", price: 3.40, location: "Aisle C", avg_rating: 1, total_reviews_count: 1, quantity: 12, ticked: false),
-        ListProductModel(id: 1, name: "Ben & Jerry's Non-Dairy & Vegan Chocolate Fudge Brownie Ice Cream", image: "", description: "Bread", price: 4.40, location: "Aisle D", avg_rating: 1, total_reviews_count: 4, quantity: 1, ticked: false),
-        ListProductModel(id: 1, name: "ASDA Extra Special Chilli Pork Sausage Ladder", image: "", description: "Bread", price: 5.40, location: "Aisle E", avg_rating: 1, total_reviews_count: 1, quantity: 8, ticked: false),
-        ListProductModel(id: 1, name: "Preema Disposable Face Coverings 5 x 4 Packs (20 Coverings)", image: "", description: "Bread", price: 6.40, location: "Aisle F", avg_rating: 1, total_reviews_count: 1, quantity: 9, ticked: false),
-        ListProductModel(id: 3, name: "Nivea Sun Kids Suncream Spray SPF 50+ Coloured", image: "", description: "Bread", price: 7.40, location: "Aisle G", avg_rating: 1, total_reviews_count: 1, quantity: 1, ticked: false)
-    ]
+    var list: ListModel?
+    
+    var list_index: Int = 0
     
     var delegate:PriceChangeDelegate?
+    
+    var status_delegate: ListStatusChangeDelegate?
     
     @IBOutlet weak var editBarItem: UIBarButtonItem!
     
     @IBOutlet weak var listTableView: UITableView!
-    
+
     @IBOutlet weak var addCategoryButton: UIButton!
-    
     @IBOutlet weak var storeButton: UIButton!
     
-    var editingEnabled:Bool = false
+    var selected_row: Int = 0
+    var selected_section: Int = 0
     
-    var selected_product_index: Int = 0
+    var list_id: Int = 1
+    
+    var items:[ListItemModel] {
+        return self.list?.categories.flatMap { $0.items } ?? []
+    }
+    
+    var items_history: [Int: [String: Int]] = [:]
+    
+    var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,27 +75,47 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         showTotalPrice()
         addCategoryButton.layer.cornerRadius = 25
         
+        listHandler.delegate = self
+        listHandler.request(list_id:list_id)
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
+         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+         listTableView.addSubview(refreshControl) // not required when using UITableViewController
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        listHandler.request(list_id:list_id)
+    }
+    
+    func contentLoaded(list: ListModel) {
+        self.list = list
+        self.totalPriceLabel.text = "£" + String(format: "%.2f", list.total_price)
+        self.title = list.name
+        listTableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "grandParentCategoriesViewController"))! as! GrandParentCategoriesViewController
-//        destinationVC.listDelegate = self
+        destinationVC.delegate = self
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     func showTotalPrice(){
         var price:Double = 0.00
+        let products = (list?.categories ?? []).map({ $0.items }).joined()
         
         for product in products {
-            price = price + ( Double(product.quantity) * product.price)
+            price += ( Double(product.quantity) * product.price)
         }
         
         self.totalPriceLabel.text = "£" + String(format: "%.2f", price)
     }
         
-    func productChanged(product: ListProductModel, index: Int) {
-        self.products[index] = product
+    func productChanged(section_index: Int,row_index:Int, product: ListItemModel) {
+        list!.categories[section_index].items[row_index] = product
         showTotalPrice()
+        productUpdate(product: product)
     }
     
     
@@ -98,24 +124,25 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 extension ListViewController {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return list?.categories.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selected_product_index = indexPath.row
+        selected_row = indexPath.row
+        selected_section = indexPath.section
         self.performSegue(withIdentifier: "list_item_details", sender: nil)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            products.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            self.removeItem(section: indexPath.section, row: indexPath.row)
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let title = sections[section]
-        let subtitle = "Aisle A"
+        let section_item = list!.categories[section]
+        let title = section_item.name
+        let subtitle = section_item.aisle_name ?? ""
         
         let header = listTableView.dequeueReusableHeaderFooterView(withIdentifier:  K.Sections.ListHeader.SectionIdentifier) as! ListSectionHeader
         
@@ -126,28 +153,37 @@ extension ListViewController {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let product = products[indexPath.row]
+        let product = list!.categories[indexPath.section].items[indexPath.row]
         
         let count = product.name.count
         
-        if count > 40 {
-            return 105;
+        if count > 38 {
+            return 105
         } else {
-            return 85;
+            return 85
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count
+        return list?.categories[section].items.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.ListItemCell.CellIdentifier , for: indexPath) as! ListItemTableViewCell
-        cell.product = products[indexPath.row]
+        
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        cell.product = list!.categories[indexPath.section].items[indexPath.row]
         cell.productIndex = indexPath.row
         cell.delegate = self
+        
+        cell.section_index = section
+        cell.row_index = row
+        
         cell.configureUI()
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        
         return cell
     }
 }
@@ -169,47 +205,172 @@ extension ListViewController: StoreSelectedDelegate {
 
 extension ListViewController: NewProductDelegate{
     
+    func productRemoved(product: ProductModel, parent_category_id: Int) {
+        print("Remove Product")
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "list_item_details" {
             let destinationVC = segue.destination as! ListItemViewController
-            destinationVC.product_index = selected_product_index
+            destinationVC.selected_row = selected_row
+            destinationVC.selected_section = selected_section
+
             destinationVC.delegate = self
-            destinationVC.product = products[selected_product_index]
+            destinationVC.product = list!.categories[selected_section].items[selected_row]
         }
     }
     
-    func productAdded(product: ProductModel) {
+    func removeItem(section: Int, row: Int){
+
+        print("Section: \(section)")
+        print("Row: \(row)")
         
-        let listProduct = ListProductModel(
-            id: product.id, name: product.name, image: product.image,
-            description: product.description ?? "",
-            price: product.price, location: product.location,
-            avg_rating: 1, total_reviews_count: 1,
-            quantity: 1, ticked: false)
+        let product = list!.categories[section].items[row]
         
-        var productExists: Bool = false
+        let indexPath = IndexPath(row: row, section: section)
+        let indexSet = NSIndexSet(index: section)
         
-        for productItem in products {
-            if productItem.id == product.id {
-                productExists = true
-                break
+        if list!.categories[section].items.count == 1 {
+            list!.categories.remove(at: section)
+            listTableView.deleteSections(indexSet as IndexSet, with: .fade)
+        } else {
+            list!.categories[section].items.remove(at: row)
+            listTableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
+//        listTableView.reloadData()
+        
+        listHandler.delete(list_id: list_id, list_data: ["product_id": String(product.product_id)])
+        
+        showTotalPrice()
+    }
+    
+    func productQuantityChanged(product: ProductModel, parent_category_id: Int){
+        print("Update Product Quantity")
+        
+        let categories = list?.categories ?? []
+        
+        for (cat_index, category) in categories.enumerated() {
+            if category.id == parent_category_id {
+                
+                
+                for (prod_index, product_item) in category.items.enumerated() {
+                    if product_item.product_id == product.id {
+                        print("Updating Found Product")
+                        print(product.quantity)
+                        list?.categories[cat_index].items[prod_index].quantity = product.quantity
+                        productUpdate(product: (list?.categories[cat_index].items[prod_index])!)
+                        break
+                    }
+                }
+
+            }
+            
+        }
+        
+        showTotalPrice()
+    }
+    
+    func productAdded(product: ProductModel,parent_category_id: Int,parent_category_name: String) {
+        
+        if product_exists(product.id) {
+            return
+        }
+        
+        var categories = list?.categories ?? []
+        
+        let item = ListItemModel(id: product.id, name: product.name, total_price: product.price, price: product.price, product_id: product.id, quantity: 1, image: product.image, ticked_off: false)
+        var added: Bool = false
+        
+        if categories.count > 0 {
+            
+            for (index, category) in categories.enumerated() {
+                if category.id == parent_category_id {
+                    list?.categories[index].items.append(item)
+                    added = true
+                    break
+                }
+            }
+            
+        }
+        
+        categories = list?.categories ?? []
+        
+        if(!added){
+            let category = ListCategoryModel(id: parent_category_id, name: parent_category_name, aisle_name: "", items: [item])
+            categories.append(category)
+        }
+        
+        list?.categories = categories.sorted(by: {$0.id < $1.id })
+        
+        listHandler.create(list_id: list_id, list_data: ["product_id": String(product.id)])
+        
+        if listTableView != nil {
+            listTableView.reloadData()
+        }
+        
+        showTotalPrice()
+    }
+    
+    
+    func quantityChanged(section_index: Int,row_index:Int, quantity: Int) {
+        let product = list!.categories[selected_section].items[selected_row]
+        list!.categories[selected_section].items[selected_row].quantity = quantity
+        listTableView.reloadData()
+        showTotalPrice()
+        productUpdate(product: product)
+    }
+    
+    func productUpdate(product: ListItemModel){
+
+        let data:[String: String] = [
+            "product_id": String(product.product_id),
+            "quantity": String(product.quantity),
+            "ticked_off": String(product.ticked_off)
+        ]
+        
+        listHandler.update(list_id: list_id, list_data: data)
+        
+        completedCheck()
+    }
+    
+    func product_exists(_ product_id: Int) -> Bool {
+        // Checks if products exists in list
+        for item in self.items {
+            if item.product_id == product_id {
+                return true
             }
         }
         
-        if productExists == false {
-            self.products.append(listProduct)
-        }
-        
-        listTableView.reloadData()
-        showTotalPrice()
+        return false
     }
     
-    
-    func quantityChanged(product_index: Int, quantity: Int) {
-        products[product_index].quantity = quantity
-        // Send Request To Update Quanity
-        listTableView.reloadData()
-        showTotalPrice()
+    func completedCheck(){
+        //Check if all products completed. If the case then update the parent
+        var checkedItems = 0
+        var allItems = 0
+        
+        for item in items {
+            
+            allItems += 1
+            
+            if item.ticked_off == true {
+                checkedItems += 1
+            }
+        }
+        
+        var status: ListStatus = .notStarted
+        
+        if (allItems > 0){
+           if(checkedItems == allItems){
+               status = .completed
+           } else if checkedItems > 0 {
+               status = .inProgress
+           }
+        }
+        
+        self.status_delegate?.updateListStatus(index: list_index, status: status)
+        
     }
     
 }

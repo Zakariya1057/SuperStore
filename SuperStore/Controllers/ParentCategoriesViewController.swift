@@ -19,6 +19,8 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
     
     var selected_category: ChildCategoryModel?
     
+    var delegate:NewProductDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,6 +30,10 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
         
         groupTableView.dataSource = self
         groupTableView.delegate = self
+        
+        if(delegate == nil){
+            self.navigationItem.rightBarButtonItem = nil
+        }
         
     }
     
@@ -50,9 +56,16 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "parentCategoriesToProducts" {
             let destinationVC = segue.destination as! ChildCategoriesViewController
+            destinationVC.list_delegate = delegate
             destinationVC.parent_category_id = selected_category!.id
+            destinationVC.parent_category_name = selected_category!.name
             destinationVC.header_text = selected_category!.name
         }
+    }
+    
+    @IBAction func done_pressed(_ sender: Any) {
+         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+         self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
     }
 
 }

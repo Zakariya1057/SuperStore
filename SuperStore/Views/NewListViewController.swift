@@ -45,8 +45,16 @@ class NewListViewController: UIViewController,StoreSelectedDelegate {
         storeButton.setTitleColor(.white, for: .normal)
     }
     
-    @IBAction func addListPressed(_ sender: Any) {
-        self.delegate?.addNewList( ListModel(name: nameField.text!, store: StoreModel(name: storeName, logo: "", opening_hours: [],location: LocationModel(city: "Birmingham", address_line1: "", address_line2: "", address_line3: "", postcode: ""), facilities: [])) )
+    @IBAction func created_pressed(_ sender: Any) {
+        
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMMM Y"
+        
+        let created_at = formatter.string(from: date)
+        
+        self.delegate?.addNewList( ListModel(id: 1, name: nameField.text!, created_at: created_at, status: .notStarted, store_id: 1, user_id: 1, total_price: 0, categories: []) )
         self.navigationController!.popViewController(animated: true)
     }
+    
 }

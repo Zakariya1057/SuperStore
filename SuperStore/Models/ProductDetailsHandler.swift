@@ -60,10 +60,10 @@ struct ProductDetailsHandler {
             var recommended: [ProductModel] = []
             
             for product_item in product_details.recommended ?? [] {
-                recommended.append(ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, description: product_item.description, price: (product_item.price as NSString).doubleValue, location: "", avg_rating: 1, total_reviews_count: 1))
+                recommended.append(ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, description: product_item.description, quantity: 0, price: product_item.price, location: "", avg_rating: 1, total_reviews_count: 1))
             }
             
-            let product = ProductDetailsModel(id: product_details.id, name: product_details.name, image: product_details.large_image, description: product_details.description, price: (product_details.price as NSString).doubleValue, location: "",avg_rating: product_details.avg_rating, total_reviews_count: product_details.total_reviews_count, storage: product_details.storage, weight: product_details.weight, dietary_info: product_details.dietary_info, allergen_info: product_details.allergen_info, brand: product_details.brand, reviews: reviews, promotion: promotion, ingredients: ingredients, recommended: recommended )
+            let product = ProductDetailsModel(id: product_details.id, name: product_details.name, image: product_details.large_image, description: product_details.description, quantiy: 0, price: product_details.price, location: "",avg_rating: product_details.avg_rating, total_reviews_count: product_details.total_reviews_count, storage: product_details.storage, weight: product_details.weight, dietary_info: product_details.dietary_info, allergen_info: product_details.allergen_info, brand: product_details.brand, reviews: reviews, promotion: promotion, ingredients: ingredients, recommended: recommended )
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(product: product)

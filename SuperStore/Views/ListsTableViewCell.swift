@@ -9,8 +9,11 @@
 import UIKit
 
 class ListsTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var listLabel: UILabel!
+    
+    @IBOutlet weak var listNameLabel: UILabel!
+    @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var createdLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     
     var list: ListModel?
     
@@ -20,8 +23,40 @@ class ListsTableViewCell: UITableViewCell {
     }
 
     func configureUI(){
-        var currentList = list!
-        listLabel.text = currentList.name
+        if list != nil {
+            
+            let status = list!.status
+            
+            listNameLabel.text = list!.name
+            totalLabel.text = "£\( String(format:"%.2f", list!.total_price))"
+            createdLabel.text = list!.created_at
+            
+            print(list!.created_at)
+
+            if status == .notStarted {
+                statusLabel.textColor =  UIColor(red: 0.44, green: 0.44, blue: 0.47, alpha: 1.00)
+                statusLabel.text = "Not Started"
+            } else if status == .inProgress {
+                statusLabel.textColor =  UIColor(red: 1.00, green: 0.58, blue: 0.00, alpha: 1.00)
+                statusLabel.text = "In Progress"
+            } else if status == .completed {
+                statusLabel.textColor =  UIColor(red: 0.02, green: 0.61, blue: 0.07, alpha: 1.00)
+                statusLabel.text = "Completed"
+            }
+            
+//            statusLabel.text = status
+//
+//            status = status.lowercased()
+//
+//            if status.contains("completed"){
+//
+//            } else if status.contains("in progress") {
+//
+//            } else if  status.contains("not started") {
+//
+//            }
+           
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

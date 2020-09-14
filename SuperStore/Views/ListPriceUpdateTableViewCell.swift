@@ -11,17 +11,17 @@ import UIKit
 class ListPriceUpdateElement: CustomElementModel {
     var title: String
     var type: CustomElementType { return .listPriceUpdate }
-    var delegate: ListDelegate
+    var delegate: ShowListDelegate
     var height: Float
     
-    init(title: String,delegate: ListDelegate,height:Float) {
+    init(title: String,delegate: ShowListDelegate,height:Float) {
         self.title = title
         self.delegate = delegate
         self.height = height
     }
 }
 
-protocol ListDelegate {
+protocol ShowListDelegate {
     func showListPage()
 }
 

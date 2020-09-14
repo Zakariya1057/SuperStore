@@ -24,56 +24,58 @@
                 <rect key="frame" x="0.0" y="0.0" width="326" height="53"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Mhe-c5-ysy">
-                        <rect key="frame" x="15" y="4" width="311" height="45"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="Mhe-c5-ysy">
+                        <rect key="frame" x="15" y="3.5" width="311" height="46"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="c8t-22-bpg">
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c8t-22-bpg">
                                 <rect key="frame" x="0.0" y="0.0" width="311" height="15"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V0G-OC-dth">
-                                        <rect key="frame" x="0.0" y="0.0" width="155.5" height="15"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="241" height="15"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grocery List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tf9-Ow-iag">
-                                                <rect key="frame" x="0.0" y="-3.5" width="92.5" height="22"/>
-                                                <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="16"/>
+                                                <rect key="frame" x="0.0" y="-4.5" width="241" height="24"/>
+                                                <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="tf9-Ow-iag" secondAttribute="trailing" id="1VR-iE-OZ0"/>
                                             <constraint firstAttribute="height" constant="15" id="ICp-9T-F8K"/>
                                             <constraint firstItem="tf9-Ow-iag" firstAttribute="centerY" secondItem="V0G-OC-dth" secondAttribute="centerY" id="Rno-LY-Gjy"/>
                                             <constraint firstItem="tf9-Ow-iag" firstAttribute="leading" secondItem="V0G-OC-dth" secondAttribute="leading" id="vIg-vB-DnJ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lE6-Gm-jDG">
-                                        <rect key="frame" x="155.5" y="0.0" width="155.5" height="15"/>
+                                        <rect key="frame" x="241" y="0.0" width="70" height="15"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£35.40" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Op0-Tg-qvJ">
-                                                <rect key="frame" x="93.5" y="-2.5" width="47" height="20.5"/>
-                                                <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="15"/>
+                                                <rect key="frame" x="5" y="-3.5" width="50" height="22"/>
+                                                <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Op0-Tg-qvJ" secondAttribute="trailing" constant="15" id="8po-qU-W7J"/>
+                                            <constraint firstAttribute="trailing" secondItem="Op0-Tg-qvJ" secondAttribute="trailing" constant="15" id="1Hd-Oh-yFd"/>
                                             <constraint firstItem="Op0-Tg-qvJ" firstAttribute="centerY" secondItem="lE6-Gm-jDG" secondAttribute="centerY" id="I9g-Em-oWv"/>
+                                            <constraint firstAttribute="width" constant="70" id="S7y-QR-Gg4"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="RGf-gY-H6V">
-                                <rect key="frame" x="0.0" y="25" width="311" height="20"/>
+                                <rect key="frame" x="0.0" y="26" width="311" height="20"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tsP-Ji-Wgd">
                                         <rect key="frame" x="0.0" y="0.0" width="155.5" height="20"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Aug 2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bh-XE-Kfc">
-                                                <rect key="frame" x="0.0" y="0.5" width="72.5" height="19.5"/>
-                                                <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="14"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="78" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="15"/>
                                                 <color key="textColor" red="0.38283322281167109" green="0.38283322281167109" blue="0.38283322281167109" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -89,9 +91,9 @@
                                         <rect key="frame" x="155.5" y="0.0" width="155.5" height="20"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GpH-fp-I2y">
-                                                <rect key="frame" x="68.5" y="0.5" width="72" height="19.5"/>
-                                                <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="14"/>
-                                                <color key="textColor" red="0.018101556800000002" green="0.61104738709999995" blue="0.071833649050000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <rect key="frame" x="63.5" y="0.0" width="77" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="15"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -115,7 +117,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="listLabel" destination="tf9-Ow-iag" id="ISQ-ri-3Fk"/>
+                <outlet property="createdLabel" destination="1bh-XE-Kfc" id="uik-SV-3dD"/>
+                <outlet property="listNameLabel" destination="tf9-Ow-iag" id="dGT-qs-UMS"/>
+                <outlet property="statusLabel" destination="GpH-fp-I2y" id="7HR-q9-ft7"/>
+                <outlet property="totalLabel" destination="Op0-Tg-qvJ" id="VHK-k7-HC5"/>
             </connections>
             <point key="canvasLocation" x="163.04347826086959" y="122.20982142857142"/>
         </tableViewCell>

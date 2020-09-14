@@ -33,7 +33,7 @@ class GroceryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.showGroceryItem(products![indexPath.row].id)
+        self.delegate?.show_grocery_item(products![indexPath.row].id)
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

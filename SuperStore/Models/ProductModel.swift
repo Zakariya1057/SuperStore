@@ -18,12 +18,14 @@ class ProductModel {
 
     var avg_rating: Double?
     var total_reviews_count: Int?
+    var quantity: Int
     
-    init(id: Int, name: String,image: String,description: String?,price:Double,location:String?,avg_rating: Double?, total_reviews_count: Int?) {
+    init(id: Int, name: String,image: String,description: String?, quantity: Int,price:Double,location:String?,avg_rating: Double?, total_reviews_count: Int?) {
         self.id = id
         self.name = name
         self.image = image
         self.description = description
+        self.quantity = quantity
         self.price = price
         self.location = location
         

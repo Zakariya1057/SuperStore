@@ -18,6 +18,10 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     
     var selected_category: GroceryCategoriesModel?
     
+    var delegate:NewProductDelegate?
+    
+    @IBOutlet weak var done_button: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,6 +34,10 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
         
         groceryHandler.request(store_type_id: 1)
         // Do any additional setup after loading the view.
+        
+        if(delegate == nil){
+            self.navigationItem.rightBarButtonItem = nil
+        }
     }
     
 
@@ -57,10 +65,14 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "grandParentToParentCategories" {
             let destinationVC = segue.destination as! ParentCategoriesViewController
+            destinationVC.delegate = delegate
             destinationVC.header_text = selected_category!.name
             destinationVC.categories = selected_category!.child_categories
         }
     }
 
-
+    @IBAction func done_pressed(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
