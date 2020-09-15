@@ -28,6 +28,8 @@ struct K {
             static let Reviews = "reviews"
             static let ReviewShow = "review"
             static let ReviewCreate = "review/create"
+            static let ReviewDelete = "review/delete"
+            
             static let Promotion = "promotion"
             
         }

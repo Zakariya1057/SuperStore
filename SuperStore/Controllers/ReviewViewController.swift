@@ -60,6 +60,7 @@ class ReviewViewController: UIViewController, ReviewsListDelegate {
     }
     
     func configureUI(){
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
         reviewTitleView.text = review!.title
         reviewTextView.text = review!.text
         ratingView.rating = Double(review!.rating)
@@ -81,4 +82,8 @@ class ReviewViewController: UIViewController, ReviewsListDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func deletePressed(_ sender: Any) {
+        reviewHandler.delete(product_id: product!.id)
+        self.navigationController?.popViewController(animated: true)
+    }
 }

@@ -2407,7 +2407,7 @@
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="rating">
-                                                                                <real key="value" value="45"/>
+                                                                                <real key="value" value="1"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
                                                                                 <integer key="value" value="5"/>
@@ -2541,7 +2541,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="o2E-rC-ZGt"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Review" id="4to-6k-YVa"/>
+                    <navigationItem key="navigationItem" title="Review" id="4to-6k-YVa">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Delete" id="eXP-qL-3iO">
+                            <connections>
+                                <action selector="deletePressed:" destination="G9a-TG-ILp" id="XDT-Il-W6I"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="2K7-zW-BFz" id="WGV-qe-pQb"/>
                         <outlet property="nameLabel" destination="ca3-1a-eB7" id="6hw-yY-qex"/>
