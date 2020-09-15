@@ -25,7 +25,7 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.reviewsTableView.dataSource = self
         
         reviewsHandler.delegate = self
-        reviewsHandler.request(product_id: product_id)
+        reviewsHandler.index(product_id: product_id)
         
          reviewsTableView.register(UINib(nibName: K.Cells.ReviewCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ReviewCell.CellIdentifier)
         // Do any additional setup after loading the view.

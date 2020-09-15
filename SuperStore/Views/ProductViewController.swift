@@ -49,10 +49,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     @IBOutlet weak var similarTableView: UITableView!
     
-    var similarProducts = ["Item 1","Item 2","Item 3","Item 4","Item 5"]
-    
     var reviews: [ReviewModel] = []
     var recommended: [ProductModel] = []
+    
+    let favouritesHandler = FavouritesHandler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,10 +148,8 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     }
     
     @IBAction func favouritePressed(_ sender: Any) {
-        // Send Request To Update Favourite.
-        // Toggle Appearance
         product!.favourite = !product!.favourite
-        productHandler.favourite(product_id: product_id,product_data: ["favourite": String(product!.favourite)])
+        favouritesHandler.update(product_id: product_id, favourite: product!.favourite)
         showFavourite()
     }
     
@@ -191,6 +189,9 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         }  else if segue.identifier == "showProductPromotion" {
             let destinationVC = segue.destination as! PromotionViewController
             destinationVC.promotion_id = product!.promotion!.id
+        } else if segue.identifier == "productToCreateReview" {
+            let destinationVC = segue.destination as! ReviewViewController
+            destinationVC.product = product!
         }
 
     }

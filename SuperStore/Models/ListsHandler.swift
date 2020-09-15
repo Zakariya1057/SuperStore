@@ -28,26 +28,26 @@ struct ListsHandler {
     
     func insert(list_data:[String: String]){
         let listInsert = K.Request.Lists.ListCreate
-        let url_string = "\(K.Host)/\(listPath)/\(listInsert)"
+        let url_string = "\(K.Host)/\(listInsert)"
         requestHandler.postRequest(url: url_string, data: list_data, complete: processResults, error: processError)
     }
     
     func update(list_data: [String: String]){
         let listUpdate = K.Request.Lists.ListUpdate
-        let url_string = "\(K.Host)/\(listPath)/\(listUpdate)"
+        let url_string = "\(K.Host)/\(listUpdate)"
         requestHandler.postRequest(url: url_string, data: list_data, complete:  { _ in } , error: processError)
     }
     
     func delete(list_data: [String: String]){
         let listDelete = K.Request.Lists.ListDelete
-        let url_string = "\(K.Host)/\(listPath)/\(listDelete)"
+        let url_string = "\(K.Host)/\(listDelete)"
         requestHandler.postRequest(url: url_string, data: list_data, complete: { _ in } , error: processError)
     }
     
     // Restarting Shoppping List, Setting All To Unchecked
     func restart(list_id: Int){
         let restartPath = K.Request.Lists.ListRestart
-        let url_string = "\(K.Host)/\(listPath)/\(list_id)/\(restartPath)"
+        let url_string = "\(K.Host)/\(list_id)/\(restartPath)"
         requestHandler.postRequest(url: url_string, data: ["list_id": String(list_id)], complete: { _ in }, error: processError)
     }
     

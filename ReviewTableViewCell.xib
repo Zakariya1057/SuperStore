@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1Jm-qi-2TO">
-                        <rect key="frame" x="15" y="10" width="379" height="161"/>
+                        <rect key="frame" x="15" y="15" width="379" height="151"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oE2-x4-lDP">
                                 <rect key="frame" x="0.0" y="0.0" width="379" height="25"/>
@@ -85,10 +85,10 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NAr-4e-xi6">
-                                <rect key="frame" x="0.0" y="35" width="379" height="126"/>
+                                <rect key="frame" x="0.0" y="35" width="379" height="116"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYN-td-u2g" userLabel="Description">
-                                        <rect key="frame" x="0.0" y="0.0" width="379" height="126"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="379" height="116"/>
                                         <string key="text">Excellent taste and nice and crispy. Beautiful with a cup of tea. As my son put it, "A cup of tea is too wet without one." As you can probably guess he dunks his digestive! Excellent taste and nice and crispy. Beautiful with a cup of tea. As my son put it, "A cup of tea is too wet without one." As you can probably guess he dunks his digestive!</string>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -108,10 +108,10 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="1Jm-qi-2TO" secondAttribute="bottom" constant="10" id="18a-8h-uiS"/>
+                    <constraint firstAttribute="bottom" secondItem="1Jm-qi-2TO" secondAttribute="bottom" constant="15" id="18a-8h-uiS"/>
                     <constraint firstItem="1Jm-qi-2TO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="2qX-Ia-4iu"/>
                     <constraint firstAttribute="trailing" secondItem="1Jm-qi-2TO" secondAttribute="trailing" constant="15" id="BBx-kT-ROL"/>
-                    <constraint firstItem="1Jm-qi-2TO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Rau-0z-QTI"/>
+                    <constraint firstItem="1Jm-qi-2TO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Rau-0z-QTI"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

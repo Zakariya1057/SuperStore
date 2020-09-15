@@ -52,7 +52,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            favouritesHandler.delete(product_id: products[indexPath.row].id)
+            favouritesHandler.update(product_id: products[indexPath.row].id, favourite: false)
             products.remove(at: indexPath.row)
             favouritesTableView.deleteRows(at: [indexPath], with: .fade)
         }

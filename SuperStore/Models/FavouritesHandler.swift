@@ -19,14 +19,17 @@ struct FavouritesHandler {
     
     let requestHandler = RequestHandler()
     
+    let productPath = K.Request.Grocery.Product
+    
     func request(){
         let url_string = "\(K.Host)/\(K.Request.Grocery.Favourites)"
         requestHandler.getRequest(url: url_string, complete: processResults,error:processError)
     }
     
-    func delete(product_id: Int){
-        let productHandler = ProductDetailsHandler()
-        productHandler.favourite(product_id: product_id,product_data: ["favourite": "false"])
+    func update(product_id: Int, favourite: Bool){
+        let productFavourite = K.Request.Grocery.ProductsFavourite
+        let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(productFavourite)"
+        requestHandler.postRequest(url: url_string, data: ["favourite": String(favourite)], complete: { _ in }, error: processError)
     }
     
     func processResults(_ data:Data){

@@ -26,12 +26,6 @@ struct ProductDetailsHandler {
         requestHandler.getRequest(url: url_string, complete: processResults,error:processError)
     }
     
-    func favourite(product_id: Int,product_data: [String: String]){
-        let productFavourite = K.Request.Grocery.ProductsFavourite
-        let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(productFavourite)"
-        requestHandler.postRequest(url: url_string, data: product_data, complete: { _ in }, error: processError)
-    }
-    
     func processResults(_ data:Data){
         
         do {
@@ -54,7 +48,7 @@ struct ProductDetailsHandler {
             var reviews: [ReviewModel] = []
             
             for review in product_details.reviews ?? [] {
-                reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name) )
+                reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name!) )
             }
             
             var promotion:PromotionModel? = nil

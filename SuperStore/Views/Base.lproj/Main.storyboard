@@ -1908,7 +1908,7 @@
                                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <segue destination="G9a-TG-ILp" kind="show" id="SfR-Kx-IOj"/>
+                                                                                    <segue destination="G9a-TG-ILp" kind="show" identifier="productToCreateReview" id="SfR-Kx-IOj"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -2362,10 +2362,10 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uo1-Ac-eSy">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="540"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="600"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GQo-pw-6cx">
-                                                <rect key="frame" x="15" y="0.0" width="384" height="540"/>
+                                                <rect key="frame" x="15" y="0.0" width="384" height="600"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Digestives" translatesAutoresizingMaskIntoConstraints="NO" id="2K7-zW-BFz">
                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="100"/>
@@ -2397,12 +2397,12 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="4JA-cy-YSC">
-                                                        <rect key="frame" x="0.0" y="160" width="384" height="270"/>
+                                                        <rect key="frame" x="0.0" y="160" width="384" height="330"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz2-WX-h3t">
                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="64.666666666666686" y="7.6666666666666572" width="255" height="35"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -2436,36 +2436,46 @@
                                                                     <constraint firstItem="XU3-Nd-wUM" firstAttribute="centerX" secondItem="fz2-WX-h3t" secondAttribute="centerX" id="s4X-4z-O9b"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yh6-gq-l2H">
-                                                                <rect key="frame" x="0.0" y="70" width="384" height="200"/>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Review Title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zM5-eG-kIY">
+                                                                <rect key="frame" x="0.0" y="70" width="384" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="d3M-tH-eJe"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="next"/>
+                                                            </textField>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ckP-2H-uzb">
+                                                                <rect key="frame" x="0.0" y="130" width="384" height="200"/>
                                                                 <subviews>
-                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" canCancelContentTouches="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2np-PG-KJi">
+                                                                    <textView clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" canCancelContentTouches="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZPm-ZU-PdL">
                                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="200"/>
                                                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <color key="tintColor" name="LogoBlue"/>
                                                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="done"/>
                                                                     </textView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                 <constraints>
-                                                                    <constraint firstItem="2np-PG-KJi" firstAttribute="leading" secondItem="Yh6-gq-l2H" secondAttribute="leading" id="Hz5-3m-mnh"/>
-                                                                    <constraint firstItem="2np-PG-KJi" firstAttribute="top" secondItem="Yh6-gq-l2H" secondAttribute="top" id="Osl-A8-fon"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="2np-PG-KJi" secondAttribute="bottom" id="POg-OJ-pIv"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="2np-PG-KJi" secondAttribute="trailing" id="WyX-3K-UvQ"/>
-                                                                    <constraint firstAttribute="height" constant="200" id="YTj-AH-MMB"/>
-                                                                    <constraint firstItem="2np-PG-KJi" firstAttribute="top" secondItem="Yh6-gq-l2H" secondAttribute="top" id="crG-1K-MPb"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="ZPm-ZU-PdL" secondAttribute="trailing" id="HLD-B0-frJ"/>
+                                                                    <constraint firstItem="ZPm-ZU-PdL" firstAttribute="top" secondItem="ckP-2H-uzb" secondAttribute="top" id="HYm-Ao-06M"/>
+                                                                    <constraint firstItem="ZPm-ZU-PdL" firstAttribute="top" secondItem="ckP-2H-uzb" secondAttribute="top" id="Mjr-8Z-CH3"/>
+                                                                    <constraint firstAttribute="height" constant="200" id="aII-rU-Wdx"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="ZPm-ZU-PdL" secondAttribute="bottom" id="eup-aM-L8Z"/>
+                                                                    <constraint firstItem="ZPm-ZU-PdL" firstAttribute="leading" secondItem="ckP-2H-uzb" secondAttribute="leading" id="hE8-Tr-mq7"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
                                                         <constraints>
+                                                            <constraint firstItem="zM5-eG-kIY" firstAttribute="leading" secondItem="4JA-cy-YSC" secondAttribute="leading" id="SZh-Xt-1Fa"/>
                                                             <constraint firstItem="fz2-WX-h3t" firstAttribute="top" secondItem="4JA-cy-YSC" secondAttribute="top" id="b7e-UD-BNu"/>
                                                             <constraint firstItem="fz2-WX-h3t" firstAttribute="centerX" secondItem="4JA-cy-YSC" secondAttribute="centerX" id="lin-Sz-63q"/>
+                                                            <constraint firstAttribute="trailing" secondItem="zM5-eG-kIY" secondAttribute="trailing" id="w1W-PW-B0d"/>
                                                         </constraints>
                                                     </stackView>
                                                     <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Th4-4d-ENY">
-                                                        <rect key="frame" x="0.0" y="440" width="384" height="100"/>
+                                                        <rect key="frame" x="0.0" y="500" width="384" height="100"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBp-dj-zcb">
                                                                 <rect key="frame" x="0.0" y="30" width="384" height="40"/>
@@ -2477,6 +2487,9 @@
                                                                 <state key="normal" title="Review">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="reviewPressed:" destination="G9a-TG-ILp" eventType="touchUpInside" id="V05-ai-vQe"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -2530,7 +2543,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Review" id="4to-6k-YVa"/>
                     <connections>
-                        <outlet property="textView" destination="2np-PG-KJi" id="b5N-UE-8Vx"/>
+                        <outlet property="imageView" destination="2K7-zW-BFz" id="WGV-qe-pQb"/>
+                        <outlet property="nameLabel" destination="ca3-1a-eB7" id="6hw-yY-qex"/>
+                        <outlet property="ratingView" destination="XU3-Nd-wUM" id="6Hi-A5-rvi"/>
+                        <outlet property="reviewTextView" destination="ZPm-ZU-PdL" id="VRC-Vc-CtY"/>
+                        <outlet property="reviewTitleView" destination="zM5-eG-kIY" id="xja-Zs-0cd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IUV-wQ-093" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

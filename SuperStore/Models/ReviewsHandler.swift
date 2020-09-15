@@ -19,12 +19,24 @@ struct ReviewsHandler {
     
     let requestHandler = RequestHandler()
     
-    func request(product_id: Int){
-        let host_url = K.Host
-        let product_path = K.Request.Grocery.Product
-        let reviews_path = K.Request.Grocery.Reviews
-        let url_string = "\(host_url)/\(product_path)/\(product_id)/\(reviews_path)"
+    let productPath = K.Request.Grocery.Product
+    let reviewsPath = K.Request.Grocery.Reviews
+    let reviewPath = K.Request.Grocery.ReviewShow
+    
+    func index(product_id: Int){
+        let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewsPath)"
         requestHandler.getRequest(url: url_string, complete: processResults,error:processError)
+    }
+    
+    func show(product_id: Int){
+        let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewPath)"
+        requestHandler.getRequest(url: url_string, complete: processResults,error:processError)
+    }
+    
+    func create(product_id: Int, review_data: [String: String]){
+        print("Creating/Saving Review")
+        let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewPath)"
+        requestHandler.postRequest(url: url_string, data: review_data, complete: { _ in }, error: processError)
     }
     
     func processResults(_ data:Data){
@@ -40,7 +52,7 @@ struct ReviewsHandler {
             var reviews:[ReviewModel] = []
             
             for review in reviews_list {
-                reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name))
+                reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name ?? ""))
             }
             
             DispatchQueue.main.async {
