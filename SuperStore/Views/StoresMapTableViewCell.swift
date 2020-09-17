@@ -20,13 +20,18 @@ class StoresMapElement: CustomElementModel {
     }
 }
 
-class StoresMapTableViewCell: UITableViewCell,CustomElementCell {
+class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegate {
 
     var model: StoresMapElement!
     
-    @IBOutlet private var mapView: MKMapView!
+//    @IBOutlet private var mapView: MKMapView!
     
     @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var mapViewContainer: UIView!
+    
+    @IBOutlet weak var mapView: MKMapView!
+    let locationManager = CLLocationManager()
     
     func configure(withModel elementModel: CustomElementModel) {
         guard let model = elementModel as? StoresMapElement else {
@@ -40,24 +45,60 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell {
     }
     
     func configureUI() {
-//        titleLabel.text = self.model.title
+        // Initiallising Map. Required. Or MapView()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        // Check for Location Services
+        checkLocationServices()
+
+        //Zoom to user location
+        if let userLocation = locationManager.location?.coordinate {
+            let viewRegion = MKCoordinateRegion(center: userLocation, latitudinalMeters: 20000, longitudinalMeters: 20000)
+            mapView.setRegion(viewRegion, animated: false)
+        }
+
+        DispatchQueue.main.async {
+            self.locationManager.startUpdatingLocation()
+        }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
-//        let location = CLLocation(latitude: 52.479948, longitude: -1.894813)
-//        mapView.centerToLocation(location)
-        
-//        let region = MKCoordinateRegion( center: location.coordinate, latitudinalMeters: CLLocationDistance(exactly: 10000)!, longitudinalMeters: CLLocationDistance(exactly: 10000)!)
-//        mapView.setRegion(mapView.regionThatFits(region), animated: true)
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
+    }
+    
+    func checkLocationServices() {
+      if CLLocationManager.locationServicesEnabled() {
+        checkLocationAuthorization()
+      } else {
+        // Show alert letting the user know they have to turn this on.
+      }
+    }
+    
+    func checkLocationAuthorization() {
+        
+        if mapView != nil {
+          switch CLLocationManager.authorizationStatus() {
+              case .authorizedWhenInUse:
+                mapView!.showsUserLocation = true
+               case .denied: // Show alert telling users how to turn on permissions
+               break
+              case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+                mapView!.showsUserLocation = true
+              case .restricted: // Show an alert letting them know what’s up
+               break
+              case .authorizedAlways:
+               break
+            }
+            
+        }
+
     }
     
 }

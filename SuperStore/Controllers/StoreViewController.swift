@@ -100,7 +100,9 @@ class StoreViewController: UIViewController, StoreDelegate {
     }
     
     func configureOpeningHours(opening_hours: [OpeningHoursModel]){
-        let day_of_week = 7 - Calendar.current.component(.weekday, from: Date())
+//        let day_of_week = 7 - Calendar.current.component(.weekday, from: Date())
+        
+        let day_of_week = Calendar.current.component(.weekday, from: Date()) - 2
         
         print("Day Of Week: \(day_of_week)")
         

@@ -238,7 +238,7 @@ extension ListViewController: NewProductDelegate{
             listTableView.deleteRows(at: [indexPath], with: .fade)
         }
         
-//        listTableView.reloadData()
+        listTableView.reloadData()
         
         listHandler.delete(list_id: list_id, list_data: ["product_id": String(product.product_id)])
         

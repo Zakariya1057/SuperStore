@@ -36,10 +36,10 @@ struct K {
         
         struct Lists {
             static let List = "list"
-            static let ListCreate  = "list/create"
-            static let ListDelete  = "list/delete"
-            static let ListUpdate  = "list/update"
-            static let ListRestart = "list/restart"
+            static let ListCreate  = "create"
+            static let ListDelete  = "delete"
+            static let ListUpdate  = "update"
+            static let ListRestart = "restart"
             
             static let ItemUpdate = "item/update"
             static let ItemDelete = "item/delete"

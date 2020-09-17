@@ -32,7 +32,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="192" height="40"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fruits" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RrF-R5-1rh">
-                                            <rect key="frame" x="0.0" y="9" width="44.333333333333336" height="22"/>
+                                            <rect key="frame" x="0.0" y="10.666666666666666" width="40" height="18.666666666666671"/>
                                             <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="16"/>
                                             <color key="textColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <nil key="highlightedColor"/>
@@ -47,7 +47,7 @@
                                     <rect key="frame" x="192" y="0.0" width="192" height="40"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aisle A" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBw-d0-NIV">
-                                            <rect key="frame" x="142.66666666666669" y="0.0" width="49.333333333333343" height="40"/>
+                                            <rect key="frame" x="143" y="0.0" width="49" height="40"/>
                                             <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <nil key="highlightedColor"/>

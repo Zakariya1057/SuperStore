@@ -41,14 +41,14 @@
                                     <constraint firstItem="UDV-jw-Wsx" firstAttribute="centerY" secondItem="9L0-bv-gWT" secondAttribute="centerY" id="xIE-Pk-PGo"/>
                                 </constraints>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7cD-2a-XgX">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LxP-Ag-SOG">
                                 <rect key="frame" x="0.0" y="45" width="320" height="256"/>
                             </mapView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="7cD-2a-XgX" secondAttribute="bottom" id="2BA-6s-jqu"/>
-                            <constraint firstItem="7cD-2a-XgX" firstAttribute="leading" secondItem="d37-ie-V9h" secondAttribute="leading" id="Nre-M6-yrs"/>
-                            <constraint firstAttribute="trailing" secondItem="7cD-2a-XgX" secondAttribute="trailing" id="OOU-KP-pCK"/>
+                            <constraint firstAttribute="bottom" secondItem="LxP-Ag-SOG" secondAttribute="bottom" id="3Cm-ha-iAu"/>
+                            <constraint firstItem="LxP-Ag-SOG" firstAttribute="leading" secondItem="d37-ie-V9h" secondAttribute="leading" id="3Wc-rg-qeO"/>
+                            <constraint firstAttribute="trailing" secondItem="LxP-Ag-SOG" secondAttribute="trailing" id="gin-no-gUj"/>
                         </constraints>
                     </stackView>
                 </subviews>
@@ -61,7 +61,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="mapView" destination="7cD-2a-XgX" id="F1s-mN-nPD"/>
+                <outlet property="mapView" destination="LxP-Ag-SOG" id="EX2-kX-7J1"/>
+                <outlet property="titleLabel" destination="UDV-jw-Wsx" id="f9b-id-VXD"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="157.70089285714286"/>
         </tableViewCell>

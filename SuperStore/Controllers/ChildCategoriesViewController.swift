@@ -47,7 +47,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         groceryHandler.delegate = self
         groceryHandler.request(parent_category_id: parent_category_id!)
         
-        if(delegate == nil){
+        if(list_delegate == nil){
             self.navigationItem.rightBarButtonItem = nil
         }
         
