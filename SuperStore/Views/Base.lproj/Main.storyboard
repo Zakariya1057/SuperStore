@@ -2182,7 +2182,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="135"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="height" constant="135" id="FJN-QU-o2i"/>
+                                                                            <constraint firstAttribute="height" constant="123" id="FJN-QU-o2i"/>
                                                                         </constraints>
                                                                     </tableView>
                                                                 </subviews>
