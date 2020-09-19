@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class StoreViewController: UIViewController, StoreDelegate {
     
@@ -14,6 +15,7 @@ class StoreViewController: UIViewController, StoreDelegate {
     @IBOutlet weak var storeNameLabel: UILabel!
     @IBOutlet weak var storeNameView: UIView!
     @IBOutlet weak var storeAddressLabel: UILabel!
+    @IBOutlet weak var groceryButton: UIButton!
     
     // Opening Hours Labels START
     @IBOutlet weak var mondayLabel: UILabel!
@@ -24,7 +26,7 @@ class StoreViewController: UIViewController, StoreDelegate {
     @IBOutlet weak var saturdayLabel: UILabel!
     @IBOutlet weak var sundayLabel: UILabel!
     
-    @IBOutlet weak var babyChangingView: UIStackView!
+    
     @IBOutlet weak var mondayTextLabel: UILabel!
     @IBOutlet weak var tuesdayTextLabel: UILabel!
     @IBOutlet weak var wednesdayTextLabel: UILabel!
@@ -42,17 +44,29 @@ class StoreViewController: UIViewController, StoreDelegate {
     @IBOutlet weak var disabledView: UIStackView!
     @IBOutlet weak var chargingView: UIStackView!
     @IBOutlet weak var paypointView: UIStackView!
+    @IBOutlet weak var atmView: UIStackView!
+    @IBOutlet weak var babyChangingView: UIStackView!
     // Facilities Labels END
 
     
-    @IBOutlet weak var atmView: UIStackView!
-    
-    var hours_labels:[UILabel] {
+    var hoursLabels:[UILabel] {
         return [mondayLabel,tuedayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel,sundayLabel]
     }
     
-    var day_labels:[UILabel] {
+    var dayLabels:[UILabel] {
         return [mondayTextLabel,tuesdayTextLabel,wednesdayTextLabel, thurdayTextLabel, fridayTextLabel, saturdayTextLabel, sundatTextLabel]
+    }
+    
+    var facilityLabel: [UIView] {
+        return [carView,customerWCView,heliumBalloonsView,disabledView,chargingView,paypointView,atmView,babyChangingView]
+    }
+    
+    var loadingViews: [UIView] {
+        var views:[UIView] = [storeLogoView, storeAddressLabel,storeNameLabel,groceryButton]
+        views.append(contentsOf: dayLabels.compactMap { $0 } )
+        views.append(contentsOf: hoursLabels.compactMap { $0 } )
+        views.append(contentsOf: facilityLabel.compactMap { $0 } )
+        return views
     }
     
     var removed:Bool = false
@@ -60,17 +74,31 @@ class StoreViewController: UIViewController, StoreDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         storeHandler.delegate = self
         print("Requesting Store Details")
         
+        startLoading()
         storeHandler.request(store_id: 1)
-        // Do any additional setup after loading the view.
         
     }
     
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
+    }
+    
     func contentLoaded(store: StoreModel) {
-
+        
+        stopLoading()
         
         let opening_hours = store.opening_hours
         let facilities = store.facilities
@@ -88,14 +116,6 @@ class StoreViewController: UIViewController, StoreDelegate {
         let logo = store.logo
         
         storeLogoView.downloaded(from: logo)
-        
-//        if name.count > 24 {
-//            storeNameView.addConstraint(NSLayoutConstraint(item: storeNameView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50))
-//
-//        } else {
-//                        storeNameView.addConstraint(NSLayoutConstraint(item: storeNameView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 25))
-//        }
-        
         storeNameLabel.text = name
     }
     
@@ -104,18 +124,18 @@ class StoreViewController: UIViewController, StoreDelegate {
         
         let day_of_week = Calendar.current.component(.weekday, from: Date()) - 2
         
-        print("Day Of Week: \(day_of_week)")
+//        print("Day Of Week: \(day_of_week)")
         
-        for (index, hour_label) in hours_labels.enumerated() {
+        for (index, hourLabel) in hoursLabels.enumerated() {
             let day = opening_hours[index]
-            let day_name = day_labels[index]
+            let day_name = dayLabels[index]
             
             if day.day_of_week == day_of_week {
-                hour_label.textColor = .systemBlue
+                hourLabel.textColor = .systemBlue
                 day_name.textColor = .systemBlue
             }
             
-            hour_label.text = "\(day.opens_at) - \(day.closes_at)".lowercased()
+            hourLabel.text = "\(day.opens_at) - \(day.closes_at)".lowercased()
         }
         
     }
@@ -148,5 +168,17 @@ class StoreViewController: UIViewController, StoreDelegate {
         let address_items = [location.address_line1, location.address_line2, location.address_line3, location.city ]
         storeAddressLabel.text = address_items.compactMap { $0 }.joined(separator: ", ")
     }
+    
+//    func toggleAnimation() {
+//        if !skeletonAnimating {
+//            print("Start Animating")
+//            view.startSkeletonAnimation()
+//        } else {
+//            print("Stop Animating")
+//            view.stopSkeletonAnimation()
+//        }
+//
+//        skeletonAnimating = !skeletonAnimating
+//    }
 
 }

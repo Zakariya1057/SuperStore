@@ -6,6 +6,7 @@ PODS:
     - Kingfisher/Core (= 5.14.0)
   - Kingfisher/Core (5.14.0)
   - Pageboy (3.6.1)
+  - SkeletonView (1.9)
   - Tabman (2.9.1):
     - Pageboy (~> 3.6.0)
 
@@ -14,6 +15,7 @@ DEPENDENCIES:
   - Cosmos (~> 22.1)
   - IQKeyboardManagerSwift
   - Kingfisher (~> 5.0)
+  - SkeletonView
   - Tabman (~> 2.9)
 
 SPEC REPOS:
@@ -23,6 +25,7 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - Kingfisher
     - Pageboy
+    - SkeletonView
     - Tabman
 
 SPEC CHECKSUMS:
@@ -31,8 +34,9 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   Kingfisher: 7b64389a43139c903ec434788344c288217c792d
   Pageboy: 29a2d474ad99404b4d77f325e0ab6d705930a4fb
+  SkeletonView: f72ac4df69730e48324efae062ba580c2fce974d
   Tabman: 085d89c65be9e883629bdaf5b1453a6397e57846
 
-PODFILE CHECKSUM: 01ebd5550bdb5478fe21571b8a38056af9a04cb2
+PODFILE CHECKSUM: 6317aade657c530d33da2c1e2eb97bf341b5d8c3
 
 COCOAPODS: 1.9.1
