@@ -73,7 +73,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.listTableView.dataSource = self
         
         showTotalPrice()
-        addCategoryButton.layer.cornerRadius = 25
+//        addCategoryButton.layer.cornerRadius = 25
         
         listHandler.delegate = self
         listHandler.request(list_id:list_id)
@@ -143,13 +143,17 @@ extension ListViewController {
         let section_item = list!.categories[section]
         let title = section_item.name
         let subtitle = section_item.aisle_name ?? ""
-        
+
         let header = listTableView.dequeueReusableHeaderFooterView(withIdentifier:  K.Sections.ListHeader.SectionIdentifier) as! ListSectionHeader
-        
+
         header.headingLabel.text = title
         header.subHeadingLabel.text = subtitle
-        
+
         return header
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -157,7 +161,7 @@ extension ListViewController {
         
         let count = product.name.count
         
-        if count > 38 {
+        if count > 36 {
             return 105
         } else {
             return 85
@@ -238,11 +242,19 @@ extension ListViewController: NewProductDelegate{
             listTableView.deleteRows(at: [indexPath], with: .fade)
         }
         
-        listTableView.reloadData()
+//        listTableView.reloadData()
+//        reload()
         
         listHandler.delete(list_id: list_id, list_data: ["product_id": String(product.product_id)])
         
         showTotalPrice()
+    }
+    
+    func reload(){
+        UIView.setAnimationsEnabled(false)
+        self.listTableView.beginUpdates()
+        self.listTableView.reloadSections(NSIndexSet(index: 1) as IndexSet, with: UITableView.RowAnimation.none)
+        self.listTableView.endUpdates()
     }
     
     func productQuantityChanged(product: ProductModel, parent_category_id: Int){

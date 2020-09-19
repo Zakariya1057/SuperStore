@@ -30,6 +30,10 @@ class GroceryTableViewCell: UITableViewCell {
     var showStoreName: Bool = true
     var show_quantity:Bool = false
     
+    var quantity_delegate: QuanityChangedDelegate?
+    
+    var index: Int?
+    
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productNameLabel: UILabel!
@@ -83,8 +87,11 @@ class GroceryTableViewCell: UITableViewCell {
                 delegate?.remove_from_list(product!)
                 show_add_button_view()
             } else {
-                delegate?.update_quantity(product!)
+                delegate?.update_quantity(product!) 
             }
+            
+            // Used for remembering product quantity. For Scrolling.
+            quantity_delegate?.updateProductQuantity(index: index!, quantity: product!.quantity)
         }
         
     }
@@ -92,6 +99,7 @@ class GroceryTableViewCell: UITableViewCell {
     @IBAction func groceryAddClicked(_ sender: Any) {
         show_quantity_view()
         self.delegate?.add_to_list(self.product!)
+        quantity_delegate?.updateProductQuantity(index: index!, quantity: 1)
     }
     
     

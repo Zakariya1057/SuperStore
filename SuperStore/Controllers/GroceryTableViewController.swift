@@ -8,8 +8,12 @@
 
 import UIKit
 
-class GroceryTableViewController: UITableViewController {
-    
+protocol QuanityChangedDelegate {
+    func updateProductQuantity(index: Int, quantity: Int)
+}
+
+class GroceryTableViewController: UITableViewController, QuanityChangedDelegate {
+
     var products: [ProductModel]?
     
     var delegate:GroceryDelegate?
@@ -26,7 +30,9 @@ class GroceryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
         cell.delegate = self.delegate
+        cell.quantity_delegate = self
         cell.product = products![indexPath.row]
+        cell.index = indexPath.row
         cell.configureUI()
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
@@ -37,6 +43,13 @@ class GroceryTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130.0;//Choose your custom row height
+        return 130.0;
     }
+    
+    func updateProductQuantity(index: Int, quantity: Int) {
+        print("Updating Product Quantity: \(quantity)")
+        print(products![index])
+        products![index].quantity = quantity
+    }
+    
 }

@@ -171,7 +171,7 @@ extension UIImageView {
 
 extension NSMutableAttributedString {
     var fontSize:CGFloat { return 16 }
-    var boldFontSize: CGFloat { return 17 }
+    var boldFontSize: CGFloat { return 18 }
     
     var boldFont:UIFont { return UIFont(name: "OpenSans-SemiBold", size: boldFontSize) ?? UIFont.boldSystemFont(ofSize: boldFontSize) }
     var normalFont:UIFont { return UIFont(name: "OpenSans-Regular", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)}

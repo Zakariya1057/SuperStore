@@ -17,109 +17,120 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReusableListItemTableViewCell" rowHeight="106" id="KGk-i7-Jjw" customClass="ListItemTableViewCell" customModule="SuperStore" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="419" height="106"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReusableListItemTableViewCell" rowHeight="92" id="KGk-i7-Jjw" customClass="ListItemTableViewCell" customModule="SuperStore" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="366" height="92"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="419" height="106"/>
+                <rect key="frame" x="0.0" y="0.0" width="366" height="92"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="653-K0-bnO">
-                        <rect key="frame" x="10" y="5" width="399" height="96"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TL-ag-N98">
+                        <rect key="frame" x="15" y="15" width="336" height="62"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nUU-Gc-Ph4">
-                                <rect key="frame" x="0.0" y="0.0" width="399" height="96"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="653-K0-bnO">
+                                <rect key="frame" x="0.0" y="0.0" width="336" height="62"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlS-tb-1uY">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="96"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nUU-Gc-Ph4">
+                                        <rect key="frame" x="0.0" y="0.0" width="336" height="62"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7uK-37-IZs">
-                                                <rect key="frame" x="0.0" y="0.0" width="35" height="96"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <state key="normal" image="square" catalog="system">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25" scale="large"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="checkBoxPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nfZ-wK-ayh"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstItem="7uK-37-IZs" firstAttribute="leading" secondItem="nlS-tb-1uY" secondAttribute="leading" id="3Qc-Sb-QnA"/>
-                                            <constraint firstAttribute="width" constant="40" id="nR5-7b-3vx"/>
-                                            <constraint firstAttribute="bottom" secondItem="7uK-37-IZs" secondAttribute="bottom" id="pke-QL-T3j"/>
-                                            <constraint firstItem="7uK-37-IZs" firstAttribute="top" secondItem="nlS-tb-1uY" secondAttribute="top" id="zYv-GX-e4b"/>
-                                        </constraints>
-                                    </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="95t-dK-bkj">
-                                        <rect key="frame" x="50" y="0.0" width="349" height="96"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lWb-DG-PD6">
-                                                <rect key="frame" x="0.0" y="0.0" width="349" height="51"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlS-tb-1uY">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="62"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 x Ben &amp; Jerry's Non-Dairy &amp; Vegan Chocolate Fudge Brownie Ice Cream" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBc-lb-vig">
-                                                        <rect key="frame" x="0.0" y="15" width="349" height="44"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7uK-37-IZs">
+                                                        <rect key="frame" x="0.0" y="0.0" width="35" height="62"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <state key="normal" image="square" catalog="system">
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25" scale="large"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="checkBoxPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nfZ-wK-ayh"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="FBc-lb-vig" secondAttribute="trailing" id="BpM-JT-VLm"/>
-                                                    <constraint firstItem="FBc-lb-vig" firstAttribute="leading" secondItem="lWb-DG-PD6" secondAttribute="leading" id="Nxv-jn-aIi"/>
-                                                    <constraint firstItem="FBc-lb-vig" firstAttribute="top" secondItem="lWb-DG-PD6" secondAttribute="top" constant="15" id="dfZ-RF-YQ0"/>
+                                                    <constraint firstItem="7uK-37-IZs" firstAttribute="leading" secondItem="nlS-tb-1uY" secondAttribute="leading" id="3Qc-Sb-QnA"/>
+                                                    <constraint firstAttribute="width" constant="40" id="nR5-7b-3vx"/>
+                                                    <constraint firstAttribute="bottom" secondItem="7uK-37-IZs" secondAttribute="bottom" id="pke-QL-T3j"/>
+                                                    <constraint firstItem="7uK-37-IZs" firstAttribute="top" secondItem="nlS-tb-1uY" secondAttribute="top" id="zYv-GX-e4b"/>
                                                 </constraints>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="cyB-Xt-3OM">
-                                                <rect key="frame" x="0.0" y="61" width="349" height="35"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="95t-dK-bkj">
+                                                <rect key="frame" x="50" y="0.0" width="286" height="62"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fFn-y6-8cp">
-                                                        <rect key="frame" x="0.0" y="0.0" width="349" height="35"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lWb-DG-PD6">
+                                                        <rect key="frame" x="0.0" y="0.0" width="286" height="17"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£30.00" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHo-wP-Mpz">
-                                                                <rect key="frame" x="0.0" y="-2.5" width="349" height="40"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="Ir0-qJ-hh7"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="16"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 x Ben &amp; Jerry's Non-Dairy &amp; Vegan Chocolate Fudge Brownie Ice Cream" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBc-lb-vig">
+                                                                <rect key="frame" x="0.0" y="0.0" width="286" height="37.5"/>
+                                                                <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
-                                                            <constraint firstItem="YHo-wP-Mpz" firstAttribute="centerY" secondItem="fFn-y6-8cp" secondAttribute="centerY" id="IAr-t1-zzt"/>
-                                                            <constraint firstAttribute="trailing" secondItem="YHo-wP-Mpz" secondAttribute="trailing" id="VTC-b9-ISE"/>
-                                                            <constraint firstItem="YHo-wP-Mpz" firstAttribute="leading" secondItem="fFn-y6-8cp" secondAttribute="leading" id="Ybt-fj-mvc"/>
+                                                            <constraint firstAttribute="trailing" secondItem="FBc-lb-vig" secondAttribute="trailing" id="BpM-JT-VLm"/>
+                                                            <constraint firstItem="FBc-lb-vig" firstAttribute="leading" secondItem="lWb-DG-PD6" secondAttribute="leading" id="Nxv-jn-aIi"/>
+                                                            <constraint firstItem="FBc-lb-vig" firstAttribute="top" secondItem="lWb-DG-PD6" secondAttribute="top" id="dfZ-RF-YQ0"/>
                                                         </constraints>
                                                     </view>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="cyB-Xt-3OM">
+                                                        <rect key="frame" x="0.0" y="27" width="286" height="35"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fFn-y6-8cp">
+                                                                <rect key="frame" x="0.0" y="0.0" width="286" height="35"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£30.00" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHo-wP-Mpz">
+                                                                        <rect key="frame" x="0.0" y="15" width="286" height="20"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="20" id="Ir0-qJ-hh7"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="16"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="bottom" secondItem="YHo-wP-Mpz" secondAttribute="bottom" id="5WD-Ag-NKK"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="YHo-wP-Mpz" secondAttribute="trailing" id="VTC-b9-ISE"/>
+                                                                    <constraint firstItem="YHo-wP-Mpz" firstAttribute="leading" secondItem="fFn-y6-8cp" secondAttribute="leading" id="Ybt-fj-mvc"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="35" id="RQ5-Ho-SrW"/>
+                                                        </constraints>
+                                                    </stackView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="RQ5-Ho-SrW"/>
+                                                    <constraint firstItem="cyB-Xt-3OM" firstAttribute="leading" secondItem="95t-dK-bkj" secondAttribute="leading" id="Apt-ps-g76"/>
+                                                    <constraint firstAttribute="trailing" secondItem="cyB-Xt-3OM" secondAttribute="trailing" id="ph2-Ll-iah"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="cyB-Xt-3OM" firstAttribute="leading" secondItem="95t-dK-bkj" secondAttribute="leading" id="Apt-ps-g76"/>
-                                            <constraint firstAttribute="trailing" secondItem="cyB-Xt-3OM" secondAttribute="trailing" id="ph2-Ll-iah"/>
+                                            <constraint firstItem="95t-dK-bkj" firstAttribute="centerY" secondItem="nUU-Gc-Ph4" secondAttribute="centerY" id="VZa-AC-6Mu"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="95t-dK-bkj" firstAttribute="centerY" secondItem="nUU-Gc-Ph4" secondAttribute="centerY" id="VZa-AC-6Mu"/>
-                                </constraints>
                             </stackView>
                         </subviews>
-                    </stackView>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="653-K0-bnO" secondAttribute="trailing" id="1YZ-GZ-tiY"/>
+                            <constraint firstItem="653-K0-bnO" firstAttribute="top" secondItem="0TL-ag-N98" secondAttribute="top" id="beU-JW-2OL"/>
+                            <constraint firstItem="653-K0-bnO" firstAttribute="leading" secondItem="0TL-ag-N98" secondAttribute="leading" id="brI-VL-LIB"/>
+                            <constraint firstAttribute="bottom" secondItem="653-K0-bnO" secondAttribute="bottom" priority="999" id="t43-nM-GvH"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="653-K0-bnO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="6cu-5p-O6Q"/>
-                    <constraint firstItem="653-K0-bnO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="fa3-Ga-7us"/>
-                    <constraint firstAttribute="bottom" secondItem="653-K0-bnO" secondAttribute="bottom" constant="5" id="jdi-Yh-zjP"/>
-                    <constraint firstAttribute="trailing" secondItem="653-K0-bnO" secondAttribute="trailing" constant="10" id="ysT-mY-2kc"/>
+                    <constraint firstAttribute="trailing" secondItem="0TL-ag-N98" secondAttribute="trailing" constant="15" id="5Zg-9B-9wm"/>
+                    <constraint firstItem="0TL-ag-N98" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="7ff-Eg-kcc"/>
+                    <constraint firstAttribute="bottom" secondItem="0TL-ag-N98" secondAttribute="bottom" priority="999" constant="15" id="Onx-li-TZf"/>
+                    <constraint firstItem="0TL-ag-N98" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" priority="999" constant="15" id="j5O-cS-R9X"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -128,7 +139,7 @@
                 <outlet property="tickBoxButton" destination="7uK-37-IZs" id="E8I-om-aZX"/>
                 <outlet property="totalLabel" destination="YHo-wP-Mpz" id="cKq-tB-BLX"/>
             </connections>
-            <point key="canvasLocation" x="207.97101449275365" y="133.92857142857142"/>
+            <point key="canvasLocation" x="133.33333333333334" y="220.98214285714286"/>
         </tableViewCell>
     </objects>
     <resources>
