@@ -9,8 +9,10 @@
 import UIKit
 
 enum SearchType: String {
-    case product
     case store
+    case product
+    case childCategory
+    case parentCategory
 }
 
 class SearchTableViewCell: UITableViewCell {
@@ -31,11 +33,11 @@ class SearchTableViewCell: UITableViewCell {
         let searchType: SearchType = search!.type
         let searchName: String     = search!.name
         
-        if searchType == .product {
-            contentImage.image = UIImage(named: "Chicken")
-        } else {
-            contentImage.image = UIImage(named: "LidlLogo")
-        }
+//        if searchType == .product {
+//            contentImage.image = UIImage(named: "Chicken")
+//        } else {
+//            contentImage.image = UIImage(named: "LidlLogo")
+//        }
         
         nameLabel.text = searchName
     }

@@ -9,11 +9,12 @@
 import Foundation
 
 struct StoreData: Decodable {
+    var id: Int
     let name: String
-    let opening_hours: [OpeningHoursData]
     var small_logo: String
+    let opening_hours: [OpeningHoursData]?
     var location: LocationData
-    var facilities: [FacilityData]
+    var facilities: [FacilityData]?
 }
 
 struct OpeningHoursData: Decodable {

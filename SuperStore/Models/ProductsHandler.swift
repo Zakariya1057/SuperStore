@@ -37,9 +37,9 @@ struct ProductsHandler {
             
             let decoder = JSONDecoder()
             let decodedStoreData = try decoder.decode(StoreData.self, from: data)
-            let storeHours = decodedStoreData.opening_hours
+            let storeHours = decodedStoreData.opening_hours!
             let storeLocation = decodedStoreData.location
-            let storeFacilities = decodedStoreData.facilities
+            let storeFacilities = decodedStoreData.facilities!
             
             var opening_hours: [OpeningHoursModel] = []
             var facilities: [String] = []
@@ -54,7 +54,7 @@ struct ProductsHandler {
                 facilities.append(facility.name.lowercased())
             }
             
-            let store = StoreModel(name: decodedStoreData.name, logo: decodedStoreData.small_logo, opening_hours: opening_hours, location: location, facilities: facilities)
+            let store = StoreModel(id: decodedStoreData.id, name: decodedStoreData.name, logo: decodedStoreData.small_logo, opening_hours: opening_hours, location: location, facilities: facilities)
 
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(store: store)

@@ -20,10 +20,10 @@ struct ReviewsHandler {
     let requestHandler = RequestHandler()
     
     let productPath = K.Request.Grocery.Product
-    let reviewsPath = K.Request.Grocery.Reviews
-    let reviewPath = K.Request.Grocery.ReviewShow
-    let reviewCreatePath = K.Request.Grocery.ReviewCreate
-    let reviewDeletePath = K.Request.Grocery.ReviewDelete
+    let reviewsPath = K.Request.Reviews.Reviews
+    let reviewPath = K.Request.Reviews.ReviewShow
+    let reviewCreatePath = K.Request.Reviews.ReviewCreate
+    let reviewDeletePath = K.Request.Reviews.ReviewDelete
     
     func index(product_id: Int){
         let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewsPath)"

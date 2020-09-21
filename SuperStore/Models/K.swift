@@ -25,13 +25,20 @@ struct K {
             static let Favourites = "favourites"
             static let FavouritesDelete = "favourites/delete"
             
+            static let Promotion = "promotion"
+            
+        }
+        
+        struct Search {
+            static let Suggestions = "search/suggestions"
+            static let Results = "search/results"
+        }
+        
+        struct Reviews {
             static let Reviews = "reviews"
             static let ReviewShow = "review"
             static let ReviewCreate = "review/create"
             static let ReviewDelete = "review/delete"
-            
-            static let Promotion = "promotion"
-            
         }
         
         struct Lists {

@@ -11,7 +11,6 @@
 		2C0E93C8250F975D00378C97 /* FavouritesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E93C7250F975D00378C97 /* FavouritesHandler.swift */; };
 		2C0E93CA250F987700378C97 /* FavouritesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E93C9250F987700378C97 /* FavouritesData.swift */; };
 		2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */; };
-		2C1567BC24C77FD800B8DCB5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567BB24C77FD800B8DCB5 /* SceneDelegate.swift */; };
 		2C1567C124C77FD800B8DCB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C1567BF24C77FD800B8DCB5 /* Main.storyboard */; };
 		2C1567C324C77FDB00B8DCB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C1567C224C77FDB00B8DCB5 /* Assets.xcassets */; };
 		2C1567C624C77FDB00B8DCB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C1567C424C77FDB00B8DCB5 /* LaunchScreen.storyboard */; };
@@ -97,6 +96,8 @@
 		2CC1EA2124FAC46A000A9BC4 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA2024FAC46A000A9BC4 /* ReviewModel.swift */; };
 		2CC1EA2324FAC4B9000A9BC4 /* ReviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA2224FAC4B9000A9BC4 /* ReviewData.swift */; };
 		2CC1EA2524FACADA000A9BC4 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA2424FACADA000A9BC4 /* ProductDetailsModel.swift */; };
+		2CCE48D425177F9F00AE3BCA /* SearchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */; };
+		2CCE48D825177FE700AE3BCA /* SearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE48D725177FE700AE3BCA /* SearchData.swift */; };
 		2CE7AB0224D077C700A31782 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7AB0124D077C700A31782 /* SettingsTableViewController.swift */; };
 		2CF239B525094A7F00D4CE91 /* ListsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B425094A7F00D4CE91 /* ListsHandler.swift */; };
 		2CF239B725094A9000D4CE91 /* ListItemsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */; };
@@ -203,6 +204,8 @@
 		2CC1EA2024FAC46A000A9BC4 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		2CC1EA2224FAC4B9000A9BC4 /* ReviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewData.swift; sourceTree = "<group>"; };
 		2CC1EA2424FACADA000A9BC4 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
+		2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHandler.swift; sourceTree = "<group>"; };
+		2CCE48D725177FE700AE3BCA /* SearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchData.swift; sourceTree = "<group>"; };
 		2CE7AB0124D077C700A31782 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2CF239B425094A7F00D4CE91 /* ListsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsHandler.swift; sourceTree = "<group>"; };
 		2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemsHandler.swift; sourceTree = "<group>"; };
@@ -361,6 +364,8 @@
 				2C21C3A524F6F36B00D90B4B /* StoreHandler.swift */,
 				2C21C3A724F6F4B200D90B4B /* StoreData.swift */,
 				2C266DF824D5DEF300C66EA5 /* StoreModel.swift */,
+				2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */,
+				2CCE48D725177FE700AE3BCA /* SearchData.swift */,
 				2C266E0224D70C3900C66EA5 /* SearchModel.swift */,
 				2C266DFC24D6E73500C66EA5 /* GroceryGroupModel.swift */,
 				2C21C3A324F6F2A300D90B4B /* RequestHandler.swift */,
@@ -429,7 +434,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1170;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Zakariya Mohummed";
 				TargetAttributes = {
 					2C1567B524C77FD800B8DCB5 = {
@@ -567,9 +572,9 @@
 				2CC1EA2524FACADA000A9BC4 /* ProductDetailsModel.swift in Sources */,
 				2C266DFD24D6E73500C66EA5 /* GroceryGroupModel.swift in Sources */,
 				2C1567F024CADB9C00B8DCB5 /* ReviewTableViewCell.swift in Sources */,
-				2C1567BC24C77FD800B8DCB5 /* SceneDelegate.swift in Sources */,
 				2C266DFB24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift in Sources */,
 				2CC1EA2124FAC46A000A9BC4 /* ReviewModel.swift in Sources */,
+				2CCE48D425177F9F00AE3BCA /* SearchHandler.swift in Sources */,
 				2C1567E124C9A0DF00B8DCB5 /* GroceryTableViewController.swift in Sources */,
 				2CF239B725094A9000D4CE91 /* ListItemsHandler.swift in Sources */,
 				2C1567D124C8B33700B8DCB5 /* HomeViewController.swift in Sources */,
@@ -602,6 +607,7 @@
 				2CC1EA1F24FAC0EB000A9BC4 /* ProductData.swift in Sources */,
 				2C9C1B8D24CEEF6F001ACA35 /* StoresMapTableViewCell.swift in Sources */,
 				2C9DD13124FD022800544563 /* ReviewsHandler.swift in Sources */,
+				2CCE48D825177FE700AE3BCA /* SearchData.swift in Sources */,
 				2C21C3AA24F8186200D90B4B /* ProductsHandler.swift in Sources */,
 				2C5B5C6C24D084FD0095C920 /* SearchResultsViewController.swift in Sources */,
 				2C266DF324D5A6EA00C66EA5 /* ListProductModel.swift in Sources */,
@@ -658,6 +664,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -718,6 +725,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

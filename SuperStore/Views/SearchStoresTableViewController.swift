@@ -8,12 +8,18 @@
 
 import UIKit
 
-class SearchStoresTableViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, SearchResultsDelegate {
 
     @IBOutlet weak var mapTableView: UITableView!
     @IBOutlet weak var storesTableView: UITableView!
     
-    var storesList = ["1","2"]
+    var stores: [StoreModel] = []
+    
+    var searchHandler: SearchHandler = SearchHandler()
+    
+    var store_type_id: Int?
+    
+    var selected_store_id: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,13 +33,21 @@ class SearchStoresTableViewController: UIViewController,UITableViewDelegate,UITa
         mapTableView.register(UINib(nibName: K.Cells.StoreMapCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.StoreMapCell.CellIdentifier)
         storesTableView.register(UINib(nibName: K.Cells.StoresResultsCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.StoresResultsCell.CellIdentifier)
         
+        searchHandler.resultsDelegate = self
+        searchHandler.requestResults(searchData: ["type": "stores", "detail": String(store_type_id!)])
         storesTableView.rowHeight = 100;
         mapTableView.rowHeight = 300
     }
 
+    func contentLoaded(stores: [StoreModel], products: [ProductModel]) {
+        print(stores)
+        self.stores = stores
+        storesTableView.reloadData()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == storesTableView {
-            return 10
+            return stores.count
         } else if tableView == mapTableView {
             return 1
         }
@@ -46,13 +60,16 @@ class SearchStoresTableViewController: UIViewController,UITableViewDelegate,UITa
 //    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if tableView == mapTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.StoreMapCell.CellIdentifier) as! StoresMapTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             return cell
-            } else if tableView ==  storesTableView{
+        } else if tableView ==  storesTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.StoresResultsCell.CellIdentifier) as! StoresResultsTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
+            cell.store = stores[indexPath.row]
+            cell.configureUI()
             return cell
         }
 
@@ -60,7 +77,14 @@ class SearchStoresTableViewController: UIViewController,UITableViewDelegate,UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selected_store_id = stores[indexPath.row].id
         self.performSegue(withIdentifier: "storeResultsToStore", sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "storeResultsToStore" {
+            let destinationVC = segue.destination as! StoreViewController
+            destinationVC.store_id = selected_store_id!
+        }
+    }
 }

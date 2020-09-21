@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController,UISearchBarDelegate {
+class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggestionsDelegate {
     
     @IBOutlet weak var searchTableView: UITableView!
 
@@ -16,8 +16,14 @@ class SearchViewController: UIViewController,UISearchBarDelegate {
     
     var searchList:[SearchModel] = []
     
-    var history:[SearchModel] = [SearchModel(name: "Chicken", type: .product)]
-    var suggestions:[SearchModel] = [ SearchModel(name: "Tesco", type: .store) ]
+    var history:[SearchModel] = [SearchModel(id: 1, name: "Asda", type: .store), SearchModel(id: 1, name: "Bread", type: .childCategory)]
+    var suggestions:[SearchModel] = []
+    
+    var searchHandler: SearchHandler = SearchHandler()
+    
+    var ignoreResults: Bool = false
+    
+    var selectedItem:SearchModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +35,17 @@ class SearchViewController: UIViewController,UISearchBarDelegate {
         
         self.searchList = history
         
+        searchHandler.suggestionsDelegate = self
+       
         searchTableView.register(UINib(nibName: K.Cells.SearchCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.SearchCell.CellIdentifier)
         
-        searchTableView.rowHeight = 80;
-        
+    }
+    
+    func contentLoaded(suggestions: [SearchModel]) {
+        if !ignoreResults {
+            self.suggestions = suggestions
+            showSuggestions()
+        }
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -55,13 +68,22 @@ class SearchViewController: UIViewController,UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let text = searchBar.text
         
-        if text != nil && text == "" {
-            showHistory()
-        } else {
-            showSuggestions()
-        }
+        ignoreResults = false
         
+        if text != nil {
+            if text != "" {
+                searchHandler.requestSuggestions(query: text!)
+            } else {
+                ignoreResults = true
+                showHistory()
+            }
+            
+        } else {
+            showHistory()
+        }
+
     }
+    
 }
 
 extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
@@ -79,14 +101,48 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedItem = searchList[indexPath.row]
+        selectedItem = searchList[indexPath.row]
         
-        if selectedItem.type == .product {
-            self.performSegue(withIdentifier: "showSearchResults", sender: self)
-        } else {
+        if selectedItem!.type == .store {
             self.performSegue(withIdentifier: "searchToStoreResults", sender: self)
+        } else {
+            self.performSegue(withIdentifier: "showSearchResults", sender: self)
         }
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showSearchResults" {
+            let destinationVC = segue.destination as! SearchResultsViewController
+            destinationVC.searchName = selectedItem!.name
+            
+            var type:String
+            
+            if selectedItem!.type == .childCategory {
+                type = "child_categories"
+            } else if selectedItem!.type == .parentCategory {
+                type = "parent_categories"
+            } else {
+                type = "products"
+            }
+            
+            destinationVC.type = type
+        } else if segue.identifier == "searchToStoreResults" {
+            let destinationVC = segue.destination as! SearchStoresViewController
+            destinationVC.store_type_id =  selectedItem!.id
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let product = searchList[indexPath.row]
+        
+        let count = product.name.count
+        
+        if count > 36 {
+            return 60
+        } else {
+            return 50
+        }
     }
     
 }

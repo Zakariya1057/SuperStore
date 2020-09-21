@@ -152,21 +152,21 @@ extension ListViewController {
         return header
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
-    }
+//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 90
+//    }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let product = list!.categories[indexPath.section].items[indexPath.row]
-        
-        let count = product.name.count
-        
-        if count > 36 {
-            return 105
-        } else {
-            return 85
-        }
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let product = list!.categories[indexPath.section].items[indexPath.row]
+//        
+//        let count = product.name.count
+//        
+//        if count > 36 {
+//            return 105
+//        } else {
+//            return 85
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return list?.categories[section].items.count ?? 0

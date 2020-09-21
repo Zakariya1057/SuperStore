@@ -72,6 +72,8 @@ class StoreViewController: UIViewController, StoreDelegate {
     var removed:Bool = false
     var storeHandler:StoreHandler = StoreHandler()
     
+    var store_id: Int = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,7 +81,7 @@ class StoreViewController: UIViewController, StoreDelegate {
         print("Requesting Store Details")
         
         startLoading()
-        storeHandler.request(store_id: 1)
+        storeHandler.request(store_id: store_id)
         
     }
     
@@ -122,9 +124,13 @@ class StoreViewController: UIViewController, StoreDelegate {
     func configureOpeningHours(opening_hours: [OpeningHoursModel]){
 //        let day_of_week = 7 - Calendar.current.component(.weekday, from: Date())
         
-        let day_of_week = Calendar.current.component(.weekday, from: Date()) - 2
+        var day_of_week = Calendar.current.component(.weekday, from: Date()) - 2
         
 //        print("Day Of Week: \(day_of_week)")
+        
+        if day_of_week == -1 {
+            day_of_week = 6
+        }
         
         for (index, hourLabel) in hoursLabels.enumerated() {
             let day = opening_hours[index]

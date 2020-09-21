@@ -9,6 +9,7 @@
 import Foundation
 
 struct SearchModel {
+    var id: Int
     var name:String
     var type: SearchType
 }

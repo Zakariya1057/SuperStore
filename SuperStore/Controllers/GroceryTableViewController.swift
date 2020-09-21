@@ -42,9 +42,9 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
         self.delegate?.show_grocery_item(products![indexPath.row].id)
     }
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130.0;
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 130.0;
+//    }
     
     func updateProductQuantity(index: Int, quantity: Int) {
         print("Updating Product Quantity: \(quantity)")

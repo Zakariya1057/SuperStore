@@ -9,6 +9,7 @@
 import Foundation
 
 struct StoreModel {
+    var id: Int
     var name: String
     var logo: String
     var opening_hours: [OpeningHoursModel]
