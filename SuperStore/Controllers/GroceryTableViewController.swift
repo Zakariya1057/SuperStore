@@ -8,15 +8,13 @@
 
 import UIKit
 
-protocol QuanityChangedDelegate {
-    func updateProductQuantity(index: Int, quantity: Int)
-}
-
 class GroceryTableViewController: UITableViewController, QuanityChangedDelegate {
 
     var products: [ProductModel]?
     
     var delegate:GroceryDelegate?
+    
+    var grandParentCategory: GrandParentCategoryModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +37,7 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.show_grocery_item(products![indexPath.row].id)
+        self.delegate?.showGroceryItem(products![indexPath.row].id)
     }
 
 //    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -47,9 +45,7 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
 //    }
     
     func updateProductQuantity(index: Int, quantity: Int) {
-        print("Updating Product Quantity: \(quantity)")
-        print(products![index])
-        products![index].quantity = quantity
+        self.delegate?.updateQuantity(products![index])
     }
     
 }

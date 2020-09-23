@@ -77,12 +77,11 @@ class ListItemTableViewCell: UITableViewCell {
     }
     
     func showPriceTotal(){
-        let priceText = "£" + String(format:"%.2f", product!.price)
-        let quantityText = String(product!.quantity)
-        let totalText = "£" + String(format: "%.2f", Double(product!.quantity) * product!.price)
-        
+//        let priceText = "£" + String(format:"%.2f", product!.price)
+//        let quantityText = String(product!.quantity)
 //        priceCalculationLabel.text = "\(priceText)"
         
+        let totalText = "£" + String(format: "%.2f", Double(product!.quantity) * product!.price)
         totalLabel.text = "\(totalText)"
     }
     

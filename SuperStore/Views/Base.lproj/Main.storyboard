@@ -772,7 +772,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Lists" id="R8r-GU-eMS">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Til-hC-UnH">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Til-hC-UnH">
                             <connections>
                                 <action selector="addPressed:" destination="uEy-Pu-MzC" id="QRo-60-CbA"/>
                             </connections>
@@ -1354,7 +1354,7 @@
         <!--Search-->
         <scene sceneID="WTz-jE-ek7">
             <objects>
-                <viewController id="9j8-KF-TXp" customClass="SearchViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="searchViewController" id="9j8-KF-TXp" customClass="SearchViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ra0-vs-CTa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3232,7 +3232,13 @@
                             <constraint firstItem="rzA-y6-4C9" firstAttribute="bottom" secondItem="4Cq-bl-zyw" secondAttribute="bottom" id="ppy-DL-xsl"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="bPE-zb-jXG"/>
+                    <navigationItem key="navigationItem" id="bPE-zb-jXG">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="dqX-qc-VNu">
+                            <connections>
+                                <action selector="donePressed:" destination="KFj-5f-9Wu" id="nGI-IH-dAy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="filterView" destination="FTi-vE-DJX" id="4zq-ih-3n1"/>
                         <outlet property="resultsTableView" destination="aSa-81-33v" id="dTS-IF-hGU"/>

@@ -25,6 +25,8 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
     
     var selectedItem:SearchModel?
     
+    var delegate:GroceryDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -115,6 +117,7 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
         if segue.identifier == "showSearchResults" {
             let destinationVC = segue.destination as! SearchResultsViewController
             destinationVC.searchName = selectedItem!.name
+            destinationVC.delegate = self.delegate
             
             var type:String
             

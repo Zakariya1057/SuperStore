@@ -45,7 +45,7 @@ struct FavouritesHandler {
             var products:[ProductModel] = []
             
             for product_item in products_list {
-                products.append(ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, description: product_item.description, quantity: 0, weight: product_item.weight, price: product_item.price, location: "", avg_rating: product_item.avg_rating, total_reviews_count: product_item.total_reviews_count))
+                products.append(ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, description: product_item.description, quantity: 0, weight: product_item.weight, parent_category_id: nil, parent_category_name: nil, price: product_item.price, location: "", avg_rating: product_item.avg_rating, total_reviews_count: product_item.total_reviews_count))
             }
             
             DispatchQueue.main.async {

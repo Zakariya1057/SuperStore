@@ -10,17 +10,27 @@ import UIKit
 import Cosmos
 
 protocol GroceryDelegate {
-    func show_grocery_item(_ product_id: Int)
-    func add_to_list(_ product: ProductModel)
-    func remove_from_list(_ product: ProductModel)
-    func update_quantity(_ product: ProductModel)
+    func showGroceryItem(_ product_id: Int)
+    func addToList(_ product: ProductModel)
+    func removeFromList(_ product: ProductModel)
+    func updateQuantity(_ product: ProductModel)
 }
+
+protocol QuanityChangedDelegate {
+    func updateProductQuantity(index: Int, quantity: Int)
+}
+
+//    func productAdded(product: ProductModel,parent_category_id: Int,parent_category_name: String)
+//    func productRemoved(product: ProductModel, parent_category_id: Int)
+//    func productQuantityChanged(product: ProductModel,parent_category_id: Int)
 
 class GroceryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var storeNameLabel: UILabel!
     
     var delegate:GroceryDelegate?
+    
+    var grandParentCategory: GrandParentCategoryModel?
     
     @IBOutlet weak var stepper_stack_view: UIStackView!
     @IBOutlet weak var stepper_label: UILabel!
@@ -40,6 +50,7 @@ class GroceryTableViewCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var reviewView: CosmosView!
     @IBOutlet weak var left_info_view: UIView!
+    @IBOutlet weak var quantityStepper: UIStepper!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -61,6 +72,9 @@ class GroceryTableViewCell: UITableViewCell {
         
         if(product!.quantity > 0){
             show_quantity_view()
+            
+            stepper_label.text = String(product!.quantity)
+            quantityStepper.value = Double(product!.quantity)
         } else {
             if(showAddButton){
                 show_add_button_view()
@@ -84,21 +98,22 @@ class GroceryTableViewCell: UITableViewCell {
         
         if delegate != nil {
             if(quantity == 0){
-                delegate?.remove_from_list(product!)
+                delegate?.removeFromList(product!)
                 show_add_button_view()
             } else {
-                delegate?.update_quantity(product!) 
+                delegate?.updateQuantity(product!)
             }
-            
-            // Used for remembering product quantity. For Scrolling.
-            quantity_delegate?.updateProductQuantity(index: index!, quantity: product!.quantity)
         }
+        
+        // Used for remembering product quantity. For Scrolling.
+        quantity_delegate?.updateProductQuantity(index: index!, quantity: product!.quantity)
         
     }
     
+    
     @IBAction func groceryAddClicked(_ sender: Any) {
         show_quantity_view()
-        self.delegate?.add_to_list(self.product!)
+        self.delegate?.addToList(self.product!)
         quantity_delegate?.updateProductQuantity(index: index!, quantity: 1)
     }
     

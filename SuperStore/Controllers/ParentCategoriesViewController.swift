@@ -19,7 +19,7 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
     
     var selected_category: ChildCategoryModel?
     
-    var delegate:NewProductDelegate?
+    var delegate:GroceryDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +58,7 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
             let destinationVC = segue.destination as! ChildCategoriesViewController
             destinationVC.list_delegate = delegate
             destinationVC.parent_category_id = selected_category!.id
+//            destinationVC.grandParentCategory = selected_category!
             destinationVC.parent_category_name = selected_category!.name
             destinationVC.header_text = selected_category!.name
         }

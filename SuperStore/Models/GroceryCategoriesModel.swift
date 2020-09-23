@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct GroceryCategoriesModel {
+struct GrandParentCategoryModel {
     var id: Int
     var name:String
     var child_categories: [ChildCategoryModel]

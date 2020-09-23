@@ -91,11 +91,15 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
               case .notDetermined:
                 locationManager.requestWhenInUseAuthorization()
                 mapView!.showsUserLocation = true
-              case .restricted: // Show an alert letting them know what’s up
+              case .restricted:
+                // Show an alert letting them know what’s up
                break
               case .authorizedAlways:
+                // Authorised
                break
-            }
+          @unknown default:
+            fatalError()
+          }
             
         }
 

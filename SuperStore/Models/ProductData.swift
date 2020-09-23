@@ -36,5 +36,8 @@ struct ProductData:Decodable {
     var ingredients: [IngredientsData]?
     
     var recommended: [ProductData]?
+    
+    var parent_category_id: Int?
+    var parent_category_name: String?
 }
 

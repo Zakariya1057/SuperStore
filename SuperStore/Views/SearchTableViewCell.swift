@@ -30,8 +30,10 @@ class SearchTableViewCell: UITableViewCell {
 
     func configureUI(){
         
-        let searchType: SearchType = search!.type
         let searchName: String     = search!.name
+        nameLabel.text = searchName
+        
+//        let searchType: SearchType = search!.type
         
 //        if searchType == .product {
 //            contentImage.image = UIImage(named: "Chicken")
@@ -39,7 +41,6 @@ class SearchTableViewCell: UITableViewCell {
 //            contentImage.image = UIImage(named: "LidlLogo")
 //        }
         
-        nameLabel.text = searchName
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

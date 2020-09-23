@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SearchResultsDelegate, GroceryDelegate {
+class SearchResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SearchResultsDelegate, QuanityChangedDelegate, ListSelectedDelegate, GroceryDelegate {
 
     @IBOutlet weak var resultsTableView: UITableView!
     
@@ -26,6 +26,12 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var totalProductsLabel: UILabel!
     
+    var listHandler = ListItemsHandler()
+    
+    var add_to_list_product_index: Int?
+    
+    var selected_list_id: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         resultsTableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
@@ -42,13 +48,24 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         
         searchHandler.resultsDelegate = self
         searchHandler.requestResults(searchData: ["type": type!, "detail": searchName!])
+        
+        if(delegate == nil){
+            self.navigationItem.rightBarButtonItem = nil
+            self.delegate = self
+        }
     }
         
     func contentLoaded(stores: [StoreModel], products: [ProductModel]) {
         self.products = products
         totalProductsLabel.text = "\(products.count) Products"
-        print(products)
+        print(products[0].parent_category_name!)
         self.resultsTableView.reloadData()
+    }
+    
+    func updateProductQuantity(index: Int, quantity: Int) {
+        print(products[index].name)
+        print(quantity)
+        products[index].quantity = quantity
     }
     
     @objc func filterResults(){
@@ -68,35 +85,61 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = resultsTableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
         cell.delegate = self.delegate
+        cell.quantity_delegate = self
         cell.product = products[indexPath.row]
+        cell.index = indexPath.row
         cell.configureUI()
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        show_grocery_item(products[indexPath.row].id)
+        showGroceryItem(products[indexPath.row].id)
     }
 
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //         return 130.0
 //    }
     
-    func show_grocery_item(_ product_id: Int) {
+    func addToList(_ product: ProductModel){
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
+        destinationVC.delegate = self
+        self.present(destinationVC, animated: true)
+        self.add_to_list_product_index = product.id
+    }
+    
+    func list_selected(list_id: Int) {
+        self.selected_list_id = list_id
+        listHandler.create(list_id: list_id, list_data: ["product_id": String(add_to_list_product_index!)])
+    }
+    
+    func update_quantity(_ product: ProductModel) {
+        let data:[String: String] = [
+            "product_id": String(product.id),
+            "quantity": String(product.quantity),
+            "ticked_off": "false"
+        ]
+        
+        listHandler.update(list_id:selected_list_id!, list_data: data)
+        
+    }
+    
+    @IBAction func donePressed(_ sender: Any) {
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+    }
+    
+    func showGroceryItem(_ product_id: Int) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
         destinationVC.product_id = product_id
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
-    func add_to_list(_ product: ProductModel) {
+    func removeFromList(_ product: ProductModel) {
         
     }
     
-    func remove_from_list(_ product: ProductModel) {
-        
-    }
-    
-    func update_quantity(_ product: ProductModel) {
-        
+    func updateQuantity(_ product: ProductModel) {
+        update_quantity(product)
     }
 }

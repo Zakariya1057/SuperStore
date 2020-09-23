@@ -16,7 +16,9 @@ protocol ListSelectedDelegate {
 
 class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, GroceriesProductsDelegate, ListSelectedDelegate {
 
-    var list_delegate: NewProductDelegate?
+    var grandParentCategory: GrandParentCategoryModel?
+    
+    var list_delegate: GroceryDelegate?
     
     var groceryHandler = GroceryProductsHandler()
     
@@ -91,7 +93,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
 
 extension ChildCategoriesViewController {
     
-    func show_grocery_item(_ product_id: Int){
+    func showGroceryItem(_ product_id: Int){
         self.selected_product_id = product_id
         self.performSegue(withIdentifier: K.Paths.showGroceryItem, sender: self)
     }
@@ -101,10 +103,17 @@ extension ChildCategoriesViewController {
         destinationVC.product_id = selected_product_id!
     }
     
-    func add_to_list(_ product: ProductModel){
+    func removeFromList(_ product: ProductModel) {
+        
+    }
+    
+    func addToList(_ product: ProductModel){
         
         if list_delegate != nil {
-            list_delegate?.productAdded(product: product,parent_category_id: parent_category_id!,parent_category_name: parent_category_name!)
+            product.parent_category_id = grandParentCategory!.id
+            product.parent_category_name = grandParentCategory!.name
+            
+            list_delegate?.addToList(product)
         } else {
             let vc = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
             
@@ -124,14 +133,20 @@ extension ChildCategoriesViewController {
     }
     
     func remove_from_list(_ product: ProductModel) {
-        list_delegate!.productRemoved(product: product, parent_category_id: parent_category_id!)
+        product.parent_category_id = grandParentCategory!.id
+        product.parent_category_name = grandParentCategory!.name
+        
+        list_delegate!.removeFromList(product)
     }
     
-    func update_quantity(_ product: ProductModel) {
+    func updateQuantity(_ product: ProductModel) {
 
         if list_delegate != nil {
-             list_delegate!.productQuantityChanged(product: product, parent_category_id: parent_category_id!)
-        } else {
+            product.parent_category_id = grandParentCategory!.id
+            product.parent_category_name = grandParentCategory!.name
+            
+            list_delegate?.updateQuantity(product)
+        } else if selected_list_id != nil {
          
             let data:[String: String] = [
                 "product_id": String(product.id),

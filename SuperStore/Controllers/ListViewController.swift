@@ -16,11 +16,11 @@ protocol StoreSelectedDelegate {
     func storeChanged(name: String,backgroundColor: UIColor)
 }
 
-protocol NewProductDelegate {
-    func productAdded(product: ProductModel,parent_category_id: Int,parent_category_name: String)
-    func productRemoved(product: ProductModel, parent_category_id: Int)
-    func productQuantityChanged(product: ProductModel,parent_category_id: Int)
-}
+//protocol NewProductDelegate {
+//    func productAdded(product: ProductModel,parent_category_id: Int,parent_category_name: String)
+//    func productRemoved(product: ProductModel, parent_category_id: Int)
+//    func productQuantityChanged(product: ProductModel,parent_category_id: Int)
+//}
 
 protocol ProductQuantityChangedDelegate {
     func quantityChanged(section_index: Int,row_index:Int, quantity: Int)
@@ -28,7 +28,7 @@ protocol ProductQuantityChangedDelegate {
 }
 
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PriceChangeDelegate, ProductQuantityChangedDelegate, ListItemsDelegate {
-    
+
     @IBOutlet weak var totalPriceLabel: UILabel!
     
     var listHandler = ListItemsHandler()
@@ -96,7 +96,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "grandParentCategoriesViewController"))! as! GrandParentCategoriesViewController
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "searchViewController"))! as! SearchViewController
         destinationVC.delegate = self
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
@@ -207,7 +207,7 @@ extension ListViewController: StoreSelectedDelegate {
     }
 }
 
-extension ListViewController: NewProductDelegate{
+extension ListViewController: GroceryDelegate {
     
     func productRemoved(product: ProductModel, parent_category_id: Int) {
         print("Remove Product")
@@ -222,6 +222,22 @@ extension ListViewController: NewProductDelegate{
             destinationVC.delegate = self
             destinationVC.product = list!.categories[selected_section].items[selected_row]
         }
+    }
+    
+    func showGroceryItem(_ product_id: Int) {
+        
+    }
+    
+    func addToList(_ product: ProductModel) {
+        productAdded(product: product, parent_category_id: product.parent_category_id!, parent_category_name: product.parent_category_name!)
+    }
+    
+    func removeFromList(_ product: ProductModel) {
+        
+    }
+    
+    func updateQuantity(_ product: ProductModel) {
+        productQuantityChanged(product: product, parent_category_id: product.parent_category_id!)
     }
     
     func removeItem(section: Int, row: Int){

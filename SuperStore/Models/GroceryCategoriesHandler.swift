@@ -9,7 +9,7 @@
 import Foundation
 
 protocol GroceriesCategoriesDelegate {
-    func contentLoaded(categories: [GroceryCategoriesModel])
+    func contentLoaded(categories: [GrandParentCategoryModel])
 //    func errorHandler(_ message:String)
 }
 
@@ -41,7 +41,7 @@ struct GroceryCategoriesHandler {
             let grocery_categories_list = grocery_data.data
             
 //            print(groceryDetails)
-            var grocery_categories:[GroceryCategoriesModel] = []
+            var grocery_categories:[GrandParentCategoryModel] = []
             
             for category in grocery_categories_list {
                 let child_categories_list = category.child_categories
@@ -52,7 +52,7 @@ struct GroceryCategoriesHandler {
                     child_categories.append( ChildCategoryModel(id: child_category.id, name: child_category.name) )
                 }
                 
-                grocery_categories.append( GroceryCategoriesModel(id: category.id, name: category.name, child_categories: child_categories) )
+                grocery_categories.append( GrandParentCategoryModel(id: category.id, name: category.name, child_categories: child_categories) )
             }
             
             DispatchQueue.main.async {

@@ -14,11 +14,11 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     
     @IBOutlet weak var groupTableView: UITableView!
     
-    var categories: [GroceryCategoriesModel] = []
+    var categories: [GrandParentCategoryModel] = []
     
-    var selected_category: GroceryCategoriesModel?
+    var selected_category: GrandParentCategoryModel?
     
-    var delegate:NewProductDelegate?
+    var delegate:GroceryDelegate?
     
     @IBOutlet weak var done_button: UIBarButtonItem!
     
@@ -41,7 +41,7 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     }
     
 
-    func contentLoaded(categories: [GroceryCategoriesModel]) {
+    func contentLoaded(categories: [GrandParentCategoryModel]) {
         self.categories = categories
         groupTableView.reloadData()
     }
@@ -66,6 +66,7 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
         if segue.identifier == "grandParentToParentCategories" {
             let destinationVC = segue.destination as! ParentCategoriesViewController
             destinationVC.delegate = delegate
+//            destinationVC.grandParentCategory = selected_category
             destinationVC.header_text = selected_category!.name
             destinationVC.categories = selected_category!.child_categories
         }
