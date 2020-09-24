@@ -30,6 +30,9 @@ struct LocationData:Decodable {
     let address_line2: String?
     let address_line3: String?
     let postcode: String
+    
+    var latitude: Double
+    var longitude: Double
 }
 
 struct FacilityData:Decodable {

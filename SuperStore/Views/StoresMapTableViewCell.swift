@@ -20,11 +20,20 @@ class StoresMapElement: CustomElementModel {
     }
 }
 
-class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegate {
+protocol StoreSelectedDelegate {
+    func storeSelected(store_id: Int)
+}
+
+class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegate, MKMapViewDelegate {
 
     var model: StoresMapElement!
+    var stores: [StoreModel] = []
+    
+    var delegate: StoreSelectedDelegate?
     
 //    @IBOutlet private var mapView: MKMapView!
+    
+    var selected_store_id: Int?
     
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -32,6 +41,8 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
     
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
+    
+    var store_details: [String: Int] = [:]
     
     func configure(withModel elementModel: CustomElementModel) {
         guard let model = elementModel as? StoresMapElement else {
@@ -57,10 +68,98 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
             let viewRegion = MKCoordinateRegion(center: userLocation, latitudinalMeters: 20000, longitudinalMeters: 20000)
             mapView.setRegion(viewRegion, animated: false)
         }
+        
+        mapView.delegate = self
 
+        showStoreLocations()
+        
         DispatchQueue.main.async {
             self.locationManager.startUpdatingLocation()
         }
+    }
+    
+    func showStoreLocations(){
+        
+        for store in stores {
+            let annotation = MKPointAnnotation()
+            annotation.title = store.name
+            
+            let location = store.location
+            let addressList = [location.address_line1, location.address_line2, location.address_line3, location.city ]
+            let address = addressList.compactMap { $0 }.joined(separator: ", ")
+
+            annotation.subtitle = address
+            annotation.coordinate = CLLocationCoordinate2D(
+                latitude: CLLocationDegrees(store.location.latitude),
+                longitude: CLLocationDegrees(store.location.longitude)
+            )
+            
+            self.mapView.addAnnotation(annotation)
+            
+            store_details[store.name] = store.id
+        }
+
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+
+        if annotation is MKUserLocation {
+            return nil
+        } else {
+            // this is our unique identifier for view reuse
+            let identifier = "Capital"
+
+            // attempt to find a cell we can recycle
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+
+            if annotationView == nil {
+                // we didn't find one; make a new one
+                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+
+                // allow this to show pop up information
+                annotationView?.canShowCallout = true
+                
+//                annotationView?.image = UIImage(named: "pin")
+                
+                // Creating Button
+                let button = UIButton(type: .detailDisclosure)
+                button.addTarget(self, action: #selector(showStore), for: .touchUpInside)
+                
+                // attach an information button to the view
+                annotationView?.rightCalloutAccessoryView = button
+                
+            } else {
+                // we have a view to reuse, so give it the new annotation
+                annotationView?.annotation = annotation
+            }
+
+            // whether it's a new view or a recycled one, send it back
+            return annotationView
+        }
+
+    }
+    
+    // this is a _method_
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let circleRenderer = MKCircleRenderer(overlay: overlay)
+        circleRenderer.strokeColor = UIColor.red
+        circleRenderer.lineWidth = 1.0
+        return circleRenderer
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("Selected A Store")
+        let title = view.annotation?.title!
+        selected_store_id = store_details[title!]
+    }
+        
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        print("Deseleted Store")
+    }
+    
+    @objc func showStore(){
+        print("Show Store")
+        self.delegate?.storeSelected(store_id: selected_store_id!)
     }
     
     override func awakeFromNib() {
@@ -119,3 +218,4 @@ private extension MKMapView {
     setRegion(coordinateRegion, animated: true)
   }
 }
+

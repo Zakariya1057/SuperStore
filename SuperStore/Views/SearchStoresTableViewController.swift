@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, SearchResultsDelegate {
+class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, SearchResultsDelegate, StoreSelectedDelegate {
 
     @IBOutlet weak var mapTableView: UITableView!
     @IBOutlet weak var storesTableView: UITableView!
@@ -40,9 +40,10 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
     }
 
     func contentLoaded(stores: [StoreModel], products: [ProductModel]) {
-        print(stores)
         self.stores = stores
+        
         storesTableView.reloadData()
+        mapTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,6 +64,9 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
         
         if tableView == mapTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.StoreMapCell.CellIdentifier) as! StoresMapTableViewCell
+            cell.stores = stores
+            cell.delegate = self
+            cell.configureUI()
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             return cell
         } else if tableView ==  storesTableView {
@@ -77,8 +81,11 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selected_store_id = stores[indexPath.row].id
-        self.performSegue(withIdentifier: "storeResultsToStore", sender: self)
+        
+        if tableView == storesTableView {
+            storeSelected(store_id: stores[indexPath.row].id)
+        }
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -86,5 +93,10 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
             let destinationVC = segue.destination as! StoreViewController
             destinationVC.store_id = selected_store_id!
         }
+    }
+    
+    func storeSelected(store_id: Int) {
+        selected_store_id = store_id
+        self.performSegue(withIdentifier: "storeResultsToStore", sender: self)
     }
 }

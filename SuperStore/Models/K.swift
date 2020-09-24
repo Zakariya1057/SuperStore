@@ -34,6 +34,10 @@ struct K {
             static let Results = "search/results"
         }
         
+        struct User {
+            static let Register = "user/register"
+        }
+        
         struct Reviews {
             static let Reviews = "reviews"
             static let ReviewShow = "review"

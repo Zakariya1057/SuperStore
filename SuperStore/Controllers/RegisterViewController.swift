@@ -10,9 +10,16 @@ import UIKit
 
 class RegisterViewController: UIViewController {
 
+    let userHandler = UserHandler()
+
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var repeatPasswordField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -24,6 +31,16 @@ class RegisterViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    @IBAction func registerPressed(_ sender: Any) {
+        let name: String = nameField.text ?? ""
+        let email: String = emailField.text ?? ""
+        let password: String = passwordField.text ?? ""
+        let passwordConfirmation: String = repeatPasswordField.text ?? ""
+        
+        userHandler.requestRegister(name: name, password: password, passwordConfirmation: passwordConfirmation, email: email)
+        performSegue(withIdentifier: "registerToHome", sender: self)
     }
     
 }

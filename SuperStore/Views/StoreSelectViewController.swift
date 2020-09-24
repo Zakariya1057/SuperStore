@@ -19,7 +19,7 @@ class StoreSelectViewController: UIViewController {
     }
     
     @IBAction func storeButtonClicked(_ sender: UIButton) {
-        self.delegate?.storeChanged(name: sender.titleLabel!.text!, backgroundColor: sender.backgroundColor!)
+//        self.delegate?.storeChanged(name: sender.titleLabel!.text!, backgroundColor: sender.backgroundColor!)
         self.navigationController!.popViewController(animated: true)
     }
     

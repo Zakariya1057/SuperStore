@@ -92,7 +92,7 @@ struct SearchHandler {
             var products: [ProductModel] = []
 
             for store in resultsData.stores {
-                stores.append( StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [], location: LocationModel(city: store.location.city, address_line1: store.location.address_line1, address_line2: store.location.address_line2, address_line3: store.location.address_line3, postcode: store.location.postcode), facilities: []))
+                stores.append( StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [], location: LocationModel(city: store.location.city, address_line1: store.location.address_line1, address_line2: store.location.address_line2, address_line3: store.location.address_line3, postcode: store.location.postcode,latitude: store.location.latitude, longitude: store.location.longitude), facilities: []))
             }
             
             for product_item in resultsData.products {

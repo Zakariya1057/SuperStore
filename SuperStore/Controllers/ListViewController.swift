@@ -12,9 +12,9 @@ protocol PriceChangeDelegate {
     func productChanged(section_index: Int,row_index:Int, product: ListItemModel)
 }
 
-protocol StoreSelectedDelegate {
-    func storeChanged(name: String,backgroundColor: UIColor)
-}
+//protocol StoreSelectedDelegate {
+//    func storeChanged(name: String,backgroundColor: UIColor)
+//}
 
 //protocol NewProductDelegate {
 //    func productAdded(product: ProductModel,parent_category_id: Int,parent_category_name: String)
@@ -192,20 +192,20 @@ extension ListViewController {
     }
 }
 
-extension ListViewController: StoreSelectedDelegate {
-    
-    @IBAction func storeButtonPressed(_ sender: Any) {
-        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "storeSelectViewController"))! as! StoreSelectViewController
-        
-        destinationVC.delegate = self
-        self.navigationController?.pushViewController(destinationVC, animated: true)
-    }
-    
-    func storeChanged(name: String, backgroundColor: UIColor) {
-        storeButton.setTitle(name, for: .normal)
-        storeButton.backgroundColor = backgroundColor
-    }
-}
+//extension ListViewController: StoreSelectedDelegate {
+//    
+//    @IBAction func storeButtonPressed(_ sender: Any) {
+//        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "storeSelectViewController"))! as! StoreSelectViewController
+//        
+//        destinationVC.delegate = self
+//        self.navigationController?.pushViewController(destinationVC, animated: true)
+//    }
+//    
+//    func storeChanged(name: String, backgroundColor: UIColor) {
+//        storeButton.setTitle(name, for: .normal)
+//        storeButton.backgroundColor = backgroundColor
+//    }
+//}
 
 extension ListViewController: GroceryDelegate {
     

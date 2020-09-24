@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewListViewController: UIViewController,StoreSelectedDelegate {
+class NewListViewController: UIViewController {
     
     var delegate: NewListDelegate?
     
@@ -32,7 +32,7 @@ class NewListViewController: UIViewController,StoreSelectedDelegate {
         print("Select Store")
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "storeSelectViewController"))! as! StoreSelectViewController
         
-        destinationVC.delegate = self
+//        destinationVC.delegate = self
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     

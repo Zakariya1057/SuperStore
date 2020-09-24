@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SortFilterViewController: UIViewController {
+class RefineViewController: UIViewController {
 
     @IBAction func donePressed(_ sender: Any) {
         self.dismiss(animated: true) {

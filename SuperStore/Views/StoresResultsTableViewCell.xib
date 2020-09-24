@@ -127,9 +127,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="addressLabel" destination="AL4-FI-c9W" id="F9z-zO-vRS"/>
-                <outlet property="nameLabel" destination="xY4-Xr-SMu" id="K6J-DB-QU2"/>
-                <outlet property="openStatusLabel" destination="A7j-0b-iYJ" id="YAs-x7-dSK"/>
+                <outlet property="addressLabel" destination="AL4-FI-c9W" id="g1U-gs-hpP"/>
+                <outlet property="nameLabel" destination="xY4-Xr-SMu" id="47p-de-BiH"/>
+                <outlet property="openStatusLabel" destination="A7j-0b-iYJ" id="4Ig-ol-Q9g"/>
             </connections>
             <point key="canvasLocation" x="213.768115942029" y="65.625"/>
         </tableViewCell>
