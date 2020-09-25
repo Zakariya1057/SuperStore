@@ -33,7 +33,7 @@ class SettingsTableViewController: UIViewController {
     
     @objc func usernamePressed(){
         print("Username Pressed")
-        fieldName = "Username"
+        fieldName = "Name"
         self.performSegue(withIdentifier: "settingsToSettingChange", sender: self)
     }
     

@@ -36,6 +36,8 @@ struct K {
         
         struct User {
             static let Register = "user/register"
+            static let Login = "user/login"
+            static let Update = "user/update"
         }
         
         struct Reviews {

@@ -18,10 +18,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Main View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -69,8 +69,8 @@
                                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUq-v3-0vT">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="45"/>
                                                                                                 <subviews>
-                                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pPq-GP-clD">
-                                                                                                        <rect key="frame" x="12.5" y="14" width="25" height="17.5"/>
+                                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="envelope" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pPq-GP-clD">
+                                                                                                        <rect key="frame" x="12.5" y="14" width="25" height="16.5"/>
                                                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                         <constraints>
                                                                                                             <constraint firstAttribute="height" constant="20" id="en3-du-fxd"/>
@@ -94,11 +94,11 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O2r-9v-Av2">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O2r-9v-Av2">
                                                                                         <rect key="frame" x="61" y="0.0" width="323" height="45"/>
                                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="username"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                                 <constraints>
@@ -182,7 +182,7 @@
                                                                                     <color key="titleColor" name="LogoBlue"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <segue destination="pZG-ZY-ksW" kind="show" id="yEP-8l-ZPK"/>
+                                                                                    <action selector="loginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yOU-9F-AYy"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -307,7 +307,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="Ytu-5P-bFU"/>
                     <connections>
-                        <segue destination="pZG-ZY-ksW" kind="show" id="D48-qv-sCF"/>
+                        <outlet property="emailField" destination="O2r-9v-Av2" id="Ebh-EP-QKj"/>
+                        <outlet property="passwordField" destination="N0s-kB-z5L" id="JWb-NF-OCq"/>
+                        <segue destination="pZG-ZY-ksW" kind="show" identifier="loginToHome" id="YcT-k9-dml"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -868,8 +870,8 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNS-dC-XC2">
                                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="50"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADP-AX-UDr">
-                                                                                <rect key="frame" x="0.0" y="15" width="78.5" height="20.5"/>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADP-AX-UDr">
+                                                                                <rect key="frame" x="0.0" y="15" width="45" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -885,8 +887,8 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SA5-AE-RTW">
                                                                         <rect key="frame" x="120" y="0.0" width="264" height="50"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zakariya1057" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSK-P4-bfQ">
-                                                                                <rect key="frame" x="0.0" y="15" width="101" height="20.5"/>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zakariya Mohummed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSK-P4-bfQ">
+                                                                                <rect key="frame" x="0.0" y="15" width="160" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1173,7 +1175,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="ZMD-Jc-vKc"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="username"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -1208,7 +1210,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="Thd-qG-8QY"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="username"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -1243,7 +1245,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="4nl-Jq-OIt"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="username"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -1270,6 +1272,11 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="currentPasswordField" destination="jsB-BX-GH0" id="kAz-OS-gY8"/>
+                        <outlet property="newPasswordField" destination="9Vb-y8-r7f" id="f97-e4-jWC"/>
+                        <outlet property="repeatPasswordField" destination="OCF-Uq-4mc" id="cPW-P6-XOz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qIV-G4-FLT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4641,7 +4648,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="LCl-dZ-pvm"/>
+        <segue reference="YcT-k9-dml"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="ATM" width="170.5" height="170.5"/>

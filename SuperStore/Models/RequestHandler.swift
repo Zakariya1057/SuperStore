@@ -58,7 +58,8 @@ struct RequestHandler {
         let token = "S"
         
         let headers: HTTPHeaders = [
-            "Authorizations": "Bearer \(token)"
+            "Authorizations": "Bearer \(token)",
+            "X-Requested-With": "XMLHttpRequest"
         ]
         
         AF.request(urlString, method: .post, parameters: body,encoder: URLEncodedFormParameterEncoder(destination: .httpBody), headers: headers,requestModifier: { $0.timeoutInterval = self.requestTimeout })

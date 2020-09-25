@@ -102,7 +102,7 @@
 		2CE7AB0224D077C700A31782 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7AB0124D077C700A31782 /* SettingsTableViewController.swift */; };
 		2CF239B525094A7F00D4CE91 /* ListsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B425094A7F00D4CE91 /* ListsHandler.swift */; };
 		2CF239B725094A9000D4CE91 /* ListItemsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */; };
-		2CF239B925094BAC00D4CE91 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B825094BAC00D4CE91 /* MainViewController.swift */; };
+		2CF239B925094BAC00D4CE91 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B825094BAC00D4CE91 /* LoginViewController.swift */; };
 		2CF239BB25094C8700D4CE91 /* ListsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239BA25094C8600D4CE91 /* ListsData.swift */; };
 		2CF239BD2509549100D4CE91 /* ListItemsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239BC2509549100D4CE91 /* ListItemsData.swift */; };
 /* End PBXBuildFile section */
@@ -211,7 +211,7 @@
 		2CE7AB0124D077C700A31782 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2CF239B425094A7F00D4CE91 /* ListsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsHandler.swift; sourceTree = "<group>"; };
 		2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemsHandler.swift; sourceTree = "<group>"; };
-		2CF239B825094BAC00D4CE91 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		2CF239B825094BAC00D4CE91 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2CF239BA25094C8600D4CE91 /* ListsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsData.swift; sourceTree = "<group>"; };
 		2CF239BC2509549100D4CE91 /* ListItemsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemsData.swift; sourceTree = "<group>"; };
 		78A3D23A2EFDF10530DC6D40 /* Pods-SuperStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuperStore.debug.xcconfig"; path = "Target Support Files/Pods-SuperStore/Pods-SuperStore.debug.xcconfig"; sourceTree = "<group>"; };
@@ -268,7 +268,7 @@
 		2C1567CD24C8B2B400B8DCB5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2CF239B825094BAC00D4CE91 /* MainViewController.swift */,
+				2CF239B825094BAC00D4CE91 /* LoginViewController.swift */,
 				2C6F621D25134F9B00179C2B /* RegisterViewController.swift */,
 				2C6F621F251357D100179C2B /* ForgotPasswordViewController.swift */,
 				2C1567D024C8B33700B8DCB5 /* HomeViewController.swift */,
@@ -593,7 +593,7 @@
 				2CE7AB0224D077C700A31782 /* SettingsTableViewController.swift in Sources */,
 				2CC1EA1D24FAC003000A9BC4 /* ProductDetailsHandler.swift in Sources */,
 				2C3F537E24D184C80095C4B1 /* SearchTableViewCell.swift in Sources */,
-				2CF239B925094BAC00D4CE91 /* MainViewController.swift in Sources */,
+				2CF239B925094BAC00D4CE91 /* LoginViewController.swift in Sources */,
 				2CB3EDA525041F31000E7C7A /* ListSectionHeader.swift in Sources */,
 				2CB15C9724D2FCD400461AFE /* ListViewController.swift in Sources */,
 				2C6F6220251357D100179C2B /* ForgotPasswordViewController.swift in Sources */,

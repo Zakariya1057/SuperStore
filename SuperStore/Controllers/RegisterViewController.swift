@@ -39,7 +39,7 @@ class RegisterViewController: UIViewController {
         let password: String = passwordField.text ?? ""
         let passwordConfirmation: String = repeatPasswordField.text ?? ""
         
-        userHandler.requestRegister(name: name, password: password, passwordConfirmation: passwordConfirmation, email: email)
+        userHandler.requestRegister(name: name, email: email, password: password, passwordConfirmation: passwordConfirmation)
         performSegue(withIdentifier: "registerToHome", sender: self)
     }
     
