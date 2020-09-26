@@ -28,58 +28,19 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         customElements = [
             
-            ListPriceUpdateElement(title: "List Element",delegate: self, height: 210),
-//
-            StoresMapElement(title: "Store Locations", height: 300),
-//
-             ProductElement(title: "Offers",delegate: self, products: [
+            ListPriceUpdateElement(title: "Grocery List Price Changes",delegate: self, height: 170),
+
+            StoresMapElement(title: "Stores", height: 300),
+
+            ProductElement(title: "Offers",delegate: self, products: [
+                ProductModel(id: 1, name: "ASDA Grower's Selection Organic Fairtrade Bananas", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10)
+             ],height: 400),
+            
+            ProductElement(title: "Offers",delegate: self, products: [
                 ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10)
-             ],height: 280)
-            
-//            ProductElement(title: "Offers",delegate: self, products: [
-//            ListProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10, quantity: 1, ticked: false),
-//            ListProductModel(id: 2, name: "Shazans Halal Peri Peri Chicken Thighs", image: "http://192.168.1.187/api/image/products/1000186031097_small.jpg", description: "Bread", price: 2.40, location: "Aisle B", avg_rating: 4.6, total_reviews_count: 200, quantity: 1, ticked: false),
-//            ListProductModel(id: 3, name: "McVitie's The Original Digestive Biscuits Twin Pack", image: "http://192.168.1.187/api/image/products/1000186031105_small.jpg", description: "Bread", price: 3.40, location: "Aisle C", avg_rating: 2.2, total_reviews_count: 132, quantity: 1, ticked: false),
-//            ListProductModel(id: 4, name: "Ben & Jerry's Non-Dairy & Vegan Chocolate Fudge Brownie Ice Cream", image: "http://192.168.1.187/api/image/products/910001256210_small.jpg", description: "Bread", price: 4.40, location: "Aisle D", avg_rating: 1.5, total_reviews_count: 1, quantity: 12, ticked: false),
-//            ListProductModel(id: 5, name: "ASDA Extra Special Chilli Pork Sausage Ladder", image: "http://192.168.1.187/api/image/products/910001256396_small.jpg", description: "Bread", price: 5.40, location: "Aisle E", avg_rating: 4.1, total_reviews_count: 122, quantity: 1, ticked: false),
-//            ListProductModel(id: 6, name: "Preema Disposable Face Coverings 5 x 4 Packs (20 Coverings)", image: "http://192.168.1.187/api/image/products/910001256410_small.jpg", description: "Bread", price: 6.40, location: "Aisle F", avg_rating: 4.4, total_reviews_count: 11, quantity: 1, ticked: false),
-//            ListProductModel(id: 7, name: "Nivea Sun Kids Suncream Spray SPF 50+ Coloured", image: "http://192.168.1.187/api/image/products/910001257216_small.jpg", description: "Bread", price: 7.40, location: "Aisle G", avg_rating: 3.4, total_reviews_count: 123, quantity: 3, ticked: false)
-//            ], height: 280),
-//
-//            ProductElement(title: "Fruits",delegate: self, products: [
-//            ListProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10, quantity: 1, ticked: false),
-//            ListProductModel(id: 2, name: "Shazans Halal Peri Peri Chicken Thighs", image: "http://192.168.1.187/api/image/products/1000186031097_small.jpg", description: "Bread", price: 2.40, location: "Aisle B", avg_rating: 4.6, total_reviews_count: 200, quantity: 1, ticked: false),
-//            ListProductModel(id: 3, name: "McVitie's The Original Digestive Biscuits Twin Pack", image: "http://192.168.1.187/api/image/products/1000186031105_small.jpg", description: "Bread", price: 3.40, location: "Aisle C", avg_rating: 2.2, total_reviews_count: 132, quantity: 1, ticked: false),
-//            ListProductModel(id: 4, name: "Ben & Jerry's Non-Dairy & Vegan Chocolate Fudge Brownie Ice Cream", image: "http://192.168.1.187/api/image/products/910001256210_small.jpg", description: "Bread", price: 4.40, location: "Aisle D", avg_rating: 1.5, total_reviews_count: 1, quantity: 12, ticked: false),
-//            ListProductModel(id: 5, name: "ASDA Extra Special Chilli Pork Sausage Ladder", image: "http://192.168.1.187/api/image/products/910001256396_small.jpg", description: "Bread", price: 5.40, location: "Aisle E", avg_rating: 4.1, total_reviews_count: 122, quantity: 1, ticked: false),
-//            ListProductModel(id: 6, name: "Preema Disposable Face Coverings 5 x 4 Packs (20 Coverings)", image: "http://192.168.1.187/api/image/products/910001256410_small.jpg", description: "Bread", price: 6.40, location: "Aisle F", avg_rating: 4.4, total_reviews_count: 11, quantity: 1, ticked: false),
-//            ListProductModel(id: 7, name: "Nivea Sun Kids Suncream Spray SPF 50+ Coloured", image: "http://192.168.1.187/api/image/products/910001257216_small.jpg", description: "Bread", price: 7.40, location: "Aisle G", avg_rating: 3.4, total_reviews_count: 123, quantity: 3, ticked: false)
-//            ], height: 280),
-//
-//
-//            ProductElement(title: "Vegetables",delegate: self, products: [
-//            ListProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10, quantity: 1, ticked: false),
-//            ListProductModel(id: 2, name: "Shazans Halal Peri Peri Chicken Thighs", image: "http://192.168.1.187/api/image/products/1000186031097_small.jpg", description: "Bread", price: 2.40, location: "Aisle B", avg_rating: 4.6, total_reviews_count: 200, quantity: 1, ticked: false),
-//            ListProductModel(id: 3, name: "McVitie's The Original Digestive Biscuits Twin Pack", image: "http://192.168.1.187/api/image/products/1000186031105_small.jpg", description: "Bread", price: 3.40, location: "Aisle C", avg_rating: 2.2, total_reviews_count: 132, quantity: 1, ticked: false),
-//            ListProductModel(id: 4, name: "Ben & Jerry's Non-Dairy & Vegan Chocolate Fudge Brownie Ice Cream", image: "http://192.168.1.187/api/image/products/910001256210_small.jpg", description: "Bread", price: 4.40, location: "Aisle D", avg_rating: 1.5, total_reviews_count: 1, quantity: 12, ticked: false),
-//            ListProductModel(id: 5, name: "ASDA Extra Special Chilli Pork Sausage Ladder", image: "http://192.168.1.187/api/image/products/910001256396_small.jpg", description: "Bread", price: 5.40, location: "Aisle E", avg_rating: 4.1, total_reviews_count: 122, quantity: 1, ticked: false),
-//            ListProductModel(id: 6, name: "Preema Disposable Face Coverings 5 x 4 Packs (20 Coverings)", image: "http://192.168.1.187/api/image/products/910001256410_small.jpg", description: "Bread", price: 6.40, location: "Aisle F", avg_rating: 4.4, total_reviews_count: 11, quantity: 1, ticked: false),
-//            ListProductModel(id: 7, name: "Nivea Sun Kids Suncream Spray SPF 50+ Coloured", image: "http://192.168.1.187/api/image/products/910001257216_small.jpg", description: "Bread", price: 7.40, location: "Aisle G", avg_rating: 3.4, total_reviews_count: 123, quantity: 3, ticked: false)
-//            ], height: 280),
-
-
-//            ProductElement(title: "Offers",delegate: self, products: ["Product 1","Product 2","Product 3","Product 4","Product 1","Product 2","Product 3","Product 4"]),
-            
-//            ProductElement(title: "Favoured Price Changes",delegate: self, products: ["Item 2"]),
-//
-//            // Most popular food categories. Best in each group.
-//            ProductElement(title: "Best Fruits",delegate: self, products: ["Item 3"]),
-//            ProductElement(title: "Best Vegetables",delegate: self, products: ["Item 4"]),
-//            ProductElement(title: "Best Halal Chicken",delegate: self, products: ["Product 4","Product 3","Product 3","Product 3","Product 3","Product 2","Product 1","Product 0"]),
-//            ProductElement(title: "Best Chicken",delegate: self, products: ["Item 6"]),
+             ],height: 400)
             
         ]
-
         
         listTableView.register(UINib(nibName: K.Cells.ListPriceUpdateCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ListPriceUpdateCell.CellIdentifier)
         
@@ -87,7 +48,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         listTableView.register(UINib(nibName: K.Cells.StoreMapCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.StoreMapCell.CellIdentifier)
         
-//        listTableView.rowHeight = 260
+        let nib = UINib(nibName: K.Sections.HomeHeader.SectionNibName, bundle: nil)
+        self.listTableView.register(nib, forHeaderFooterViewReuseIdentifier: K.Sections.HomeHeader.SectionIdentifier)
         
         listTableView.dataSource = self
         listTableView.delegate = self
@@ -99,11 +61,22 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return customElements.count
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let title = customElements[section].title
+        let header = listTableView.dequeueReusableHeaderFooterView(withIdentifier:  K.Sections.HomeHeader.SectionIdentifier) as! HomeSectionHeader
+        header.headingLabel.text = title
+        return header
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellModel = customElements[indexPath.row]
+        let cellModel = customElements[indexPath.section]
         let cellIdentifier = cellModel.type.rawValue
         let customCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CustomElementCell
 
@@ -116,10 +89,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellModel = customElements[indexPath.row]
-        return CGFloat(cellModel.height)
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let cellModel = customElements[indexPath.row]
+//        return CGFloat(cellModel.height)
+//    }
     
 }
 
@@ -146,6 +119,7 @@ enum CustomElementType: String {
 
 // Each custom element model must have a defined type which is a custom element type.
 protocol CustomElementModel: class {
+    var title: String { get }
     var type: CustomElementType { get }
     var height: Float { get }
 }
@@ -153,8 +127,6 @@ protocol CustomElementModel: class {
 protocol CustomElementCell: class {
     func configure(withModel: CustomElementModel)
 }
-
-
 
 
 extension UIImageView {

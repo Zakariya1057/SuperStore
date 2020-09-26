@@ -54,7 +54,7 @@ class ProductTableViewCell: UITableViewCell,CustomElementCell {
     }
     
     func configureUI() {
-        titleLabel.text = self.model.title
+//        titleLabel.text = self.model.title
     }
     
     override func awakeFromNib() {

@@ -140,12 +140,12 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
     }
     
     // this is a _method_
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let circleRenderer = MKCircleRenderer(overlay: overlay)
-        circleRenderer.strokeColor = UIColor.red
-        circleRenderer.lineWidth = 1.0
-        return circleRenderer
-    }
+//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//        let circleRenderer = MKCircleRenderer(overlay: overlay)
+//        circleRenderer.strokeColor = UIColor.red
+//        circleRenderer.lineWidth = 1.0
+//        return circleRenderer
+//    }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("Selected A Store")

@@ -72,6 +72,11 @@ struct K {
             static let SectionIdentifier = "ResuableListSectionHeader"
             static let SectionNibName    = "ListSectionHeader"
         }
+        
+        struct HomeHeader {
+            static let SectionIdentifier = "ResuableHomeSectionHeader"
+            static let SectionNibName    = "HomeSectionHeader"
+        }
     }
     
     struct Cells {
