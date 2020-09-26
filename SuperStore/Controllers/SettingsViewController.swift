@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsTableViewController: UIViewController {
+class SettingsViewController: UIViewController {
     
     @IBOutlet weak var usernameStackView: UIStackView!
     
@@ -49,6 +49,15 @@ class SettingsTableViewController: UIViewController {
         self.performSegue(withIdentifier: "settingsToChangePassword", sender: self)
     }
     
+    @IBAction func logoutPressed(_ sender: Any) {
+        let alert = UIAlertController(title: "Log Out", message: "Are you sure you want to log out?", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in self.logOut()} ))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "settingsToSettingChange" {
             let destinationVC = segue.destination as! SettingsChangeViewController
@@ -57,5 +66,12 @@ class SettingsTableViewController: UIViewController {
 
         }
 
+    }
+    
+    func logOut(){
+        let vc = (self.storyboard?.instantiateViewController(withIdentifier: "loginViewController"))! as! LoginViewController
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

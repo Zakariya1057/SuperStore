@@ -58,7 +58,6 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     func contentLoaded(stores: [StoreModel], products: [ProductModel]) {
         self.products = products
         totalProductsLabel.text = "\(products.count) Products"
-        print(products[0].parent_category_name!)
         self.resultsTableView.reloadData()
     }
     

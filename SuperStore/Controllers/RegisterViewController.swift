@@ -8,18 +8,20 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController {
-
-    let userHandler = UserHandler()
+class RegisterViewController: UIViewController, UserDelegate {
+    var userHandler = UserHandler()
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var repeatPasswordField: UITextField!
     
+    let spinner: SpinnerViewController = SpinnerViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        userHandler.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -39,8 +41,54 @@ class RegisterViewController: UIViewController {
         let password: String = passwordField.text ?? ""
         let passwordConfirmation: String = repeatPasswordField.text ?? ""
         
+        let validationFields: [[String: String]] = [
+            ["field": "name", "value": name, "type": "name"],
+            ["field": "email", "value": email, "type": "email"],
+            ["field": "password", "value": password, "type": "password"],
+            ["field": "confirm password", "value": passwordConfirmation, "type": "password"],
+        ]
+        
+        let error = userHandler.validateFields(validationFields)
+        
+        if error != nil {
+            return showError(error!)
+        }
+        
+        if passwordConfirmation != password {
+            return showError("Passwords don't match")
+        }
+        
+        startLoading()
         userHandler.requestRegister(name: name, email: email, password: password, passwordConfirmation: passwordConfirmation)
+    }
+    
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+    }
+    
+    func contentLoaded(token: String) {
+        stopLoading()
         performSegue(withIdentifier: "registerToHome", sender: self)
+    }
+    
+    func errorHandler(_ message: String) {
+        stopLoading()
+        showError(message)
+    }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Register Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
     
 }

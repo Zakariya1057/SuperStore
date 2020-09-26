@@ -85,22 +85,19 @@ struct RequestHandler {
 //                 userSession.logOut()
 //             }
 //
-//            var errorMessage:String = ""
-//            var errorMessageFound:Bool = false
-//
-//            do {
-//                if let data = response.data {
-//                    let decoder = JSONDecoder()
-//
-//                    let decodedData = try decoder.decode(ErrorResponse.self, from: data)
-//                    errorMessage = decodedData.message
-//
-//                    errorMessageFound = true
-//                }
-//
-//            } catch {
-//                print(error)
-//            }
+            var errorMessage:String = ""
+
+            do {
+                if let data = response.data {
+                    let decoder = JSONDecoder()
+
+                    let decodedData = try decoder.decode(ErrorDataResponse.self, from: data)
+                    errorMessage = decodedData.data.error
+                }
+
+            } catch {
+                print(error)
+            }
 //
 //            if(!errorMessageFound){
 //
@@ -123,7 +120,7 @@ struct RequestHandler {
 //
 //            }
 //
-//            error(errorMessage)
+            error(errorMessage)
             
         }
         

@@ -9,8 +9,8 @@
 import Foundation
 
 protocol UserDelegate {
-    func contentLoaded(suggestions: [SearchModel])
-//    func errorHandler(_ message:String)
+    func contentLoaded(token: String)
+    func errorHandler(_ message:String)
 }
 
 struct UserHandler {
@@ -22,13 +22,13 @@ struct UserHandler {
     func requestRegister(name: String, email: String, password: String, passwordConfirmation: String){
         let registerPath = K.Request.User.Register
         let urlString = "\(K.Host)/\(registerPath)"
-        requestHandler.postRequest(url: urlString, data: ["name": name, "password": password, "password_confirmation": passwordConfirmation, "email": email ], complete: { _ in }, error: processError)
+        requestHandler.postRequest(url: urlString, data: ["name": name, "password": password, "password_confirmation": passwordConfirmation, "email": email ], complete: processLoginResults, error: processError)
     }
     
     func requestLogin(email: String, password: String){
         let loginPath = K.Request.User.Login
         let urlString = "\(K.Host)/\(loginPath)"
-        requestHandler.postRequest(url: urlString, data: ["email": email, "password": password], complete: { _ in }, error: processError)
+        requestHandler.postRequest(url: urlString, data: ["email": email, "password": password], complete: processLoginResults, error: processError)
     }
     
     func requestUpdate(userData: [String: String]){
@@ -37,7 +37,31 @@ struct UserHandler {
         requestHandler.postRequest(url: urlString, data: userData, complete: { _ in }, error: processError)
     }
     
+    
+    func processLoginResults(_ data:Data){
+        
+        do {
+            
+            print("Processing Results")
+
+            let decoder = JSONDecoder()
+            let decodedUserData = try decoder.decode(UserLoginDataResponse.self, from: data)
+            let token = decodedUserData.data.token
+
+            // Store user token, for subsequent requests
+            
+            DispatchQueue.main.async {
+                self.delegate?.contentLoaded(token: token)
+            }
+        
+        } catch {
+            print("Decoding Data Error: \(error)")
+        }
+        
+        
+    }
+    
     func processError(_ message:String){
-//        self.delegate?.errorHandler(message)
+        self.delegate?.errorHandler(message)
     }
 }

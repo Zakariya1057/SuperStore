@@ -77,6 +77,9 @@ class GroceryTableViewCell: UITableViewCell {
             quantityStepper.value = Double(product!.quantity)
         } else {
             if(showAddButton){
+                stepper_label.text = "1"
+                quantityStepper.value = 1
+                
                 show_add_button_view()
             } else {
                 show_store_name_view()

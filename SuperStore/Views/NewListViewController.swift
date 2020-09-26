@@ -16,14 +16,15 @@ class NewListViewController: UIViewController {
     
     var storeName:String = ""
     
-    @IBOutlet weak var storeButton: UIButton!
+//    @IBOutlet weak var storeButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        storeButton.backgroundColor = .clear
-        storeButton.layer.cornerRadius = 5
-        storeButton.layer.borderWidth = 1
-        storeButton.layer.borderColor = UIColor.lightGray.cgColor
+//        storeButton.backgroundColor = .clear
+//        storeButton.layer.cornerRadius = 5
+//        storeButton.layer.borderWidth = 1
+//        storeButton.layer.borderColor = UIColor.lightGray.cgColor
         // Do any additional setup after loading the view.
     }
     
@@ -36,14 +37,14 @@ class NewListViewController: UIViewController {
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
-    func storeChanged(name: String, backgroundColor: UIColor) {
-        
-        self.storeName = name
-        
-        storeButton.setTitle(name, for: .normal)
-        storeButton.backgroundColor = backgroundColor
-        storeButton.setTitleColor(.white, for: .normal)
-    }
+//    func storeChanged(name: String, backgroundColor: UIColor) {
+//        
+//        self.storeName = name
+//        
+//        storeButton.setTitle(name, for: .normal)
+//        storeButton.backgroundColor = backgroundColor
+//        storeButton.setTitleColor(.white, for: .normal)
+//    }
     
     @IBAction func created_pressed(_ sender: Any) {
         
