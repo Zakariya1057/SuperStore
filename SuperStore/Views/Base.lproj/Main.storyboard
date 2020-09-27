@@ -1078,7 +1078,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="Kbr-bB-h5c"/>
                     <connections>
+                        <outlet property="emailLabel" destination="NRR-ms-spy" id="JA5-vE-RXx"/>
                         <outlet property="emailStackView" destination="I7d-Py-p7N" id="XQ4-sA-l38"/>
+                        <outlet property="nameLabel" destination="wSK-P4-bfQ" id="c1c-AO-dH4"/>
                         <outlet property="passwordStackView" destination="cZt-jF-u3P" id="8zZ-fd-FZJ"/>
                         <outlet property="usernameStackView" destination="zmZ-tT-3zA" id="gbq-xd-ccv"/>
                         <segue destination="SzX-4m-Fpe" kind="show" identifier="settingsToSettingChange" id="3Gf-6m-dcV"/>

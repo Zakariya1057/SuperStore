@@ -13,42 +13,38 @@ struct UserSession {
     let userDefaults = UserDefaults.standard
     
     func logOut(){
-        print("Logging Out User")
 //        let domain = Bundle.main.bundleIdentifier!
 //        UserDefaults.standard.removePersistentDomain(forName: domain)
 //        UserDefaults.standard.synchronize()
         
-        UserDefaults.standard.removeObject(forKey: "user_token")
+        UserDefaults.standard.removeObject(forKey: "userSettings")
     }
     
     func setLoggedIn(_ tokenData:UserData){
-        print("Setting User Token: \(tokenData.token)")
-        userDefaults.set(try? PropertyListEncoder().encode(tokenData), forKey: "user_token")
+        userDefaults.set(try? PropertyListEncoder().encode(tokenData), forKey: "userSettings")
     }
     
     func getUserToken() -> String? {
         //Check if user is logged in or not. If logged in, show recent. Otherwise show home page
-        
-        print("Checking If User Logged In")
-        
-        guard let user_token = userDefaults.object(forKey: "user_token") as? Data else {
+        let details = getUserDetails()
+        return details?.token
+    }
+    
+    func getUserDetails() -> UserData? {
+        guard let userSettings = userDefaults.object(forKey: "userSettings") as? Data else {
             return nil
         }
-        
-        print("Decoding Token")
-        print(user_token)
         
         // Use PropertyListDecoder to convert Data into Player
-        guard let token = try? PropertyListDecoder().decode(UserData.self, from: user_token) else {
+        guard let details = try? PropertyListDecoder().decode(UserData.self, from: userSettings) else {
             return nil
         }
         
-        return token.token
+        return details
     }
     
     func isLoggedIn() -> Bool{
         let loggedIn:Bool = getUserToken() != nil
-        print("User Logged In: \(loggedIn)")
         return loggedIn
     }
     

@@ -16,12 +16,19 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var passwordStackView: UIStackView!
     
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    
     var fieldName:String = ""
     
     let userSession = UserSession()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let userDetails = userSession.getUserDetails()
+        nameLabel.text = userDetails?.name
+        emailLabel.text = userDetails?.email
         
         let usernanmeGesture = UITapGestureRecognizer(target: self, action: #selector(usernamePressed))
         usernameStackView.addGestureRecognizer(usernanmeGesture)
@@ -34,19 +41,16 @@ class SettingsViewController: UIViewController {
     }
     
     @objc func usernamePressed(){
-        print("Username Pressed")
         fieldName = "Name"
         self.performSegue(withIdentifier: "settingsToSettingChange", sender: self)
     }
     
     @objc func emailPressed(){
-        print("Email Pressed")
         fieldName = "Email"
         self.performSegue(withIdentifier: "settingsToSettingChange", sender: self)
     }
     
     @objc func passswordPressed(){
-        print("Password Pressed")
         fieldName = "Password"
         self.performSegue(withIdentifier: "settingsToChangePassword", sender: self)
     }
