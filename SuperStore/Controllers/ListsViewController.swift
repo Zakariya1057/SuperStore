@@ -154,7 +154,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     }
     
     func addNewList(_ list: ListModel) {
-        listHandler.insert(list_data: ["name": list.name, "store_id": String(list.store_id)])
+        listHandler.insert(list_data: ["name": list.name, "store_type_id": "1"])
         self.lists.insert(list,at: 0)
         self.listsTableView.reloadData()
     }

@@ -75,7 +75,7 @@ class RegisterViewController: UIViewController, UserDelegate {
         spinner.removeFromParent()
     }
     
-    func contentLoaded(token: String) {
+    func contentLoaded() {
         stopLoading()
         performSegue(withIdentifier: "registerToHome", sender: self)
     }

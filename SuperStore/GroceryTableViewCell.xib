@@ -13,9 +13,6 @@
         <array key="OpenSans-Regular.ttf">
             <string>OpenSans-Regular</string>
         </array>
-        <array key="OpenSans-SemiBold.ttf">
-            <string>OpenSans-SemiBold</string>
-        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -126,7 +123,7 @@
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£3.00" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUG-jC-3H6">
                                                                         <rect key="frame" x="0.0" y="0.0" width="179.5" height="35"/>
-                                                                        <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="15"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>

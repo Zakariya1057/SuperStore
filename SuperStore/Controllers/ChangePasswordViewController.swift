@@ -8,28 +8,78 @@
 
 import UIKit
 
-class ChangePasswordViewController: UIViewController {
+class ChangePasswordViewController: UIViewController, UserDelegate {
 
     @IBOutlet weak var currentPasswordField: UITextField!
     @IBOutlet weak var newPasswordField: UITextField!
     @IBOutlet weak var repeatPasswordField: UITextField!
     
-    let userHandler = UserHandler()
+    var userHandler = UserHandler()
+    
+    let spinner: SpinnerViewController = SpinnerViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        userHandler.delegate = self
         // Do any additional setup after loading the view.
     }
     
     @IBAction func savePressed(_ sender: Any) {
         let currentPassword = currentPasswordField.text ?? ""
         let newPassword = newPasswordField.text ?? ""
-        let repeatPassword = repeatPasswordField.text ?? ""
+        let passwordConfirmation = repeatPasswordField.text ?? ""
         
-        userHandler.requestUpdate(userData: ["type": "password","current_password": currentPassword, "password": newPassword, "password_confirmation": repeatPassword])
+        userHandler.requestUpdate(userData: ["type": "password","current_password": currentPassword, "password": newPassword, "password_confirmation": passwordConfirmation])
+        
+        let validationFields: [[String: String]] = [
+            ["field": "Current Password", "value": currentPassword, "type": "password"],
+            ["field": "New Password", "value": newPassword, "type": "password"],
+            ["field": "Repeat Password", "value": passwordConfirmation, "type": "password"],
+        ]
+        
+        let error = userHandler.validateFields(validationFields)
+        
+        if error != nil {
+            return showError(error!)
+        }
+        
+        if passwordConfirmation != newPassword {
+            return showError("Passwords don't match")
+        }
+        
+        startLoading()
+        
+    }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Update Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func contentLoaded() {
+        stopLoading()
         self.navigationController!.popViewController(animated: true)
     }
+    
+    func errorHandler(_ message: String) {
+        stopLoading()
+        showError(message)
+    }
+
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+    }
+    
 
 
 }

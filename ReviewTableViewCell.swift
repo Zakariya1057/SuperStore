@@ -16,6 +16,7 @@ class ReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var reviewText: UILabel!
     @IBOutlet weak var usernameField:UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,6 +30,7 @@ class ReviewTableViewCell: UITableViewCell {
             ratingView.rating = rating
             ratingView.text = "\(product_review.rating)/5"
             
+            titleLabel?.text = product_review.title
             usernameField.text = product_review.name
             reviewText.text = product_review.text
         }

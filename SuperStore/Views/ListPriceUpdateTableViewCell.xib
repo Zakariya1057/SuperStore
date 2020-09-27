@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8pm-XR-oiz">
-                        <rect key="frame" x="0.0" y="0.0" width="331" height="160"/>
+                        <rect key="frame" x="0.0" y="0.0" width="331" height="150"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="aaK-7r-E3k">
                                 <rect key="frame" x="15" y="0.0" width="301" height="90"/>
@@ -224,7 +224,7 @@
                             <constraint firstItem="3H2-IN-Vhw" firstAttribute="leading" secondItem="8pm-XR-oiz" secondAttribute="leading" id="BV2-IL-gZt"/>
                             <constraint firstItem="aaK-7r-E3k" firstAttribute="leading" secondItem="8pm-XR-oiz" secondAttribute="leading" constant="15" id="K1J-QY-ANL"/>
                             <constraint firstAttribute="trailing" secondItem="3H2-IN-Vhw" secondAttribute="trailing" id="ZAg-8h-925"/>
-                            <constraint firstAttribute="height" constant="160" id="h7P-zg-mVk"/>
+                            <constraint firstAttribute="height" constant="150" id="h7P-zg-mVk"/>
                             <constraint firstItem="aaK-7r-E3k" firstAttribute="top" secondItem="8pm-XR-oiz" secondAttribute="top" id="qUn-ZN-kPh"/>
                             <constraint firstItem="3H2-IN-Vhw" firstAttribute="top" secondItem="aaK-7r-E3k" secondAttribute="bottom" constant="20" id="w1V-ma-7gy"/>
                         </constraints>

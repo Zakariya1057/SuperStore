@@ -9,7 +9,7 @@
 import Foundation
 
 protocol UserDelegate {
-    func contentLoaded(token: String)
+    func contentLoaded()
     func errorHandler(_ message:String)
 }
 
@@ -22,23 +22,23 @@ struct UserHandler {
     func requestRegister(name: String, email: String, password: String, passwordConfirmation: String){
         let registerPath = K.Request.User.Register
         let urlString = "\(K.Host)/\(registerPath)"
-        requestHandler.postRequest(url: urlString, data: ["name": name, "password": password, "password_confirmation": passwordConfirmation, "email": email ], complete: processLoginResults, error: processError)
+        requestHandler.postRequest(url: urlString, data: ["name": name, "password": password, "password_confirmation": passwordConfirmation, "email": email ], complete: processResults, error: processError)
     }
     
     func requestLogin(email: String, password: String){
         let loginPath = K.Request.User.Login
         let urlString = "\(K.Host)/\(loginPath)"
-        requestHandler.postRequest(url: urlString, data: ["email": email, "password": password], complete: processLoginResults, error: processError)
+        requestHandler.postRequest(url: urlString, data: ["email": email, "password": password], complete: processResults, error: processError)
     }
     
     func requestUpdate(userData: [String: String]){
         let updatePath = K.Request.User.Update
         let urlString = "\(K.Host)/\(updatePath)"
-        requestHandler.postRequest(url: urlString, data: userData, complete: { _ in }, error: processError)
+        requestHandler.postRequest(url: urlString, data: userData, complete: proccessUpdate, error: processError)
     }
     
     
-    func processLoginResults(_ data:Data){
+    func processResults(_ data:Data){
         
         do {
             
@@ -51,7 +51,7 @@ struct UserHandler {
             // Store user token, for subsequent requests
             
             DispatchQueue.main.async {
-                self.delegate?.contentLoaded(token: token)
+                self.delegate?.contentLoaded()
             }
         
         } catch {
@@ -59,6 +59,12 @@ struct UserHandler {
         }
         
         
+    }
+    
+    func proccessUpdate(_ data:Data){
+        DispatchQueue.main.async {
+            self.delegate?.contentLoaded()
+        }
     }
     
     func processError(_ message:String){

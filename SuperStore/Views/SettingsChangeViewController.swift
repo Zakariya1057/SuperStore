@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsChangeViewController: UIViewController {
+class SettingsChangeViewController: UIViewController, UserDelegate {
 
     var headerName:String = ""
     var type: String?
@@ -17,6 +17,8 @@ class SettingsChangeViewController: UIViewController {
     @IBOutlet weak var headerLabel: UILabel!
     
     var userHandler = UserHandler()
+    
+    let spinner: SpinnerViewController = SpinnerViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,8 @@ class SettingsChangeViewController: UIViewController {
         } else {
             inputField.keyboardType = .asciiCapable
         }
+        
+        userHandler.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -37,13 +41,65 @@ class SettingsChangeViewController: UIViewController {
         let input = inputField.text ?? ""
         
         if type == "email" {
+            
+            let validationFields: [ [String: String] ] = [
+                ["field": "email", "value": input, "type": "email"],
+            ]
+            
+            let error = userHandler.validateFields(validationFields)
+            
+            if error != nil {
+                return showError(error!)
+            }
+
+            startLoading()
+            
             userHandler.requestUpdate(userData: ["type": type!, "email": input])
         } else {
+            let validationFields: [ [String: String] ] = [
+                ["field": "name", "value": input, "type": "name"],
+            ]
+            
+            let error = userHandler.validateFields(validationFields)
+            
+            if error != nil {
+                return showError(error!)
+            }
+
+            startLoading()
+            
             userHandler.requestUpdate(userData: ["type": type!, "name": input])
         }
         
-        self.navigationController!.popViewController(animated: true)
     }
 
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Update Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func contentLoaded() {
+        stopLoading()
+        self.navigationController!.popViewController(animated: true)
+    }
+    
+    func errorHandler(_ message: String) {
+        stopLoading()
+        showError(message)
+    }
 
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+    }
+    
 }

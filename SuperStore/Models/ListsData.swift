@@ -17,7 +17,7 @@ struct ListData: Decodable {
     var created_at: String
     var name: String
     var status: String
-    var store_id: Int
+    var store_id: Int?
     var user_id: Int
     var total_price: Double
     var categories: [ListCategoryData]?

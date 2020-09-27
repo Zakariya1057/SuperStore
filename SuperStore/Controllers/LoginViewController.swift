@@ -66,7 +66,7 @@ class LoginViewController: UIViewController, UserDelegate {
         self.present(alert, animated: true)
     }
     
-    func contentLoaded(token: String) {
+    func contentLoaded() {
         stopLoading()
         self.performSegue(withIdentifier: "loginToHome", sender: self)
     }

@@ -46,7 +46,7 @@ class ListEditViewController: UIViewController  {
         listHandler.update(list_data: [
             "list_id": String(list!.id),
             "name":name,
-            "store_id": String(list!.store_id)
+            "store_type_id": "1"
         ])
         
         self.navigationController?.popViewController(animated: true)

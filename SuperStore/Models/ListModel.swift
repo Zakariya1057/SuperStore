@@ -13,7 +13,7 @@ struct ListModel {
     var name: String
     var created_at: String
     var status: ListStatus
-    var store_id: Int
+    var store_id: Int?
     var user_id: Int
     var total_price: Double
     var categories: [ListCategoryModel]

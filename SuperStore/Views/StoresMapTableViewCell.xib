@@ -38,7 +38,7 @@
                 <constraints>
                     <constraint firstItem="gOU-bx-eiE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="51D-Mh-j52"/>
                     <constraint firstAttribute="trailing" secondItem="gOU-bx-eiE" secondAttribute="trailing" id="NBW-1j-r13"/>
-                    <constraint firstAttribute="bottom" secondItem="gOU-bx-eiE" secondAttribute="bottom" constant="10" id="UJe-Oh-VNq"/>
+                    <constraint firstAttribute="bottom" secondItem="gOU-bx-eiE" secondAttribute="bottom" id="UJe-Oh-VNq"/>
                     <constraint firstItem="gOU-bx-eiE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="UqD-ZA-BQh"/>
                 </constraints>
             </tableViewCellContentView>

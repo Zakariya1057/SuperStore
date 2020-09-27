@@ -21,50 +21,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4od-DQ-BzS">
-                    <rect key="frame" x="0.0" y="88" width="414" height="40"/>
+                    <rect key="frame" x="0.0" y="88" width="414" height="50"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c8m-w2-BHL">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
-                            <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="iHd-jf-xqB">
-                                    <rect key="frame" x="15" y="0.0" width="384" height="40"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9f-qd-hmb">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euY-YM-d53">
-                                                    <rect key="frame" x="0.0" y="9" width="49" height="22"/>
-                                                    <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="16"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="euY-YM-d53" firstAttribute="leading" secondItem="a9f-qd-hmb" secondAttribute="leading" id="uaK-8G-Et3"/>
-                                                <constraint firstItem="euY-YM-d53" firstAttribute="centerY" secondItem="a9f-qd-hmb" secondAttribute="centerY" id="wsd-HD-del"/>
-                                            </constraints>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="a9f-qd-hmb" firstAttribute="leading" secondItem="iHd-jf-xqB" secondAttribute="leading" id="D0H-re-hrS"/>
-                                        <constraint firstItem="a9f-qd-hmb" firstAttribute="top" secondItem="iHd-jf-xqB" secondAttribute="top" id="qQx-QF-a16"/>
-                                    </constraints>
-                                </stackView>
-                            </subviews>
-                            <constraints>
-                                <constraint firstItem="iHd-jf-xqB" firstAttribute="leading" secondItem="c8m-w2-BHL" secondAttribute="leading" constant="15" id="2Mv-um-2JS"/>
-                                <constraint firstAttribute="bottom" secondItem="iHd-jf-xqB" secondAttribute="bottom" id="fkC-ch-eOC"/>
-                                <constraint firstItem="iHd-jf-xqB" firstAttribute="top" secondItem="c8m-w2-BHL" secondAttribute="top" id="jU1-Wg-8J3"/>
-                                <constraint firstAttribute="trailing" secondItem="iHd-jf-xqB" secondAttribute="trailing" constant="15" id="z7E-FK-kZg"/>
-                            </constraints>
-                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euY-YM-d53">
+                            <rect key="frame" x="15" y="14" width="49" height="22"/>
+                            <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="16"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="c8m-w2-BHL" secondAttribute="bottom" id="05M-wu-GwV"/>
-                        <constraint firstItem="c8m-w2-BHL" firstAttribute="top" secondItem="4od-DQ-BzS" secondAttribute="top" id="AB1-B0-f92"/>
-                        <constraint firstAttribute="trailing" secondItem="c8m-w2-BHL" secondAttribute="trailing" id="Mwz-M2-QDv"/>
-                        <constraint firstAttribute="height" constant="40" id="PUN-QY-rIx"/>
-                        <constraint firstItem="c8m-w2-BHL" firstAttribute="leading" secondItem="4od-DQ-BzS" secondAttribute="leading" id="W3M-9O-lCK"/>
+                        <constraint firstAttribute="height" constant="50" id="PUN-QY-rIx"/>
+                        <constraint firstItem="euY-YM-d53" firstAttribute="centerY" secondItem="4od-DQ-BzS" secondAttribute="centerY" id="iou-J5-MWu"/>
+                        <constraint firstItem="euY-YM-d53" firstAttribute="leading" secondItem="4od-DQ-BzS" secondAttribute="leading" constant="15" id="wM7-3E-aEg"/>
                     </constraints>
                 </view>
             </subviews>

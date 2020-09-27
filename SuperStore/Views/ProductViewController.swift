@@ -65,8 +65,6 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         similarTableView.delegate = self
         similarTableView.dataSource = self
         
-        similarTableView.rowHeight = 280;
-        
         let ingredients_gesture = UITapGestureRecognizer(target: self, action: #selector(showIngredients))
         ingredientsView.addGestureRecognizer(ingredients_gesture)
         
