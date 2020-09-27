@@ -9,9 +9,11 @@
 import Foundation
 
 struct UserLoginDataResponse:Decodable {
-    var data: UserLoginData
+    var data: UserData
 }
 
-struct UserLoginData: Decodable {
+struct UserData: Codable {
+    var name: String
     var token: String
+    var email: String
 }

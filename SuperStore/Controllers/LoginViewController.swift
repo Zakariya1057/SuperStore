@@ -19,7 +19,6 @@ class LoginViewController: UIViewController, UserDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         userHandler.delegate = self
     }
     

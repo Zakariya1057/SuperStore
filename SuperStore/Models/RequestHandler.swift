@@ -11,6 +11,8 @@ import Alamofire
 
 struct RequestHandler {
     
+    let userSession = UserSession()
+    
     let requestTimeout: Double = 15
     
     func parseURL(urlString:String) -> String {
@@ -21,16 +23,13 @@ struct RequestHandler {
         
         let urlString = parseURL(urlString: urlString)
         
-//        let token = userSession.getUserToken()!
-        let token = "S"
+        let token = userSession.getUserToken()!
         
         print("Token: \(token)")
         
         let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "X-Requested-With": "XMLHttpRequest",
-            "Authorizations": "Bearer \(token)"
+            "X-Authorization": "Bearer \(token)",
+            "X-Requested-With": "XMLHttpRequest"
         ]
         
         print("GET REQUEST: \(urlString)")
@@ -51,14 +50,14 @@ struct RequestHandler {
         
         let urlString = parseURL(urlString: urlString)
         
-//        let token = userSession.getUserToken() ?? ""
+        let token = userSession.getUserToken() ?? ""
         
         print("POST REQUEST: \(urlString)")
         
-        let token = "S"
+//        let token = "1|7V4iFvllGXQvS951LOg6nH5URlR49XCH7giatCLX"
         
         let headers: HTTPHeaders = [
-            "Authorizations": "Bearer \(token)",
+            "X-Authorization": "Bearer \(token)",
             "X-Requested-With": "XMLHttpRequest"
         ]
         

@@ -9,7 +9,7 @@
 import UIKit
 import Cosmos
 
-class ReviewViewController: UIViewController, ReviewsListDelegate {
+class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDelegate, UITextViewDelegate {
 
     @IBOutlet weak var reviewTextView: UITextView!
     
@@ -26,6 +26,9 @@ class ReviewViewController: UIViewController, ReviewsListDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        reviewTitleView.delegate = self
+        reviewTextView.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
 
 //       reviewTitleView!.layer.borderWidth = 1
@@ -57,6 +60,26 @@ class ReviewViewController: UIViewController, ReviewsListDelegate {
             configureUI()
         }
         
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let textFieldText = textField.text,
+            let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                return false
+        }
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 55
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let textFieldText = textView.text,
+            let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                return false
+        }
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + text.count
+        return count <= 1500
     }
     
     func configureUI(){

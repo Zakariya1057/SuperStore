@@ -28,7 +28,7 @@ class ReviewTableViewCell: UITableViewCell {
             let rating: Double = Double(product_review.rating)
             
             ratingView.rating = rating
-            ratingView.text = "\(product_review.rating)/5"
+//            ratingView.text = "\(product_review.rating)/5"
             
             titleLabel?.text = product_review.title
             usernameField.text = product_review.name

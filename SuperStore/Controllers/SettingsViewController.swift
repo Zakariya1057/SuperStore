@@ -18,6 +18,8 @@ class SettingsViewController: UIViewController {
     
     var fieldName:String = ""
     
+    let userSession = UserSession()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,13 +64,11 @@ class SettingsViewController: UIViewController {
         if segue.identifier == "settingsToSettingChange" {
             let destinationVC = segue.destination as! SettingsChangeViewController
             destinationVC.headerName = fieldName
-        } else {
-
         }
-
     }
     
     func logOut(){
+        userSession.logOut()
         let vc = (self.storyboard?.instantiateViewController(withIdentifier: "loginViewController"))! as! LoginViewController
         navigationController?.setNavigationBarHidden(true, animated: true)
         self.tabBarController?.tabBar.isHidden = true

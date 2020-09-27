@@ -17,6 +17,8 @@ struct UserHandler {
     
     var delegate: UserDelegate?
     
+    let userSession = UserSession()
+    
     let requestHandler = RequestHandler()
     
     func requestRegister(name: String, email: String, password: String, passwordConfirmation: String){
@@ -46,9 +48,9 @@ struct UserHandler {
 
             let decoder = JSONDecoder()
             let decodedUserData = try decoder.decode(UserLoginDataResponse.self, from: data)
-            let token = decodedUserData.data.token
-
-            // Store user token, for subsequent requests
+            
+            let userData:UserData = decodedUserData.data
+            userSession.setLoggedIn(userData)
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded()
