@@ -12,17 +12,24 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
 
     var headerName:String = ""
     var type: String?
+    var inputValue:String?
+    
+    var delegate: UserDetailsChangedDelegate?
     
     @IBOutlet weak var inputField: UITextField!
     @IBOutlet weak var headerLabel: UILabel!
     
     var userHandler = UserHandler()
     
+    var userDetails: UserData?
+    
     let spinner: SpinnerViewController = SpinnerViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.headerLabel.text = headerName
+        
+        inputField.text = inputValue ?? ""
         
         self.type = headerName.lowercased()
         if type == "email" {
@@ -52,6 +59,8 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
                 return showError(error!)
             }
 
+            userDetails!.email = input
+            
             startLoading()
             
             userHandler.requestUpdate(userData: ["type": type!, "email": input])
@@ -60,6 +69,7 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
                 ["field": "name", "value": input, "type": "name"],
             ]
             
+            userDetails!.name = input
             let error = userHandler.validateFields(validationFields)
             
             if error != nil {
@@ -68,6 +78,7 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
 
             startLoading()
             
+            self.delegate?.updateUserDetails(userDetails: userDetails!)
             userHandler.requestUpdate(userData: ["type": type!, "name": input])
         }
         

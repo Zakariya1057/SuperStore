@@ -8,7 +8,11 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+protocol UserDetailsChangedDelegate {
+    func updateUserDetails(userDetails: UserData)
+}
+
+class SettingsViewController: UIViewController, UserDetailsChangedDelegate {
     
     @IBOutlet weak var usernameStackView: UIStackView!
     
@@ -20,15 +24,16 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     
     var fieldName:String = ""
+    var fieldValue:String = ""
     
     let userSession = UserSession()
+    
+    var userDetails: UserData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let userDetails = userSession.getUserDetails()
-        nameLabel.text = userDetails?.name
-        emailLabel.text = userDetails?.email
+        userDetails = userSession.getUserDetails()
         
         let usernanmeGesture = UITapGestureRecognizer(target: self, action: #selector(usernamePressed))
         usernameStackView.addGestureRecognizer(usernanmeGesture)
@@ -40,13 +45,20 @@ class SettingsViewController: UIViewController {
         passwordStackView.addGestureRecognizer(passwordGesture)
     }
     
+    func showUserDetails(){
+        nameLabel.text = userDetails?.name
+        emailLabel.text = userDetails?.email
+    }
+    
     @objc func usernamePressed(){
         fieldName = "Name"
+        fieldValue = userDetails!.name
         self.performSegue(withIdentifier: "settingsToSettingChange", sender: self)
     }
     
     @objc func emailPressed(){
         fieldName = "Email"
+        fieldValue = userDetails!.email
         self.performSegue(withIdentifier: "settingsToSettingChange", sender: self)
     }
     
@@ -67,6 +79,9 @@ class SettingsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "settingsToSettingChange" {
             let destinationVC = segue.destination as! SettingsChangeViewController
+            destinationVC.delegate = self
+            destinationVC.userDetails = userDetails
+            destinationVC.inputValue = fieldValue
             destinationVC.headerName = fieldName
         }
     }
@@ -77,5 +92,11 @@ class SettingsViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func updateUserDetails(userDetails: UserData) {
+        self.userDetails = userDetails
+        userSession.setLoggedIn(userDetails)
+        showUserDetails()
     }
 }

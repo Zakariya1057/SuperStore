@@ -20,12 +20,11 @@ struct UserSession {
         UserDefaults.standard.removeObject(forKey: "userSettings")
     }
     
-    func setLoggedIn(_ tokenData:UserData){
-        userDefaults.set(try? PropertyListEncoder().encode(tokenData), forKey: "userSettings")
+    func setLoggedIn(_ userData:UserData){
+        userDefaults.set(try? PropertyListEncoder().encode(userData), forKey: "userSettings")
     }
     
     func getUserToken() -> String? {
-        //Check if user is logged in or not. If logged in, show recent. Otherwise show home page
         let details = getUserDetails()
         return details?.token
     }

@@ -78,7 +78,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1n-ZB-R56">
                                                                 <rect key="frame" x="0.0" y="0.0" width="359" height="40"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYA-oO-zY4" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YYA-oO-zY4" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="0.0" y="8.5" width="359" height="23"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -149,7 +149,7 @@
                                                                                 </connections>
                                                                             </stepper>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7Y-Cq-Kh8">
-                                                                                <rect key="frame" x="25.5" y="8" width="50" height="19"/>
+                                                                                <rect key="frame" x="25.5" y="6.5" width="50" height="22"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="50" id="TdH-fi-3jL"/>
                                                                                 </constraints>
@@ -277,11 +277,6 @@
             <point key="canvasLocation" x="148.55072463768118" y="125.55803571428571"/>
         </tableViewCell>
     </objects>
-    <designables>
-        <designable name="YYA-oO-zY4">
-            <size key="intrinsicContentSize" width="174.923828125" height="23"/>
-        </designable>
-    </designables>
     <resources>
         <namedColor name="LogoBlue">
             <color red="0.097999997437000275" green="0.46299999952316284" blue="0.80400002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
