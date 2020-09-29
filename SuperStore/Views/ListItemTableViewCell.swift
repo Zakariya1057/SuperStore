@@ -80,8 +80,7 @@ class ListItemTableViewCell: UITableViewCell {
 //        let priceText = "£" + String(format:"%.2f", product!.price)
 //        let quantityText = String(product!.quantity)
 //        priceCalculationLabel.text = "\(priceText)"
-        
-        let totalText = "£" + String(format: "%.2f", Double(product!.quantity) * product!.price)
+        let totalText = "£" + String(format: "%.2f", delegate!.calculateProductPrice(product!))
         totalLabel.text = "\(totalText)"
     }
     

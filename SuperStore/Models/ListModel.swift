@@ -36,6 +36,7 @@ struct ListItemModel {
     var image: String
     var ticked_off: Bool
     var weight: String?
+    var discount: DiscountModel?
 }
 
 enum ListStatus {

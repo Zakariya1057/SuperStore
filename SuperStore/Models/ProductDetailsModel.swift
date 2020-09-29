@@ -27,7 +27,7 @@ class ProductDetailsModel: ProductModel {
     
     init(id: Int, name: String,image: String,description: String?, quantiy: Int,price:Double,location:String?, avg_rating: Double?, total_reviews_count: Int?, storage: String?, weight: String?,parent_category_id: Int?, parent_category_name: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel], favourite: Bool, promotion: PromotionModel?, ingredients: [String], recommended: [ProductModel]) {
         
-        super.init(id: id, name: name, image: image, description: description, quantity: quantiy, weight: weight,parent_category_id: parent_category_id, parent_category_name: parent_category_name, price:price, location: location,avg_rating: avg_rating, total_reviews_count: total_reviews_count)
+        super.init(id: id, name: name, image: image, description: description, quantity: quantiy, weight: weight,parent_category_id: parent_category_id, parent_category_name: parent_category_name, price:price, location: location,avg_rating: avg_rating, total_reviews_count: total_reviews_count, discount: nil)
         self.storage = storage
         self.avg_rating = avg_rating
         self.total_reviews_count = total_reviews_count

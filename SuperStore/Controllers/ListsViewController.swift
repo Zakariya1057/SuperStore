@@ -18,6 +18,7 @@ protocol ListChangedDelegate {
 
 protocol ListStatusChangeDelegate {
     func updateListStatus(index: Int, status: ListStatus)
+    func updatePrice(index: Int, total_price: Double)
 }
 
 class ListsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource,NewListDelegate, ListDelegate, ListChangedDelegate, ListStatusChangeDelegate {
@@ -168,6 +169,11 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     func updateListStatus(index: Int, status: ListStatus) {
         lists[index].status = status
+        listsTableView.reloadData()
+    }
+    
+    func updatePrice(index: Int, total_price: Double) {
+        lists[index].total_price = total_price
         listsTableView.reloadData()
     }
 }

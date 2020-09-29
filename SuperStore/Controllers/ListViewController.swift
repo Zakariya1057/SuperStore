@@ -10,6 +10,7 @@ import UIKit
 
 protocol PriceChangeDelegate {
     func productChanged(section_index: Int,row_index:Int, product: ListItemModel)
+    func calculateProductPrice(_ product: ListItemModel) -> Double
 }
 
 //protocol StoreSelectedDelegate {
@@ -24,6 +25,7 @@ protocol PriceChangeDelegate {
 
 protocol ProductQuantityChangedDelegate {
     func quantityChanged(section_index: Int,row_index:Int, quantity: Int)
+    func calculateProductPrice(_ product: ListItemModel) -> Double
     func removeItem(section: Int, row: Int)
 }
 
@@ -89,8 +91,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func contentLoaded(list: ListModel) {
         self.list = list
-        self.totalPriceLabel.text = "£" + String(format: "%.2f", list.total_price)
         self.title = list.name
+        showTotalPrice()
         listTableView.reloadData()
         refreshControl.endRefreshing()
     }
@@ -105,11 +107,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         var price:Double = 0.00
         let products = (list?.categories ?? []).map({ $0.items }).joined()
         
+        print(products.count)
         for product in products {
-            price += ( Double(product.quantity) * product.price)
+            print(product.price)
+            price += calculateProductPrice(product)
         }
         
         self.totalPriceLabel.text = "£" + String(format: "%.2f", price)
+        
+        self.status_delegate?.updatePrice(index: list_index, total_price: price)
     }
         
     func productChanged(section_index: Int,row_index:Int, product: ListItemModel) {
@@ -240,6 +246,35 @@ extension ListViewController: GroceryDelegate {
         productQuantityChanged(product: product, parent_category_id: product.parent_category_id!)
     }
     
+    func calculateProductPrice(_ product: ListItemModel) -> Double {
+        var price:Double = 0
+        
+        if product.discount == nil {
+            print("No Discount Found")
+            price = ( Double(product.quantity) * product.price)
+        } else {
+            print("Discount Found")
+            
+            let discount = product.discount
+
+            let remainder = (product.quantity % discount!.quantity)
+            let goesIntoFully = round(Double(Int(product.quantity) / Int(discount!.quantity)))
+
+            if product.quantity < discount!.quantity {
+                price += Double(product.quantity) * product.price
+            }
+            
+            if discount!.forQuantity != nil {
+                price = (Double(goesIntoFully) * (Double(discount!.forQuantity!) * product.price) ) + (Double(remainder) * product.price)
+            } else if (discount!.price != nil){
+                price = (Double(goesIntoFully) * discount!.price!) + (Double(remainder) * product.price)
+            }
+            
+        }
+        
+        return price
+    }
+    
     func removeItem(section: Int, row: Int){
 
         print("Section: \(section)")
@@ -307,7 +342,7 @@ extension ListViewController: GroceryDelegate {
         
         var categories = list?.categories ?? []
         
-        let item = ListItemModel(id: product.id, name: product.name, total_price: product.price, price: product.price, product_id: product.id, quantity: 1, image: product.image, ticked_off: false, weight: product.weight)
+        let item = ListItemModel(id: product.id, name: product.name, total_price: product.price, price: product.price, product_id: product.id, quantity: 1, image: product.image, ticked_off: false, weight: product.weight,discount: product.discount)
         var added: Bool = false
         
         if categories.count > 0 {
@@ -342,8 +377,9 @@ extension ListViewController: GroceryDelegate {
     
     
     func quantityChanged(section_index: Int,row_index:Int, quantity: Int) {
-        let product = list!.categories[selected_section].items[selected_row]
-        list!.categories[selected_section].items[selected_row].quantity = quantity
+        var product = list!.categories[selected_section].items[selected_row]
+        product.quantity = quantity
+        list!.categories[selected_section].items[selected_row] = product
         listTableView.reloadData()
         showTotalPrice()
         productUpdate(product: product)

@@ -39,5 +39,13 @@ struct ProductData:Decodable {
     
     var parent_category_id: Int?
     var parent_category_name: String?
+    
+    var discount: DiscountData?
 }
 
+
+struct DiscountData:Decodable {
+    var quantity: Int
+    var price: Double?
+    var for_quantity: Int?
+}

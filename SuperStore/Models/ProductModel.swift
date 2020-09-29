@@ -24,7 +24,9 @@ class ProductModel {
     var parent_category_id: Int?
     var parent_category_name: String?
     
-    init(id: Int, name: String,image: String,description: String?, quantity: Int, weight: String?,parent_category_id: Int?, parent_category_name: String?, price:Double,location:String?,avg_rating: Double?, total_reviews_count: Int?) {
+    var discount: DiscountModel?
+    
+    init(id: Int, name: String,image: String,description: String?, quantity: Int, weight: String?,parent_category_id: Int?, parent_category_name: String?, price:Double,location:String?,avg_rating: Double?, total_reviews_count: Int?, discount: DiscountModel?) {
         self.id = id
         self.name = name
         self.image = image
@@ -39,5 +41,18 @@ class ProductModel {
         
         self.parent_category_id = parent_category_id
         self.parent_category_name = parent_category_name
+        self.discount = discount
+    }
+}
+
+class DiscountModel {
+    var quantity: Int
+    var price: Double?
+    var forQuantity: Int?
+    
+    init(quantity: Int, price: Double?,forQuantity: Int? ) {
+        self.quantity = quantity
+        self.price = price
+        self.forQuantity = forQuantity
     }
 }

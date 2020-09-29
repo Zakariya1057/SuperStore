@@ -46,7 +46,7 @@ class ListItemViewController: UIViewController {
     }
     
     func updateTotalPrice(){
-        productTotalLabel.text = "£" + String(format: "%.2f", Double(product!.quantity) * product!.price)
+        productTotalLabel.text = "£" + String(format: "%.2f", delegate!.calculateProductPrice(product!))
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
