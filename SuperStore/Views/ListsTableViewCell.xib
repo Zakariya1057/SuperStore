@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -40,7 +42,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="tf9-Ow-iag" secondAttribute="trailing" id="1VR-iE-OZ0"/>
                                             <constraint firstAttribute="height" constant="15" id="ICp-9T-F8K"/>
@@ -58,7 +60,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Op0-Tg-qvJ" secondAttribute="trailing" constant="15" id="1Hd-Oh-yFd"/>
                                             <constraint firstItem="Op0-Tg-qvJ" firstAttribute="centerY" secondItem="lE6-Gm-jDG" secondAttribute="centerY" id="I9g-Em-oWv"/>
@@ -80,7 +82,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="1bh-XE-Kfc" firstAttribute="leading" secondItem="tsP-Ji-Wgd" secondAttribute="leading" id="Dh1-lv-Zb6"/>
                                             <constraint firstItem="1bh-XE-Kfc" firstAttribute="centerY" secondItem="tsP-Ji-Wgd" secondAttribute="centerY" id="UlA-mz-qoM"/>
@@ -97,7 +99,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="FSV-2f-MPV"/>
                                             <constraint firstAttribute="trailing" secondItem="GpH-fp-I2y" secondAttribute="trailing" constant="15" id="Lqk-tn-Xag"/>
@@ -107,6 +109,12 @@
                                 </subviews>
                             </stackView>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="RGf-gY-H6V" secondAttribute="trailing" id="LX2-PZ-zDL"/>
+                            <constraint firstItem="c8t-22-bpg" firstAttribute="leading" secondItem="Mhe-c5-ysy" secondAttribute="leading" id="Pif-7x-Hi9"/>
+                            <constraint firstAttribute="trailing" secondItem="c8t-22-bpg" secondAttribute="trailing" id="lmg-yE-yJk"/>
+                            <constraint firstItem="RGf-gY-H6V" firstAttribute="leading" secondItem="Mhe-c5-ysy" secondAttribute="leading" id="mZw-1K-a4G"/>
+                        </constraints>
                     </stackView>
                 </subviews>
                 <constraints>
@@ -125,4 +133,9 @@
             <point key="canvasLocation" x="163.04347826086959" y="122.20982142857142"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

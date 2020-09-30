@@ -18,35 +18,39 @@ enum SearchType: String {
 class SearchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var contentImage: UIImageView!
     
     var search: SearchModel?
     
+    var loadingViews: [UIView] {
+        return [nameLabel]
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
     }
 
     func configureUI(){
-        
-        let searchName: String     = search!.name
+        stopLoading()
+        let searchName: String = search!.name
         nameLabel.text = searchName
-        
-//        let searchType: SearchType = search!.type
-        
-//        if searchType == .product {
-//            contentImage.image = UIImage(named: "Chicken")
-//        } else {
-//            contentImage.image = UIImage(named: "LidlLogo")
-//        }
-        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
+    }
+    
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
     }
     
 }

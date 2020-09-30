@@ -18,6 +18,8 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var product_id: Int = 1
     
+    var loading:Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,19 +34,26 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviews.count
+        return reviews.count == 0 && loading == true ? 3 : reviews.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.ReviewCell.CellIdentifier , for: indexPath) as! ReviewTableViewCell
-        cell.review = reviews[indexPath.row]
-        cell.configureUI()
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        
+        if loading == false {
+            cell.review = reviews[indexPath.row]
+            cell.configureUI()
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        } else {
+            cell.startLoading()
+        }
+
         return cell
     }
 
     func contentLoaded(reviews: [ReviewModel]) {
         self.reviews = reviews
+        loading = false
         reviewsTableView.reloadData()
     }
 

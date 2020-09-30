@@ -581,10 +581,6 @@
                                                                 <state key="normal" title="Change Store">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
-                                                                <connections>
-                                                                    <action selector="addListPressed:" destination="TZX-nf-fZJ" eventType="touchUpInside" id="hZ4-8q-hPO"/>
-                                                                    <action selector="change_store_pressed:" destination="ZAM-DR-R8x" eventType="touchUpInside" id="RYV-2N-xnL"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -623,7 +619,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="name_field" destination="tbg-yR-nei" id="RKD-uw-2VE"/>
+                        <outlet property="nameField" destination="tbg-yR-nei" id="jy8-Rq-hff"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fmE-0K-zpS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1462,7 +1458,7 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opening Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eV-tb-S5d">
-                                                                                        <rect key="frame" x="0.0" y="2.5" width="384" height="25"/>
+                                                                                        <rect key="frame" x="0.0" y="4.5" width="384" height="21"/>
                                                                                         <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
@@ -1622,7 +1618,7 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facilities" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ziz-yC-EQo">
-                                                                                        <rect key="frame" x="0.0" y="17.5" width="384" height="25"/>
+                                                                                        <rect key="frame" x="0.0" y="19.5" width="384" height="21"/>
                                                                                         <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
@@ -2107,7 +2103,7 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="192" height="20"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£1.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrR-D0-Pcl">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="192" height="20"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="43" height="20"/>
                                                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
@@ -2118,7 +2114,6 @@
                                                                                     <constraint firstItem="qrR-D0-Pcl" firstAttribute="leading" secondItem="fjx-3a-yWJ" secondAttribute="leading" id="33q-81-xnM"/>
                                                                                     <constraint firstItem="qrR-D0-Pcl" firstAttribute="top" secondItem="fjx-3a-yWJ" secondAttribute="top" id="MqA-vE-cU6"/>
                                                                                     <constraint firstAttribute="bottom" secondItem="qrR-D0-Pcl" secondAttribute="bottom" id="RKr-Wm-nMC"/>
-                                                                                    <constraint firstAttribute="trailing" secondItem="qrR-D0-Pcl" secondAttribute="trailing" id="hRl-rq-NJV"/>
                                                                                 </constraints>
                                                                             </view>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tgh-rd-5xu">
@@ -2214,7 +2209,7 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="20"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reviews" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3c-8q-A5W">
-                                                                                        <rect key="frame" x="0.0" y="-0.5" width="384" height="21"/>
+                                                                                        <rect key="frame" x="0.0" y="-2.5" width="384" height="25"/>
                                                                                         <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
@@ -2514,7 +2509,7 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="25"/>
                                                                                         <subviews>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Life Style" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Foo-9B-LNw">
-                                                                                                <rect key="frame" x="0.0" y="2" width="384" height="21"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="384" height="25"/>
                                                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                                 <nil key="textColor"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -2555,7 +2550,7 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="25"/>
                                                                                         <subviews>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allergen Information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tA6-ll-1q3">
-                                                                                                <rect key="frame" x="0.0" y="2" width="384" height="21"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="384" height="25"/>
                                                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                                 <nil key="textColor"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -2668,6 +2663,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addToListButton" destination="HGm-iR-Eia" id="8MI-ot-xcY"/>
                         <outlet property="allReviewsButton" destination="3XK-rV-xms" id="uHb-IZ-Qw0"/>
                         <outlet property="allReviewsView" destination="Gc7-tf-mgR" id="DKY-6D-gdQ"/>
                         <outlet property="allergenLabel" destination="ZN0-x9-n2W" id="Vxl-Ys-JY7"/>
@@ -2677,6 +2673,8 @@
                         <outlet property="favouriteBarItem" destination="l96-Ro-t0a" id="N9a-Nd-hlf"/>
                         <outlet property="ingredientsView" destination="orR-Jr-CrQ" id="zeW-Sj-VQP"/>
                         <outlet property="lifeStyleLabel" destination="byc-1t-N15" id="l0C-of-8sO"/>
+                        <outlet property="monitorButton" destination="QxR-hS-YCK" id="F8V-m9-3q7"/>
+                        <outlet property="parentRatingView" destination="zk9-e4-itb" id="8GI-CP-YyP"/>
                         <outlet property="productImageView" destination="Nrg-n9-WPK" id="fVg-Lt-eEl"/>
                         <outlet property="productNameLabel" destination="2lE-Qu-POF" id="5t8-6V-9eF"/>
                         <outlet property="productPriceLabel" destination="qrR-D0-Pcl" id="hEV-RZ-HJz"/>
@@ -2684,6 +2682,7 @@
                         <outlet property="promotionLabel" destination="Svs-Ab-oYP" id="N8G-VJ-T5k"/>
                         <outlet property="promotionView" destination="gLh-tu-iik" id="dsb-XZ-mmM"/>
                         <outlet property="ratingView" destination="tFG-eX-umO" id="hcu-eX-wkL"/>
+                        <outlet property="reviewButton" destination="cUy-Y0-cUw" id="1Oi-ZT-R5G"/>
                         <outlet property="reviewsStackView" destination="yEq-bc-8oK" id="47f-lp-adR"/>
                         <outlet property="reviewsTableView" destination="lXz-GS-7sY" id="hAj-Y0-aSz"/>
                         <outlet property="similarTableView" destination="iWE-UD-bYf" id="Q9b-aa-h4U"/>
@@ -3128,7 +3127,7 @@
                                                         <rect key="frame" x="276" y="0.0" width="138" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Refine" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Clh-Ls-8Ve">
-                                                                <rect key="frame" x="0.0" y="13.5" width="123" height="23.5"/>
+                                                                <rect key="frame" x="0.0" y="15" width="123" height="20"/>
                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="17"/>
                                                                 <color key="textColor" name="LogoBlue"/>
                                                                 <nil key="highlightedColor"/>

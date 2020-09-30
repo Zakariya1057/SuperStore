@@ -75,29 +75,4 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.section == 0 {
-//            return UITableView.automaticDimension
-//        } else {
-//            return 40
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.section == 0 {
-//            return UITableView.automaticDimension
-//        } else {
-//            return 40
-//        }
-//    }
-
-
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if products[indexPath.row].name.count > 40 {
-//             return 130.0
-//        } else {
-//             return 110.0
-//        }
-//       
-//    }
 }

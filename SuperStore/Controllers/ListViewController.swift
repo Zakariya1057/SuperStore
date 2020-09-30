@@ -59,9 +59,9 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         return self.list?.categories.flatMap { $0.items } ?? []
     }
     
-    var items_history: [Int: [String: Int]] = [:]
-    
     var refreshControl = UIRefreshControl()
+    
+    var loading: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +75,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.listTableView.dataSource = self
         
         showTotalPrice()
-//        addCategoryButton.layer.cornerRadius = 25
         
         listHandler.delegate = self
         listHandler.request(list_id:list_id)
@@ -92,6 +91,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func contentLoaded(list: ListModel) {
         self.list = list
         self.title = list.name
+        loading = false
         showTotalPrice()
         listTableView.reloadData()
         refreshControl.endRefreshing()
@@ -130,7 +130,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 extension ListViewController {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return list?.categories.count ?? 0
+        if loading != true {
+            return list?.categories.count ?? 0
+        } else {
+            return 1
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -146,36 +151,30 @@ extension ListViewController {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let section_item = list!.categories[section]
-        let title = section_item.name
-        let subtitle = section_item.aisle_name ?? ""
-
+        
         let header = listTableView.dequeueReusableHeaderFooterView(withIdentifier:  K.Sections.ListHeader.SectionIdentifier) as! ListSectionHeader
+        
+        if loading == true {
+            header.headingLabel.text = ""
+        } else {
+            let section_item = list!.categories[section]
+            let title = section_item.name
+            let subtitle = section_item.aisle_name ?? ""
 
-        header.headingLabel.text = title
-        header.subHeadingLabel.text = subtitle
+            header.headingLabel.text = title
+            header.subHeadingLabel.text = subtitle
+        }
 
         return header
     }
-    
-//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 90
-//    }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let product = list!.categories[indexPath.section].items[indexPath.row]
-//        
-//        let count = product.name.count
-//        
-//        if count > 36 {
-//            return 105
-//        } else {
-//            return 85
-//        }
-//    }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list?.categories[section].items.count ?? 0
+        if loading != true {
+            return list?.categories[section].items.count ?? 0
+        } else {
+            return 3
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -184,34 +183,23 @@ extension ListViewController {
         let section = indexPath.section
         let row = indexPath.row
         
-        cell.product = list!.categories[indexPath.section].items[indexPath.row]
-        cell.productIndex = indexPath.row
-        cell.delegate = self
-        
-        cell.section_index = section
-        cell.row_index = row
-        
-        cell.configureUI()
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        if loading != true {
+            cell.product = list!.categories[indexPath.section].items[indexPath.row]
+            cell.productIndex = indexPath.row
+            cell.delegate = self
+            
+            cell.section_index = section
+            cell.row_index = row
+            
+            cell.configureUI()
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        } else {
+            cell.startLoading()
+        }
         
         return cell
     }
 }
-
-//extension ListViewController: StoreSelectedDelegate {
-//    
-//    @IBAction func storeButtonPressed(_ sender: Any) {
-//        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "storeSelectViewController"))! as! StoreSelectViewController
-//        
-//        destinationVC.delegate = self
-//        self.navigationController?.pushViewController(destinationVC, animated: true)
-//    }
-//    
-//    func storeChanged(name: String, backgroundColor: UIColor) {
-//        storeButton.setTitle(name, for: .normal)
-//        storeButton.backgroundColor = backgroundColor
-//    }
-//}
 
 extension ListViewController: GroceryDelegate {
     

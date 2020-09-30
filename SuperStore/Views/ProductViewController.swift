@@ -31,12 +31,12 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     @IBOutlet weak var productImageView: UIImageView!
     @IBOutlet weak var lifeStyleLabel: UILabel!
     @IBOutlet weak var allergenLabel: UILabel!
-    @IBOutlet weak var productDescriptionLabel: UILabel!
+    @IBOutlet weak var reviewButton: UIButton!
     
 //    @IBOutlet weak var promotionExpiryLabel: UILabel!
     @IBOutlet weak var promotionLabel: UILabel!
     @IBOutlet weak var ratingView: CosmosView!
-    //
+    @IBOutlet weak var parentRatingView: UIView!
     
     @IBOutlet weak var reviewsTableView: UITableView!
     var product: ProductDetailsModel?
@@ -47,12 +47,20 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     var product_id:Int = 1
     
+    @IBOutlet weak var monitorButton: UIButton!
     @IBOutlet weak var similarTableView: UITableView!
+    @IBOutlet weak var addToListButton: UIButton!
     
     var reviews: [ReviewModel] = []
     var recommended: [ProductModel] = []
     
     let favouritesHandler = FavouritesHandler()
+    
+    var loadingViews: [UIView] {
+        return [productNameLabel,descriptionView,ingredientsView, reviewButton,productImageView,productPriceLabel,productWeightLabel,parentRatingView,addToListButton,monitorButton,allReviewsButton, allergenLabel,promotionView,lifeStyleLabel]
+    }
+    
+    var loading: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,44 +86,49 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         reviewsTableView.dataSource = self
         
         reviewsTableView.register(UINib(nibName: K.Cells.ReviewCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ReviewCell.CellIdentifier)
+        
+        startLoading()
     }
     
     func contentLoaded(product: ProductDetailsModel) {
         self.product = product
         
+        loading = false
+        stopLoading()
+        
         productNameLabel.text = product.name
         productWeightLabel.text = product.weight
-        
+
         productPriceLabel.text = "£" + String(format: "%.2f", product.price)
         productImageView.downloaded(from: product.image)
-        
+
         ratingView.rating = product.avg_rating!
         ratingView.text = "(\(product.total_reviews_count!))"
-        
+
         showFavourite()
-        
+
         if(product.dietary_info == nil || product.dietary_info == ""){
             dietaryView.removeFromSuperview()
         } else {
             lifeStyleLabel.text = product.dietary_info
         }
-        
+
         if(product.allergen_info == nil || product.allergen_info == ""){
             allergenView.removeFromSuperview()
         } else {
             allergenLabel.text = product.allergen_info
         }
-        
+
         if(product.promotion == nil){
             promotionView.removeFromSuperview()
         } else {
             let promotion = product.promotion!
             promotionLabel.text = promotion.name
         }
-        
+
         reviews = product.reviews
         let review_count = reviews.count
-        
+
         if review_count != 0 {
             reviewsTableView.reloadData()
             allReviewsButton.setTitle("View All Reviews", for: .normal)
@@ -123,7 +136,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             allReviewsButton.removeFromSuperview()
             reviewsStackView.removeFromSuperview()
         }
-        
+
         if product.recommended.count > 0 {
             recommended = product.recommended
             similarTableView.reloadData()
@@ -199,6 +212,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
 extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if loading == true {
+            return 1
+        }
+        
         if tableView == similarTableView {
             return 1
         } else {
@@ -220,9 +237,15 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.ReviewCell.CellIdentifier , for: indexPath) as! ReviewTableViewCell
-            cell.review = reviews[0]
-            cell.configureUI()
-            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+            
+            if loading == false {
+                cell.review = reviews[0]
+                cell.configureUI()
+                cell.selectionStyle = UITableViewCell.SelectionStyle.none
+            } else {
+                cell.startLoading()
+            }
+
             return cell
         }
 
@@ -232,6 +255,19 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         let vc = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
         vc.product_id = product_id
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
     }
     
 }

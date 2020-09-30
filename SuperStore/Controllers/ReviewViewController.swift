@@ -92,9 +92,18 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     @IBAction func reviewPressed(_ sender: Any) {
         // Validate first, are all fields filled up. -> Later
         
-        let text = String(reviewTextView.text)
+        
+        let text = String(reviewTextView.text ?? "")
         let title = String(reviewTitleView.text ?? "")
         let rating = String(ratingView.rating)
+        
+        if text == "" {
+            return showError("Review text required.")
+        }
+        
+        if title == "" {
+            return showError("Review title required.")
+        }
         
         reviewHandler.create(product_id: product!.id, review_data: [
             "rating": rating,
@@ -106,7 +115,23 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     }
     
     @IBAction func deletePressed(_ sender: Any) {
-        reviewHandler.delete(product_id: product!.id)
-        self.navigationController?.popViewController(animated: true)
+        confirmDelete()
     }
+    
+    func confirmDelete(){
+        let alert = UIAlertController(title: "Deleting Review?", message: "Sure you want to delete this review?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
+            self.reviewHandler.delete(product_id: self.product!.id)
+            self.navigationController?.popViewController(animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Review Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
 }

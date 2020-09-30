@@ -32,6 +32,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     var selected_list_id: Int?
     
+    var loading: Bool = true
     override func viewDidLoad() {
         super.viewDidLoad()
         resultsTableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
@@ -57,6 +58,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         
     func contentLoaded(stores: [StoreModel], products: [ProductModel]) {
         self.products = products
+        loading = false
         totalProductsLabel.text = "\(products.count) Products"
         self.resultsTableView.reloadData()
     }
@@ -78,17 +80,23 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Table view data source
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count
+        return products.count == 0 && loading == true ? 3 : products.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = resultsTableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
-        cell.delegate = self.delegate
-        cell.quantity_delegate = self
-        cell.product = products[indexPath.row]
-        cell.index = indexPath.row
-        cell.configureUI()
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        
+        if loading == false {
+            cell.delegate = self.delegate
+            cell.quantity_delegate = self
+            cell.product = products[indexPath.row]
+            cell.index = indexPath.row
+            cell.configureUI()
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        } else {
+            cell.startLoading()
+        }
+
         return cell
     }
     

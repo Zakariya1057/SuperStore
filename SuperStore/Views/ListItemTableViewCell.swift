@@ -13,12 +13,12 @@ class ListItemTableViewCell: UITableViewCell {
     var ticked_off:Bool = false
     
     @IBOutlet weak var totalLabel: UILabel!
-//    @IBOutlet weak var priceCalculationLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var quantityLabel: UILabel!
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var stepper: UIStepper!
-//    @IBOutlet weak var totalPriceLabel: UILabel!
+    @IBOutlet weak var tickBoxButton: UIButton!
+    
+    var loadingViews: [UIView] {
+        return [nameLabel,tickBoxButton,tickBoxButton,totalLabel]
+    }
     
     var section_index: Int = 0
     var row_index: Int = 0
@@ -33,28 +33,21 @@ class ListItemTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    @IBOutlet weak var tickBoxButton: UIButton!
-    
     func configureUI(){
+        
+        stopLoading()
+        
         let currentProduct = product!
-        
-//        weightLabel.text = currentProduct.weight ?? ""
-//        print("Configure UI: \(currentProduct.name)")
-        
-//        priceLabel.text = "£" + String(format:"%.2f", currentProduct.price)
-//        nameLabel.text =  + currentProduct.name
         
         nameLabel.attributedText =
             NSMutableAttributedString()
                 .bold(String(product!.quantity))
                 .normal(" x " + currentProduct.name)
         
-//        locationLabel.text = currentProduct.location ?? ""
-//        setQuantity(currentProduct.quantity)
-        
         ticked_off = currentProduct.ticked_off
         showCheckBox()
         showPriceTotal()
+        
     }
     
     @IBAction func checkBoxPressed(_ sender: UIButton) {
@@ -64,22 +57,12 @@ class ListItemTableViewCell: UITableViewCell {
         showCheckBox()
     }
     
-//    @IBAction func quantityChanged(_ sender: UIStepper) {
-//        setQuantity(Int(sender.value))
-//        reflectChange()
-//    }
-    
     func setQuantity(_ quantity:Int){
-        stepper.value = Double(quantity)
         product?.quantity = quantity
-//        quantityLabel.text = String(quantity)
         showPriceTotal()
     }
     
     func showPriceTotal(){
-//        let priceText = "£" + String(format:"%.2f", product!.price)
-//        let quantityText = String(product!.quantity)
-//        priceCalculationLabel.text = "\(priceText)"
         let totalText = "£" + String(format: "%.2f", delegate!.calculateProductPrice(product!))
         totalLabel.text = "\(totalText)"
     }
@@ -96,12 +79,24 @@ class ListItemTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
     }
     
     func reflectChange(){
         delegate!.productChanged(section_index: section_index, row_index: row_index,product: product!)
+    }
+    
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
     }
     
 }

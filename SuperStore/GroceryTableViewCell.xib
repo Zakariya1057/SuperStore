@@ -149,7 +149,7 @@
                                                                                 </connections>
                                                                             </stepper>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7Y-Cq-Kh8">
-                                                                                <rect key="frame" x="25.5" y="6.5" width="50" height="22"/>
+                                                                                <rect key="frame" x="25.5" y="8" width="50" height="19"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="50" id="TdH-fi-3jL"/>
                                                                                 </constraints>
@@ -264,6 +264,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="addButton" destination="dk3-Sy-9OV" id="UO7-jb-HIW"/>
+                <outlet property="bottomStackView" destination="f0j-5Z-GdY" id="a2J-Of-v5k"/>
                 <outlet property="left_info_view" destination="J6Z-Ao-uRh" id="5WW-7K-trr"/>
                 <outlet property="priceLabel" destination="AUG-jC-3H6" id="rW5-Lb-q3g"/>
                 <outlet property="productImage" destination="iOy-rr-SuH" id="4au-o9-DLh"/>

@@ -51,6 +51,11 @@ class GroceryTableViewCell: UITableViewCell {
     @IBOutlet weak var reviewView: CosmosView!
     @IBOutlet weak var left_info_view: UIView!
     @IBOutlet weak var quantityStepper: UIStepper!
+    @IBOutlet weak var bottomStackView: UIStackView!
+    
+    var loadingViews: [UIView] {
+        return [productImage,productNameLabel,reviewView,bottomStackView]
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -65,6 +70,7 @@ class GroceryTableViewCell: UITableViewCell {
     func configureUI(){
         let current_product = product!
         
+        stopLoading()
         productNameLabel.text = current_product.name
         priceLabel.text = "£" + String(format: "%.2f", current_product.price)
         
@@ -138,5 +144,18 @@ class GroceryTableViewCell: UITableViewCell {
         stepper_stack_view.isHidden = true
         storeNameLabel.isHidden = false
         addButton.isHidden = true
+    }
+    
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
     }
 }

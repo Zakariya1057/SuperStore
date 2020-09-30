@@ -34,9 +34,10 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     var refreshControl = UIRefreshControl()
     
-    var editing_mode: Bool = false
-    
     var delegate: ListSelectedDelegate?
+    
+    var loading: Bool = true
+    let loadingCell: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,30 +77,43 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     func contentLoaded(lists: [ListModel]) {
         self.lists = lists
+        loading = false
         listsTableView.reloadData()
         refreshControl.endRefreshing()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lists.count
+        return (lists.count == 0 && loading == true) ? loadingCell : lists.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.ListCell.CellIdentifier , for: indexPath) as! ListsTableViewCell
-        cell.list = lists[indexPath.row]
-        cell.configureUI()
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        
+        if lists.indices.contains(indexPath.section) {
+            cell.list = lists[indexPath.row]
+            cell.configureUI()
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        } else {
+            cell.startLoading()
+        }
+        
         return cell
+    }
+    
+    func confirmDelete(){
+        let alert = UIAlertController(title: "Deleting List?", message: "Sure you want to delete this list?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
+            self.deleteList()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        selected_list = lists[indexPath.row]
-        selected_index = indexPath.row
-        
-        if editing_mode == true {
-            self.performSegue(withIdentifier: "list_to_edit", sender: self)
-        } else {
+        if lists.indices.contains(indexPath.row) {
+            selected_list = lists[indexPath.row]
+            selected_index = indexPath.row
             
             if delegate != nil {
                 self.delegate?.list_selected(list_id: selected_list!.id)
@@ -107,7 +121,6 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
             } else {
                 self.performSegue(withIdentifier: "list_to_items", sender: self)
             }
-            
         }
 
     }
@@ -119,7 +132,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
             selected_index = indexPath.row
                 
             let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (_, _, completionHandler) in
-                self.deleteList(row: self.selected_index)
+                self.confirmDelete()
                 completionHandler(true)
             }
 
@@ -160,10 +173,10 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         self.listsTableView.reloadData()
     }
     
-    func deleteList(row: Int){
-        let deleted_id: String  = String(lists[row].id)
-        lists.remove(at: row)
-        listsTableView.deleteRows(at: [ IndexPath(row: row, section: 0)], with: .fade)
+    func deleteList(){
+        let deleted_id: String  = String(lists[selected_index].id)
+        lists.remove(at: selected_index)
+        listsTableView.deleteRows(at: [ IndexPath(row: selected_index, section: 0)], with: .fade)
         listHandler.delete(list_data: ["list_id": deleted_id])
     }
     

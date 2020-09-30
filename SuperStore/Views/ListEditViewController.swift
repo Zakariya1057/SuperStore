@@ -17,39 +17,65 @@ class ListEditViewController: UIViewController  {
     var delegate: ListChangedDelegate?
     var list_index: Int?
     
-    @IBOutlet weak var name_field: UITextField!
+    @IBOutlet weak var nameField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if list != nil {
-            name_field.text = list?.name
+            nameField.text = list?.name
         }
     }
     
-    @IBAction func change_store_pressed(_ sender: Any) {
+    func validateName() -> String? {
+        let name = nameField.text ?? ""
+        
+        if name == "" {
+            return "List name required."
+        }
+        
+        return nil
+    }
+    
+    func confirmRestart(){
+        let alert = UIAlertController(title: "Restarting List?", message: "Sure you want to uncheck all items in this list?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Restart", style: .destructive, handler: { (_) in
+            self.listHandler.restart(list_id: self.list!.id)
+            self.list!.status = .notStarted
+            self.delegate?.updateList(list: self.list!, index: self.list_index!)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
     
     @IBAction func restart_list_pressed(_ sender: Any) {
-        listHandler.restart(list_id: list!.id)
-        list!.status = .notStarted
-        self.delegate?.updateList(list: list!, index: list_index!)
+        confirmRestart()
     }
     
     @IBAction func save_pressed(_ sender: Any) {
-        let name = name_field.text ?? ""
         
-        list!.name = name
+        let error = validateName()
+        if error != nil {
+            return showError(error!)
+        }
+        
+        list!.name = nameField.text!
         
         self.delegate?.updateList(list: list!, index: list_index!)
         
         listHandler.update(list_data: [
             "list_id": String(list!.id),
-            "name":name,
+            "name":nameField.text!,
             "store_type_id": "1"
         ])
         
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "List Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
     
 }

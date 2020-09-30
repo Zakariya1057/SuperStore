@@ -22,8 +22,14 @@ class ListsTableViewCell: UITableViewCell {
         // Initialization code
     }
 
+    var loadingViews: [UIView] {
+        return [listNameLabel, totalLabel,createdLabel,statusLabel]
+    }
+    
     func configureUI(){
         if list != nil {
+            
+            stopLoading()
             
             let status = list!.status
             
@@ -47,8 +53,20 @@ class ListsTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
+    }
+
 }

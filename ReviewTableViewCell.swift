@@ -18,12 +18,19 @@ class ReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var usernameField:UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
+    var loadingViews: [UIView] {
+        return [ratingView,reviewText,usernameField,titleLabel]
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         configureUI()
     }
     
     func configureUI(){
+        
+        stopLoading()
+        
         if let product_review = review {
             let rating: Double = Double(product_review.rating)
             
@@ -40,6 +47,19 @@ class ReviewTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
     }
     
 }

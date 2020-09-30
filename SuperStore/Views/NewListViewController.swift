@@ -14,40 +14,23 @@ class NewListViewController: UIViewController {
     
     @IBOutlet weak var nameField: UITextField!
     
-    var storeName:String = ""
-    
-//    @IBOutlet weak var storeButton: UIButton!
+    let spinner: SpinnerViewController = SpinnerViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        storeButton.backgroundColor = .clear
-//        storeButton.layer.cornerRadius = 5
-//        storeButton.layer.borderWidth = 1
-//        storeButton.layer.borderColor = UIColor.lightGray.cgColor
-        // Do any additional setup after loading the view.
     }
     
-    
-    @IBAction func storeButtonPressed(_ sender: Any) {
-        print("Select Store")
-        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "storeSelectViewController"))! as! StoreSelectViewController
+    func validateName() -> String? {
+        let name = nameField.text ?? ""
         
-//        destinationVC.delegate = self
-        self.navigationController?.pushViewController(destinationVC, animated: true)
+        if name == "" {
+            return "List name required."
+        }
+        
+        return nil
     }
     
-//    func storeChanged(name: String, backgroundColor: UIColor) {
-//        
-//        self.storeName = name
-//        
-//        storeButton.setTitle(name, for: .normal)
-//        storeButton.backgroundColor = backgroundColor
-//        storeButton.setTitleColor(.white, for: .normal)
-//    }
-    
-    @IBAction func created_pressed(_ sender: Any) {
-        
+    func createList(){
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "d MMMM Y"
@@ -55,7 +38,23 @@ class NewListViewController: UIViewController {
         let created_at = formatter.string(from: date)
         
         self.delegate?.addNewList( ListModel(id: 1, name: nameField.text!, created_at: created_at, status: .notStarted, store_id: 1, user_id: 1, total_price: 0, categories: []) )
+    }
+
+    @IBAction func created_pressed(_ sender: Any) {
+        let error = validateName()
+        if error != nil {
+            return showError(error!)
+        }
+        
+        createList()
         self.navigationController!.popViewController(animated: true)
+    }
+    
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "List Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
     
 }

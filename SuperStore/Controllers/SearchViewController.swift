@@ -27,6 +27,8 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
     
     var delegate:GroceryDelegate?
     
+    var loading: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,6 +47,7 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
     
     func contentLoaded(suggestions: [SearchModel]) {
         if !ignoreResults {
+            loading = false
             self.suggestions = suggestions
             showSuggestions()
         }
@@ -74,6 +77,8 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
         
         if text != nil {
             if text != "" {
+                loading = true
+                searchTableView.reloadData()
                 searchHandler.requestSuggestions(query: text!)
             } else {
                 ignoreResults = true
@@ -91,14 +96,20 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
 extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        searchList.count
+        return searchList.count == 0 && loading == true ? 3 : searchList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = searchTableView.dequeueReusableCell(withIdentifier:K.Cells.SearchCell.CellIdentifier , for: indexPath) as! SearchTableViewCell
-        cell.search = searchList[indexPath.row]
-        cell.configureUI()
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        
+        if loading == false {
+            cell.search = searchList[indexPath.row]
+            cell.configureUI()
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        } else {
+            cell.startLoading()
+        }
+
         return cell
     }
     
@@ -136,16 +147,16 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let product = searchList[indexPath.row]
-        
-        let count = product.name.count
-        
-        if count > 36 {
-            return 60
-        } else {
-            return 50
-        }
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let product = searchList[indexPath.row]
+//
+//        let count = product.name.count
+//        
+//        if count > 36 {
+//            return 60
+//        } else {
+//            return 50
+//        }
+//    }
     
 }
