@@ -61,6 +61,20 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         
     }
     
+    func contentLoaded(lists: [ListModel]) {
+        self.lists = lists
+        loading = false
+        listsTableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
+    func errorHandler(_ message: String) {
+        loading = false
+        showError(message)
+        listsTableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
     func updateList(list: ListModel, index: Int) {
         lists[index] = list
         self.listsTableView.reloadData()
@@ -73,13 +87,6 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     @objc func refresh(_ sender: AnyObject) {
        // Code to refresh table view
         listHandler.request()
-    }
-    
-    func contentLoaded(lists: [ListModel]) {
-        self.lists = lists
-        loading = false
-        listsTableView.reloadData()
-        refreshControl.endRefreshing()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -188,5 +195,11 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     func updatePrice(index: Int, total_price: Double) {
         lists[index].total_price = total_price
         listsTableView.reloadData()
+    }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Lists Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
 }

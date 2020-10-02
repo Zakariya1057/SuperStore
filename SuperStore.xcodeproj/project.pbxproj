@@ -93,6 +93,8 @@
 		2CB15C9524D2FB8900461AFE /* ListItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB15C9324D2FB8900461AFE /* ListItemTableViewCell.xib */; };
 		2CB15C9724D2FCD400461AFE /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB15C9624D2FCD400461AFE /* ListViewController.swift */; };
 		2CB15C9924D36E7E00461AFE /* StoreSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB15C9824D36E7E00461AFE /* StoreSelectViewController.swift */; };
+		2CB3DCE72525B89400FC5792 /* CheckCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCE62525B89400FC5792 /* CheckCodeViewController.swift */; };
+		2CB3DCEA2525B8A300FC5792 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCE92525B8A300FC5792 /* ResetPasswordViewController.swift */; };
 		2CB3EDA325040E92000E7C7A /* ListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3EDA225040E92000E7C7A /* ListItemViewController.swift */; };
 		2CB3EDA525041F31000E7C7A /* ListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3EDA425041F31000E7C7A /* ListSectionHeader.swift */; };
 		2CB3EDAB25054D3D000E7C7A /* PromotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3EDAA25054D3D000E7C7A /* PromotionViewController.swift */; };
@@ -208,6 +210,8 @@
 		2CB15C9324D2FB8900461AFE /* ListItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListItemTableViewCell.xib; sourceTree = "<group>"; };
 		2CB15C9624D2FCD400461AFE /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		2CB15C9824D36E7E00461AFE /* StoreSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreSelectViewController.swift; path = SuperStore/Views/StoreSelectViewController.swift; sourceTree = SOURCE_ROOT; };
+		2CB3DCE62525B89400FC5792 /* CheckCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCodeViewController.swift; sourceTree = "<group>"; };
+		2CB3DCE92525B8A300FC5792 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		2CB3EDA225040E92000E7C7A /* ListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemViewController.swift; sourceTree = "<group>"; };
 		2CB3EDA425041F31000E7C7A /* ListSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSectionHeader.swift; sourceTree = "<group>"; };
 		2CB3EDA825041FDD000E7C7A /* ListSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListSectionHeader.xib; sourceTree = "<group>"; };
@@ -285,6 +289,8 @@
 				2CF239B825094BAC00D4CE91 /* LoginViewController.swift */,
 				2C6F621D25134F9B00179C2B /* RegisterViewController.swift */,
 				2C6F621F251357D100179C2B /* ForgotPasswordViewController.swift */,
+				2CB3DCE62525B89400FC5792 /* CheckCodeViewController.swift */,
+				2CB3DCE92525B8A300FC5792 /* ResetPasswordViewController.swift */,
 				2C1567D024C8B33700B8DCB5 /* HomeViewController.swift */,
 				2C1567D224C8B34700B8DCB5 /* SearchViewController.swift */,
 				2C5B5C6B24D084FD0095C920 /* SearchResultsViewController.swift */,
@@ -572,6 +578,7 @@
 				2CDE10ED251D2662001B0479 /* UserHandler.swift in Sources */,
 				2C5B5C6E24D085780095C920 /* ResultsViewController.swift in Sources */,
 				2C0E93C8250F975D00378C97 /* FavouritesHandler.swift in Sources */,
+				2CB3DCE72525B89400FC5792 /* CheckCodeViewController.swift in Sources */,
 				2CF239B525094A7F00D4CE91 /* ListsHandler.swift in Sources */,
 				2C85FEB5251FB04700CECBD5 /* HomeSectionHeader.swift in Sources */,
 				2C266DF724D5DEDA00C66EA5 /* ListModel.swift in Sources */,
@@ -619,6 +626,7 @@
 				2C85FEAB251F9D5900CECBD5 /* UserValidation.swift in Sources */,
 				2CF239B925094BAC00D4CE91 /* LoginViewController.swift in Sources */,
 				2CAB6A41251F962E00774B89 /* SpinnerViewController.swift in Sources */,
+				2CB3DCEA2525B8A300FC5792 /* ResetPasswordViewController.swift in Sources */,
 				2CB3EDA525041F31000E7C7A /* ListSectionHeader.swift in Sources */,
 				2CB15C9724D2FCD400461AFE /* ListViewController.swift in Sources */,
 				2C6F6220251357D100179C2B /* ForgotPasswordViewController.swift in Sources */,
@@ -794,7 +802,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5FCM3X5N8A;
 				INFOPLIST_FILE = SuperStore/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -814,7 +822,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5FCM3X5N8A;
 				INFOPLIST_FILE = SuperStore/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

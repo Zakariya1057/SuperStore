@@ -10,12 +10,12 @@ import Foundation
 
 protocol SearchSuggestionsDelegate {
     func contentLoaded(suggestions: [SearchModel])
-//    func errorHandler(_ message:String)
+    func errorHandler(_ message:String)
 }
 
 protocol SearchResultsDelegate {
     func contentLoaded(stores: [StoreModel], products: [ProductModel])
-//    func errorHandler(_ message:String)
+    func errorHandler(_ message:String)
 }
 
 struct SearchHandler {
@@ -92,7 +92,9 @@ struct SearchHandler {
             var products: [ProductModel] = []
 
             for store in resultsData.stores {
-                stores.append( StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [], location: LocationModel(city: store.location.city, address_line1: store.location.address_line1, address_line2: store.location.address_line2, address_line3: store.location.address_line3, postcode: store.location.postcode,latitude: store.location.latitude, longitude: store.location.longitude), facilities: []))
+                let hour = OpeningHoursModel(opens_at: store.opens_at!, closes_at: store.closes_at!, closed_today: nil, day_of_week: 1)
+                
+                stores.append( StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [hour], location: LocationModel(city: store.location.city, address_line1: store.location.address_line1, address_line2: store.location.address_line2, address_line3: store.location.address_line3, postcode: store.location.postcode,latitude: store.location.latitude, longitude: store.location.longitude), facilities: []))
             }
             
             for product_item in resultsData.products {
@@ -102,8 +104,6 @@ struct SearchHandler {
                 if product_item.discount != nil {
                     discount = DiscountModel(quantity: product_item.discount!.quantity, price: product_item.discount!.price, forQuantity: product_item.discount!.for_quantity)
                 }
-                
-                print(discount)
                 
                 products.append( ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, description: product_item.description, quantity: 0, weight: product_item.weight,parent_category_id: product_item.parent_category_id!,parent_category_name: product_item.parent_category_name!, price: product_item.price, location: "", avg_rating: product_item.avg_rating, total_reviews_count: product_item.total_reviews_count,discount: discount))
             }
@@ -120,6 +120,11 @@ struct SearchHandler {
     }
     
     func processError(_ message:String){
-//        self.delegate?.errorHandler(message)
+        if (self.suggestionsDelegate != nil){
+            self.suggestionsDelegate!.errorHandler(message)
+        } else if (self.resultsDelegate != nil){
+            self.resultsDelegate!.errorHandler(message)
+        }
+        
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 protocol PromotionDelegate {
     func contentLoaded(promotion: PromotionModel)
-//    func errorHandler(_ message:String)
+    func errorHandler(_ message:String)
 }
 
 
@@ -55,6 +55,6 @@ struct PromotionHandler {
     }
     
     func processError(_ message:String){
-//        self.delegate?.errorHandler(message)
+        self.delegate?.errorHandler(message)
     }
 }

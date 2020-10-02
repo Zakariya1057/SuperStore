@@ -63,6 +63,12 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         self.resultsTableView.reloadData()
     }
     
+    func errorHandler(_ message: String) {
+        loading = false
+        self.resultsTableView.reloadData()
+        showError(message)
+    }
+    
     func updateProductQuantity(index: Int, quantity: Int) {
         print(products[index].name)
         print(quantity)
@@ -148,5 +154,11 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     func updateQuantity(_ product: ProductModel) {
         update_quantity(product)
+    }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Search Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
 }

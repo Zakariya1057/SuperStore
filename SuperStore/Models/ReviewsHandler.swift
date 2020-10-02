@@ -10,7 +10,7 @@ import Foundation
 
 protocol ReviewsListDelegate {
     func contentLoaded(reviews: [ReviewModel])
-//    func errorHandler(_ message:String)
+    func errorHandler(_ message:String)
 }
 
 struct ReviewsHandler {
@@ -37,12 +37,12 @@ struct ReviewsHandler {
     
     func create(product_id: Int, review_data: [String: String]){
         let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewCreatePath)"
-        requestHandler.postRequest(url: url_string, data: review_data, complete: { _ in }, error: processError)
+        requestHandler.postRequest(url: url_string, data: review_data, complete: processResponse, error: processError)
     }
     
     func delete(product_id: Int){
         let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewDeletePath)"
-        requestHandler.postRequest(url: url_string, data: ["product_id": String(product_id)], complete: { _ in }, error: processError)
+        requestHandler.postRequest(url: url_string, data: ["product_id": String(product_id)], complete: processResponse, error: processError)
     }
     
     func processResults(_ data:Data){
@@ -72,7 +72,14 @@ struct ReviewsHandler {
         
     }
     
+    func processResponse(_ data:Data){
+        DispatchQueue.main.async {
+            self.delegate?.contentLoaded(reviews: [])
+        }
+    }
+    
+    
     func processError(_ message:String){
-//        self.delegate?.errorHandler(message)
+        self.delegate?.errorHandler(message)
     }
 }

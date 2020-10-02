@@ -20,6 +20,8 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var refreshControl = UIRefreshControl()
     
+    var loading: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         favouritesTableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
@@ -41,13 +43,20 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func contentLoaded(products: [ProductModel]) {
+        loading = false
         refreshControl.endRefreshing()
         self.products = products
         favouritesTableView.reloadData()
     }
+    
+    func errorHandler(_ message: String) {
+        loading = false
+        showError(message)
+        favouritesTableView.reloadData()
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count
+        return loading ? 3 : products.count
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -60,12 +69,18 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
-        cell.delegate = self.delegate
-        cell.product = products[indexPath.row]
-        cell.showAddButton = false
-        cell.showStoreName = false
-        cell.configureUI()
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        
+        if loading == false {
+            cell.delegate = self.delegate
+            cell.product = products[indexPath.row]
+            cell.showAddButton = false
+            cell.showStoreName = false
+            cell.configureUI()
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        } else {
+            cell.startLoading()
+        }
+
         return cell
     }
     
@@ -73,6 +88,12 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         let vc = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
         vc.product_id = products[indexPath.row].id
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Favourites Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
     
 }

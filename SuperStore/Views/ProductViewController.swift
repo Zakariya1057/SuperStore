@@ -9,7 +9,7 @@
 import UIKit
 import Cosmos
 
-class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDelegate {
+class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDelegate, FavouritesDelegate {
 
     @IBOutlet weak var reviewsStackView: UIStackView!
     @IBOutlet weak var ingredientsView: UIView!
@@ -54,7 +54,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     var reviews: [ReviewModel] = []
     var recommended: [ProductModel] = []
     
-    let favouritesHandler = FavouritesHandler()
+    var favouritesHandler = FavouritesHandler()
     
     var loadingViews: [UIView] {
         return [productNameLabel,descriptionView,ingredientsView, reviewButton,productImageView,productPriceLabel,productWeightLabel,parentRatingView,addToListButton,monitorButton,allReviewsButton, allergenLabel,promotionView,lifeStyleLabel]
@@ -68,6 +68,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         similarTableView.register(UINib(nibName: K.Cells.ProductCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ProductCell.CellIdentifier)
         
         productHandler.delegate = self
+        favouritesHandler.delegate = self
         productHandler.request(product_id: product_id)
 
         similarTableView.delegate = self
@@ -88,6 +89,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         reviewsTableView.register(UINib(nibName: K.Cells.ReviewCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ReviewCell.CellIdentifier)
         
         startLoading()
+    }
+    
+    func errorHandler(_ message: String) {
+        showError(message)
     }
     
     func contentLoaded(product: ProductDetailsModel) {
@@ -144,6 +149,9 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         
     }
     
+    func contentLoaded(products: [ProductModel]) {
+    }
+    
     @objc func showIngredients(){
         details_type = "ingredients"
         self.performSegue(withIdentifier: "showProductDetails", sender: self)
@@ -159,6 +167,11 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     }
     
     @IBAction func favouritePressed(_ sender: Any) {
+        
+        if product == nil {
+            return
+        }
+        
         product!.favourite = !product!.favourite
         favouritesHandler.update(product_id: product_id, favourite: product!.favourite)
         showFavourite()
@@ -269,6 +282,13 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
             item.hideSkeleton()
         }
     }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Product Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
     
 }
 
