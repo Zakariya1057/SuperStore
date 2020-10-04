@@ -24,7 +24,7 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? 3: products!.count
+        return loading ? 5: products!.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

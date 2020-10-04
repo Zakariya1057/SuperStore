@@ -133,14 +133,20 @@ class RefineViewController: UIViewController, UITableViewDataSource, UITableView
     
     func addLoadedFilters(){
         if filters.count > 0 {
-            let categories = filters[0]
-            let brands = filters[1]
+            var categories = filters[0]
+            var brands = filters[1]
         
             if categories.values.count > 0 {
+                categories.values = categories.values.sorted { (a, b) -> Bool in
+                    a.quantity ?? 0 > b.quantity ?? 0
+                }
                 options.insert(categories, at: 1)
             }
             
             if brands.values.count > 0 {
+                brands.values = brands.values.sorted { (a, b) -> Bool in
+                    a.quantity ?? 0 > b.quantity ?? 0
+                }
                 options.insert(brands, at: 2)
             }
             

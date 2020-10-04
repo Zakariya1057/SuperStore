@@ -81,7 +81,6 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         self.title = header_text
         
         bar.tintColor = UIColor(named: "Label Color")
-//        bar.backgroundColor =
         
         bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 1.0, right: 16.0)
         bar.layout.interButtonSpacing = 30.0
@@ -107,22 +106,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
-    
-//
-//    func startLoading(){
-//        for item in loadingViews {
-//            item.isSkeletonable = true
-//            item.showAnimatedGradientSkeleton()
-//        }
-//    }
-//
-//    func stopLoading(){
-//        for item in loadingViews {
-//            item.hideSkeleton()
-//        }
-//    }
-    
-    
+
 }
 
 extension ChildCategoriesViewController {
