@@ -78,7 +78,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1n-ZB-R56">
                                                                 <rect key="frame" x="0.0" y="0.0" width="359" height="40"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YYA-oO-zY4" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYA-oO-zY4" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="0.0" y="8.5" width="359" height="23"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -178,14 +178,14 @@
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dk3-Sy-9OV">
                                                                         <rect key="frame" x="-80" y="2.5" width="80" height="30"/>
-                                                                        <color key="backgroundColor" name="LogoBlue"/>
+                                                                        <color key="backgroundColor" red="0.098039215690000001" green="0.46299999949999998" blue="0.80400002000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="80" id="3GS-2V-hHa"/>
                                                                             <constraint firstAttribute="height" constant="30" id="9tj-fd-YXf"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                                                         <state key="normal" title="Add">
-                                                                            <color key="titleColor" systemColor="groupTableViewBackgroundColor"/>
+                                                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </state>
                                                                         <connections>
                                                                             <action selector="groceryAddClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="AWw-is-6oT"/>
@@ -278,13 +278,15 @@
             <point key="canvasLocation" x="148.55072463768118" y="125.55803571428571"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="YYA-oO-zY4">
+            <size key="intrinsicContentSize" width="174.923828125" height="23"/>
+        </designable>
+    </designables>
     <resources>
         <namedColor name="LogoBlue">
             <color red="0.097999997437000275" green="0.46299999952316284" blue="0.80400002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

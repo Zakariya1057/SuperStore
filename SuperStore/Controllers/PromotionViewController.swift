@@ -20,8 +20,15 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
     @IBOutlet weak var promotionNameLabel: UILabel!
     @IBOutlet weak var promotionExpiresLabel: UILabel!
     @IBOutlet weak var promotionExpiryView: UIView!
+    @IBOutlet var promotionNameView: UIView!
     
     var delegate:GroceryDelegate?
+    
+    var loadingViews: [UIView] {
+        return [promotionNameView, promotionExpiryView]
+    }
+    
+    var loading: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,49 +40,79 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
         productsTableView.dataSource = self
 
         productsTableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
+        
+        startLoading()
     }
     
     func contentLoaded(promotion: PromotionModel) {
         self.promotion = promotion
         
-        promotionNameLabel.text = promotion.name
-        
-        if promotion.ends_at == nil {
-            promotionExpiryView.removeFromSuperview()
-        } else {
-            promotionExpiresLabel.text = promotion.ends_at!
-        }
+        stopLoading()
+        loading = false
+  
+        self.title = promotion.name
+//        promotionNameLabel.text = promotion.name
+//
+//        if promotion.ends_at == nil {
+//            promotionExpiryView.removeFromSuperview()
+//        } else {
+//            promotionExpiresLabel.text = promotion.ends_at!
+//        }
         
         productsTableView.reloadData()
         
     }
     
+    func errorHandler(_ message: String) {
+        stopLoading()
+        loading = false
+        productsTableView.reloadData()
+        showError(message)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.promotion?.products?.count ?? 0
+        return loading ? 3 : (self.promotion?.products?.count ?? 0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
-        cell.product = promotion!.products![indexPath.row]
-        cell.showAddButton = false
-        cell.showStoreName = false
-        cell.configureUI()
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if promotion!.products![indexPath.row].name.count > 34 {
-             return 130.0
+        
+        if loading == false {
+            cell.product = promotion!.products![indexPath.row]
+            cell.showAddButton = false
+            cell.showStoreName = false
+            cell.configureUI()
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
         } else {
-             return 110.0
+            cell.startLoading()
         }
+
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
         vc.product_id = promotion!.products![indexPath.row].id
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
+    }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Promotion Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
     
 }

@@ -43,6 +43,8 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
     
     var selected_list_id: Int?
     
+    var loading: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,17 +59,39 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         configureUI()
     }
     
+    func errorHandler(_ message: String) {
+        loading = false
+        showError(message)
+    }
+    
+    func contentLoaded(categories: [GroceryProductsModel]) {
+        self.categories = categories
+        loading = false
+        
+        for category in categories {
+            headers.append(category.name)
+            viewcontrollers.append(GroceryTableViewController())
+        }
+        
+        self.reloadData()
+    }
+    
     func configureUI(){
         
         self.title = header_text
         
-        bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 6.0, right: 16.0)
+        bar.tintColor = UIColor(named: "Label Color")
+//        bar.backgroundColor =
+        
+        bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 1.0, right: 16.0)
         bar.layout.interButtonSpacing = 30.0
         
         bar.layout.showSeparators = true
         bar.layout.separatorColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 1.00)
         bar.layout.separatorWidth = 0.5
         
+        bar.backgroundView.style = .clear
+        bar.backgroundColor = UIColor(named: "LightGrey")
         
         bar.indicator.weight = .medium
         bar.indicator.cornerStyle = .square
@@ -78,16 +102,26 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         addBar(bar, dataSource: self, at: .top)
     }
     
-    func contentLoaded(categories: [GroceryProductsModel]) {
-        self.categories = categories
-        
-        for category in categories {
-            headers.append(category.name)
-            viewcontrollers.append(GroceryTableViewController())
-        }
-        
-        self.reloadData()
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Grocery Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
+    
+//
+//    func startLoading(){
+//        for item in loadingViews {
+//            item.isSkeletonable = true
+//            item.showAnimatedGradientSkeleton()
+//        }
+//    }
+//
+//    func stopLoading(){
+//        for item in loadingViews {
+//            item.hideSkeleton()
+//        }
+//    }
+    
     
 }
 
@@ -170,20 +204,37 @@ extension ChildCategoriesViewController {
 
 extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        let item = TMBarItem(title: headers[index])
-//        item.badgeValue = "New"
+        var item: TMBarItem
+        
+        if loading == false {
+            item = TMBarItem(title: headers[index])
+        } else {
+            item = TMBarItem(title: "")
+            item.image = nil
+        }
+
         return item
     }
     
 
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        return headers.count
+        return loading ? 1 : headers.count
     }
 
     func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
-        let viewController = viewcontrollers[index]
-        viewController.products = categories[index].products
-        viewController.delegate = self
+       
+        var viewController: GroceryTableViewController
+        
+        if loading == false {
+            viewController = viewcontrollers[index]
+            viewController.products = categories[index].products
+            viewController.delegate = self
+            viewController.loading = false
+        } else {
+            viewController = GroceryTableViewController()
+            viewController.loading = true
+        }
+
         return viewController
     }
 
@@ -194,5 +245,14 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
     @IBAction func done_pressed(_ sender: Any) {
         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
         self.navigationController!.popToViewController(viewControllers[viewControllers.count - 4], animated: true)
+    }
+    
+    func startLoading(_ item: UIView){
+        item.isSkeletonable = true
+        item.showAnimatedGradientSkeleton()
+    }
+    
+    func stopLoading(_ item: UIView){
+        item.hideSkeleton()
     }
 }

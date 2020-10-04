@@ -27,15 +27,21 @@ extension UserHandler {
                 }
             }
             
+            if type == "code" {
+                if !isValidCode(value){
+                    return "\(fieldName) must be at least 7 characters long."
+                }
+            }
+            
             if type == "password"{
                 if !isValidPassword(value){
-                    return "\(fieldName) must be at least 8 characters."
+                    return "\(fieldName) must be at least 8 characters long."
                 }
             }
             
             if type == "name"{
                 if !isValidName(value){
-                    return "\(fieldName) must be at least 3 characters."
+                    return "\(fieldName) must be at least 3 characters long."
                 }
             }
             
@@ -56,6 +62,10 @@ extension UserHandler {
     
     func isValidName(_ name: String) -> Bool {
         return name.count >= 3
+    }
+    
+    func isValidCode(_ code: String) -> Bool {
+        return code.count >= 7
     }
     
 }

@@ -14,7 +14,7 @@ protocol SearchSuggestionsDelegate {
 }
 
 protocol SearchResultsDelegate {
-    func contentLoaded(stores: [StoreModel], products: [ProductModel])
+    func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel])
     func errorHandler(_ message:String)
 }
 
@@ -90,6 +90,21 @@ struct SearchHandler {
             
             var stores: [StoreModel] = []
             var products: [ProductModel] = []
+            
+            var filterCategories: RefineOptionModel = RefineOptionModel(header: "Categories", values: [], type: .category)
+            var filterBrands: RefineOptionModel = RefineOptionModel(header: "Brands", values: [], type: .brand)
+            
+            let filterResults = resultsData.filter ?? FilterResultsData(brands: [:], categories: [:])
+            
+            for brand in filterResults.brands ?? [:] {
+                filterBrands.values.append(RefineModel(name: brand.key, selected: false, quantity: brand.value))
+            }
+            
+            for categories in filterResults.categories ?? [:] {
+                filterCategories.values.append(RefineModel(name: categories.key, selected: false, quantity: categories.value))
+            }
+            
+            let filters: [RefineOptionModel] = [filterCategories, filterBrands]
 
             for store in resultsData.stores {
                 let hour = OpeningHoursModel(opens_at: store.opens_at!, closes_at: store.closes_at!, closed_today: nil, day_of_week: 1)
@@ -109,7 +124,7 @@ struct SearchHandler {
             }
             
             DispatchQueue.main.async {
-                self.resultsDelegate?.contentLoaded(stores: stores, products: products)
+                self.resultsDelegate?.contentLoaded(stores: stores, products: products, filters: filters)
             }
         
         } catch {

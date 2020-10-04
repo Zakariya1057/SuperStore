@@ -16,7 +16,6 @@ struct UserSession {
 //        let domain = Bundle.main.bundleIdentifier!
 //        UserDefaults.standard.removePersistentDomain(forName: domain)
 //        UserDefaults.standard.synchronize()
-        
         UserDefaults.standard.removeObject(forKey: "userSettings")
     }
     

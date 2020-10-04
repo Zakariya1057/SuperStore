@@ -33,6 +33,18 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
     }
     
+    func contentLoaded(reviews: [ReviewModel]) {
+        self.reviews = reviews
+        loading = false
+        reviewsTableView.reloadData()
+    }
+    
+    func errorHandler(_ message: String) {
+        loading = false
+        self.reviewsTableView.reloadData()
+        showError(message)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return reviews.count == 0 && loading == true ? 3 : reviews.count
     }
@@ -50,11 +62,11 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         return cell
     }
-
-    func contentLoaded(reviews: [ReviewModel]) {
-        self.reviews = reviews
-        loading = false
-        reviewsTableView.reloadData()
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Reviews Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
 
 }

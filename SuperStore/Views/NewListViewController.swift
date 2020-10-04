@@ -33,7 +33,7 @@ class NewListViewController: UIViewController {
     func createList(){
         let date = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "d MMMM Y"
+        formatter.dateFormat = "dd MMMM Y"
         
         let created_at = formatter.string(from: date)
         

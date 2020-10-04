@@ -10,11 +10,8 @@ import Foundation
 
 protocol GroceriesCategoriesDelegate {
     func contentLoaded(categories: [GrandParentCategoryModel])
-//    func errorHandler(_ message:String)
+    func errorHandler(_ message:String)
 }
-
-// Groceries -> Categories
-// Products  -> Categories
 
 struct GroceryCategoriesHandler {
     
@@ -68,6 +65,6 @@ struct GroceryCategoriesHandler {
     }
     
     func processError(_ message:String){
-//        self.delegate?.errorHandler(message)
+        self.delegate?.errorHandler(message)
     }
 }

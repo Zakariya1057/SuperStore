@@ -24,23 +24,27 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     @IBOutlet weak var ratingView: CosmosView!
     var reviewHandler = ReviewsHandler()
     
+    var requestSent: Bool = false
+    
+    let spinner: SpinnerViewController = SpinnerViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        reviewHandler.delegate = self
         reviewTitleView.delegate = self
         reviewTextView.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
 
-//       reviewTitleView!.layer.borderWidth = 1
-//        reviewTitleView!.layer.borderColor = CGColor(srgbRed:0.90, green: 0.90, blue: 0.90, alpha: 1)
-
-//        reviewTextView!.layer.borderWidth = 1
-//        reviewTextView!.layer.borderColor = CGColor(srgbRed:0.90, green: 0.90, blue: 0.90, alpha: 1)
+//        reviewTextView.layer.cornerRadius = 5
+        reviewTitleView!.layer.borderWidth = 0
+//        reviewTitleView!.layer.borderColor = CGColor(srgbRed: 0.83, green: 0.83, blue: 0.83, alpha: 1.00)
         
         reviewTextView.layer.cornerRadius = 5
-        reviewTextView.layer.borderWidth = 1
-        reviewTextView.layer.borderColor = CGColor(srgbRed: 0.83, green: 0.83, blue: 0.83, alpha: 1.00)
+//        reviewTextView.layer.borderWidth = 1
+//        reviewTextView.layer.borderColor = CGColor(srgbRed: 0.83, green: 0.83, blue: 0.83, alpha: 1.00)
         
+        reviewTextView.toolbarPlaceholder = "Review Text"
        
         reviewHandler.delegate = self
         reviewHandler.show(product_id: product!.id)
@@ -48,18 +52,24 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         nameLabel.text = product!.name
         imageView.downloaded(from: product!.image)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func contentLoaded(reviews: [ReviewModel]) {
+        stopLoading()
+        
         if reviews.count > 0 {
             self.review = reviews[0]
             configureUI()
         }
         
+        if requestSent {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+    }
+    
+    func errorHandler(_ message: String) {
+        stopLoading()
+        showError(message)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -89,6 +99,11 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         ratingView.rating = Double(review!.rating)
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     @IBAction func reviewPressed(_ sender: Any) {
         // Validate first, are all fields filled up. -> Later
         
@@ -105,13 +120,17 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
             return showError("Review title required.")
         }
         
+        requestSent = true
+        
+        startLoading()
+        
         reviewHandler.create(product_id: product!.id, review_data: [
             "rating": rating,
             "title": title,
             "text": text
         ])
+    
         
-        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func deletePressed(_ sender: Any) {
@@ -120,10 +139,12 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     
     func confirmDelete(){
         let alert = UIAlertController(title: "Deleting Review?", message: "Sure you want to delete this review?", preferredStyle: .alert)
+        
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
+            self.requestSent = true
             self.reviewHandler.delete(product_id: self.product!.id)
-            self.navigationController?.popViewController(animated: true)
         }))
+        
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
@@ -132,6 +153,19 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         let alert = UIAlertController(title: "Review Error", message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
+    }
+    
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
     }
     
 }

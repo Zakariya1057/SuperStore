@@ -10,7 +10,7 @@ import UIKit
 import SkeletonView
 
 class StoreViewController: UIViewController, StoreDelegate {
-    
+
     @IBOutlet weak var storeLogoView: UIImageView!
     @IBOutlet weak var storeNameLabel: UILabel!
     @IBOutlet weak var storeNameView: UIView!
@@ -98,6 +98,10 @@ class StoreViewController: UIViewController, StoreDelegate {
         }
     }
     
+    func errorHandler(_ message: String) {
+        showError(message)
+    }
+    
     func contentLoaded(store: StoreModel) {
         
         stopLoading()
@@ -175,16 +179,11 @@ class StoreViewController: UIViewController, StoreDelegate {
         storeAddressLabel.text = address_items.compactMap { $0 }.joined(separator: ", ")
     }
     
-//    func toggleAnimation() {
-//        if !skeletonAnimating {
-//            print("Start Animating")
-//            view.startSkeletonAnimation()
-//        } else {
-//            print("Stop Animating")
-//            view.stopSkeletonAnimation()
-//        }
-//
-//        skeletonAnimating = !skeletonAnimating
-//    }
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Store Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
 
 }

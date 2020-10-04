@@ -44,7 +44,7 @@ class ListsTableViewCell: UITableViewCell {
                 statusLabel.textColor =  UIColor(red: 1.00, green: 0.58, blue: 0.00, alpha: 1.00)
                 statusLabel.text = "In Progress"
             } else if status == .completed {
-                statusLabel.textColor =  UIColor(red: 0.02, green: 0.61, blue: 0.07, alpha: 1.00)
+                statusLabel.textColor =  UIColor(named: "Green.Light")
                 statusLabel.text = "Completed"
             }
            

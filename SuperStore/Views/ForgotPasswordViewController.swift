@@ -8,11 +8,17 @@
 
 import UIKit
 
-class ForgotPasswordViewController: UIViewController {
+class ForgotPasswordViewController: UIViewController, UserDelegate {
 
+    @IBOutlet weak var emailField: UITextField!
+    var userHandler = UserHandler()
+    
+    let spinner: SpinnerViewController = SpinnerViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        userHandler.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -24,6 +30,66 @@ class ForgotPasswordViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    @IBAction func sendPressed(_ sender: Any) {
+        let email = emailField.text ?? ""
+        
+        let validationFields: [ [String: String] ] = [
+            ["field": "email", "value": email, "type": "email"],
+        ]
+        
+        let error = userHandler.validateFields(validationFields)
+        
+        if error != nil {
+            return showError(error!)
+        }
+
+        startLoading()
+        userHandler.requestResetCode(email: email)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "emailToCode" {
+            let destinationVC = segue.destination as! CheckCodeViewController
+            let email = emailField.text ?? ""
+            destinationVC.email = email
+        }
+    }
+    
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+    }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Password Reset Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func showStatus(){
+        let alert = UIAlertController(title: "Code Sent", message: "If user exists an email will be sent to the email address.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func contentLoaded() {
+        stopLoading()
+        self.performSegue(withIdentifier: "emailToCode", sender: self)
+    }
+    
+    func errorHandler(_ message: String) {
+        stopLoading()
+        showError(message)
     }
 
 }

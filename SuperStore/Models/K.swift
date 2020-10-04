@@ -38,6 +38,11 @@ struct K {
             static let Register = "user/register"
             static let Login = "user/login"
             static let Update = "user/update"
+            static let LogOut = "user/logout"
+            
+            static let SendResetCode = "user/reset/send-code"
+            static let ValidateResetCode = "user/reset/validate-code"
+            static let ResetPassword = "user/reset/password"
         }
         
         struct Reviews {
@@ -129,6 +134,11 @@ struct K {
         struct ListItemCell {
             static let CellIdentifier = "ReusableListItemTableViewCell"
             static let CellNibName    = "ListItemTableViewCell"
+        }
+        
+        struct RefineCell {
+            static let CellIdentifier = "ReusableRefineTableViewCell"
+            static let CellNibName    = "RefineTableViewCell"
         }
         
     }

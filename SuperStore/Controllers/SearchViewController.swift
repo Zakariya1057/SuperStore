@@ -16,7 +16,7 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
     
     var searchList:[SearchModel] = []
     
-    var history:[SearchModel] = [SearchModel(id: 1, name: "Asda", type: .store), SearchModel(id: 1, name: "Bread", type: .childCategory)]
+    var history:[SearchModel] = [SearchModel(id: 1, name: "Asda", type: .store), SearchModel(id: 1, name: "Fruit", type: .parentCategory)]
     var suggestions:[SearchModel] = []
     
     var searchHandler: SearchHandler = SearchHandler()
@@ -43,6 +43,13 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
        
         searchTableView.register(UINib(nibName: K.Cells.SearchCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.SearchCell.CellIdentifier)
         
+    }
+    
+    
+    func errorHandler(_ message: String) {
+        showError(message)
+        loading = false
+        searchTableView.reloadData()
     }
     
     func contentLoaded(suggestions: [SearchModel]) {
@@ -77,10 +84,10 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
         
         if text != nil {
             if text != "" {
-                loading = true
-                searchTableView.reloadData()
-                searchHandler.requestSuggestions(query: text!)
+                search(text: text!)
             } else {
+                loading = false
+                searchTableView.reloadData()
                 ignoreResults = true
                 showHistory()
             }
@@ -91,12 +98,29 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
 
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        search(text: searchBar.text ?? "")
+    }
+    
+    
+    func search(text: String){
+        loading = true
+        searchTableView.reloadData()
+        searchHandler.requestSuggestions(query: text)
+    }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Search Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
 }
 
 extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchList.count == 0 && loading == true ? 3 : searchList.count
+        return loading ? 3 : searchList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -146,17 +170,5 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
             destinationVC.store_type_id =  selectedItem!.id
         }
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let product = searchList[indexPath.row]
-//
-//        let count = product.name.count
-//        
-//        if count > 36 {
-//            return 60
-//        } else {
-//            return 50
-//        }
-//    }
     
 }

@@ -33,4 +33,10 @@ struct SearchResultsDataResponse: Decodable {
 struct SearchResultsData: Decodable {
     let stores:[StoreData]
     let products:[ProductData]
+    let filter:FilterResultsData?
+}
+
+struct FilterResultsData: Decodable {
+    let brands:[String: Int]?
+    let categories:[String: Int]?
 }

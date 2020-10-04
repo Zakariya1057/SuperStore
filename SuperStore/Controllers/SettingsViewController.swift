@@ -26,9 +26,12 @@ class SettingsViewController: UIViewController, UserDetailsChangedDelegate {
     var fieldName:String = ""
     var fieldValue:String = ""
     
-    let userSession = UserSession()
-    
     var userDetails: UserData?
+    
+    let userHandler = UserHandler()
+    var userSession:UserSession {
+        return userHandler.userSession
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +90,9 @@ class SettingsViewController: UIViewController, UserDetailsChangedDelegate {
     }
     
     func logOut(){
+        userHandler.requestLogout()
         userSession.logOut()
+    
         let vc = (self.storyboard?.instantiateViewController(withIdentifier: "loginViewController"))! as! LoginViewController
         navigationController?.setNavigationBarHidden(true, animated: true)
         self.tabBarController?.tabBar.isHidden = true

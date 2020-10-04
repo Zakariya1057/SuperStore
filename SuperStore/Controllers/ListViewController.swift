@@ -84,10 +84,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
          listTableView.addSubview(refreshControl) // not required when using UITableViewController
     }
     
-    @objc func refresh(_ sender: AnyObject) {
-        listHandler.request(list_id:list_id)
-    }
-    
+
     func contentLoaded(list: ListModel) {
         self.list = list
         self.title = list.name
@@ -96,6 +93,18 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         listTableView.reloadData()
         refreshControl.endRefreshing()
     }
+    
+    func errorHandler(_ message: String) {
+        loading = false
+        listTableView.reloadData()
+        refreshControl.endRefreshing()
+        showError(message)
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        listHandler.request(list_id:list_id)
+    }
+    
     
     @IBAction func addButtonPressed(_ sender: Any) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "searchViewController"))! as! SearchViewController
@@ -124,6 +133,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         productUpdate(product: product)
     }
     
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "List Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
     
 }
 

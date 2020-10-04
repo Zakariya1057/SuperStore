@@ -10,7 +10,7 @@ import Foundation
 
 protocol ListDelegate {
     func contentLoaded(lists: [ListModel])
-//    func errorHandler(_ message:String)
+    func errorHandler(_ message:String)
 }
 
 struct ListsHandler {
@@ -89,6 +89,6 @@ struct ListsHandler {
     }
     
     func processError(_ message:String){
-//        self.delegate?.errorHandler(message)
+        self.delegate?.errorHandler(message)
     }
 }

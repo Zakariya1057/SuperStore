@@ -24,7 +24,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        listTableView.addSubview(refreshControl) // not required when using UITableViewController
+        listTableView.addSubview(refreshControl)
         
         customElements = [
             

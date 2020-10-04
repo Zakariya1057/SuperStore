@@ -10,7 +10,7 @@ import Foundation
 
 protocol StoreDelegate {
     func contentLoaded(store: StoreModel)
-//    func errorHandler(_ message:String)
+    func errorHandler(_ message:String)
 }
 
 struct StoreHandler {
@@ -67,6 +67,6 @@ struct StoreHandler {
     }
     
     func processError(_ message:String){
-//        self.delegate?.errorHandler(message)
+        self.delegate?.errorHandler(message)
     }
 }

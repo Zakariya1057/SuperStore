@@ -8,12 +8,11 @@
 
 import UIKit
 
-class SearchResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SearchResultsDelegate, QuanityChangedDelegate, ListSelectedDelegate, GroceryDelegate {
-
+class SearchResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SearchResultsDelegate, QuanityChangedDelegate, ListSelectedDelegate, GroceryDelegate, RefineSelectedDelegate {
+    
     @IBOutlet weak var resultsTableView: UITableView!
     
-    @IBOutlet weak var sortView: UIView!
-    @IBOutlet weak var filterView: UIView!
+    @IBOutlet var refineView: UIView!
     
     var products:[ProductModel] = []
     
@@ -32,23 +31,35 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     var selected_list_id: Int?
     
+    var selectedSort: RefineSortModel?
+    var selectedCategory: RefineModel?
+    var selectedBrand: RefineModel?
+    var selectedDietary: [RefineModel] = []
+    
     var loading: Bool = true
+    
+    var refreshControl = UIRefreshControl()
+    
+    var filters: [RefineOptionModel] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         resultsTableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
         resultsTableView.dataSource = self
         resultsTableView.delegate = self
-
-        let sortGesture = UITapGestureRecognizer(target: self, action: #selector(sortResults))
-        sortView.addGestureRecognizer(sortGesture)
         
-        let filterGesture = UITapGestureRecognizer(target: self, action: #selector(filterResults))
-        filterView.addGestureRecognizer(filterGesture)
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        resultsTableView.addSubview(refreshControl)
+        
+        let refineGesture = UITapGestureRecognizer(target: self, action: #selector(refinePressed))
+        refineView.addGestureRecognizer(refineGesture)
 
         self.title = searchName!.capitalized
         
         searchHandler.resultsDelegate = self
-        searchHandler.requestResults(searchData: ["type": type!, "detail": searchName!])
+        search()
         
         if(delegate == nil){
             self.navigationItem.rightBarButtonItem = nil
@@ -56,11 +67,13 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
         
-    func contentLoaded(stores: [StoreModel], products: [ProductModel]) {
+    func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel]) {
         self.products = products
+        self.filters = filters
         loading = false
         totalProductsLabel.text = "\(products.count) Products"
-        self.resultsTableView.reloadData()
+        resultsTableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     func errorHandler(_ message: String) {
@@ -69,50 +82,107 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         showError(message)
     }
     
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Search Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+}
+
+//MARK: - Refine Results
+extension SearchResultsViewController {
+    
+    func applyOptions(sort: RefineSortModel?, category: RefineModel?,brand: RefineModel?, dietary: [RefineModel]){
+        selectedSort = sort
+        selectedCategory = category
+        selectedDietary = dietary
+        selectedBrand = brand
+        
+        search()
+    }
+    
+    func search(){
+        
+        var data = ["type": type!, "detail": searchName!]
+        
+        if selectedSort != nil {
+            let sortBy = selectedSort!.sort
+            let orderBy: String
+            
+            if selectedSort!.order == .asc {
+                orderBy = "asc"
+            } else {
+                orderBy = "desc"
+            }
+            
+            data["sort"] = sortBy
+            data["order"] = orderBy
+        }
+        
+        if selectedCategory != nil {
+            data["category"] = selectedCategory!.name
+        }
+        
+        if selectedBrand != nil {
+            data["brand"] = selectedBrand!.name
+        }
+        
+        if selectedDietary.count > 0 {
+            data["dietary"] = selectedDietary.compactMap({ $0.name }).joined(separator: ",")
+        }
+        
+        
+        loading = true
+        
+        if products.count > 0 {
+            resultsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        }
+        
+        resultsTableView.reloadData()
+        
+        searchHandler.requestResults(searchData: data)
+    }
+    
+    func clearAllOptions() {
+        selectedSort = nil
+        selectedCategory = nil
+        selectedDietary = []
+        selectedBrand = nil
+        
+        loading = true
+        resultsTableView.reloadData()
+        
+        search()
+    }
+    
+    
+    @objc func refinePressed(){
+        if loading == false {
+            self.performSegue(withIdentifier: "resultsOption", sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "resultsOption" {
+            let destinationVC = segue.destination as! RefineViewController
+            destinationVC.delegate = self
+            destinationVC.refineHistory = RefineHistoryModel(sort: selectedSort, category: selectedCategory,dietary: selectedDietary, brand: selectedBrand)
+            destinationVC.filters = self.filters
+        }
+    }
+    
+}
+
+//MARK: - List
+extension SearchResultsViewController {
+    
     func updateProductQuantity(index: Int, quantity: Int) {
         print(products[index].name)
         print(quantity)
         products[index].quantity = quantity
     }
     
-    @objc func filterResults(){
-        self.performSegue(withIdentifier: "resultsOption", sender: self)
-    }
-    
-    @objc func sortResults(){
-        self.performSegue(withIdentifier: "resultsOption", sender: self)
-    }
-        
-    // MARK: - Table view data source
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count == 0 && loading == true ? 3 : products.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = resultsTableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
-        
-        if loading == false {
-            cell.delegate = self.delegate
-            cell.quantity_delegate = self
-            cell.product = products[indexPath.row]
-            cell.index = indexPath.row
-            cell.configureUI()
-            cell.selectionStyle = UITableViewCell.SelectionStyle.none
-        } else {
-            cell.startLoading()
-        }
-
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showGroceryItem(products[indexPath.row].id)
-    }
-
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//         return 130.0
-//    }
     
     func addToList(_ product: ProductModel){
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
@@ -155,10 +225,38 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     func updateQuantity(_ product: ProductModel) {
         update_quantity(product)
     }
-    
-    func showError(_ error: String){
-        let alert = UIAlertController(title: "Search Error", message: error, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alert, animated: true)
+}
+
+//MARK: - TableView
+extension SearchResultsViewController {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return loading ? 5 : products.count
     }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = resultsTableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
+        
+        if loading == false {
+            cell.delegate = self.delegate
+            cell.quantity_delegate = self
+            cell.product = products[indexPath.row]
+            cell.index = indexPath.row
+            cell.configureUI()
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        } else {
+            cell.startLoading()
+        }
+
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        showGroceryItem(products[indexPath.row].id)
+    }
+
+    @objc func refresh(){
+        search()
+    }
+
 }

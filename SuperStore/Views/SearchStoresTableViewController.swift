@@ -21,6 +21,8 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
     
     var selected_store_id: Int?
     
+    var loading: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,16 +41,22 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
         mapTableView.rowHeight = 300
     }
 
-    func contentLoaded(stores: [StoreModel], products: [ProductModel]) {
+    func errorHandler(_ message: String) {
+        loading = false
+        showError(message)
+        storesTableView.reloadData()
+    }
+    
+    func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel]) {
         self.stores = stores
-        
+        loading = false
         storesTableView.reloadData()
         mapTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == storesTableView {
-            return stores.count
+            return loading ? 5 : stores.count
         } else if tableView == mapTableView {
             return 1
         }
@@ -56,9 +64,17 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
         return 0
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return CGFloat(100)
-//    }
+    func storePressed(store_id: Int) {
+        print("Store ID: \(store_id)")
+        
+        for (index, store) in stores.enumerated() {
+            if store.id == store_id {
+                let indexPath = NSIndexPath(row: index, section: 0)
+                storesTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+            }
+        }
+
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -71,9 +87,15 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
             return cell
         } else if tableView ==  storesTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.StoresResultsCell.CellIdentifier) as! StoresResultsTableViewCell
-            cell.selectionStyle = UITableViewCell.SelectionStyle.none
-            cell.store = stores[indexPath.row]
-            cell.configureUI()
+            
+            if loading == false {
+                cell.selectionStyle = UITableViewCell.SelectionStyle.none
+                cell.store = stores[indexPath.row]
+                cell.configureUI()
+            } else {
+                cell.startLoading()
+            }
+
             return cell
         }
 
@@ -81,6 +103,10 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if loading == true {
+            return
+        }
         
         if tableView == storesTableView {
             storeSelected(store_id: stores[indexPath.row].id)
@@ -98,5 +124,11 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
     func storeSelected(store_id: Int) {
         selected_store_id = store_id
         self.performSegue(withIdentifier: "storeResultsToStore", sender: self)
+    }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Search Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
 }

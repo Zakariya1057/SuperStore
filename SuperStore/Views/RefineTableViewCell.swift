@@ -8,17 +8,54 @@
 
 import UIKit
 
+//protocol OptionSelectedDelegate {
+//    func optionSelected(section: Int, row: Int)
+//}
+
 class RefineTableViewCell: UITableViewCell {
 
+//    var delegate: OptionSelectedDelegate?
+    
+    @IBOutlet var nameLabel: UILabel!
+    
+    @IBOutlet var tickBoxImage: UIImageView!
+    var name:String?
+    var selectedOption: Bool = false
+    
+    var section: Int?
+    var row: Int?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        configureUI()
+    }
+    
+    func configureUI(){
+        nameLabel.text = name ?? ""
+        showCheckBox()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @IBAction func checkBoxPressed(_ sender: UIButton) {
+        selectedOption = !selectedOption
+//        delegate?.optionSelected(section: section!, row: row!)
+        showCheckBox()
+    }
+    
+    func showCheckBox(){
+        if !selectedOption {
+            tickBoxImage.tintColor = .label
+            tickBoxImage.image = UIImage(systemName: "circle")
+        } else {
+            tickBoxImage.tintColor = UIColor(named: "LogoBlue.Light")
+            tickBoxImage.image = UIImage(systemName: "checkmark.circle")
+        }
     }
     
 }

@@ -13,3 +13,13 @@ struct SearchModel {
     var name:String
     var type: SearchType
 }
+
+struct FilterModel {
+    var categories: [FilterItemModel]
+    var brands: [FilterItemModel]
+}
+
+struct FilterItemModel {
+    var name: String
+    var quantity: Int
+}

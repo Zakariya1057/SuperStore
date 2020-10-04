@@ -21,6 +21,7 @@ class StoresMapElement: CustomElementModel {
 }
 
 protocol StoreSelectedDelegate {
+    func storePressed(store_id: Int)
     func storeSelected(store_id: Int)
 }
 
@@ -139,18 +140,15 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
 
     }
     
-    // this is a _method_
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        let circleRenderer = MKCircleRenderer(overlay: overlay)
-//        circleRenderer.strokeColor = UIColor.red
-//        circleRenderer.lineWidth = 1.0
-//        return circleRenderer
-//    }
-    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("Selected A Store")
         let title = view.annotation?.title!
+        print("Selected A Store: \(title!)")
         selected_store_id = store_details[title!]
+        
+        if selected_store_id != nil {
+            delegate?.storePressed(store_id: selected_store_id!)
+        }
+        
     }
         
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {

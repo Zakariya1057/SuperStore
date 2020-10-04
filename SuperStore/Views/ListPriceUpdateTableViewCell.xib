@@ -53,7 +53,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 2.50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8KM-Mo-qvA">
                                                                 <rect key="frame" x="105.5" y="0.5" width="45" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                                                <color key="textColor" red="0.012947111625115804" green="0.4780898274183023" blue="0.057385015093159332" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <color key="textColor" name="Green.Light"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -94,7 +94,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25.40" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fF-zG-oqc">
                                                                 <rect key="frame" x="106.5" y="0.5" width="44" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                                                <color key="textColor" name="LogoBlue"/>
+                                                                <color key="textColor" name="LogoBlue.Light"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -135,7 +135,6 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25th Of July" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFL-sU-t6J">
                                                                 <rect key="frame" x="59" y="0.5" width="91.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                                                <color key="textColor" red="0.19625538796206898" green="0.19625538796206898" blue="0.19625538796206898" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -189,7 +188,7 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="AYH-7p-3hy">
                                                         <rect key="frame" x="130.5" y="12" width="20" height="16.5"/>
-                                                        <color key="tintColor" systemColor="darkTextColor"/>
+                                                        <color key="tintColor" systemColor="labelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="YU1-1K-r8k"/>
                                                             <constraint firstAttribute="width" constant="20" id="xh8-x7-Tb6"/>
@@ -208,7 +207,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.9655897712" green="0.9655897712" blue="0.9655897712" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" name="LightGrey"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <constraints>
                                     <constraint firstItem="Fhc-lD-8US" firstAttribute="top" secondItem="3H2-IN-Vhw" secondAttribute="top" id="27O-wE-oTF"/>
@@ -246,12 +245,15 @@
     </objects>
     <resources>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <namedColor name="LogoBlue">
+        <namedColor name="Green.Light">
+            <color red="0.34776507069377549" green="0.67434178122791111" blue="0.35363822426977792" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="LightGrey">
+            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LogoBlue.Light">
             <color red="0.097999997437000275" green="0.46299999952316284" blue="0.80400002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="darkTextColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

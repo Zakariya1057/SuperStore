@@ -10,7 +10,7 @@ import Foundation
 
 protocol FavouritesDelegate {
     func contentLoaded(products: [ProductModel])
-//    func errorHandler(_ message:String)
+    func errorHandler(_ message:String)
 }
 
 struct FavouritesHandler {
@@ -60,6 +60,6 @@ struct FavouritesHandler {
     }
     
     func processError(_ message:String){
-//        self.delegate?.errorHandler(message)
+        self.delegate?.errorHandler(message)
     }
 }
