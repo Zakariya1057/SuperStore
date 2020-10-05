@@ -9,8 +9,18 @@
 import UIKit
 import Cosmos
 
-class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDelegate, FavouritesDelegate {
+class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDelegate, FavouritesDelegate, ListSelectedDelegate, GroceryDelegate {
 
+    @IBOutlet var addButton: UIButton!
+    @IBOutlet var stepperStackView: UIStackView!
+    
+    @IBOutlet var stepperLabel: UILabel!
+    var delegate:GroceryDelegate?
+    
+    var add_to_list_product_id: Int?
+    var noDelegateFound: Bool = false
+    
+    @IBOutlet var stepperPressed: UIStepper!
     @IBOutlet weak var reviewsStackView: UIStackView!
     @IBOutlet weak var ingredientsView: UIView!
     @IBOutlet weak var descriptionView: UIView!
@@ -56,6 +66,11 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     var favouritesHandler = FavouritesHandler()
     
+    var listHandler = ListItemsHandler()
+    
+    var selected_product_id:Int?
+    var selected_list_id: Int?
+    
     var loadingViews: [UIView] {
         return [productNameLabel,descriptionView,ingredientsView, reviewButton,productImageView,productPriceLabel,productWeightLabel,parentRatingView,addToListButton,monitorButton,allReviewsButton, allergenLabel,promotionView,lifeStyleLabel]
     }
@@ -87,6 +102,11 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         reviewsTableView.dataSource = self
         
         reviewsTableView.register(UINib(nibName: K.Cells.ReviewCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ReviewCell.CellIdentifier)
+        
+        if delegate == nil {
+            noDelegateFound = true
+            delegate = self
+        }
         
         startLoading()
     }
@@ -219,7 +239,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         }
 
     }
-    
+
 }
 
 extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
@@ -292,4 +312,101 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
+extension ProductViewController {
 
+    @IBAction func addPressed(_ sender: Any) {
+        if noDelegateFound == false {
+            showQuantityView()
+        }
+        
+        self.delegate?.addToList(product!, cell: nil)
+    }
+    
+    @IBAction func stepperPressed(_ sender: UIStepper) {
+
+        let quantity = sender.value
+        stepperLabel.text = String(format: "%.0f", quantity)
+        
+        product!.quantity = Int(quantity)
+        
+        if(quantity == 0){
+            showAddButtonView()
+            delegate?.removeFromList(product!)
+        } else {
+            delegate?.updateQuantity(product!)
+        }
+        
+        // Used for remembering product quantity. For Scrolling.
+//        delegate?.updateProductQuantity(index: index!, quantity: product!.quantity)
+        
+    }
+    
+    func showAddButtonView(){
+        print("Show Add Button")
+        stepperStackView.isHidden = true
+        addButton.isHidden = false
+    }
+    
+    func showQuantityView(){
+        print("Show Quantity View")
+        stepperStackView.isHidden = false
+        addButton.isHidden = true
+    }
+    
+    
+    func addToList(_ productItem: ProductModel, cell: GroceryTableViewCell?){
+        
+        if cell != nil {
+            productItem.parent_category_id = product!.parent_category_id
+            productItem.parent_category_name = product!.parent_category_name
+            delegate?.addToList(productItem, cell: cell)
+        } else {
+            let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
+            destinationVC.delegate = self
+            
+            self.present(destinationVC, animated: true)
+            self.add_to_list_product_id = product!.id
+        }
+        
+        print("Adding To List")
+    }
+    
+    
+    func list_selected(list_id: Int) {
+        self.selected_list_id = list_id
+        listHandler.create(list_id: list_id, list_data: ["product_id": String(add_to_list_product_id!)])
+        showQuantityView()
+    }
+    
+//    func remove_from_list(_ product: ProductModel) {
+//        product.parent_category_id = product.parent_category_id
+//        product.parent_category_name = product.parent_category_name
+//        
+//        delegate!.removeFromList(product)
+//    }
+//    
+    func updateQuantity(_ product: ProductModel) {
+
+        if selected_list_id != nil {
+         
+            let data:[String: String] = [
+                "product_id": String(product.id),
+                "quantity": String(product.quantity),
+                "ticked_off": "false"
+            ]
+            
+            listHandler.update(list_id:selected_list_id!, list_data: data)
+            
+        }
+       
+    }
+    
+    func showGroceryItem(_ product_id: Int) {
+        
+    }
+    
+    func removeFromList(_ product: ProductModel) {
+        
+    }
+    
+}

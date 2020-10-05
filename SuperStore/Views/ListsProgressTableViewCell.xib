@@ -47,7 +47,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="202" height="18"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tesco Weekend List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1I-Tc-Htq">
-                                                                                <rect key="frame" x="0.0" y="-0.5" width="143" height="19"/>
+                                                                                <rect key="frame" x="0.0" y="-2" width="146.5" height="22"/>
                                                                                 <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -63,7 +63,7 @@
                                                                         <rect key="frame" x="202" y="0.0" width="50" height="18"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20/20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhS-7O-R5s">
-                                                                                <rect key="frame" x="11.5" y="0.5" width="38.5" height="17.5"/>
+                                                                                <rect key="frame" x="10" y="-1" width="40" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="15"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -90,9 +90,9 @@
                                                         <rect key="frame" x="260" y="0.0" width="35" height="35"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ar1-Nm-dhM">
-                                                                <rect key="frame" x="0.0" y="-2" width="35" height="39"/>
+                                                                <rect key="frame" x="0.0" y="3" width="35" height="29"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="4Yg-w4-std"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="4Yg-w4-std"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -119,7 +119,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="202" height="18"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tesco Weekend List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59r-qE-Vos">
-                                                                                <rect key="frame" x="0.0" y="-0.5" width="143" height="19"/>
+                                                                                <rect key="frame" x="0.0" y="-2" width="146.5" height="22"/>
                                                                                 <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -135,7 +135,7 @@
                                                                         <rect key="frame" x="202" y="0.0" width="50" height="18"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RW4-Ch-cga">
-                                                                                <rect key="frame" x="19.5" y="0.5" width="30.5" height="17.5"/>
+                                                                                <rect key="frame" x="18.5" y="-1" width="31.5" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="15"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -152,7 +152,7 @@
                                                             </stackView>
                                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="2bt-4S-cUG">
                                                                 <rect key="frame" x="0.0" y="28" width="252" height="7"/>
-                                                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                                                <color key="tintColor" systemColor="systemRedColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="7" id="9V8-uD-MTT"/>
                                                                 </constraints>
@@ -163,10 +163,10 @@
                                                         <rect key="frame" x="260" y="0.0" width="35" height="35"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Eh7-91-Vst">
-                                                                <rect key="frame" x="0.0" y="-2" width="35" height="39"/>
-                                                                <color key="tintColor" name="LogoBlue.Light"/>
+                                                                <rect key="frame" x="0.0" y="3" width="35" height="29"/>
+                                                                <color key="tintColor" systemColor="systemRedColor"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="xre-HB-k31"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="xre-HB-k31"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -193,7 +193,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="202" height="18"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tesco Weekend List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXc-ny-Kz6">
-                                                                                <rect key="frame" x="0.0" y="-0.5" width="143" height="19"/>
+                                                                                <rect key="frame" x="0.0" y="-2" width="146.5" height="22"/>
                                                                                 <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -209,7 +209,7 @@
                                                                         <rect key="frame" x="202" y="0.0" width="50" height="18"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ks8-Gp-5Hk">
-                                                                                <rect key="frame" x="11.5" y="0.5" width="38.5" height="17.5"/>
+                                                                                <rect key="frame" x="10" y="-1" width="40" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="15"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -224,9 +224,9 @@
                                                                     </view>
                                                                 </subviews>
                                                             </stackView>
-                                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="S9H-1T-HXF">
+                                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="S9H-1T-HXF">
                                                                 <rect key="frame" x="0.0" y="28" width="252" height="7"/>
-                                                                <color key="tintColor" name="Green.Light"/>
+                                                                <color key="tintColor" systemColor="systemYellowColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="7" id="VOs-lK-fcE"/>
                                                                 </constraints>
@@ -236,10 +236,11 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bA4-iq-ONj">
                                                         <rect key="frame" x="260" y="0.0" width="35" height="35"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VaV-qD-OfR">
-                                                                <rect key="frame" x="0.0" y="-2" width="35" height="39"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VaV-qD-OfR">
+                                                                <rect key="frame" x="0.0" y="3" width="35" height="29"/>
+                                                                <color key="tintColor" systemColor="systemYellowColor"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="DA3-KQ-jWV"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="DA3-KQ-jWV"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -266,7 +267,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="202" height="18"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tesco Weekend List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0g-zz-fYy">
-                                                                                <rect key="frame" x="0.0" y="-0.5" width="143" height="19"/>
+                                                                                <rect key="frame" x="0.0" y="-2" width="146.5" height="22"/>
                                                                                 <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -282,7 +283,7 @@
                                                                         <rect key="frame" x="202" y="0.0" width="50" height="18"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20/20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5li-xR-csM">
-                                                                                <rect key="frame" x="11.5" y="0.5" width="38.5" height="17.5"/>
+                                                                                <rect key="frame" x="10" y="-1" width="40" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="15"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -297,8 +298,9 @@
                                                                     </view>
                                                                 </subviews>
                                                             </stackView>
-                                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="kZE-KA-yck">
-                                                                <rect key="frame" x="0.0" y="28" width="252" height="8"/>
+                                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="kZE-KA-yck">
+                                                                <rect key="frame" x="0.0" y="28" width="252" height="7"/>
+                                                                <color key="tintColor" name="Green.Light"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="7" id="hji-oa-r3m"/>
                                                                 </constraints>
@@ -308,10 +310,11 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xR3-Kz-N1s">
                                                         <rect key="frame" x="260" y="0.0" width="35" height="35"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="iKQ-fV-GfS">
-                                                                <rect key="frame" x="0.0" y="-2" width="35" height="39"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="iKQ-fV-GfS">
+                                                                <rect key="frame" x="0.0" y="3" width="35" height="29"/>
+                                                                <color key="tintColor" name="Green.Light"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="24o-FW-aVL"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="24o-FW-aVL"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -365,11 +368,11 @@
         <namedColor name="Green.Light">
             <color red="0.34799998998641968" green="0.67400002479553223" blue="0.35400000214576721" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="LogoBlue.Light">
-            <color red="0.097999997437000275" green="0.46299999952316284" blue="0.80400002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

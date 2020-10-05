@@ -60,10 +60,10 @@ struct ProductDetailsHandler {
             var recommended: [ProductModel] = []
             
             for product_item in product_details.recommended ?? [] {
-                recommended.append(ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, description: product_item.description, quantity: 0,weight: product_item.weight, parent_category_id: nil, parent_category_name: nil, price: product_item.price, location: "", avg_rating: 1, total_reviews_count: 1,discount: nil))
+                recommended.append(ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, description: product_item.description, quantity: 1,weight: product_item.weight, parent_category_id: nil, parent_category_name: nil, price: product_item.price, location: "", avg_rating: 1, total_reviews_count: 1,discount: nil))
             }
             
-            let product = ProductDetailsModel(id: product_details.id, name: product_details.name, image: product_details.large_image, description: product_details.description, quantiy: 0, price: product_details.price, location: "",avg_rating: product_details.avg_rating, total_reviews_count: product_details.total_reviews_count, storage: product_details.storage, weight: product_details.weight, parent_category_id: nil, parent_category_name: nil, dietary_info: product_details.dietary_info, allergen_info: product_details.allergen_info, brand: product_details.brand, reviews: reviews, favourite: product_details.favourite!, promotion: promotion, ingredients: ingredients, recommended: recommended )
+            let product = ProductDetailsModel(id: product_details.id, name: product_details.name, image: product_details.large_image, description: product_details.description, quantity: 0, price: product_details.price, location: "",avg_rating: product_details.avg_rating, total_reviews_count: product_details.total_reviews_count, storage: product_details.storage, weight: product_details.weight, parent_category_id: product_details.parent_category_id, parent_category_name: product_details.parent_category_name, dietary_info: product_details.dietary_info, allergen_info: product_details.allergen_info, brand: product_details.brand, reviews: reviews, favourite: product_details.favourite!, promotion: promotion, ingredients: ingredients, recommended: recommended )
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(product: product)

@@ -11,6 +11,8 @@ import SkeletonView
 
 class StoreViewController: UIViewController, StoreDelegate {
 
+    var delegate: GroceryDelegate?
+    
     @IBOutlet weak var storeLogoView: UIImageView!
     @IBOutlet weak var storeNameLabel: UILabel!
     @IBOutlet weak var storeNameView: UIView!
@@ -82,6 +84,10 @@ class StoreViewController: UIViewController, StoreDelegate {
         
         startLoading()
         storeHandler.request(store_id: store_id)
+        
+        if delegate != nil {
+            print("Delegate Present Here")
+        }
         
     }
     
@@ -185,5 +191,9 @@ class StoreViewController: UIViewController, StoreDelegate {
         self.present(alert, animated: true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! GrandParentCategoriesViewController
+        destinationVC.delegate = self.delegate
+    }
 
 }

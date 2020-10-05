@@ -95,7 +95,8 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     }
 
     @IBAction func done_pressed(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true)
     }
     
     func showError(_ error: String){

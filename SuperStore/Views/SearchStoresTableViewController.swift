@@ -23,6 +23,8 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
     
     var loading: Bool = true
     
+    var delegate: GroceryDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,6 +41,10 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
         searchHandler.requestResults(searchData: ["type": "stores", "detail": String(store_type_id!)])
         storesTableView.rowHeight = 100;
         mapTableView.rowHeight = 300
+        
+        if delegate != nil {
+            print("Delegate Present Here")
+        }
     }
 
     func errorHandler(_ message: String) {
@@ -118,6 +124,7 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
         if segue.identifier == "storeResultsToStore" {
             let destinationVC = segue.destination as! StoreViewController
             destinationVC.store_id = selected_store_id!
+            destinationVC.delegate = self.delegate
         }
     }
     

@@ -27,7 +27,8 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     var listHandler = ListItemsHandler()
     
-    var add_to_list_product_index: Int?
+    var selected_product_id: Int?
+    var selected_row: GroceryTableViewCell?
     
     var selected_list_id: Int?
     
@@ -41,6 +42,8 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     var refreshControl = UIRefreshControl()
     
     var filters: [RefineOptionModel] = []
+    
+    var noDelegateFound: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +65,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         search()
         
         if(delegate == nil){
+            self.noDelegateFound = true
             self.navigationItem.rightBarButtonItem = nil
             self.delegate = self
         }
@@ -178,22 +182,24 @@ extension SearchResultsViewController {
 extension SearchResultsViewController {
     
     func updateProductQuantity(index: Int, quantity: Int) {
-        print(products[index].name)
-        print(quantity)
         products[index].quantity = quantity
     }
     
     
-    func addToList(_ product: ProductModel){
+    func addToList(_ product: ProductModel, cell: GroceryTableViewCell?){
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
         destinationVC.delegate = self
-        self.present(destinationVC, animated: true)
-        self.add_to_list_product_index = product.id
+        present(destinationVC, animated: true)
+        
+        selected_product_id = product.id
+        selected_row = cell
     }
     
     func list_selected(list_id: Int) {
         self.selected_list_id = list_id
-        listHandler.create(list_id: list_id, list_data: ["product_id": String(add_to_list_product_index!)])
+        listHandler.create(list_id: list_id, list_data: ["product_id": String(selected_product_id!)])
+        
+        selected_row!.show_quantity_view()
     }
     
     func update_quantity(_ product: ProductModel) {
@@ -215,6 +221,7 @@ extension SearchResultsViewController {
     func showGroceryItem(_ product_id: Int) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
         destinationVC.product_id = product_id
+        destinationVC.delegate = noDelegateFound ? nil : self.delegate
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
@@ -252,6 +259,7 @@ extension SearchResultsViewController {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selected_row = tableView.cellForRow(at: indexPath) as? GroceryTableViewCell
         showGroceryItem(products[indexPath.row].id)
     }
 

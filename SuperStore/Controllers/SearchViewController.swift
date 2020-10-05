@@ -168,6 +168,7 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
         } else if segue.identifier == "searchToStoreResults" {
             let destinationVC = segue.destination as! SearchStoresViewController
             destinationVC.store_type_id =  selectedItem!.id
+            destinationVC.delegate = self.delegate
         }
     }
     

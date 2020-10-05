@@ -11,7 +11,7 @@ import Cosmos
 
 protocol GroceryDelegate {
     func showGroceryItem(_ product_id: Int)
-    func addToList(_ product: ProductModel)
+    func addToList(_ product: ProductModel, cell: GroceryTableViewCell?)
     func removeFromList(_ product: ProductModel)
     func updateQuantity(_ product: ProductModel)
 }
@@ -121,8 +121,8 @@ class GroceryTableViewCell: UITableViewCell {
     
     
     @IBAction func groceryAddClicked(_ sender: Any) {
-        show_quantity_view()
-        self.delegate?.addToList(self.product!)
+//        show_quantity_view()
+        self.delegate?.addToList(self.product!,cell: self)
         quantity_delegate?.updateProductQuantity(index: index!, quantity: 1)
     }
     

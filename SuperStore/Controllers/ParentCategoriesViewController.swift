@@ -58,7 +58,7 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
             let destinationVC = segue.destination as! ChildCategoriesViewController
             destinationVC.list_delegate = delegate
             destinationVC.parent_category_id = selected_category!.id
-//            destinationVC.grandParentCategory = selected_category!
+            destinationVC.parentCategory = selected_category!
             destinationVC.parent_category_name = selected_category!.name
             destinationVC.header_text = selected_category!.name
         }
@@ -66,7 +66,7 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
     
     @IBAction func done_pressed(_ sender: Any) {
          let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-         self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+         self.navigationController!.popToViewController(viewControllers[viewControllers.count - 6], animated: true)
     }
 
 }

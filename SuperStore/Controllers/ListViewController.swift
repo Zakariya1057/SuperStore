@@ -243,7 +243,9 @@ extension ListViewController: GroceryDelegate {
         
     }
     
-    func addToList(_ product: ProductModel) {
+    func addToList(_ product: ProductModel,cell: GroceryTableViewCell?) {
+        cell?.show_quantity_view()
+        
         productAdded(product: product, parent_category_id: product.parent_category_id!, parent_category_name: product.parent_category_name!)
     }
     

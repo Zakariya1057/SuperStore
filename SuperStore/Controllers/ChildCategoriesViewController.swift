@@ -16,7 +16,7 @@ protocol ListSelectedDelegate {
 
 class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, GroceriesProductsDelegate, ListSelectedDelegate {
 
-    var grandParentCategory: GrandParentCategoryModel?
+    var parentCategory: ChildCategoryModel?
     
     var list_delegate: GroceryDelegate?
     
@@ -33,6 +33,8 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
     var categories: [GroceryProductsModel] = []
     
     var selected_product_id:Int?
+    
+    var selected_row: GroceryTableViewCell?
     
     // Create bar
     let bar = TMBar.ButtonBar()
@@ -119,26 +121,27 @@ extension ChildCategoriesViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ProductViewController
         destinationVC.product_id = selected_product_id!
+        destinationVC.delegate = self.list_delegate
     }
     
     func removeFromList(_ product: ProductModel) {
         
     }
     
-    func addToList(_ product: ProductModel){
+    func addToList(_ product: ProductModel, cell: GroceryTableViewCell?){
+        
+        selected_row = cell
         
         if list_delegate != nil {
-            product.parent_category_id = grandParentCategory!.id
-            product.parent_category_name = grandParentCategory!.name
-            
-            list_delegate?.addToList(product)
+            product.parent_category_id = parentCategory!.id
+            product.parent_category_name = parentCategory!.name
+            product.quantity = 1
+            list_delegate?.addToList(product, cell: cell)
         } else {
-            let vc = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
+            let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
+            destinationVC.delegate = self
             
-            vc.delegate = self
-            
-            self.present(vc, animated: true)
-            
+            self.present(destinationVC, animated: true)
             self.add_to_list_product_index = product.id
         }
         
@@ -147,12 +150,13 @@ extension ChildCategoriesViewController {
     
     func list_selected(list_id: Int) {
         self.selected_list_id = list_id
+        selected_row?.show_quantity_view()
         listHandler.create(list_id: list_id, list_data: ["product_id": String(add_to_list_product_index!)])
     }
     
     func remove_from_list(_ product: ProductModel) {
-        product.parent_category_id = grandParentCategory!.id
-        product.parent_category_name = grandParentCategory!.name
+        product.parent_category_id = parentCategory!.id
+        product.parent_category_name = parentCategory!.name
         
         list_delegate!.removeFromList(product)
     }
@@ -160,8 +164,8 @@ extension ChildCategoriesViewController {
     func updateQuantity(_ product: ProductModel) {
 
         if list_delegate != nil {
-            product.parent_category_id = grandParentCategory!.id
-            product.parent_category_name = grandParentCategory!.name
+            product.parent_category_id = parentCategory!.id
+            product.parent_category_name = parentCategory!.name
             
             list_delegate?.updateQuantity(product)
         } else if selected_list_id != nil {
@@ -228,7 +232,7 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
     
     @IBAction func done_pressed(_ sender: Any) {
         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 4], animated: true)
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 7], animated: true)
     }
     
     func startLoading(_ item: UIView){
