@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PriceChangeDelegate {
-    func productChanged(section_index: Int,row_index:Int, product: ListItemModel)
+    func productChanged(product: ListItemModel)
     func calculateProductPrice(_ product: ListItemModel) -> Double
 }
 
@@ -127,8 +127,21 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.status_delegate?.updatePrice(index: list_index, total_price: price)
     }
         
-    func productChanged(section_index: Int,row_index:Int, product: ListItemModel) {
-        list!.categories[section_index].items[row_index] = product
+    func productChanged(product: ListItemModel) {
+        
+        for (section_index, section) in list!.categories.enumerated() {
+            
+            for (row_index, item) in section.items.enumerated() {
+                if item.product_id == product.id {
+                    list!.categories[section_index].items[row_index] = product
+                }
+            }
+            
+        }
+
+
+//        list!.categories[section_index].items[row_index] = product
+        
         showTotalPrice()
         productUpdate(product: product)
     }
@@ -194,16 +207,10 @@ extension ListViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.ListItemCell.CellIdentifier , for: indexPath) as! ListItemTableViewCell
         
-        let section = indexPath.section
-        let row = indexPath.row
-        
         if loading != true {
             cell.product = list!.categories[indexPath.section].items[indexPath.row]
             cell.productIndex = indexPath.row
             cell.delegate = self
-            
-            cell.section_index = section
-            cell.row_index = row
             
             cell.configureUI()
             cell.selectionStyle = UITableViewCell.SelectionStyle.none

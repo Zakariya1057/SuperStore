@@ -116,6 +116,11 @@ struct K {
             static let CellNibName    = "StoresMapTableViewCell"
         }
         
+        struct ListsProgressCell {
+            static let CellIdentifier = "ReusableListsProgressTableViewCell"
+            static let CellNibName    = "ListsProgressTableViewCell"
+        }
+        
         struct SearchCell {
             static let CellIdentifier = "ReusableSearchTableViewCell"
             static let CellNibName    = "SearchTableViewCell"

@@ -20,9 +20,6 @@ class ListItemTableViewCell: UITableViewCell {
         return [nameLabel,tickBoxButton,tickBoxButton,totalLabel]
     }
     
-    var section_index: Int = 0
-    var row_index: Int = 0
-    
     var productIndex: Int = 0
 
     var product: ListItemModel?
@@ -83,7 +80,7 @@ class ListItemTableViewCell: UITableViewCell {
     }
     
     func reflectChange(){
-        delegate!.productChanged(section_index: section_index, row_index: row_index,product: product!)
+        delegate!.productChanged(product: product!)
     }
     
     func startLoading(){

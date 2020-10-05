@@ -28,21 +28,38 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         customElements = [
             
-            ListPriceUpdateElement(title: "Grocery List Price Changes",delegate: self, height: 170),
+//            ListPriceUpdateElement(title: "Grocery List Price Changes",delegate: self, height: 170),
+            
+            ListsProgressElement(title: "Grocery List Progress", delegate: self, height: 190),
 
             StoresMapElement(title: "Stores", height: 300),
 
-            ProductElement(title: "Offers",delegate: self, products: [
+            ProductElement(title: "Grocery Items Sale",delegate: self, products: [
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil)
+             ],height: 400),
+            
+            ProductElement(title: "Monitored Products",delegate: self, products: [
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil)
+             ],height: 400),
+            
+            
+            ProductElement(title: "Top Offers",delegate: self, products: [
                 ProductModel(id: 1, name: "ASDA Grower's Selection Organic Fairtrade Bananas", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil)
              ],height: 400),
             
-            ProductElement(title: "Offers",delegate: self, products: [
+            ProductElement(title: "Best Fruits",delegate: self, products: [
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil)
+             ],height: 400),
+            
+            ProductElement(title: "Best Vegetables",delegate: self, products: [
                 ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil)
              ],height: 400)
             
         ]
         
-        listTableView.register(UINib(nibName: K.Cells.ListPriceUpdateCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ListPriceUpdateCell.CellIdentifier)
+//        listTableView.register(UINib(nibName: K.Cells.ListPriceUpdateCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ListPriceUpdateCell.CellIdentifier)
+
+        listTableView.register(UINib(nibName: K.Cells.ListsProgressCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ListsProgressCell.CellIdentifier)
         
         listTableView.register(UINib(nibName: K.Cells.ProductCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ProductCell.CellIdentifier)
         
@@ -115,6 +132,7 @@ enum CustomElementType: String {
     case products        = "ReusableProductTableViewCell"
     case storesMap       = "ReusableStoresMapTableViewCell"
     case listPriceUpdate = "ReusableListPriceUpdateTableViewCell"
+    case listsProgress   = "ReusableListsProgressTableViewCell"
 }
 
 // Each custom element model must have a defined type which is a custom element type.

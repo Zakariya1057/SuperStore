@@ -97,6 +97,8 @@
 		2CB3DCEA2525B8A300FC5792 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCE92525B8A300FC5792 /* ResetPasswordViewController.swift */; };
 		2CB3DCF52527AFB600FC5792 /* RefineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCF32527AFB600FC5792 /* RefineTableViewCell.swift */; };
 		2CB3DCF62527AFB600FC5792 /* RefineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB3DCF42527AFB600FC5792 /* RefineTableViewCell.xib */; };
+		2CB3DCFC252A180900FC5792 /* ListsProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCFA252A180900FC5792 /* ListsProgressTableViewCell.swift */; };
+		2CB3DCFD252A180900FC5792 /* ListsProgressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB3DCFB252A180900FC5792 /* ListsProgressTableViewCell.xib */; };
 		2CB3EDA325040E92000E7C7A /* ListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3EDA225040E92000E7C7A /* ListItemViewController.swift */; };
 		2CB3EDA525041F31000E7C7A /* ListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3EDA425041F31000E7C7A /* ListSectionHeader.swift */; };
 		2CB3EDAB25054D3D000E7C7A /* PromotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3EDAA25054D3D000E7C7A /* PromotionViewController.swift */; };
@@ -216,6 +218,8 @@
 		2CB3DCE92525B8A300FC5792 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		2CB3DCF32527AFB600FC5792 /* RefineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefineTableViewCell.swift; sourceTree = "<group>"; };
 		2CB3DCF42527AFB600FC5792 /* RefineTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefineTableViewCell.xib; sourceTree = "<group>"; };
+		2CB3DCFA252A180900FC5792 /* ListsProgressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsProgressTableViewCell.swift; sourceTree = "<group>"; };
+		2CB3DCFB252A180900FC5792 /* ListsProgressTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListsProgressTableViewCell.xib; sourceTree = "<group>"; };
 		2CB3EDA225040E92000E7C7A /* ListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemViewController.swift; sourceTree = "<group>"; };
 		2CB3EDA425041F31000E7C7A /* ListSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSectionHeader.swift; sourceTree = "<group>"; };
 		2CB3EDA825041FDD000E7C7A /* ListSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListSectionHeader.xib; sourceTree = "<group>"; };
@@ -340,6 +344,8 @@
 				2CB15C7524D190E500461AFE /* StoresResultsTableViewCell.xib */,
 				2C9C1B8F24CEEF8F001ACA35 /* ListPriceUpdateTableViewCell.swift */,
 				2C9C1B9024CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib */,
+				2CB3DCFA252A180900FC5792 /* ListsProgressTableViewCell.swift */,
+				2CB3DCFB252A180900FC5792 /* ListsProgressTableViewCell.xib */,
 				2C1567EE24CADB9C00B8DCB5 /* ReviewTableViewCell.swift */,
 				2C1567EF24CADB9C00B8DCB5 /* ReviewTableViewCell.xib */,
 				2C1567E824CADB6000B8DCB5 /* GroceryTableViewCell.swift */,
@@ -505,6 +511,7 @@
 				2CB15C9524D2FB8900461AFE /* ListItemTableViewCell.xib in Resources */,
 				2C9C1B8624CDDDCE001ACA35 /* OpenSans-ExtraBold.ttf in Resources */,
 				2C9C1B9224CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib in Resources */,
+				2CB3DCFD252A180900FC5792 /* ListsProgressTableViewCell.xib in Resources */,
 				2CB3DCF62527AFB600FC5792 /* RefineTableViewCell.xib in Resources */,
 				2C9C1B8724CDDDCE001ACA35 /* OpenSans-Bold.ttf in Resources */,
 				2C9C1B8824CDDDCE001ACA35 /* OpenSans-SemiBold.ttf in Resources */,
@@ -633,6 +640,7 @@
 				2C3F537E24D184C80095C4B1 /* SearchTableViewCell.swift in Sources */,
 				2C85FEAB251F9D5900CECBD5 /* UserValidation.swift in Sources */,
 				2CF239B925094BAC00D4CE91 /* LoginViewController.swift in Sources */,
+				2CB3DCFC252A180900FC5792 /* ListsProgressTableViewCell.swift in Sources */,
 				2CAB6A41251F962E00774B89 /* SpinnerViewController.swift in Sources */,
 				2CB3DCEA2525B8A300FC5792 /* ResetPasswordViewController.swift in Sources */,
 				2CB3EDA525041F31000E7C7A /* ListSectionHeader.swift in Sources */,

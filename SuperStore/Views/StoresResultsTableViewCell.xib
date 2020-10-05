@@ -139,7 +139,7 @@
     <resources>
         <image name="Asda" width="133" height="133"/>
         <namedColor name="LightBlack">
-            <color red="0.48878895886021223" green="0.48878895886021223" blue="0.48878895886021223" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.48899999260902405" green="0.48899999260902405" blue="0.48899999260902405" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
