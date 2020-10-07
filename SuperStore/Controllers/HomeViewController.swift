@@ -11,13 +11,15 @@ import UIKit
 //import Alamofire
 import Kingfisher
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate {
-
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate {
+    
     @IBOutlet weak var listTableView: UITableView!
     
     var customElements: [CustomElementModel] = []
     
     var refreshControl = UIRefreshControl()
+    
+    var scrollPositions: [String: CGFloat] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,37 +30,67 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         customElements = [
             
-//            ListPriceUpdateElement(title: "Grocery List Price Changes",delegate: self, height: 170),
+//            ListPriceUpdateElement(title: "Grocery List Price Changes",delegate: self),
             
-            ListsProgressElement(title: "Grocery List Progress", delegate: self, height: 190),
+            ListsProgressElement(title: "Progress", delegate: self),
 
-            StoresMapElement(title: "Stores", height: 300),
+            StoresMapElement(title: "Stores"),
 
-            ProductElement(title: "Grocery Items Sale",delegate: self, products: [
+            ProductElement(title: "Grocery Items Sale",delegate: self, scrollDelegate: self, products: [
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
                 ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil)
-             ],height: 400),
+             ]),
             
-            ProductElement(title: "Monitored Products",delegate: self, products: [
+            ProductElement(title: "Monitored",delegate: self, scrollDelegate: self, products: [
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
                 ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil)
-             ],height: 400),
+             ]),
             
+            OffersElement(title: "Offers", delegate: self),
             
-            ProductElement(title: "Top Offers",delegate: self, products: [
-                ProductModel(id: 1, name: "ASDA Grower's Selection Organic Fairtrade Bananas", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil)
-             ],height: 400),
-            
-            ProductElement(title: "Best Fruits",delegate: self, products: [
+            FeaturedProductElement(title: "Featured",delegate: self, products: [
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
                 ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil)
-             ],height: 400),
+             ]),
             
-            ProductElement(title: "Best Vegetables",delegate: self, products: [
+            ProductElement(title: "Fruits",delegate: self, scrollDelegate: self, products: [
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
                 ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil)
-             ],height: 400)
+             ]),
+            
+            ProductElement(title: "Vegetables",delegate: self, scrollDelegate: self, products: [
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil),
+                ProductModel(id: 1, name: "New Kingsmill Medium 50/50 Bread", image: "http://192.168.1.187/api/image/products/1000169226198_small.jpg", description: "Bread", quantity: 0, weight: "", parent_category_id: nil, parent_category_name: nil, price: 1.40, location: "Aisle A", avg_rating: 3.5, total_reviews_count: 10,discount: nil)
+             ])
             
         ]
         
 //        listTableView.register(UINib(nibName: K.Cells.ListPriceUpdateCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ListPriceUpdateCell.CellIdentifier)
 
+        listTableView.register(UINib(nibName: K.Cells.FeaturedProductCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.FeaturedProductCell.CellIdentifier)
+        
+        listTableView.register(UINib(nibName: K.Cells.OffersCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.OffersCell.CellIdentifier)
+        
         listTableView.register(UINib(nibName: K.Cells.ListsProgressCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ListsProgressCell.CellIdentifier)
         
         listTableView.register(UINib(nibName: K.Cells.ProductCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ProductCell.CellIdentifier)
@@ -102,44 +134,58 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = customCell as! UITableViewCell
 
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
-
+        
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let cellModel = customElements[indexPath.row]
-//        return CGFloat(cellModel.height)
-//    }
-    
+
 }
 
 
 extension HomeViewController {
     func showListPage(){
-        let vc = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
-        self.navigationController?.pushViewController(vc, animated: true)
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
+        self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     func showProduct(product_id: Int) {
-        let vc = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
-        vc.product_id = product_id
-        self.navigationController?.pushViewController(vc, animated: true)
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
+        destinationVC.product_id = product_id
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
+    func showPromotion(promotion_id: Int) {
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "promotionViewController"))! as! PromotionViewController
+        destinationVC.promotion_id = promotion_id
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
+    func didScroll(to position: CGFloat, title: String) {
+    
+        self.scrollPositions[title] = position
+        for item in customElements {
+            if item.title == title {
+                item.position = position
+            }
+        }
+        
     }
 }
 
 //Possible custom tablecell types with identifiers
 enum CustomElementType: String {
-    case products        = "ReusableProductTableViewCell"
-    case storesMap       = "ReusableStoresMapTableViewCell"
-    case listPriceUpdate = "ReusableListPriceUpdateTableViewCell"
-    case listsProgress   = "ReusableListsProgressTableViewCell"
+    case products         = "ReusableProductTableViewCell"
+    case storesMap        = "ReusableStoresMapTableViewCell"
+    case listPriceUpdate  = "ReusableListPriceUpdateTableViewCell"
+    case listsProgress    = "ReusableListsProgressTableViewCell"
+    case offers           = "ReusableOffersTableViewCell"
+    case featuredProducts = "ReusableFeaturedProductTableViewCell"
 }
 
 // Each custom element model must have a defined type which is a custom element type.
 protocol CustomElementModel: class {
     var title: String { get }
     var type: CustomElementType { get }
-    var height: Float { get }
+    var position: CGFloat? { get set }
 }
 
 protocol CustomElementCell: class {
@@ -161,10 +207,10 @@ extension UIImageView {
 
 extension NSMutableAttributedString {
     var fontSize:CGFloat { return 16 }
-    var boldFontSize: CGFloat { return 18 }
+    var boldFontSize: CGFloat { return 17 }
     
-    var boldFont:UIFont { return UIFont(name: "OpenSans-SemiBold", size: boldFontSize) ?? UIFont.boldSystemFont(ofSize: boldFontSize) }
-    var normalFont:UIFont { return UIFont(name: "OpenSans-Regular", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)}
+    var boldFont:UIFont { return UIFont(name: "System", size: boldFontSize) ?? UIFont.boldSystemFont(ofSize: boldFontSize) }
+    var normalFont:UIFont { return UIFont(name: "System", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)}
 
     func bold(_ value:String) -> NSMutableAttributedString {
 

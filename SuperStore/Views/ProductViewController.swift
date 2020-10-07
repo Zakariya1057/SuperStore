@@ -71,7 +71,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     var selected_product_id:Int?
     var selected_list_id: Int?
     
-    var loadingViews: [UIView] {
+    var loadingViews: [UIView?] {
         return [productNameLabel,descriptionView,ingredientsView, reviewButton,productImageView,productPriceLabel,productWeightLabel,parentRatingView,addToListButton,monitorButton,allReviewsButton, allergenLabel,promotionView,lifeStyleLabel]
     }
     
@@ -81,6 +81,8 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         super.viewDidLoad()
         
         similarTableView.register(UINib(nibName: K.Cells.ProductCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ProductCell.CellIdentifier)
+        
+        startLoading()
         
         productHandler.delegate = self
         favouritesHandler.delegate = self
@@ -107,8 +109,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             noDelegateFound = true
             delegate = self
         }
-        
-        startLoading()
+       
     }
     
     func errorHandler(_ message: String) {
@@ -169,8 +170,13 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         
     }
     
+    func refreshProduct() {
+        productHandler.request(product_id: product_id)
+    }
+    
     func contentLoaded(products: [ProductModel]) {
     }
+    
     
     @objc func showIngredients(){
         details_type = "ingredients"
@@ -262,11 +268,7 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         if tableView == similarTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.ProductCell.CellIdentifier, for: indexPath) as! ProductTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
-            cell.configure(withModel: ProductElement(title: "Products You May Like", delegate: self, products: recommended, height: 200))
-//            cell.model.title = "Products You May Like"
-//            cell.model.products = recommended
-//            cell.delegate = self
-//            cell.configureUI()
+            cell.configure(withModel: ProductElement(title: "Products You May Like", delegate: self, scrollDelegate: nil, products: recommended))
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.ReviewCell.CellIdentifier , for: indexPath) as! ReviewTableViewCell
@@ -292,14 +294,18 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
     
     func startLoading(){
         for item in loadingViews {
-            item.isSkeletonable = true
-            item.showAnimatedGradientSkeleton()
+            if item != nil {
+                item!.isSkeletonable = true
+                item!.showAnimatedGradientSkeleton()
+            }
         }
     }
     
     func stopLoading(){
         for item in loadingViews {
-            item.hideSkeleton()
+            if item != nil {
+                item!.hideSkeleton()
+            }
         }
     }
     
@@ -328,16 +334,12 @@ extension ProductViewController {
         stepperLabel.text = String(format: "%.0f", quantity)
         
         product!.quantity = Int(quantity)
+        delegate?.updateQuantity(product!)
         
         if(quantity == 0){
             showAddButtonView()
             delegate?.removeFromList(product!)
-        } else {
-            delegate?.updateQuantity(product!)
         }
-        
-        // Used for remembering product quantity. For Scrolling.
-//        delegate?.updateProductQuantity(index: index!, quantity: product!.quantity)
         
     }
     
@@ -378,13 +380,6 @@ extension ProductViewController {
         showQuantityView()
     }
     
-//    func remove_from_list(_ product: ProductModel) {
-//        product.parent_category_id = product.parent_category_id
-//        product.parent_category_name = product.parent_category_name
-//        
-//        delegate!.removeFromList(product)
-//    }
-//    
     func updateQuantity(_ product: ProductModel) {
 
         if selected_list_id != nil {

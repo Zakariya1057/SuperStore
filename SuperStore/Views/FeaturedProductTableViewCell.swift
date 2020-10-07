@@ -8,63 +8,47 @@
 
 import UIKit
 
-class ProductElement: CustomElementModel {
+class FeaturedProductElement: CustomElementModel {
     var title: String
-    var type: CustomElementType { return .products }
-    var delegate: ProductDelegate?
-    var scrollDelegate: ScrollCollectionDelegate?
+    var type: CustomElementType { return .featuredProducts }
+    var delegate: ProductDelegate
     var products: [ProductModel]
     var position: CGFloat?
         
-    init(title: String,delegate: ProductDelegate, scrollDelegate: ScrollCollectionDelegate?,products: [ProductModel]) {
+    init(title: String,delegate: ProductDelegate,products: [ProductModel]) {
         self.title = title
         self.delegate = delegate
         self.products = products
-        self.scrollDelegate = scrollDelegate
     }
 }
 
-protocol ScrollCollectionDelegate {
-    func didScroll(to position: CGFloat, title: String)
-}
-
-protocol ProductDelegate {
-    func showProduct(product_id:Int)
-}
-
-class ProductTableViewCell: UITableViewCell,CustomElementCell {
+class FeaturedProductTableViewCell: UITableViewCell,CustomElementCell {
     
     @IBOutlet weak var productCollection: UICollectionView!
     
-    var model: ProductElement!
+    var model: FeaturedProductElement!
     var products: [ProductModel] = []
     
     var delegate:ProductDelegate?
-    var scrollDelegate: ScrollCollectionDelegate?
     
     @IBOutlet weak var titleLabel: UILabel!
     
     func configure(withModel elementModel: CustomElementModel) {
-        guard let model = elementModel as? ProductElement else {
-            print("Unable to cast model as ProductElement: \(elementModel)")
+        guard let model = elementModel as? FeaturedProductElement else {
+            print("Unable to cast model as FeaturedProductElement: \(elementModel)")
             return
         }
         
         self.model = model
         self.delegate = model.delegate
-        self.scrollDelegate = model.scrollDelegate
         
         self.products = model.products
         self.productCollection.reloadData()
-        
-        if model.position != nil {
-            productCollection.contentOffset.x = model.position!
-        } else {
-            productCollection.contentOffset.x = CGFloat(0)
-        }
+        self.productCollection.layoutIfNeeded()
 
         configureUI()
     }
+    
     
     func configureUI() {
 //        titleLabel.text = self.model.title
@@ -73,7 +57,7 @@ class ProductTableViewCell: UITableViewCell,CustomElementCell {
     override func awakeFromNib() {
         
         super.awakeFromNib()
-        productCollection.register(UINib(nibName: K.Collections.ProductCollectionCell.CellNibName, bundle: nil), forCellWithReuseIdentifier: K.Collections.ProductCollectionCell.CellIdentifier)
+        productCollection.register(UINib(nibName: K.Collections.FeaturedProductsCollecionCell.CellNibName, bundle: nil), forCellWithReuseIdentifier:  K.Collections.FeaturedProductsCollecionCell.CellIdentifier)
         
         productCollection.delegate = self
         productCollection.dataSource = self
@@ -90,14 +74,14 @@ class ProductTableViewCell: UITableViewCell,CustomElementCell {
     
 }
 
-extension ProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension FeaturedProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = productCollection.dequeueReusableCell(withReuseIdentifier: K.Collections.ProductCollectionCell.CellIdentifier, for: indexPath) as! ProductCollectionViewCell
+        let cell = productCollection.dequeueReusableCell(withReuseIdentifier: K.Collections.FeaturedProductsCollecionCell.CellIdentifier, for: indexPath) as! FeaturedProductCollectionViewCell
         cell.product = products[indexPath.row]
         cell.configureUI()
         return cell
@@ -111,10 +95,7 @@ extension ProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
 
 }
 
-extension ProductTableViewCell: UIScrollViewDelegate {
+extension FeaturedProductTableViewCell: UIScrollViewDelegate {
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollDelegate?.didScroll(to: scrollView.contentOffset.x, title: model.title)
-    }
 }
 

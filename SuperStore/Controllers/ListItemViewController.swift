@@ -49,14 +49,33 @@ class ListItemViewController: UIViewController {
         productTotalLabel.text = "£" + String(format: "%.2f", delegate!.calculateProductPrice(product!))
     }
     
+    func confirmDelete(){
+        let alert = UIAlertController(title: "Removing Product?", message: "Sure you want to remove product?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
+            self.deleteItem()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
     @IBAction func saveButtonPressed(_ sender: Any) {
-         self.delegate!.quantityChanged(section_index: selected_section, row_index: selected_row, quantity: product!.quantity)
+        if product!.quantity == 0 {
+            confirmDelete()
+        } else {
+            self.delegate!.quantityChanged(section_index: selected_section, row_index: selected_row, quantity: product!.quantity)
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+    }
+    
+    func deleteItem(){
+        self.delegate!.removeItem(section: selected_section, row: selected_row)
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
-        self.delegate!.removeItem(section: selected_section, row: selected_row)
-        self.navigationController?.popViewController(animated: true)
+        deleteItem()
     }
     
 }

@@ -24,6 +24,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="469" height="117"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" id="y1K-Ob-SX7">
+                        <rect key="frame" x="27" y="-390" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Frm-YH-0ao"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UrT-il-TVL">
                         <rect key="frame" x="10" y="10" width="449" height="97"/>
                         <subviews>
@@ -55,11 +61,11 @@
                                                 <rect key="frame" x="90" y="0.0" width="359" height="97"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AwN-09-Y6N">
-                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="22"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="27"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ben &amp; Jerry's Non-Dairy &amp; Vegan Chocolate Fudge Brownie Ice Cream" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xct-SO-9fz">
-                                                                <rect key="frame" x="0.0" y="0.0" width="359" height="22"/>
-                                                                <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="359" height="27"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -73,13 +79,13 @@
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lEm-0J-r9z">
-                                                        <rect key="frame" x="0.0" y="22" width="359" height="40"/>
+                                                        <rect key="frame" x="0.0" y="27" width="359" height="35"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1n-ZB-R56">
-                                                                <rect key="frame" x="0.0" y="0.0" width="359" height="40"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="359" height="35"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYA-oO-zY4" customClass="CosmosView" customModule="Cosmos">
-                                                                        <rect key="frame" x="0.0" y="8.5" width="359" height="23"/>
+                                                                        <rect key="frame" x="0.0" y="6" width="359" height="23"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="rating">
@@ -109,7 +115,7 @@
                                                                 <constraints>
                                                                     <constraint firstItem="YYA-oO-zY4" firstAttribute="centerY" secondItem="F1n-ZB-R56" secondAttribute="centerY" id="F2K-tR-IGQ"/>
                                                                     <constraint firstItem="YYA-oO-zY4" firstAttribute="leading" secondItem="F1n-ZB-R56" secondAttribute="leading" id="GDF-uT-eWs"/>
-                                                                    <constraint firstAttribute="height" constant="40" id="rp8-P2-Y8a"/>
+                                                                    <constraint firstAttribute="height" constant="35" id="rp8-P2-Y8a"/>
                                                                     <constraint firstItem="YYA-oO-zY4" firstAttribute="centerX" secondItem="F1n-ZB-R56" secondAttribute="centerX" id="zZS-Va-nMq"/>
                                                                 </constraints>
                                                             </view>

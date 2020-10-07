@@ -22,7 +22,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="LogoBlue"/>
+                        <color key="backgroundColor" name="LogoBlue.Dark"/>
                         <constraints>
                             <constraint firstItem="z1J-Sz-5DR" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="560-zb-VGl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="z1J-Sz-5DR" secondAttribute="trailing" id="Hrs-sp-Kax"/>
@@ -37,7 +37,7 @@
     </scenes>
     <resources>
         <image name="ClearLogo" width="341" height="341"/>
-        <namedColor name="LogoBlue">
+        <namedColor name="LogoBlue.Dark">
             <color red="0.097999997437000275" green="0.46299999952316284" blue="0.80400002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>

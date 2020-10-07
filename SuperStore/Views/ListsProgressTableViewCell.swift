@@ -12,12 +12,11 @@ class ListsProgressElement: CustomElementModel {
     var title: String
     var type: CustomElementType { return .listsProgress }
     var delegate: ShowListDelegate
-    var height: Float
+    var position: CGFloat?
     
-    init(title: String,delegate: ShowListDelegate,height:Float) {
+    init(title: String,delegate: ShowListDelegate) {
         self.title = title
         self.delegate = delegate
-        self.height = height
     }
 }
 

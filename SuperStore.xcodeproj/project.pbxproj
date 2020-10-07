@@ -83,6 +83,14 @@
 		2CAB6A3E251F958500774B89 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB6A3D251F958500774B89 /* UserData.swift */; };
 		2CAB6A41251F962E00774B89 /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB6A40251F962E00774B89 /* SpinnerViewController.swift */; };
 		2CABCB6F2505559500E26574 /* PromotionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CABCB6E2505559500E26574 /* PromotionHandler.swift */; };
+		2CAC05EC252B83FF00561509 /* OffersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC05EA252B83FF00561509 /* OffersTableViewCell.swift */; };
+		2CAC05ED252B83FF00561509 /* OffersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC05EB252B83FF00561509 /* OffersTableViewCell.xib */; };
+		2CAC05F2252CE24E00561509 /* OfferCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC05F0252CE24E00561509 /* OfferCollectionViewCell.swift */; };
+		2CAC05F3252CE24E00561509 /* OfferCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC05F1252CE24E00561509 /* OfferCollectionViewCell.xib */; };
+		2CAC05FC252E314F00561509 /* FeaturedProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC05FA252E314F00561509 /* FeaturedProductCollectionViewCell.swift */; };
+		2CAC05FD252E314F00561509 /* FeaturedProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC05FB252E314F00561509 /* FeaturedProductCollectionViewCell.xib */; };
+		2CAC0601252E334F00561509 /* FeaturedProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC05FF252E334F00561509 /* FeaturedProductTableViewCell.swift */; };
+		2CAC0602252E334F00561509 /* FeaturedProductTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC0600252E334F00561509 /* FeaturedProductTableViewCell.xib */; };
 		2CB15C7124D18F4100461AFE /* SearchStoresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB15C7024D18F4100461AFE /* SearchStoresTableViewController.swift */; };
 		2CB15C7624D190E500461AFE /* StoresResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB15C7424D190E500461AFE /* StoresResultsTableViewCell.swift */; };
 		2CB15C7724D190E500461AFE /* StoresResultsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB15C7524D190E500461AFE /* StoresResultsTableViewCell.xib */; };
@@ -200,6 +208,14 @@
 		2CAB6A40251F962E00774B89 /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpinnerViewController.swift; path = SuperStore/Controllers/SpinnerViewController.swift; sourceTree = SOURCE_ROOT; };
 		2CABCB6E2505559500E26574 /* PromotionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionHandler.swift; sourceTree = "<group>"; };
 		2CABCB702506658100E26574 /* ListsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListsTableViewCell.swift; sourceTree = "<group>"; };
+		2CAC05EA252B83FF00561509 /* OffersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersTableViewCell.swift; sourceTree = "<group>"; };
+		2CAC05EB252B83FF00561509 /* OffersTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OffersTableViewCell.xib; sourceTree = "<group>"; };
+		2CAC05F0252CE24E00561509 /* OfferCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferCollectionViewCell.swift; sourceTree = "<group>"; };
+		2CAC05F1252CE24E00561509 /* OfferCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OfferCollectionViewCell.xib; sourceTree = "<group>"; };
+		2CAC05FA252E314F00561509 /* FeaturedProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedProductCollectionViewCell.swift; sourceTree = "<group>"; };
+		2CAC05FB252E314F00561509 /* FeaturedProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeaturedProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		2CAC05FF252E334F00561509 /* FeaturedProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedProductTableViewCell.swift; sourceTree = "<group>"; };
+		2CAC0600252E334F00561509 /* FeaturedProductTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeaturedProductTableViewCell.xib; sourceTree = "<group>"; };
 		2CB15C7024D18F4100461AFE /* SearchStoresTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchStoresTableViewController.swift; path = SuperStore/Views/SearchStoresTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		2CB15C7424D190E500461AFE /* StoresResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresResultsTableViewCell.swift; sourceTree = "<group>"; };
 		2CB15C7524D190E500461AFE /* StoresResultsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoresResultsTableViewCell.xib; sourceTree = "<group>"; };
@@ -312,6 +328,8 @@
 				2CB3EDA225040E92000E7C7A /* ListItemViewController.swift */,
 				2C1567DC24C8B3F000B8DCB5 /* StoreViewController.swift */,
 				2C1567F224CC830B00B8DCB5 /* ProductViewController.swift */,
+				2C1567E624CAD62100B8DCB5 /* ReviewsViewController.swift */,
+				2C1567E424CAD08300B8DCB5 /* ReviewViewController.swift */,
 				2C1567F424CC845600B8DCB5 /* ProductDetailsViewController.swift */,
 				2CB3EDAA25054D3D000E7C7A /* PromotionViewController.swift */,
 				2C266DFA24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift */,
@@ -319,8 +337,6 @@
 				2C21C3B124FA7C2500D90B4B /* ChildCategoriesViewController.swift */,
 				2C1567E024C9A0DF00B8DCB5 /* GroceryTableViewController.swift */,
 				2C5B5C6D24D085780095C920 /* ResultsViewController.swift */,
-				2C1567E624CAD62100B8DCB5 /* ReviewsViewController.swift */,
-				2C1567E424CAD08300B8DCB5 /* ReviewViewController.swift */,
 				2CE7AB0124D077C700A31782 /* SettingsViewController.swift */,
 				2C266DFE24D6FBC300C66EA5 /* SettingsChangeViewController.swift */,
 				2C266E0024D702BD00C66EA5 /* ChangePasswordViewController.swift */,
@@ -338,6 +354,10 @@
 				2C9C1B8024CDD794001ACA35 /* ProductTableViewCell.xib */,
 				2C9C1B7824CCD07F001ACA35 /* ProductCollectionViewCell.swift */,
 				2C9C1B7924CCD07F001ACA35 /* ProductCollectionViewCell.xib */,
+				2CAC05FF252E334F00561509 /* FeaturedProductTableViewCell.swift */,
+				2CAC0600252E334F00561509 /* FeaturedProductTableViewCell.xib */,
+				2CAC05FA252E314F00561509 /* FeaturedProductCollectionViewCell.swift */,
+				2CAC05FB252E314F00561509 /* FeaturedProductCollectionViewCell.xib */,
 				2C9C1B8B24CEEF6F001ACA35 /* StoresMapTableViewCell.swift */,
 				2C9C1B8C24CEEF6F001ACA35 /* StoresMapTableViewCell.xib */,
 				2CB15C7424D190E500461AFE /* StoresResultsTableViewCell.swift */,
@@ -346,6 +366,10 @@
 				2C9C1B9024CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib */,
 				2CB3DCFA252A180900FC5792 /* ListsProgressTableViewCell.swift */,
 				2CB3DCFB252A180900FC5792 /* ListsProgressTableViewCell.xib */,
+				2CAC05EA252B83FF00561509 /* OffersTableViewCell.swift */,
+				2CAC05EB252B83FF00561509 /* OffersTableViewCell.xib */,
+				2CAC05F0252CE24E00561509 /* OfferCollectionViewCell.swift */,
+				2CAC05F1252CE24E00561509 /* OfferCollectionViewCell.xib */,
 				2C1567EE24CADB9C00B8DCB5 /* ReviewTableViewCell.swift */,
 				2C1567EF24CADB9C00B8DCB5 /* ReviewTableViewCell.xib */,
 				2C1567E824CADB6000B8DCB5 /* GroceryTableViewCell.swift */,
@@ -513,11 +537,13 @@
 				2C9C1B9224CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib in Resources */,
 				2CB3DCFD252A180900FC5792 /* ListsProgressTableViewCell.xib in Resources */,
 				2CB3DCF62527AFB600FC5792 /* RefineTableViewCell.xib in Resources */,
+				2CAC05F3252CE24E00561509 /* OfferCollectionViewCell.xib in Resources */,
 				2C9C1B8724CDDDCE001ACA35 /* OpenSans-Bold.ttf in Resources */,
 				2C9C1B8824CDDDCE001ACA35 /* OpenSans-SemiBold.ttf in Resources */,
 				2CB15C8324D2D7FE00461AFE /* ListsTableViewCell.xib in Resources */,
 				2C9C1B8E24CEEF6F001ACA35 /* StoresMapTableViewCell.xib in Resources */,
 				2C85FEC3251FB49C00CECBD5 /* ListSectionHeader.xib in Resources */,
+				2CAC0602252E334F00561509 /* FeaturedProductTableViewCell.xib in Resources */,
 				2C85FECA251FB50800CECBD5 /* HomeSectionHeader.xib in Resources */,
 				2C1567C624C77FDB00B8DCB5 /* LaunchScreen.storyboard in Resources */,
 				2C1567C324C77FDB00B8DCB5 /* Assets.xcassets in Resources */,
@@ -527,6 +553,8 @@
 				2C3F537F24D184C80095C4B1 /* SearchTableViewCell.xib in Resources */,
 				2C1567F124CADB9C00B8DCB5 /* ReviewTableViewCell.xib in Resources */,
 				2C1567EB24CADB6000B8DCB5 /* GroceryTableViewCell.xib in Resources */,
+				2CAC05ED252B83FF00561509 /* OffersTableViewCell.xib in Resources */,
+				2CAC05FD252E314F00561509 /* FeaturedProductCollectionViewCell.xib in Resources */,
 				2CB15C7724D190E500461AFE /* StoresResultsTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,11 +642,13 @@
 				2C1567E724CAD62100B8DCB5 /* ReviewsViewController.swift in Sources */,
 				2CB3DCF52527AFB600FC5792 /* RefineTableViewCell.swift in Sources */,
 				2C266DFF24D6FBC300C66EA5 /* SettingsChangeViewController.swift in Sources */,
+				2CAC05FC252E314F00561509 /* FeaturedProductCollectionViewCell.swift in Sources */,
 				2CC1EA1B24FA9550000A9BC4 /* GroceryProductsData.swift in Sources */,
 				2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */,
 				2C9C1B9124CEEF90001ACA35 /* ListPriceUpdateTableViewCell.swift in Sources */,
 				2C21C3A624F6F36B00D90B4B /* StoreHandler.swift in Sources */,
 				2CC1EA2524FACADA000A9BC4 /* ProductDetailsModel.swift in Sources */,
+				2CAC05F2252CE24E00561509 /* OfferCollectionViewCell.swift in Sources */,
 				2C266DFD24D6E73500C66EA5 /* GroceryGroupModel.swift in Sources */,
 				2C1567F024CADB9C00B8DCB5 /* ReviewTableViewCell.swift in Sources */,
 				2C266DFB24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift in Sources */,
@@ -628,6 +658,7 @@
 				2CF239B725094A9000D4CE91 /* ListItemsHandler.swift in Sources */,
 				2C1567D124C8B33700B8DCB5 /* HomeViewController.swift in Sources */,
 				2C1567DB24C8B3B200B8DCB5 /* K.swift in Sources */,
+				2CAC0601252E334F00561509 /* FeaturedProductTableViewCell.swift in Sources */,
 				2C1567F524CC845600B8DCB5 /* ProductDetailsViewController.swift in Sources */,
 				2CB15C9424D2FB8900461AFE /* ListItemTableViewCell.swift in Sources */,
 				2CA7C779250E547B002FF1B6 /* ListEditViewController.swift in Sources */,
@@ -666,6 +697,7 @@
 				2CAB6A3E251F958500774B89 /* UserData.swift in Sources */,
 				2C5B5C6C24D084FD0095C920 /* SearchResultsViewController.swift in Sources */,
 				2C266DF324D5A6EA00C66EA5 /* ListProductModel.swift in Sources */,
+				2CAC05EC252B83FF00561509 /* OffersTableViewCell.swift in Sources */,
 				2C21C3B224FA7C2500D90B4B /* ChildCategoriesViewController.swift in Sources */,
 				2CAB6A3B251F932D00774B89 /* ErrorData.swift in Sources */,
 				2C266DF124D5A6C900C66EA5 /* ProductModel.swift in Sources */,

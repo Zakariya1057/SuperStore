@@ -129,7 +129,6 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
             "title": title,
             "text": text
         ])
-    
         
     }
     

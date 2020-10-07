@@ -84,6 +84,24 @@ struct K {
         }
     }
     
+    struct Collections {
+        struct ProductCollectionCell {
+            static let CellIdentifier = "ReusableProductCollectionViewCell"
+            static let CellNibName    = "ProductCollectionViewCell"
+        }
+        
+        struct OfferCollectionCell {
+            static let CellIdentifier = "ReusableOfferCollectionViewCell"
+            static let CellNibName    = "OfferCollectionViewCell"
+        }
+        
+        struct FeaturedProductsCollecionCell {
+            static let CellIdentifier = "ReusableFeaturedProductCollectionViewCell"
+            static let CellNibName    = "FeaturedProductCollectionViewCell"
+        }
+        
+    }
+    
     struct Cells {
         
         struct ReviewCell {
@@ -96,9 +114,10 @@ struct K {
             static let CellNibName    = "GroceryTableViewCell"
         }
         
-        struct ProductCollectionCell {
-            static let CellIdentifier = "ReusableProductCollectionViewCell"
-            static let CellNibName    = "ProductCollectionViewCell"
+
+        struct FeaturedProductCell {
+            static let CellIdentifier = "ReusableFeaturedProductTableViewCell"
+            static let CellNibName    = "FeaturedProductTableViewCell"
         }
         
         struct ProductCell {
@@ -119,6 +138,11 @@ struct K {
         struct ListsProgressCell {
             static let CellIdentifier = "ReusableListsProgressTableViewCell"
             static let CellNibName    = "ListsProgressTableViewCell"
+        }
+        
+        struct OffersCell {
+            static let CellIdentifier = "ReusableOffersTableViewCell"
+            static let CellNibName    = "OffersTableViewCell"
         }
         
         struct SearchCell {

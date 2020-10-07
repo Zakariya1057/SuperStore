@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ProductDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var ingredientsTableView: UITableView!

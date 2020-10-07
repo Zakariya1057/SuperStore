@@ -55,12 +55,12 @@ struct SearchHandler {
                 suggestions.append(SearchModel(id: store.id, name: store.name, type: .store))
             }
             
-            for childCategory in suggestionsTypes.child_categories {
-                suggestions.append(SearchModel(id: childCategory.id, name: childCategory.name, type: .childCategory))
-            }
-            
             for parentCategory in suggestionsTypes.parent_categories {
                 suggestions.append(SearchModel(id: parentCategory.id, name: parentCategory.name, type: .parentCategory))
+            }
+            
+            for childCategory in suggestionsTypes.child_categories {
+                suggestions.append(SearchModel(id: childCategory.id, name: childCategory.name, type: .childCategory))
             }
             
             for product in suggestionsTypes.products {
