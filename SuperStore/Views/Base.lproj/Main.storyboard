@@ -2734,6 +2734,7 @@
                         <outlet property="productWeightLabel" destination="EXx-ON-gGI" id="NgJ-oB-ZIe"/>
                         <outlet property="promotionLabel" destination="Svs-Ab-oYP" id="N8G-VJ-T5k"/>
                         <outlet property="promotionView" destination="gLh-tu-iik" id="dsb-XZ-mmM"/>
+                        <outlet property="quantityStepper" destination="yHd-qI-sl4" id="TAI-W2-OeM"/>
                         <outlet property="ratingView" destination="tFG-eX-umO" id="hcu-eX-wkL"/>
                         <outlet property="reviewButton" destination="cUy-Y0-cUw" id="1Oi-ZT-R5G"/>
                         <outlet property="reviewsStackView" destination="yEq-bc-8oK" id="47f-lp-adR"/>

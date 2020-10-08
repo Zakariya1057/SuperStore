@@ -134,7 +134,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             let discount = promotion.value["discount"]![0] as! DiscountModel
             var newTotalPrice:Double = 0
             
-            print("\(productCount) >= \(discount.quantity)")
+//            print("\(productCount) >= \(discount.quantity)")
             if productCount >= discount.quantity {
                 
                 var highestPrice: Double = 0
@@ -163,7 +163,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 newTotalPrice = (price - previousTotalPrice) + newTotal
 
-                print("\(newTotalPrice) != \(price) && \(price) > \(newTotalPrice)")
+//                print("\(newTotalPrice) != \(price) && \(price) > \(newTotalPrice)")
                 
                 if newTotalPrice != price && price > newTotalPrice {
                     oldPrice = price
@@ -192,15 +192,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         for (section_index, section) in list!.categories.enumerated() {
             
             for (row_index, item) in section.items.enumerated() {
-                if item.product_id == product.id {
+                if item.product_id == product.product_id {
                     list!.categories[section_index].items[row_index] = product
                 }
             }
             
         }
-
-
-//        list!.categories[section_index].items[row_index] = product
         
         showTotalPrice()
         productUpdate(product: product)

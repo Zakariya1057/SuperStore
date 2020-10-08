@@ -77,10 +77,18 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
         
+        
+        
         if loading == false {
             cell.product = promotion!.products![indexPath.row]
-            cell.showAddButton = false
-            cell.showStoreName = false
+            
+            if self.delegate != nil {
+                cell.delegate = self.delegate
+            } else {
+                cell.showAddButton = false
+                cell.showStoreName = false
+            }
+
             cell.configureUI()
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
         } else {

@@ -14,6 +14,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     @IBOutlet var addButton: UIButton!
     @IBOutlet var stepperStackView: UIStackView!
     
+    @IBOutlet var quantityStepper: UIStepper!
     @IBOutlet var stepperLabel: UILabel!
     var delegate:GroceryDelegate?
     
@@ -326,8 +327,6 @@ extension ProductViewController {
             showQuantityView()
         }
         
-        print(product!.discount)
-        
         self.delegate?.addToList(product!, cell: nil)
     }
     
@@ -337,11 +336,15 @@ extension ProductViewController {
         stepperLabel.text = String(format: "%.0f", quantity)
         
         product!.quantity = Int(quantity)
+        quantityStepper.value = quantity
         delegate?.updateQuantity(product!)
         
         if(quantity == 0){
             showAddButtonView()
             delegate?.removeFromList(product!)
+            
+            quantityStepper.value = 1
+            stepperLabel.text = "1"
         }
         
     }
