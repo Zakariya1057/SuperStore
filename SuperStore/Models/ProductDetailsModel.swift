@@ -18,16 +18,15 @@ class ProductDetailsModel: ProductModel {
     var brand:String = ""
     
     var reviews: [ReviewModel] = []
-    var promotion: PromotionModel?
     
     var ingredients: [String] = []
     
     var recommended: [ProductModel] = []
     var favourite: Bool = false
     
-    init(id: Int, name: String,image: String,description: String?, quantity: Int,price:Double,location:String?, avg_rating: Double?, total_reviews_count: Int?, storage: String?, weight: String?,parent_category_id: Int?, parent_category_name: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel], favourite: Bool, promotion: PromotionModel?, ingredients: [String], recommended: [ProductModel]) {
+    init(id: Int, name: String,image: String,description: String?, quantity: Int,price:Double,location:String?, avg_rating: Double?, total_reviews_count: Int?, discount: DiscountModel?, storage: String?, weight: String?,parent_category_id: Int?, parent_category_name: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel], favourite: Bool, ingredients: [String], recommended: [ProductModel]) {
         
-        super.init(id: id, name: name, image: image, description: description, quantity: quantity, weight: weight,parent_category_id: parent_category_id, parent_category_name: parent_category_name, price:price, location: location,avg_rating: avg_rating, total_reviews_count: total_reviews_count, discount: nil)
+        super.init(id: id, name: name, image: image, description: description, quantity: quantity, weight: weight,parent_category_id: parent_category_id, parent_category_name: parent_category_name, price:price, location: location,avg_rating: avg_rating, total_reviews_count: total_reviews_count, discount: discount)
         self.storage = storage
         self.avg_rating = avg_rating
         self.total_reviews_count = total_reviews_count
@@ -36,7 +35,6 @@ class ProductDetailsModel: ProductModel {
         self.brand = brand
         self.reviews = reviews
         self.favourite = favourite
-        self.promotion = promotion
         self.ingredients = ingredients
         self.recommended = recommended
     }

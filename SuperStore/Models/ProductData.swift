@@ -32,7 +32,6 @@ struct ProductData:Decodable {
     var favourite: Bool?
     
     var reviews: [ReviewData]?
-    var promotion: PromotionData?
     var ingredients: [IngredientsData]?
     
     var recommended: [ProductData]?
@@ -45,6 +44,8 @@ struct ProductData:Decodable {
 
 
 struct DiscountData:Decodable {
+    var id: Int
+    var name: String
     var quantity: Int
     var price: Double?
     var for_quantity: Int?

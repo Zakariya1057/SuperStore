@@ -46,13 +46,17 @@ class ProductModel {
 }
 
 class DiscountModel {
+    var id: Int
+    var name: String
     var quantity: Int
     var price: Double?
     var forQuantity: Int?
     
-    init(quantity: Int, price: Double?,forQuantity: Int? ) {
+    init(id: Int, name: String, quantity: Int, price: Double?,forQuantity: Int? ) {
         self.quantity = quantity
         self.price = price
         self.forQuantity = forQuantity
+        self.name = name
+        self.id = id
     }
 }

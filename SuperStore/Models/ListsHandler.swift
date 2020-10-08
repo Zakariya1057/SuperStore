@@ -74,7 +74,7 @@ struct ListsHandler {
                     status = .notStarted
                 }
                 
-                lists.append( ListModel(id: list.id, name: list.name, created_at: list.created_at, status: status, store_id: list.store_id, user_id: list.user_id, total_price: list.total_price, categories: []))
+                lists.append( ListModel(id: list.id, name: list.name, created_at: list.created_at, status: status, store_id: list.store_id, user_id: list.user_id, total_price: list.total_price, old_total_price: list.old_total_price, categories: []))
             }
             
             DispatchQueue.main.async {

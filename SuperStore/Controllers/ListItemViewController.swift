@@ -19,7 +19,11 @@ class ListItemViewController: UIViewController {
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productImageView: UIImageView!
     
+    @IBOutlet var promotionButton: UIButton!
+    
     var delegate: ProductQuantityChangedDelegate?
+    
+    var groceryDelegate: GroceryDelegate?
     
     var selected_row: Int = 0
     var selected_section: Int = 0
@@ -37,7 +41,27 @@ class ListItemViewController: UIViewController {
         updateTotalPrice()
     }
     
+    @IBAction func promotionPressed(_ sender: UIButton) {
+        
+        if product?.discount == nil {
+            return
+        }
+        
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "promotionViewController"))! as! PromotionViewController
+        destinationVC.promotion_id = product!.discount!.id
+        destinationVC.delegate = self.groceryDelegate
+        
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
     func configureUI(){
+        
+        if product?.discount != nil {
+//            promotionNameLabel.text =
+            promotionButton.setTitle(product!.discount?.name, for: .normal)
+        } else {
+            promotionButton.removeFromSuperview()
+        }
         quantityLabel.text = String(product!.quantity)
         productNameLabel.text = String(product!.name) + " (\(product!.weight ?? ""))"
         stepper.value = Double(product!.quantity)

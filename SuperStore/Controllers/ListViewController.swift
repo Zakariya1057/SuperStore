@@ -13,16 +13,6 @@ protocol PriceChangeDelegate {
     func calculateProductPrice(_ product: ListItemModel) -> Double
 }
 
-//protocol StoreSelectedDelegate {
-//    func storeChanged(name: String,backgroundColor: UIColor)
-//}
-
-//protocol NewProductDelegate {
-//    func productAdded(product: ProductModel,parent_category_id: Int,parent_category_name: String)
-//    func productRemoved(product: ProductModel, parent_category_id: Int)
-//    func productQuantityChanged(product: ProductModel,parent_category_id: Int)
-//}
-
 protocol ProductQuantityChangedDelegate {
     func quantityChanged(section_index: Int,row_index:Int, quantity: Int)
     func calculateProductPrice(_ product: ListItemModel) -> Double
@@ -32,6 +22,9 @@ protocol ProductQuantityChangedDelegate {
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PriceChangeDelegate, ProductQuantityChangedDelegate, ListItemsDelegate {
 
     @IBOutlet weak var totalPriceLabel: UILabel!
+    
+    @IBOutlet var oldPriceView: UIView!
+    @IBOutlet var oldPriceLabel: UILabel!
     
     var listHandler = ListItemsHandler()
     
@@ -114,17 +107,84 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func showTotalPrice(){
         var price:Double = 0.00
-        let products = (list?.categories ?? []).map({ $0.items }).joined()
+        var oldPrice: Double = 0.00
         
-        print(products.count)
+        let products = (list?.categories ?? []).map({ $0.items }).joined()
+
+        var promotions = [Int: Dictionary<String, [Any]>]()
+        
         for product in products {
-            print(product.price)
+            
+            if product.discount != nil {
+                
+                if let _ = promotions[product.discount!.id] {
+                    promotions[product.discount!.id]!["products"]!.append(product)
+                } else {
+                    promotions[product.discount!.id] = ["products": [product], "discount": [product.discount!]]
+                }
+                
+            }
+            
             price += calculateProductPrice(product)
+        }
+        
+        for promotion in promotions {
+            let products = promotion.value["products"] as! [ListItemModel]
+            let productCount = products.count
+            let discount = promotion.value["discount"]![0] as! DiscountModel
+            var newTotalPrice:Double = 0
+            
+            print("\(productCount) >= \(discount.quantity)")
+            if productCount >= discount.quantity {
+                
+                var highestPrice: Double = 0
+                var previousTotalPrice: Double = 0
+                var totalQuantity = 0
+                
+                for product in products {
+                    previousTotalPrice = previousTotalPrice + calculateProductPrice(product)
+                    totalQuantity = totalQuantity + product.quantity
+                    
+                    if product.price > highestPrice {
+                        highestPrice = product.price
+                    }
+                }
+                
+                let remainder = (totalQuantity % discount.quantity)
+                let goesIntoFully = round(Double(totalQuantity) / Double(discount.quantity))
+                
+                var newTotal: Double = 0
+                
+                if discount.forQuantity != nil {
+                    newTotal = (Double(goesIntoFully) * (Double(discount.forQuantity!) * highestPrice) ) + (Double(remainder) * highestPrice)
+                } else if (discount.price != nil){
+                    newTotal = (Double(goesIntoFully) * discount.price!) + (Double(remainder) * highestPrice)
+                }
+                
+                newTotalPrice = (price - previousTotalPrice) + newTotal
+
+                print("\(newTotalPrice) != \(price) && \(price) > \(newTotalPrice)")
+                
+                if newTotalPrice != price && price > newTotalPrice {
+                    oldPrice = price
+                    price = newTotalPrice
+                }
+                
+            }
+            
+        }
+        
+        if oldPrice != 0 {
+            oldPriceView.alpha = 1
+            oldPriceLabel.text = "£" + String(format: "%.2f", oldPrice )
+        } else {
+            oldPriceView.alpha = 0
         }
         
         self.totalPriceLabel.text = "£" + String(format: "%.2f", price)
         
         self.status_delegate?.updatePrice(index: list_index, total_price: price)
+        
     }
         
     func productChanged(product: ListItemModel) {
@@ -233,8 +293,9 @@ extension ListViewController: GroceryDelegate {
             let destinationVC = segue.destination as! ListItemViewController
             destinationVC.selected_row = selected_row
             destinationVC.selected_section = selected_section
-
+            
             destinationVC.delegate = self
+            destinationVC.groceryDelegate = self
             destinationVC.product = list!.categories[selected_section].items[selected_row]
         }
     }
@@ -261,10 +322,8 @@ extension ListViewController: GroceryDelegate {
         var price:Double = 0
         
         if product.discount == nil {
-            print("No Discount Found")
             price = ( Double(product.quantity) * product.price)
         } else {
-            print("Discount Found")
             
             let discount = product.discount
 
@@ -288,9 +347,6 @@ extension ListViewController: GroceryDelegate {
     
     func removeItem(section: Int, row: Int){
 
-        print("Section: \(section)")
-        print("Row: \(row)")
-        
         let product = list!.categories[section].items[row]
         
         let indexPath = IndexPath(row: row, section: section)
@@ -303,9 +359,6 @@ extension ListViewController: GroceryDelegate {
             list!.categories[section].items.remove(at: row)
             listTableView.deleteRows(at: [indexPath], with: .fade)
         }
-        
-//        listTableView.reloadData()
-//        reload()
         
         listHandler.delete(list_id: list_id, list_data: ["product_id": String(product.product_id)])
         
@@ -320,8 +373,7 @@ extension ListViewController: GroceryDelegate {
     }
     
     func productQuantityChanged(product: ProductModel, parent_category_id: Int){
-        print("Update Product Quantity")
-        
+
         let categories = list?.categories ?? []
         
         for (cat_index, category) in categories.enumerated() {
@@ -330,8 +382,6 @@ extension ListViewController: GroceryDelegate {
                 
                 for (prod_index, product_item) in category.items.enumerated() {
                     if product_item.product_id == product.id {
-                        print("Updating Found Product")
-                        print(product.quantity)
                         list?.categories[cat_index].items[prod_index].quantity = product.quantity
                         productUpdate(product: (list?.categories[cat_index].items[prod_index])!)
                         break
@@ -354,6 +404,9 @@ extension ListViewController: GroceryDelegate {
         var categories = list?.categories ?? []
         
         let item = ListItemModel(id: product.id, name: product.name, total_price: product.price, price: product.price, product_id: product.id, quantity: 1, image: product.image, ticked_off: false, weight: product.weight,discount: product.discount)
+        
+        print(product.discount)
+        
         var added: Bool = false
         
         if categories.count > 0 {

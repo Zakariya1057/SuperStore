@@ -20,6 +20,7 @@ struct ListData: Decodable {
     var store_id: Int?
     var user_id: Int
     var total_price: Double
+    var old_total_price: Double?
     var categories: [ListCategoryData]?
 }
 

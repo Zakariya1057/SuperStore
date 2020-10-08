@@ -145,10 +145,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             allergenLabel.text = product.allergen_info
         }
 
-        if(product.promotion == nil){
+        if(product.discount == nil){
             promotionView.removeFromSuperview()
         } else {
-            let promotion = product.promotion!
+            let promotion = product.discount!
             promotionLabel.text = promotion.name
         }
 
@@ -238,7 +238,8 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             destinationVC.product_id = product_id
         }  else if segue.identifier == "showProductPromotion" {
             let destinationVC = segue.destination as! PromotionViewController
-            destinationVC.promotion_id = product!.promotion!.id
+            destinationVC.delegate = self.delegate
+            destinationVC.promotion_id = product!.discount!.id
         } else if segue.identifier == "productToCreateReview" {
             let destinationVC = segue.destination as! ReviewViewController
             destinationVC.product = product!
@@ -324,6 +325,8 @@ extension ProductViewController {
         if noDelegateFound == false {
             showQuantityView()
         }
+        
+        print(product!.discount)
         
         self.delegate?.addToList(product!, cell: nil)
     }

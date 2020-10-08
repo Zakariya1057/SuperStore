@@ -36,7 +36,6 @@ struct ProductDetailsHandler {
             let data = try decoder.decode(ProductDataResponse.self, from: data)
             let product_details = data.data
             
-            let promotion_details = product_details.promotion
             let product_ingredients = product_details.ingredients
             
             var ingredients: [String] = []
@@ -51,19 +50,19 @@ struct ProductDetailsHandler {
                 reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name!) )
             }
             
-            var promotion:PromotionModel? = nil
-            
-            if promotion_details != nil {
-                promotion = PromotionModel(id: promotion_details!.id, name: promotion_details!.name, ends_at: promotion_details!.ends_at)
-            }
+            var discount: DiscountModel? = nil
 
+            if product_details.discount != nil {
+                discount = DiscountModel(id: product_details.discount!.id, name:  product_details.discount!.name, quantity:  product_details.discount!.quantity, price: product_details.discount!.price, forQuantity: product_details.discount!.for_quantity)
+            }
+            
             var recommended: [ProductModel] = []
             
             for product_item in product_details.recommended ?? [] {
                 recommended.append(ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, description: product_item.description, quantity: 0,weight: product_item.weight, parent_category_id: nil, parent_category_name: nil, price: product_item.price, location: "", avg_rating: 1, total_reviews_count: 1,discount: nil))
             }
             
-            let product = ProductDetailsModel(id: product_details.id, name: product_details.name, image: product_details.large_image, description: product_details.description, quantity: 0, price: product_details.price, location: "",avg_rating: product_details.avg_rating, total_reviews_count: product_details.total_reviews_count, storage: product_details.storage, weight: product_details.weight, parent_category_id: product_details.parent_category_id, parent_category_name: product_details.parent_category_name, dietary_info: product_details.dietary_info, allergen_info: product_details.allergen_info, brand: product_details.brand, reviews: reviews, favourite: product_details.favourite!, promotion: promotion, ingredients: ingredients, recommended: recommended )
+            let product = ProductDetailsModel(id: product_details.id, name: product_details.name, image: product_details.large_image, description: product_details.description, quantity: 0, price: product_details.price, location: "",avg_rating: product_details.avg_rating, total_reviews_count: product_details.total_reviews_count, discount: discount, storage: product_details.storage, weight: product_details.weight, parent_category_id: product_details.parent_category_id, parent_category_name: product_details.parent_category_name, dietary_info: product_details.dietary_info, allergen_info: product_details.allergen_info, brand: product_details.brand, reviews: reviews, favourite: product_details.favourite!, ingredients: ingredients, recommended: recommended )
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(product: product)

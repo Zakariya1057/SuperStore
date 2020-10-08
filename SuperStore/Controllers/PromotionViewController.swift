@@ -91,9 +91,10 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
-        vc.product_id = promotion!.products![indexPath.row].id
-        self.navigationController?.pushViewController(vc, animated: true)
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
+        destinationVC.product_id = promotion!.products![indexPath.row].id
+        destinationVC.delegate = self.delegate
+        self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     func startLoading(){

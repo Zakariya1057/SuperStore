@@ -70,7 +70,7 @@ struct ListItemsHandler {
                     
                     var discount: DiscountModel? = nil
                     if item.discount != nil {
-                        discount = DiscountModel(quantity: item.discount!.quantity, price: item.discount!.price, forQuantity: item.discount!.for_quantity)
+                        discount = DiscountModel(id: item.discount!.id, name: item.discount!.name, quantity: item.discount!.quantity, price: item.discount!.price, forQuantity: item.discount!.for_quantity)
                     }
                     
                     items.append(ListItemModel(id: item.id, name: item.name, total_price: item.total_price, price: item.price, product_id: item.product_id, quantity: item.quantity, image: item.large_image ?? "", ticked_off: item.ticked_off, weight: item.weight ?? "",discount: discount))
@@ -90,7 +90,7 @@ struct ListItemsHandler {
                 status = .notStarted
             }
             
-            let list = ListModel(id: list_data.id, name: list_data.name, created_at: list_data.created_at, status: status, store_id: list_data.store_id, user_id: list_data.user_id, total_price: list_data.total_price, categories: categories)
+            let list = ListModel(id: list_data.id, name: list_data.name, created_at: list_data.created_at, status: status, store_id: list_data.store_id, user_id: list_data.user_id, total_price: list_data.total_price, old_total_price: list_data.old_total_price, categories: categories)
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(list: list)
