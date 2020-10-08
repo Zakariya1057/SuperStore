@@ -151,7 +151,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 
                 let remainder = (totalQuantity % discount.quantity)
-                let goesIntoFully = round(Double(totalQuantity) / Double(discount.quantity))
+                let goesIntoFully = floor(Double(totalQuantity) / Double(discount.quantity))
                 
                 var newTotal: Double = 0
                 
@@ -328,7 +328,7 @@ extension ListViewController: GroceryDelegate {
             let discount = product.discount
 
             let remainder = (product.quantity % discount!.quantity)
-            let goesIntoFully = round(Double(Int(product.quantity) / Int(discount!.quantity)))
+            let goesIntoFully = floor(Double(Int(product.quantity) / Int(discount!.quantity)))
 
             if product.quantity < discount!.quantity {
                 price += Double(product.quantity) * product.price
@@ -404,8 +404,6 @@ extension ListViewController: GroceryDelegate {
         var categories = list?.categories ?? []
         
         let item = ListItemModel(id: product.id, name: product.name, total_price: product.price, price: product.price, product_id: product.id, quantity: 1, image: product.image, ticked_off: false, weight: product.weight,discount: product.discount)
-        
-        print(product.discount)
         
         var added: Bool = false
         
