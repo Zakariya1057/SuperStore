@@ -24,32 +24,35 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ezu-BQ-FFT">
                                 <rect key="frame" x="0.0" y="0.0" width="150" height="230"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" translatesAutoresizingMaskIntoConstraints="NO" id="393-jE-GjN" userLabel="Food">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="120"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="byf-0F-yfU"/>
-                                        </constraints>
-                                    </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbB-Il-GJC">
-                                        <rect key="frame" x="0.0" y="120" width="150" height="80"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="m1b-Ho-yoo">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ASDA Grower&amp;#039;s Selection Organic Fairtrade Bananas" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxb-go-I1B" userLabel="Food Title">
-                                                <rect key="frame" x="5" y="0.0" width="140" height="80"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" translatesAutoresizingMaskIntoConstraints="NO" id="393-jE-GjN" userLabel="Food">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="120"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="120" id="byf-0F-yfU"/>
+                                                </constraints>
+                                            </imageView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbB-Il-GJC">
+                                                <rect key="frame" x="0.0" y="125" width="150" height="75"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quaker Oat So Simple Original Porridge 12 Pack" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxb-go-I1B" userLabel="Food Title">
+                                                        <rect key="frame" x="5" y="0.0" width="140" height="75"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="yxb-go-I1B" secondAttribute="bottom" id="Tuf-2M-w5q"/>
+                                                    <constraint firstAttribute="trailing" secondItem="yxb-go-I1B" secondAttribute="trailing" constant="5" id="Uhz-BG-ugq"/>
+                                                    <constraint firstItem="yxb-go-I1B" firstAttribute="leading" secondItem="bbB-Il-GJC" secondAttribute="leading" constant="5" id="bOa-aX-C2i"/>
+                                                    <constraint firstItem="yxb-go-I1B" firstAttribute="top" secondItem="bbB-Il-GJC" secondAttribute="top" id="tKn-PZ-yvS"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstItem="yxb-go-I1B" firstAttribute="centerX" secondItem="bbB-Il-GJC" secondAttribute="centerX" id="5RS-6H-gw3"/>
-                                            <constraint firstItem="yxb-go-I1B" firstAttribute="centerY" secondItem="bbB-Il-GJC" secondAttribute="centerY" id="8Iz-L2-cbc"/>
-                                            <constraint firstAttribute="bottom" secondItem="yxb-go-I1B" secondAttribute="bottom" id="Tuf-2M-w5q"/>
-                                            <constraint firstAttribute="trailing" secondItem="yxb-go-I1B" secondAttribute="trailing" constant="5" id="Uhz-BG-ugq"/>
-                                            <constraint firstItem="yxb-go-I1B" firstAttribute="leading" secondItem="bbB-Il-GJC" secondAttribute="leading" constant="5" id="bOa-aX-C2i"/>
-                                            <constraint firstItem="yxb-go-I1B" firstAttribute="top" secondItem="bbB-Il-GJC" secondAttribute="top" id="tKn-PZ-yvS"/>
-                                        </constraints>
-                                    </view>
+                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="smd-w9-Qxd">
                                         <rect key="frame" x="0.0" y="200" width="150" height="30"/>
                                         <subviews>

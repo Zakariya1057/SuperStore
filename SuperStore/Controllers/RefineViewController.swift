@@ -96,7 +96,7 @@ class RefineViewController: UIViewController, UITableViewDataSource, UITableView
 
         
         RefineOptionModel(
-            header: "Dietary & LifeStyle",
+            header: "Dietary & Lifestyle",
             values: [
                 RefineModel(name: "Vegetarian", selected: false,quantity: nil),
                 RefineModel(name: "Vegan", selected: false,quantity: nil),

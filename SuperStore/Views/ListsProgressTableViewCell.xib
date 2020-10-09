@@ -356,6 +356,28 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="firstIconImageView" destination="ar1-Nm-dhM" id="hKm-V4-TZL"/>
+                <outlet property="firstListStackView" destination="EKH-z8-aLW" id="ZZn-8K-NdK"/>
+                <outlet property="firstNameLabel" destination="T1I-Tc-Htq" id="9oJ-SQ-vCG"/>
+                <outlet property="firstProgressView" destination="Upe-9I-Ewd" id="cTv-Zu-H8D"/>
+                <outlet property="firstStatusLabel" destination="lhS-7O-R5s" id="b3F-bH-9UD"/>
+                <outlet property="forthStackView" destination="LRL-N6-Cmu" id="DF3-Gm-JdM"/>
+                <outlet property="fourthIconImageView" destination="iKQ-fV-GfS" id="vfU-tJ-oUf"/>
+                <outlet property="fourthNameLabel" destination="b0g-zz-fYy" id="fxA-zt-QRL"/>
+                <outlet property="fourthProgressView" destination="kZE-KA-yck" id="HTx-zx-poL"/>
+                <outlet property="fourthStatusLabel" destination="5li-xR-csM" id="MF9-UR-Tav"/>
+                <outlet property="secondIconImageView" destination="Eh7-91-Vst" id="RBn-zw-fgP"/>
+                <outlet property="secondNameLabel" destination="59r-qE-Vos" id="Pzo-Vs-RJP"/>
+                <outlet property="secondProgressView" destination="2bt-4S-cUG" id="HBL-Ur-vn2"/>
+                <outlet property="secondStackView" destination="diK-vP-CYf" id="GeX-qh-aGA"/>
+                <outlet property="secondStatusLabel" destination="RW4-Ch-cga" id="svM-Ih-PQ8"/>
+                <outlet property="thirdIconImageView" destination="VaV-qD-OfR" id="UKF-zC-ixo"/>
+                <outlet property="thirdNameLabel" destination="VXc-ny-Kz6" id="KrI-6b-Khd"/>
+                <outlet property="thirdProgressView" destination="S9H-1T-HXF" id="PKh-Sg-Whx"/>
+                <outlet property="thirdStackView" destination="nwW-cx-wUd" id="wPq-W5-Cj4"/>
+                <outlet property="thirdStatusLabel" destination="Ks8-Gp-5Hk" id="gSA-Xy-KPT"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="117.52232142857142"/>
         </tableViewCell>
     </objects>

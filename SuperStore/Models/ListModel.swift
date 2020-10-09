@@ -45,3 +45,10 @@ enum ListStatus {
     case inProgress
     case notStarted
 }
+
+struct ListProgressModel: Decodable {
+    var id: Int
+    var name: String
+    var totalItems: Int
+    var tickedOffItems: Int
+}

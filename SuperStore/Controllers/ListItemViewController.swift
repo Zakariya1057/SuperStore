@@ -102,4 +102,12 @@ class ListItemViewController: UIViewController {
         deleteItem()
     }
     
+    @IBAction func detailsPressed(_ sender: Any) {
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
+        destinationVC.delegate = self.groceryDelegate
+        destinationVC.product_id = product!.product_id
+        destinationVC.itemQuantity = product!.quantity
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
 }

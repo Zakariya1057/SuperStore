@@ -45,7 +45,6 @@
 		2C266DF724D5DEDA00C66EA5 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266DF624D5DEDA00C66EA5 /* ListModel.swift */; };
 		2C266DF924D5DEF300C66EA5 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266DF824D5DEF300C66EA5 /* StoreModel.swift */; };
 		2C266DFB24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266DFA24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift */; };
-		2C266DFD24D6E73500C66EA5 /* GroceryGroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266DFC24D6E73500C66EA5 /* GroceryGroupModel.swift */; };
 		2C266DFF24D6FBC300C66EA5 /* SettingsChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266DFE24D6FBC300C66EA5 /* SettingsChangeViewController.swift */; };
 		2C266E0124D702BD00C66EA5 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266E0024D702BD00C66EA5 /* ChangePasswordViewController.swift */; };
 		2C266E0324D70C3900C66EA5 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266E0224D70C3900C66EA5 /* SearchModel.swift */; };
@@ -91,6 +90,9 @@
 		2CAC05FD252E314F00561509 /* FeaturedProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC05FB252E314F00561509 /* FeaturedProductCollectionViewCell.xib */; };
 		2CAC0601252E334F00561509 /* FeaturedProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC05FF252E334F00561509 /* FeaturedProductTableViewCell.swift */; };
 		2CAC0602252E334F00561509 /* FeaturedProductTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CAC0600252E334F00561509 /* FeaturedProductTableViewCell.xib */; };
+		2CAC060C2530E25600561509 /* HomeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC060B2530E25600561509 /* HomeHandler.swift */; };
+		2CAC06102530E26700561509 /* HomeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC060F2530E26700561509 /* HomeData.swift */; };
+		2CAC06132530E41700561509 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAC06122530E41700561509 /* HomeModel.swift */; };
 		2CB15C7124D18F4100461AFE /* SearchStoresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB15C7024D18F4100461AFE /* SearchStoresTableViewController.swift */; };
 		2CB15C7624D190E500461AFE /* StoresResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB15C7424D190E500461AFE /* StoresResultsTableViewCell.swift */; };
 		2CB15C7724D190E500461AFE /* StoresResultsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB15C7524D190E500461AFE /* StoresResultsTableViewCell.xib */; };
@@ -170,7 +172,6 @@
 		2C266DF624D5DEDA00C66EA5 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
 		2C266DF824D5DEF300C66EA5 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		2C266DFA24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GrandParentCategoriesViewController.swift; path = SuperStore/Views/GrandParentCategoriesViewController.swift; sourceTree = SOURCE_ROOT; };
-		2C266DFC24D6E73500C66EA5 /* GroceryGroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GroceryGroupModel.swift; path = SuperStore/Views/GroceryGroupModel.swift; sourceTree = SOURCE_ROOT; };
 		2C266DFE24D6FBC300C66EA5 /* SettingsChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsChangeViewController.swift; path = SuperStore/Views/SettingsChangeViewController.swift; sourceTree = SOURCE_ROOT; };
 		2C266E0024D702BD00C66EA5 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		2C266E0224D70C3900C66EA5 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
@@ -216,6 +217,9 @@
 		2CAC05FB252E314F00561509 /* FeaturedProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeaturedProductCollectionViewCell.xib; sourceTree = "<group>"; };
 		2CAC05FF252E334F00561509 /* FeaturedProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedProductTableViewCell.swift; sourceTree = "<group>"; };
 		2CAC0600252E334F00561509 /* FeaturedProductTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeaturedProductTableViewCell.xib; sourceTree = "<group>"; };
+		2CAC060B2530E25600561509 /* HomeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHandler.swift; sourceTree = "<group>"; };
+		2CAC060F2530E26700561509 /* HomeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeData.swift; sourceTree = "<group>"; };
+		2CAC06122530E41700561509 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		2CB15C7024D18F4100461AFE /* SearchStoresTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchStoresTableViewController.swift; path = SuperStore/Views/SearchStoresTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		2CB15C7424D190E500461AFE /* StoresResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresResultsTableViewCell.swift; sourceTree = "<group>"; };
 		2CB15C7524D190E500461AFE /* StoresResultsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoresResultsTableViewCell.xib; sourceTree = "<group>"; };
@@ -395,6 +399,9 @@
 			isa = PBXGroup;
 			children = (
 				2C1567DA24C8B3B200B8DCB5 /* K.swift */,
+				2CAC060B2530E25600561509 /* HomeHandler.swift */,
+				2CAC060F2530E26700561509 /* HomeData.swift */,
+				2CAC06122530E41700561509 /* HomeModel.swift */,
 				2C21C3A924F8186200D90B4B /* ProductsHandler.swift */,
 				2C21C3AF24F8E4E600D90B4B /* GroceryCategoriesHandler.swift */,
 				2C21C3AB24F8186A00D90B4B /* GroceryCategoriesData.swift */,
@@ -428,7 +435,6 @@
 				2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */,
 				2CCE48D725177FE700AE3BCA /* SearchData.swift */,
 				2C266E0224D70C3900C66EA5 /* SearchModel.swift */,
-				2C266DFC24D6E73500C66EA5 /* GroceryGroupModel.swift */,
 				2CDE10EC251D2662001B0479 /* UserHandler.swift */,
 				2CAB6A3D251F958500774B89 /* UserData.swift */,
 				2CAB6A3A251F932D00774B89 /* ErrorData.swift */,
@@ -631,6 +637,7 @@
 				2CB15C7D24D1A48E00461AFE /* RefineViewController.swift in Sources */,
 				2C9C1B8124CDD794001ACA35 /* ProductTableViewCell.swift in Sources */,
 				2C1567D724C8B36200B8DCB5 /* ListsViewController.swift in Sources */,
+				2CAC06132530E41700561509 /* HomeModel.swift in Sources */,
 				2C1567F324CC830B00B8DCB5 /* ProductViewController.swift in Sources */,
 				2CB15C7124D18F4100461AFE /* SearchStoresTableViewController.swift in Sources */,
 				2C266E0324D70C3900C66EA5 /* SearchModel.swift in Sources */,
@@ -649,7 +656,6 @@
 				2C21C3A624F6F36B00D90B4B /* StoreHandler.swift in Sources */,
 				2CC1EA2524FACADA000A9BC4 /* ProductDetailsModel.swift in Sources */,
 				2CAC05F2252CE24E00561509 /* OfferCollectionViewCell.swift in Sources */,
-				2C266DFD24D6E73500C66EA5 /* GroceryGroupModel.swift in Sources */,
 				2C1567F024CADB9C00B8DCB5 /* ReviewTableViewCell.swift in Sources */,
 				2C266DFB24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift in Sources */,
 				2CC1EA2124FAC46A000A9BC4 /* ReviewModel.swift in Sources */,
@@ -663,6 +669,7 @@
 				2CB15C9424D2FB8900461AFE /* ListItemTableViewCell.swift in Sources */,
 				2CA7C779250E547B002FF1B6 /* ListEditViewController.swift in Sources */,
 				2C0E93CA250F987700378C97 /* FavouritesData.swift in Sources */,
+				2CAC06102530E26700561509 /* HomeData.swift in Sources */,
 				2C1567EA24CADB6000B8DCB5 /* GroceryTableViewCell.swift in Sources */,
 				2C21C3AE24F8187100D90B4B /* GroceryCategoriesModel.swift in Sources */,
 				2C266DF924D5DEF300C66EA5 /* StoreModel.swift in Sources */,
@@ -701,6 +708,7 @@
 				2C21C3B224FA7C2500D90B4B /* ChildCategoriesViewController.swift in Sources */,
 				2CAB6A3B251F932D00774B89 /* ErrorData.swift in Sources */,
 				2C266DF124D5A6C900C66EA5 /* ProductModel.swift in Sources */,
+				2CAC060C2530E25600561509 /* HomeHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -46,7 +46,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         
         listsTableView.delegate = self
         listsTableView.dataSource = self
-        listsTableView.rowHeight = 80
+//        listsTableView.rowHeight = 70
         
         listHandler.delegate = self
         listHandler.request()
@@ -123,7 +123,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
             selected_index = indexPath.row
             
             if delegate != nil {
-                self.delegate?.list_selected(list_id: selected_list!.id)
+                self.delegate?.listSelected(list_id: selected_list!.id)
                 self.dismiss(animated: true, completion: nil)
             } else {
                 self.performSegue(withIdentifier: "list_to_items", sender: self)

@@ -11,7 +11,7 @@ import Tabman
 import Pageboy
 
 protocol ListSelectedDelegate {
-    func list_selected(list_id: Int)
+    func listSelected(list_id: Int)
 }
 
 class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, GroceriesProductsDelegate, ListSelectedDelegate {
@@ -148,7 +148,7 @@ extension ChildCategoriesViewController {
         print("Adding To List")
     }
     
-    func list_selected(list_id: Int) {
+    func listSelected(list_id: Int) {
         self.selected_list_id = list_id
         selected_row?.show_quantity_view()
         listHandler.create(list_id: list_id, list_data: ["product_id": String(add_to_list_product_index!)])

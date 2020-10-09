@@ -58,6 +58,8 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     var product_id:Int = 1
     
+    var itemQuantity: Int?
+    
     @IBOutlet weak var monitorButton: UIButton!
     @IBOutlet weak var similarTableView: UITableView!
     @IBOutlet weak var addToListButton: UIButton!
@@ -134,6 +136,13 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
 
         showFavourite()
 
+        if itemQuantity != nil {
+            showQuantityView()
+            product.quantity = itemQuantity!
+            quantityStepper.value = Double(itemQuantity!)
+            stepperLabel.text = String(itemQuantity!)
+        }
+        
         if(product.dietary_info == nil || product.dietary_info == ""){
             dietaryView.removeFromSuperview()
         } else {
@@ -239,7 +248,11 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             destinationVC.product_id = product_id
         }  else if segue.identifier == "showProductPromotion" {
             let destinationVC = segue.destination as! PromotionViewController
-            destinationVC.delegate = self.delegate
+            
+            if noDelegateFound == false {
+                destinationVC.delegate = self.delegate
+            }
+            
             destinationVC.promotion_id = product!.discount!.id
         } else if segue.identifier == "productToCreateReview" {
             let destinationVC = segue.destination as! ReviewViewController
@@ -289,9 +302,14 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func showProduct(product_id: Int) {
-        let vc = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
-        vc.product_id = product_id
-        self.navigationController?.pushViewController(vc, animated: true)
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
+        destinationVC.product_id = product_id
+        
+        if noDelegateFound == false {
+            destinationVC.delegate = self.delegate
+        }
+        
+        self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     func startLoading(){
@@ -380,7 +398,7 @@ extension ProductViewController {
     }
     
     
-    func list_selected(list_id: Int) {
+    func listSelected(list_id: Int) {
         self.selected_list_id = list_id
         listHandler.create(list_id: list_id, list_data: ["product_id": String(add_to_list_product_id!)])
         showQuantityView()

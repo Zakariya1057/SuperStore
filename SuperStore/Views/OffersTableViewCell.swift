@@ -13,10 +13,12 @@ class OffersElement: CustomElementModel {
     var type: CustomElementType { return .offers }
     var delegate: OfferSelectedDelegate
     var position: CGFloat?
+    var promotions: [DiscountModel]?
     
-    init(title: String,delegate: OfferSelectedDelegate) {
+    init(title: String,delegate: OfferSelectedDelegate, promotions: [DiscountModel]) {
         self.title = title
         self.delegate = delegate
+        self.promotions = promotions
     }
 }
 
@@ -32,6 +34,8 @@ class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDe
     
     @IBOutlet var offersCollectionView: UICollectionView!
     
+    var promotions: [DiscountModel] = []
+    
     func configure(withModel elementModel: CustomElementModel) {
         guard let model = elementModel as? OffersElement else {
             print("Unable to cast model as ListsProgressElement: \(elementModel)")
@@ -40,6 +44,7 @@ class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDe
         
         self.model = model
         self.delegate = model.delegate
+        self.promotions = model.promotions ?? []
         
         configureUI()
         offersCollectionView.reloadData()
@@ -69,19 +74,19 @@ class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDe
 
 extension OffersTableViewCell {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return promotions.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = offersCollectionView.dequeueReusableCell(withReuseIdentifier: K.Collections.OfferCollectionCell.CellIdentifier, for: indexPath) as! OfferCollectionViewCell
-//        cell.product = products[indexPath.row]
-//        cell.configureUI()
+        cell.discount = promotions[indexPath.row]
+        cell.configureUI()
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Product Selected, Navigate
         print("Offer Selected")
-        self.delegate?.showPromotion(promotion_id: 1)
+        self.delegate?.showPromotion(promotion_id: promotions[indexPath.row].id)
     }
 }

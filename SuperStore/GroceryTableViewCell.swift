@@ -106,14 +106,14 @@ class GroceryTableViewCell: UITableViewCell {
         product!.quantity = Int(quantity)
         
         if delegate != nil {
+            delegate?.updateQuantity(product!)
+            
             if(quantity == 0){
                 delegate?.removeFromList(product!)
                 show_add_button_view()
                 
                 stepper_label.text = "1"
                 quantityStepper.value = 1
-            } else {
-                delegate?.updateQuantity(product!)
             }
         }
         

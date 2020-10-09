@@ -15,6 +15,8 @@ struct K {
     struct Request {
         static let Store = "store"
         
+        static let Home = "home"
+        
         struct Grocery {
             static let Categories = "grocery"
             

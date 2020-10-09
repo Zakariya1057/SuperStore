@@ -44,3 +44,14 @@ struct ListItemData: Decodable {
     var weight: String?
     var discount: DiscountData?
 }
+
+struct ListProgressData: Decodable {
+//    "id": 3,
+//    "name": "Second Shopping List",
+//    "total_items": 2,
+//    "ticked_off_items": "0"
+    var id: Int
+    var name: String
+    var total_items: Int
+    var ticked_off_items: Int
+}

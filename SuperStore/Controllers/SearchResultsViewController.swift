@@ -125,7 +125,7 @@ extension SearchResultsViewController {
         }
         
         if selectedCategory != nil {
-            data["category"] = selectedCategory!.name
+            data["child_category"] = selectedCategory!.name
         }
         
         if selectedBrand != nil {
@@ -195,7 +195,7 @@ extension SearchResultsViewController {
         selected_row = cell
     }
     
-    func list_selected(list_id: Int) {
+    func listSelected(list_id: Int) {
         self.selected_list_id = list_id
         listHandler.create(list_id: list_id, list_data: ["product_id": String(selected_product_id!)])
         

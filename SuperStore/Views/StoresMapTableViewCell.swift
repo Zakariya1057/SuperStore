@@ -13,9 +13,11 @@ class StoresMapElement: CustomElementModel {
     var title: String
     var type: CustomElementType { return .storesMap }
     var position: CGFloat?
+    var stores: [StoreModel]?
     
-    init(title: String) {
+    init(title: String, stores:[StoreModel]) {
         self.title = title
+        self.stores = stores
     }
 }
 
@@ -51,6 +53,7 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
         }
         
         self.model = model
+        self.stores = model.stores ?? []
         
         configureUI()
     }

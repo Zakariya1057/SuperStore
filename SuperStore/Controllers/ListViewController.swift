@@ -107,6 +107,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func showTotalPrice(){
         var price:Double = 0.00
+        var priceNoDiscount: Double = 0.00
         var oldPrice: Double = 0.00
         
         let products = (list?.categories ?? []).map({ $0.items }).joined()
@@ -126,6 +127,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             
             price += calculateProductPrice(product)
+            priceNoDiscount += ( Double(product.quantity) * product.price)
         }
         
         for promotion in promotions {
@@ -134,7 +136,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             let discount = promotion.value["discount"]![0] as! DiscountModel
             var newTotalPrice:Double = 0
             
-//            print("\(productCount) >= \(discount.quantity)")
             if productCount >= discount.quantity {
                 
                 var highestPrice: Double = 0
@@ -162,11 +163,9 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 
                 newTotalPrice = (price - previousTotalPrice) + newTotal
-
-//                print("\(newTotalPrice) != \(price) && \(price) > \(newTotalPrice)")
                 
                 if newTotalPrice != price && price > newTotalPrice {
-                    oldPrice = price
+                    oldPrice = priceNoDiscount
                     price = newTotalPrice
                 }
                 
@@ -223,6 +222,10 @@ extension ListViewController {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if loading == true {
+            return
+        }
+        
         selected_row = indexPath.row
         selected_section = indexPath.section
         self.performSegue(withIdentifier: "list_item_details", sender: nil)
@@ -270,10 +273,11 @@ extension ListViewController {
             cell.delegate = self
             
             cell.configureUI()
-            cell.selectionStyle = UITableViewCell.SelectionStyle.none
         } else {
             cell.startLoading()
         }
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         
         return cell
     }
@@ -379,8 +383,13 @@ extension ListViewController: GroceryDelegate {
                 
                 for (prod_index, product_item) in category.items.enumerated() {
                     if product_item.product_id == product.id {
-                        list?.categories[cat_index].items[prod_index].quantity = product.quantity
-                        productUpdate(product: (list?.categories[cat_index].items[prod_index])!)
+                        if product.quantity == 0 {
+                            removeItem(section: cat_index, row: prod_index)
+                        } else {
+                            list?.categories[cat_index].items[prod_index].quantity = product.quantity
+                            productUpdate(product: (list?.categories[cat_index].items[prod_index])!)
+                        }
+
                         break
                     }
                 }
