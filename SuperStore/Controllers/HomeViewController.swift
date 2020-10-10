@@ -25,6 +25,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var content: HomeModel?
     
+    var loading: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,6 +61,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func contentLoaded(content: HomeModel) {
         self.content = content
+        self.loading = false
         
         let listElement = customElements[0] as! ListsProgressElement
         listElement.lists = content.lists
@@ -100,7 +103,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @objc func refresh(){
+        self.loading = true
         createHomeSections()
+        listTableView.reloadData()
         homeHandler.request()
     }
     
@@ -124,6 +129,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cellIdentifier = cellModel.type.rawValue
         let customCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CustomElementCell
 
+        cellModel.loading = self.loading
         customCell.configure(withModel: cellModel)
 
         let cell = customCell as! UITableViewCell
@@ -212,6 +218,7 @@ protocol CustomElementModel: class {
     var title: String { get }
     var type: CustomElementType { get }
     var position: CGFloat? { get set }
+    var loading: Bool { get set }
 }
 
 protocol CustomElementCell: class {

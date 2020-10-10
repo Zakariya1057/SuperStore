@@ -19,15 +19,15 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8d2-Hh-zQf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="220"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eS8-KF-rKx">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="220"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="j1P-xP-yR4">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="220"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="15" minimumInteritemSpacing="0.0" sectionInsetReference="safeArea" id="KRs-QY-Bbd">
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" sectionInsetReference="safeArea" id="KRs-QY-Bbd">
                                             <size key="itemSize" width="120" height="210"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -48,7 +48,7 @@
                             <constraint firstItem="eS8-KF-rKx" firstAttribute="leading" secondItem="8d2-Hh-zQf" secondAttribute="leading" id="eja-lz-Hfo"/>
                             <constraint firstAttribute="trailing" secondItem="eS8-KF-rKx" secondAttribute="trailing" id="l31-jb-zLK"/>
                             <constraint firstItem="eS8-KF-rKx" firstAttribute="top" secondItem="8d2-Hh-zQf" secondAttribute="top" id="nab-fN-Uvx"/>
-                            <constraint firstAttribute="height" constant="210" id="sh7-O1-sk0"/>
+                            <constraint firstAttribute="height" constant="220" id="sh7-O1-sk0"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -14,7 +14,8 @@ class FeaturedProductElement: CustomElementModel {
     var delegate: ProductDelegate
     var products: [ProductModel]
     var position: CGFloat?
-        
+    var loading: Bool = false
+    
     init(title: String,delegate: ProductDelegate,products: [ProductModel]) {
         self.title = title
         self.delegate = delegate
@@ -31,6 +32,8 @@ class FeaturedProductTableViewCell: UITableViewCell,CustomElementCell {
     
     var delegate:ProductDelegate?
     
+    var loading: Bool = true
+    
     @IBOutlet weak var titleLabel: UILabel!
     
     func configure(withModel elementModel: CustomElementModel) {
@@ -41,6 +44,7 @@ class FeaturedProductTableViewCell: UITableViewCell,CustomElementCell {
         
         self.model = model
         self.delegate = model.delegate
+        self.loading = model.loading
         
         self.products = model.products
         self.productCollection.reloadData()
@@ -77,13 +81,20 @@ class FeaturedProductTableViewCell: UITableViewCell,CustomElementCell {
 extension FeaturedProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return products.count
+        return loading ? 5 : products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = productCollection.dequeueReusableCell(withReuseIdentifier: K.Collections.FeaturedProductsCollecionCell.CellIdentifier, for: indexPath) as! FeaturedProductCollectionViewCell
-        cell.product = products[indexPath.row]
+        
+        cell.loading = loading
+        
+        if !loading {
+            cell.product = products[indexPath.row]
+        }
+        
         cell.configureUI()
+        
         return cell
     }
     
@@ -92,10 +103,4 @@ extension FeaturedProductTableViewCell: UICollectionViewDelegate, UICollectionVi
         print("Product Selected")
         self.delegate?.showProduct(product_id: products[indexPath.row].id)
     }
-
 }
-
-extension FeaturedProductTableViewCell: UIScrollViewDelegate {
-
-}
-

@@ -14,6 +14,7 @@ class ListsProgressElement: CustomElementModel {
     var delegate: ListSelectedDelegate
     var position: CGFloat?
     var lists:[ListProgressModel]?
+    var loading: Bool = false
     
     init(title: String,delegate: ListSelectedDelegate, lists:[ListProgressModel]) {
         self.title = title
@@ -28,13 +29,11 @@ class ListsProgressElement: CustomElementModel {
 
 class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
 
+    var loading: Bool = true
+    
     var model: ListsProgressElement!
     
     var lists:[ListProgressModel] = []
-    
-    @IBOutlet weak var listViewButton: UIView!
-    
-    @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet var forthStackView: UIStackView!
     @IBOutlet var thirdStackView: UIStackView!
@@ -60,6 +59,15 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
     @IBOutlet var secondIconImageView: UIImageView!
     @IBOutlet var thirdIconImageView: UIImageView!
     @IBOutlet var fourthIconImageView: UIImageView!
+    
+    @IBOutlet var firstTextView: UIStackView!
+    @IBOutlet var firstImageView: UIView!
+    @IBOutlet var secondImageView: UIView!
+    @IBOutlet var secondTextView: UIStackView!
+    @IBOutlet var thirdImageView: UIView!
+    @IBOutlet var thirdTextView: UIStackView!
+    @IBOutlet var fourthImageView: UIView!
+    @IBOutlet var fourhtTextView: UIStackView!
     
     var listStackViews:[UIStackView] {
         return [
@@ -106,6 +114,28 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
         ]
     }
     
+    var loadingViews:[UIView] {
+        return [
+            
+            firstImageView,
+            secondImageView,
+            thirdImageView,
+            fourthImageView,
+            
+            firstNameLabel,
+            secondNameLabel,
+            thirdNameLabel,
+            fourthNameLabel,
+            
+            firstStatusLabel,
+            secondStatusLabel,
+            thirdStatusLabel,
+            fourthStatusLabel,
+            
+        
+        ]
+    }
+    
     var delegate: ListSelectedDelegate?
     
     func configure(withModel elementModel: CustomElementModel) {
@@ -117,24 +147,41 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
         self.model = model
         self.delegate = model.delegate
         self.lists = model.lists ?? []
+        self.loading = model.loading
         
         configureUI()
     }
     
     func configureUI() {
         
+        
+        if(loading){
+            startLoading()
+            
+            for (index, progress) in progressViews.enumerated() {
+                progress.progress = 0
+                nameLabels[index].text = "Shopping List"
+            }
+            
+            return
+        }
+        
+        let listCount = lists.count
+        
         for (index, list) in lists.enumerated() {
+
+            listStackViews[index].isHidden = false
             
             let progress:Float = Float(list.tickedOffItems)/Float(list.totalItems)
             let percentage = progress * 100
-            
+
             nameLabels[index].text = list.name
             statusLabels[index].text = "\(list.tickedOffItems)/\(list.totalItems)"
             progressViews[index].progress = progress
-            
+
             var color = UIColor(named: "LogoBlue")
             var image = UIImage(systemName: "circle")
-            
+
             if percentage == 100 {
                 color = UIColor(named: "LogoBlue")
                 image = UIImage(systemName: "checkmark.circle")
@@ -145,11 +192,18 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
             } else {
                 color = UIColor(red: 0.44, green: 0.44, blue: 0.47, alpha: 1.00)
             }
-            
+
             iconViews[index].tintColor = color
             progressViews[index].tintColor = color
             iconViews[index].image = image
-            
+        }
+        
+        for index in 0...(listStackViews.count - listCount) - 1 {
+            listStackViews[ (listStackViews.count - 1) - index].isHidden = true
+        }
+        
+        if(!loading){
+            stopLoading()
         }
         
         createListeners()
@@ -161,23 +215,8 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
 
     func createListeners(){
         
-//        let gesture1 = UITapGestureRecognizer(target: self, action: #selector(listPressed(sender:)))
-//        let gesture2 = UITapGestureRecognizer(target: self, action: #selector(listPressed(sender:)))
-//        let gesture3 = UITapGestureRecognizer(target: self, action: #selector(listPressed(sender:)))
-//        let gesture4 = UITapGestureRecognizer(target: self, action: #selector(listPressed(sender:)))
-//
-//        gesture1.name = "1"
-//        gesture2.name = "2"
-//        gesture3.name = "3"
-//        gesture4.name = "4"
-//
-//        firstListStackView.addGestureRecognizer(gesture1)
-//        secondStackView.addGestureRecognizer(gesture2)
-//        thirdStackView.addGestureRecognizer(gesture3)
-//        forthStackView.addGestureRecognizer(gesture4)
-        
         for (index, list) in lists.enumerated() {
-            var gesture = UITapGestureRecognizer(target: self, action: #selector(listPressed(sender:)))
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(listPressed(sender:)))
             gesture.name = String(list.id)
             listStackViews[index].addGestureRecognizer(gesture)
         }
@@ -192,6 +231,19 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
+    }
+    
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
     }
     
 }

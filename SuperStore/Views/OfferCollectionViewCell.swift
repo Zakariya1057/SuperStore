@@ -11,9 +11,17 @@ import UIKit
 class OfferCollectionViewCell: UICollectionViewCell {
 
     var discount: DiscountModel?
+    var loading: Bool = true
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
+    @IBOutlet var parentView: UIView!
+    
+    var loadingViews:[UIView] {
+        return [
+            parentView,
+        ]
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +29,13 @@ class OfferCollectionViewCell: UICollectionViewCell {
     }
 
     func configureUI() {
+        
+        if loading {
+            startLoading()
+        } else {
+            stopLoading()
+        }
+        
         if discount != nil {
             let details = discount!.name.components(separatedBy: " - ")
             
@@ -29,6 +44,19 @@ class OfferCollectionViewCell: UICollectionViewCell {
             
             nameLabel.text = name
             priceLabel.text = price
+        }
+    }
+    
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
         }
     }
 }

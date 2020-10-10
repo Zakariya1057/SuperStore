@@ -14,6 +14,7 @@ class OffersElement: CustomElementModel {
     var delegate: OfferSelectedDelegate
     var position: CGFloat?
     var promotions: [DiscountModel]?
+    var loading: Bool = false
     
     init(title: String,delegate: OfferSelectedDelegate, promotions: [DiscountModel]) {
         self.title = title
@@ -36,6 +37,8 @@ class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDe
     
     var promotions: [DiscountModel] = []
     
+    var loading: Bool = true
+    
     func configure(withModel elementModel: CustomElementModel) {
         guard let model = elementModel as? OffersElement else {
             print("Unable to cast model as ListsProgressElement: \(elementModel)")
@@ -45,6 +48,7 @@ class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDe
         self.model = model
         self.delegate = model.delegate
         self.promotions = model.promotions ?? []
+        self.loading = model.loading
         
         configureUI()
         offersCollectionView.reloadData()
@@ -74,12 +78,17 @@ class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDe
 
 extension OffersTableViewCell {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return promotions.count
+        return loading ? 4 : promotions.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = offersCollectionView.dequeueReusableCell(withReuseIdentifier: K.Collections.OfferCollectionCell.CellIdentifier, for: indexPath) as! OfferCollectionViewCell
-        cell.discount = promotions[indexPath.row]
+        
+        if !loading {
+            cell.discount = promotions[indexPath.row]
+        }
+        
+        cell.loading = loading
         cell.configureUI()
         return cell
     }

@@ -14,6 +14,7 @@ class StoresMapElement: CustomElementModel {
     var type: CustomElementType { return .storesMap }
     var position: CGFloat?
     var stores: [StoreModel]?
+    var loading: Bool = false
     
     init(title: String, stores:[StoreModel]) {
         self.title = title

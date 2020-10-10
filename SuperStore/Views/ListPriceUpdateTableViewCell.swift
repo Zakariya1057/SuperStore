@@ -9,10 +9,12 @@
 import UIKit
 
 class ListPriceUpdateElement: CustomElementModel {
+    
     var title: String
     var type: CustomElementType { return .listPriceUpdate }
     var delegate: ShowListDelegate
     var position: CGFloat?
+    var loading: Bool = false
     
     init(title: String,delegate: ShowListDelegate) {
         self.title = title
@@ -32,12 +34,15 @@ class ListPriceUpdateTableViewCell: UITableViewCell,CustomElementCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     
+    var loading: Bool = true
+    
     func configure(withModel elementModel: CustomElementModel) {
         guard let model = elementModel as? ListPriceUpdateElement else {
             print("Unable to cast model as ProfileElement: \(elementModel)")
             return
         }
         
+        self.loading = model.loading
         self.model = model
         
         configureUI()

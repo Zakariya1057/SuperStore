@@ -21,16 +21,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="215" height="62"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HeC-xt-5j2">
-                                <rect key="frame" x="5" y="10" width="205" height="42"/>
+                                <rect key="frame" x="5" y="8" width="205" height="46"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ixr-DL-CAF">
-                                        <rect key="frame" x="0.0" y="0.0" width="205" height="42"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ixr-DL-CAF">
+                                        <rect key="frame" x="0.0" y="0.0" width="205" height="46"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="llk-b4-gVL">
-                                                <rect key="frame" x="0.0" y="0.0" width="205" height="21"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="205" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Pizzas, 1 Side, 1 Drink" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hf1-sK-GsW" userLabel="Food Title">
-                                                        <rect key="frame" x="9.5" y="0.5" width="186" height="20.5"/>
+                                                        <rect key="frame" x="9.5" y="0.0" width="186" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -42,10 +42,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzo-q3-I9z">
-                                                <rect key="frame" x="0.0" y="21" width="205" height="21"/>
+                                                <rect key="frame" x="0.0" y="25.5" width="205" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£7 Meal Deal" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lU6-Oq-FSe" userLabel="Food Title">
-                                                        <rect key="frame" x="54.5" y="1" width="96" height="19.5"/>
+                                                        <rect key="frame" x="54.5" y="0.5" width="96" height="19.5"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -63,10 +63,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.76862745098039209" green="0.043137254901960784" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="HeC-xt-5j2" secondAttribute="bottom" constant="10" id="0Ly-yM-423"/>
+                            <constraint firstAttribute="bottom" secondItem="HeC-xt-5j2" secondAttribute="bottom" constant="8" id="0Ly-yM-423"/>
                             <constraint firstAttribute="trailing" secondItem="HeC-xt-5j2" secondAttribute="trailing" constant="5" id="7AW-vl-6BO"/>
                             <constraint firstItem="HeC-xt-5j2" firstAttribute="leading" secondItem="juh-bb-L7i" secondAttribute="leading" constant="5" id="P1F-rC-yUa"/>
-                            <constraint firstItem="HeC-xt-5j2" firstAttribute="top" secondItem="juh-bb-L7i" secondAttribute="top" constant="10" id="zRg-nu-geS"/>
+                            <constraint firstItem="HeC-xt-5j2" firstAttribute="top" secondItem="juh-bb-L7i" secondAttribute="top" constant="8" id="zRg-nu-geS"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -81,6 +81,7 @@
             <size key="customSize" width="215" height="62"/>
             <connections>
                 <outlet property="nameLabel" destination="hf1-sK-GsW" id="SLY-EK-WeF"/>
+                <outlet property="parentView" destination="juh-bb-L7i" id="QFq-Qz-IFT"/>
                 <outlet property="priceLabel" destination="lU6-Oq-FSe" id="ibf-UJ-aBG"/>
             </connections>
             <point key="canvasLocation" x="244.20289855072465" y="97.098214285714278"/>

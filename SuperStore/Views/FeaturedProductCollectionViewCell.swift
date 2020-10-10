@@ -12,10 +12,22 @@ import Cosmos
 class FeaturedProductCollectionViewCell: UICollectionViewCell {
     var product: ProductModel?
     
+    var loading: Bool = true
+    
     @IBOutlet weak var foodImage: UIImageView!
     @IBOutlet weak var productLabel: UILabel!
     @IBOutlet weak var foodPriceLabel: UILabel!
     @IBOutlet var ratingView: CosmosView!
+    @IBOutlet var parentRatingView: UIView!
+    
+    var loadingViews:[UIView] {
+        return [
+            foodImage,
+            productLabel,
+            foodPriceLabel,
+            parentRatingView
+        ]
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,6 +35,13 @@ class FeaturedProductCollectionViewCell: UICollectionViewCell {
     }
     
     func configureUI(){
+        
+        if loading {
+            startLoading()
+        } else {
+            stopLoading()
+        }
+        
         if product != nil {
             foodImage.downloaded(from: product!.image)
             productLabel.text = product!.name
@@ -32,6 +51,20 @@ class FeaturedProductCollectionViewCell: UICollectionViewCell {
             
             ratingView.rating = Double(product!.avg_rating ?? 0)
             ratingView.text = "\(product!.total_reviews_count ?? 0)"
+        }
+    }
+
+    
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
         }
     }
 
