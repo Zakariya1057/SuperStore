@@ -164,9 +164,13 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
             }
             
             return
+        } else {
+            stopLoading()
         }
         
         let listCount = lists.count
+        
+        print(lists)
         
         for (index, list) in lists.enumerated() {
 
@@ -199,11 +203,8 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
         }
         
         for index in 0...(listStackViews.count - listCount) - 1 {
+            print("Remove: \((listStackViews.count - 1) - index)")
             listStackViews[ (listStackViews.count - 1) - index].isHidden = true
-        }
-        
-        if(!loading){
-            stopLoading()
         }
         
         createListeners()
@@ -224,6 +225,7 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
     
     @objc func listPressed(sender: UIGestureRecognizer){
         if sender.name != nil {
+            print(sender.name!)
             self.delegate?.listSelected(list_id: Int(sender.name!)!)
         }
     }

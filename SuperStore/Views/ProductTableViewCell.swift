@@ -115,9 +115,9 @@ extension ProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Product Selected, Navigate
-        print("Product Selected")
-        self.delegate?.showProduct(product_id: products[indexPath.row].id)
+        if !loading {
+            self.delegate?.showProduct(product_id: products[indexPath.row].id)
+        }
     }
 
 }

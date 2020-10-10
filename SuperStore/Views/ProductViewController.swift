@@ -283,6 +283,7 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         if tableView == similarTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.Cells.ProductCell.CellIdentifier, for: indexPath) as! ProductTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
+            cell.loading = self.loading
             cell.configure(withModel: ProductElement(title: "Products You May Like", delegate: self, scrollDelegate: nil, products: recommended))
             return cell
         } else {

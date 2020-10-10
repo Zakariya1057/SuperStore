@@ -19,15 +19,15 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ec9-Da-0hw">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Hmw-e4-nzf">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tw4-qx-AdQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="5" sectionInsetReference="safeArea" id="gxI-Ia-vUc">
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="15" minimumInteritemSpacing="10" sectionInsetReference="safeArea" id="gxI-Ia-vUc">
                                             <size key="itemSize" width="215" height="55"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -48,7 +48,7 @@
                             <constraint firstItem="Hmw-e4-nzf" firstAttribute="top" secondItem="Ec9-Da-0hw" secondAttribute="top" id="KdO-1C-GyD"/>
                             <constraint firstAttribute="bottom" secondItem="Hmw-e4-nzf" secondAttribute="bottom" id="Ud4-X8-gMU"/>
                             <constraint firstItem="Hmw-e4-nzf" firstAttribute="leading" secondItem="Ec9-Da-0hw" secondAttribute="leading" id="Uz3-Bf-Edm"/>
-                            <constraint firstAttribute="height" constant="120" id="zKs-gM-1Hi"/>
+                            <constraint firstAttribute="height" constant="125" id="zKs-gM-1Hi"/>
                         </constraints>
                     </view>
                 </subviews>
