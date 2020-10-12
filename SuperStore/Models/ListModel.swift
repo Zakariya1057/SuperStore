@@ -11,13 +11,25 @@ import Foundation
 struct ListModel {
     var id: Int
     var name: String
-    var created_at: String
+    var created_at: Date
     var status: ListStatus
     var store_id: Int?
     var user_id: Int
     var total_price: Double
     var old_total_price: Double?
     var categories: [ListCategoryModel]
+    
+    func getRealmObject() -> ListHistory {
+        var list = ListHistory()
+        list.id = self.id
+        list.name = self.name
+        list.created_at = Date()
+        list.status = self.status.rawValue
+        list.total_price = self.total_price
+//        list.categories = []
+        list.old_total_price = self.old_total_price ?? 0
+        return list
+    }
 }
 
 struct ListCategoryModel {
@@ -40,7 +52,7 @@ struct ListItemModel {
     var discount: DiscountModel?
 }
 
-enum ListStatus {
+enum ListStatus: String {
     case completed
     case inProgress
     case notStarted

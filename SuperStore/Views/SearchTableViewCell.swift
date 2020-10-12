@@ -21,8 +21,10 @@ class SearchTableViewCell: UITableViewCell {
     
     var search: SearchModel?
     
+    @IBOutlet var nameView: UIView!
+    
     var loadingViews: [UIView] {
-        return [nameLabel]
+        return [nameView]
     }
     
     override func awakeFromNib() {

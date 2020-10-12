@@ -15,6 +15,8 @@ class ListsTableViewCell: UITableViewCell {
     @IBOutlet weak var createdLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     
+    var loading: Bool = true
+    
     var list: ListModel?
     
     override func awakeFromNib() {
@@ -27,16 +29,25 @@ class ListsTableViewCell: UITableViewCell {
     }
     
     func configureUI(){
+        
+        loading ? startLoading() : stopLoading()
+        
         if list != nil {
             
-            stopLoading()
+//            stopLoading()
             
             let status = list!.status
             
             listNameLabel.text = list!.name
             totalLabel.text = "£\( String(format:"%.2f", list!.total_price))"
-            createdLabel.text = list!.created_at
+           
 
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd MMMM Y"
+            let date = dateFormatter.string(from: list!.created_at)
+            
+            createdLabel.text = date
+            
             if status == .notStarted {
                 statusLabel.textColor =  UIColor(red: 0.44, green: 0.44, blue: 0.47, alpha: 1.00)
                 statusLabel.text = "Not Started"

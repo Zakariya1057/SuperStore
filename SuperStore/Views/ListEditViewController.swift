@@ -14,7 +14,7 @@ class ListEditViewController: UIViewController  {
     
     var list:ListModel?
     
-    var delegate: ListChangedDelegate?
+//    var delegate: ListChangedDelegate?
     var list_index: Int?
     
     @IBOutlet weak var nameField: UITextField!
@@ -42,7 +42,7 @@ class ListEditViewController: UIViewController  {
         alert.addAction(UIAlertAction(title: "Restart", style: .destructive, handler: { (_) in
             self.listHandler.restart(list_id: self.list!.id)
             self.list!.status = .notStarted
-            self.delegate?.updateList(list: self.list!, index: self.list_index!)
+//            self.delegate?.updateList(list: self.list!, index: self.list_index!)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true)
@@ -61,7 +61,7 @@ class ListEditViewController: UIViewController  {
         
         list!.name = nameField.text!
         
-        self.delegate?.updateList(list: list!, index: list_index!)
+//        self.delegate?.updateList(list: list!, index: list_index!)
         
         listHandler.update(list_data: [
             "list_id": String(list!.id),

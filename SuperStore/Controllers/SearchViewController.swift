@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggestionsDelegate {
     
@@ -16,8 +17,10 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
     
     var searchList:[SearchModel] = []
     
-    var history:[SearchModel] = [SearchModel(id: 1, name: "Asda", type: .store), SearchModel(id: 1, name: "Fruit", type: .parentCategory)]
     var suggestions:[SearchModel] = []
+    
+    let realm = try! Realm()
+    lazy var searchHistory: Results<SearchHistory> = { self.realm.objects(SearchHistory.self).filter("searchType = 'history'").sorted(byKeyPath: "usedAt", ascending: false) }()
     
     var searchHandler: SearchHandler = SearchHandler()
     
@@ -37,7 +40,10 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
         
         searchBar.delegate = self
         
-        self.searchList = history
+        populateDefaultSearch()
+        
+        showHistory()
+//        self.searchList = history
         
         searchHandler.suggestionsDelegate = self
        
@@ -56,17 +62,36 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
         if !ignoreResults {
             loading = false
             self.suggestions = suggestions
+            
+            for suggestion in suggestions {
+                addToSearchSuggestions(suggestion: suggestion)
+            }
+            
             showSuggestions()
         }
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         print("Started Editing")
-        showSuggestions()
+        
+        if searchBar.text == "" {
+            showHistory()
+        } else {
+            showSuggestions()
+        }
+        
     }
 
     func showHistory(){
         print("Show History")
+        var history:[SearchModel] = []
+        
+        for item in searchHistory {
+            history.append(SearchModel(id: item.id, name: item.name, type: SearchType(rawValue: item.type)!))
+        }
+        
+        print(self.searchList)
+        
         self.searchList = history
         searchTableView.reloadData()
     }
@@ -105,8 +130,9 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
     
     func search(text: String){
         loading = true
-        searchTableView.reloadData()
+        searchSuggestionsHistory(text)
         searchHandler.requestSuggestions(query: text)
+        searchTableView.reloadData()
     }
     
     func showError(_ error: String){
@@ -140,6 +166,8 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedItem = searchList[indexPath.row]
         
+        addToSearchHistory(search: selectedItem!)
+        
         if selectedItem!.type == .store {
             self.performSegue(withIdentifier: "searchToStoreResults", sender: self)
         } else {
@@ -170,6 +198,78 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
             destinationVC.store_type_id =  selectedItem!.id
             destinationVC.delegate = self.delegate
         }
+    }
+    
+}
+
+extension SearchViewController {
+    
+    func addToSearchHistory(search: SearchModel){
+        
+        if realm.objects(SearchHistory.self).filter("searchType = 'history' AND name = %@", search.name).count == 0 {
+            try! realm.write() {
+               
+                realm.add(search.getSearchObject("history"))
+                
+                let items = realm.objects(SearchHistory.self).filter("searchType = 'history'", search.name).sorted(byKeyPath: "usedAt", ascending: false)
+                print(items.count)
+                
+                if items.count > 5 {
+
+                    print("Removing Older Items From History")
+                    
+                    var removeResults:[SearchHistory] = []
+
+                    for i in 5...(items.count - 1) {
+                        removeResults.append(items[i])
+                    }
+
+                    realm.delete(removeResults)
+                }
+                
+            }
+        } else {
+            print("Duplicate Search History Ignore: \(search.name)")
+        }
+    }
+    
+    func addToSearchSuggestions(suggestion: SearchModel){
+        if realm.objects(SearchHistory.self).filter("searchType = 'suggestion' AND name = %@",suggestion.name).count == 0 {
+            try! realm.write() { // 2
+                print("Adding To Suggestions Table")
+                realm.add(suggestion.getSearchObject("suggestion"))
+            }
+        } else {
+            
+        }
+    }
+    
+    func populateDefaultSearch() {
+      if searchHistory.count == 0 { // 1
+
+        let defaultHistory:[SearchModel] = [SearchModel(id: 1, name: "Asda", type: .store), SearchModel(id: 1, name: "Fruit", type: .parentCategory)]
+
+        for search in defaultHistory {
+            addToSearchHistory(search: search)
+        }
+        
+      }
+        
+    }
+    
+    func searchSuggestionsHistory(_ search: String){
+        let history = realm.objects(SearchHistory.self).filter("searchType = 'suggestion' AND name CONTAINS %@", search)
+        searchList = []
+        
+        for item in history {
+            searchList.append(SearchModel(id: item.id, name: item.name, type: SearchType(rawValue: item.type)!))
+        }
+    
+        if searchList.count > 0 {
+            loading = false
+            searchTableView.reloadData()
+        }
+        
     }
     
 }

@@ -121,6 +121,8 @@
 		2CC1EA2524FACADA000A9BC4 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA2424FACADA000A9BC4 /* ProductDetailsModel.swift */; };
 		2CCE48D425177F9F00AE3BCA /* SearchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */; };
 		2CCE48D825177FE700AE3BCA /* SearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE48D725177FE700AE3BCA /* SearchData.swift */; };
+		2CD5E02F25324AB000E4A01B /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD5E02E25324AB000E4A01B /* SearchHistory.swift */; };
+		2CD5E03325337BE000E4A01B /* ListHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD5E03225337BE000E4A01B /* ListHistory.swift */; };
 		2CDE10ED251D2662001B0479 /* UserHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE10EC251D2662001B0479 /* UserHandler.swift */; };
 		2CE7AB0224D077C700A31782 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7AB0124D077C700A31782 /* SettingsViewController.swift */; };
 		2CF239B525094A7F00D4CE91 /* ListsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B425094A7F00D4CE91 /* ListsHandler.swift */; };
@@ -253,6 +255,8 @@
 		2CC1EA2424FACADA000A9BC4 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
 		2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHandler.swift; sourceTree = "<group>"; };
 		2CCE48D725177FE700AE3BCA /* SearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchData.swift; sourceTree = "<group>"; };
+		2CD5E02E25324AB000E4A01B /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
+		2CD5E03225337BE000E4A01B /* ListHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHistory.swift; sourceTree = "<group>"; };
 		2CDE10EC251D2662001B0479 /* UserHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHandler.swift; sourceTree = "<group>"; };
 		2CE7AB0124D077C700A31782 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2CF239B425094A7F00D4CE91 /* ListsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsHandler.swift; sourceTree = "<group>"; };
@@ -419,6 +423,7 @@
 				2CF239B425094A7F00D4CE91 /* ListsHandler.swift */,
 				2CF239BA25094C8600D4CE91 /* ListsData.swift */,
 				2C266DF624D5DEDA00C66EA5 /* ListModel.swift */,
+				2CD5E03225337BE000E4A01B /* ListHistory.swift */,
 				2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */,
 				2CF239BC2509549100D4CE91 /* ListItemsData.swift */,
 				2C9DD12824FC1EEB00544563 /* PromotionModel.swift */,
@@ -433,6 +438,7 @@
 				2C21C3A724F6F4B200D90B4B /* StoreData.swift */,
 				2C266DF824D5DEF300C66EA5 /* StoreModel.swift */,
 				2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */,
+				2CD5E02E25324AB000E4A01B /* SearchHistory.swift */,
 				2CCE48D725177FE700AE3BCA /* SearchData.swift */,
 				2C266E0224D70C3900C66EA5 /* SearchModel.swift */,
 				2CDE10EC251D2662001B0479 /* UserHandler.swift */,
@@ -655,6 +661,7 @@
 				2C9C1B9124CEEF90001ACA35 /* ListPriceUpdateTableViewCell.swift in Sources */,
 				2C21C3A624F6F36B00D90B4B /* StoreHandler.swift in Sources */,
 				2CC1EA2524FACADA000A9BC4 /* ProductDetailsModel.swift in Sources */,
+				2CD5E02F25324AB000E4A01B /* SearchHistory.swift in Sources */,
 				2CAC05F2252CE24E00561509 /* OfferCollectionViewCell.swift in Sources */,
 				2C1567F024CADB9C00B8DCB5 /* ReviewTableViewCell.swift in Sources */,
 				2C266DFB24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift in Sources */,
@@ -668,6 +675,7 @@
 				2C1567F524CC845600B8DCB5 /* ProductDetailsViewController.swift in Sources */,
 				2CB15C9424D2FB8900461AFE /* ListItemTableViewCell.swift in Sources */,
 				2CA7C779250E547B002FF1B6 /* ListEditViewController.swift in Sources */,
+				2CD5E03325337BE000E4A01B /* ListHistory.swift in Sources */,
 				2C0E93CA250F987700378C97 /* FavouritesData.swift in Sources */,
 				2CAC06102530E26700561509 /* HomeData.swift in Sources */,
 				2C1567EA24CADB6000B8DCB5 /* GroceryTableViewCell.swift in Sources */,

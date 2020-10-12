@@ -90,7 +90,12 @@ struct ListItemsHandler {
                 status = .notStarted
             }
             
-            let list = ListModel(id: list_data.id, name: list_data.name, created_at: list_data.created_at, status: status, store_id: list_data.store_id, user_id: list_data.user_id, total_price: list_data.total_price, old_total_price: list_data.old_total_price, categories: categories)
+            let date_format: DateFormatter = DateFormatter()
+            date_format.dateFormat = "dd MMMM Y"
+
+            var created_date: Date = date_format.date(from: list_data.created_at)!
+            
+            let list = ListModel(id: list_data.id, name: list_data.name, created_at: created_date, status: status, store_id: list_data.store_id, user_id: list_data.user_id, total_price: list_data.total_price, old_total_price: list_data.old_total_price, categories: categories)
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(list: list)

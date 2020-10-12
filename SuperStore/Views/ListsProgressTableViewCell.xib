@@ -42,8 +42,8 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="192" height="27"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping List 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1I-Tc-Htq">
-                                                                                <rect key="frame" x="0.0" y="4" width="192" height="19.5"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                                <rect key="frame" x="0.0" y="4.5" width="192" height="18"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -59,8 +59,8 @@
                                                                         <rect key="frame" x="202" y="0.0" width="50" height="27"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20/20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhS-7O-R5s">
-                                                                                <rect key="frame" x="0.0" y="4.5" width="50" height="18"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="50" height="17"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
@@ -119,8 +119,8 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="192" height="27"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping List 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59r-qE-Vos">
-                                                                                <rect key="frame" x="0.0" y="4" width="192" height="19.5"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                                <rect key="frame" x="0.0" y="4.5" width="192" height="18"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -136,8 +136,8 @@
                                                                         <rect key="frame" x="202" y="0.0" width="50" height="27"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20/20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RW4-Ch-cga">
-                                                                                <rect key="frame" x="0.0" y="4.5" width="50" height="18"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="50" height="17"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
@@ -195,8 +195,8 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="192" height="27"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping List 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXc-ny-Kz6">
-                                                                                <rect key="frame" x="0.0" y="4" width="192" height="19.5"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                                <rect key="frame" x="0.0" y="4.5" width="192" height="18"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -212,8 +212,8 @@
                                                                         <rect key="frame" x="202" y="0.0" width="50" height="27"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20/20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ks8-Gp-5Hk">
-                                                                                <rect key="frame" x="0.0" y="4.5" width="50" height="18"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="50" height="17"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
@@ -271,8 +271,8 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="195" height="27"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping List 4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0g-zz-fYy">
-                                                                                <rect key="frame" x="0.0" y="4" width="195" height="19.5"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                                <rect key="frame" x="0.0" y="4.5" width="195" height="18"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -288,8 +288,8 @@
                                                                         <rect key="frame" x="205" y="0.0" width="50" height="27"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20/20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5li-xR-csM">
-                                                                                <rect key="frame" x="0.0" y="4.5" width="50" height="18"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="50" height="17"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>

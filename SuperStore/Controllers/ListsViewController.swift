@@ -7,27 +7,31 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol NewListDelegate {
     func addNewList(_ list: ListModel)
 }
 
-protocol ListChangedDelegate {
-    func updateList(list: ListModel, index: Int)
-}
+//protocol ListChangedDelegate {
+//    func updateList(list: ListModel, index: Int)
+//}
+//
+//protocol ListStatusChangeDelegate {
+//    func updateListStatus(index: Int, status: ListStatus)
+//    func updatePrice(index: Int, total_price: Double)
+//}
 
-protocol ListStatusChangeDelegate {
-    func updateListStatus(index: Int, status: ListStatus)
-    func updatePrice(index: Int, total_price: Double)
-}
-
-class ListsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource,NewListDelegate, ListDelegate, ListChangedDelegate, ListStatusChangeDelegate {
+class ListsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource,NewListDelegate, ListDelegate {
 
     @IBOutlet weak var listsTableView: UITableView!
     
     var listHandler = ListsHandler()
     
-    var lists:[ListModel] = []
+//    var lists:[ListModel] = []
+    
+    let realm = try! Realm()
+    lazy var lists: Results<ListHistory> = { self.realm.objects(ListHistory.self).sorted(byKeyPath: "created_at", ascending: false)}()
     
     var selected_list: ListModel?
     var selected_index: Int = 0
@@ -39,6 +43,8 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     var loading: Bool = true
     let loadingCell: Int = 1
     
+    var notificationToken: NotificationToken?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,6 +61,23 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         listsTableView.addSubview(refreshControl)
     
+        let results = realm.objects(ListHistory.self)
+
+        // Observe Results Notifications
+        notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+                case .initial:
+                    // Results are now populated and can be accessed without blocking the UI
+                    self?.listsTableView.reloadData()
+                case .update(_, let deletions, let insertions, let modifications):
+                    self?.listsTableView.reloadData()
+                    break
+                case .error(let error):
+                    // An error occurred while opening the Realm file on the background worker thread
+                    fatalError("\(error)")
+            }
+        }
+        
         if delegate != nil {
           self.navigationItem.rightBarButtonItem = nil
         }
@@ -62,7 +85,11 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     }
     
     func contentLoaded(lists: [ListModel]) {
-        self.lists = lists
+        
+//        for list in lists {
+//            addToLists(list: list)
+//        }
+
         loading = false
         listsTableView.reloadData()
         refreshControl.endRefreshing()
@@ -75,8 +102,13 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         refreshControl.endRefreshing()
     }
     
+    deinit {
+        notificationToken?.invalidate()
+    }
+    
     func updateList(list: ListModel, index: Int) {
-        lists[index] = list
+        let listItem = lists[index]
+        listItem.status = list.status.rawValue
         self.listsTableView.reloadData()
     }
 
@@ -90,19 +122,20 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (lists.count == 0 && loading == true) ? loadingCell : lists.count
+        return loading ? loadingCell : lists.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.ListCell.CellIdentifier , for: indexPath) as! ListsTableViewCell
         
-        if lists.indices.contains(indexPath.section) {
-            cell.list = lists[indexPath.row]
-            cell.configureUI()
-            cell.selectionStyle = UITableViewCell.SelectionStyle.none
-        } else {
-            cell.startLoading()
+        if !loading {
+            cell.list = lists[indexPath.row].getListModel()
         }
+        
+        print("Loading: \(loading)")
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        cell.loading = loading
+        cell.configureUI()
         
         return cell
     }
@@ -119,7 +152,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if lists.indices.contains(indexPath.row) {
-            selected_list = lists[indexPath.row]
+            selected_list = lists[indexPath.row].getListModel()
             selected_index = indexPath.row
             
             if delegate != nil {
@@ -135,7 +168,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
             -> UISwipeActionsConfiguration? {
                 
-            selected_list = lists[indexPath.row]
+            selected_list = lists[indexPath.row].getListModel()
             selected_index = indexPath.row
                 
             let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (_, _, completionHandler) in
@@ -164,11 +197,11 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         } else if (segue.identifier == "list_to_items"){
             let destinationVC = segue.destination as! ListViewController
             destinationVC.list_index = selected_index
-            destinationVC.status_delegate = self
+//            destinationVC.status_delegate = self
             destinationVC.list_id = selected_list!.id
         } else if (segue.identifier == "list_to_edit"){
             let destinationVC = segue.destination as! ListEditViewController
-            destinationVC.delegate = self
+//            destinationVC.delegate = self
             destinationVC.list_index = selected_index
             destinationVC.list = selected_list
         }
@@ -176,19 +209,25 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     func addNewList(_ list: ListModel) {
         listHandler.insert(list_data: ["name": list.name, "store_type_id": "1"])
-        self.lists.insert(list,at: 0)
+//        self.lists.insert(list,at: 0)
+//        addToLists(list: list, new: true)
+        
         self.listsTableView.reloadData()
     }
     
     func deleteList(){
         let deleted_id: String  = String(lists[selected_index].id)
-        lists.remove(at: selected_index)
+        
+        try! realm.write() {
+            realm.delete(lists[selected_index])
+        }
+
         listsTableView.deleteRows(at: [ IndexPath(row: selected_index, section: 0)], with: .fade)
         listHandler.delete(list_data: ["list_id": deleted_id])
     }
     
     func updateListStatus(index: Int, status: ListStatus) {
-        lists[index].status = status
+        lists[index].status = status.rawValue
         listsTableView.reloadData()
     }
     
@@ -201,5 +240,17 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         let alert = UIAlertController(title: "Lists Error", message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
+    }
+}
+
+extension ListsViewController {
+    func addToLists(list: ListModel, new:Bool = false){
+        
+        if new || realm.objects(ListHistory.self).filter("id = \(list.id)").count == 0 {
+            try! realm.write() {
+                realm.add(list.getRealmObject())
+            }
+        }
+
     }
 }

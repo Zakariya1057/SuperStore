@@ -34,7 +34,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var delegate:PriceChangeDelegate?
     
-    var status_delegate: ListStatusChangeDelegate?
+//    var status_delegate: ListStatusChangeDelegate?
     
     @IBOutlet weak var editBarItem: UIBarButtonItem!
     
@@ -182,7 +182,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.totalPriceLabel.text = "£" + String(format: "%.2f", price)
         
-        self.status_delegate?.updatePrice(index: list_index, total_price: price)
+//        self.status_delegate?.updatePrice(index: list_index, total_price: price)
         
     }
         
@@ -281,6 +281,7 @@ extension ListViewController {
         
         return cell
     }
+    
 }
 
 extension ListViewController: GroceryDelegate {
@@ -501,7 +502,7 @@ extension ListViewController: GroceryDelegate {
            }
         }
         
-        self.status_delegate?.updateListStatus(index: list_index, status: status)
+//        self.status_delegate?.updateListStatus(index: list_index, status: status)
         
     }
     

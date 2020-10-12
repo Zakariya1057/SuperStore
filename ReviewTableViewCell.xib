@@ -25,11 +25,11 @@
                                 <rect key="frame" x="15" y="10" width="443" height="182"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wlG-AE-0pe">
-                                        <rect key="frame" x="0.0" y="0.0" width="443" height="41"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="443" height="43"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Something else be something to be written here and why?" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ll-19-tOA">
                                                 <rect key="frame" x="0.0" y="0.0" width="443" height="65"/>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -43,7 +43,7 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dj7-c6-wni">
-                                        <rect key="frame" x="0.0" y="43" width="443" height="30"/>
+                                        <rect key="frame" x="0.0" y="45" width="443" height="30"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZSD-Qm-RVQ">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -106,12 +106,12 @@
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="98K-oz-umM">
-                                        <rect key="frame" x="0.0" y="75" width="443" height="107"/>
+                                        <rect key="frame" x="0.0" y="77" width="443" height="105"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGe-To-hnb" userLabel="Description">
                                                 <rect key="frame" x="0.0" y="0.0" width="443" height="127"/>
                                                 <string key="text">Excellent taste and nice and crispy. Beautiful with a cup of tea. As my son put it, "A cup of tea is too wet without one." As you can probably guess he dunks his digestive! Excellent taste and nice and crispy. Beautiful with a cup of tea. As my son put it, "A cup of tea is too wet without one." As you can probably guess he dunks his digestive!</string>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
