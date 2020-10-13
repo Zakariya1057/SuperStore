@@ -69,7 +69,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
                 case .initial:
                     // Results are now populated and can be accessed without blocking the UI
                     self?.listsTableView.reloadData()
-                case .update(_, let deletions, let insertions, let modifications):
+            case .update(_, _, _, _):
                     self?.listsTableView.reloadData()
                     break
                 case .error(let error):
@@ -86,9 +86,9 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     func contentLoaded(lists: [ListModel]) {
         
-//        for list in lists {
-//            addToLists(list: list)
-//        }
+        for list in lists {
+            addUpdateList(list: list)
+        }
 
         loading = false
         listsTableView.reloadData()
@@ -194,6 +194,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         if segue.identifier == "list_to_new_list" {
             let destinationVC = segue.destination as! NewListViewController
             destinationVC.delegate = self
+            destinationVC.list_index = lists.count
         } else if (segue.identifier == "list_to_items"){
             let destinationVC = segue.destination as! ListViewController
             destinationVC.list_index = selected_index
@@ -203,12 +204,12 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
             let destinationVC = segue.destination as! ListEditViewController
 //            destinationVC.delegate = self
             destinationVC.list_index = selected_index
-            destinationVC.list = selected_list
+//            destinationVC.list = selected_list
         }
     }
     
     func addNewList(_ list: ListModel) {
-        listHandler.insert(list_data: ["name": list.name, "store_type_id": "1"])
+        listHandler.insert(list_data: ["name": list.name,"index": String(list.index),"store_type_id": "1"])
 //        self.lists.insert(list,at: 0)
 //        addToLists(list: list, new: true)
         
@@ -217,13 +218,14 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     func deleteList(){
         let deleted_id: String  = String(lists[selected_index].id)
+        let index: String = String(lists[selected_index].index)
         
         try! realm.write() {
             realm.delete(lists[selected_index])
         }
 
         listsTableView.deleteRows(at: [ IndexPath(row: selected_index, section: 0)], with: .fade)
-        listHandler.delete(list_data: ["list_id": deleted_id])
+        listHandler.delete(list_data: ["list_id":deleted_id ,"index": index ])
     }
     
     func updateListStatus(index: Int, status: ListStatus) {
@@ -244,13 +246,23 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
 }
 
 extension ListsViewController {
-    func addToLists(list: ListModel, new:Bool = false){
+    func addUpdateList(list: ListModel){
         
-        if new || realm.objects(ListHistory.self).filter("id = \(list.id)").count == 0 {
-            try! realm.write() {
+        let listItem = realm.objects(ListHistory.self).filter("index = \(list.index)").first
+        
+        try! realm.write() {
+            if listItem == nil {
                 realm.add(list.getRealmObject())
+            } else {
+                listItem!.id = list.id
+                listItem!.name = list.name
+                listItem!.total_price = list.total_price
+                
+                if list.old_total_price != nil {
+                    listItem!.old_total_price = list.old_total_price!
+                }
+                 
             }
         }
-
     }
 }

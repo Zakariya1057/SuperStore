@@ -8,9 +8,18 @@
 
 import UIKit
 import Cosmos
+import RealmSwift
 
 class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDelegate, FavouritesDelegate, ListSelectedDelegate, GroceryDelegate {
 
+    let realm = try! Realm()
+    
+    var product: ProductHistory? {
+        get {
+            return realm.objects(ProductHistory.self).filter("id = \(product_id)").first
+        }
+    }
+    
     @IBOutlet var addButton: UIButton!
     @IBOutlet var stepperStackView: UIStackView!
     
@@ -50,7 +59,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     @IBOutlet weak var parentRatingView: UIView!
     
     @IBOutlet weak var reviewsTableView: UITableView!
-    var product: ProductDetailsModel?
+//    var product: ProductDetailsModel?
     
     var details_type: String = ""
     
@@ -80,6 +89,8 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     var loading: Bool = true
     
+    var notificationToken: NotificationToken?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -108,6 +119,21 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         
         reviewsTableView.register(UINib(nibName: K.Cells.ReviewCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ReviewCell.CellIdentifier)
         
+        let results = realm.objects(ProductHistory.self).filter("id = \(product_id)")
+        notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+                case .initial:
+                    // Results are now populated and can be accessed without blocking the UI
+                    self?.showFavourite()
+            case .update(_, _, _, _):
+                self?.showFavourite()
+                    break
+                case .error(let error):
+                    // An error occurred while opening the Realm file on the background worker thread
+                    fatalError("\(error)")
+            }
+        }
+        
         if delegate == nil {
             noDelegateFound = true
             delegate = self
@@ -120,8 +146,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     }
     
     func contentLoaded(product: ProductDetailsModel) {
-        self.product = product
         
+        addToHistory(product)
+        
+        addToHistory(product)
         loading = false
         stopLoading()
         
@@ -208,7 +236,11 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             return
         }
         
-        product!.favourite = !product!.favourite
+        try! realm.write() {
+            product!.favourite = !product!.favourite
+            product!.updated_at = Date()
+        }
+       
         favouritesHandler.update(product_id: product_id, favourite: product!.favourite)
         showFavourite()
     }
@@ -237,10 +269,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             
             if(details_type == "ingredients"){
                 destinationVC.header_text = "Ingredients"
-                destinationVC.list = product!.ingredients
+                destinationVC.list = product!.getProductModel().ingredients
             } else if(details_type == "description"){
                 destinationVC.header_text = "Description"
-                destinationVC.list = [ product!.description ?? "" ]
+                destinationVC.list = [ product!.getProductModel().description ?? "" ]
             }
             
         } else if segue.identifier == "productToReviews" {
@@ -256,7 +288,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             destinationVC.promotion_id = product!.discount!.id
         } else if segue.identifier == "productToCreateReview" {
             let destinationVC = segue.destination as! ReviewViewController
-            destinationVC.product = product!
+            destinationVC.product = product!.getProductModel()
         }
 
     }
@@ -346,7 +378,7 @@ extension ProductViewController {
             showQuantityView()
         }
         
-        self.delegate?.addToList(product!, cell: nil)
+        self.delegate?.addToList(product!.getProductModel(), cell: nil)
     }
     
     @IBAction func stepperPressed(_ sender: UIStepper) {
@@ -356,11 +388,11 @@ extension ProductViewController {
         
         product!.quantity = Int(quantity)
         quantityStepper.value = quantity
-        delegate?.updateQuantity(product!)
+        delegate?.updateQuantity(product!.getProductModel())
         
         if(quantity == 0){
             showAddButtonView()
-            delegate?.removeFromList(product!)
+//            delegate?.removeFromList(product!)
             
             quantityStepper.value = 1
             stepperLabel.text = "1"
@@ -426,6 +458,31 @@ extension ProductViewController {
     }
     
     func removeFromList(_ product: ProductModel) {
+        
+    }
+    
+}
+
+extension ProductViewController {
+    func addToHistory(_ productItem: ProductDetailsModel){
+    
+        try! realm.write() {
+            if product == nil {
+                let productObject = productItem.getRealmObject()
+                productObject.favourite = true
+                realm.add(productObject)
+            } else {
+                product!.id = productItem.id
+                product!.name = productItem.name
+                
+                if product!.favourite != productItem.favourite {
+                    product!.favourite = productItem.favourite
+                    product!.updated_at = Date()
+                }
+
+            }
+            
+        }
         
     }
     

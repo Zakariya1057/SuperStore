@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ListEditViewController: UIViewController  {
     
     var listHandler = ListsHandler()
     
-    var list:ListModel?
+    let realm = try! Realm()
+    
+    var list: ListHistory? {
+        return realm.objects(ListHistory.self).filter("index = \(list_index!)").first
+    }
+    
+//    var list:ListModel?
     
 //    var delegate: ListChangedDelegate?
     var list_index: Int?
@@ -40,9 +47,19 @@ class ListEditViewController: UIViewController  {
     func confirmRestart(){
         let alert = UIAlertController(title: "Restarting List?", message: "Sure you want to uncheck all items in this list?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Restart", style: .destructive, handler: { (_) in
-            self.listHandler.restart(list_id: self.list!.id)
-            self.list!.status = .notStarted
-//            self.delegate?.updateList(list: self.list!, index: self.list_index!)
+            
+            self.realm.beginWrite()
+            self.list!.restartList()
+            
+            do {
+                print("Saving Changes")
+                try self.realm.commitWrite()
+            } catch {
+                print(error)
+            }
+            
+            self.listHandler.restart(list_index: self.list_index!)
+            
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true)
@@ -59,12 +76,20 @@ class ListEditViewController: UIViewController  {
             return showError(error!)
         }
         
+        self.realm.beginWrite()
         list!.name = nameField.text!
+        
+        do {
+            print("Saving Changes")
+            try self.realm.commitWrite()
+        } catch {
+            print(error)
+        }
         
 //        self.delegate?.updateList(list: list!, index: list_index!)
         
         listHandler.update(list_data: [
-            "list_id": String(list!.id),
+            "index": String(list!.index),
             "name":nameField.text!,
             "store_type_id": "1"
         ])
@@ -77,5 +102,6 @@ class ListEditViewController: UIViewController  {
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
+    
     
 }

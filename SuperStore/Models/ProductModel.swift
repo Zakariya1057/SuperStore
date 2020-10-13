@@ -43,6 +43,27 @@ class ProductModel {
         self.parent_category_name = parent_category_name
         self.discount = discount
     }
+    
+    func getRealmObject() -> ProductHistory {
+        let product = ProductHistory()
+        product.id = self.id
+        product.name = self.name
+        product.image = self.image
+        product.product_description = self.description
+        product.quantity = self.quantity
+        product.weight = self.weight
+        product.price = self.price
+        product.location = self.location
+        product.avg_rating = self.avg_rating ?? 0
+        product.total_reviews_count = self.total_reviews_count ?? 0
+        
+        product.parent_category_id = self.parent_category_id ?? 0
+        product.parent_category_name = self.parent_category_name
+        
+        product.discount = self.discount?.getRealmObject()
+    
+        return product
+    }
 }
 
 class DiscountModel {
@@ -58,5 +79,16 @@ class DiscountModel {
         self.forQuantity = forQuantity
         self.name = name
         self.id = id
+    }
+    
+    func getRealmObject() -> DiscountHistory {
+        let discount = DiscountHistory()
+        discount.id = self.id
+        discount.name = self.name
+        discount.quantity = self.quantity
+        discount.forQuantity = self.forQuantity ?? 0
+        discount.price = self.price ?? 0
+        
+        return discount
     }
 }

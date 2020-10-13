@@ -1,5 +1,4 @@
 //
-//  Choose your custom row height     } ListViewController.swift
 //  SuperStore
 //
 //  Created by Zakariya Mohummed on 30/07/2020.
@@ -7,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol PriceChangeDelegate {
     func productChanged(product: ListItemModel)
@@ -32,7 +32,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var list_index: Int = 0
     
+    let realm = try! Realm()
+    
     var delegate:PriceChangeDelegate?
+    
+    var listItem: ListHistory? {
+        return realm.objects(ListHistory.self).filter("index = \(list_index)").first
+    }
+    
+    var total_price: Double = 0
     
 //    var status_delegate: ListStatusChangeDelegate?
     
@@ -70,21 +78,26 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         showTotalPrice()
         
         listHandler.delegate = self
-        listHandler.request(list_id:list_id)
+        listHandler.request(list_index:list_index)
+        
+        loadListInfo()
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
-         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
-         listTableView.addSubview(refreshControl) // not required when using UITableViewController
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        listTableView.addSubview(refreshControl) // not required when using UITableViewController
+        
     }
     
 
     func contentLoaded(list: ListModel) {
         self.list = list
         self.title = list.name
-        loading = false
+        self.list_id = list.id
+
         showTotalPrice()
-        listTableView.reloadData()
-        refreshControl.endRefreshing()
+        updateListInfo()
+        
+        stopLoading()
     }
     
     func errorHandler(_ message: String) {
@@ -95,7 +108,13 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func refresh(_ sender: AnyObject) {
-        listHandler.request(list_id:list_id)
+        listHandler.request(list_index:list_index)
+    }
+    
+    func stopLoading(){
+        loading = false
+        listTableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     
@@ -181,7 +200,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         self.totalPriceLabel.text = "£" + String(format: "%.2f", price)
-        
+        self.total_price = price
 //        self.status_delegate?.updatePrice(index: list_index, total_price: price)
         
     }
@@ -200,6 +219,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         showTotalPrice()
         productUpdate(product: product)
+        updateListInfo()
     }
     
     func showError(_ error: String){
@@ -365,6 +385,7 @@ extension ListViewController: GroceryDelegate {
         listHandler.delete(list_id: list_id, list_data: ["product_id": String(product.product_id)])
         
         showTotalPrice()
+        updateListInfo()
     }
     
     func reload(){
@@ -400,6 +421,7 @@ extension ListViewController: GroceryDelegate {
         }
         
         showTotalPrice()
+        updateListInfo()
     }
     
     func productAdded(product: ProductModel,parent_category_id: Int,parent_category_name: String) {
@@ -442,6 +464,7 @@ extension ListViewController: GroceryDelegate {
         }
         
         showTotalPrice()
+        updateListInfo()
     }
     
     
@@ -502,8 +525,45 @@ extension ListViewController: GroceryDelegate {
            }
         }
         
+        list?.status = status
+        
+        updateListInfo()
+        
 //        self.status_delegate?.updateListStatus(index: list_index, status: status)
         
+    }
+    
+    func updateListInfo(){
+        
+        realm.beginWrite()
+        
+        listItem!.status = list!.status.rawValue
+        listItem!.total_price = total_price
+        
+        listItem!.categories.removeAll()
+        
+        for category in list?.categories ?? [] {
+            listItem!.categories.append(category.getRealmObject())
+        }
+        
+        do {
+            print("Saving Changes")
+            try realm.commitWrite()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func loadListInfo(){
+        self.list = listItem?.getListModel()
+        
+        if (self.list != nil) {
+            self.title = list!.name
+            self.list_id = list!.id
+
+            stopLoading()
+        }
+
     }
     
 }

@@ -7,12 +7,14 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct ListModel {
     var id: Int
     var name: String
     var created_at: Date
     var status: ListStatus
+    var index: Int
     var store_id: Int?
     var user_id: Int
     var total_price: Double
@@ -20,9 +22,10 @@ struct ListModel {
     var categories: [ListCategoryModel]
     
     func getRealmObject() -> ListHistory {
-        var list = ListHistory()
+        let list = ListHistory()
         list.id = self.id
         list.name = self.name
+        list.index = self.index
         list.created_at = Date()
         list.status = self.status.rawValue
         list.total_price = self.total_price
@@ -37,6 +40,23 @@ struct ListCategoryModel {
     var name: String
     var aisle_name: String?
     var items: [ListItemModel]
+    
+    func getRealmObject() -> ListCategoryHistory {
+        let category = ListCategoryHistory()
+        
+        category.id = self.id
+        category.name = self.name
+        
+        let items = List<ListItemHistory>()
+
+        for item in self.items {
+            items.append(item.getRealmObject())
+        }
+        
+        category.items = items
+        
+        return category
+    }
 }
 
 struct ListItemModel {
@@ -50,6 +70,21 @@ struct ListItemModel {
     var ticked_off: Bool
     var weight: String?
     var discount: DiscountModel?
+    
+    func getRealmObject() -> ListItemHistory {
+        let list = ListItemHistory()
+        list.id = self.id
+        list.name = self.name
+        list.price = self.price
+        list.total_price = self.total_price
+        list.product_id = self.product_id
+        list.quantity = self.quantity
+        list.image = self.image
+        list.ticked_off = self.ticked_off
+        list.weight = self.weight ?? ""
+        list.discount = self.discount?.getRealmObject()
+        return list
+    }
 }
 
 enum ListStatus: String {

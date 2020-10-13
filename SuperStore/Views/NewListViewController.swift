@@ -19,6 +19,8 @@ class NewListViewController: UIViewController {
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
+    var list_index: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -40,12 +42,13 @@ class NewListViewController: UIViewController {
 //
 //        let created_at = formatter.string(from: date)
         
-        let list = ListModel(id: 1, name: nameField.text!, created_at: Date(), status: .notStarted, store_id: 1, user_id: 1, total_price: 0, categories: [])
+        let list = ListModel(id: 1, name: nameField.text!, created_at: Date(), status: .notStarted, index: list_index!, store_id: 1, user_id: 1, total_price: 0, categories: [])
             
         try! realm.write() {
             realm.add(list.getRealmObject())
-            print("Added To REalm")
         }
+        
+        self.delegate?.addNewList(list)
         
     }
 

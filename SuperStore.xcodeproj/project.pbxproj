@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1C1BE4AD8045223682632323 /* Pods_SuperStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6527B7848ED54283EE5DD9 /* Pods_SuperStore.framework */; };
+		2C0D44792534DD090046E2B0 /* DiscountHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D44782534DD090046E2B0 /* DiscountHistory.swift */; };
+		2C0D447F2535B2390046E2B0 /* ProductHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D447E2535B2390046E2B0 /* ProductHistory.swift */; };
+		2C0D44842535B33A0046E2B0 /* ReviewHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */; };
 		2C0E93C8250F975D00378C97 /* FavouritesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E93C7250F975D00378C97 /* FavouritesHandler.swift */; };
 		2C0E93CA250F987700378C97 /* FavouritesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E93C9250F987700378C97 /* FavouritesData.swift */; };
 		2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */; };
@@ -134,6 +137,9 @@
 
 /* Begin PBXFileReference section */
 		2A6527B7848ED54283EE5DD9 /* Pods_SuperStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuperStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C0D44782534DD090046E2B0 /* DiscountHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountHistory.swift; sourceTree = "<group>"; };
+		2C0D447E2535B2390046E2B0 /* ProductHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHistory.swift; sourceTree = "<group>"; };
+		2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHistory.swift; sourceTree = "<group>"; };
 		2C0E93C7250F975D00378C97 /* FavouritesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesHandler.swift; sourceTree = "<group>"; };
 		2C0E93C9250F987700378C97 /* FavouritesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesData.swift; sourceTree = "<group>"; };
 		2C1567B624C77FD800B8DCB5 /* SuperStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -428,12 +434,15 @@
 				2CF239BC2509549100D4CE91 /* ListItemsData.swift */,
 				2C9DD12824FC1EEB00544563 /* PromotionModel.swift */,
 				2C266DF024D5A6C900C66EA5 /* ProductModel.swift */,
+				2C0D447E2535B2390046E2B0 /* ProductHistory.swift */,
+				2C0D44782534DD090046E2B0 /* DiscountHistory.swift */,
 				2C266DF224D5A6EA00C66EA5 /* ListProductModel.swift */,
 				2C0E93C7250F975D00378C97 /* FavouritesHandler.swift */,
 				2C0E93C9250F987700378C97 /* FavouritesData.swift */,
 				2C9DD13024FD022800544563 /* ReviewsHandler.swift */,
 				2CC1EA2224FAC4B9000A9BC4 /* ReviewData.swift */,
 				2CC1EA2024FAC46A000A9BC4 /* ReviewModel.swift */,
+				2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */,
 				2C21C3A524F6F36B00D90B4B /* StoreHandler.swift */,
 				2C21C3A724F6F4B200D90B4B /* StoreData.swift */,
 				2C266DF824D5DEF300C66EA5 /* StoreModel.swift */,
@@ -629,6 +638,7 @@
 				2C21C3AC24F8186A00D90B4B /* GroceryCategoriesData.swift in Sources */,
 				2CB3EDAB25054D3D000E7C7A /* PromotionViewController.swift in Sources */,
 				2C9CEED2250678590049E93D /* SceneDelegate.swift in Sources */,
+				2C0D447F2535B2390046E2B0 /* ProductHistory.swift in Sources */,
 				2CDE10ED251D2662001B0479 /* UserHandler.swift in Sources */,
 				2C5B5C6E24D085780095C920 /* ResultsViewController.swift in Sources */,
 				2C0E93C8250F975D00378C97 /* FavouritesHandler.swift in Sources */,
@@ -641,6 +651,7 @@
 				2CB15C9924D36E7E00461AFE /* StoreSelectViewController.swift in Sources */,
 				2C1567E524CAD08300B8DCB5 /* ReviewViewController.swift in Sources */,
 				2CB15C7D24D1A48E00461AFE /* RefineViewController.swift in Sources */,
+				2C0D44842535B33A0046E2B0 /* ReviewHistory.swift in Sources */,
 				2C9C1B8124CDD794001ACA35 /* ProductTableViewCell.swift in Sources */,
 				2C1567D724C8B36200B8DCB5 /* ListsViewController.swift in Sources */,
 				2CAC06132530E41700561509 /* HomeModel.swift in Sources */,
@@ -717,6 +728,7 @@
 				2CAB6A3B251F932D00774B89 /* ErrorData.swift in Sources */,
 				2C266DF124D5A6C900C66EA5 /* ProductModel.swift in Sources */,
 				2CAC060C2530E25600561509 /* HomeHandler.swift in Sources */,
+				2C0D44792534DD090046E2B0 /* DiscountHistory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
