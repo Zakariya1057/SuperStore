@@ -22,8 +22,10 @@ protocol NewListDelegate {
 //    func updatePrice(index: Int, total_price: Double)
 //}
 
-class ListsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource,NewListDelegate, ListDelegate {
+class ListsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource,NewListDelegate, ListDelegate, UISearchBarDelegate {
 
+    @IBOutlet var searchBar: UISearchBar!
+    
     @IBOutlet weak var listsTableView: UITableView!
     
     var listHandler = ListsHandler()
@@ -31,8 +33,10 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
 //    var lists:[ListModel] = []
     
     let realm = try! Realm()
-    lazy var lists: Results<ListHistory> = { self.realm.objects(ListHistory.self).sorted(byKeyPath: "created_at", ascending: false)}()
-    
+    lazy var lists: Results<ListHistory> = {
+        return self.realm.objects(ListHistory.self).sorted(byKeyPath: "created_at", ascending: false)
+    }()
+
     var selected_list: ListModel?
     var selected_index: Int = 0
     
@@ -45,14 +49,17 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     var notificationToken: NotificationToken?
 
+    var searchText: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.delegate = self
         
         listsTableView.register(UINib(nibName: K.Cells.ListCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ListCell.CellIdentifier)
         
         listsTableView.delegate = self
         listsTableView.dataSource = self
-//        listsTableView.rowHeight = 70
         
         listHandler.delegate = self
         listHandler.request()
@@ -82,6 +89,11 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
           self.navigationItem.rightBarButtonItem = nil
         }
         
+        if lists.count > 0{
+            loading = false
+            listsTableView.reloadData()
+        }
+        
     }
     
     func contentLoaded(lists: [ListModel]) {
@@ -106,6 +118,11 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         notificationToken?.invalidate()
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchText = searchText
+        listsTableView.reloadData()
+    }
+    
     func updateList(list: ListModel, index: Int) {
         let listItem = lists[index]
         listItem.status = list.status.rawValue
@@ -122,17 +139,26 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? loadingCell : lists.count
+        if searchText != "" {
+            return search().count
+        } else {
+            return loading ? loadingCell : lists.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.ListCell.CellIdentifier , for: indexPath) as! ListsTableViewCell
         
         if !loading {
-            cell.list = lists[indexPath.row].getListModel()
+            if searchText != "" {
+                print("Filter Search")
+                cell.list = search()[indexPath.row].getListModel()
+            } else {
+                print("Normal Results")
+                cell.list = lists[indexPath.row].getListModel()
+            }
         }
         
-        print("Loading: \(loading)")
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         cell.loading = loading
         cell.configureUI()
@@ -152,7 +178,13 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if lists.indices.contains(indexPath.row) {
-            selected_list = lists[indexPath.row].getListModel()
+            
+            if searchText != "" {
+                selected_list = search()[indexPath.row].getListModel()
+            } else {
+                selected_list = lists[indexPath.row].getListModel()
+            }
+            
             selected_index = indexPath.row
             
             if delegate != nil {
@@ -168,7 +200,12 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
             -> UISwipeActionsConfiguration? {
                 
-            selected_list = lists[indexPath.row].getListModel()
+            if searchText != "" {
+                selected_list = search()[indexPath.row].getListModel()
+            } else {
+                selected_list = lists[indexPath.row].getListModel()
+            }
+        
             selected_index = indexPath.row
                 
             let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (_, _, completionHandler) in
@@ -242,6 +279,10 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         let alert = UIAlertController(title: "Lists Error", message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
+    }
+    
+    func search() -> Results<ListHistory> {
+        return self.realm.objects(ListHistory.self).filter("name CONTAINS[c] %@", searchText).sorted(byKeyPath: "created_at", ascending: false)
     }
 }
 

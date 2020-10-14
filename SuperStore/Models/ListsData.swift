@@ -14,7 +14,6 @@ struct ListsDataResponse: Decodable {
 
 struct ListData: Decodable {
     var id: Int
-    var created_at: String
     var index: Int
     var name: String
     var status: String
@@ -23,6 +22,8 @@ struct ListData: Decodable {
     var total_price: Double
     var old_total_price: Double?
     var categories: [ListCategoryData]?
+    var updated_at: String
+    var created_at: String
 }
 
 struct ListCategoryData:Decodable {
@@ -47,10 +48,6 @@ struct ListItemData: Decodable {
 }
 
 struct ListProgressData: Decodable {
-//    "id": 3,
-//    "name": "Second Shopping List",
-//    "total_items": 2,
-//    "ticked_off_items": "0"
     var id: Int
     var name: String
     var total_items: Int

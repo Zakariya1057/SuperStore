@@ -40,12 +40,14 @@ struct ListCategoryModel {
     var name: String
     var aisle_name: String?
     var items: [ListItemModel]
+    var list_id: Int
     
     func getRealmObject() -> ListCategoryHistory {
         let category = ListCategoryHistory()
         
         category.id = self.id
         category.name = self.name
+        category.list_id = self.list_id
         
         let items = List<ListItemHistory>()
 
@@ -70,6 +72,7 @@ struct ListItemModel {
     var ticked_off: Bool
     var weight: String?
     var discount: DiscountModel?
+    var list_id: Int
     
     func getRealmObject() -> ListItemHistory {
         let list = ListItemHistory()
@@ -83,6 +86,7 @@ struct ListItemModel {
         list.ticked_off = self.ticked_off
         list.weight = self.weight ?? ""
         list.discount = self.discount?.getRealmObject()
+        list.list_id = self.list_id
         return list
     }
 }

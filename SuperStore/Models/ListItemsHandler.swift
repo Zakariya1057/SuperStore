@@ -73,10 +73,10 @@ struct ListItemsHandler {
                         discount = DiscountModel(id: item.discount!.id, name: item.discount!.name, quantity: item.discount!.quantity, price: item.discount!.price, forQuantity: item.discount!.for_quantity)
                     }
                     
-                    items.append(ListItemModel(id: item.id, name: item.name, total_price: item.total_price, price: item.price, product_id: item.product_id, quantity: item.quantity, image: item.large_image ?? "", ticked_off: item.ticked_off, weight: item.weight ?? "",discount: discount))
+                    items.append(ListItemModel(id: item.id, name: item.name, total_price: item.total_price, price: item.price, product_id: item.product_id, quantity: item.quantity, image: item.large_image ?? "", ticked_off: item.ticked_off, weight: item.weight ?? "",discount: discount, list_id: list_data.id))
                 }
                 
-                categories.append(ListCategoryModel(id: category.id, name: category.name, aisle_name: category.aisle_name, items: items))
+                categories.append(ListCategoryModel(id: category.id, name: category.name, aisle_name: category.aisle_name, items: items, list_id: list_data.id))
             }
             
             let list_status:String = list_data.status.lowercased()

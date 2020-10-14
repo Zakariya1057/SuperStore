@@ -8,15 +8,37 @@
 
 import UIKit
 import Cosmos
+import RealmSwift
 
 class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDelegate, UITextViewDelegate {
 
     @IBOutlet weak var reviewTextView: UITextView!
     
     @IBOutlet weak var imageView: UIImageView!
-    var product: ProductDetailsModel?
-    var review: ReviewModel?
+//    var product: ProductDetailsModel?
     
+    var product_id: Int?
+    
+    var product: ProductHistory? {
+        get {
+            return realm.objects(ProductHistory.self).filter("id = \(product_id!)").first
+        }
+    }
+    
+    @IBOutlet var deleteButton: UIButton!
+    var userSession = UserSession()
+    
+    var user_id: Int {
+        return userSession.getUserDetails()!.id
+    }
+    
+    let realm = try! Realm()
+    
+    var review: ReviewHistory? {
+        get {
+            return realm.objects(ReviewHistory.self).filter("product_id = \(product!.id) AND user_id = \(user_id)").first
+        }
+    }
 
     @IBOutlet weak var reviewTitleView: UITextField!
     @IBOutlet weak var nameLabel: UILabel!
@@ -51,13 +73,17 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         
         nameLabel.text = product!.name
         imageView.downloaded(from: product!.image)
+        
+        if review != nil {
+            configureUI()
+        }
     }
     
     func contentLoaded(reviews: [ReviewModel]) {
         stopLoading()
         
         if reviews.count > 0 {
-            self.review = reviews[0]
+            addToHistory(reviews[0])
             configureUI()
         }
         
@@ -93,10 +119,10 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     }
     
     func configureUI(){
-        self.navigationItem.rightBarButtonItem?.isEnabled = true
         reviewTitleView.text = review!.title
         reviewTextView.text = review!.text
         ratingView.rating = Double(review!.rating)
+        deleteButton.alpha = 1
     }
     
     override func didReceiveMemoryWarning() {
@@ -123,7 +149,7 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         requestSent = true
         
         startLoading()
-        
+    
         reviewHandler.create(product_id: product!.id, review_data: [
             "rating": rating,
             "title": title,
@@ -141,6 +167,11 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
             self.requestSent = true
+            
+            try! self.realm.write() {
+                self.realm.delete(self.review!)
+            }
+            
             self.reviewHandler.delete(product_id: self.product!.id)
         }))
         
@@ -165,6 +196,29 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         spinner.willMove(toParent: nil)
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
+    }
+    
+}
+
+extension ReviewViewController {
+    func addToHistory(_ productReview: ReviewModel){
+    
+        let reviewItem = realm.objects(ReviewHistory.self).filter("product_id = \(product!.id) AND user_id = \(productReview.user_id)").first
+        print("Adding To History")
+        
+        try! realm.write() {
+            if reviewItem == nil {
+                print("Add To Item")
+                product!.reviews.append(productReview.getRealmObject())
+            } else {
+                reviewItem!.title = productReview.title
+                reviewItem!.rating = productReview.rating
+                reviewItem!.text = productReview.text
+                reviewItem!.updated_at = Date()
+            }
+            
+        }
+        
     }
     
 }

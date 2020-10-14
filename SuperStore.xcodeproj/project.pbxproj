@@ -11,6 +11,8 @@
 		2C0D44792534DD090046E2B0 /* DiscountHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D44782534DD090046E2B0 /* DiscountHistory.swift */; };
 		2C0D447F2535B2390046E2B0 /* ProductHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D447E2535B2390046E2B0 /* ProductHistory.swift */; };
 		2C0D44842535B33A0046E2B0 /* ReviewHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */; };
+		2C0D4487253601270046E2B0 /* UserHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D4486253601270046E2B0 /* UserHistory.swift */; };
+		2C0D448A253602810046E2B0 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D4489253602810046E2B0 /* UserModel.swift */; };
 		2C0E93C8250F975D00378C97 /* FavouritesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E93C7250F975D00378C97 /* FavouritesHandler.swift */; };
 		2C0E93CA250F987700378C97 /* FavouritesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E93C9250F987700378C97 /* FavouritesData.swift */; };
 		2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */; };
@@ -140,6 +142,8 @@
 		2C0D44782534DD090046E2B0 /* DiscountHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountHistory.swift; sourceTree = "<group>"; };
 		2C0D447E2535B2390046E2B0 /* ProductHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHistory.swift; sourceTree = "<group>"; };
 		2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHistory.swift; sourceTree = "<group>"; };
+		2C0D4486253601270046E2B0 /* UserHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistory.swift; sourceTree = "<group>"; };
+		2C0D4489253602810046E2B0 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2C0E93C7250F975D00378C97 /* FavouritesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesHandler.swift; sourceTree = "<group>"; };
 		2C0E93C9250F987700378C97 /* FavouritesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesData.swift; sourceTree = "<group>"; };
 		2C1567B624C77FD800B8DCB5 /* SuperStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -451,6 +455,8 @@
 				2CCE48D725177FE700AE3BCA /* SearchData.swift */,
 				2C266E0224D70C3900C66EA5 /* SearchModel.swift */,
 				2CDE10EC251D2662001B0479 /* UserHandler.swift */,
+				2C0D4486253601270046E2B0 /* UserHistory.swift */,
+				2C0D4489253602810046E2B0 /* UserModel.swift */,
 				2CAB6A3D251F958500774B89 /* UserData.swift */,
 				2CAB6A3A251F932D00774B89 /* ErrorData.swift */,
 				2C85FEAA251F9D5900CECBD5 /* UserValidation.swift */,
@@ -656,6 +662,7 @@
 				2C1567D724C8B36200B8DCB5 /* ListsViewController.swift in Sources */,
 				2CAC06132530E41700561509 /* HomeModel.swift in Sources */,
 				2C1567F324CC830B00B8DCB5 /* ProductViewController.swift in Sources */,
+				2C0D4487253601270046E2B0 /* UserHistory.swift in Sources */,
 				2CB15C7124D18F4100461AFE /* SearchStoresTableViewController.swift in Sources */,
 				2C266E0324D70C3900C66EA5 /* SearchModel.swift in Sources */,
 				2C6F621E25134F9B00179C2B /* RegisterViewController.swift in Sources */,
@@ -704,6 +711,7 @@
 				2CB15C9724D2FCD400461AFE /* ListViewController.swift in Sources */,
 				2C6F6220251357D100179C2B /* ForgotPasswordViewController.swift in Sources */,
 				2C9C1B7A24CCD07F001ACA35 /* ProductCollectionViewCell.swift in Sources */,
+				2C0D448A253602810046E2B0 /* UserModel.swift in Sources */,
 				2CB3EDA325040E92000E7C7A /* ListItemViewController.swift in Sources */,
 				2C21C3B624FA844400D90B4B /* GroceryProductsHandler.swift in Sources */,
 				2C266E0124D702BD00C66EA5 /* ChangePasswordViewController.swift in Sources */,

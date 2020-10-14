@@ -47,6 +47,7 @@ class ListCategoryHistory:Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
     @objc dynamic var aisle_name: String = ""
+    @objc dynamic var list_id: Int = 1
     var items = List<ListItemHistory>()
     
     func getCategoryModel() -> ListCategoryModel {
@@ -56,7 +57,7 @@ class ListCategoryHistory:Object {
             listItems.append(item.getItemModel())
         }
         
-        return ListCategoryModel(id: self.id, name: self.name, aisle_name: self.aisle_name, items: listItems)
+        return ListCategoryModel(id: self.id, name: self.name, aisle_name: self.aisle_name, items: listItems, list_id: list_id)
     }
 }
 
@@ -71,8 +72,9 @@ class ListItemHistory: Object {
     @objc dynamic var ticked_off: Bool = false
     @objc dynamic var weight: String = ""
     @objc dynamic var discount: DiscountHistory? = nil
+    @objc dynamic var list_id: Int = 1
     
     func getItemModel() -> ListItemModel {
-        return ListItemModel(id: self.id, name: self.name, total_price: self.total_price, price: self.price, product_id: self.product_id, quantity: self.quantity, image: self.image, ticked_off: self.ticked_off, weight: self.weight, discount: self.discount?.getDiscountModel())
+        return ListItemModel(id: self.id, name: self.name, total_price: self.total_price, price: self.price, product_id: self.product_id, quantity: self.quantity, image: self.image, ticked_off: self.ticked_off, weight: self.weight, discount: self.discount?.getDiscountModel(), list_id: self.list_id)
     }
 }

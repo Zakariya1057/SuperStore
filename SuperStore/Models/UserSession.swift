@@ -19,7 +19,7 @@ struct UserSession {
         UserDefaults.standard.removeObject(forKey: "userSettings")
     }
     
-    func setLoggedIn(_ userData:UserData){
+    func setLoggedIn(_ userData:UserHistory){
         userDefaults.set(try? PropertyListEncoder().encode(userData), forKey: "userSettings")
     }
     
@@ -28,13 +28,13 @@ struct UserSession {
         return details?.token
     }
     
-    func getUserDetails() -> UserData? {
+    func getUserDetails() -> UserHistory? {
         guard let userSettings = userDefaults.object(forKey: "userSettings") as? Data else {
             return nil
         }
         
         // Use PropertyListDecoder to convert Data into Player
-        guard let details = try? PropertyListDecoder().decode(UserData.self, from: userSettings) else {
+        guard let details = try? PropertyListDecoder().decode(UserHistory.self, from: userSettings) else {
             return nil
         }
         

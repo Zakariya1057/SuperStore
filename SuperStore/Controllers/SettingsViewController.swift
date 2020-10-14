@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol UserDetailsChangedDelegate {
-    func updateUserDetails(userDetails: UserData)
-}
+//protocol UserDetailsChangedDelegate {
+//    func updateUserDetails(userDetails: UserData)
+//}
 
-class SettingsViewController: UIViewController, UserDetailsChangedDelegate {
+class SettingsViewController: UIViewController  {
     
     @IBOutlet weak var usernameStackView: UIStackView!
     
@@ -26,7 +26,7 @@ class SettingsViewController: UIViewController, UserDetailsChangedDelegate {
     var fieldName:String = ""
     var fieldValue:String = ""
     
-    var userDetails: UserData?
+    var userDetails: UserHistory?
     
     let userHandler = UserHandler()
     var userSession:UserSession {
@@ -82,7 +82,7 @@ class SettingsViewController: UIViewController, UserDetailsChangedDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "settingsToSettingChange" {
             let destinationVC = segue.destination as! SettingsChangeViewController
-            destinationVC.delegate = self
+//            destinationVC.delegate = self
             destinationVC.userDetails = userDetails
             destinationVC.inputValue = fieldValue
             destinationVC.headerName = fieldName
@@ -99,9 +99,9 @@ class SettingsViewController: UIViewController, UserDetailsChangedDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func updateUserDetails(userDetails: UserData) {
-        self.userDetails = userDetails
-        userSession.setLoggedIn(userDetails)
-        showUserDetails()
-    }
+//    func updateUserDetails(userDetails: UserHistory) {
+//        self.userDetails = userDetails
+//        userSession.setLoggedIn(userDetails)
+//        showUserDetails()
+//    }
 }

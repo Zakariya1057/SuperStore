@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SearchResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SearchResultsDelegate, QuanityChangedDelegate, ListSelectedDelegate, GroceryDelegate, RefineSelectedDelegate {
+    
+    let realm = try! Realm()
     
     @IBOutlet weak var resultsTableView: UITableView!
     
@@ -208,6 +211,31 @@ extension SearchResultsViewController {
             "quantity": String(product.quantity),
             "ticked_off": "false"
         ]
+        
+        try! realm.write() {
+            var list = realm.objects(ListItemHistory.self).filter("list_id = \(selected_list_id!) AND product_id = \(product.id)").first
+            
+            if list == nil {
+                let listItem = ListItemHistory()
+                listItem.name = product.name
+                listItem.image = product.image
+                listItem.price = product.price
+                listItem.discount = product.discount?.getRealmObject()
+                listItem.list_id = selected_list_id!
+                listItem.quantity = 1
+                
+                realm.add(listItem)
+                
+                list = listItem
+            }
+            
+            if product.quantity != 0 {
+                list!.quantity = product.quantity
+            } else {
+                realm.delete(list!)
+            }
+            
+        }
         
         listHandler.update(list_id:selected_list_id!, list_data: data)
         

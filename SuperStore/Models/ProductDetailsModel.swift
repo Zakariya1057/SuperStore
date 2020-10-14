@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class ProductDetailsModel: ProductModel {
     
@@ -37,6 +38,25 @@ class ProductDetailsModel: ProductModel {
         self.favourite = favourite
         self.ingredients = ingredients
         self.recommended = recommended
+    }
+    
+    override func getRealmObject() -> ProductHistory {
+        let product = super.getRealmObject()
+        let recommendedProducts = List<ProductHistory>()
+        var reviewsList =  List<ReviewHistory>()
+        
+        for product in self.recommended {
+            recommendedProducts.append(product.getRealmObject())
+        }
+        
+        for review in self.reviews {
+            reviewsList.append(review.getRealmObject())
+        }
+
+        product.reviews = reviewsList
+        product.recommended = recommendedProducts
+        
+        return product
     }
 
 }

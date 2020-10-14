@@ -54,15 +54,15 @@ class ProductHistory: Object {
         
         return ProductDetailsModel(
             id: self.id, name: self.name, image: self.image,
-            description: self.description, quantity: self.quantity,
+            description: self.product_description, quantity: self.quantity,
             price: self.price, location: self.location,
             avg_rating: self.avg_rating, total_reviews_count: self.total_reviews_count,
             discount: self.discount?.getDiscountModel(), storage: self.storage,
             weight: self.weight, parent_category_id: self.parent_category_id,
             parent_category_name: self.parent_category_name,
             dietary_info: self.dietary_info, allergen_info: self.allergen_info,
-            brand: self.brand, reviews: [], favourite: self.favourite,
-            ingredients:self.ingredients.map { "\($0)"} , recommended: []
+            brand: self.brand, reviews: self.reviews.map {$0.getReviewModel()} , favourite: self.favourite,
+            ingredients:self.ingredients.map { "\($0)"} , recommended: self.recommended.map {$0.getProductModel()}
         )
     }
 }

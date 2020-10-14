@@ -1,18 +1,14 @@
 //
-//  UserData.swift
+//  UserModel.swift
 //  SuperStore
 //
-//  Created by Zakariya Mohummed on 26/09/2020.
+//  Created by Zakariya Mohummed on 13/10/2020.
 //  Copyright © 2020 Zakariya Mohummed. All rights reserved.
 //
 
 import Foundation
 
-struct UserLoginDataResponse:Decodable {
-    var data: UserData
-}
-
-struct UserData: Decodable {
+struct UserModel: Codable {
     var id: Int
     var name: String
     var token: String

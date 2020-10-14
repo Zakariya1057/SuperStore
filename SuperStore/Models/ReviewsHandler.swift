@@ -37,7 +37,7 @@ struct ReviewsHandler {
     
     func create(product_id: Int, review_data: [String: String]){
         let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewCreatePath)"
-        requestHandler.postRequest(url: url_string, data: review_data, complete: processResponse, error: processError)
+        requestHandler.postRequest(url: url_string, data: review_data, complete: processResults, error: processError)
     }
     
     func delete(product_id: Int){
@@ -57,8 +57,11 @@ struct ReviewsHandler {
             
             var reviews:[ReviewModel] = []
             
+            let date_format: DateFormatter = DateFormatter()
+            date_format.dateFormat = "dd MMMM Y"
+            
             for review in reviews_list {
-                reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name ?? ""))
+                reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name ?? "", product_id: review.product_id, user_id: review.user_id, updated_at: date_format.date(from: review.updated_at)! , created_at: date_format.date(from: review.created_at)!))
             }
             
             DispatchQueue.main.async {

@@ -14,14 +14,14 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
     var type: String?
     var inputValue:String?
     
-    var delegate: UserDetailsChangedDelegate?
+//    var delegate: UserDetailsChangedDelegate?
     
     @IBOutlet weak var inputField: UITextField!
     @IBOutlet weak var headerLabel: UILabel!
     
     var userHandler = UserHandler()
     
-    var userDetails: UserData?
+    var userDetails: UserHistory?
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
@@ -78,7 +78,7 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
 
             startLoading()
             
-            self.delegate?.updateUserDetails(userDetails: userDetails!)
+//            self.delegate?.updateUserDetails(userDetails: userDetails!)
             userHandler.requestUpdate(userData: ["type": type!, "name": input])
         }
         

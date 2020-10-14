@@ -73,7 +73,14 @@ struct UserHandler {
             let decodedUserData = try decoder.decode(UserLoginDataResponse.self, from: data)
             
             let userData:UserData = decodedUserData.data
-            userSession.setLoggedIn(userData)
+            
+            let user = UserHistory()
+            user.id = userData.id
+            user.name = userData.name
+            user.email = userData.email
+            user.token = userData.token
+            
+            userSession.setLoggedIn(user)
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded()

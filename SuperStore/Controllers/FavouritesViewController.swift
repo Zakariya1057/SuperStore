@@ -10,8 +10,6 @@ import UIKit
 import RealmSwift
 
 class FavouritesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FavouritesDelegate {
-
-//    var products:[ProductModel] = []
     
     @IBOutlet weak var favouritesTableView: UITableView!
     
@@ -37,7 +35,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         favouritesTableView.delegate = self
         
         favouritesHandler.delegate = self
-//        favouritesHandler.request()
+        favouritesHandler.request()
         
         let results = realm.objects(ProductHistory.self)
 
@@ -103,8 +101,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
             try! realm.write() {
                 favourites[indexPath.row].favourite = false
             }
-            
-//            products.remove(at: indexPath.row)
+
             favouritesTableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

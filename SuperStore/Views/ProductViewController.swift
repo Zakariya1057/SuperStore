@@ -124,14 +124,19 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             switch changes {
                 case .initial:
                     // Results are now populated and can be accessed without blocking the UI
-                    self?.showFavourite()
+                    break
             case .update(_, _, _, _):
-                self?.showFavourite()
+                    self?.configureUI()
                     break
                 case .error(let error):
                     // An error occurred while opening the Realm file on the background worker thread
                     fatalError("\(error)")
             }
+        }
+        
+        if product != nil {
+            print("Loading Product From Storage")
+            configureUI()
         }
         
         if delegate == nil {
@@ -146,66 +151,8 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     }
     
     func contentLoaded(product: ProductDetailsModel) {
-        
         addToHistory(product)
-        
-        addToHistory(product)
-        loading = false
-        stopLoading()
-        
-        productNameLabel.text = product.name
-        productWeightLabel.text = product.weight
-
-        productPriceLabel.text = "£" + String(format: "%.2f", product.price)
-        productImageView.downloaded(from: product.image)
-
-        ratingView.rating = product.avg_rating!
-        ratingView.text = "(\(product.total_reviews_count!))"
-
-        showFavourite()
-
-        if itemQuantity != nil {
-            showQuantityView()
-            product.quantity = itemQuantity!
-            quantityStepper.value = Double(itemQuantity!)
-            stepperLabel.text = String(itemQuantity!)
-        }
-        
-        if(product.dietary_info == nil || product.dietary_info == ""){
-            dietaryView.removeFromSuperview()
-        } else {
-            lifeStyleLabel.text = product.dietary_info
-        }
-
-        if(product.allergen_info == nil || product.allergen_info == ""){
-            allergenView.removeFromSuperview()
-        } else {
-            allergenLabel.text = product.allergen_info
-        }
-
-        if(product.discount == nil){
-            promotionView.removeFromSuperview()
-        } else {
-            let promotion = product.discount!
-            promotionLabel.text = promotion.name
-        }
-
-        reviews = product.reviews
-        let review_count = reviews.count
-
-        if review_count != 0 {
-            reviewsTableView.reloadData()
-            allReviewsButton.setTitle("View All Reviews", for: .normal)
-        } else {
-            allReviewsButton.removeFromSuperview()
-            reviewsStackView.removeFromSuperview()
-        }
-
-        if product.recommended.count > 0 {
-            recommended = product.recommended
-            similarTableView.reloadData()
-        }
-        
+        configureUI()
     }
     
     func refreshProduct() {
@@ -215,6 +162,73 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     func contentLoaded(products: [ProductModel]) {
     }
     
+    func configureUI(){
+        
+        // Loading must stop before content set. Otherwise wont change label values
+        loading = false
+        stopLoading()
+        
+        let productItem = product!.getProductModel()
+        
+        productNameLabel.text = productItem.name
+        productWeightLabel.text = productItem.weight
+
+        productPriceLabel.text = "£" + String(format: "%.2f", productItem.price)
+        productImageView.downloaded(from: productItem.image)
+
+        ratingView.rating = productItem.avg_rating!
+        ratingView.text = "(\(productItem.total_reviews_count!))"
+
+        showFavourite()
+
+        if itemQuantity != nil {
+            showQuantityView()
+            product!.quantity = itemQuantity!
+            quantityStepper.value = Double(itemQuantity!)
+            stepperLabel.text = String(itemQuantity!)
+        }
+        
+        if(productItem.dietary_info == nil || productItem.dietary_info == ""){
+            dietaryView.isHidden = true
+        } else {
+            lifeStyleLabel.text = productItem.dietary_info
+        }
+
+        if(productItem.allergen_info == nil || productItem.allergen_info == ""){
+            allergenView.isHidden = true
+        } else {
+            allergenLabel.text = productItem.allergen_info
+        }
+
+        if(productItem.discount == nil){
+            promotionView.isHidden = true
+        } else {
+            let promotion = productItem.discount!
+            promotionLabel.text = promotion.name
+        }
+
+        reviews = productItem.reviews
+        let review_count = reviews.count
+
+        print(reviews)
+        
+        if review_count != 0 {
+            reviewsTableView.reloadData()
+            allReviewsButton.setTitle("View All Reviews", for: .normal)
+            allReviewsButton.isHidden = false
+            reviewsStackView.isHidden = false
+        } else {
+            allReviewsButton.isHidden = true
+            reviewsStackView.isHidden = true
+        }
+
+        if productItem.recommended.count > 0 {
+            recommended = productItem.recommended
+            similarTableView.reloadData()
+        }
+        
+        
+    }
     
     @objc func showIngredients(){
         details_type = "ingredients"
@@ -247,18 +261,23 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     func showFavourite(){
         
-        let barItem:UIBarButtonItem
-        
-        if product!.favourite == true {
-            barItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(favouritePressed))
-            barItem.image = UIImage(systemName: "star.fill")
-        } else {
-            barItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(favouritePressed))
-            barItem.image = UIImage(systemName: "star")
+        if(product != nil){
+         
+            let barItem:UIBarButtonItem
+            
+            if product!.favourite == true {
+                barItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(favouritePressed))
+                barItem.image = UIImage(systemName: "star.fill")
+            } else {
+                barItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(favouritePressed))
+                barItem.image = UIImage(systemName: "star")
+            }
+            
+            barItem.tintColor = .systemYellow
+            self.navigationItem.rightBarButtonItem = barItem
+            
         }
-        
-        barItem.tintColor = .systemYellow
-        self.navigationItem.rightBarButtonItem = barItem
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -285,10 +304,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
                 destinationVC.delegate = self.delegate
             }
             
-            destinationVC.promotion_id = product!.discount!.id
+            destinationVC.promotion_id = product!.discount!.getDiscountModel().id
         } else if segue.identifier == "productToCreateReview" {
             let destinationVC = segue.destination as! ReviewViewController
-            destinationVC.product = product!.getProductModel()
+            destinationVC.product_id = product!.id
         }
 
     }
@@ -298,16 +317,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
 extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if loading == true {
-            return 1
-        }
-        
-        if tableView == similarTableView {
-            return 1
-        } else {
-            return reviews.count
-        }
-        
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -322,13 +332,19 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.ReviewCell.CellIdentifier , for: indexPath) as! ReviewTableViewCell
             
             if loading == false {
-                cell.review = reviews[0]
+                
+                if reviews.count > 0 {
+                    cell.review = reviews[0]
+                }
+                
                 cell.configureUI()
-                cell.selectionStyle = UITableViewCell.SelectionStyle.none
+                
             } else {
                 cell.startLoading()
             }
 
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+            
             return cell
         }
 
@@ -386,7 +402,10 @@ extension ProductViewController {
         let quantity = sender.value
         stepperLabel.text = String(format: "%.0f", quantity)
         
-        product!.quantity = Int(quantity)
+        try! realm.write() {
+            product!.quantity = Int(quantity)
+        }
+        
         quantityStepper.value = quantity
         delegate?.updateQuantity(product!.getProductModel())
         
@@ -466,14 +485,41 @@ extension ProductViewController {
 extension ProductViewController {
     func addToHistory(_ productItem: ProductDetailsModel){
     
+        print("Adding To History")
+        
         try! realm.write() {
             if product == nil {
                 let productObject = productItem.getRealmObject()
-                productObject.favourite = true
+                productObject.favourite = productItem.favourite
                 realm.add(productObject)
             } else {
-                product!.id = productItem.id
-                product!.name = productItem.name
+                
+                let productObject = productItem.getRealmObject()
+
+                product!.id = productObject.id
+                product!.name = productObject.name
+                product!.discount = productObject.discount
+                product!.product_description = productObject.product_description
+                product!.avg_rating = productObject.avg_rating
+                product!.total_reviews_count = productObject.total_reviews_count
+                
+                product!.recommended.removeAll()
+                product!.reviews.removeAll()
+                
+                for recommendedProduct in productItem.recommended {
+                    product!.recommended.append(recommendedProduct.getRealmObject())
+                }
+                
+                for review in productItem.reviews {
+                    let historyReview = realm.objects(ReviewHistory.self).filter("id = \(review.id)").first
+                    
+                    if historyReview != nil {
+                        product!.reviews.append(historyReview!)
+                    } else {
+                        product!.reviews.append(review.getRealmObject())
+                    }
+                    
+                }
                 
                 if product!.favourite != productItem.favourite {
                     product!.favourite = productItem.favourite
@@ -483,6 +529,7 @@ extension ProductViewController {
             }
             
         }
+        
         
     }
     

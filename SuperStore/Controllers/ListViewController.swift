@@ -64,6 +64,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var loading: Bool = true
     
+    var notificationToken: NotificationToken?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,17 +88,41 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         listTableView.addSubview(refreshControl) // not required when using UITableViewController
         
+        let results = realm.objects(ListItemHistory.self)
+
+        // Observe Results Notifications
+        notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+                case .initial:
+                    // Results are now populated and can be accessed without blocking the UI
+                    self?.loadListInfo()
+                    self?.configureUI()
+            case .update(_, _, _, _):
+                    self?.loadListInfo()
+                    self?.configureUI()
+                    break
+                case .error(let error):
+                    // An error occurred while opening the Realm file on the background worker thread
+                    fatalError("\(error)")
+            }
+        }
+        
     }
     
 
     func contentLoaded(list: ListModel) {
         self.list = list
-        self.title = list.name
-        self.list_id = list.id
+        configureUI()
+    }
+    
+    func configureUI(){
+        self.title = list!.name
+        self.list_id = list!.id
 
         showTotalPrice()
         updateListInfo()
         
+        self.listTableView.reloadData()
         stopLoading()
     }
     
@@ -115,6 +141,10 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         loading = false
         listTableView.reloadData()
         refreshControl.endRefreshing()
+    }
+    
+    deinit {
+        notificationToken?.invalidate()
     }
     
     
@@ -432,7 +462,7 @@ extension ListViewController: GroceryDelegate {
         
         var categories = list?.categories ?? []
         
-        let item = ListItemModel(id: product.id, name: product.name, total_price: product.price, price: product.price, product_id: product.id, quantity: 1, image: product.image, ticked_off: false, weight: product.weight,discount: product.discount)
+        let item = ListItemModel(id: product.id, name: product.name, total_price: product.price, price: product.price, product_id: product.id, quantity: 1, image: product.image, ticked_off: false, weight: product.weight,discount: product.discount, list_id: list_id)
         
         var added: Bool = false
         
@@ -451,7 +481,7 @@ extension ListViewController: GroceryDelegate {
         categories = list?.categories ?? []
         
         if(!added){
-            let category = ListCategoryModel(id: parent_category_id, name: parent_category_name, aisle_name: "", items: [item])
+            let category = ListCategoryModel(id: parent_category_id, name: parent_category_name, aisle_name: "", items: [item], list_id: list_id)
             categories.append(category)
         }
         
@@ -540,7 +570,8 @@ extension ListViewController: GroceryDelegate {
         listItem!.status = list!.status.rawValue
         listItem!.total_price = total_price
         
-        listItem!.categories.removeAll()
+        realm.delete( realm.objects(ListItemHistory.self).filter("list_id = \(list_id)") )
+        realm.delete( realm.objects(ListCategoryHistory.self).filter("list_id = \(list_id)") )
         
         for category in list?.categories ?? [] {
             listItem!.categories.append(category.getRealmObject())
@@ -548,7 +579,7 @@ extension ListViewController: GroceryDelegate {
         
         do {
             print("Saving Changes")
-            try realm.commitWrite()
+            try realm.commitWrite(withoutNotifying: [notificationToken!])
         } catch {
             print(error)
         }
