@@ -72,11 +72,14 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     func contentLoaded(products: [ProductModel]) {
         loading = false
         refreshControl.endRefreshing()
-//        self.products = products
+
+        var products = products.reversed()
         for product in products {
-            print("Add To Favourites")
+            print("Add To Favourites: " + product.name)
+            product.favourite = true
             addToFavourite(product)
         }
+        
         favouritesTableView.reloadData()
     }
     
@@ -136,15 +139,17 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func addToFavourite(_ product: ProductModel){
-        var productItem = favourites.filter("id = \(product.id)").first
+        let productItem = favourites.filter("id = \(product.id)").first
         
         try! realm.write() {
             if productItem == nil {
-                let productObject = product.getRealmObject()
-                productObject.favourite = true
-                realm.add(productObject)
+                realm.add(product.getRealmObject())
             } else {
-                productItem = product.getRealmObject()
+                productItem!.updated_at = Date()
+                productItem!.name = product.name
+                productItem!.image = product.image
+                productItem!.avg_rating = product.avg_rating ?? 0
+                productItem!.total_reviews_count = product.total_reviews_count ?? 0
             }
         }
     }

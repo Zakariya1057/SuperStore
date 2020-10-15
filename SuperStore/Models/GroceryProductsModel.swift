@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct GroceryProductsModel {
-    var id: Int
-    var name:String
-    var products: [ProductModel]
-}
+//struct GroceryProductsModel {
+//    var id: Int
+//    var name:String
+//    var products: [ProductModel]
+//}
 
 //struct GroceryProductItemModel {
 //    var id: Int

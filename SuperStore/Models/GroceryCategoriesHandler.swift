@@ -46,7 +46,7 @@ struct GroceryCategoriesHandler {
                 var parent_categories:[ParentCategoryModel] = []
                 
                 for child_category in child_categories_list {
-                    parent_categories.append( ParentCategoryModel(id: child_category.id, name: child_category.name, child_categories: []) )
+                    parent_categories.append( ParentCategoryModel(id: child_category.id, name: child_category.name, parentCategoryId: category.id, child_categories: []) )
                 }
                 
                 grocery_categories.append( GrandParentCategoryModel(id: category.id, name: category.name, child_categories: parent_categories) )

@@ -15,6 +15,7 @@ class ProductModel {
     var description: String?
     var price:Double
     var location:String?
+    var favourite: Bool = false
 
     var avg_rating: Double?
     var total_reviews_count: Int?
@@ -56,6 +57,7 @@ class ProductModel {
         product.location = self.location
         product.avg_rating = self.avg_rating ?? 0
         product.total_reviews_count = self.total_reviews_count ?? 0
+        product.favourite = self.favourite
         
         product.parent_category_id = self.parent_category_id ?? 0
         product.parent_category_name = self.parent_category_name

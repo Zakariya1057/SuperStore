@@ -29,7 +29,6 @@ struct ListModel {
         list.created_at = Date()
         list.status = self.status.rawValue
         list.total_price = self.total_price
-//        list.categories = []
         list.old_total_price = self.old_total_price ?? 0
         return list
     }
@@ -48,14 +47,6 @@ struct ListCategoryModel {
         category.id = self.id
         category.name = self.name
         category.list_id = self.list_id
-        
-        let items = List<ListItemHistory>()
-
-        for item in self.items {
-            items.append(item.getRealmObject())
-        }
-        
-        category.items = items
         
         return category
     }

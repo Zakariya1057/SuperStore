@@ -30,7 +30,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     var listHandler = ListItemsHandler()
     
-    var selected_product_id: Int?
+    var selected_product: ProductModel?
     var selected_row: GroceryTableViewCell?
     
     var selected_list_id: Int?
@@ -194,13 +194,52 @@ extension SearchResultsViewController {
         destinationVC.delegate = self
         present(destinationVC, animated: true)
         
-        selected_product_id = product.id
+        selected_product = product
         selected_row = cell
     }
     
     func listSelected(list_id: Int) {
         self.selected_list_id = list_id
-        listHandler.create(list_id: list_id, list_data: ["product_id": String(selected_product_id!)])
+        listHandler.create(list_id: list_id, list_data: ["product_id": String(selected_product!.id)])
+        
+        var listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selected_list_id!) AND product_id = \(selected_product!.id)").first
+
+        try! realm.write() {
+
+            if listItem == nil {
+                listItem = ListItemHistory()
+
+                print("Product Creating List Item Quantity")
+
+                listItem!.product_id = selected_product!.id
+                listItem!.name = selected_product!.name
+                listItem!.image = selected_product!.image
+                listItem!.price = selected_product!.price
+                listItem!.discount = selected_product!.discount?.getRealmObject()
+                listItem!.list_id = selected_list_id!
+                listItem!.quantity = selected_product!.quantity
+
+                var listCategory = realm.objects(ListCategoryHistory.self).filter("list_id = \(selected_list_id!) AND id = \(selected_product!.parent_category_id!)").first
+
+                if listCategory != nil {
+                    listCategory!.items.append(listItem!)
+                } else {
+                    listCategory = ListCategoryHistory()
+                    listCategory!.id = selected_product!.parent_category_id!
+                    listCategory!.name = selected_product!.parent_category_name!
+                    listCategory!.list_id = selected_list_id!
+                    listCategory!.items.append(listItem!)
+
+                    let list = realm.objects(ListHistory.self).filter("id = \(selected_list_id!)").first
+
+                    list!.categories.append(listCategory!)
+                }
+
+            } else {
+                selected_row?.product?.quantity = listItem!.quantity
+                selected_row?.configureUI()
+            }
+        }
         
         selected_row!.show_quantity_view()
     }
@@ -212,31 +251,21 @@ extension SearchResultsViewController {
             "ticked_off": "false"
         ]
         
+        var listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selected_list_id!) AND product_id = \(product.id)").first
         try! realm.write() {
-            var list = realm.objects(ListItemHistory.self).filter("list_id = \(selected_list_id!) AND product_id = \(product.id)").first
             
-            if list == nil {
-                let listItem = ListItemHistory()
-                listItem.name = product.name
-                listItem.image = product.image
-                listItem.price = product.price
-                listItem.discount = product.discount?.getRealmObject()
-                listItem.list_id = selected_list_id!
-                listItem.quantity = 1
-                
-                realm.add(listItem)
-                
-                list = listItem
-            }
-            
-            if product.quantity != 0 {
-                list!.quantity = product.quantity
+            if(product.quantity == 0 && listItem != nil){
+                realm.delete(listItem!)
             } else {
-                realm.delete(list!)
+                
+                if listItem != nil {
+                    print("Product Updating List Item Quantity")
+                    listItem!.quantity = product.quantity
+                }
+                
             }
-            
         }
-        
+            
         listHandler.update(list_id:selected_list_id!, list_data: data)
         
     }

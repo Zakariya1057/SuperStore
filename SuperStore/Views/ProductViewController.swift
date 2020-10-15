@@ -183,7 +183,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
 
         if itemQuantity != nil {
             showQuantityView()
-            product!.quantity = itemQuantity!
+//            product!.quantity = itemQuantity!
             quantityStepper.value = Double(itemQuantity!)
             stepperLabel.text = String(itemQuantity!)
         }
@@ -452,6 +452,47 @@ extension ProductViewController {
     
     func listSelected(list_id: Int) {
         self.selected_list_id = list_id
+        
+        var listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selected_list_id!) AND product_id = \(product!.id)").first
+
+        try! realm.write() {
+
+            if listItem == nil {
+                listItem = ListItemHistory()
+
+                print("Product Creating List Item Quantity")
+
+                listItem!.product_id = product!.id
+                listItem!.name = product!.name
+                listItem!.image = product!.image
+                listItem!.price = product!.price
+                listItem!.discount = product!.discount
+                listItem!.list_id = selected_list_id!
+                listItem!.quantity = product!.quantity
+
+                var listCategory = realm.objects(ListCategoryHistory.self).filter("list_id = \(selected_list_id!) AND id = \(product!.parent_category_id)").first
+
+                if listCategory != nil {
+                    listCategory!.items.append(listItem!)
+                } else {
+                    listCategory = ListCategoryHistory()
+                    listCategory!.id = product!.parent_category_id
+                    listCategory!.name = product!.parent_category_name!
+                    listCategory!.list_id = selected_list_id!
+                    listCategory!.items.append(listItem!)
+
+                    let list = realm.objects(ListHistory.self).filter("id = \(selected_list_id!)").first
+
+                    list!.categories.append(listCategory!)
+                }
+
+            } else {
+                quantityStepper.value = Double(listItem!.quantity)
+                stepperLabel.text = "\(listItem!.quantity)"
+            }
+        }
+        
+        
         listHandler.create(list_id: list_id, list_data: ["product_id": String(add_to_list_product_id!)])
         showQuantityView()
     }
@@ -465,6 +506,21 @@ extension ProductViewController {
                 "quantity": String(product.quantity),
                 "ticked_off": "false"
             ]
+            
+            var listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selected_list_id!) AND product_id = \(product.id)").first
+            try! realm.write() {
+                
+                if(product.quantity == 0 && listItem != nil){
+                    realm.delete(listItem!)
+                } else {
+                    
+                    if listItem != nil {
+                        print("Product Updating List Item Quantity")
+                        listItem!.quantity = product.quantity
+                    }
+                    
+                }
+            }
             
             listHandler.update(list_id:selected_list_id!, list_data: data)
             
@@ -502,6 +558,8 @@ extension ProductViewController {
                 product!.product_description = productObject.product_description
                 product!.avg_rating = productObject.avg_rating
                 product!.total_reviews_count = productObject.total_reviews_count
+                product!.allergen_info = productObject.allergen_info
+                product!.dietary_info = productObject.dietary_info
                 
                 product!.recommended.removeAll()
                 product!.reviews.removeAll()

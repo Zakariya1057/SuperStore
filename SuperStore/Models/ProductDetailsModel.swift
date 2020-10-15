@@ -23,7 +23,6 @@ class ProductDetailsModel: ProductModel {
     var ingredients: [String] = []
     
     var recommended: [ProductModel] = []
-    var favourite: Bool = false
     
     init(id: Int, name: String,image: String,description: String?, quantity: Int,price:Double,location:String?, avg_rating: Double?, total_reviews_count: Int?, discount: DiscountModel?, storage: String?, weight: String?,parent_category_id: Int?, parent_category_name: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel], favourite: Bool, ingredients: [String], recommended: [ProductModel]) {
         
@@ -43,18 +42,21 @@ class ProductDetailsModel: ProductModel {
     override func getRealmObject() -> ProductHistory {
         let product = super.getRealmObject()
         let recommendedProducts = List<ProductHistory>()
-        var reviewsList =  List<ReviewHistory>()
+        let reviewsList = List<ReviewHistory>()
+        let ingredientsList = List<String>()
         
-        for product in self.recommended {
-            recommendedProducts.append(product.getRealmObject())
-        }
-        
-        for review in self.reviews {
-            reviewsList.append(review.getRealmObject())
-        }
+        self.ingredients.forEach{ ingredientsList.append($0) }
+        self.recommended.forEach { recommendedProducts.append($0.getRealmObject()) }
+        self.reviews.forEach { reviewsList.append($0.getRealmObject()) }
 
+        product.brand = self.brand
+        product.dietary_info = self.dietary_info
+        product.allergen_info = self.allergen_info
+        
+        product.favourite = self.favourite
         product.reviews = reviewsList
         product.recommended = recommendedProducts
+        product.ingredients = ingredientsList
         
         return product
     }

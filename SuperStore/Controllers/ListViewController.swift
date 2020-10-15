@@ -40,9 +40,9 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         return realm.objects(ListHistory.self).filter("index = \(list_index)").first
     }
     
-    var total_price: Double = 0
+    var status: ListStatus?
     
-//    var status_delegate: ListStatusChangeDelegate?
+    var total_price: Double = 0
     
     @IBOutlet weak var editBarItem: UIBarButtonItem!
     
@@ -82,8 +82,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         listHandler.delegate = self
         listHandler.request(list_index:list_index)
         
-        loadListInfo()
-        
         refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         listTableView.addSubview(refreshControl) // not required when using UITableViewController
@@ -95,10 +93,10 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             switch changes {
                 case .initial:
                     // Results are now populated and can be accessed without blocking the UI
-                    self?.loadListInfo()
+                    print("List Item Changed")
                     self?.configureUI()
             case .update(_, _, _, _):
-                    self?.loadListInfo()
+                    print("List Item Changed")
                     self?.configureUI()
                     break
                 case .error(let error):
@@ -107,21 +105,25 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         
+        if listItem != nil {
+            self.list = listItem!.getListModel()
+            configureUI()
+        }
     }
     
 
     func contentLoaded(list: ListModel) {
         self.list = list
+        updateListInfo()
         configureUI()
     }
     
     func configureUI(){
         self.title = list!.name
         self.list_id = list!.id
-
-        showTotalPrice()
-        updateListInfo()
+        self.status = ListStatus(rawValue: listItem!.status)
         
+        showTotalPrice()
         self.listTableView.reloadData()
         stopLoading()
     }
@@ -146,7 +148,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     deinit {
         notificationToken?.invalidate()
     }
-    
     
     @IBAction func addButtonPressed(_ sender: Any) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "searchViewController"))! as! SearchViewController
@@ -545,7 +546,7 @@ extension ListViewController: GroceryDelegate {
             }
         }
         
-        var status: ListStatus = .notStarted
+        status = .notStarted
         
         if (allItems > 0){
            if(checkedItems == allItems){
@@ -555,26 +556,32 @@ extension ListViewController: GroceryDelegate {
            }
         }
         
-        list?.status = status
-        
         updateListInfo()
-        
-//        self.status_delegate?.updateListStatus(index: list_index, status: status)
         
     }
     
     func updateListInfo(){
         
+        if realm.isInWriteTransaction {
+            realm.cancelWrite()
+        }
+        
         realm.beginWrite()
         
-        listItem!.status = list!.status.rawValue
+        listItem!.status = status!.rawValue
         listItem!.total_price = total_price
-        
+
         realm.delete( realm.objects(ListItemHistory.self).filter("list_id = \(list_id)") )
         realm.delete( realm.objects(ListCategoryHistory.self).filter("list_id = \(list_id)") )
-        
+
         for category in list?.categories ?? [] {
-            listItem!.categories.append(category.getRealmObject())
+            let categoryItem = category.getRealmObject()
+
+            for item in self.items {
+                categoryItem.items.append(item.getRealmObject())
+            }
+            
+            listItem!.categories.append(categoryItem)
         }
         
         do {
@@ -583,18 +590,6 @@ extension ListViewController: GroceryDelegate {
         } catch {
             print(error)
         }
-    }
-    
-    func loadListInfo(){
-        self.list = listItem?.getListModel()
-        
-        if (self.list != nil) {
-            self.title = list!.name
-            self.list_id = list!.id
-
-            stopLoading()
-        }
-
     }
     
 }

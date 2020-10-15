@@ -9,6 +9,7 @@
 import UIKit
 import Tabman
 import Pageboy
+import RealmSwift
 
 protocol ListSelectedDelegate {
     func listSelected(list_id: Int)
@@ -16,7 +17,7 @@ protocol ListSelectedDelegate {
 
 class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, GroceriesProductsDelegate, ListSelectedDelegate {
 
-    var parentCategory: ParentCategoryModel?
+    let realm = try! Realm()
     
     var list_delegate: GroceryDelegate?
     
@@ -25,12 +26,24 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
     var parent_category_id: Int?
     var parent_category_name: String? // Set this in parent and pass to child
     
-    var headers:[String] = []
     var viewcontrollers:[GroceryTableViewController] = []
     
     var header_text:String?
     
-    var categories: [GroceryProductsModel] = []
+    var categories: [ChildCategoryModel] = []
+    
+    var categoriesHistory: Results<ChildCategoryHistory> {
+        get {
+            return realm.objects(ChildCategoryHistory.self).filter("parentCategoryId = \(parent_category_id!)")
+        }
+    }
+    
+    var parentCategory: ParentCategoryHistory? {
+        get {
+            return realm.objects(ParentCategoryHistory.self).filter("id = \(parent_category_id!)").first
+        }
+    }
+    
     
     var selected_product_id:Int?
     
@@ -50,6 +63,8 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = ""
+        
         groceryHandler.delegate = self
         groceryHandler.request(parent_category_id: parent_category_id!)
         
@@ -58,7 +73,20 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         }
         
         self.dataSource = self
-        configureUI()
+        configureBar()
+        
+        if categoriesHistory.count > 0 {
+            print("Found In History")
+            self.categories = categoriesHistory.map{$0.getCategoryModel()}
+            configureUI()
+            
+            for _ in categories {
+                viewcontrollers.append(GroceryTableViewController())
+            }
+            
+            self.reloadData()
+        }
+        
     }
     
     func errorHandler(_ message: String) {
@@ -66,22 +94,35 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         showError(message)
     }
     
-    func contentLoaded(categories: [GroceryProductsModel]) {
-        self.categories = categories
-        loading = false
+    func contentLoaded(child_categories: [ChildCategoryModel]) {
+        self.categories = child_categories
+        configureUI()
         
-        for category in categories {
-            headers.append(category.name)
-            viewcontrollers.append(GroceryTableViewController())
+        if loading == false {
+            for _ in child_categories {
+                viewcontrollers.append(GroceryTableViewController())
+            }
+
+            self.reloadData()
         }
         
-        self.reloadData()
+        // Adding to history will take longer, run afterwards
+        for category in child_categories {
+            addToHistory(category)
+        }
+    
     }
     
     func configureUI(){
-        
+        loading = false
         self.title = header_text
+    }
+    
+    func reloadControllers(){
         
+    }
+    
+    func configureBar(){
         bar.tintColor = UIColor(named: "Label Color")
         
         bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 1.0, right: 16.0)
@@ -91,7 +132,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         bar.layout.separatorColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 1.00)
         bar.layout.separatorWidth = 0.5
         
-        bar.backgroundView.style = .clear
+        bar.backgroundView.style = .flat(color:  UIColor(named: "LightGrey")!)
         bar.backgroundColor = UIColor(named: "LightGrey")
         
         bar.indicator.weight = .medium
@@ -181,10 +222,7 @@ extension ChildCategoriesViewController {
         }
        
     }
-    
-    func list_choosen(){
-        
-    }
+
     
 }
 
@@ -195,7 +233,7 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
         var item: TMBarItem
         
         if loading == false {
-            item = TMBarItem(title: headers[index])
+            item = TMBarItem(title: categories[index].name)
         } else {
             item = TMBarItem(title: "")
             item.image = nil
@@ -206,7 +244,7 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
     
 
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        return loading ? 1 : headers.count
+        return loading ? 1 : categories.count
     }
 
     func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
@@ -217,12 +255,12 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
             viewController = viewcontrollers[index]
             viewController.products = categories[index].products
             viewController.delegate = self
-            viewController.loading = false
         } else {
             viewController = GroceryTableViewController()
-            viewController.loading = true
         }
 
+        viewController.loading = self.loading
+        
         return viewController
     }
 
@@ -243,4 +281,28 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
     func stopLoading(_ item: UIView){
         item.hideSkeleton()
     }
+    
+    func addToHistory(_ category: ChildCategoryModel){
+    
+        var categoryItem = realm.objects(ChildCategoryHistory.self).filter("id = \(category.id)").first
+        print("Adding To History")
+        
+        try! realm.write() {
+            if categoryItem == nil {
+                parentCategory!.childCategories.append(category.getRealmObject())
+            } else {
+                categoryItem! = category.getRealmObject()
+                
+                categoryItem!.products.removeAll()
+                
+                for product in category.products {
+                    categoryItem!.products.append(product.getRealmObject())
+                }
+                
+            }
+            
+        }
+        
+    }
+    
 }
