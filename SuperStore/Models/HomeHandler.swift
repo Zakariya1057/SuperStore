@@ -50,9 +50,9 @@ struct HomeHandler {
             
             for store in data.stores {
                 let storeLocation = store.location
-                let location = LocationModel(city: storeLocation.city, address_line1: storeLocation.address_line1, address_line2: storeLocation.address_line2, address_line3: storeLocation.address_line3, postcode: storeLocation.postcode, latitude: storeLocation.latitude, longitude: storeLocation.longitude)
+                let location = LocationModel(store_id: store.id, city: storeLocation.city, address_line1: storeLocation.address_line1, address_line2: storeLocation.address_line2, address_line3: storeLocation.address_line3, postcode: storeLocation.postcode, latitude: storeLocation.latitude, longitude: storeLocation.longitude)
                 
-                stores.append(StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [], location: location, facilities: []))
+                stores.append(StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [], location: location, facilities: [], store_type_id: store.store_type_id))
             }
             
             for promotion in data.promotions {

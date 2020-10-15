@@ -7,14 +7,21 @@
 //
 
 import UIKit
+import RealmSwift
 
 class GrandParentCategoriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,GroceriesCategoriesDelegate {
 
+    let realm = try! Realm()
+    
+    lazy var categories: Results<GrandParentCategoryHistory> = { self.realm.objects(GrandParentCategoryHistory.self).filter("store_type_id = \(store_type_id!)").sorted(byKeyPath: "id", ascending: false)}()
+    
+    var store_type_id: Int?
+    
     var groceryHandler = GroceryCategoriesHandler()
     
     @IBOutlet weak var groupTableView: UITableView!
     
-    var categories: [GrandParentCategoryModel] = []
+//    var categories: [GrandParentCategoryModel] = []
     
     var selected_category: GrandParentCategoryModel?
     
@@ -40,6 +47,10 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
         if(delegate == nil){
             self.navigationItem.rightBarButtonItem = nil
         }
+        
+        if categories.count > 0 {
+            configureUI()
+        }
     }
     
     func errorHandler(_ message: String) {
@@ -47,7 +58,15 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     }
 
     func contentLoaded(categories: [GrandParentCategoryModel]) {
-        self.categories = categories
+        
+        for category in categories {
+            self.addToHistory(category)
+        }
+        
+        configureUI()
+    }
+    
+    func configureUI(){
         loading = false
         groupTableView.reloadData()
     }
@@ -80,7 +99,7 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         selected_category = categories[indexPath.row]
+        selected_category = categories[indexPath.row].getCategoryModel()
         self.performSegue(withIdentifier: "grandParentToParentCategories", sender: self)
     }
     
@@ -103,6 +122,26 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
         let alert = UIAlertController(title: "Grocery Error", message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
+    }
+    
+    func addToHistory(_ category: GrandParentCategoryModel){
+    
+        print("Adding To History")
+        
+        let categoryItem = categories.first { (categoryHistory) -> Bool in
+            categoryHistory.id == category.id
+        }
+        
+        try! realm.write() {
+            if categoryItem == nil {
+                realm.add(category.getRealmObject())
+            } else {
+
+            }
+            
+        }
+        
+        
     }
     
 }

@@ -15,10 +15,12 @@ class StoresMapElement: CustomElementModel {
     var position: CGFloat?
     var stores: [StoreModel]?
     var loading: Bool = false
+    var delegate: StoreSelectedDelegate?
     
-    init(title: String, stores:[StoreModel]) {
+    init(title: String, stores:[StoreModel], delegate: StoreSelectedDelegate) {
         self.title = title
         self.stores = stores
+        self.delegate = delegate
     }
 }
 
@@ -55,6 +57,7 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
         
         self.model = model
         self.stores = model.stores ?? []
+        self.delegate = model.delegate
         
         configureUI()
     }

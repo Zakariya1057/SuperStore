@@ -11,7 +11,7 @@ import UIKit
 //import Alamofire
 import Kingfisher
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, ListSelectedDelegate, HomeDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, ListSelectedDelegate, HomeDelegate, StoreSelectedDelegate {
 
     @IBOutlet weak var listTableView: UITableView!
     
@@ -149,7 +149,7 @@ extension  HomeViewController {
             
             ListsProgressElement(title: "List Progress", delegate: self, lists: []),
 
-            StoresMapElement(title: "Stores", stores: []),
+            StoresMapElement(title: "Stores", stores: [], delegate: self),
 
             ProductElement(title: "Grocery Items",delegate: self, scrollDelegate: self, products: []),
 
@@ -200,6 +200,16 @@ extension HomeViewController {
             }
         }
         
+    }
+    
+    func storePressed(store_id: Int) {
+        print("Store Selected")
+    }
+    
+    func storeSelected(store_id: Int) {
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "storeViewController"))! as! StoreViewController
+        destinationVC.store_id = store_id
+        self.navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
 

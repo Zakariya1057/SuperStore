@@ -43,13 +43,13 @@ struct GroceryCategoriesHandler {
             for category in grocery_categories_list {
                 let child_categories_list = category.child_categories
                 
-                var child_categories:[ChildCategoryModel] = []
+                var parent_categories:[ParentCategoryModel] = []
                 
                 for child_category in child_categories_list {
-                    child_categories.append( ChildCategoryModel(id: child_category.id, name: child_category.name) )
+                    parent_categories.append( ParentCategoryModel(id: child_category.id, name: child_category.name, child_categories: []) )
                 }
                 
-                grocery_categories.append( GrandParentCategoryModel(id: category.id, name: category.name, child_categories: child_categories) )
+                grocery_categories.append( GrandParentCategoryModel(id: category.id, name: category.name, child_categories: parent_categories) )
             }
             
             DispatchQueue.main.async {

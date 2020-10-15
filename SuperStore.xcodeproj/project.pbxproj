@@ -13,6 +13,8 @@
 		2C0D44842535B33A0046E2B0 /* ReviewHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */; };
 		2C0D4487253601270046E2B0 /* UserHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D4486253601270046E2B0 /* UserHistory.swift */; };
 		2C0D448A253602810046E2B0 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D4489253602810046E2B0 /* UserModel.swift */; };
+		2C0D448D253768B30046E2B0 /* StoreHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D448C253768B30046E2B0 /* StoreHistory.swift */; };
+		2C0D44902537827D0046E2B0 /* GroceryHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D448F2537827D0046E2B0 /* GroceryHistory.swift */; };
 		2C0E93C8250F975D00378C97 /* FavouritesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E93C7250F975D00378C97 /* FavouritesHandler.swift */; };
 		2C0E93CA250F987700378C97 /* FavouritesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E93C9250F987700378C97 /* FavouritesData.swift */; };
 		2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */; };
@@ -144,6 +146,8 @@
 		2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHistory.swift; sourceTree = "<group>"; };
 		2C0D4486253601270046E2B0 /* UserHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistory.swift; sourceTree = "<group>"; };
 		2C0D4489253602810046E2B0 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		2C0D448C253768B30046E2B0 /* StoreHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHistory.swift; sourceTree = "<group>"; };
+		2C0D448F2537827D0046E2B0 /* GroceryHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryHistory.swift; sourceTree = "<group>"; };
 		2C0E93C7250F975D00378C97 /* FavouritesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesHandler.swift; sourceTree = "<group>"; };
 		2C0E93C9250F987700378C97 /* FavouritesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesData.swift; sourceTree = "<group>"; };
 		2C1567B624C77FD800B8DCB5 /* SuperStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -419,6 +423,7 @@
 				2C21C3A924F8186200D90B4B /* ProductsHandler.swift */,
 				2C21C3AF24F8E4E600D90B4B /* GroceryCategoriesHandler.swift */,
 				2C21C3AB24F8186A00D90B4B /* GroceryCategoriesData.swift */,
+				2C0D448F2537827D0046E2B0 /* GroceryHistory.swift */,
 				2C21C3AD24F8187100D90B4B /* GroceryCategoriesModel.swift */,
 				2C21C3B524FA844400D90B4B /* GroceryProductsHandler.swift */,
 				2CC1EA1A24FA9550000A9BC4 /* GroceryProductsData.swift */,
@@ -449,6 +454,7 @@
 				2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */,
 				2C21C3A524F6F36B00D90B4B /* StoreHandler.swift */,
 				2C21C3A724F6F4B200D90B4B /* StoreData.swift */,
+				2C0D448C253768B30046E2B0 /* StoreHistory.swift */,
 				2C266DF824D5DEF300C66EA5 /* StoreModel.swift */,
 				2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */,
 				2CD5E02E25324AB000E4A01B /* SearchHistory.swift */,
@@ -655,6 +661,7 @@
 				2C1567D924C8B36E00B8DCB5 /* FavouritesViewController.swift in Sources */,
 				2CF239BB25094C8700D4CE91 /* ListsData.swift in Sources */,
 				2CB15C9924D36E7E00461AFE /* StoreSelectViewController.swift in Sources */,
+				2C0D44902537827D0046E2B0 /* GroceryHistory.swift in Sources */,
 				2C1567E524CAD08300B8DCB5 /* ReviewViewController.swift in Sources */,
 				2CB15C7D24D1A48E00461AFE /* RefineViewController.swift in Sources */,
 				2C0D44842535B33A0046E2B0 /* ReviewHistory.swift in Sources */,
@@ -693,6 +700,7 @@
 				2C1567F524CC845600B8DCB5 /* ProductDetailsViewController.swift in Sources */,
 				2CB15C9424D2FB8900461AFE /* ListItemTableViewCell.swift in Sources */,
 				2CA7C779250E547B002FF1B6 /* ListEditViewController.swift in Sources */,
+				2C0D448D253768B30046E2B0 /* StoreHistory.swift in Sources */,
 				2CD5E03325337BE000E4A01B /* ListHistory.swift in Sources */,
 				2C0E93CA250F987700378C97 /* FavouritesData.swift in Sources */,
 				2CAC06102530E26700561509 /* HomeData.swift in Sources */,

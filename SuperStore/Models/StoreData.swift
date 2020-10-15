@@ -10,6 +10,7 @@ import Foundation
 
 struct StoreData: Decodable {
     var id: Int
+    var store_type_id: Int
     let name: String
     var small_logo: String
     let opening_hours: [OpeningHoursData]?

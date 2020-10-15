@@ -107,9 +107,9 @@ struct SearchHandler {
             let filters: [RefineOptionModel] = [filterCategories, filterBrands]
 
             for store in resultsData.stores {
-                let hour = OpeningHoursModel(opens_at: store.opens_at!, closes_at: store.closes_at!, closed_today: nil, day_of_week: 1)
+                let hour = OpeningHoursModel(opens_at: store.opens_at!, closes_at: store.closes_at!, closed_today: false, day_of_week: 1)
                 
-                stores.append( StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [hour], location: LocationModel(city: store.location.city, address_line1: store.location.address_line1, address_line2: store.location.address_line2, address_line3: store.location.address_line3, postcode: store.location.postcode,latitude: store.location.latitude, longitude: store.location.longitude), facilities: []))
+                stores.append( StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [hour], location: LocationModel(store_id: store.id, city: store.location.city, address_line1: store.location.address_line1, address_line2: store.location.address_line2, address_line3: store.location.address_line3, postcode: store.location.postcode,latitude: store.location.latitude, longitude: store.location.longitude), facilities: [], store_type_id: store.store_type_id))
             }
             
             for product_item in resultsData.products {

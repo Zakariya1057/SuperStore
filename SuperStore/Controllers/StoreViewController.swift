@@ -8,10 +8,19 @@
 
 import UIKit
 import SkeletonView
+import RealmSwift
 
 class StoreViewController: UIViewController, StoreDelegate {
 
     var delegate: GroceryDelegate?
+    
+    let realm = try! Realm()
+    
+    var store: StoreHistory? {
+        get {
+            return realm.objects(StoreHistory.self).filter("id = \(store_id)").first
+        }
+    }
     
     @IBOutlet weak var storeLogoView: UIImageView!
     @IBOutlet weak var storeNameLabel: UILabel!
@@ -89,6 +98,11 @@ class StoreViewController: UIViewController, StoreDelegate {
             print("Delegate Present Here")
         }
         
+        if store != nil {
+            stopLoading()
+            configureUI()
+        }
+        
     }
     
     func startLoading(){
@@ -109,15 +123,21 @@ class StoreViewController: UIViewController, StoreDelegate {
     }
     
     func contentLoaded(store: StoreModel) {
-        
         stopLoading()
+        addToHistory(store)
+        configureUI()
+    }
+    
+    func configureUI(){
         
-        let opening_hours = store.opening_hours
-        let facilities = store.facilities
-        let location = store.location
+        let storeItem = store!.getStoreModel()
+        
+        let opening_hours = storeItem.opening_hours
+        let facilities = storeItem.facilities
+        let location = storeItem.location
         
 
-        configureDetails(store: store)
+        configureDetails(store: storeItem)
         configureOpeningHours(opening_hours: opening_hours)
         configureLocation(location: location)
         configureFacilites(facilities: facilities)
@@ -171,9 +191,12 @@ class StoreViewController: UIViewController, StoreDelegate {
         
         for check in check_facilities {
             
+            let view = check["view"] as! UIView
+            
             if !facilities.contains(check["contains"] as! String) {
-                let view = check["view"] as! UIView
-                 view.removeFromSuperview()
+                view.isHidden =  true
+            } else {
+                view.isHidden =  false
             }
             
         }
@@ -194,6 +217,23 @@ class StoreViewController: UIViewController, StoreDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! GrandParentCategoriesViewController
         destinationVC.delegate = self.delegate
+        destinationVC.store_type_id = store!.getStoreModel().store_type_id
     }
+    
+}
 
+extension StoreViewController {
+    func addToHistory(_ storeItem: StoreModel){
+        
+        try! realm.write() {
+            if store == nil {
+                realm.add(storeItem.getRealmObject())
+            } else {
+                store!.name = storeItem.name
+            }
+            
+        }
+        
+    }
+    
 }

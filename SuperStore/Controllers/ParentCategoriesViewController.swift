@@ -14,10 +14,10 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
     
     @IBOutlet weak var groupTableView: UITableView!
     
-    var categories: [ChildCategoryModel]?
+    var categories: [ParentCategoryModel]?
     var header_text: String?
     
-    var selected_category: ChildCategoryModel?
+    var selected_category: ParentCategoryModel?
     
     var delegate:GroceryDelegate?
     

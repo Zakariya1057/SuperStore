@@ -16,7 +16,7 @@ protocol ListSelectedDelegate {
 
 class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, GroceriesProductsDelegate, ListSelectedDelegate {
 
-    var parentCategory: ChildCategoryModel?
+    var parentCategory: ParentCategoryModel?
     
     var list_delegate: GroceryDelegate?
     

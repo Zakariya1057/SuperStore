@@ -9,10 +9,10 @@
 import Foundation
 
 struct GroceryCategoriesResponseData: Decodable {
-    var data: [GroceryCategoriesData]
+    var data: [GrandParentCategoryData]
 }
 
-struct GroceryCategoriesData:Decodable {
+struct GrandParentCategoryData:Decodable {
     var id: Int
     var name:String
     var child_categories: [ChildCategoryData]
