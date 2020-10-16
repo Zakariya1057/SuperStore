@@ -21,7 +21,7 @@ class ListItemViewController: UIViewController {
     
     @IBOutlet var promotionButton: UIButton!
     
-    var delegate: ProductQuantityChangedDelegate?
+    var delegate: PriceChangeDelegate?
     
     var groceryDelegate: GroceryDelegate?
     
@@ -86,15 +86,14 @@ class ListItemViewController: UIViewController {
         if product!.quantity == 0 {
             confirmDelete()
         } else {
-            self.delegate!.quantityChanged(section_index: selected_section, row_index: selected_row, quantity: product!.quantity)
-            
+            self.delegate!.productChanged(product!)
             self.navigationController?.popViewController(animated: true)
         }
         
     }
     
     func deleteItem(){
-        self.delegate!.removeItem(section: selected_section, row: selected_row)
+        self.delegate!.productRemove(product!)
         self.navigationController?.popViewController(animated: true)
     }
     

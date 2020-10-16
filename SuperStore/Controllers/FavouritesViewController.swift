@@ -75,7 +75,6 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
 
         var products = products.reversed()
         for product in products {
-            print("Add To Favourites: " + product.name)
             product.favourite = true
             addToFavourite(product)
         }

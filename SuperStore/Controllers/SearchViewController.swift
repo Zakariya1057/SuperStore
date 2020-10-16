@@ -72,8 +72,6 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        print("Started Editing")
-        
         if searchBar.text == "" {
             showHistory()
         } else {
@@ -83,21 +81,17 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
     }
 
     func showHistory(){
-        print("Show History")
         var history:[SearchModel] = []
         
         for item in searchHistory {
             history.append(SearchModel(id: item.id, name: item.name, type: SearchType(rawValue: item.type)!))
         }
         
-        print(self.searchList)
-        
         self.searchList = history
         searchTableView.reloadData()
     }
     
     func showSuggestions(){
-        print("Show Suggestions")
         self.searchList = suggestions
         searchTableView.reloadData()
     }
@@ -212,7 +206,6 @@ extension SearchViewController {
                 realm.add(search.getSearchObject("history"))
                 
                 let items = realm.objects(SearchHistory.self).filter("searchType = 'history'", search.name).sorted(byKeyPath: "usedAt", ascending: false)
-                print(items.count)
                 
                 if items.count > 5 {
 

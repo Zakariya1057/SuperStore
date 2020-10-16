@@ -29,6 +29,8 @@ class ListEditViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(list)
+        
         if list != nil {
             nameField.text = list?.name
         }

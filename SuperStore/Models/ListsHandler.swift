@@ -79,7 +79,7 @@ struct ListsHandler {
 
                 let created_date: Date = date_format.date(from: list.created_at)!
                 
-                lists.append( ListModel(id: list.id, name: list.name, created_at: created_date, status: status, index: list.index, store_id: list.store_id, user_id: list.user_id, total_price: list.total_price, old_total_price: list.old_total_price, categories: []))
+                lists.append( ListModel(id: list.id, name: list.name, created_at: created_date, status: status, index: list.index, store_id: list.store_id, user_id: list.user_id, totalPrice: list.total_price, old_total_price: list.old_total_price, categories: []))
             }
             
             DispatchQueue.main.async {

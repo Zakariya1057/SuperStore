@@ -17,7 +17,7 @@ struct ListModel {
     var index: Int
     var store_id: Int?
     var user_id: Int
-    var total_price: Double
+    var totalPrice: Double
     var old_total_price: Double?
     var categories: [ListCategoryModel]
     
@@ -28,7 +28,7 @@ struct ListModel {
         list.index = self.index
         list.created_at = Date()
         list.status = self.status.rawValue
-        list.total_price = self.total_price
+        list.totalPrice = self.totalPrice
         list.old_total_price = self.old_total_price ?? 0
         return list
     }
@@ -48,6 +48,14 @@ struct ListCategoryModel {
         category.name = self.name
         category.list_id = self.list_id
         
+        let items = List<ListItemHistory>()
+
+        for item in self.items {
+            items.append(item.getRealmObject())
+        }
+        
+        category.items = items
+        
         return category
     }
 }
@@ -55,7 +63,7 @@ struct ListCategoryModel {
 struct ListItemModel {
     var id: Int
     var name: String
-    var total_price: Double
+    var totalPrice: Double
     var price: Double
     var product_id: Int
     var quantity: Int
@@ -70,7 +78,7 @@ struct ListItemModel {
         list.id = self.id
         list.name = self.name
         list.price = self.price
-        list.total_price = self.total_price
+        list.totalPrice = self.totalPrice
         list.product_id = self.product_id
         list.quantity = self.quantity
         list.image = self.image

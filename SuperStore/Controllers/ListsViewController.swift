@@ -37,8 +37,8 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         return self.realm.objects(ListHistory.self).sorted(byKeyPath: "created_at", ascending: false)
     }()
 
-    var selected_list: ListModel?
-    var selected_index: Int = 0
+    var selectedList: ListModel?
+    var selectedIndex: Int = 0
     
     var refreshControl = UIRefreshControl()
     
@@ -74,9 +74,9 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
                 case .initial:
-                    // Results are now populated and can be accessed without blocking the UI
-                    self?.listsTableView.reloadData()
+                    break
             case .update(_, _, _, _):
+                    print("Lists Notification")
                     self?.listsTableView.reloadData()
                     break
                 case .error(let error):
@@ -151,10 +151,8 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         
         if !loading {
             if searchText != "" {
-                print("Filter Search")
                 cell.list = search()[indexPath.row].getListModel()
             } else {
-                print("Normal Results")
                 cell.list = lists[indexPath.row].getListModel()
             }
         }
@@ -180,15 +178,15 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         if lists.indices.contains(indexPath.row) {
             
             if searchText != "" {
-                selected_list = search()[indexPath.row].getListModel()
+                selectedList = search()[indexPath.row].getListModel()
             } else {
-                selected_list = lists[indexPath.row].getListModel()
+                selectedList = lists[indexPath.row].getListModel()
             }
             
-            selected_index = indexPath.row
+            selectedIndex = indexPath.row
             
             if delegate != nil {
-                self.delegate?.listSelected(list_id: selected_list!.id)
+                self.delegate?.listSelected(list_id: selectedList!.id)
                 self.dismiss(animated: true, completion: nil)
             } else {
                 self.performSegue(withIdentifier: "list_to_items", sender: self)
@@ -201,12 +199,12 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
             -> UISwipeActionsConfiguration? {
                 
             if searchText != "" {
-                selected_list = search()[indexPath.row].getListModel()
+                selectedList = search()[indexPath.row].getListModel()
             } else {
-                selected_list = lists[indexPath.row].getListModel()
+                selectedList = lists[indexPath.row].getListModel()
             }
         
-            selected_index = indexPath.row
+            selectedIndex = indexPath.row
                 
             let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (_, _, completionHandler) in
                 self.confirmDelete()
@@ -231,47 +229,41 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         if segue.identifier == "list_to_new_list" {
             let destinationVC = segue.destination as! NewListViewController
             destinationVC.delegate = self
-            destinationVC.list_index = lists.count
+            destinationVC.listIndex = lists.count
         } else if (segue.identifier == "list_to_items"){
             let destinationVC = segue.destination as! ListViewController
-            destinationVC.list_index = selected_index
-//            destinationVC.status_delegate = self
-            destinationVC.list_id = selected_list!.id
+            destinationVC.listIndex = lists[selectedIndex].index
+            destinationVC.list_id = selectedList!.id
         } else if (segue.identifier == "list_to_edit"){
             let destinationVC = segue.destination as! ListEditViewController
-//            destinationVC.delegate = self
-            destinationVC.list_index = selected_index
-//            destinationVC.list = selected_list
+            destinationVC.list_index = lists[selectedIndex].index
         }
     }
     
     func addNewList(_ list: ListModel) {
         listHandler.insert(list_data: ["name": list.name,"index": String(list.index),"store_type_id": "1"])
-//        self.lists.insert(list,at: 0)
-//        addToLists(list: list, new: true)
-        
         self.listsTableView.reloadData()
     }
     
     func deleteList(){
-        let deleted_id: String  = String(lists[selected_index].id)
-        let index: String = String(lists[selected_index].index)
+        let deleted_id: String  = String(lists[selectedIndex].id)
+        let index: String = String(lists[selectedIndex].index)
         
         try! realm.write() {
-            realm.delete(lists[selected_index])
+            realm.delete(lists[selectedIndex])
         }
 
-        listsTableView.deleteRows(at: [ IndexPath(row: selected_index, section: 0)], with: .fade)
+        listsTableView.deleteRows(at: [ IndexPath(row: selectedIndex, section: 0)], with: .fade)
         listHandler.delete(list_data: ["list_id":deleted_id ,"index": index ])
     }
     
     func updateListStatus(index: Int, status: ListStatus) {
-        lists[index].status = status.rawValue
+//        lists[index].status = status.rawValue
         listsTableView.reloadData()
     }
     
     func updatePrice(index: Int, total_price: Double) {
-        lists[index].total_price = total_price
+//        lists[index].totalPrice = total_price
         listsTableView.reloadData()
     }
     
@@ -297,7 +289,7 @@ extension ListsViewController {
             } else {
                 listItem!.id = list.id
                 listItem!.name = list.name
-                listItem!.total_price = list.total_price
+                listItem!.totalPrice = list.totalPrice
                 
                 if list.old_total_price != nil {
                     listItem!.old_total_price = list.old_total_price!

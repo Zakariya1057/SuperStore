@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class ProductModel {
     var id: Int
@@ -84,13 +85,21 @@ class DiscountModel {
     }
     
     func getRealmObject() -> DiscountHistory {
-        let discount = DiscountHistory()
-        discount.id = self.id
-        discount.name = self.name
-        discount.quantity = self.quantity
-        discount.forQuantity = self.forQuantity ?? 0
-        discount.price = self.price ?? 0
         
-        return discount
+        let realm = try! Realm()
+        
+        var discount = realm.objects(DiscountHistory.self).filter("id = \(self.id)").first
+        
+        if(discount == nil){
+            discount = DiscountHistory()
+            discount!.id = self.id
+            discount!.name = self.name
+            discount!.quantity = self.quantity
+            discount!.forQuantity = self.forQuantity ?? 0
+            discount!.price = self.price ?? 0
+        }
+        
+        return discount!
+        
     }
 }

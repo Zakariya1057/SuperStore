@@ -16,6 +16,10 @@ class DiscountHistory: Object {
     @objc dynamic var price: Double = 0
     @objc dynamic var forQuantity: Int = 0
     
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
     func getDiscountModel() -> DiscountModel {
         return DiscountModel(id: self.id, name: self.name, quantity: self.quantity, price: self.price, forQuantity: self.forQuantity)
     }

@@ -9,17 +9,18 @@ import UIKit
 import RealmSwift
 
 protocol PriceChangeDelegate {
-    func productChanged(product: ListItemModel)
+    func productChanged(_ product: ListItemModel)
+    func productRemove(_ product: ListItemModel)
     func calculateProductPrice(_ product: ListItemModel) -> Double
 }
 
-protocol ProductQuantityChangedDelegate {
-    func quantityChanged(section_index: Int,row_index:Int, quantity: Int)
-    func calculateProductPrice(_ product: ListItemModel) -> Double
-    func removeItem(section: Int, row: Int)
-}
+//protocol ProductQuantityChangedDelegate {
+//    func quantityChanged(section_index: Int,row_index:Int, quantity: Int)
+//    func calculateProductPrice(_ product: ListItemModel) -> Double
+//    func removeItem(section: Int, row: Int)
+//}
 
-class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PriceChangeDelegate, ProductQuantityChangedDelegate, ListItemsDelegate {
+class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PriceChangeDelegate, ListItemsDelegate {
 
     @IBOutlet weak var totalPriceLabel: UILabel!
     
@@ -28,21 +29,25 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var listHandler = ListItemsHandler()
     
-    var list: ListModel?
+//    var list: ListModel?
     
-    var list_index: Int = 0
+    var listIndex: Int = 0
     
     let realm = try! Realm()
     
     var delegate:PriceChangeDelegate?
     
     var listItem: ListHistory? {
-        return realm.objects(ListHistory.self).filter("index = \(list_index)").first
+        return realm.objects(ListHistory.self).filter("index = \(listIndex)").first
+    }
+    
+    var list: ListModel? {
+        return listItem?.getListModel()
     }
     
     var status: ListStatus?
     
-    var total_price: Double = 0
+    var totalPrice: Double = 0
     
     @IBOutlet weak var editBarItem: UIBarButtonItem!
     
@@ -57,7 +62,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var list_id: Int = 1
     
     var items:[ListItemModel] {
-        return self.list?.categories.flatMap { $0.items } ?? []
+        return self.listItem?.getListModel().categories.flatMap { $0.items } ?? []
     }
     
     var refreshControl = UIRefreshControl()
@@ -80,7 +85,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         showTotalPrice()
         
         listHandler.delegate = self
-        listHandler.request(list_index:list_index)
+        listHandler.request(listIndex:listIndex)
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
@@ -92,38 +97,41 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
                 case .initial:
-                    // Results are now populated and can be accessed without blocking the UI
-                    print("List Item Changed")
-                    self?.configureUI()
-            case .update(_, _, _, _):
-                    print("List Item Changed")
-                    self?.configureUI()
+                    print("List Change. Initial")
+                    self?.updateListInfo()
                     break
+            case .update(_, _, _, _):
+                        print("List Change. Update")
+                    self?.listTableView.reloadData()
+//                        self?.updateListInfo()
+                        break
                 case .error(let error):
-                    // An error occurred while opening the Realm file on the background worker thread
                     fatalError("\(error)")
             }
         }
         
         if listItem != nil {
-            self.list = listItem!.getListModel()
+//            self.list = listItem!.getListModel()
             configureUI()
         }
+        
     }
     
 
     func contentLoaded(list: ListModel) {
-        self.list = list
-        updateListInfo()
+//        self.list = list
+        addToHistory(list)
         configureUI()
     }
     
     func configureUI(){
+        
         self.title = list!.name
         self.list_id = list!.id
-        self.status = ListStatus(rawValue: listItem!.status)
+        self.status = list!.status
         
         showTotalPrice()
+        
         self.listTableView.reloadData()
         stopLoading()
     }
@@ -136,7 +144,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func refresh(_ sender: AnyObject) {
-        listHandler.request(list_index:list_index)
+        listHandler.request(listIndex:listIndex)
     }
     
     func stopLoading(){
@@ -231,26 +239,34 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         self.totalPriceLabel.text = "£" + String(format: "%.2f", price)
-        self.total_price = price
-//        self.status_delegate?.updatePrice(index: list_index, total_price: price)
+        self.totalPrice = price
+//        self.status_delegate?.updatePrice(index: listIndex, totalPrice: price)
         
     }
         
-    func productChanged(product: ListItemModel) {
+    func productRemove(_ product: ListItemModel) {
+        try? realm.write(withoutNotifying: [notificationToken!], {
+            realm.delete(realm.objects(ListItemHistory.self).filter("product_id = \(product.product_id) AND list_id = \(list_id)"))
+        })
         
-        for (section_index, section) in list!.categories.enumerated() {
-            
-            for (row_index, item) in section.items.enumerated() {
-                if item.product_id == product.product_id {
-                    list!.categories[section_index].items[row_index] = product
-                }
-            }
-            
-        }
+        updateListInfo()
+    }
+    
+    func productChanged(_ product: ListItemModel) {
+  
+        try? realm.write(withoutNotifying: [notificationToken!], {
+            let productItem = realm.objects(ListItemHistory.self).filter("product_id = \(product.product_id) AND list_id = \(list_id)").first
+            print("\(product.name): \(product.quantity). Ticked: \(product.ticked_off)")
+            productItem!.ticked_off = product.ticked_off
+            productItem!.quantity = product.quantity
+            productItem!.totalPrice = product.totalPrice
+        })
+        
+        updateListInfo()
         
         showTotalPrice()
         productUpdate(product: product)
-        updateListInfo()
+
     }
     
     func showError(_ error: String){
@@ -368,7 +384,7 @@ extension ListViewController: GroceryDelegate {
     }
     
     func updateQuantity(_ product: ProductModel) {
-        productQuantityChanged(product: product, parent_category_id: product.parent_category_id!)
+//        productChanged(product)
     }
     
     func calculateProductPrice(_ product: ListItemModel) -> Double {
@@ -382,15 +398,15 @@ extension ListViewController: GroceryDelegate {
 
             let remainder = (product.quantity % discount!.quantity)
             let goesIntoFully = floor(Double(Int(product.quantity) / Int(discount!.quantity)))
-
-            if product.quantity < discount!.quantity {
-                price += Double(product.quantity) * product.price
-            }
             
-            if discount!.forQuantity != nil {
-                price = (Double(goesIntoFully) * (Double(discount!.forQuantity!) * product.price) ) + (Double(remainder) * product.price)
-            } else if (discount!.price != nil){
-                price = (Double(goesIntoFully) * discount!.price!) + (Double(remainder) * product.price)
+            if product.quantity < discount!.quantity {
+                price = Double(product.quantity) * product.price
+            } else {
+                if discount!.forQuantity != nil && discount!.forQuantity! > 0{
+                    price = (Double(goesIntoFully) * (Double(discount!.forQuantity!) * product.price) ) + (Double(remainder) * product.price)
+                } else if (discount!.price != nil){
+                    price = (Double(goesIntoFully) * discount!.price!) + (Double(remainder) * product.price)
+                }
             }
             
         }
@@ -406,17 +422,28 @@ extension ListViewController: GroceryDelegate {
         let indexSet = NSIndexSet(index: section)
         
         if list!.categories[section].items.count == 1 {
-            list!.categories.remove(at: section)
+            
+            try? realm.write(withoutNotifying: [notificationToken!], {
+                let deleteCategory = realm.objects(ListCategoryHistory.self).filter("list_id = \(list_id) AND id=\(list!.categories[section].id)").first
+                realm.delete(deleteCategory!.items)
+                realm.delete(deleteCategory!)
+            })
+
             listTableView.deleteSections(indexSet as IndexSet, with: .fade)
         } else {
-            list!.categories[section].items.remove(at: row)
+            try? realm.write(withoutNotifying: [notificationToken!], {
+                let deleteItem = list!.categories[section].items[row]
+                realm.delete( realm.objects(ListItemHistory.self).filter("list_id = \(list_id) AND product_id=\(deleteItem.product_id)") )
+            })
+            
             listTableView.deleteRows(at: [indexPath], with: .fade)
         }
         
         listHandler.delete(list_id: list_id, list_data: ["product_id": String(product.product_id)])
         
         showTotalPrice()
-        updateListInfo()
+//        updateListInfo()
+        // Remove Item From List
     }
     
     func reload(){
@@ -424,35 +451,6 @@ extension ListViewController: GroceryDelegate {
         self.listTableView.beginUpdates()
         self.listTableView.reloadSections(NSIndexSet(index: 1) as IndexSet, with: UITableView.RowAnimation.none)
         self.listTableView.endUpdates()
-    }
-    
-    func productQuantityChanged(product: ProductModel, parent_category_id: Int){
-
-        let categories = list?.categories ?? []
-        
-        for (cat_index, category) in categories.enumerated() {
-            if category.id == parent_category_id {
-                
-                
-                for (prod_index, product_item) in category.items.enumerated() {
-                    if product_item.product_id == product.id {
-                        if product.quantity == 0 {
-                            removeItem(section: cat_index, row: prod_index)
-                        } else {
-                            list?.categories[cat_index].items[prod_index].quantity = product.quantity
-                            productUpdate(product: (list?.categories[cat_index].items[prod_index])!)
-                        }
-
-                        break
-                    }
-                }
-
-            }
-            
-        }
-        
-        showTotalPrice()
-        updateListInfo()
     }
     
     func productAdded(product: ProductModel,parent_category_id: Int,parent_category_name: String) {
@@ -463,7 +461,7 @@ extension ListViewController: GroceryDelegate {
         
         var categories = list?.categories ?? []
         
-        let item = ListItemModel(id: product.id, name: product.name, total_price: product.price, price: product.price, product_id: product.id, quantity: 1, image: product.image, ticked_off: false, weight: product.weight,discount: product.discount, list_id: list_id)
+        let item = ListItemModel(id: product.id, name: product.name, totalPrice: product.price, price: product.price, product_id: product.id, quantity: 1, image: product.image, ticked_off: false, weight: product.weight,discount: product.discount, list_id: list_id)
         
         var added: Bool = false
         
@@ -471,7 +469,7 @@ extension ListViewController: GroceryDelegate {
             
             for (index, category) in categories.enumerated() {
                 if category.id == parent_category_id {
-                    list?.categories[index].items.append(item)
+//                    list?.categories[index].items.append(item)
                     added = true
                     break
                 }
@@ -486,7 +484,7 @@ extension ListViewController: GroceryDelegate {
             categories.append(category)
         }
         
-        list?.categories = categories.sorted(by: {$0.id < $1.id })
+//        list?.categories = categories.sorted(by: {$0.id < $1.id })
         
         listHandler.create(list_id: list_id, list_data: ["product_id": String(product.id)])
         
@@ -495,19 +493,19 @@ extension ListViewController: GroceryDelegate {
         }
         
         showTotalPrice()
-        updateListInfo()
+//        updateListInfo()
     }
     
     
-    func quantityChanged(section_index: Int,row_index:Int, quantity: Int) {
-        var product = list!.categories[selected_section].items[selected_row]
-        product.quantity = quantity
-        list!.categories[selected_section].items[selected_row] = product
-        listTableView.reloadData()
-        showTotalPrice()
-        productUpdate(product: product)
-    }
-    
+//    func quantityChanged(section_index: Int,row_index:Int, quantity: Int) {
+//        var product = list!.categories[selected_section].items[selected_row]
+//        product.quantity = quantity
+////        list!.categories[selected_section].items[selected_row] = product
+//        listTableView.reloadData()
+//        showTotalPrice()
+//        productUpdate(product: product)
+//    }
+//
     func productUpdate(product: ListItemModel){
 
         let data:[String: String] = [
@@ -516,7 +514,7 @@ extension ListViewController: GroceryDelegate {
             "ticked_off": String(product.ticked_off)
         ]
         
-        listHandler.update(list_id: list_id, list_data: data)
+        listHandler.update(listId: list_id, listData: data)
         
         completedCheck()
     }
@@ -556,40 +554,56 @@ extension ListViewController: GroceryDelegate {
            }
         }
         
-        updateListInfo()
+//        updateListInfo()
+        // update list status
         
+    }
+    
+    func addToHistory(_ list: ListModel){
+        let item = realm.objects(ListHistory.self).filter("index = \(listIndex)").first
+        
+        if item != nil {
+            print("List Found. Updating Details")
+            try? realm.write(withoutNotifying: [notificationToken!], {
+                
+                realm.delete( realm.objects(ListItemHistory.self).filter("list_id = \(list_id)") )
+                realm.delete( realm.objects(ListCategoryHistory.self).filter("list_id = \(list_id)") )
+                
+                for category in list.categories {
+                    listItem?.categories.append(category.getRealmObject())
+                }
+            })
+        } else {
+            print("No List Found. Creating List")
+            
+            try? realm.write(withoutNotifying: [notificationToken!], {
+                realm.add(list.getRealmObject())
+            })
+        }
     }
     
     func updateListInfo(){
         
-        if realm.isInWriteTransaction {
-            realm.cancelWrite()
+        print("Update List Info")
+        
+        let item = realm.objects(ListHistory.self).filter("index = \(listIndex)").first
+        
+        if item != nil {
+            print("Updating Details")
+            try? realm.write(withoutNotifying: [notificationToken!], {
+                
+                showTotalPrice()
+                
+                print("Saving Changes")
+                item!.status = list!.status.rawValue
+                item!.totalPrice = totalPrice
+                
+                self.listTableView.reloadData()
+            })
+        } else {
+            print("No List Found. Ignoring")
         }
         
-        realm.beginWrite()
-        
-        listItem!.status = status!.rawValue
-        listItem!.total_price = total_price
-
-        realm.delete( realm.objects(ListItemHistory.self).filter("list_id = \(list_id)") )
-        realm.delete( realm.objects(ListCategoryHistory.self).filter("list_id = \(list_id)") )
-
-        for category in list?.categories ?? [] {
-            let categoryItem = category.getRealmObject()
-
-            for item in self.items {
-                categoryItem.items.append(item.getRealmObject())
-            }
-            
-            listItem!.categories.append(categoryItem)
-        }
-        
-        do {
-            print("Saving Changes")
-            try realm.commitWrite(withoutNotifying: [notificationToken!])
-        } catch {
-            print(error)
-        }
     }
     
 }

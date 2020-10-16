@@ -19,20 +19,14 @@ struct ListItemsHandler {
     
     let requestHandler = RequestHandler()
     
-    func request(list_index: Int){
-        let host_url = K.Host
-        let list_path = K.Request.Lists.List
-        let url_string = "\(host_url)/\(list_path)/\(list_index)"
-        requestHandler.getRequest(url: url_string, complete: processResults,error:processError)
+    func request(listIndex: Int){
+        let urlString = "\(K.Host)/\(K.Request.Lists.List)/\(listIndex)"
+        requestHandler.getRequest(url: urlString, complete: processResults,error:processError)
     }
     
-    func update(list_id: Int, list_data:[String: String]){
-        let host_url = K.Host
-        let list_path = K.Request.Lists.List
-        let update_path = K.Request.Lists.ItemUpdate
-
-        let url_string = "\(host_url)/\(list_path)/\(list_id)/\(update_path)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete: processResponse, error: processError)
+    func update(listId: Int, listData:[String: String]){
+        let urlString = "\(K.Host)/\(K.Request.Lists.List)/\(listId)/\(K.Request.Lists.ItemUpdate)"
+        requestHandler.postRequest(url: urlString, data: listData, complete: processResponse, error: processError)
     }
 
     func delete(list_id: Int, list_data:[String: String]){
@@ -73,7 +67,7 @@ struct ListItemsHandler {
                         discount = DiscountModel(id: item.discount!.id, name: item.discount!.name, quantity: item.discount!.quantity, price: item.discount!.price, forQuantity: item.discount!.for_quantity)
                     }
                     
-                    items.append(ListItemModel(id: item.id, name: item.name, total_price: item.total_price, price: item.price, product_id: item.product_id, quantity: item.quantity, image: item.large_image ?? "", ticked_off: item.ticked_off, weight: item.weight ?? "",discount: discount, list_id: list_data.id))
+                    items.append(ListItemModel(id: item.id, name: item.name, totalPrice: item.total_price, price: item.price, product_id: item.product_id, quantity: item.quantity, image: item.large_image ?? "", ticked_off: item.ticked_off, weight: item.weight ?? "",discount: discount, list_id: list_data.id))
                 }
                 
                 categories.append(ListCategoryModel(id: category.id, name: category.name, aisle_name: category.aisle_name, items: items, list_id: list_data.id))
@@ -95,7 +89,7 @@ struct ListItemsHandler {
 
             let created_date: Date = date_format.date(from: list_data.created_at)!
             
-            let list = ListModel(id: list_data.id, name: list_data.name, created_at: created_date, status: status, index: list_data.index, store_id: list_data.store_id, user_id: list_data.user_id, total_price: list_data.total_price, old_total_price: list_data.old_total_price, categories: categories)
+            let list = ListModel(id: list_data.id, name: list_data.name, created_at: created_date, status: status, index: list_data.index, store_id: list_data.store_id, user_id: list_data.user_id, totalPrice: list_data.total_price, old_total_price: list_data.old_total_price, categories: categories)
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(list: list)

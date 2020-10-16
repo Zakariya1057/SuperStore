@@ -42,9 +42,6 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
         storesTableView.rowHeight = 100;
         mapTableView.rowHeight = 300
         
-        if delegate != nil {
-            print("Delegate Present Here")
-        }
     }
 
     func errorHandler(_ message: String) {
@@ -71,7 +68,6 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     func storePressed(store_id: Int) {
-        print("Store ID: \(store_id)")
         
         for (index, store) in stores.enumerated() {
             if store.id == store_id {

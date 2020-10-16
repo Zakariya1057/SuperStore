@@ -217,7 +217,7 @@ extension ChildCategoriesViewController {
                 "ticked_off": "false"
             ]
             
-            listHandler.update(list_id:selected_list_id!, list_data: data)
+            listHandler.update(listId:selected_list_id!, listData: data)
             
         }
        

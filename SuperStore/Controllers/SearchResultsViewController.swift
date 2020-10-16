@@ -221,9 +221,12 @@ extension SearchResultsViewController {
 
                 var listCategory = realm.objects(ListCategoryHistory.self).filter("list_id = \(selected_list_id!) AND id = \(selected_product!.parent_category_id!)").first
 
+                print("Category Name: \(selected_product!.parent_category_name!)")
                 if listCategory != nil {
+                    print("List ITem Category Exists")
                     listCategory!.items.append(listItem!)
                 } else {
+                    print("List ITem Category Doesn't Exists")
                     listCategory = ListCategoryHistory()
                     listCategory!.id = selected_product!.parent_category_id!
                     listCategory!.name = selected_product!.parent_category_name!
@@ -266,7 +269,7 @@ extension SearchResultsViewController {
             }
         }
             
-        listHandler.update(list_id:selected_list_id!, list_data: data)
+        listHandler.update(listId:selected_list_id!, listData: data)
         
     }
     

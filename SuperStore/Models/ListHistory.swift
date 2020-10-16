@@ -16,7 +16,7 @@ class ListHistory: Object {
     @objc dynamic var status: String = ""
     @objc dynamic var store_id: Int = 1
     @objc dynamic var user_id: Int = 1
-    @objc dynamic var total_price: Double = 0
+    @objc dynamic var totalPrice: Double = 0
     @objc dynamic var old_total_price: Double = 0
     var categories = List<ListCategoryHistory>()
     @objc dynamic var created_at: Date = Date()
@@ -28,7 +28,7 @@ class ListHistory: Object {
         for category in categories {
             categoryItems.append(category.getCategoryModel())
         }
-        return ListModel(id: self.id, name: self.name, created_at: self.created_at, status: ListStatus(rawValue: self.status)!,index: self.index,user_id: self.user_id, total_price: self.total_price, categories:categoryItems)
+        return ListModel(id: self.id, name: self.name, created_at: self.created_at, status: ListStatus(rawValue: self.status)!,index: self.index,user_id: self.user_id, totalPrice: self.totalPrice, categories:categoryItems)
     }
     
     func restartList(){
@@ -48,6 +48,7 @@ class ListCategoryHistory:Object {
     @objc dynamic var name: String = ""
     @objc dynamic var aisle_name: String = ""
     @objc dynamic var list_id: Int = 1
+    @objc dynamic var created_at: Date = Date()
     var items = List<ListItemHistory>()
     
     func getCategoryModel() -> ListCategoryModel {
@@ -64,7 +65,7 @@ class ListCategoryHistory:Object {
 class ListItemHistory: Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
-    @objc dynamic var total_price: Double = 0
+    @objc dynamic var totalPrice: Double = 0
     @objc dynamic var price: Double = 0
     @objc dynamic var product_id: Int = 1
     @objc dynamic var quantity: Int = 1
@@ -73,8 +74,9 @@ class ListItemHistory: Object {
     @objc dynamic var weight: String = ""
     @objc dynamic var discount: DiscountHistory? = nil
     @objc dynamic var list_id: Int = 1
+    @objc dynamic var created_at: Date = Date()
     
     func getItemModel() -> ListItemModel {
-        return ListItemModel(id: self.id, name: self.name, total_price: self.total_price, price: self.price, product_id: self.product_id, quantity: self.quantity, image: self.image, ticked_off: self.ticked_off, weight: self.weight, discount: self.discount?.getDiscountModel(), list_id: self.list_id)
+        return ListItemModel(id: self.id, name: self.name, totalPrice: self.totalPrice, price: self.price, product_id: self.product_id, quantity: self.quantity, image: self.image, ticked_off: self.ticked_off, weight: self.weight, discount: self.discount?.getDiscountModel(), list_id: self.list_id)
     }
 }

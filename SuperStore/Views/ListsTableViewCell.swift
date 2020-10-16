@@ -39,7 +39,7 @@ class ListsTableViewCell: UITableViewCell {
             let status = list!.status
             
             listNameLabel.text = list!.name
-            totalLabel.text = "£\( String(format:"%.2f", list!.total_price))"
+            totalLabel.text = "£\( String(format:"%.2f", list!.totalPrice))"
            
 
             let dateFormatter = DateFormatter()

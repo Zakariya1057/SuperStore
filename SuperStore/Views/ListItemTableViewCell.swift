@@ -50,7 +50,8 @@ class ListItemTableViewCell: UITableViewCell {
     @IBAction func checkBoxPressed(_ sender: UIButton) {
         ticked_off = !ticked_off
         product!.ticked_off = ticked_off
-        reflectChange()
+        delegate!.productChanged(product!)
+        
         showCheckBox()
     }
     
@@ -77,10 +78,6 @@ class ListItemTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
-    }
-    
-    func reflectChange(){
-        delegate!.productChanged(product: product!)
     }
     
     func startLoading(){
