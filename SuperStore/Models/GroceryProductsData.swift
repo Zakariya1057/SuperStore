@@ -18,14 +18,3 @@ struct GroceryProductsData:Decodable {
     var parent_category_id: Int
     var products: [ProductData]
 }
-
-//struct GroceryProductData:Decodable {
-//    var id: Int
-//    var name: String
-//    var large_image: String
-//    var small_image: String
-//    var description: String?
-//    var price: String
-//    var promotion: PromotionData?
-////    var location: String
-//}

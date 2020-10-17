@@ -16,8 +16,8 @@ class DiscountHistory: Object {
     @objc dynamic var price: Double = 0
     @objc dynamic var forQuantity: Int = 0
     
-    override static func primaryKey() -> String? {
-        return "id"
+    override static func indexedProperties() -> [String] {
+        return ["id"]
     }
     
     func getDiscountModel() -> DiscountModel {

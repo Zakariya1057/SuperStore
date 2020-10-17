@@ -45,10 +45,10 @@ struct ListsHandler {
     }
     
     // Restarting Shoppping List, Setting All To Unchecked
-    func restart(list_index: Int){
+    func restart(listID: Int){
         let restartPath = K.Request.Lists.ListRestart
-        let url_string = "\(K.Host)/\(listPath)/\(list_index)/\(restartPath)"
-        requestHandler.postRequest(url: url_string, data: ["list_id": String(list_index)], complete: { _ in }, error: processError)
+        let url_string = "\(K.Host)/\(listPath)/\(listID)/\(restartPath)"
+        requestHandler.postRequest(url: url_string, data: ["identifier": String(listID)], complete: { _ in }, error: processError)
     }
     
     func processResults(_ data:Data){
@@ -79,7 +79,7 @@ struct ListsHandler {
 
                 let created_date: Date = date_format.date(from: list.created_at)!
                 
-                lists.append( ListModel(id: list.id, name: list.name, created_at: created_date, status: status, index: list.index, store_id: list.store_id, user_id: list.user_id, totalPrice: list.total_price, old_total_price: list.old_total_price, categories: []))
+                lists.append( ListModel(id: list.id, name: list.name, created_at: created_date, status: status, identifier: list.identifier, store_id: list.store_id, user_id: list.user_id, totalPrice: list.total_price, old_total_price: list.old_total_price, categories: []))
             }
             
             DispatchQueue.main.async {

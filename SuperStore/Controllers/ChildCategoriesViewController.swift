@@ -44,10 +44,12 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         }
     }
     
+    var listRequired: Bool = true
+    var listManager: ListManager = ListManager()
     
-    var selected_product_id:Int?
-    
+    var selected_product: ProductModel?
     var selected_row: GroceryTableViewCell?
+    var selected_product_id:Int?
     
     // Create bar
     let bar = TMBar.ButtonBar()
@@ -56,7 +58,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
     
     var add_to_list_product_index: Int?
     
-    var selected_list_id: Int?
+    var selectedListId: Int?
     
     var loading: Bool = true
     
@@ -165,51 +167,42 @@ extension ChildCategoriesViewController {
         destinationVC.delegate = self.list_delegate
     }
     
-    func removeFromList(_ product: ProductModel) {
-        
-    }
-    
     func addToList(_ product: ProductModel, cell: GroceryTableViewCell?){
         
         selected_row = cell
         
-        if list_delegate != nil {
-            product.parent_category_id = parentCategory!.id
-            product.parent_category_name = parentCategory!.name
-            product.quantity = 1
-            list_delegate?.addToList(product, cell: cell)
-        } else {
+        product.parent_category_id = parent_category_id
+        product.parent_category_name = parent_category_name
+        
+        selected_product = product
+        
+        if listRequired {
             let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
             destinationVC.delegate = self
-            
-            self.present(destinationVC, animated: true)
-            self.add_to_list_product_index = product.id
+            present(destinationVC, animated: true)
+        } else {
+            let item = listManager.addProductToList(listId: selectedListId!, product: product)
+            selected_row!.product?.quantity = item.quantity
+            selected_row!.show_quantity_view()
+            selected_row!.configureUI()
         }
         
         print("Adding To List")
     }
     
     func listSelected(list_id: Int) {
-        self.selected_list_id = list_id
+        self.selectedListId = list_id
         selected_row?.show_quantity_view()
-        listHandler.create(list_id: list_id, list_data: ["product_id": String(add_to_list_product_index!)])
-    }
-    
-    func remove_from_list(_ product: ProductModel) {
-        product.parent_category_id = parentCategory!.id
-        product.parent_category_name = parentCategory!.name
+        listHandler.create(list_id: list_id, list_data: ["product_id": String(selected_product!.id)])
         
-        list_delegate!.removeFromList(product)
+        let item = listManager.addProductToList(listId: list_id, product: selected_product!)
+        selected_row!.product?.quantity = item.quantity
+        selected_row!.show_quantity_view()
     }
-    
+
     func updateQuantity(_ product: ProductModel) {
 
-        if list_delegate != nil {
-            product.parent_category_id = parentCategory!.id
-            product.parent_category_name = parentCategory!.name
-            
-            list_delegate?.updateQuantity(product)
-        } else if selected_list_id != nil {
+        if selectedListId != nil {
          
             let data:[String: String] = [
                 "product_id": String(product.id),
@@ -217,12 +210,13 @@ extension ChildCategoriesViewController {
                 "ticked_off": "false"
             ]
             
-            listHandler.update(listId:selected_list_id!, listData: data)
+            listManager.updateProduct(listId: selectedListId!, product: product)
+            
+            listHandler.update(listId:selectedListId!, listData: data)
             
         }
        
     }
-
     
 }
 

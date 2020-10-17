@@ -11,7 +11,7 @@ import RealmSwift
 
 class ListHistory: Object {
     @objc dynamic var id: Int = 1
-    @objc dynamic var index: Int = 1
+    @objc dynamic var identifier: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var status: String = ""
     @objc dynamic var store_id: Int = 1
@@ -28,7 +28,7 @@ class ListHistory: Object {
         for category in categories {
             categoryItems.append(category.getCategoryModel())
         }
-        return ListModel(id: self.id, name: self.name, created_at: self.created_at, status: ListStatus(rawValue: self.status)!,index: self.index,user_id: self.user_id, totalPrice: self.totalPrice, categories:categoryItems)
+        return ListModel(id: self.id, name: self.name, created_at: self.created_at, status: ListStatus(rawValue: self.status)!,identifier: self.identifier,user_id: self.user_id, totalPrice: self.totalPrice, categories:categoryItems)
     }
     
     func restartList(){

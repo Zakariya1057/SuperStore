@@ -80,8 +80,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     var listHandler = ListItemsHandler()
     
+    var listManager: ListManager = ListManager()
+    
     var selected_product_id:Int?
-    var selected_list_id: Int?
+    var selectedListId: Int?
     
     var loadingViews: [UIView?] {
         return [productNameLabel,descriptionView,ingredientsView, reviewButton,productImageView,productPriceLabel,productWeightLabel,parentRatingView,addToListButton,monitorButton,allReviewsButton, allergenLabel,promotionView,lifeStyleLabel]
@@ -142,6 +144,12 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         if delegate == nil {
             noDelegateFound = true
             delegate = self
+        }
+        
+        if selectedListId != nil {
+            quantityStepper.value = Double(itemQuantity!)
+            stepperLabel.text = "\(itemQuantity!)"
+            showQuantityView()
         }
        
     }
@@ -411,7 +419,6 @@ extension ProductViewController {
         
         if(quantity == 0){
             showAddButtonView()
-//            delegate?.removeFromList(product!)
             
             quantityStepper.value = 1
             stepperLabel.text = "1"
@@ -434,10 +441,11 @@ extension ProductViewController {
     
     func addToList(_ productItem: ProductModel, cell: GroceryTableViewCell?){
         
-        if cell != nil {
-            productItem.parent_category_id = product!.parent_category_id
-            productItem.parent_category_name = product!.parent_category_name
-            delegate?.addToList(productItem, cell: cell)
+        if selectedListId != nil {
+            let item = listManager.addProductToList(listId: selectedListId!, product: product!.getProductModel())
+            quantityStepper.value = Double(item.quantity)
+            stepperLabel.text = "\(item.quantity)"
+            showQuantityView()
         } else {
             let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
             destinationVC.delegate = self
@@ -451,55 +459,20 @@ extension ProductViewController {
     
     
     func listSelected(list_id: Int) {
-        self.selected_list_id = list_id
-        
-        var listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selected_list_id!) AND product_id = \(product!.id)").first
+        self.selectedListId = list_id
 
-        try! realm.write() {
-
-            if listItem == nil {
-                listItem = ListItemHistory()
-
-                print("Product Creating List Item Quantity")
-
-                listItem!.product_id = product!.id
-                listItem!.name = product!.name
-                listItem!.image = product!.image
-                listItem!.price = product!.price
-                listItem!.discount = product!.discount
-                listItem!.list_id = selected_list_id!
-                listItem!.quantity = product!.quantity
-
-                var listCategory = realm.objects(ListCategoryHistory.self).filter("list_id = \(selected_list_id!) AND id = \(product!.parent_category_id)").first
-
-                if listCategory != nil {
-                    listCategory!.items.append(listItem!)
-                } else {
-                    listCategory = ListCategoryHistory()
-                    listCategory!.id = product!.parent_category_id
-                    listCategory!.name = product!.parent_category_name!
-                    listCategory!.list_id = selected_list_id!
-                    listCategory!.items.append(listItem!)
-
-                    let list = realm.objects(ListHistory.self).filter("id = \(selected_list_id!)").first
-
-                    list!.categories.append(listCategory!)
-                }
-
-            } else {
-                quantityStepper.value = Double(listItem!.quantity)
-                stepperLabel.text = "\(listItem!.quantity)"
-            }
-        }
-        
+        let item = listManager.addProductToList(listId: list_id, product: product!.getProductModel())
+        quantityStepper.value = Double(item.quantity)
+        stepperLabel.text = "\(item.quantity)"
         
         listHandler.create(list_id: list_id, list_data: ["product_id": String(add_to_list_product_id!)])
+        
         showQuantityView()
     }
     
     func updateQuantity(_ product: ProductModel) {
 
-        if selected_list_id != nil {
+        if selectedListId != nil {
          
             let data:[String: String] = [
                 "product_id": String(product.id),
@@ -507,32 +480,15 @@ extension ProductViewController {
                 "ticked_off": "false"
             ]
             
-            var listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selected_list_id!) AND product_id = \(product.id)").first
-            try! realm.write() {
-                
-                if(product.quantity == 0 && listItem != nil){
-                    realm.delete(listItem!)
-                } else {
-                    
-                    if listItem != nil {
-                        print("Product Updating List Item Quantity")
-                        listItem!.quantity = product.quantity
-                    }
-                    
-                }
-            }
+            listManager.updateProduct(listId: selectedListId!, product: product)
             
-            listHandler.update(listId:selected_list_id!, listData: data)
+            listHandler.update(listId:selectedListId!, listData: data)
             
         }
        
     }
     
     func showGroceryItem(_ product_id: Int) {
-        
-    }
-    
-    func removeFromList(_ product: ProductModel) {
         
     }
     
@@ -560,6 +516,8 @@ extension ProductViewController {
                 product!.total_reviews_count = productObject.total_reviews_count
                 product!.allergen_info = productObject.allergen_info
                 product!.dietary_info = productObject.dietary_info
+                product!.parent_category_id = productObject.parent_category_id
+                product!.parent_category_name = productObject.parent_category_name
                 
                 product!.recommended.removeAll()
                 product!.reviews.removeAll()

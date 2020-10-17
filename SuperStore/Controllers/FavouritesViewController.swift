@@ -73,7 +73,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         loading = false
         refreshControl.endRefreshing()
 
-        var products = products.reversed()
+        let products = products.reversed()
         for product in products {
             product.favourite = true
             addToFavourite(product)

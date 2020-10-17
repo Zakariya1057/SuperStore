@@ -14,7 +14,7 @@ protocol SearchSuggestionsDelegate {
 }
 
 protocol SearchResultsDelegate {
-    func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel])
+    func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel], paginate: PaginateResultsModel?)
     func errorHandler(_ message:String)
 }
 
@@ -32,10 +32,10 @@ struct SearchHandler {
         requestHandler.getRequest(url: urlString, complete: processSuggestionsResults,error:processError)
     }
     
-    func requestResults(searchData: [String: String]){
+    func requestResults(searchData: [String: String], page: Int = 1){
         let hostURL = K.Host
         let resultsPath = K.Request.Search.Results
-        let urlString = "\(hostURL)/\(resultsPath)"
+        let urlString = "\(hostURL)/\(resultsPath)?page=\(page)"
         requestHandler.postRequest(url: urlString, data: searchData, complete: processResults, error: processError)
     }
     
@@ -88,8 +88,11 @@ struct SearchHandler {
             let decodedResultsData = try decoder.decode(SearchResultsDataResponse.self, from: data)
             let resultsData = decodedResultsData.data
             
+            let paginateData = decodedResultsData.data.paginate
+            
             var stores: [StoreModel] = []
             var products: [ProductModel] = []
+            var paginate: PaginateResultsModel? = nil
             
             var filterCategories: RefineOptionModel = RefineOptionModel(header: "Categories", values: [], type: .category)
             var filterBrands: RefineOptionModel = RefineOptionModel(header: "Brands", values: [], type: .brand)
@@ -104,12 +107,18 @@ struct SearchHandler {
                 filterCategories.values.append(RefineModel(name: categories.key, selected: false, quantity: categories.value))
             }
             
+            if paginateData != nil {
+                print("Paginate Data Found")
+                paginate = PaginateResultsModel(from: paginateData!.from, current: paginateData!.current, to: paginateData!.to, per_page: paginateData!.per_page, next_page_url: paginateData!.next_page_url, current_page_url: paginateData!.current_page_url, prev_page_url: paginateData!.prev_page_url, more_available: paginateData!.more_available)
+            }
+            
             let filters: [RefineOptionModel] = [filterCategories, filterBrands]
 
             for store in resultsData.stores {
                 let hour = OpeningHoursModel(opens_at: store.opens_at!, closes_at: store.closes_at!, closed_today: false, day_of_week: 1)
                 
                 stores.append( StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [hour], location: LocationModel(store_id: store.id, city: store.location.city, address_line1: store.location.address_line1, address_line2: store.location.address_line2, address_line3: store.location.address_line3, postcode: store.location.postcode,latitude: store.location.latitude, longitude: store.location.longitude), facilities: [], store_type_id: store.store_type_id))
+                
             }
             
             for product_item in resultsData.products {
@@ -124,7 +133,7 @@ struct SearchHandler {
             }
             
             DispatchQueue.main.async {
-                self.resultsDelegate?.contentLoaded(stores: stores, products: products, filters: filters)
+                self.resultsDelegate?.contentLoaded(stores: stores, products: products, filters: filters, paginate: paginate)
             }
         
         } catch {

@@ -34,3 +34,14 @@ struct FilterItemModel {
     var name: String
     var quantity: Int
 }
+
+struct PaginateResultsModel {
+    var from: Int
+    var current: Int
+    var to: Int
+    var per_page: Int
+    var next_page_url: String?
+    var current_page_url: String
+    var prev_page_url:String?
+    var more_available: Bool
+}

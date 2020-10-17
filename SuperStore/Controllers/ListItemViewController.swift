@@ -23,8 +23,6 @@ class ListItemViewController: UIViewController {
     
     var delegate: PriceChangeDelegate?
     
-    var groceryDelegate: GroceryDelegate?
-    
     var selected_row: Int = 0
     var selected_section: Int = 0
     
@@ -49,7 +47,6 @@ class ListItemViewController: UIViewController {
         
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "promotionViewController"))! as! PromotionViewController
         destinationVC.promotion_id = product!.discount!.id
-        destinationVC.delegate = self.groceryDelegate
         
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
@@ -57,13 +54,12 @@ class ListItemViewController: UIViewController {
     func configureUI(){
         
         if product?.discount != nil {
-//            promotionNameLabel.text =
             promotionButton.setTitle(product!.discount?.name, for: .normal)
         } else {
             promotionButton.removeFromSuperview()
         }
         quantityLabel.text = String(product!.quantity)
-        productNameLabel.text = String(product!.name) + " (\(product!.weight ?? ""))"
+        productNameLabel.text = String(product!.name) + ( product!.weight != "" ? " (\(product!.weight!))" : "")
         stepper.value = Double(product!.quantity)
         productImageView.downloaded(from: product!.image)
         updateTotalPrice()
@@ -99,14 +95,6 @@ class ListItemViewController: UIViewController {
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
         deleteItem()
-    }
-    
-    @IBAction func detailsPressed(_ sender: Any) {
-        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
-        destinationVC.delegate = self.groceryDelegate
-        destinationVC.product_id = product!.product_id
-        destinationVC.itemQuantity = product!.quantity
-        self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
 }

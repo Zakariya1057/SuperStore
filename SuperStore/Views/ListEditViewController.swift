@@ -16,20 +16,15 @@ class ListEditViewController: UIViewController  {
     let realm = try! Realm()
     
     var list: ListHistory? {
-        return realm.objects(ListHistory.self).filter("index = \(list_index!)").first
+        return realm.objects(ListHistory.self).filter("identifier = %@", identifier!).first
     }
-    
-//    var list:ListModel?
-    
-//    var delegate: ListChangedDelegate?
-    var list_index: Int?
+
+    var identifier: String?
     
     @IBOutlet weak var nameField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(list)
         
         if list != nil {
             nameField.text = list?.name
@@ -60,7 +55,7 @@ class ListEditViewController: UIViewController  {
                 print(error)
             }
             
-            self.listHandler.restart(list_index: self.list_index!)
+            self.listHandler.restart(listID: self.list!.id)
             
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -91,7 +86,7 @@ class ListEditViewController: UIViewController  {
 //        self.delegate?.updateList(list: list!, index: list_index!)
         
         listHandler.update(list_data: [
-            "index": String(list!.index),
+            "identifier": list!.identifier,
             "name":nameField.text!,
             "store_type_id": "1"
         ])

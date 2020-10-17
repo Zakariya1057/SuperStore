@@ -33,20 +33,25 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     var selected_product: ProductModel?
     var selected_row: GroceryTableViewCell?
     
-    var selected_list_id: Int?
+    var selectedListId: Int?
     
     var selectedSort: RefineSortModel?
     var selectedCategory: RefineModel?
     var selectedBrand: RefineModel?
     var selectedDietary: [RefineModel] = []
     
+    var currentPage: Int = 1
     var loading: Bool = true
     
     var refreshControl = UIRefreshControl()
     
     var filters: [RefineOptionModel] = []
+    var paginate: PaginateResultsModel?
     
-    var noDelegateFound: Bool = false
+//    var noDelegateFound: Bool = false
+    var listRequired: Bool = true
+    
+    var listManager: ListManager = ListManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,20 +72,25 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         searchHandler.resultsDelegate = self
         search()
         
-        if(delegate == nil){
-            self.noDelegateFound = true
+        self.delegate = self
+        
+        if(selectedListId != nil){
+            self.listRequired = false
+        } else {
             self.navigationItem.rightBarButtonItem = nil
-            self.delegate = self
         }
     }
         
-    func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel]) {
-        self.products = products
-        self.filters = filters
+    func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel], paginate: PaginateResultsModel?) {
+        self.products.append(contentsOf: products)
+        self.filters.append(contentsOf: filters)
+        self.paginate = paginate
+
         loading = false
-        totalProductsLabel.text = "\(products.count) Products"
+        totalProductsLabel.text = "\(self.products.count) Products"
         resultsTableView.reloadData()
         refreshControl.endRefreshing()
+
     }
     
     func errorHandler(_ message: String) {
@@ -109,7 +119,7 @@ extension SearchResultsViewController {
         search()
     }
     
-    func search(){
+    func search(refresh: Bool = true){
         
         var data = ["type": type!, "detail": searchName!]
         
@@ -140,15 +150,18 @@ extension SearchResultsViewController {
         }
         
         
-        loading = true
-        
-        if products.count > 0 {
-            resultsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        if refresh {
+            
+            loading = true
+            
+            if products.count > 0 {
+                resultsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
+            
+            resultsTableView.reloadData()
         }
         
-        resultsTableView.reloadData()
-        
-        searchHandler.requestResults(searchData: data)
+        searchHandler.requestResults(searchData: data, page: currentPage)
     }
     
     func clearAllOptions() {
@@ -190,88 +203,32 @@ extension SearchResultsViewController {
     
     
     func addToList(_ product: ProductModel, cell: GroceryTableViewCell?){
-        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
-        destinationVC.delegate = self
-        present(destinationVC, animated: true)
         
         selected_product = product
         selected_row = cell
+        
+        if listRequired {
+            let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
+            destinationVC.delegate = self
+            present(destinationVC, animated: true)
+        } else {
+            let item = listManager.addProductToList(listId: selectedListId!, product: selected_product!)
+            selected_row!.product?.quantity = item.quantity
+            selected_row!.show_quantity_view()
+            selected_row!.configureUI()
+        }
+
     }
     
     func listSelected(list_id: Int) {
-        self.selected_list_id = list_id
+        self.selectedListId = list_id
         listHandler.create(list_id: list_id, list_data: ["product_id": String(selected_product!.id)])
         
-        var listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selected_list_id!) AND product_id = \(selected_product!.id)").first
-
-        try! realm.write() {
-
-            if listItem == nil {
-                listItem = ListItemHistory()
-
-                print("Product Creating List Item Quantity")
-
-                listItem!.product_id = selected_product!.id
-                listItem!.name = selected_product!.name
-                listItem!.image = selected_product!.image
-                listItem!.price = selected_product!.price
-                listItem!.discount = selected_product!.discount?.getRealmObject()
-                listItem!.list_id = selected_list_id!
-                listItem!.quantity = selected_product!.quantity
-
-                var listCategory = realm.objects(ListCategoryHistory.self).filter("list_id = \(selected_list_id!) AND id = \(selected_product!.parent_category_id!)").first
-
-                print("Category Name: \(selected_product!.parent_category_name!)")
-                if listCategory != nil {
-                    print("List ITem Category Exists")
-                    listCategory!.items.append(listItem!)
-                } else {
-                    print("List ITem Category Doesn't Exists")
-                    listCategory = ListCategoryHistory()
-                    listCategory!.id = selected_product!.parent_category_id!
-                    listCategory!.name = selected_product!.parent_category_name!
-                    listCategory!.list_id = selected_list_id!
-                    listCategory!.items.append(listItem!)
-
-                    let list = realm.objects(ListHistory.self).filter("id = \(selected_list_id!)").first
-
-                    list!.categories.append(listCategory!)
-                }
-
-            } else {
-                selected_row?.product?.quantity = listItem!.quantity
-                selected_row?.configureUI()
-            }
-        }
-        
+        let item = listManager.addProductToList(listId: list_id, product: selected_product!)
+        selected_row!.product?.quantity = item.quantity
         selected_row!.show_quantity_view()
     }
     
-    func update_quantity(_ product: ProductModel) {
-        let data:[String: String] = [
-            "product_id": String(product.id),
-            "quantity": String(product.quantity),
-            "ticked_off": "false"
-        ]
-        
-        var listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selected_list_id!) AND product_id = \(product.id)").first
-        try! realm.write() {
-            
-            if(product.quantity == 0 && listItem != nil){
-                realm.delete(listItem!)
-            } else {
-                
-                if listItem != nil {
-                    print("Product Updating List Item Quantity")
-                    listItem!.quantity = product.quantity
-                }
-                
-            }
-        }
-            
-        listHandler.update(listId:selected_list_id!, listData: data)
-        
-    }
     
     @IBAction func donePressed(_ sender: Any) {
         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
@@ -281,16 +238,26 @@ extension SearchResultsViewController {
     func showGroceryItem(_ product_id: Int) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
         destinationVC.product_id = product_id
-        destinationVC.delegate = noDelegateFound ? nil : self.delegate
+        
+        if !listRequired {
+            destinationVC.selectedListId = selectedListId
+            destinationVC.itemQuantity = 5 // Set In future, when setting quantity with showing results
+        }
+        
+        
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
-    func removeFromList(_ product: ProductModel) {
-        
-    }
-    
     func updateQuantity(_ product: ProductModel) {
-        update_quantity(product)
+        let data:[String: String] = [
+            "product_id": String(product.id),
+            "quantity": String(product.quantity),
+            "ticked_off": "false"
+        ]
+        
+        listManager.updateProduct(listId: selectedListId!, product: product)
+            
+        listHandler.update(listId:selectedListId!, listData: data)
     }
 }
 
@@ -303,6 +270,12 @@ extension SearchResultsViewController {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = resultsTableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
+        
+        if paginate != nil && paginate!.more_available && indexPath.row + 1 == products.count && currentPage <= paginate!.to{
+            // Load More Items At End
+            currentPage = currentPage + 1
+            search(refresh: false)
+        }
         
         if loading == false {
             cell.delegate = self.delegate

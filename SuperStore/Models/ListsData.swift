@@ -14,7 +14,7 @@ struct ListsDataResponse: Decodable {
 
 struct ListData: Decodable {
     var id: Int
-    var index: Int
+    var identifier: String
     var name: String
     var status: String
     var store_id: Int?

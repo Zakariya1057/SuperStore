@@ -13,15 +13,6 @@ protocol NewListDelegate {
     func addNewList(_ list: ListModel)
 }
 
-//protocol ListChangedDelegate {
-//    func updateList(list: ListModel, index: Int)
-//}
-//
-//protocol ListStatusChangeDelegate {
-//    func updateListStatus(index: Int, status: ListStatus)
-//    func updatePrice(index: Int, total_price: Double)
-//}
-
 class ListsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource,NewListDelegate, ListDelegate, UISearchBarDelegate {
 
     @IBOutlet var searchBar: UISearchBar!
@@ -29,8 +20,6 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     @IBOutlet weak var listsTableView: UITableView!
     
     var listHandler = ListsHandler()
-    
-//    var lists:[ListModel] = []
     
     let realm = try! Realm()
     lazy var lists: Results<ListHistory> = {
@@ -98,6 +87,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     func contentLoaded(lists: [ListModel]) {
         
+        print(lists)
         for list in lists {
             addUpdateList(list: list)
         }
@@ -232,29 +222,30 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
             destinationVC.listIndex = lists.count
         } else if (segue.identifier == "list_to_items"){
             let destinationVC = segue.destination as! ListViewController
-            destinationVC.listIndex = lists[selectedIndex].index
+            destinationVC.identifier = lists[selectedIndex].identifier
             destinationVC.list_id = selectedList!.id
         } else if (segue.identifier == "list_to_edit"){
             let destinationVC = segue.destination as! ListEditViewController
-            destinationVC.list_index = lists[selectedIndex].index
+            destinationVC.identifier = lists[selectedIndex].identifier
+            print(lists[selectedIndex].identifier)
         }
     }
     
     func addNewList(_ list: ListModel) {
-        listHandler.insert(list_data: ["name": list.name,"index": String(list.index),"store_type_id": "1"])
+        listHandler.insert(list_data: ["name": list.name,"identifier": list.identifier,"store_type_id": "1"])
         self.listsTableView.reloadData()
     }
     
     func deleteList(){
         let deleted_id: String  = String(lists[selectedIndex].id)
-        let index: String = String(lists[selectedIndex].index)
+        let identifier: String = lists[selectedIndex].identifier
         
         try! realm.write() {
             realm.delete(lists[selectedIndex])
         }
 
         listsTableView.deleteRows(at: [ IndexPath(row: selectedIndex, section: 0)], with: .fade)
-        listHandler.delete(list_data: ["list_id":deleted_id ,"index": index ])
+        listHandler.delete(list_data: ["list_id":deleted_id ,"identifier": identifier ])
     }
     
     func updateListStatus(index: Int, status: ListStatus) {
@@ -281,7 +272,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
 extension ListsViewController {
     func addUpdateList(list: ListModel){
         
-        let listItem = realm.objects(ListHistory.self).filter("index = \(list.index)").first
+        let listItem = realm.objects(ListHistory.self).filter("identifier = %@", list.identifier).first
         
         try! realm.write() {
             if listItem == nil {

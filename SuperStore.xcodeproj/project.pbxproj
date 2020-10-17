@@ -55,6 +55,7 @@
 		2C266DFF24D6FBC300C66EA5 /* SettingsChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266DFE24D6FBC300C66EA5 /* SettingsChangeViewController.swift */; };
 		2C266E0124D702BD00C66EA5 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266E0024D702BD00C66EA5 /* ChangePasswordViewController.swift */; };
 		2C266E0324D70C3900C66EA5 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266E0224D70C3900C66EA5 /* SearchModel.swift */; };
+		2C362F8C253A062D000846C0 /* ListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C362F8B253A062D000846C0 /* ListManager.swift */; };
 		2C3F537E24D184C80095C4B1 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F537C24D184C80095C4B1 /* SearchTableViewCell.swift */; };
 		2C3F537F24D184C80095C4B1 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C3F537D24D184C80095C4B1 /* SearchTableViewCell.xib */; };
 		2C5B5C6C24D084FD0095C920 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5C6B24D084FD0095C920 /* SearchResultsViewController.swift */; };
@@ -191,6 +192,7 @@
 		2C266DFE24D6FBC300C66EA5 /* SettingsChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsChangeViewController.swift; path = SuperStore/Views/SettingsChangeViewController.swift; sourceTree = SOURCE_ROOT; };
 		2C266E0024D702BD00C66EA5 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		2C266E0224D70C3900C66EA5 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		2C362F8B253A062D000846C0 /* ListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListManager.swift; sourceTree = "<group>"; };
 		2C3F537C24D184C80095C4B1 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		2C3F537D24D184C80095C4B1 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
 		2C5B5C6B24D084FD0095C920 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 				2CD5E03225337BE000E4A01B /* ListHistory.swift */,
 				2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */,
 				2CF239BC2509549100D4CE91 /* ListItemsData.swift */,
+				2C362F8B253A062D000846C0 /* ListManager.swift */,
 				2C9DD12824FC1EEB00544563 /* PromotionModel.swift */,
 				2C266DF024D5A6C900C66EA5 /* ProductModel.swift */,
 				2C0D447E2535B2390046E2B0 /* ProductHistory.swift */,
@@ -735,6 +738,7 @@
 				2C9DD13124FD022800544563 /* ReviewsHandler.swift in Sources */,
 				2C85FECF2520FC6D00CECBD5 /* UserSession.swift in Sources */,
 				2CCE48D825177FE700AE3BCA /* SearchData.swift in Sources */,
+				2C362F8C253A062D000846C0 /* ListManager.swift in Sources */,
 				2C21C3AA24F8186200D90B4B /* ProductsHandler.swift in Sources */,
 				2CAB6A3E251F958500774B89 /* UserData.swift in Sources */,
 				2C5B5C6C24D084FD0095C920 /* SearchResultsViewController.swift in Sources */,

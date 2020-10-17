@@ -14,7 +14,7 @@ struct ListModel {
     var name: String
     var created_at: Date
     var status: ListStatus
-    var index: Int
+    var identifier: String
     var store_id: Int?
     var user_id: Int
     var totalPrice: Double
@@ -25,7 +25,7 @@ struct ListModel {
         let list = ListHistory()
         list.id = self.id
         list.name = self.name
-        list.index = self.index
+        list.identifier = self.identifier
         list.created_at = Date()
         list.status = self.status.rawValue
         list.totalPrice = self.totalPrice

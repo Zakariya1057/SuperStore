@@ -50,7 +50,7 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
         storesTableView.reloadData()
     }
     
-    func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel]) {
+    func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel], paginate: PaginateResultsModel?) {
         self.stores = stores
         loading = false
         storesTableView.reloadData()

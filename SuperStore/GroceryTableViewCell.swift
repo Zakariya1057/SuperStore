@@ -12,7 +12,6 @@ import Cosmos
 protocol GroceryDelegate {
     func showGroceryItem(_ product_id: Int)
     func addToList(_ product: ProductModel, cell: GroceryTableViewCell?)
-    func removeFromList(_ product: ProductModel)
     func updateQuantity(_ product: ProductModel)
 }
 
@@ -109,7 +108,6 @@ class GroceryTableViewCell: UITableViewCell {
             delegate?.updateQuantity(product!)
             
             if(quantity == 0){
-                delegate?.removeFromList(product!)
                 show_add_button_view()
                 
                 stepper_label.text = "1"

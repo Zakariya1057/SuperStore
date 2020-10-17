@@ -19,8 +19,8 @@ struct ListItemsHandler {
     
     let requestHandler = RequestHandler()
     
-    func request(listIndex: Int){
-        let urlString = "\(K.Host)/\(K.Request.Lists.List)/\(listIndex)"
+    func request(listId: Int){
+        let urlString = "\(K.Host)/\(K.Request.Lists.List)/\(listId)"
         requestHandler.getRequest(url: urlString, complete: processResults,error:processError)
     }
     
@@ -89,7 +89,7 @@ struct ListItemsHandler {
 
             let created_date: Date = date_format.date(from: list_data.created_at)!
             
-            let list = ListModel(id: list_data.id, name: list_data.name, created_at: created_date, status: status, index: list_data.index, store_id: list_data.store_id, user_id: list_data.user_id, totalPrice: list_data.total_price, old_total_price: list_data.old_total_price, categories: categories)
+            let list = ListModel(id: list_data.id, name: list_data.name, created_at: created_date, status: status, identifier: list_data.identifier, store_id: list_data.store_id, user_id: list_data.user_id, totalPrice: list_data.total_price, old_total_price: list_data.old_total_price, categories: categories)
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(list: list)

@@ -42,7 +42,7 @@ class NewListViewController: UIViewController {
 //
 //        let created_at = formatter.string(from: date)
         
-        let list = ListModel(id: 1, name: nameField.text!, created_at: Date(), status: .notStarted, index: listIndex!, store_id: 1, user_id: 1, totalPrice: 0, categories: [])
+        let list = ListModel(id: 1, name: nameField.text!, created_at: Date(), status: .notStarted, identifier: UUID().uuidString, store_id: 1, user_id: 1, totalPrice: 0, categories: [])
             
         try! realm.write() {
             realm.add(list.getRealmObject())
