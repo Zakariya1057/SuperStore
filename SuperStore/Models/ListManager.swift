@@ -92,3 +92,34 @@ struct ListManager {
     }
     
 }
+
+extension ListManager {
+    
+    func calculateProductPrice(_ product: ProductItemModel) -> Double {
+        var price:Double = 0
+        
+        if product.discount == nil {
+            price = ( Double(product.quantity) * product.price)
+        } else {
+            
+            let discount = product.discount
+
+            let remainder = (product.quantity % discount!.quantity)
+            let goesIntoFully = floor(Double(Int(product.quantity) / Int(discount!.quantity)))
+            
+            if product.quantity < discount!.quantity {
+                price = Double(product.quantity) * product.price
+            } else {
+                if discount!.forQuantity != nil && discount!.forQuantity! > 0{
+                    price = (Double(goesIntoFully) * (Double(discount!.forQuantity!) * product.price) ) + (Double(remainder) * product.price)
+                } else if (discount!.price != nil){
+                    price = (Double(goesIntoFully) * discount!.price!) + (Double(remainder) * product.price)
+                }
+            }
+            
+        }
+        
+        return price
+    }
+    
+}

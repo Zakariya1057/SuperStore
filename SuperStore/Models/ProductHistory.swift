@@ -16,7 +16,6 @@ class ProductHistory: Object {
     @objc dynamic var image: String = ""
     @objc dynamic var product_description: String? = ""
     @objc dynamic var price:Double = 0
-    @objc dynamic var location:String? = ""
     
     @objc dynamic var avg_rating: Double = 0
     @objc dynamic var total_reviews_count: Int = 0
@@ -55,8 +54,8 @@ class ProductHistory: Object {
         return ProductDetailsModel(
             id: self.id, name: self.name, image: self.image,
             description: self.product_description, quantity: self.quantity,
-            price: self.price, location: self.location,
-            avg_rating: self.avg_rating, total_reviews_count: self.total_reviews_count,
+            price: self.price,avg_rating: self.avg_rating,
+            total_reviews_count: self.total_reviews_count,
             discount: self.discount?.getDiscountModel(), storage: self.storage,
             weight: self.weight, parent_category_id: self.parent_category_id,
             parent_category_name: self.parent_category_name,

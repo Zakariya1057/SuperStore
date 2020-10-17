@@ -152,6 +152,9 @@ extension SearchResultsViewController {
         
         if refresh {
             
+            self.products = []
+            self.filters = []
+            
             loading = true
             
             if products.count > 0 {
@@ -200,8 +203,7 @@ extension SearchResultsViewController {
     func updateProductQuantity(index: Int, quantity: Int) {
         products[index].quantity = quantity
     }
-    
-    
+
     func addToList(_ product: ProductModel, cell: GroceryTableViewCell?){
         
         selected_product = product

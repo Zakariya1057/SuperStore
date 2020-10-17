@@ -77,6 +77,6 @@ class ListItemHistory: Object {
     @objc dynamic var created_at: Date = Date()
     
     func getItemModel() -> ListItemModel {
-        return ListItemModel(id: self.id, name: self.name, totalPrice: self.totalPrice, price: self.price, product_id: self.product_id, quantity: self.quantity, image: self.image, ticked_off: self.ticked_off, weight: self.weight, discount: self.discount?.getDiscountModel(), list_id: self.list_id)
+        return ListItemModel(id: self.id, name: self.name, image: self.image, quantity: self.quantity, product_id: self.product_id, price: self.price, weight: self.weight, discount: self.discount?.getDiscountModel(), list_id: self.list_id, ticked_off: self.ticked_off)
     }
 }

@@ -60,18 +60,19 @@ struct ListCategoryModel {
     }
 }
 
-struct ListItemModel {
+class ListItemModel: ProductItemModel {
     var id: Int
-    var name: String
-    var totalPrice: Double
-    var price: Double
-    var product_id: Int
-    var quantity: Int
-    var image: String
     var ticked_off: Bool
-    var weight: String?
-    var discount: DiscountModel?
     var list_id: Int
+    
+    init(id: Int, name: String, image: String, quantity: Int, product_id: Int, price: Double, weight: String?, discount: DiscountModel?, list_id: Int, ticked_off: Bool) {
+        self.list_id = list_id
+        self.ticked_off = ticked_off
+        self.id = id
+        
+        super.init(name: name, image: image, quantity: quantity, product_id: product_id, price: price, weight: weight, discount: discount)
+
+    }
     
     func getRealmObject() -> ListItemHistory {
         let list = ListItemHistory()
@@ -89,6 +90,36 @@ struct ListItemModel {
         return list
     }
 }
+
+//struct ListItemModel {
+//    var id: Int
+//    var name: String
+//    var totalPrice: Double
+//    var price: Double
+//    var product_id: Int
+//    var quantity: Int
+//    var image: String
+//    var ticked_off: Bool
+//    var weight: String?
+//    var discount: DiscountModel?
+//    var list_id: Int
+//
+//    func getRealmObject() -> ListItemHistory {
+//        let list = ListItemHistory()
+//        list.id = self.id
+//        list.name = self.name
+//        list.price = self.price
+//        list.totalPrice = self.totalPrice
+//        list.product_id = self.product_id
+//        list.quantity = self.quantity
+//        list.image = self.image
+//        list.ticked_off = self.ticked_off
+//        list.weight = self.weight ?? ""
+//        list.discount = self.discount?.getRealmObject()
+//        list.list_id = self.list_id
+//        return list
+//    }
+//}
 
 enum ListStatus: String {
     case completed

@@ -24,12 +24,13 @@ class ProductDetailsModel: ProductModel {
     
     var recommended: [ProductModel] = []
     
-    init(id: Int, name: String,image: String,description: String?, quantity: Int,price:Double,location:String?, avg_rating: Double?, total_reviews_count: Int?, discount: DiscountModel?, storage: String?, weight: String?,parent_category_id: Int?, parent_category_name: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel], favourite: Bool, ingredients: [String], recommended: [ProductModel]) {
+    init(id: Int, name: String,image: String,description: String?, quantity: Int,price:Double, avg_rating: Double?, total_reviews_count: Int?, discount: DiscountModel?, storage: String?, weight: String?,parent_category_id: Int?, parent_category_name: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel], favourite: Bool?, ingredients: [String], recommended: [ProductModel]) {
         
-        super.init(id: id, name: name, image: image, description: description, quantity: quantity, weight: weight,parent_category_id: parent_category_id, parent_category_name: parent_category_name, price:price, location: location,avg_rating: avg_rating, total_reviews_count: total_reviews_count, discount: discount)
+        super.init(id: id, name: name, image: image, quantity: quantity, product_id: id, price: price, weight: weight, discount: discount, description: description, favourite: favourite, avg_rating: avg_rating, total_reviews_count: total_reviews_count, parent_category_id: parent_category_id, parent_category_name: parent_category_name)
+        
         self.storage = storage
-        self.avg_rating = avg_rating
-        self.total_reviews_count = total_reviews_count
+        self.avg_rating = avg_rating ?? 0
+        self.total_reviews_count = total_reviews_count ?? 0
         self.dietary_info = dietary_info
         self.allergen_info = allergen_info
         self.brand = brand
@@ -53,7 +54,7 @@ class ProductDetailsModel: ProductModel {
         product.dietary_info = self.dietary_info
         product.allergen_info = self.allergen_info
         
-        product.favourite = self.favourite
+        product.favourite = self.favourite!
         product.reviews = reviewsList
         product.recommended = recommendedProducts
         product.ingredients = ingredientsList

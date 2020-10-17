@@ -147,8 +147,8 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
                 productItem!.updated_at = Date()
                 productItem!.name = product.name
                 productItem!.image = product.image
-                productItem!.avg_rating = product.avg_rating ?? 0
-                productItem!.total_reviews_count = product.total_reviews_count ?? 0
+                productItem!.avg_rating = product.avg_rating
+                productItem!.total_reviews_count = product.total_reviews_count
             }
         }
     }

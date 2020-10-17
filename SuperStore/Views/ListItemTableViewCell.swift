@@ -16,6 +16,8 @@ class ListItemTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var tickBoxButton: UIButton!
     
+    var listManager: ListManager = ListManager()
+    
     var loadingViews: [UIView] {
         return [nameLabel,tickBoxButton,tickBoxButton,totalLabel]
     }
@@ -61,7 +63,7 @@ class ListItemTableViewCell: UITableViewCell {
     }
     
     func showPriceTotal(){
-        let totalText = "£" + String(format: "%.2f", delegate!.calculateProductPrice(product!))
+        let totalText = "£" + String(format: "%.2f", listManager.calculateProductPrice(product!))
         totalLabel.text = "\(totalText)"
     }
     

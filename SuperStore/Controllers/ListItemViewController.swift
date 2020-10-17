@@ -26,6 +26,8 @@ class ListItemViewController: UIViewController {
     var selected_row: Int = 0
     var selected_section: Int = 0
     
+    var listManager: ListManager = ListManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
@@ -66,7 +68,7 @@ class ListItemViewController: UIViewController {
     }
     
     func updateTotalPrice(){
-        productTotalLabel.text = "£" + String(format: "%.2f", delegate!.calculateProductPrice(product!))
+        productTotalLabel.text = "£" + String(format: "%.2f", listManager.calculateProductPrice(product!))
     }
     
     func confirmDelete(){

@@ -184,8 +184,8 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         productPriceLabel.text = "£" + String(format: "%.2f", productItem.price)
         productImageView.downloaded(from: productItem.image)
 
-        ratingView.rating = productItem.avg_rating!
-        ratingView.text = "(\(productItem.total_reviews_count!))"
+        ratingView.rating = productItem.avg_rating
+        ratingView.text = "(\(productItem.total_reviews_count))"
 
         showFavourite()
 
@@ -502,7 +502,7 @@ extension ProductViewController {
         try! realm.write() {
             if product == nil {
                 let productObject = productItem.getRealmObject()
-                productObject.favourite = productItem.favourite
+                productObject.favourite = productItem.favourite!
                 realm.add(productObject)
             } else {
                 
@@ -538,7 +538,7 @@ extension ProductViewController {
                 }
                 
                 if product!.favourite != productItem.favourite {
-                    product!.favourite = productItem.favourite
+                    product!.favourite = productItem.favourite!
                     product!.updated_at = Date()
                 }
 

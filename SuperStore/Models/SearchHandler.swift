@@ -129,7 +129,7 @@ struct SearchHandler {
                     discount = DiscountModel(id: product_item.discount!.id, name: product_item.discount!.name, quantity: product_item.discount!.quantity, price: product_item.discount!.price, forQuantity: product_item.discount!.for_quantity)
                 }
                 
-                products.append( ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, description: product_item.description, quantity: 0, weight: product_item.weight,parent_category_id: product_item.parent_category_id!,parent_category_name: product_item.parent_category_name!, price: product_item.price, location: "", avg_rating: product_item.avg_rating, total_reviews_count: product_item.total_reviews_count,discount: discount))
+                products.append( ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, quantity: 1, product_id: product_item.id, price: product_item.price, weight: product_item.weight, discount: discount, description: product_item.description, favourite: product_item.favourite, avg_rating: product_item.avg_rating, total_reviews_count: product_item.total_reviews_count, parent_category_id: product_item.parent_category_id, parent_category_name: product_item.parent_category_name) )
             }
             
             DispatchQueue.main.async {

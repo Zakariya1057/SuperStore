@@ -19,10 +19,6 @@ protocol QuanityChangedDelegate {
     func updateProductQuantity(index: Int, quantity: Int)
 }
 
-//    func productAdded(product: ProductModel,parent_category_id: Int,parent_category_name: String)
-//    func productRemoved(product: ProductModel, parent_category_id: Int)
-//    func productQuantityChanged(product: ProductModel,parent_category_id: Int)
-
 class GroceryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var storeNameLabel: UILabel!
@@ -66,16 +62,19 @@ class GroceryTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    var listManager: ListManager = ListManager()
+    
     func configureUI(){
         let current_product = product!
         
         stopLoading()
         productNameLabel.text = current_product.name
-        priceLabel.text = "£" + String(format: "%.2f", current_product.price)
+        
+        showPrice()
         
         productImage.downloaded(from: current_product.image)
         
-        if(product!.quantity > 0){
+        if(product!.quantity > 1){
             show_quantity_view()
             
             stepper_label.text = String(product!.quantity)
@@ -91,18 +90,39 @@ class GroceryTableViewCell: UITableViewCell {
             }
         }
         
-        let rating = current_product.avg_rating ?? 0
-        let num = current_product.total_reviews_count ?? 0
+        let rating = current_product.avg_rating
+        let num = current_product.total_reviews_count
         
         reviewView.rating = rating
         reviewView.text = "(\(num))"
     }
     
+    func showPrice(){
+        priceLabel.text = "£" + String(format: "%.2f", listManager.calculateProductPrice(product!))
+    }
+    
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
+    }
+}
+
+extension GroceryTableViewCell {
     @IBAction func stepper_pressed(_ sender: UIStepper) {
         let quantity = sender.value
         stepper_label.text = String(format: "%.0f", quantity)
         
         product!.quantity = Int(quantity)
+        
+        quantity_delegate?.updateProductQuantity(index: index!, quantity: product!.quantity)
         
         if delegate != nil {
             delegate?.updateQuantity(product!)
@@ -112,11 +132,12 @@ class GroceryTableViewCell: UITableViewCell {
                 
                 stepper_label.text = "1"
                 quantityStepper.value = 1
+                
+                product!.quantity = 1
             }
         }
         
-        // Used for remembering product quantity. For Scrolling.
-        quantity_delegate?.updateProductQuantity(index: index!, quantity: product!.quantity)
+        showPrice()
         
     }
     
@@ -126,8 +147,9 @@ class GroceryTableViewCell: UITableViewCell {
         self.delegate?.addToList(self.product!,cell: self)
         quantity_delegate?.updateProductQuantity(index: index!, quantity: 1)
     }
-    
-    
+}
+
+extension GroceryTableViewCell {
     func show_quantity_view(){
         stepper_stack_view.isHidden = false
         left_info_view.isHidden = true
@@ -145,18 +167,5 @@ class GroceryTableViewCell: UITableViewCell {
         stepper_stack_view.isHidden = true
         storeNameLabel.isHidden = false
         addButton.isHidden = true
-    }
-    
-    func startLoading(){
-        for item in loadingViews {
-            item.isSkeletonable = true
-            item.showAnimatedGradientSkeleton()
-        }
-    }
-    
-    func stopLoading(){
-        for item in loadingViews {
-            item.hideSkeleton()
-        }
     }
 }

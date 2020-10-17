@@ -11,7 +11,6 @@ import RealmSwift
 protocol PriceChangeDelegate {
     func productChanged(_ product: ListItemModel)
     func productRemove(_ product: ListItemModel)
-    func calculateProductPrice(_ product: ListItemModel) -> Double
 }
 
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PriceChangeDelegate, ListItemsDelegate {
@@ -60,6 +59,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var loading: Bool = true
     
     var notificationToken: NotificationToken?
+    
+    var listManager: ListManager = ListManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -353,32 +354,6 @@ extension ListViewController {
 
 //MARK: - Calculations And Checks
 extension ListViewController {
-    func calculateProductPrice(_ product: ListItemModel) -> Double {
-        var price:Double = 0
-        
-        if product.discount == nil {
-            price = ( Double(product.quantity) * product.price)
-        } else {
-            
-            let discount = product.discount
-
-            let remainder = (product.quantity % discount!.quantity)
-            let goesIntoFully = floor(Double(Int(product.quantity) / Int(discount!.quantity)))
-            
-            if product.quantity < discount!.quantity {
-                price = Double(product.quantity) * product.price
-            } else {
-                if discount!.forQuantity != nil && discount!.forQuantity! > 0{
-                    price = (Double(goesIntoFully) * (Double(discount!.forQuantity!) * product.price) ) + (Double(remainder) * product.price)
-                } else if (discount!.price != nil){
-                    price = (Double(goesIntoFully) * discount!.price!) + (Double(remainder) * product.price)
-                }
-            }
-            
-        }
-        
-        return price
-    }
     
     func completedCheck(){
         //Check if all products completed. If the case then update the parent
@@ -427,7 +402,7 @@ extension ListViewController {
                 
             }
             
-            price += calculateProductPrice(product)
+            price += listManager.calculateProductPrice(product)
             priceNoDiscount += ( Double(product.quantity) * product.price)
         }
         
@@ -444,7 +419,7 @@ extension ListViewController {
                 var totalQuantity = 0
                 
                 for product in products {
-                    previousTotalPrice = previousTotalPrice + calculateProductPrice(product)
+                    previousTotalPrice = previousTotalPrice + listManager.calculateProductPrice(product)
                     totalQuantity = totalQuantity + product.quantity
                     
                     if product.price > highestPrice {
@@ -521,130 +496,3 @@ extension ListViewController {
     }
     
 }
-
-//extension ListViewController: GroceryDelegate {
-//
-//    func productRemoved(product: ProductModel, parent_category_id: Int) {
-//        print("Remove Product")
-//    }
-//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "list_item_details" {
-//            let destinationVC = segue.destination as! ListItemViewController
-//            destinationVC.selected_row = selected_row
-//            destinationVC.selected_section = selected_section
-//
-//            destinationVC.delegate = self
-//            destinationVC.groceryDelegate = self
-//            destinationVC.product = list!.categories[selected_section].items[selected_row]
-//        }
-//    }
-//
-//    func showGroceryItem(_ product_id: Int) {
-//
-//    }
-//
-//    func addToList(_ product: ProductModel,cell: GroceryTableViewCell?) {
-//        cell?.show_quantity_view()
-//
-//        productAdded(product: product, parent_category_id: product.parent_category_id!, parent_category_name: product.parent_category_name!)
-//    }
-//
-//
-//    func updateQuantity(_ product: ProductModel) {
-//        let item = ListItemModel(
-//            id: 1, name: product.name, totalPrice: product.price, price: product.price,
-//            product_id: product.id, quantity: product.quantity, image: product.image,
-//            ticked_off: false, weight: product.weight, discount: product.discount, list_id: list_id
-//        )
-//
-//        productChanged(item)
-//    }
-//
-//
-//
-//    func productAdded(product: ProductModel,parent_category_id: Int,parent_category_name: String) {
-//
-////        if product_exists(product.id) {
-////            return
-////        }
-////
-////        var categories = list?.categories ?? []
-////
-////        let item = ListItemModel(id: product.id, name: product.name, totalPrice: product.price, price: product.price, product_id: product.id, quantity: 1, image: product.image, ticked_off: false, weight: product.weight,discount: product.discount, list_id: list_id)
-////
-////        var added: Bool = false
-////
-////        if categories.count > 0 {
-////
-////            for (index, category) in categories.enumerated() {
-////                if category.id == parent_category_id {
-//////                    list?.categories[index].items.append(item)
-////                    added = true
-////                    break
-////                }
-////            }
-////
-////        }
-////
-////        categories = list?.categories ?? []
-////
-////        if(!added){
-////            let category = ListCategoryModel(id: parent_category_id, name: parent_category_name, aisle_name: "", items: [item], list_id: list_id)
-////            categories.append(category)
-////        }
-////
-////        list?.categories = categories.sorted(by: {$0.id < $1.id })
-//
-//        try? realm.write(withoutNotifying: [notificationToken!], {
-//            let category = realm.objects(ListCategoryHistory.self).filter("id = \(parent_category_id)").first
-//
-//            if category != nil {
-//                let item = ListItemModel(
-//                    id: 1, name: product.name, totalPrice: product.price, price: product.price,
-//                    product_id: product.id, quantity: product.quantity, image: product.image,
-//                    ticked_off: false, weight: product.weight, discount: product.discount, list_id: list_id
-//                )
-//
-//                category!.items.append(item.getRealmObject())
-//            }
-//        })
-//
-//        listHandler.create(list_id: list_id, list_data: ["product_id": String(product.id)])
-//
-//        if listTableView != nil {
-//            listTableView.reloadData()
-//        }
-//
-//        showTotalPrice()
-//    }
-//
-//    func productUpdate(product: ListItemModel){
-//
-//        let data:[String: String] = [
-//            "product_id": String(product.product_id),
-//            "quantity": String(product.quantity),
-//            "ticked_off": String(product.ticked_off)
-//        ]
-//
-//        listHandler.update(listId: list_id, listData: data)
-//
-//        print("Product Update")
-//
-//        productChanged(product)
-//
-//        completedCheck()
-//    }
-//
-//    func product_exists(_ product_id: Int) -> Bool {
-//        // Checks if products exists in list
-//        for item in self.items {
-//            if item.product_id == product_id {
-//                return true
-//            }
-//        }
-//
-//        return false
-//    }
-//
-//}
