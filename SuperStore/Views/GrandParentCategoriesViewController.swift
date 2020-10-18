@@ -125,8 +125,6 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     }
     
     func addToHistory(_ category: GrandParentCategoryModel){
-    
-        print("Adding To History")
         
         let categoryItem = categories.first { (categoryHistory) -> Bool in
             categoryHistory.id == category.id

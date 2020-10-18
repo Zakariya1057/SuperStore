@@ -47,6 +47,8 @@ struct StoreModel {
 }
 
 struct OpeningHoursModel {
+    let store_id: Int
+    
     let opens_at:String
     let closes_at:String
     let closed_today:Bool
@@ -59,6 +61,7 @@ struct OpeningHoursModel {
         hour.closes_at = self.closes_at
         hour.day_of_week = self.day_of_week
         hour.closed_today = self.closed_today
+        hour.store_id = self.store_id
         
         return hour
     }

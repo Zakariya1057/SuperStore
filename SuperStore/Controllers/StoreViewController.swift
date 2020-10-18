@@ -98,7 +98,7 @@ class StoreViewController: UIViewController, StoreDelegate {
             print("Delegate Present Here")
         }
         
-        if store != nil {
+        if store != nil && store!.opening_hours.count == 7 {
             stopLoading()
             configureUI()
         }
@@ -124,6 +124,7 @@ class StoreViewController: UIViewController, StoreDelegate {
     
     func contentLoaded(store: StoreModel) {
         stopLoading()
+        print(store)
         addToHistory(store)
         configureUI()
     }
@@ -131,6 +132,8 @@ class StoreViewController: UIViewController, StoreDelegate {
     func configureUI(){
         
         let storeItem = store!.getStoreModel()
+        
+        print(storeItem)
         
         let opening_hours = storeItem.opening_hours
         let facilities = storeItem.facilities
@@ -152,11 +155,7 @@ class StoreViewController: UIViewController, StoreDelegate {
     }
     
     func configureOpeningHours(opening_hours: [OpeningHoursModel]){
-//        let day_of_week = 7 - Calendar.current.component(.weekday, from: Date())
-        
         var day_of_week = Calendar.current.component(.weekday, from: Date()) - 2
-        
-//        print("Day Of Week: \(day_of_week)")
         
         if day_of_week == -1 {
             day_of_week = 6
@@ -229,7 +228,9 @@ extension StoreViewController {
             if store == nil {
                 realm.add(storeItem.getRealmObject())
             } else {
-                store!.name = storeItem.name
+                realm.delete(store!.opening_hours)
+                realm.delete(store!)
+                realm.add(storeItem.getRealmObject())
             }
             
         }

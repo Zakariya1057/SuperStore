@@ -23,8 +23,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     var searchHandler: SearchHandler = SearchHandler()
     
-    var type: String?
-    var searchName: String?
+    var searchDetails: SearchModel?
     
     @IBOutlet weak var totalProductsLabel: UILabel!
     
@@ -67,10 +66,12 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         let refineGesture = UITapGestureRecognizer(target: self, action: #selector(refinePressed))
         refineView.addGestureRecognizer(refineGesture)
 
-        self.title = searchName!.capitalized
+        self.title = searchDetails!.name
         
         searchHandler.resultsDelegate = self
+        
         search()
+        searchHistory()
         
         self.delegate = self
         
@@ -82,10 +83,20 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     }
         
     func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel], paginate: PaginateResultsModel?) {
+        
+        if currentPage == 1 {
+            self.products = []
+            self.filters = []
+        }
+        
         self.products.append(contentsOf: products)
         self.filters.append(contentsOf: filters)
         self.paginate = paginate
 
+        for product in products {
+            addToHistory(product)
+        }
+        
         loading = false
         totalProductsLabel.text = "\(self.products.count) Products"
         resultsTableView.reloadData()
@@ -121,7 +132,7 @@ extension SearchResultsViewController {
     
     func search(refresh: Bool = true){
         
-        var data = ["type": type!, "detail": searchName!]
+        var data = ["type": getSearchType(), "detail": searchDetails!.name]
         
         if selectedSort != nil {
             let sortBy = selectedSort!.sort
@@ -167,6 +178,20 @@ extension SearchResultsViewController {
         searchHandler.requestResults(searchData: data, page: currentPage)
     }
     
+    func getSearchType() -> String {
+        var typeString: String
+        
+        if searchDetails!.type == .childCategory {
+            typeString = "child_categories"
+        } else if searchDetails!.type == .parentCategory {
+            typeString = "parent_categories"
+        } else {
+            typeString = "products"
+        }
+        
+        return typeString
+    }
+    
     func clearAllOptions() {
         selectedSort = nil
         selectedCategory = nil
@@ -197,7 +222,7 @@ extension SearchResultsViewController {
     
 }
 
-//MARK: - List
+//MARK: - List Handling
 extension SearchResultsViewController {
     
     func updateProductQuantity(index: Int, quantity: Int) {
@@ -217,7 +242,6 @@ extension SearchResultsViewController {
             let item = listManager.addProductToList(listId: selectedListId!, product: selected_product!)
             selected_row!.product?.quantity = item.quantity
             selected_row!.show_quantity_view()
-            selected_row!.configureUI()
         }
 
     }
@@ -246,7 +270,7 @@ extension SearchResultsViewController {
             destinationVC.itemQuantity = 5 // Set In future, when setting quantity with showing results
         }
         
-        
+
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
@@ -261,6 +285,7 @@ extension SearchResultsViewController {
             
         listHandler.update(listId:selectedListId!, listData: data)
     }
+
 }
 
 //MARK: - TableView
@@ -302,4 +327,67 @@ extension SearchResultsViewController {
         search()
     }
 
+}
+
+//MARK: - Search History
+extension SearchResultsViewController {
+    
+    func searchHistory(){
+
+        self.products = []
+        self.filters = []
+        
+        if searchDetails!.type == .childCategory {
+            print("Child Category: ID = \(searchDetails!.id)")
+            let category = realm.objects(ChildCategoryHistory.self).filter("id = %@", searchDetails!.id).first
+            
+            if category != nil {
+                category!.products.forEach({ products.append($0.getProductModel()) })
+            }
+           
+        } else if searchDetails!.type == .parentCategory {
+            print("Parent Category: ID = \(searchDetails!.id)")
+            let results = realm.objects(ProductHistory.self).filter("parent_category_id = %@", searchDetails!.id).sorted(byKeyPath: "avg_rating", ascending: false)
+            products = results.map{ $0.getProductModel() }
+        } else {
+            let results = realm.objects(ProductHistory.self).filter("name CONTAINS[c] %@", searchDetails!.name).sorted(byKeyPath: "avg_rating", ascending: false)
+            products = results.map{ $0.getProductModel() }
+        }
+     
+        products.sort { (productA, productB) -> Bool in
+            return (productA.avg_rating / Double(productA.total_reviews_count)) < (productB.avg_rating / Double(productB.total_reviews_count))
+        }
+        
+        if products.count > 0 {
+            loading = false
+            totalProductsLabel.text = "\(products.count) Products"
+            resultsTableView.reloadData()
+            refreshControl.endRefreshing()
+        }
+        
+    }
+    
+    func addToHistory(_ product: ProductModel){
+    
+        var productItem = realm.objects(ProductHistory.self).filter("id = \(product.product_id)").first
+        
+        try! realm.write() {
+            if productItem == nil {
+                
+                if searchDetails!.type != .childCategory {
+                    realm.add(product.getRealmObject())
+                } else {
+                    let category = realm.objects(ChildCategoryHistory.self).filter("id = %@", searchDetails!.id).first
+                    category!.products.append(product.getRealmObject())
+                    print("Adding Results To Child Category")
+                }
+                    
+            } else {
+                // Add to product history
+                productItem = product.getRealmObject()
+            }
+            
+        }
+        
+    }
 }

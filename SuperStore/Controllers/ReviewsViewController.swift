@@ -93,7 +93,6 @@ extension ReviewsViewController {
     func addToHistory(_ review: ReviewModel){
     
         var reviewItem = realm.objects(ReviewHistory.self).filter("product_id = \(product_id) AND id = \(review.id)").first
-        print("Adding To History")
         
         try! realm.write() {
             if reviewItem == nil {

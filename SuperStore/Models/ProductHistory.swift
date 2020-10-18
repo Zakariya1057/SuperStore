@@ -36,7 +36,7 @@ class ProductHistory: Object {
     
     var ingredients = List<String>()
     
-    var recommended = List<ProductHistory>()
+    var recommended = List<Int>()
     
     @objc dynamic var favourite: Bool = false
     
@@ -46,7 +46,7 @@ class ProductHistory: Object {
     @objc dynamic var discount: DiscountHistory? = nil
     
     override static func indexedProperties() -> [String] {
-        return ["id", "name"]
+        return ["id", "name","parent_category_id"]
     }
     
     func getProductModel() -> ProductDetailsModel {
@@ -61,7 +61,6 @@ class ProductHistory: Object {
             parent_category_name: self.parent_category_name,
             dietary_info: self.dietary_info, allergen_info: self.allergen_info,
             brand: self.brand, reviews: self.reviews.map {$0.getReviewModel()} , favourite: self.favourite,
-            ingredients:self.ingredients.map { "\($0)"} , recommended: self.recommended.map {$0.getProductModel()}
-        )
+            ingredients:self.ingredients.map { "\($0)"} , recommended: [])
     }
 }

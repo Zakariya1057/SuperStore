@@ -42,21 +42,21 @@ class ProductDetailsModel: ProductModel {
     
     override func getRealmObject() -> ProductHistory {
         let product = super.getRealmObject()
-        let recommendedProducts = List<ProductHistory>()
         let reviewsList = List<ReviewHistory>()
         let ingredientsList = List<String>()
         
         self.ingredients.forEach{ ingredientsList.append($0) }
-        self.recommended.forEach { recommendedProducts.append($0.getRealmObject()) }
         self.reviews.forEach { reviewsList.append($0.getRealmObject()) }
-
+        
+        product.recommended = List<Int>()
+        self.recommended.forEach({ product.recommended.append( $0.id ) })
+        
         product.brand = self.brand
         product.dietary_info = self.dietary_info
         product.allergen_info = self.allergen_info
         
         product.favourite = self.favourite!
         product.reviews = reviewsList
-        product.recommended = recommendedProducts
         product.ingredients = ingredientsList
         
         return product

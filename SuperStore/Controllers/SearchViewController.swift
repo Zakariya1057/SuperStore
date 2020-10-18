@@ -173,24 +173,11 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showSearchResults" {
             let destinationVC = segue.destination as! SearchResultsViewController
-            destinationVC.searchName = selectedItem!.name
+            destinationVC.searchDetails = selectedItem
             destinationVC.selectedListId = self.selectedListId
-            
-            var type:String
-            
-            if selectedItem!.type == .childCategory {
-                type = "child_categories"
-            } else if selectedItem!.type == .parentCategory {
-                type = "parent_categories"
-            } else {
-                type = "products"
-            }
-            
-            destinationVC.type = type
         } else if segue.identifier == "searchToStoreResults" {
             let destinationVC = segue.destination as! SearchStoresViewController
             destinationVC.store_type_id =  selectedItem!.id
-//            destinationVC.delegate = self.delegate
         }
     }
     
@@ -227,23 +214,20 @@ extension SearchViewController {
     }
     
     func addToSearchSuggestions(suggestion: SearchModel){
-        if realm.objects(SearchHistory.self).filter("searchType = 'suggestion' AND name = %@",suggestion.name).count == 0 {
-            try! realm.write() { // 2
-                print("Adding To Suggestions Table")
-                realm.add(suggestion.getSearchObject("suggestion"))
-            }
-        } else {
-            
+        if realm.objects(SearchHistory.self).filter("searchType = 'suggestion' AND name = %@",suggestion.name).first == nil {
+            addToCategories(suggestion: suggestion)
+            addToHistory(suggestion: suggestion)
         }
     }
     
     func populateDefaultSearch() {
-      if searchHistory.count == 0 { // 1
+      if searchHistory.count == 0 {
 
-        let defaultHistory:[SearchModel] = [SearchModel(id: 1, name: "Asda", type: .store), SearchModel(id: 1, name: "Fruit", type: .parentCategory)]
+        let defaultHistory:[SearchModel] = [SearchModel(id: 1, name: "Apples", type: .childCategory), SearchModel(id: 1, name: "Fruit", type: .parentCategory), SearchModel(id: 1, name: "Asda", type: .store)]
 
-        for search in defaultHistory {
-            addToSearchHistory(search: search)
+        for suggestion in defaultHistory {
+            addToSearchHistory(search: suggestion)
+            addToCategories(suggestion: suggestion)
         }
         
       }
@@ -263,6 +247,40 @@ extension SearchViewController {
             searchTableView.reloadData()
         }
         
+    }
+    
+    func addToCategories(suggestion: SearchModel){
+        
+        try! realm.write() {
+            
+            if suggestion.type == .childCategory {
+                
+                if realm.objects(ChildCategoryHistory.self).filter("id = %@",suggestion.id).first == nil {
+                    let category = ChildCategoryHistory()
+                    category.id = suggestion.id
+                    category.name = suggestion.name
+                    
+                    realm.add(category)
+                }
+            } else if suggestion.type == .parentCategory {
+                
+                if realm.objects(ParentCategoryHistory.self).filter("id = %@",suggestion.id).first == nil {
+                    let category = ParentCategoryHistory()
+                    category.id = suggestion.id
+                    category.name = suggestion.name
+                    
+                    realm.add(category)
+                }
+            }
+            
+        }
+
+    }
+    
+    func addToHistory(suggestion: SearchModel){
+        try! realm.write() {
+            realm.add(suggestion.getSearchObject("suggestion"))
+        }
     }
     
 }

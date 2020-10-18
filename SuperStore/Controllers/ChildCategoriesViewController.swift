@@ -277,9 +277,8 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
     }
     
     func addToHistory(_ category: ChildCategoryModel){
-    
+
         var categoryItem = realm.objects(ChildCategoryHistory.self).filter("id = \(category.id)").first
-        print("Adding To History")
         
         try! realm.write() {
             if categoryItem == nil {

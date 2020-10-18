@@ -41,10 +41,9 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     @IBOutlet weak var dietaryView: UIStackView!
     @IBOutlet weak var allergenView: UIStackView!
     @IBOutlet weak var promotionView: UIView!
-//    @IBOutlet weak var promotionExpiryView: UIView!
     @IBOutlet weak var favouriteBarItem: UIBarButtonItem!
     
-    //Field Labels
+    // Field Labels
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productPriceLabel: UILabel!
     @IBOutlet weak var productWeightLabel: UILabel!
@@ -77,6 +76,8 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     var recommended: [ProductModel] = []
     
     var favouritesHandler = FavouritesHandler()
+    
+    var productImageLoaded: Bool = false
     
     var listHandler = ListItemsHandler()
     
@@ -128,7 +129,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
                     // Results are now populated and can be accessed without blocking the UI
                     break
             case .update(_, _, _, _):
-                    self?.configureUI()
+                    self?.showFavourite()
                     break
                 case .error(let error):
                     // An error occurred while opening the Realm file on the background worker thread
@@ -138,6 +139,14 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         
         if product != nil {
             print("Loading Product From Storage")
+            
+            for productId in product!.recommended {
+                let recommendedItem = realm.objects(ProductHistory.self).filter("id = %@", productId).first
+                if recommendedItem != nil {
+                    recommended.append(recommendedItem!.getProductModel())
+                }
+            }
+            
             configureUI()
         }
         
@@ -182,7 +191,11 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         productWeightLabel.text = productItem.weight
 
         productPriceLabel.text = "£" + String(format: "%.2f", productItem.price)
-        productImageView.downloaded(from: productItem.image)
+        
+//        if !productImageLoaded {
+            productImageView.downloaded(from: productItem.image)
+//            productImageLoaded = true
+//        }
 
         ratingView.rating = productItem.avg_rating
         ratingView.text = "(\(productItem.total_reviews_count))"
@@ -217,8 +230,6 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
 
         reviews = productItem.reviews
         let review_count = reviews.count
-
-        print(reviews)
         
         if review_count != 0 {
             reviewsTableView.reloadData()
@@ -230,8 +241,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             reviewsStackView.isHidden = true
         }
 
-        if productItem.recommended.count > 0 {
-            recommended = productItem.recommended
+        if recommended.count > 0 {
             similarTableView.reloadData()
         }
         
@@ -496,56 +506,30 @@ extension ProductViewController {
 
 extension ProductViewController {
     func addToHistory(_ productItem: ProductDetailsModel){
-    
-        print("Adding To History")
+        
+        self.recommended = productItem.recommended
         
         try! realm.write() {
-            if product == nil {
+            
+            if product != nil {
+                print("Updating Product")
+                
+                realm.delete(product!.reviews)
+                
+                product!.recommended = List<Int>()
+                productItem.reviews.forEach({ product!.reviews.append( $0.getRealmObject()) })
+                
+                for recommendedProduct in productItem.recommended {
+                    product!.recommended.append( recommendedProduct.id )
+                }
+                
+            } else {
                 let productObject = productItem.getRealmObject()
                 productObject.favourite = productItem.favourite!
                 realm.add(productObject)
-            } else {
-                
-                let productObject = productItem.getRealmObject()
-
-                product!.id = productObject.id
-                product!.name = productObject.name
-                product!.discount = productObject.discount
-                product!.product_description = productObject.product_description
-                product!.avg_rating = productObject.avg_rating
-                product!.total_reviews_count = productObject.total_reviews_count
-                product!.allergen_info = productObject.allergen_info
-                product!.dietary_info = productObject.dietary_info
-                product!.parent_category_id = productObject.parent_category_id
-                product!.parent_category_name = productObject.parent_category_name
-                
-                product!.recommended.removeAll()
-                product!.reviews.removeAll()
-                
-                for recommendedProduct in productItem.recommended {
-                    product!.recommended.append(recommendedProduct.getRealmObject())
-                }
-                
-                for review in productItem.reviews {
-                    let historyReview = realm.objects(ReviewHistory.self).filter("id = \(review.id)").first
-                    
-                    if historyReview != nil {
-                        product!.reviews.append(historyReview!)
-                    } else {
-                        product!.reviews.append(review.getRealmObject())
-                    }
-                    
-                }
-                
-                if product!.favourite != productItem.favourite {
-                    product!.favourite = productItem.favourite!
-                    product!.updated_at = Date()
-                }
-
             }
-            
+
         }
-        
         
     }
     

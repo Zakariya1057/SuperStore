@@ -20,6 +20,14 @@ class StoreHistory: Object {
     
     var facilities = List<String>()
     
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    override static func indexedProperties() -> [String] {
+        return ["store_type_id"]
+    }
+    
     func getStoreModel() -> StoreModel {
         var hours: [OpeningHoursModel] = []
         
@@ -36,9 +44,10 @@ class OpeningHoursHistory: Object {
     @objc dynamic var closes_at: String = ""
     @objc dynamic var closed_today: Bool = false
     @objc dynamic var day_of_week: Int = 1
+    @objc dynamic var store_id: Int = 1
     
     func getHourModel() -> OpeningHoursModel {
-        return OpeningHoursModel(opens_at: self.opens_at, closes_at: self.closes_at, closed_today: self.closed_today, day_of_week: self.day_of_week)
+        return OpeningHoursModel(store_id: self.store_id, opens_at: self.opens_at, closes_at: self.closes_at, closed_today: self.closed_today, day_of_week: self.day_of_week)
     }
 }
 
