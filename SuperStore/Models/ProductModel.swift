@@ -19,7 +19,7 @@ class ProductModel: ProductItemModel {
     var parent_category_id: Int?
     var parent_category_name: String?
 
-    init(id: Int, name: String, image: String, quantity: Int, product_id: Int, price: Double, weight: String?, discount: DiscountModel?, description: String?, favourite: Bool?, avg_rating: Double?, total_reviews_count: Int?, parent_category_id: Int?, parent_category_name: String?) {
+    init(id: Int, name: String, image: String, quantity: Int, product_id: Int, price: Double, weight: String?, promotion: PromotionModel?, description: String?, favourite: Bool?, avg_rating: Double?, total_reviews_count: Int?, parent_category_id: Int?, parent_category_name: String?) {
         self.id = id
         self.description = description
         self.favourite = favourite ?? false
@@ -29,7 +29,7 @@ class ProductModel: ProductItemModel {
         self.parent_category_id = parent_category_id
         self.parent_category_name = parent_category_name
         
-        super.init(name: name, image: image, quantity: quantity, product_id: product_id, price: price, weight: weight, discount: discount)
+        super.init(name: name, image: image, quantity: quantity, product_id: product_id, price: price, weight: weight, promotion: promotion)
     }
     
     func getRealmObject() -> ProductHistory {
@@ -48,7 +48,7 @@ class ProductModel: ProductItemModel {
         product.parent_category_id = self.parent_category_id ?? 0
         product.parent_category_name = self.parent_category_name
 
-        product.discount = self.discount?.getRealmObject()
+        product.promotion = self.promotion?.getRealmObject()
 
         return product
     }

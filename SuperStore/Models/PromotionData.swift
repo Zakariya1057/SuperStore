@@ -11,10 +11,3 @@ import Foundation
 struct PromotionDataResponse: Decodable {
     var data: PromotionData
 }
-
-struct PromotionData: Decodable {
-    var id: Int
-    var name: String
-    var ends_at: String?
-    let products: [ProductData]?
-}

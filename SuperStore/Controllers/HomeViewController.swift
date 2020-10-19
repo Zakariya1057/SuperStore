@@ -7,11 +7,9 @@
 //
 
 import UIKit
-//import AlamofireImage
-//import Alamofire
 import Kingfisher
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, ListSelectedDelegate, HomeDelegate, StoreSelectedDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, HomeDelegate, StoreSelectedDelegate, ListProgressDelegate {
 
     @IBOutlet weak var listTableView: UITableView!
     
@@ -185,8 +183,9 @@ extension HomeViewController {
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
-    func listSelected(list_id: Int) {
+    func listSelected(identifier: String, list_id: Int) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listViewController"))! as! ListViewController
+        destinationVC.identifier = identifier
         destinationVC.list_id = list_id
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }

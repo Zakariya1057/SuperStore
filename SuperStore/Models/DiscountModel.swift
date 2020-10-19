@@ -9,37 +9,50 @@
 import Foundation
 import RealmSwift
 
-class DiscountModel {
+class PromotionModel {
     var id: Int
     var name: String
     var quantity: Int
     var price: Double?
     var forQuantity: Int?
+    var products:[ProductModel]
+    var expires: Bool = false
+    var startsAt: Date? = nil
+    var endsAt: Date? = nil
     
-    init(id: Int, name: String, quantity: Int, price: Double?,forQuantity: Int? ) {
+    init(id: Int, name: String, quantity: Int, price: Double?,forQuantity: Int?, products: [ProductModel] = [],expires: Bool = false, startsAt: Date? = nil, endsAt: Date? = nil) {
         self.quantity = quantity
         self.price = price
         self.forQuantity = forQuantity
         self.name = name
         self.id = id
+        self.products = products
+        self.expires = expires
+        self.startsAt = startsAt
+        self.endsAt = endsAt
     }
     
-    func getRealmObject() -> DiscountHistory {
+    func getRealmObject() -> PromotionHistory {
         
         let realm = try! Realm()
         
-        var discount = realm.objects(DiscountHistory.self).filter("id = \(self.id)").first
+        var promotion = realm.objects(PromotionHistory.self).filter("id = \(self.id)").first
         
-        if(discount == nil){
-            discount = DiscountHistory()
-            discount!.id = self.id
-            discount!.name = self.name
-            discount!.quantity = self.quantity
-            discount!.forQuantity = self.forQuantity ?? 0
-            discount!.price = self.price ?? 0
+        if(promotion == nil){
+            promotion = PromotionHistory()
+            promotion!.id = self.id
+            promotion!.name = self.name
+            promotion!.quantity = self.quantity
+            promotion!.forQuantity = self.forQuantity ?? 0
+            promotion!.price = self.price ?? 0
+            promotion!.expires = self.expires
+            promotion!.startsAt = self.startsAt
+            promotion!.endsAt = self.endsAt
+            
+            self.products.forEach({ promotion!.products.append( $0.id) })
         }
         
-        return discount!
+        return promotion!
         
     }
 }

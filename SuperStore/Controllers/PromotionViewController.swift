@@ -7,13 +7,22 @@
 //
 
 import UIKit
+import RealmSwift
 
 class PromotionViewController: UIViewController, PromotionDelegate, UITableViewDelegate, UITableViewDataSource {
 
+    let realm = try! Realm()
+    
     var promotionHandler = PromotionHandler()
     
-    var promotion_id: Int = 3
-    var promotion: PromotionModel?
+    var promotion_id: Int?
+//    var promotion: PromotionModel?
+    
+    var promotion: PromotionHistory? {
+        return realm.objects(PromotionHistory.self).filter("id = %@", promotion_id!).first
+    }
+    
+    var products:[ProductModel] = []
     
     @IBOutlet weak var productsTableView: UITableView!
     
@@ -33,7 +42,7 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         promotionHandler.delegate = self
-        promotionHandler.request(promotion_id: promotion_id)
+        promotionHandler.request(promotion_id: promotion_id!)
         // Do any additional setup after loading the view.
         
         productsTableView.delegate = self
@@ -41,23 +50,33 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
 
         productsTableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
         
-        startLoading()
+        if promotion != nil && promotion!.products.count > 0 {
+            
+            for product in promotion!.products {
+                let product = realm.objects(ProductHistory.self).filter("id = %@", product).first
+                
+                if product != nil {
+                    products.append(product!.getProductModel())
+                }
+            }
+            
+            loading = false
+            productsTableView.reloadData()
+        } else {
+            startLoading()
+        }
+        
     }
     
     func contentLoaded(promotion: PromotionModel) {
-        self.promotion = promotion
+        addToHistory(promotion)
+        
+        products = promotion.products
         
         stopLoading()
         loading = false
   
         self.title = promotion.name
-//        promotionNameLabel.text = promotion.name
-//
-//        if promotion.ends_at == nil {
-//            promotionExpiryView.removeFromSuperview()
-//        } else {
-//            promotionExpiresLabel.text = promotion.ends_at!
-//        }
         
         productsTableView.reloadData()
         
@@ -71,7 +90,7 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? 3 : (self.promotion?.products?.count ?? 0)
+        return loading ? 3 : products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,7 +99,7 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
         
         
         if loading == false {
-            cell.product = promotion!.products![indexPath.row]
+            cell.product = products[indexPath.row]
             
             if self.delegate != nil {
                 cell.delegate = self.delegate
@@ -100,7 +119,7 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
-        destinationVC.product_id = promotion!.products![indexPath.row].id
+        destinationVC.product_id = products[indexPath.row].id
         destinationVC.delegate = self.delegate
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
@@ -122,6 +141,37 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
         let alert = UIAlertController(title: "Promotion Error", message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
+    }
+    
+}
+
+extension PromotionViewController {
+    func addToHistory(_ promotionItem: PromotionModel){
+
+        try! realm.write() {
+
+            if promotion != nil {
+                promotion!.products = List<Int>()
+                promotionItem.products.forEach({ promotion!.products.append($0.id) })
+                promotion!.name = promotionItem.name
+                promotion!.price = promotionItem.price ?? 0
+                promotion!.quantity = promotionItem.quantity
+                promotion!.forQuantity = promotionItem.forQuantity ?? 0
+            } else {
+                realm.add(promotionItem.getRealmObject())
+            }
+            
+            for product in promotionItem.products {
+                let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+                
+                if productHistory == nil {
+                    realm.add(product.getRealmObject())
+                }
+                
+            }
+
+        }
+        
     }
     
 }

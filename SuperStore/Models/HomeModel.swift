@@ -9,11 +9,11 @@
 import Foundation
 
 struct HomeModel {
-    var lists: [ListProgressModel]
+    var lists: [ListModel]
     var stores: [StoreModel]
     var featured: [ProductModel]
     var groceries: [ProductModel]
     var monitoring: [ProductModel]
-    var promotions: [DiscountModel]
+    var promotions: [PromotionModel]
     var categories: [String: [ProductModel]]
 }

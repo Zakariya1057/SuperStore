@@ -60,6 +60,7 @@
 		2C362F95253B0E3D000846C0 /* DiscountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C362F94253B0E3D000846C0 /* DiscountModel.swift */; };
 		2C3F537E24D184C80095C4B1 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F537C24D184C80095C4B1 /* SearchTableViewCell.swift */; };
 		2C3F537F24D184C80095C4B1 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C3F537D24D184C80095C4B1 /* SearchTableViewCell.xib */; };
+		2C43E798253CC4C60084DF7C /* HomeHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43E797253CC4C60084DF7C /* HomeHistory.swift */; };
 		2C5B5C6C24D084FD0095C920 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5C6B24D084FD0095C920 /* SearchResultsViewController.swift */; };
 		2C5B5C6E24D085780095C920 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5C6D24D085780095C920 /* ResultsViewController.swift */; };
 		2C6F621E25134F9B00179C2B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6F621D25134F9B00179C2B /* RegisterViewController.swift */; };
@@ -199,6 +200,7 @@
 		2C362F94253B0E3D000846C0 /* DiscountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountModel.swift; sourceTree = "<group>"; };
 		2C3F537C24D184C80095C4B1 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		2C3F537D24D184C80095C4B1 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
+		2C43E797253CC4C60084DF7C /* HomeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHistory.swift; sourceTree = "<group>"; };
 		2C5B5C6B24D084FD0095C920 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		2C5B5C6D24D085780095C920 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		2C6F621D25134F9B00179C2B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 				2CAC060B2530E25600561509 /* HomeHandler.swift */,
 				2CAC060F2530E26700561509 /* HomeData.swift */,
 				2CAC06122530E41700561509 /* HomeModel.swift */,
+				2C43E797253CC4C60084DF7C /* HomeHistory.swift */,
 				2C21C3A924F8186200D90B4B /* ProductsHandler.swift */,
 				2C21C3AF24F8E4E600D90B4B /* GroceryCategoriesHandler.swift */,
 				2C21C3AB24F8186A00D90B4B /* GroceryCategoriesData.swift */,
@@ -653,6 +656,7 @@
 				2C1567DD24C8B3F000B8DCB5 /* StoreViewController.swift in Sources */,
 				2C266DF524D5DC1400C66EA5 /* NewListViewController.swift in Sources */,
 				2C21C3B424FA7C5F00D90B4B /* ParentCategoriesViewController.swift in Sources */,
+				2C43E798253CC4C60084DF7C /* HomeHistory.swift in Sources */,
 				2CABCB6F2505559500E26574 /* PromotionHandler.swift in Sources */,
 				2C21C3B024F8E4E600D90B4B /* GroceryCategoriesHandler.swift in Sources */,
 				2CB15C8224D2D7FE00461AFE /* ListsTableViewCell.swift in Sources */,

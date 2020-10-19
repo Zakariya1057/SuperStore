@@ -13,10 +13,10 @@ class OffersElement: CustomElementModel {
     var type: CustomElementType { return .offers }
     var delegate: OfferSelectedDelegate
     var position: CGFloat?
-    var promotions: [DiscountModel]?
+    var promotions: [PromotionModel]?
     var loading: Bool = false
     
-    init(title: String,delegate: OfferSelectedDelegate, promotions: [DiscountModel]) {
+    init(title: String,delegate: OfferSelectedDelegate, promotions: [PromotionModel]) {
         self.title = title
         self.delegate = delegate
         self.promotions = promotions
@@ -35,7 +35,7 @@ class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDe
     
     @IBOutlet var offersCollectionView: UICollectionView!
     
-    var promotions: [DiscountModel] = []
+    var promotions: [PromotionModel] = []
     
     var loading: Bool = true
     
@@ -85,7 +85,7 @@ extension OffersTableViewCell {
         let cell = offersCollectionView.dequeueReusableCell(withReuseIdentifier: K.Collections.OfferCollectionCell.CellIdentifier, for: indexPath) as! OfferCollectionViewCell
         
         if !loading {
-            cell.discount = promotions[indexPath.row]
+            cell.promotion = promotions[indexPath.row]
         }
         
         cell.loading = loading

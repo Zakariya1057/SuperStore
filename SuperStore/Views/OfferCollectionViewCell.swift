@@ -10,7 +10,7 @@ import UIKit
 
 class OfferCollectionViewCell: UICollectionViewCell {
 
-    var discount: DiscountModel?
+    var promotion: PromotionModel?
     var loading: Bool = true
     
     @IBOutlet var nameLabel: UILabel!
@@ -36,8 +36,8 @@ class OfferCollectionViewCell: UICollectionViewCell {
             stopLoading()
         }
         
-        if discount != nil {
-            let details = discount!.name.components(separatedBy: " - ")
+        if promotion != nil {
+            let details = promotion!.name.components(separatedBy: " - ")
             
             let name = details[0]
             let price = details[1]

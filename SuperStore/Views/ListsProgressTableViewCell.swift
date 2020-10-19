@@ -11,21 +11,21 @@ import UIKit
 class ListsProgressElement: CustomElementModel {
     var title: String
     var type: CustomElementType { return .listsProgress }
-    var delegate: ListSelectedDelegate
+    var delegate: ListProgressDelegate
     var position: CGFloat?
-    var lists:[ListProgressModel]?
+    var lists:[ListModel]?
     var loading: Bool = false
     
-    init(title: String,delegate: ListSelectedDelegate, lists:[ListProgressModel]) {
+    init(title: String,delegate: ListProgressDelegate, lists:[ListModel]) {
         self.title = title
         self.delegate = delegate
         self.lists = lists
     }
 }
 
-//protocol ListSelectedDelegate {
-//    func listPressed(list_id: Int)
-//}
+protocol ListProgressDelegate {
+    func listSelected(identifier: String, list_id: Int)
+}
 
 class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
 
@@ -33,7 +33,7 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
     
     var model: ListsProgressElement!
     
-    var lists:[ListProgressModel] = []
+    var lists:[ListModel] = []
     
     @IBOutlet var forthStackView: UIStackView!
     @IBOutlet var thirdStackView: UIStackView!
@@ -136,7 +136,7 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
         ]
     }
     
-    var delegate: ListSelectedDelegate?
+    var delegate: ListProgressDelegate?
     
     func configure(withModel elementModel: CustomElementModel) {
         guard let model = elementModel as? ListsProgressElement else {
@@ -169,8 +169,6 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
         }
         
         let listCount = lists.count
-        
-        print(lists)
         
         for (index, list) in lists.enumerated() {
 
@@ -221,15 +219,17 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
         
         for (index, list) in lists.enumerated() {
             let gesture = UITapGestureRecognizer(target: self, action: #selector(listPressed(sender:)))
-            gesture.name = String(list.id)
+            gesture.name = "\(list.id)|\(list.identifier)"
             listStackViews[index].addGestureRecognizer(gesture)
         }
     }
     
     @objc func listPressed(sender: UIGestureRecognizer){
         if sender.name != nil {
-            print(sender.name!)
-            self.delegate?.listSelected(list_id: Int(sender.name!)!)
+            let details = sender.name!.split(separator: "|")
+            let identifier: String = String(details[1])
+            let list_id: Int = Int(details[0])!
+            self.delegate?.listSelected(identifier: identifier, list_id: list_id)
         }
     }
     

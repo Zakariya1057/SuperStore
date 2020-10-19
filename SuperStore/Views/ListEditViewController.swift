@@ -42,7 +42,7 @@ class ListEditViewController: UIViewController  {
     }
     
     func confirmRestart(){
-        let alert = UIAlertController(title: "Restarting List?", message: "Sure you want to uncheck all items in this list?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Restarting List?", message: "Are you sure you want to uncheck all items in this list?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Restart", style: .destructive, handler: { (_) in
             
             self.realm.beginWrite()

@@ -34,9 +34,9 @@ struct HomeHandler {
             let decodedData = try decoder.decode(HomeResponseData.self, from: data)
             let data = decodedData.data
             
-            var lists: [ListProgressModel] = []
+            var lists: [ListModel] = []
             var stores: [StoreModel] = []
-            var promotions: [DiscountModel] = []
+            var promotions: [PromotionModel] = []
             
             var featured: [ProductModel] = []
             var groceries: [ProductModel] = []
@@ -44,8 +44,24 @@ struct HomeHandler {
             
             var categories: [String: [ProductModel]] = [:]
             
+            let date_format: DateFormatter = DateFormatter()
+            date_format.dateFormat = "dd MMMM Y"
+
             for list in data.lists {
-                lists.append(ListProgressModel(id: list.id, name: list.name, totalItems: list.total_items, tickedOffItems: list.ticked_off_items))
+                
+                var status: ListStatus = .completed
+                
+                if list.status.lowercased().contains("in progress"){
+                    status = .inProgress
+                } else if list.status.lowercased().contains("not started"){
+                    status = .notStarted
+                }
+                
+                let created_date: Date = date_format.date(from: list.created_at)!
+                
+                lists.append(
+                    ListModel(id: list.id, name: list.name, created_at: created_date, status: status, identifier: list.identifier, store_id: list.store_id, user_id: list.user_id, totalPrice: list.total_price, old_total_price: list.old_total_price, categories: [], totalItems: list.total_items, tickedOffItems: list.ticked_off_items)
+                )
             }
             
             for store in data.stores {
@@ -56,7 +72,7 @@ struct HomeHandler {
             }
             
             for promotion in data.promotions {
-                promotions.append(DiscountModel(id: promotion.id, name: promotion.name, quantity: promotion.quantity, price: promotion.price, forQuantity: promotion.for_quantity))
+                promotions.append(PromotionModel(id: promotion.id, name: promotion.name, quantity: promotion.quantity!, price: promotion.price, forQuantity: promotion.for_quantity))
             }
             
             featured = addProductsToList(products: data.featured)
@@ -90,7 +106,7 @@ struct HomeHandler {
         var newList:[ProductModel] = []
         
         for product in products {
-            newList.append(ProductModel(id: product.id, name: product.name, image: product.small_image, quantity: 1, product_id: product.id, price: product.price, weight: product.weight, discount: nil, description: product.description, favourite: product.favourite, avg_rating: product.avg_rating, total_reviews_count: product.total_reviews_count, parent_category_id: product.parent_category_id, parent_category_name: product.parent_category_name))
+            newList.append(ProductModel(id: product.id, name: product.name, image: product.small_image, quantity: 1, product_id: product.id, price: product.price, weight: product.weight, promotion: nil, description: product.description, favourite: product.favourite, avg_rating: product.avg_rating, total_reviews_count: product.total_reviews_count, parent_category_id: product.parent_category_id, parent_category_name: product.parent_category_name))
         }
         
         return newList

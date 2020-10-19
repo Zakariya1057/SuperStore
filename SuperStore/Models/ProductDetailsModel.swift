@@ -24,9 +24,9 @@ class ProductDetailsModel: ProductModel {
     
     var recommended: [ProductModel] = []
     
-    init(id: Int, name: String,image: String,description: String?, quantity: Int,price:Double, avg_rating: Double?, total_reviews_count: Int?, discount: DiscountModel?, storage: String?, weight: String?,parent_category_id: Int?, parent_category_name: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel], favourite: Bool?, ingredients: [String], recommended: [ProductModel]) {
+    init(id: Int, name: String,image: String,description: String?, quantity: Int,price:Double, avg_rating: Double?, total_reviews_count: Int?, promotion: PromotionModel?, storage: String?, weight: String?,parent_category_id: Int?, parent_category_name: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel], favourite: Bool?, ingredients: [String], recommended: [ProductModel]) {
         
-        super.init(id: id, name: name, image: image, quantity: quantity, product_id: id, price: price, weight: weight, discount: discount, description: description, favourite: favourite, avg_rating: avg_rating, total_reviews_count: total_reviews_count, parent_category_id: parent_category_id, parent_category_name: parent_category_name)
+        super.init(id: id, name: name, image: image, quantity: quantity, product_id: id, price: price, weight: weight, promotion: promotion, description: description, favourite: favourite, avg_rating: avg_rating, total_reviews_count: total_reviews_count, parent_category_id: parent_category_id, parent_category_name: parent_category_name)
         
         self.storage = storage
         self.avg_rating = avg_rating ?? 0
@@ -58,6 +58,7 @@ class ProductDetailsModel: ProductModel {
         product.favourite = self.favourite!
         product.reviews = reviewsList
         product.ingredients = ingredientsList
+        product.promotion = self.promotion?.getRealmObject()
         
         return product
     }

@@ -40,15 +40,16 @@ struct PromotionHandler {
             
             for product_item in promotion_data.products ?? [] {
                 
-                var discount: DiscountModel? = nil
+                var promotion: PromotionModel? = nil
 
-                if product_item.discount != nil {
-                    discount = DiscountModel(id: product_item.discount!.id, name:  product_item.discount!.name, quantity:  product_item.discount!.quantity, price: product_item.discount!.price, forQuantity: product_item.discount!.for_quantity)
+                if product_item.promotion != nil {
+                    promotion = PromotionModel(id: product_item.promotion!.id, name: product_item.promotion!.name, quantity: product_item.promotion!.quantity ?? 0, price: product_item.promotion!.price, forQuantity: product_item.promotion!.for_quantity)
                 }
                 
-                products.append(ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, quantity: 1, product_id: product_item.id, price: product_item.price, weight: product_item.weight, discount: discount, description: product_item.description, favourite: product_item.favourite, avg_rating: product_item.avg_rating, total_reviews_count: product_item.total_reviews_count, parent_category_id: product_item.parent_category_id, parent_category_name: product_item.parent_category_name))
+                products.append(ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, quantity: 1, product_id: product_item.id, price: product_item.price, weight: product_item.weight, promotion: promotion, description: product_item.description, favourite: product_item.favourite, avg_rating: product_item.avg_rating, total_reviews_count: product_item.total_reviews_count, parent_category_id: product_item.parent_category_id, parent_category_name: product_item.parent_category_name))
             }
-            let promotion = PromotionModel(id: promotion_data.id, name: promotion_data.name, ends_at: promotion_data.ends_at,products: products)
+            
+            let promotion = PromotionModel(id: promotion_data.id, name: promotion_data.name, quantity:1 , price: nil, forQuantity: nil, products: products)
 
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(promotion: promotion)

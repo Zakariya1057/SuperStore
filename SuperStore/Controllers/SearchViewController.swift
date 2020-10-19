@@ -262,15 +262,6 @@ extension SearchViewController {
                     
                     realm.add(category)
                 }
-            } else if suggestion.type == .parentCategory {
-                
-                if realm.objects(ParentCategoryHistory.self).filter("id = %@",suggestion.id).first == nil {
-                    let category = ParentCategoryHistory()
-                    category.id = suggestion.id
-                    category.name = suggestion.name
-                    
-                    realm.add(category)
-                }
             }
             
         }

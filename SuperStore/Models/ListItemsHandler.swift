@@ -62,12 +62,12 @@ struct ListItemsHandler {
                 
                 for item in category.items {
                     
-                    var discount: DiscountModel? = nil
-                    if item.discount != nil {
-                        discount = DiscountModel(id: item.discount!.id, name: item.discount!.name, quantity: item.discount!.quantity, price: item.discount!.price, forQuantity: item.discount!.for_quantity)
+                    var promotion: PromotionModel? = nil
+                    if item.promotion != nil {
+                        promotion = PromotionModel(id: item.promotion!.id, name: item.promotion!.name, quantity: item.promotion!.quantity!, price: item.promotion!.price, forQuantity: item.promotion!.for_quantity)
                     }
                     
-                    items.append(ListItemModel(id: item.id, name: item.name, image: item.large_image!, quantity: item.quantity, product_id: item.product_id, price: item.price, weight: item.weight, discount: discount, list_id: list_data.id, ticked_off: item.ticked_off))
+                    items.append(ListItemModel(id: item.id, name: item.name, image: item.large_image!, quantity: item.quantity, product_id: item.product_id, price: item.price, weight: item.weight, promotion: promotion, list_id: list_data.id, ticked_off: item.ticked_off))
                 }
                 
                 categories.append(ListCategoryModel(id: category.id, name: category.name, aisle_name: category.aisle_name, items: items, list_id: list_data.id))
@@ -89,7 +89,7 @@ struct ListItemsHandler {
 
             let created_date: Date = date_format.date(from: list_data.created_at)!
             
-            let list = ListModel(id: list_data.id, name: list_data.name, created_at: created_date, status: status, identifier: list_data.identifier, store_id: list_data.store_id, user_id: list_data.user_id, totalPrice: list_data.total_price, old_total_price: list_data.old_total_price, categories: categories)
+            let list = ListModel(id: list_data.id, name: list_data.name, created_at: created_date, status: status, identifier: list_data.identifier, store_id: list_data.store_id, user_id: list_data.user_id, totalPrice: list_data.total_price, old_total_price: list_data.old_total_price, categories: categories,totalItems: list_data.total_items, tickedOffItems: list_data.ticked_off_items)
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(list: list)

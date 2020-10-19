@@ -48,7 +48,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var selected_row: Int = 0
     var selected_section: Int = 0
     
-    var list_id: Int = 1
+    var list_id: Int?
     
     var items:[ListItemModel] {
         return self.listItem?.getListModel().categories.flatMap { $0.items } ?? []
@@ -76,7 +76,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         showTotalPrice()
         
         listHandler.delegate = self
-        listHandler.request(listId:list_id)
+        listHandler.request(listId:list_id!)
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
@@ -130,7 +130,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func refresh(_ sender: AnyObject) {
-        listHandler.request(listId:list_id)
+        listHandler.request(listId:list_id!)
     }
     
     func stopLoading(){
@@ -256,12 +256,10 @@ extension ListViewController {
         let item = realm.objects(ListHistory.self).filter("identifier = %@", identifier!).first
         
         if item != nil {
-            print("List Found. Updating Details")
             try? realm.write(withoutNotifying: [notificationToken!], {
-//                realm.beginWrite()
                 
-                realm.delete( realm.objects(ListItemHistory.self).filter("list_id = \(list_id)") )
-                realm.delete( realm.objects(ListCategoryHistory.self).filter("list_id = \(list_id)") )
+                realm.delete( realm.objects(ListItemHistory.self).filter("list_id = \(list_id!)") )
+                realm.delete( realm.objects(ListCategoryHistory.self).filter("list_id = \(list_id!)") )
                 
                 for category in list.categories {
                     listItem?.categories.append(category.getRealmObject())
@@ -269,8 +267,6 @@ extension ListViewController {
             
             })
         } else {
-            print("No List Found. Creating List")
-            
             try? realm.write(withoutNotifying: [notificationToken!], {
                 realm.add(list.getRealmObject())
             })
@@ -303,7 +299,7 @@ extension ListViewController {
     
     func productRemove(_ product: ListItemModel) {
         try? realm.write(withoutNotifying: [notificationToken!], {
-            realm.delete(realm.objects(ListItemHistory.self).filter("product_id = \(product.product_id) AND list_id = \(list_id)"))
+            realm.delete(realm.objects(ListItemHistory.self).filter("product_id = \(product.product_id) AND list_id = \(list_id!)"))
         })
         
         updateListInfo()
@@ -317,10 +313,10 @@ extension ListViewController {
             "ticked_off": String(product.ticked_off)
         ]
 
-        listHandler.update(listId: list_id, listData: data)
+        listHandler.update(listId: list_id!, listData: data)
         
         try? realm.write(withoutNotifying: [notificationToken!], {
-            let productItem = realm.objects(ListItemHistory.self).filter("product_id = \(product.product_id) AND list_id = \(list_id)").first
+            let productItem = realm.objects(ListItemHistory.self).filter("product_id = \(product.product_id) AND list_id = \(list_id!)").first
             print("\(product.name): \(product.quantity). Ticked: \(product.ticked_off)")
             productItem!.ticked_off = product.ticked_off
             productItem!.quantity = product.quantity
@@ -332,23 +328,6 @@ extension ListViewController {
         showTotalPrice()
 
     }
-
-//    func productUpdate(product: ListItemModel){
-//
-//        let data:[String: String] = [
-//            "product_id": String(product.product_id),
-//            "quantity": String(product.quantity),
-//            "ticked_off": String(product.ticked_off)
-//        ]
-//
-//        listHandler.update(listId: list_id, listData: data)
-//
-//        print("Product Update")
-//
-//        productChanged(product)
-//
-//        completedCheck()
-//    }
     
 }
 
@@ -383,7 +362,7 @@ extension ListViewController {
     
     func showTotalPrice(){
         var price:Double = 0.00
-        var priceNoDiscount: Double = 0.00
+        var priceNoPromotion: Double = 0.00
         var oldPrice: Double = 0.00
         
         let products = (list?.categories ?? []).map({ $0.items }).joined()
@@ -392,27 +371,27 @@ extension ListViewController {
         
         for product in products {
             
-            if product.discount != nil {
+            if product.promotion != nil {
                 
-                if let _ = promotions[product.discount!.id] {
-                    promotions[product.discount!.id]!["products"]!.append(product)
+                if let _ = promotions[product.promotion!.id] {
+                    promotions[product.promotion!.id]!["products"]!.append(product)
                 } else {
-                    promotions[product.discount!.id] = ["products": [product], "discount": [product.discount!]]
+                    promotions[product.promotion!.id] = ["products": [product], "promotion": [product.promotion!]]
                 }
                 
             }
             
             price += listManager.calculateProductPrice(product)
-            priceNoDiscount += ( Double(product.quantity) * product.price)
+            priceNoPromotion += ( Double(product.quantity) * product.price)
         }
         
         for promotion in promotions {
             let products = promotion.value["products"] as! [ListItemModel]
             let productCount = products.count
-            let discount = promotion.value["discount"]![0] as! DiscountModel
+            let promotion = promotion.value["promotion"]![0] as! PromotionModel
             var newTotalPrice:Double = 0
             
-            if productCount >= discount.quantity {
+            if productCount >= promotion.quantity {
                 
                 var highestPrice: Double = 0
                 var previousTotalPrice: Double = 0
@@ -427,21 +406,21 @@ extension ListViewController {
                     }
                 }
                 
-                let remainder = (totalQuantity % discount.quantity)
-                let goesIntoFully = floor(Double(totalQuantity) / Double(discount.quantity))
+                let remainder = (totalQuantity % promotion.quantity)
+                let goesIntoFully = floor(Double(totalQuantity) / Double(promotion.quantity))
                 
                 var newTotal: Double = 0
                 
-                if discount.forQuantity != nil && discount.forQuantity! > 0 {
-                    newTotal = (Double(goesIntoFully) * (Double(discount.forQuantity!) * highestPrice) ) + (Double(remainder) * highestPrice)
-                } else if (discount.price != nil && discount.price! > 0){
-                    newTotal = (Double(goesIntoFully) * discount.price!) + (Double(remainder) * highestPrice)
+                if promotion.forQuantity != nil && promotion.forQuantity! > 0 {
+                    newTotal = (Double(goesIntoFully) * (Double(promotion.forQuantity!) * highestPrice) ) + (Double(remainder) * highestPrice)
+                } else if (promotion.price != nil && promotion.price! > 0){
+                    newTotal = (Double(goesIntoFully) * promotion.price!) + (Double(remainder) * highestPrice)
                 }
                 
                 newTotalPrice = (price - previousTotalPrice) + newTotal
                 
                 if newTotalPrice != price && price > newTotalPrice {
-                    oldPrice = priceNoDiscount
+                    oldPrice = priceNoPromotion
                     price = newTotalPrice
                 }
                 
@@ -475,7 +454,7 @@ extension ListViewController {
         if list!.categories[section].items.count == 1 {
             
             try? realm.write(withoutNotifying: [notificationToken!], {
-                let deleteCategory = realm.objects(ListCategoryHistory.self).filter("list_id = \(list_id) AND id=\(list!.categories[section].id)").first
+                let deleteCategory = realm.objects(ListCategoryHistory.self).filter("list_id = \(list_id!) AND id=\(list!.categories[section].id)").first
                 realm.delete(deleteCategory!.items)
                 realm.delete(deleteCategory!)
             })
@@ -484,13 +463,13 @@ extension ListViewController {
         } else {
             try? realm.write(withoutNotifying: [notificationToken!], {
                 let deleteItem = list!.categories[section].items[row]
-                realm.delete( realm.objects(ListItemHistory.self).filter("list_id = \(list_id) AND product_id=\(deleteItem.product_id)") )
+                realm.delete( realm.objects(ListItemHistory.self).filter("list_id = \(list_id!) AND product_id=\(deleteItem.product_id)") )
             })
             
             listTableView.deleteRows(at: [indexPath], with: .fade)
         }
         
-        listHandler.delete(list_id: list_id, list_data: ["product_id": String(product.product_id)])
+        listHandler.delete(list_id: list_id!, list_data: ["product_id": String(product.product_id)])
         
         showTotalPrice()
     }

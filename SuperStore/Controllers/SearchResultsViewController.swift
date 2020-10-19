@@ -242,6 +242,7 @@ extension SearchResultsViewController {
             let item = listManager.addProductToList(listId: selectedListId!, product: selected_product!)
             selected_row!.product?.quantity = item.quantity
             selected_row!.show_quantity_view()
+            listHandler.create(list_id: selectedListId!, list_data: ["product_id": String(selected_product!.id)])
         }
 
     }

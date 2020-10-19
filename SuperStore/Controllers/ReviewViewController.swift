@@ -163,7 +163,7 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     }
     
     func confirmDelete(){
-        let alert = UIAlertController(title: "Deleting Review?", message: "Sure you want to delete this review?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Deleting Review?", message: "Are you sure you want to delete this review?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
             self.requestSent = true

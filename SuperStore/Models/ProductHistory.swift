@@ -43,7 +43,7 @@ class ProductHistory: Object {
     @objc dynamic var updated_at: Date = Date()
     @objc dynamic var created_at: Date = Date()
     
-    @objc dynamic var discount: DiscountHistory? = nil
+    @objc dynamic var promotion: PromotionHistory? = nil
     
     override static func indexedProperties() -> [String] {
         return ["id", "name","parent_category_id"]
@@ -56,7 +56,7 @@ class ProductHistory: Object {
             description: self.product_description, quantity: self.quantity,
             price: self.price,avg_rating: self.avg_rating,
             total_reviews_count: self.total_reviews_count,
-            discount: self.discount?.getDiscountModel(), storage: self.storage,
+            promotion: self.promotion?.getPromotionModel(), storage: self.storage,
             weight: self.weight, parent_category_id: self.parent_category_id,
             parent_category_name: self.parent_category_name,
             dietary_info: self.dietary_info, allergen_info: self.allergen_info,

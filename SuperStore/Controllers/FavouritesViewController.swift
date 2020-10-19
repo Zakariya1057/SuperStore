@@ -16,7 +16,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     let realm = try! Realm()
     lazy var favourites: Results<ProductHistory> = { self.realm.objects(ProductHistory.self).filter("favourite = true").sorted(byKeyPath: "updated_at", ascending: false)}()
     
-//    ProductHistory
+
     var delegate:GroceryDelegate?
     
     var favouritesHandler = FavouritesHandler()
@@ -49,7 +49,6 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
                     self?.favouritesTableView.reloadData()
                     break
                 case .error(let error):
-                    // An error occurred while opening the Realm file on the background worker thread
                     fatalError("\(error)")
             }
         }

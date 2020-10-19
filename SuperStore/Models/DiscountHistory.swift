@@ -9,18 +9,23 @@
 import Foundation
 import RealmSwift
 
-class DiscountHistory: Object {
+class PromotionHistory: Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
     @objc dynamic var quantity: Int = 0
     @objc dynamic var price: Double = 0
     @objc dynamic var forQuantity: Int = 0
+    var products = List<Int>()
+    
+    @objc dynamic var expires: Bool = false
+    @objc dynamic var startsAt: Date? = nil
+    @objc dynamic var endsAt: Date? = nil
     
     override static func indexedProperties() -> [String] {
         return ["id"]
     }
     
-    func getDiscountModel() -> DiscountModel {
-        return DiscountModel(id: self.id, name: self.name, quantity: self.quantity, price: self.price, forQuantity: self.forQuantity)
+    func getPromotionModel() -> PromotionModel {
+        return PromotionModel(id: self.id, name: self.name, quantity: self.quantity, price: self.price, forQuantity: self.forQuantity)
     }
 }

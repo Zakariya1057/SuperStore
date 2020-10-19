@@ -28,7 +28,7 @@ struct ListManager {
                 listItem!.name = product.name
                 listItem!.image = product.image
                 listItem!.price = product.price
-                listItem!.discount = product.discount?.getRealmObject()
+                listItem!.promotion = product.promotion?.getRealmObject()
                 listItem!.list_id = listId
                 listItem!.quantity = product.quantity == 0 ? 1 : product.quantity
 
@@ -98,22 +98,22 @@ extension ListManager {
     func calculateProductPrice(_ product: ProductItemModel) -> Double {
         var price:Double = 0
         
-        if product.discount == nil {
+        if product.promotion == nil {
             price = ( Double(product.quantity) * product.price)
         } else {
             
-            let discount = product.discount
+            let promotion = product.promotion
 
-            let remainder = (product.quantity % discount!.quantity)
-            let goesIntoFully = floor(Double(Int(product.quantity) / Int(discount!.quantity)))
+            let remainder = (product.quantity % promotion!.quantity)
+            let goesIntoFully = floor(Double(Int(product.quantity) / Int(promotion!.quantity)))
             
-            if product.quantity < discount!.quantity {
+            if product.quantity < promotion!.quantity {
                 price = Double(product.quantity) * product.price
             } else {
-                if discount!.forQuantity != nil && discount!.forQuantity! > 0{
-                    price = (Double(goesIntoFully) * (Double(discount!.forQuantity!) * product.price) ) + (Double(remainder) * product.price)
-                } else if (discount!.price != nil){
-                    price = (Double(goesIntoFully) * discount!.price!) + (Double(remainder) * product.price)
+                if promotion!.forQuantity != nil && promotion!.forQuantity! > 0{
+                    price = (Double(goesIntoFully) * (Double(promotion!.forQuantity!) * product.price) ) + (Double(remainder) * product.price)
+                } else if (promotion!.price != nil){
+                    price = (Double(goesIntoFully) * promotion!.price!) + (Double(remainder) * product.price)
                 }
             }
             

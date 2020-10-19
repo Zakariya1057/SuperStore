@@ -13,11 +13,11 @@ struct HomeResponseData: Decodable {
 }
 
 struct HomeData:Decodable {
-    var lists: [ListProgressData]
+    var lists: [ListData]
     var stores: [StoreData]
     var featured: [ProductData]
     var groceries: [ProductData]
     var monitoring: [ProductData]
-    var promotions: [DiscountData]
+    var promotions: [PromotionData]
     var categories: [String: [ProductData]]
 }

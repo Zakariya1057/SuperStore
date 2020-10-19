@@ -20,6 +20,10 @@ struct ListData: Decodable {
     var store_id: Int?
     var user_id: Int
     var total_price: Double
+    
+    var ticked_off_items: Int
+    var total_items: Int
+    
     var old_total_price: Double?
     var categories: [ListCategoryData]?
     var updated_at: String
@@ -44,11 +48,12 @@ struct ListItemData: Decodable {
     var small_image: String?
     var ticked_off: Bool
     var weight: String?
-    var discount: DiscountData?
+    var promotion: PromotionData?
 }
 
 struct ListProgressData: Decodable {
     var id: Int
+    var identifier: String
     var name: String
     var total_items: Int
     var ticked_off_items: Int

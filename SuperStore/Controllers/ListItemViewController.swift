@@ -43,20 +43,20 @@ class ListItemViewController: UIViewController {
     
     @IBAction func promotionPressed(_ sender: UIButton) {
         
-        if product?.discount == nil {
+        if product?.promotion == nil {
             return
         }
         
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "promotionViewController"))! as! PromotionViewController
-        destinationVC.promotion_id = product!.discount!.id
+        destinationVC.promotion_id = product!.promotion!.id
         
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     func configureUI(){
         
-        if product?.discount != nil {
-            promotionButton.setTitle(product!.discount?.name, for: .normal)
+        if product?.promotion != nil {
+            promotionButton.setTitle(product!.promotion?.name, for: .normal)
         } else {
             promotionButton.removeFromSuperview()
         }
@@ -72,7 +72,7 @@ class ListItemViewController: UIViewController {
     }
     
     func confirmDelete(){
-        let alert = UIAlertController(title: "Removing Product?", message: "Sure you want to remove product?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Removing Product?", message: "Are you sure you want to remove product?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
             self.deleteItem()
         }))

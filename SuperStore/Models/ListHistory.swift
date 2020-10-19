@@ -16,9 +16,14 @@ class ListHistory: Object {
     @objc dynamic var status: String = ""
     @objc dynamic var store_id: Int = 1
     @objc dynamic var user_id: Int = 1
+    
+    @objc dynamic var totalItems: Int = 0
+    @objc dynamic var tickedOffItems: Int = 0
+    
     @objc dynamic var totalPrice: Double = 0
     @objc dynamic var old_total_price: Double = 0
     var categories = List<ListCategoryHistory>()
+    
     @objc dynamic var created_at: Date = Date()
     @objc dynamic var updated: Date = Date()
     
@@ -28,7 +33,7 @@ class ListHistory: Object {
         for category in categories {
             categoryItems.append(category.getCategoryModel())
         }
-        return ListModel(id: self.id, name: self.name, created_at: self.created_at, status: ListStatus(rawValue: self.status)!,identifier: self.identifier,user_id: self.user_id, totalPrice: self.totalPrice, categories:categoryItems)
+        return ListModel(id: self.id, name: self.name, created_at: self.created_at, status: ListStatus(rawValue: self.status)!,identifier: self.identifier,user_id: self.user_id, totalPrice: self.totalPrice, categories:categoryItems, totalItems: self.totalItems, tickedOffItems: self.tickedOffItems)
     }
     
     func restartList(){
@@ -72,11 +77,11 @@ class ListItemHistory: Object {
     @objc dynamic var image: String = ""
     @objc dynamic var ticked_off: Bool = false
     @objc dynamic var weight: String = ""
-    @objc dynamic var discount: DiscountHistory? = nil
+    @objc dynamic var promotion: PromotionHistory? = nil
     @objc dynamic var list_id: Int = 1
     @objc dynamic var created_at: Date = Date()
     
     func getItemModel() -> ListItemModel {
-        return ListItemModel(id: self.id, name: self.name, image: self.image, quantity: self.quantity, product_id: self.product_id, price: self.price, weight: self.weight, discount: self.discount?.getDiscountModel(), list_id: self.list_id, ticked_off: self.ticked_off)
+        return ListItemModel(id: self.id, name: self.name, image: self.image, quantity: self.quantity, product_id: self.product_id, price: self.price, weight: self.weight, promotion: self.promotion?.getPromotionModel(), list_id: self.list_id, ticked_off: self.ticked_off)
     }
 }

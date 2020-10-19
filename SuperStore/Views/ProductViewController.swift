@@ -132,7 +132,6 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
                     self?.showFavourite()
                     break
                 case .error(let error):
-                    // An error occurred while opening the Realm file on the background worker thread
                     fatalError("\(error)")
             }
         }
@@ -186,16 +185,13 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         stopLoading()
         
         let productItem = product!.getProductModel()
-        
+
         productNameLabel.text = productItem.name
         productWeightLabel.text = productItem.weight
 
         productPriceLabel.text = "£" + String(format: "%.2f", productItem.price)
         
-//        if !productImageLoaded {
-            productImageView.downloaded(from: productItem.image)
-//            productImageLoaded = true
-//        }
+        productImageView.downloaded(from: productItem.image)
 
         ratingView.rating = productItem.avg_rating
         ratingView.text = "(\(productItem.total_reviews_count))"
@@ -204,7 +200,6 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
 
         if itemQuantity != nil {
             showQuantityView()
-//            product!.quantity = itemQuantity!
             quantityStepper.value = Double(itemQuantity!)
             stepperLabel.text = String(itemQuantity!)
         }
@@ -221,10 +216,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             allergenLabel.text = productItem.allergen_info
         }
 
-        if(productItem.discount == nil){
+        if(productItem.promotion == nil){
             promotionView.isHidden = true
         } else {
-            let promotion = productItem.discount!
+            let promotion = productItem.promotion!
             promotionLabel.text = promotion.name
         }
 
@@ -322,7 +317,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
                 destinationVC.delegate = self.delegate
             }
             
-            destinationVC.promotion_id = product!.discount!.getDiscountModel().id
+            destinationVC.promotion_id = product!.promotion!.getPromotionModel().id
         } else if segue.identifier == "productToCreateReview" {
             let destinationVC = segue.destination as! ReviewViewController
             destinationVC.product_id = product!.id
@@ -526,7 +521,18 @@ extension ProductViewController {
             } else {
                 let productObject = productItem.getRealmObject()
                 productObject.favourite = productItem.favourite!
+                
                 realm.add(productObject)
+                
+                for product in productItem.recommended {
+                    let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+                    
+                    if productHistory == nil {
+                        realm.add(product.getRealmObject())
+                    }
+                    
+                }
+                
             }
 
         }

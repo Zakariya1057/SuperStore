@@ -65,11 +65,9 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
                 case .initial:
                     break
             case .update(_, _, _, _):
-                    print("Lists Notification")
                     self?.listsTableView.reloadData()
                     break
                 case .error(let error):
-                    // An error occurred while opening the Realm file on the background worker thread
                     fatalError("\(error)")
             }
         }
@@ -87,7 +85,6 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     func contentLoaded(lists: [ListModel]) {
         
-        print(lists)
         for list in lists {
             addUpdateList(list: list)
         }
@@ -155,7 +152,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     }
     
     func confirmDelete(){
-        let alert = UIAlertController(title: "Deleting List?", message: "Sure you want to delete this list?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Deleting List?", message: "Are you sure you want to delete this list?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
             self.deleteList()
         }))
@@ -227,7 +224,6 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         } else if (segue.identifier == "list_to_edit"){
             let destinationVC = segue.destination as! ListEditViewController
             destinationVC.identifier = lists[selectedIndex].identifier
-            print(lists[selectedIndex].identifier)
         }
     }
     
