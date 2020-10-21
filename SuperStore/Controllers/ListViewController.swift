@@ -40,6 +40,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var totalPrice: Double = 0
     
+    var totalItems: Int {
+        return items.count
+    }
+    
+    var tickedOffItems: Int = 0
+    
     @IBOutlet weak var listTableView: UITableView!
 
     @IBOutlet weak var addCategoryButton: UIButton!
@@ -92,6 +98,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                     break
             case .update(_, _, _, _):
                     print("List Change. Update")
+                    self?.showTotalPrice()
+                    self?.completedCheck()
                     self?.listTableView.reloadData()
                     break
                 case .error(let error):
@@ -275,6 +283,10 @@ extension ListViewController {
     
     func updateListInfo(){
         
+        if realm.isInWriteTransaction {
+            return
+        }
+        
         print("Update List Info")
         
         let item = realm.objects(ListHistory.self).filter("identifier = %@", identifier!).first
@@ -289,6 +301,12 @@ extension ListViewController {
                 item!.status = list!.status.rawValue
                 item!.totalPrice = totalPrice
                 
+                item!.tickedOffItems = tickedOffItems
+                item!.totalItems = totalItems
+                
+                item!.updated = Date()
+                
+                print("\(item!.tickedOffItems)/\( item!.totalItems)")
                 self.listTableView.reloadData()
             })
         } else {
@@ -323,10 +341,10 @@ extension ListViewController {
             productItem!.totalPrice = product.totalPrice
         })
         
-        updateListInfo()
-        
         showTotalPrice()
-
+        
+        completedCheck()
+        
     }
     
 }
@@ -357,6 +375,9 @@ extension ListViewController {
                status = .inProgress
            }
         }
+        
+        self.tickedOffItems = checkedItems
+        self.updateListInfo()
         
     }
     

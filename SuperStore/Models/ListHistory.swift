@@ -27,6 +27,10 @@ class ListHistory: Object {
     @objc dynamic var created_at: Date = Date()
     @objc dynamic var updated: Date = Date()
     
+    override static func primaryKey() -> String? {
+        return "identifier"
+    }
+    
     func getListModel() -> ListModel {
         var categoryItems:[ListCategoryModel] = []
         

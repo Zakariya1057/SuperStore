@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import RealmSwift
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, HomeDelegate, StoreSelectedDelegate, ListProgressDelegate {
 
@@ -21,9 +22,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var homeHandler = HomeHandler()
     
-    var content: HomeModel?
+    var notificationToken: NotificationToken?
     
     var loading: Bool = true
+    
+    let realm = try! Realm()
+    
+    var home: HomeHistory? {
+        return self.realm.objects(HomeHistory.self).first
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,15 +61,39 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         listTableView.dataSource = self
         listTableView.delegate = self
-        // Do any additional setup after loading the view.
+
+        let results = realm.objects(ListHistory.self)
+        
+        notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+                case .initial:
+                    self?.configureLists()
+                    break
+            case .update(_, _, _, _):
+                    self?.configureLists()
+                    break
+                case .error(let error):
+                    fatalError("\(error)")
+            }
+        }
+        
+        
+        if home != nil {
+            configureUI()
+        }
     }
     
     func contentLoaded(content: HomeModel) {
-        self.content = content
+        addToHistory(content)
+        configureUI()
+    }
+    
+    func configureUI(){
         self.loading = false
         
-        let listElement = customElements[0] as! ListsProgressElement
-        listElement.lists = content.lists
+        let content = home!.getHomeModel()
+            
+        configureLists()
         
         let storeElement = customElements[1] as! StoresMapElement
         storeElement.stores = content.stores
@@ -82,7 +113,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         for category in content.categories {
             let name = category.key
             let products = category.value
-            
+
             let element = ProductElement(title: name,delegate: self, scrollDelegate: self, products: products)
             customElements.append(element)
         }
@@ -91,13 +122,46 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         refreshControl.endRefreshing()
     }
     
+    func errorHandler(_ message: String) {
+        
+    }
+    
+    func configureLists(){
+
+        var showingLists:[ListModel] = []
+        
+        if home != nil {
+            print("Update List")
+            
+            let listElement = customElements[0] as! ListsProgressElement
+            
+            if home!.lists.count < 4 {
+                // No List On Page. Get Last 4 Recent. Show
+                let recentLists = self.realm.objects(ListHistory.self).sorted(byKeyPath: "updated", ascending: false)
+                
+                for index in 0...3 {
+                    if recentLists.indices.contains(index){
+                        showingLists.append(recentLists[index].getListModel())
+                    }
+
+                }
+                
+            } else {
+                showingLists = home!.getHomeModel().lists
+            }
+            
+            listElement.lists = showingLists
+            listTableView.reloadData()
+        }
+    }
+    
     func addSectionProducts( _ products: [ProductModel], _ elementIndex:Int){
         let productElement = customElements[elementIndex] as! ProductElement
         productElement.products = products
     }
     
-    func errorHandler(_ message: String) {
-        
+    deinit {
+        notificationToken?.invalidate()
     }
     
     @objc func refresh(){
@@ -211,6 +275,110 @@ extension HomeViewController {
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
+
+extension HomeViewController {
+    func addToHistory(_ homeItem: HomeModel){
+        
+        try? realm.write(withoutNotifying: [notificationToken!], {
+            
+            if home != nil {
+                //Update home.
+                updateHistory(homeItem)
+            } else {
+                realm.add(homeItem.getRealmObject())
+            }
+
+        })
+        
+    }
+    
+    func updateHistory(_ homeItem: HomeModel){
+        
+        home!.lists.removeAll()
+
+        for list in homeItem.lists {
+
+            let listHistory = realm.objects(ListHistory.self).filter("id = \(list.id)").first
+
+            if listHistory != nil {
+                listHistory!.name = list.name
+                listHistory!.totalPrice = list.totalPrice
+                listHistory!.status = list.status.rawValue
+                listHistory!.tickedOffItems = list.tickedOffItems
+                listHistory!.totalItems = list.totalItems
+                listHistory!.updated = Date()
+                
+                home!.lists.append(listHistory!)
+            } else {
+                home!.lists.append(list.getRealmObject())
+            }
+
+        }
+
+        home!.promotions.removeAll()
+
+        for promotion in homeItem.promotions {
+
+            let promotionHistory = realm.objects(PromotionHistory.self).filter("id = \(promotion.id)").first
+
+            if promotionHistory != nil {
+                home!.promotions.append(promotionHistory!)
+            } else {
+                home!.promotions.append(promotion.getRealmObject())
+            }
+
+        }
+        
+        home!.featured.removeAll()
+
+        for product in homeItem.featured {
+
+            let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+
+            if productHistory != nil {
+                home!.featured.append(productHistory!)
+            } else {
+                home!.featured.append(product.getRealmObject())
+            }
+
+        }
+        
+        home!.categories.removeAll()
+
+        for category in homeItem.categories {
+            let categoryItem = FeaturedCategory()
+            categoryItem.name = category.key
+            
+            updateProducts(list: category.value, historyList: categoryItem.products)
+            home!.categories.append(categoryItem)
+        }
+        
+        updateProducts(list: homeItem.featured,   historyList: home!.featured)
+        updateProducts(list: homeItem.monitoring, historyList: home!.monitoring)
+        updateProducts(list: homeItem.groceries,  historyList: home!.groceries)
+        
+    }
+    
+    func updateProducts(list: [ProductModel], historyList: List<ProductHistory>){
+        
+        historyList.removeAll()
+
+        for product in list {
+
+            let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+
+            if productHistory != nil {
+                historyList.append(productHistory!)
+            } else {
+                historyList.append(product.getRealmObject())
+            }
+
+        }
+        
+    }
+    
+}
+
 
 // Possible custom tablecell types with identifiers
 enum CustomElementType: String {

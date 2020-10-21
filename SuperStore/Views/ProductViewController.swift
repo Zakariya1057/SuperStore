@@ -216,12 +216,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             allergenLabel.text = productItem.allergen_info
         }
 
-        if(productItem.promotion == nil){
-            promotionView.isHidden = true
-        } else {
-            let promotion = productItem.promotion!
-            promotionLabel.text = promotion.name
-        }
+        configurePromotion()
 
         reviews = productItem.reviews
         let review_count = reviews.count
@@ -241,6 +236,16 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         }
         
         
+    }
+    
+    func configurePromotion(){
+        if(product!.promotion == nil){
+            promotionView.isHidden = true
+        } else {
+            let promotion = product!.promotion!.getPromotionModel()
+            promotionLabel.text = promotion.name
+            promotionView.isHidden = false
+        }
     }
     
     @objc func showIngredients(){
@@ -502,6 +507,8 @@ extension ProductViewController {
 extension ProductViewController {
     func addToHistory(_ productItem: ProductDetailsModel){
         
+        print(productItem.promotion)
+        
         self.recommended = productItem.recommended
         
         try! realm.write() {
@@ -511,7 +518,25 @@ extension ProductViewController {
                 
                 realm.delete(product!.reviews)
                 
+                product!.brand = productItem.brand
+                product!.avg_rating = productItem.avg_rating
+                product!.product_description = productItem.description
+                product!.image = productItem.image
+                product!.parent_category_id = productItem.parent_category_id!
+                product!.parent_category_name = productItem.parent_category_name
+                
+                productItem.ingredients.forEach({product!.ingredients.append($0)})
+                
                 product!.recommended = List<Int>()
+                
+                if productItem.promotion != nil {
+                    configurePromotion()
+                    product!.promotion = productItem.promotion!.getRealmObject()
+                } else {
+                    product!.promotion = nil
+                }
+               
+                
                 productItem.reviews.forEach({ product!.reviews.append( $0.getRealmObject()) })
                 
                 for recommendedProduct in productItem.recommended {
@@ -531,6 +556,15 @@ extension ProductViewController {
                         realm.add(product.getRealmObject())
                     }
                     
+                }
+                
+            }
+            
+            for product in productItem.recommended {
+                let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+                
+                if productHistory == nil {
+                    realm.add(product.getRealmObject())
                 }
                 
             }

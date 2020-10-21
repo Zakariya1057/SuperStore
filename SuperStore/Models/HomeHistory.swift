@@ -16,20 +16,21 @@ class HomeHistory: Object {
     var groceries = List<ProductHistory>()
     var monitoring = List<ProductHistory>()
     var promotions = List<PromotionHistory>()
-    var categories = List<ChildCategoryHistory>()
+    var categories = List<FeaturedCategory>()
     
     func getHomeModel() -> HomeModel {
-        var listItems: [ListModel] = []
-        var storeItems: [StoreModel] = []
-        var featureItems: [ProductModel] = []
-        var groceryItems: [ProductModel] = []
-        var promotionItems: [PromotionModel] = []
-        var monotiringItems: [ProductModel] = []
+        let listItems: [ListModel] = self.lists.map{ $0.getListModel() }
+        let storeItems: [StoreModel] = self.stores.map{ $0.getStoreModel() }
+        let featureItems: [ProductModel] = self.featured.map{ $0.getProductModel() }
+        let groceryItems: [ProductModel] = self.groceries.map{ $0.getProductModel() }
+        let promotionItems: [PromotionModel] = self.promotions.map{ $0.getPromotionModel() }
+        let monotiringItems: [ProductModel] = self.monitoring.map{ $0.getProductModel() }
+        
         var categoryItems: [String: [ProductModel]] = [:]
         
-//        for list in self.list {
-//            listItems.append(list.)
-//        }
+        for category in self.categories.sorted(byKeyPath: "name", ascending: true) {
+            categoryItems[category.name] = category.products.map({ $0.getProductModel() })
+        }
         
         return HomeModel(
             lists: listItems, stores: storeItems,
@@ -39,4 +40,9 @@ class HomeHistory: Object {
         )
     }
     
+}
+
+class FeaturedCategory: Object {
+    @objc dynamic var name: String = ""
+    var products = List<ProductHistory>()
 }

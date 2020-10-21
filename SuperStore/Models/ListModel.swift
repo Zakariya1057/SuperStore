@@ -31,6 +31,8 @@ struct ListModel {
         list.created_at = Date()
         list.status = self.status.rawValue
         list.totalPrice = self.totalPrice
+        list.tickedOffItems = self.tickedOffItems
+        list.totalItems = self.totalItems
         list.old_total_price = self.old_total_price ?? 0
         return list
     }
