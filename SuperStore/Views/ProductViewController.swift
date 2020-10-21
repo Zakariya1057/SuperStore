@@ -507,8 +507,6 @@ extension ProductViewController {
 extension ProductViewController {
     func addToHistory(_ productItem: ProductDetailsModel){
         
-        print(productItem.promotion)
-        
         self.recommended = productItem.recommended
         
         try! realm.write() {
@@ -524,6 +522,7 @@ extension ProductViewController {
                 product!.image = productItem.image
                 product!.parent_category_id = productItem.parent_category_id!
                 product!.parent_category_name = productItem.parent_category_name
+                product!.weight = productItem.weight
                 
                 productItem.ingredients.forEach({product!.ingredients.append($0)})
                 

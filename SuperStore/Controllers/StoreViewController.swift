@@ -228,9 +228,18 @@ extension StoreViewController {
             if store == nil {
                 realm.add(storeItem.getRealmObject())
             } else {
-                realm.delete(store!.opening_hours)
-                realm.delete(store!)
-                realm.add(storeItem.getRealmObject())
+                
+                store!.facilities.removeAll()
+                store!.opening_hours.removeAll()
+                
+                let storeHistory = storeItem.getRealmObject()
+                
+                storeHistory.facilities.forEach({ store!.facilities.append($0) })
+                storeHistory.opening_hours.forEach({ store!.opening_hours.append($0) })
+                
+                store!.logo = storeHistory.logo
+                store!.name = storeHistory.name
+                
             }
             
         }

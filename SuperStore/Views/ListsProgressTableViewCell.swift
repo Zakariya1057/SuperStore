@@ -202,7 +202,6 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
         
         if (listStackViews.count - listCount) != 0 {
             for index in 0...( (listStackViews.count - listCount) - 1){
-                print("Remove: \((listStackViews.count) - index)")
                 listStackViews[ ((listStackViews.count) - index) - 1].isHidden = true
             }
         }

@@ -287,12 +287,9 @@ extension ListViewController {
             return
         }
         
-        print("Update List Info")
-        
         let item = realm.objects(ListHistory.self).filter("identifier = %@", identifier!).first
         
         if item != nil {
-            print("Updating Details")
             try? realm.write(withoutNotifying: [notificationToken!], {
                 
                 showTotalPrice()

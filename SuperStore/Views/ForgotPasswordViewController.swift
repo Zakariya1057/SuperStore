@@ -18,6 +18,7 @@ class ForgotPasswordViewController: UIViewController, UserDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        emailField.delegate = self
         userHandler.delegate = self
         // Do any additional setup after loading the view.
     }
@@ -92,4 +93,20 @@ class ForgotPasswordViewController: UIViewController, UserDelegate {
         showError(message)
     }
 
+}
+
+extension ForgotPasswordViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let textFieldText = textField.text,
+            let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                return false
+        }
+        
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 100
+    }
+    
 }

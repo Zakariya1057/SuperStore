@@ -22,6 +22,11 @@ class RegisterViewController: UIViewController, UserDelegate {
         super.viewDidLoad()
         
         userHandler.delegate = self
+        emailField.delegate = self
+        passwordField.delegate = self
+        repeatPasswordField.delegate = self
+        
+        nameField.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -89,6 +94,22 @@ class RegisterViewController: UIViewController, UserDelegate {
         let alert = UIAlertController(title: "Register Error", message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
+    }
+    
+}
+
+extension RegisterViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let textFieldText = textField.text,
+            let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                return false
+        }
+        
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 100
     }
     
 }

@@ -21,7 +21,10 @@ class ChangePasswordViewController: UIViewController, UserDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         userHandler.delegate = self
-        // Do any additional setup after loading the view.
+        
+        currentPasswordField.delegate = self
+        newPasswordField.delegate = self
+        repeatPasswordField.delegate = self
     }
     
     @IBAction func savePressed(_ sender: Any) {
@@ -80,6 +83,20 @@ class ChangePasswordViewController: UIViewController, UserDelegate {
         spinner.removeFromParent()
     }
     
+}
 
-
+extension ChangePasswordViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let textFieldText = textField.text,
+            let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                return false
+        }
+        
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 100
+    }
+    
 }

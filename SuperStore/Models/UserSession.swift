@@ -7,20 +7,19 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct UserSession {
     
     let userDefaults = UserDefaults.standard
     
     func logOut(){
-//        let domain = Bundle.main.bundleIdentifier!
-//        UserDefaults.standard.removePersistentDomain(forName: domain)
-//        UserDefaults.standard.synchronize()
         UserDefaults.standard.removeObject(forKey: "userSettings")
     }
     
     func setLoggedIn(_ userData:UserHistory){
         userDefaults.set(try? PropertyListEncoder().encode(userData), forKey: "userSettings")
+        setDefaultRealmForUser()
     }
     
     func getUserToken() -> String? {
@@ -45,5 +44,17 @@ struct UserSession {
         let loggedIn:Bool = getUserToken() != nil
         return loggedIn
     }
+    
+    func setDefaultRealmForUser() {
+        var config = Realm.Configuration()
+
+        let userId = self.getUserDetails()!.id
+        // Use the default directory, but replace the filename with the username
+        config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("\(userId).realm")
+
+        // Set this as the configuration used for the default Realm
+        Realm.Configuration.defaultConfiguration = config
+    }
+
     
 }

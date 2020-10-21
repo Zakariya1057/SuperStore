@@ -38,6 +38,7 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
             inputField.keyboardType = .asciiCapable
         }
         
+        inputField.delegate = self
         userHandler.delegate = self
         // Do any additional setup after loading the view.
     }
@@ -111,6 +112,22 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
         spinner.willMove(toParent: nil)
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
+    }
+    
+}
+
+extension SettingsChangeViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let textFieldText = textField.text,
+            let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                return false
+        }
+        
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 100
     }
     
 }

@@ -157,14 +157,24 @@ extension SearchStoresViewController {
         let storeItem = realm.objects(StoreHistory.self).filter("id = \(store.id)").first
         
         try! realm.write() {
+            
             if storeItem == nil {
                 realm.add(store.getRealmObject())
             } else {
-                // Add To Store history
-                print("Update Store")
+                storeItem!.facilities.removeAll()
+                storeItem!.opening_hours.removeAll()
+                
+                let storeHistory = store.getRealmObject()
+                
+                storeHistory.facilities.forEach({ storeItem!.facilities.append($0) })
+                storeHistory.opening_hours.forEach({ storeItem!.opening_hours.append($0) })
+                
+                storeItem!.logo = store.logo
+                storeItem!.name = store.name
             }
             
         }
         
     }
+    
 }

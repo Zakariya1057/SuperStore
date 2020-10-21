@@ -131,7 +131,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var showingLists:[ListModel] = []
         
         if home != nil {
-            print("Update List")
             
             let listElement = customElements[0] as! ListsProgressElement
             
@@ -283,6 +282,7 @@ extension HomeViewController {
             
             if home != nil {
                 //Update home.
+                print("Updating Home")
                 updateHistory(homeItem)
             } else {
                 realm.add(homeItem.getRealmObject())

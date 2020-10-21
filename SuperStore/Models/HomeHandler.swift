@@ -29,7 +29,6 @@ struct HomeHandler {
         
         do {
             
-            print("Home Data Loaded")
             let decoder = JSONDecoder()
             let decodedData = try decoder.decode(HomeResponseData.self, from: data)
             let data = decodedData.data

@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class LoginViewController: UIViewController, UserDelegate {
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
+    @IBOutlet var signInButtonStack: UIStackView!
     var userHandler = UserHandler()
     
     let spinner: SpinnerViewController = SpinnerViewController()
@@ -20,6 +22,10 @@ class LoginViewController: UIViewController, UserDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         userHandler.delegate = self
+        
+        emailField.delegate = self
+        passwordField.delegate = self
+//        setUpSignInAppleButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,6 +79,60 @@ class LoginViewController: UIViewController, UserDelegate {
     func errorHandler(_ message: String) {
         stopLoading()
         showError(message)
+    }
+    
+}
+
+extension LoginViewController: ASAuthorizationControllerDelegate {
+    
+    func setUpSignInAppleButton() {
+      let authorizationButton = ASAuthorizationAppleIDButton()
+      authorizationButton.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)
+      authorizationButton.cornerRadius = 10
+      //Add button on some view or stack
+      self.signInButtonStack.addArrangedSubview(authorizationButton)
+    }
+    
+    @objc func handleAppleIdRequest() {
+        print("Button Pressed")
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.performRequests()
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+            if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
+                
+                let userIdentifier = appleIDCredential.user
+                let fullName = appleIDCredential.fullName
+                let email = appleIDCredential.email
+                
+                print("User id is \(userIdentifier) \n Full Name is \(String(describing: fullName)) \n Email id is \(String(describing: email))")
+                
+            }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    // Handle error.
+        print(error)
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let textFieldText = textField.text,
+            let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                return false
+        }
+        
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 100
     }
     
 }
