@@ -11,15 +11,27 @@ import RealmSwift
 
 struct UserSession {
     
+    init() {
+        setDefaultRealmForUser()
+    }
+    
     let userDefaults = UserDefaults.standard
     
     func logOut(){
-        UserDefaults.standard.removeObject(forKey: "userSettings")
+        let realm = try! Realm()
+        realm.delete(realm.objects(UserHistory.self))
     }
     
     func setLoggedIn(_ userData:UserHistory){
-        userDefaults.set(try? PropertyListEncoder().encode(userData), forKey: "userSettings")
-        setDefaultRealmForUser()
+        setDefaultRealmForUser(userId: userData.id)
+        saveUserInfo(userData: userData)
+        
+        let realm = try! Realm()
+        
+        try! realm.write({
+            realm.add(userData)
+            print(userData)
+        })
     }
     
     func getUserToken() -> String? {
@@ -28,6 +40,11 @@ struct UserSession {
     }
     
     func getUserDetails() -> UserHistory? {
+        let realm = try? Realm()
+        return realm!.objects(UserHistory.self).first
+    }
+    
+    private func showUserInfo() -> UserHistory? {
         guard let userSettings = userDefaults.object(forKey: "userSettings") as? Data else {
             return nil
         }
@@ -40,15 +57,19 @@ struct UserSession {
         return details
     }
     
-    func isLoggedIn() -> Bool{
-        let loggedIn:Bool = getUserToken() != nil
-        return loggedIn
+    private func saveUserInfo(userData: UserHistory){
+        userDefaults.set(try? PropertyListEncoder().encode(userData), forKey: "userSettings")
     }
     
-    func setDefaultRealmForUser() {
+    func isLoggedIn() -> Bool{
+        return showUserInfo() != nil
+    }
+    
+    func setDefaultRealmForUser(userId: Int? = nil) {
         var config = Realm.Configuration()
-
-        let userId = self.getUserDetails()!.id
+        
+        let userId: Int = userId != nil ? userId! : showUserInfo()!.id
+        
         // Use the default directory, but replace the filename with the username
         config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("\(userId).realm")
 
@@ -56,5 +77,4 @@ struct UserSession {
         Realm.Configuration.defaultConfiguration = config
     }
 
-    
 }

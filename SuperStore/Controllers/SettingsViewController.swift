@@ -7,10 +7,7 @@
 //
 
 import UIKit
-
-//protocol UserDetailsChangedDelegate {
-//    func updateUserDetails(userDetails: UserData)
-//}
+import RealmSwift
 
 class SettingsViewController: UIViewController  {
     
@@ -26,17 +23,36 @@ class SettingsViewController: UIViewController  {
     var fieldName:String = ""
     var fieldValue:String = ""
     
-    var userDetails: UserHistory?
+    var userDetails: UserHistory? {
+        return userSession.getUserDetails()
+    }
     
     let userHandler = UserHandler()
     var userSession:UserSession {
         return userHandler.userSession
     }
     
+    var notificationToken: NotificationToken?
+    
+    let realm = try! Realm()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userDetails = userSession.getUserDetails()
+        let results = realm.objects(UserHistory.self)
+        
+        notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+                case .initial:
+                    self?.showUserDetails()
+                    break
+            case .update(_, _, _, _):
+                    self?.showUserDetails()
+                    break
+                case .error(let error):
+                    fatalError("\(error)")
+            }
+        }
         
         showUserDetails()
         
@@ -48,6 +64,10 @@ class SettingsViewController: UIViewController  {
         
         let passwordGesture = UITapGestureRecognizer(target: self, action: #selector(passswordPressed))
         passwordStackView.addGestureRecognizer(passwordGesture)
+    }
+    
+    deinit {
+        notificationToken?.invalidate()
     }
     
     func showUserDetails(){
@@ -84,8 +104,6 @@ class SettingsViewController: UIViewController  {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "settingsToSettingChange" {
             let destinationVC = segue.destination as! SettingsChangeViewController
-//            destinationVC.delegate = self
-            destinationVC.userDetails = userDetails
             destinationVC.inputValue = fieldValue
             destinationVC.headerName = fieldName
         }
@@ -100,10 +118,5 @@ class SettingsViewController: UIViewController  {
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-//    func updateUserDetails(userDetails: UserHistory) {
-//        self.userDetails = userDetails
-//        userSession.setLoggedIn(userDetails)
-//        showUserDetails()
-//    }
+
 }

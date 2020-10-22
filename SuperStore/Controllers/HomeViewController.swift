@@ -408,7 +408,6 @@ protocol CustomElementCell: class {
 
 extension UIImageView {
     func downloaded(from urlString: String, contentMode mode: UIView.ContentMode = .scaleAspectFit)  {
-        
         if let url  = URL(string: urlString) {
             self.kf.indicatorType = .activity
             self.kf.setImage(
@@ -419,7 +418,6 @@ extension UIImageView {
         }
 
     }
-    
 }
 
 extension NSMutableAttributedString {

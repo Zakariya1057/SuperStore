@@ -107,7 +107,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         
-        if listItem != nil {
+        if listItem != nil && listItem!.categories.count > 0 {
             configureUI()
         }
         

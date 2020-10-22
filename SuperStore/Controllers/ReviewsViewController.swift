@@ -21,8 +21,6 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-//    var reviews:[ReviewModel] = []
-    
     var reviewsHandler = ReviewsHandler()
     
     var product_id: Int = 1
@@ -49,9 +47,7 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func contentLoaded(reviews: [ReviewModel]) {
 
-        for review in reviews {
-            addToHistory(review)
-        }
+        addToHistory(reviews)
         
         loading = false
         reviewsTableView.reloadData()
@@ -90,21 +86,15 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
 }
 
 extension ReviewsViewController {
-    func addToHistory(_ review: ReviewModel){
-    
-        var reviewItem = realm.objects(ReviewHistory.self).filter("product_id = \(product_id) AND id = \(review.id)").first
+    func addToHistory(_ reviews: [ReviewModel]){
         
-        try! realm.write() {
-            if reviewItem == nil {
-                let reviewObject = review.getRealmObject()
-                realm.add(reviewObject)
-            } else {
-                reviewItem! = review.getRealmObject()
+        try? realm.write {
+            realm.delete(self.reviews)
+            for review in reviews {
+                realm.add(review.getRealmObject())
             }
-            
         }
-        
-        
+
     }
     
 }

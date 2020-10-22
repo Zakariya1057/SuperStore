@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SettingsChangeViewController: UIViewController, UserDelegate {
 
     var headerName:String = ""
     var type: String?
     var inputValue:String?
+    
+    let realm = try! Realm()
     
 //    var delegate: UserDetailsChangedDelegate?
     
@@ -21,7 +24,13 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
     
     var userHandler = UserHandler()
     
-    var userDetails: UserHistory?
+    var userDetails: UserHistory? {
+        return userSession.getUserDetails()
+    }
+    
+    var userSession:UserSession {
+        return userHandler.userSession
+    }
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
@@ -48,40 +57,18 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
         
         let input = inputField.text ?? ""
         
-        if type == "email" {
-            
-            let validationFields: [ [String: String] ] = [
-                ["field": "email", "value": input, "type": "email"],
-            ]
-            
-            let error = userHandler.validateFields(validationFields)
-            
-            if error != nil {
-                return showError(error!)
-            }
-
-            userDetails!.email = input
-            
-            startLoading()
-            
-            userHandler.requestUpdate(userData: ["type": type!, "email": input])
-        } else {
-            let validationFields: [ [String: String] ] = [
-                ["field": "name", "value": input, "type": "name"],
-            ]
-            
-            userDetails!.name = input
-            let error = userHandler.validateFields(validationFields)
-            
-            if error != nil {
-                return showError(error!)
-            }
-
-            startLoading()
-            
-//            self.delegate?.updateUserDetails(userDetails: userDetails!)
-            userHandler.requestUpdate(userData: ["type": type!, "name": input])
+        let validationFields: [[String: String]] = [["field": type!, "value": input, "type": type!]]
+        
+        let error = userHandler.validateFields(validationFields)
+        
+        if error != nil {
+            return showError(error!)
         }
+        
+        let userData = ["type": type!, type!: input]
+        
+        startLoading()
+        userHandler.requestUpdate(userData: userData)
         
     }
 
@@ -93,6 +80,11 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
     
     func contentLoaded() {
         stopLoading()
+        
+        try? realm.write({
+            userDetails![type!] = inputField.text!
+        })
+        
         self.navigationController!.popViewController(animated: true)
     }
     
