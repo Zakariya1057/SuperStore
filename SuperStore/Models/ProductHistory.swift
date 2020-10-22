@@ -17,13 +17,13 @@ class ProductHistory: Object {
     @objc dynamic var product_description: String? = ""
     @objc dynamic var price:Double = 0
     
-    @objc dynamic var avg_rating: Double = 0
-    @objc dynamic var total_reviews_count: Int = 0
+    @objc dynamic var avgRating: Double = 0
+    @objc dynamic var totalReviewsCount: Int = 0
     @objc dynamic var quantity: Int = 0
     @objc dynamic var weight: String? = ""
     
-    @objc dynamic var parent_category_id: Int = 1
-    @objc dynamic var parent_category_name: String? = ""
+    @objc dynamic var parentCategoryId: Int = 1
+    @objc dynamic var parentCategoryName: String? = ""
     
     @objc dynamic var storage: String?
     
@@ -46,7 +46,7 @@ class ProductHistory: Object {
     @objc dynamic var promotion: PromotionHistory? = nil
     
     override static func indexedProperties() -> [String] {
-        return ["id", "name","parent_category_id"]
+        return ["id", "name","parentCategoryId"]
     }
     
     func getProductModel() -> ProductDetailsModel {
@@ -54,11 +54,11 @@ class ProductHistory: Object {
         return ProductDetailsModel(
             id: self.id, name: self.name, image: self.image,
             description: self.product_description, quantity: self.quantity,
-            price: self.price,avg_rating: self.avg_rating,
-            total_reviews_count: self.total_reviews_count,
+            price: self.price,avgRating: self.avgRating,
+            totalReviewsCount: self.totalReviewsCount,
             promotion: self.promotion?.getPromotionModel(), storage: self.storage,
-            weight: self.weight, parent_category_id: self.parent_category_id,
-            parent_category_name: self.parent_category_name,
+            weight: self.weight, parentCategoryId: self.parentCategoryId,
+            parentCategoryName: self.parentCategoryName,
             dietary_info: self.dietary_info, allergen_info: self.allergen_info,
             brand: self.brand, reviews: self.reviews.map {$0.getReviewModel()} , favourite: self.favourite,
             ingredients:self.ingredients.map { "\($0)"} , recommended: [])

@@ -357,7 +357,7 @@ extension SearchResultsViewController {
            
         } else if searchDetails!.type == .parentCategory {
             print("Parent Category: ID = \(searchDetails!.id)")
-            let results = realm.objects(ProductHistory.self).filter("parent_category_id = %@", searchDetails!.id).sorted(byKeyPath: "avg_rating", ascending: false)
+            let results = realm.objects(ProductHistory.self).filter("parentCategoryId = %@", searchDetails!.id).sorted(byKeyPath: "avg_rating", ascending: false)
             products = results.map{ $0.getProductModel() }
         } else {
             let results = realm.objects(ProductHistory.self).filter("name CONTAINS[c] %@", searchDetails!.name).sorted(byKeyPath: "avg_rating", ascending: false)
@@ -365,7 +365,7 @@ extension SearchResultsViewController {
         }
      
         products.sort { (productA, productB) -> Bool in
-            return (productA.avg_rating / Double(productA.total_reviews_count)) < (productB.avg_rating / Double(productB.total_reviews_count))
+            return (productA.avgRating / Double(productA.totalReviewsCount)) < (productB.avgRating / Double(productB.totalReviewsCount))
         }
         
         if products.count > 0 {

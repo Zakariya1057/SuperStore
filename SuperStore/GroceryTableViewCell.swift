@@ -90,8 +90,8 @@ class GroceryTableViewCell: UITableViewCell {
             }
         }
         
-        let rating = current_product.avg_rating
-        let num = current_product.total_reviews_count
+        let rating = current_product.avgRating
+        let num = current_product.totalReviewsCount
         
         reviewView.rating = rating
         reviewView.text = "(\(num))"

@@ -32,15 +32,15 @@ struct ListManager {
                 listItem!.list_id = listId
                 listItem!.quantity = product.quantity == 0 ? 1 : product.quantity
 
-                var listCategory = realm.objects(ListCategoryHistory.self).filter("list_id = \(listId) AND id = \(product.parent_category_id!)").first
+                var listCategory = realm.objects(ListCategoryHistory.self).filter("list_id = \(listId) AND id = \(product.parentCategoryId!)").first
 
-                print("Category Name: \(product.parent_category_name!)")
+                print("Category Name: \(product.parentCategoryName!)")
                 if listCategory != nil {
                     listCategory!.items.append(listItem!)
                 } else {
                     listCategory = ListCategoryHistory()
-                    listCategory!.id = product.parent_category_id!
-                    listCategory!.name = product.parent_category_name!
+                    listCategory!.id = product.parentCategoryId!
+                    listCategory!.name = product.parentCategoryName!
                     listCategory!.list_id = listId
                     listCategory!.items.append(listItem!)
 

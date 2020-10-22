@@ -39,7 +39,6 @@
 		2C21C3A424F6F2A300D90B4B /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C21C3A324F6F2A300D90B4B /* RequestHandler.swift */; };
 		2C21C3A624F6F36B00D90B4B /* StoreHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C21C3A524F6F36B00D90B4B /* StoreHandler.swift */; };
 		2C21C3A824F6F4B200D90B4B /* StoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C21C3A724F6F4B200D90B4B /* StoreData.swift */; };
-		2C21C3AA24F8186200D90B4B /* ProductsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C21C3A924F8186200D90B4B /* ProductsHandler.swift */; };
 		2C21C3AC24F8186A00D90B4B /* GroceryCategoriesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C21C3AB24F8186A00D90B4B /* GroceryCategoriesData.swift */; };
 		2C21C3AE24F8187100D90B4B /* GroceryCategoriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C21C3AD24F8187100D90B4B /* GroceryCategoriesModel.swift */; };
 		2C21C3B024F8E4E600D90B4B /* GroceryCategoriesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C21C3AF24F8E4E600D90B4B /* GroceryCategoriesHandler.swift */; };
@@ -178,7 +177,6 @@
 		2C21C3A324F6F2A300D90B4B /* RequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
 		2C21C3A524F6F36B00D90B4B /* StoreHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHandler.swift; sourceTree = "<group>"; };
 		2C21C3A724F6F4B200D90B4B /* StoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreData.swift; sourceTree = "<group>"; };
-		2C21C3A924F8186200D90B4B /* ProductsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsHandler.swift; sourceTree = "<group>"; };
 		2C21C3AB24F8186A00D90B4B /* GroceryCategoriesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryCategoriesData.swift; sourceTree = "<group>"; };
 		2C21C3AD24F8187100D90B4B /* GroceryCategoriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryCategoriesModel.swift; sourceTree = "<group>"; };
 		2C21C3AF24F8E4E600D90B4B /* GroceryCategoriesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryCategoriesHandler.swift; sourceTree = "<group>"; };
@@ -429,7 +427,6 @@
 				2CAC060F2530E26700561509 /* HomeData.swift */,
 				2CAC06122530E41700561509 /* HomeModel.swift */,
 				2C43E797253CC4C60084DF7C /* HomeHistory.swift */,
-				2C21C3A924F8186200D90B4B /* ProductsHandler.swift */,
 				2C21C3AF24F8E4E600D90B4B /* GroceryCategoriesHandler.swift */,
 				2C21C3AB24F8186A00D90B4B /* GroceryCategoriesData.swift */,
 				2C0D448F2537827D0046E2B0 /* GroceryHistory.swift */,
@@ -438,6 +435,8 @@
 				2CC1EA1A24FA9550000A9BC4 /* GroceryProductsData.swift */,
 				2CC1EA1824FA9525000A9BC4 /* GroceryProductsModel.swift */,
 				2CC1EA1E24FAC0EB000A9BC4 /* ProductData.swift */,
+				2C266DF024D5A6C900C66EA5 /* ProductModel.swift */,
+				2C0D447E2535B2390046E2B0 /* ProductHistory.swift */,
 				2CC1EA1C24FAC003000A9BC4 /* ProductDetailsHandler.swift */,
 				2CC1EA2424FACADA000A9BC4 /* ProductDetailsModel.swift */,
 				2C9DD12C24FCFC3800544563 /* IngredientsData.swift */,
@@ -452,9 +451,7 @@
 				2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */,
 				2CF239BC2509549100D4CE91 /* ListItemsData.swift */,
 				2C362F8B253A062D000846C0 /* ListManager.swift */,
-				2C266DF024D5A6C900C66EA5 /* ProductModel.swift */,
 				2C362F94253B0E3D000846C0 /* PromotionModel.swift */,
-				2C0D447E2535B2390046E2B0 /* ProductHistory.swift */,
 				2C0D44782534DD090046E2B0 /* PromotionHistory.swift */,
 				2C266DF224D5A6EA00C66EA5 /* ListProductModel.swift */,
 				2C0E93C7250F975D00378C97 /* FavouritesHandler.swift */,
@@ -749,7 +746,6 @@
 				2C85FECF2520FC6D00CECBD5 /* UserSession.swift in Sources */,
 				2CCE48D825177FE700AE3BCA /* SearchData.swift in Sources */,
 				2C362F8C253A062D000846C0 /* ListManager.swift in Sources */,
-				2C21C3AA24F8186200D90B4B /* ProductsHandler.swift in Sources */,
 				2CAB6A3E251F958500774B89 /* UserData.swift in Sources */,
 				2C5B5C6C24D084FD0095C920 /* SearchResultsViewController.swift in Sources */,
 				2C266DF324D5A6EA00C66EA5 /* ListProductModel.swift in Sources */,

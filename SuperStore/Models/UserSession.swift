@@ -19,6 +19,7 @@ struct UserSession {
     
     func logOut(){
         let realm = try! Realm()
+        UserDefaults.standard.removeObject(forKey: "userSettings")
         realm.delete(realm.objects(UserHistory.self))
     }
     
@@ -62,7 +63,7 @@ struct UserSession {
     }
     
     func isLoggedIn() -> Bool{
-        return showUserInfo() != nil
+        return showUserInfo() != nil && getUserDetails() != nil
     }
     
     func setDefaultRealmForUser(userId: Int? = nil) {

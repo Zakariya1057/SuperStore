@@ -49,8 +49,8 @@ class FeaturedProductCollectionViewCell: UICollectionViewCell {
             let price = String(format: "%.2f",product!.price )
             foodPriceLabel.text = "£\(price)"
             
-            ratingView.rating = Double(product!.avg_rating)
-            ratingView.text = "\(product!.total_reviews_count)"
+            ratingView.rating = Double(product!.avgRating)
+            ratingView.text = "\(product!.totalReviewsCount)"
         }
     }
 

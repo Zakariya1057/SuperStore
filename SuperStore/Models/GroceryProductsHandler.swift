@@ -19,11 +19,8 @@ struct GroceryProductsHandler {
     
     let requestHandler = RequestHandler()
     
-    func request(parent_category_id: Int){
-        // Get All Categories - Grand Parent Categories, Parent Categories
-        let hostURL = K.Host
-        let groceryPath = K.Request.Grocery.Products
-        let urlString = "\(hostURL)/\(groceryPath)/\(parent_category_id)"
+    func request(parentCategoryId: Int){
+        let urlString = "\(K.Host)/\(K.Request.Grocery.Products)/\(parentCategoryId)"
         requestHandler.getRequest(url: urlString, complete: processResults,error:processError)
     }
     
@@ -46,11 +43,11 @@ struct GroceryProductsHandler {
                 
                 for product_item in products_list {
                     
-                    products.append( ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, quantity: 0, product_id: product_item.id, price: product_item.price, weight: product_item.weight, promotion: nil, description: product_item.description, favourite: product_item.favourite, avg_rating: product_item.avg_rating, total_reviews_count: product_item.total_reviews_count, parent_category_id: product_item.parent_category_id, parent_category_name: product_item.parent_category_name) )
+                    products.append( ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, quantity: 0, product_id: product_item.id, price: product_item.price, weight: product_item.weight, promotion: nil, description: product_item.description, favourite: product_item.favourite, avgRating: product_item.avg_rating, totalReviewsCount: product_item.total_reviews_count, parentCategoryId: product_item.parent_category_id, parentCategoryName: product_item.parent_category_name) )
 
                 }
                 
-                categories.append( ChildCategoryModel(id: category.id, name: category.name, parentCategoryId: category.parent_category_id, products: products))
+                categories.append( ChildCategoryModel(id: category.id, name: category.name, parentCategoryId: category.parentCategoryId, products: products))
             }
             
             DispatchQueue.main.async {

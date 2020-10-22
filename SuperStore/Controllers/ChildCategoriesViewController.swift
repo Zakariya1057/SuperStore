@@ -23,8 +23,8 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
     
     var groceryHandler = GroceryProductsHandler()
     
-    var parent_category_id: Int?
-    var parent_category_name: String? // Set this in parent and pass to child
+    var parentCategoryId: Int?
+    var parentCategoryName: String? // Set this in parent and pass to child
     
     var viewcontrollers:[GroceryTableViewController] = []
     
@@ -34,13 +34,13 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
     
     var categoriesHistory: Results<ChildCategoryHistory> {
         get {
-            return realm.objects(ChildCategoryHistory.self).filter("parentCategoryId = \(parent_category_id!)")
+            return realm.objects(ChildCategoryHistory.self).filter("parentCategoryId = \(parentCategoryId!)")
         }
     }
     
     var parentCategory: ParentCategoryHistory? {
         get {
-            return realm.objects(ParentCategoryHistory.self).filter("id = \(parent_category_id!)").first
+            return realm.objects(ParentCategoryHistory.self).filter("id = \(parentCategoryId!)").first
         }
     }
     
@@ -68,7 +68,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         self.title = ""
         
         groceryHandler.delegate = self
-        groceryHandler.request(parent_category_id: parent_category_id!)
+        groceryHandler.request(parentCategoryId: parentCategoryId!)
         
         if(list_delegate == nil){
             self.navigationItem.rightBarButtonItem = nil
@@ -171,8 +171,8 @@ extension ChildCategoriesViewController {
         
         selected_row = cell
         
-        product.parent_category_id = parent_category_id
-        product.parent_category_name = parent_category_name
+        product.parentCategoryId = parentCategoryId
+        product.parentCategoryName = parentCategoryName
         
         selected_product = product
         

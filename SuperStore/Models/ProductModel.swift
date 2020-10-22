@@ -13,21 +13,21 @@ class ProductModel: ProductItemModel {
     var description: String?
     var favourite: Bool? = nil
 
-    var avg_rating: Double = 0
-    var total_reviews_count: Int = 0
+    var avgRating: Double = 0
+    var totalReviewsCount: Int = 0
 
-    var parent_category_id: Int?
-    var parent_category_name: String?
+    var parentCategoryId: Int?
+    var parentCategoryName: String?
 
-    init(id: Int, name: String, image: String, quantity: Int, product_id: Int, price: Double, weight: String?, promotion: PromotionModel?, description: String?, favourite: Bool?, avg_rating: Double?, total_reviews_count: Int?, parent_category_id: Int?, parent_category_name: String?) {
+    init(id: Int, name: String, image: String, quantity: Int, product_id: Int, price: Double, weight: String?, promotion: PromotionModel?, description: String?, favourite: Bool?, avgRating: Double?, totalReviewsCount: Int?, parentCategoryId: Int?, parentCategoryName: String?) {
         self.id = id
         self.description = description
         self.favourite = favourite ?? false
-        self.avg_rating = avg_rating ?? 0
-        self.total_reviews_count = total_reviews_count ?? 0
+        self.avgRating = avgRating ?? 0
+        self.totalReviewsCount = totalReviewsCount ?? 0
         
-        self.parent_category_id = parent_category_id
-        self.parent_category_name = parent_category_name
+        self.parentCategoryId = parentCategoryId
+        self.parentCategoryName = parentCategoryName
         
         super.init(name: name, image: image, quantity: quantity, product_id: product_id, price: price, weight: weight, promotion: promotion)
     }
@@ -41,12 +41,12 @@ class ProductModel: ProductItemModel {
         product.quantity = self.quantity
         product.weight = self.weight
         product.price = self.price
-        product.avg_rating = self.avg_rating
-        product.total_reviews_count = self.total_reviews_count
+        product.avgRating = self.avgRating
+        product.totalReviewsCount = self.totalReviewsCount
         product.favourite = self.favourite!
 
-        product.parent_category_id = self.parent_category_id ?? 0
-        product.parent_category_name = self.parent_category_name
+        product.parentCategoryId = self.parentCategoryId ?? 0
+        product.parentCategoryName = self.parentCategoryName
 
         product.promotion = self.promotion?.getRealmObject()
 

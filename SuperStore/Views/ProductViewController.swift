@@ -200,8 +200,8 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         
         productImageView.downloaded(from: productItem.image)
 
-        ratingView.rating = productItem.avg_rating
-        ratingView.text = "(\(productItem.total_reviews_count))"
+        ratingView.rating = productItem.avgRating
+        ratingView.text = "(\(productItem.totalReviewsCount))"
 
         showFavourite()
 
@@ -521,11 +521,11 @@ extension ProductViewController {
                 realm.delete(product!.reviews)
                 
                 product!.brand = productItem.brand
-                product!.avg_rating = productItem.avg_rating
+                product!.avgRating = productItem.avgRating
                 product!.product_description = productItem.description
                 product!.image = productItem.image
-                product!.parent_category_id = productItem.parent_category_id!
-                product!.parent_category_name = productItem.parent_category_name
+                product!.parentCategoryId = productItem.parentCategoryId!
+                product!.parentCategoryName = productItem.parentCategoryName
                 product!.weight = productItem.weight
                 
                 productItem.ingredients.forEach({product!.ingredients.append($0)})
