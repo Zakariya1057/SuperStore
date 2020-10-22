@@ -69,13 +69,16 @@ struct UserSession {
     func setDefaultRealmForUser(userId: Int? = nil) {
         var config = Realm.Configuration()
         
-        let userId: Int = userId != nil ? userId! : showUserInfo()!.id
+        let userId: Int? = userId != nil ? userId : showUserInfo()?.id
         
-        // Use the default directory, but replace the filename with the username
-        config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("\(userId).realm")
+        if userId != nil {
+            // Use the default directory, but replace the filename with the username
+            config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("\(userId!).realm")
 
-        // Set this as the configuration used for the default Realm
-        Realm.Configuration.defaultConfiguration = config
+            // Set this as the configuration used for the default Realm
+            Realm.Configuration.defaultConfiguration = config
+        }
+
     }
 
 }

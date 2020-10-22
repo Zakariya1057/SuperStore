@@ -15,6 +15,6 @@ struct GroceryProductsResponseData: Decodable {
 struct GroceryProductsData:Decodable {
     var id: Int
     var name:String
-    var parentCategoryId: Int
+    var parent_category_id: Int
     var products: [ProductData]
 }

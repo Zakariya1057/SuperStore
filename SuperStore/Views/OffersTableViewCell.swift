@@ -94,8 +94,10 @@ extension OffersTableViewCell {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Product Selected, Navigate
-        print("Offer Selected")
-        self.delegate?.showPromotion(promotion_id: promotions[indexPath.row].id)
+        if !loading {
+            // Product Selected, Navigate
+            print("Offer Selected")
+            self.delegate?.showPromotion(promotion_id: promotions[indexPath.row].id)
+        }
     }
 }

@@ -99,8 +99,10 @@ extension FeaturedProductTableViewCell: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Product Selected, Navigate
-        print("Product Selected")
-        self.delegate?.showProduct(product_id: products[indexPath.row].id)
+        if !loading {
+            // Product Selected, Navigate
+            print("Product Selected")
+            self.delegate?.showProduct(product_id: products[indexPath.row].id)
+        }
     }
 }

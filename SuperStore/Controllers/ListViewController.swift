@@ -302,8 +302,7 @@ extension ListViewController {
                 item!.totalItems = totalItems
                 
                 item!.updated = Date()
-                
-                print("\(item!.tickedOffItems)/\( item!.totalItems)")
+
                 self.listTableView.reloadData()
             })
         } else {

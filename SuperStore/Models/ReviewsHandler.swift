@@ -61,7 +61,7 @@ struct ReviewsHandler {
             date_format.dateFormat = "dd MMMM Y"
             
             for review in reviews_list {
-                reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name ?? "", product_id: review.product_id, user_id: review.user_id, updated_at: date_format.date(from: review.updated_at)! , created_at: date_format.date(from: review.created_at)!))
+                reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name, product_id: review.product_id, user_id: review.user_id, updated_at: date_format.date(from: review.updated_at)! , created_at: date_format.date(from: review.created_at)!))
             }
             
             DispatchQueue.main.async {

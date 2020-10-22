@@ -90,6 +90,8 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         return [productNameLabel,descriptionView,ingredientsView, reviewButton,productImageView,productPriceLabel,productWeightLabel,parentRatingView,addToListButton,monitorButton,allReviewsButton, allergenLabel,promotionView,lifeStyleLabel]
     }
     
+    var imageLoaded: Bool = false
+    
     var loading: Bool = true
     
     var notificationToken: NotificationToken?
@@ -127,9 +129,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             switch changes {
                 case .initial:
                     // Results are now populated and can be accessed without blocking the UI
+                    self?.configureUI()
                     break
             case .update(_, _, _, _):
-                    self?.showFavourite()
+                    self?.configureUI()
                     break
                 case .error(let error):
                     fatalError("\(error)")
@@ -186,7 +189,6 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     }
     
     func configureUI(){
-        
         // Loading must stop before content set. Otherwise wont change label values
         loading = false
         stopLoading()
@@ -198,7 +200,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
 
         productPriceLabel.text = "£" + String(format: "%.2f", productItem.price)
         
-        productImageView.downloaded(from: productItem.image)
+        if !imageLoaded {
+            productImageView.downloaded(from: productItem.image)
+            imageLoaded = true
+        }
 
         ratingView.rating = productItem.avgRating
         ratingView.text = "(\(productItem.totalReviewsCount))"
@@ -214,12 +219,14 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         if(productItem.dietary_info == nil || productItem.dietary_info == ""){
             dietaryView.isHidden = true
         } else {
+            dietaryView.isHidden = false
             lifeStyleLabel.text = productItem.dietary_info
         }
 
         if(productItem.allergen_info == nil || productItem.allergen_info == ""){
             allergenView.isHidden = true
         } else {
+            allergenView.isHidden = false
             allergenLabel.text = productItem.allergen_info
         }
 
@@ -253,6 +260,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             promotionLabel.text = promotion.name
             promotionView.isHidden = false
         }
+    }
+    
+    deinit {
+        notificationToken?.invalidate()
     }
     
     @objc func showIngredients(){
@@ -518,15 +529,20 @@ extension ProductViewController {
             if product != nil {
                 print("Updating Product")
                 
-                realm.delete(product!.reviews)
+                realm.delete( realm.objects(ReviewHistory.self).filter("product_id = \(productItem.id)") )
                 
                 product!.brand = productItem.brand
                 product!.avgRating = productItem.avgRating
                 product!.product_description = productItem.description
                 product!.image = productItem.image
+                
                 product!.parentCategoryId = productItem.parentCategoryId!
                 product!.parentCategoryName = productItem.parentCategoryName
+                
                 product!.weight = productItem.weight
+                product!.allergen_info = productItem.allergen_info
+                product!.dietary_info = productItem.dietary_info
+                product!.storage = productItem.storage
                 
                 productItem.ingredients.forEach({product!.ingredients.append($0)})
                 

@@ -37,24 +37,22 @@ struct PromotionHandler {
             
             var products:[ProductModel] = []
             
+            var promotion: PromotionModel? = nil
             
             for product_item in promotion_data.products ?? [] {
                 
-                var promotion: PromotionModel? = nil
-
-                if product_item.promotion != nil {
+                if promotion == nil {
                     promotion = PromotionModel(id: product_item.promotion!.id, name: product_item.promotion!.name, quantity: product_item.promotion!.quantity ?? 0, price: product_item.promotion!.price, forQuantity: product_item.promotion!.for_quantity)
                 }
                 
                 products.append(ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, quantity: 0, product_id: product_item.id, price: product_item.price, weight: product_item.weight, promotion: promotion, description: product_item.description, favourite: product_item.favourite, avgRating: product_item.avg_rating, totalReviewsCount: product_item.total_reviews_count, parentCategoryId: product_item.parent_category_id, parentCategoryName: product_item.parent_category_name))
             }
-            
-            let promotion = PromotionModel(id: promotion_data.id, name: promotion_data.name, quantity:1 , price: nil, forQuantity: nil, products: products)
+
+            promotion!.products = products
 
             DispatchQueue.main.async {
-                self.delegate?.contentLoaded(promotion: promotion)
+                self.delegate?.contentLoaded(promotion: promotion!)
             }
-
 
         } catch {
             print("Decoding Data Error: \(error)")

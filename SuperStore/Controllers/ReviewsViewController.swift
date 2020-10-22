@@ -15,15 +15,21 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     let realm = try! Realm()
     
+    var product: ProductHistory? {
+        get {
+            return realm.objects(ProductHistory.self).filter("id = \(product_id!)").first
+        }
+    }
+    
     var reviews: Results<ReviewHistory> {
         get {
-            return realm.objects(ReviewHistory.self).filter("product_id = \(product_id)").sorted(byKeyPath: "updated_at", ascending: false)
+            return realm.objects(ReviewHistory.self).filter("product_id = \(product_id!)").sorted(byKeyPath: "updated_at", ascending: false)
         }
     }
     
     var reviewsHandler = ReviewsHandler()
     
-    var product_id: Int = 1
+    var product_id: Int?
     
     var loading:Bool = true
     
@@ -34,7 +40,7 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.reviewsTableView.dataSource = self
         
         reviewsHandler.delegate = self
-        reviewsHandler.index(product_id: product_id)
+        reviewsHandler.index(product_id: product_id!)
         
         if reviews.count > 0 {
             loading = false
@@ -42,7 +48,6 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
          reviewsTableView.register(UINib(nibName: K.Cells.ReviewCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ReviewCell.CellIdentifier)
-        // Do any additional setup after loading the view.
     }
     
     func contentLoaded(reviews: [ReviewModel]) {
@@ -90,8 +95,9 @@ extension ReviewsViewController {
         
         try? realm.write {
             realm.delete(self.reviews)
+            
             for review in reviews {
-                realm.add(review.getRealmObject())
+                product!.reviews.append(review.getRealmObject())
             }
         }
 

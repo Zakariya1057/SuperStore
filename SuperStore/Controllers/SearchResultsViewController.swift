@@ -357,10 +357,10 @@ extension SearchResultsViewController {
            
         } else if searchDetails!.type == .parentCategory {
             print("Parent Category: ID = \(searchDetails!.id)")
-            let results = realm.objects(ProductHistory.self).filter("parentCategoryId = %@", searchDetails!.id).sorted(byKeyPath: "avg_rating", ascending: false)
+            let results = realm.objects(ProductHistory.self).filter("parentCategoryId = %@", searchDetails!.id).sorted(byKeyPath: "avgRating", ascending: false)
             products = results.map{ $0.getProductModel() }
         } else {
-            let results = realm.objects(ProductHistory.self).filter("name CONTAINS[c] %@", searchDetails!.name).sorted(byKeyPath: "avg_rating", ascending: false)
+            let results = realm.objects(ProductHistory.self).filter("name CONTAINS[c] %@", searchDetails!.name).sorted(byKeyPath: "avgRating", ascending: false)
             products = results.map{ $0.getProductModel() }
         }
      

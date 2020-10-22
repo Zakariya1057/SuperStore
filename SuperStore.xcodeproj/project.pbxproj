@@ -198,7 +198,6 @@
 		2C3F537C24D184C80095C4B1 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		2C3F537D24D184C80095C4B1 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
 		2C43E797253CC4C60084DF7C /* HomeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHistory.swift; sourceTree = "<group>"; };
-		2C43E79D2540A6760084DF7C /* SuperStoreRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SuperStoreRelease.entitlements; sourceTree = "<group>"; };
 		2C5B5C6B24D084FD0095C920 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		2C5B5C6D24D085780095C920 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		2C6F621D25134F9B00179C2B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -320,7 +319,6 @@
 		2C1567B824C77FD800B8DCB5 /* SuperStore */ = {
 			isa = PBXGroup;
 			children = (
-				2C43E79D2540A6760084DF7C /* SuperStoreRelease.entitlements */,
 				2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */,
 				2C1567BB24C77FD800B8DCB5 /* SceneDelegate.swift */,
 				2C9CEED1250678590049E93D /* SceneDelegate.swift */,

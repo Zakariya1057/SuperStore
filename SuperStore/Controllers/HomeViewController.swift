@@ -68,9 +68,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             switch changes {
                 case .initial:
                     self?.configureLists()
+                    self?.listTableView.reloadData()
                     break
             case .update(_, _, _, _):
                     self?.configureLists()
+                    self?.listTableView.reloadData()
                     break
                 case .error(let error):
                     fatalError("\(error)")
@@ -93,6 +95,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let content = home!.getHomeModel()
             
+        createHomeSections()
+        
         configureLists()
         
         let storeElement = customElements[1] as! StoresMapElement
@@ -113,7 +117,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         for category in content.categories {
             let name = category.key
             let products = category.value
-
+            
             let element = ProductElement(title: name,delegate: self, scrollDelegate: self, products: products)
             customElements.append(element)
         }
@@ -152,10 +156,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             } else {
                 showingLists = home!.getHomeModel().lists
             }
-            
+        
             listElement.lists = showingLists
-            listTableView.reloadData()
+            
         }
+        
     }
     
     func addSectionProducts( _ products: [ProductModel], _ elementIndex:Int){
@@ -223,10 +228,6 @@ extension  HomeViewController {
             OffersElement(title: "Offers", delegate: self, promotions: []),
 
             FeaturedProductElement(title: "Featured",delegate: self, products: []),
-
-//            ProductElement(title: "Fruits",delegate: self, scrollDelegate: self, products: []),
-//
-//            ProductElement(title: "Vegetables",delegate: self, scrollDelegate: self, products: [])
             
         ]
     }
@@ -348,6 +349,7 @@ extension HomeViewController {
         }
         
         home!.categories.removeAll()
+        realm.delete( realm.objects(FeaturedCategory.self) )
 
         for category in homeItem.categories {
             let categoryItem = FeaturedCategory()

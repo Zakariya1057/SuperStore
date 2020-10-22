@@ -89,14 +89,9 @@ class StoreViewController: UIViewController, StoreDelegate {
         super.viewDidLoad()
         
         storeHandler.delegate = self
-        print("Requesting Store Details")
         
         startLoading()
         storeHandler.request(store_id: store_id)
-        
-        if delegate != nil {
-            print("Delegate Present Here")
-        }
         
         if store != nil && store!.opening_hours.count == 7 {
             stopLoading()
@@ -124,7 +119,6 @@ class StoreViewController: UIViewController, StoreDelegate {
     
     func contentLoaded(store: StoreModel) {
         stopLoading()
-        print(store)
         addToHistory(store)
         configureUI()
     }
@@ -132,8 +126,6 @@ class StoreViewController: UIViewController, StoreDelegate {
     func configureUI(){
         
         let storeItem = store!.getStoreModel()
-        
-        print(storeItem)
         
         let opening_hours = storeItem.opening_hours
         let facilities = storeItem.facilities

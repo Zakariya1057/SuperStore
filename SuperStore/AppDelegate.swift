@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Deleting All Realm Data
 //        try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
-//        print(Realm.Configuration.defaultConfiguration.fileURL!)
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         
         return true
     }

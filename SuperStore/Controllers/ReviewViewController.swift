@@ -216,6 +216,15 @@ extension ReviewViewController {
                 reviewItem!.updated_at = Date()
             }
             
+            let productReviews = realm.objects(ReviewHistory.self).filter("product_id = \(product!.id)")
+            product!.totalReviewsCount = productReviews.count
+            
+            var totalRating = 0
+            for reviewItem in productReviews {
+                totalRating = totalRating + reviewItem.rating
+            }
+            
+            product!.avgRating = Double(totalRating) / Double(productReviews.count)
         }
         
     }

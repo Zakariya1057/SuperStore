@@ -47,7 +47,7 @@ struct GroceryProductsHandler {
 
                 }
                 
-                categories.append( ChildCategoryModel(id: category.id, name: category.name, parentCategoryId: category.parentCategoryId, products: products))
+                categories.append( ChildCategoryModel(id: category.id, name: category.name, parentCategoryId: category.parent_category_id, products: products))
             }
             
             DispatchQueue.main.async {

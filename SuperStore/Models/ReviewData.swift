@@ -17,7 +17,7 @@ struct ReviewData: Decodable {
     var text: String
     var title: String
     var rating: Int
-    var name: String?
+    var name: String
     var product_id: Int
     var user_id: Int
     var updated_at: String
