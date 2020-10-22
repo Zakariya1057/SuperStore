@@ -74,7 +74,7 @@ class GroceryTableViewCell: UITableViewCell {
         
         productImage.downloaded(from: current_product.image)
         
-        if(product!.quantity > 1){
+        if(product!.quantity > 0){
             show_quantity_view()
             
             stepper_label.text = String(product!.quantity)
@@ -98,7 +98,11 @@ class GroceryTableViewCell: UITableViewCell {
     }
     
     func showPrice(){
-        priceLabel.text = "£" + String(format: "%.2f", listManager.calculateProductPrice(product!))
+        if product!.quantity > 0 {
+            priceLabel.text = "£" + String(format: "%.2f", listManager.calculateProductPrice(product!))
+        } else {
+            priceLabel.text = "£" + String(format: "%.2f", product!.price)
+        }
     }
     
     func startLoading(){

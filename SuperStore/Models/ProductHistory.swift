@@ -19,7 +19,7 @@ class ProductHistory: Object {
     
     @objc dynamic var avg_rating: Double = 0
     @objc dynamic var total_reviews_count: Int = 0
-    @objc dynamic var quantity: Int = 1
+    @objc dynamic var quantity: Int = 0
     @objc dynamic var weight: String? = ""
     
     @objc dynamic var parent_category_id: Int = 1

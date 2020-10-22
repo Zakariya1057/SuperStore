@@ -46,7 +46,7 @@ struct FavouritesHandler {
             
             for product_item in products_list {
                 
-                products.append( ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, quantity: 1, product_id: product_item.id, price: product_item.price, weight: product_item.weight, promotion: nil, description: product_item.description, favourite: true, avg_rating: product_item.avg_rating!, total_reviews_count: product_item.total_reviews_count, parent_category_id: product_item.parent_category_id, parent_category_name: product_item.parent_category_name) )
+                products.append( ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, quantity: 0, product_id: product_item.id, price: product_item.price, weight: product_item.weight, promotion: nil, description: product_item.description, favourite: true, avg_rating: product_item.avg_rating!, total_reviews_count: product_item.total_reviews_count, parent_category_id: product_item.parent_category_id, parent_category_name: product_item.parent_category_name) )
             }
             
             DispatchQueue.main.async {

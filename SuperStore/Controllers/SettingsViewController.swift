@@ -38,6 +38,8 @@ class SettingsViewController: UIViewController  {
         
         userDetails = userSession.getUserDetails()
         
+        showUserDetails()
+        
         let usernanmeGesture = UITapGestureRecognizer(target: self, action: #selector(usernamePressed))
         usernameStackView.addGestureRecognizer(usernanmeGesture)
         

@@ -268,10 +268,8 @@ extension SearchResultsViewController {
         
         if !listRequired {
             destinationVC.selectedListId = selectedListId
-            destinationVC.itemQuantity = 5 // Set In future, when setting quantity with showing results
         }
         
-
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
@@ -306,9 +304,20 @@ extension SearchResultsViewController {
         }
         
         if loading == false {
+            
+            cell.product = products[indexPath.row]
+            
+            if selectedListId != nil {
+                let listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selectedListId!) AND product_id=\( products[indexPath.row].id )").first
+                
+                if listItem != nil {
+                    cell.product!.quantity = listItem!.quantity
+                }
+            }
+
             cell.delegate = self.delegate
             cell.quantity_delegate = self
-            cell.product = products[indexPath.row]
+            
             cell.index = indexPath.row
             cell.configureUI()
             cell.selectionStyle = UITableViewCell.SelectionStyle.none

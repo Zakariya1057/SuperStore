@@ -126,6 +126,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+    func logOutUser(){
+        
+    }
+    
     func configureLists(){
 
         var showingLists:[ListModel] = []
@@ -407,7 +411,11 @@ extension UIImageView {
         
         if let url  = URL(string: urlString) {
             self.kf.indicatorType = .activity
-            self.kf.setImage(with: url)
+            self.kf.setImage(
+                with: url,
+                options: [
+                    .cacheOriginalImage
+                ])
         }
 
     }

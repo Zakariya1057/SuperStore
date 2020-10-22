@@ -155,9 +155,16 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         }
         
         if selectedListId != nil {
-            quantityStepper.value = Double(itemQuantity!)
-            stepperLabel.text = "\(itemQuantity!)"
-            showQuantityView()
+            
+            let listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selectedListId!) AND product_id=\(product_id)").first
+            
+            if listItem != nil {
+                itemQuantity = listItem!.quantity
+                quantityStepper.value = Double(itemQuantity!)
+                stepperLabel.text = "\(itemQuantity!)"
+                showQuantityView()
+            }
+
         }
        
     }
@@ -420,10 +427,6 @@ extension ProductViewController {
         let quantity = sender.value
         stepperLabel.text = String(format: "%.0f", quantity)
         
-        try! realm.write() {
-            product!.quantity = Int(quantity)
-        }
-        
         quantityStepper.value = quantity
         delegate?.updateQuantity(product!.getProductModel())
         
@@ -439,6 +442,7 @@ extension ProductViewController {
     func showAddButtonView(){
         print("Show Add Button")
         stepperStackView.isHidden = true
+        selectedListId = nil
         addButton.isHidden = false
     }
     
