@@ -20,7 +20,10 @@ struct UserSession {
     func logOut(){
         let realm = try! Realm()
         UserDefaults.standard.removeObject(forKey: "userSettings")
-        realm.delete(realm.objects(UserHistory.self))
+        
+        try? realm.write({
+            realm.delete(realm.objects(UserHistory.self))
+        })
     }
     
     func setLoggedIn(_ userData:UserHistory){
@@ -29,9 +32,8 @@ struct UserSession {
         
         let realm = try! Realm()
         
-        try! realm.write({
+        try? realm.write({
             realm.add(userData)
-            print(userData)
         })
     }
     

@@ -151,8 +151,6 @@ extension PromotionViewController {
         try! realm.write() {
 
             if promotion != nil {
-                print(promotionItem.price)
-                
                 promotion!.products = List<Int>()
                 promotionItem.products.forEach({ promotion!.products.append($0.id) })
                 promotion!.name = promotionItem.name

@@ -16,6 +16,10 @@ class RegisterViewController: UIViewController, UserDelegate {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var repeatPasswordField: UITextField!
     
+    var fields: [UITextField] {
+        return [nameField,emailField,passwordField,repeatPasswordField]
+    }
+    
     let spinner: SpinnerViewController = SpinnerViewController()
     
     override func viewDidLoad() {
@@ -28,6 +32,11 @@ class RegisterViewController: UIViewController, UserDelegate {
         
         nameField.delegate = self
         // Do any additional setup after loading the view.
+        
+        for (index, field) in fields.enumerated() {
+            field.tag = index
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,6 +119,18 @@ extension RegisterViewController: UITextFieldDelegate {
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
         return count <= 100
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    
+        if textField.tag == (fields.count - 1) {
+            repeatPasswordField.resignFirstResponder()
+        } else {
+            fields[textField.tag + 1].becomeFirstResponder()
+        }
+
+        return false
     }
     
 }

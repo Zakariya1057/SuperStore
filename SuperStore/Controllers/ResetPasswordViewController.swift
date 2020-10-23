@@ -36,6 +36,9 @@ class ResetPasswordViewController: UIViewController, UserDelegate {
         
         passwordField.delegate = self
         confirmPasswordField.delegate = self
+        
+        passwordField.tag = 0
+        confirmPasswordField.tag = 1
     }
     
     @IBAction func changePressed(_ sender: Any) {
@@ -101,6 +104,18 @@ extension ResetPasswordViewController: UITextFieldDelegate {
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
         return count <= 100
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    
+        if textField.tag == 0 {
+            confirmPasswordField.becomeFirstResponder()
+        } else {
+            confirmPasswordField.resignFirstResponder()
+        }
+
+        return false
     }
     
 }

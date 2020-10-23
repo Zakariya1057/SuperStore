@@ -25,6 +25,9 @@ class LoginViewController: UIViewController, UserDelegate {
         
         emailField.delegate = self
         passwordField.delegate = self
+        
+        emailField.tag = 0
+        passwordField.tag = 1
 //        setUpSignInAppleButton()
     }
     
@@ -133,6 +136,17 @@ extension LoginViewController: UITextFieldDelegate {
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
         return count <= 100
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    
+        if textField.tag == 0 {
+            passwordField.becomeFirstResponder()
+        } else {
+            passwordField.resignFirstResponder()
+        }
+
+        return false
     }
     
 }

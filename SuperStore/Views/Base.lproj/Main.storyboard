@@ -97,7 +97,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="zakaria2011@live.no" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O2r-9v-Av2">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                                 <constraints>
@@ -153,7 +153,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password123" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="N0s-kB-z5L">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES" textContentType="password"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -408,7 +408,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="zakaria2011@live.no" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ivq-uM-tCO">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="email"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" textContentType="email"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -2845,7 +2845,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="680"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GQo-pw-6cx">
-                                                <rect key="frame" x="15" y="30" width="384" height="540"/>
+                                                <rect key="frame" x="15" y="20" width="384" height="550"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Digestives" translatesAutoresizingMaskIntoConstraints="NO" id="2K7-zW-BFz">
                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="150"/>
@@ -2854,13 +2854,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iAf-T2-ZI8">
-                                                        <rect key="frame" x="0.0" y="160" width="384" height="40"/>
+                                                        <rect key="frame" x="0.0" y="160" width="384" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LKM-xg-d6a">
-                                                                <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mcvities Milk Chocolate Hobnobs" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ca3-1a-eB7">
-                                                                        <rect key="frame" x="0.0" y="8" width="384" height="24"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -2870,14 +2870,14 @@
                                                                 <constraints>
                                                                     <constraint firstItem="ca3-1a-eB7" firstAttribute="centerY" secondItem="LKM-xg-d6a" secondAttribute="centerY" id="Fqi-21-EHH"/>
                                                                     <constraint firstAttribute="trailing" secondItem="ca3-1a-eB7" secondAttribute="trailing" id="qzt-re-g1a"/>
+                                                                    <constraint firstAttribute="height" secondItem="ca3-1a-eB7" secondAttribute="height" id="uN2-Vb-Uue"/>
                                                                     <constraint firstItem="ca3-1a-eB7" firstAttribute="leading" secondItem="LKM-xg-d6a" secondAttribute="leading" id="wdJ-tG-ayO"/>
-                                                                    <constraint firstAttribute="height" constant="40" id="wdv-8G-RoA"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="4JA-cy-YSC">
-                                                        <rect key="frame" x="0.0" y="210" width="384" height="330"/>
+                                                        <rect key="frame" x="0.0" y="220" width="384" height="330"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz2-WX-h3t">
                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
@@ -2914,27 +2914,38 @@
                                                                     <constraint firstItem="XU3-Nd-wUM" firstAttribute="centerX" secondItem="fz2-WX-h3t" secondAttribute="centerX" id="s4X-4z-O9b"/>
                                                                 </constraints>
                                                             </view>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Review Title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zM5-eG-kIY">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4D-HH-A5O">
                                                                 <rect key="frame" x="0.0" y="70" width="384" height="40"/>
-                                                                <color key="backgroundColor" name="LightGrey"/>
+                                                                <subviews>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Review Title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zM5-eG-kIY">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
+                                                                        <color key="backgroundColor" name="LightGrey"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="40" id="d3M-tH-eJe"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="next"/>
+                                                                    </textField>
+                                                                </subviews>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="d3M-tH-eJe"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="zM5-eG-kIY" secondAttribute="trailing" id="9Xx-Ie-47I"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="zM5-eG-kIY" secondAttribute="bottom" id="UCV-iJ-NXa"/>
+                                                                    <constraint firstItem="zM5-eG-kIY" firstAttribute="top" secondItem="F4D-HH-A5O" secondAttribute="top" id="cel-3h-xcg"/>
+                                                                    <constraint firstItem="zM5-eG-kIY" firstAttribute="leading" secondItem="F4D-HH-A5O" secondAttribute="leading" id="moi-gE-Y6j"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="next"/>
-                                                            </textField>
+                                                            </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ckP-2H-uzb">
                                                                 <rect key="frame" x="0.0" y="130" width="384" height="200"/>
                                                                 <subviews>
-                                                                    <textView clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" canCancelContentTouches="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZPm-ZU-PdL">
+                                                                    <textView multipleTouchEnabled="YES" contentMode="scaleToFill" canCancelContentTouches="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZPm-ZU-PdL">
                                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="200"/>
+                                                                        <color key="backgroundColor" name="LightGrey"/>
                                                                         <color key="tintColor" name="LogoBlue"/>
                                                                         <color key="textColor" systemColor="labelColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="done"/>
                                                                     </textView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" name="LightGrey"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="trailing" secondItem="ZPm-ZU-PdL" secondAttribute="trailing" id="HLD-B0-frJ"/>
                                                                     <constraint firstItem="ZPm-ZU-PdL" firstAttribute="top" secondItem="ckP-2H-uzb" secondAttribute="top" id="HYm-Ao-06M"/>
@@ -2946,10 +2957,10 @@
                                                             </view>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="zM5-eG-kIY" firstAttribute="leading" secondItem="4JA-cy-YSC" secondAttribute="leading" id="SZh-Xt-1Fa"/>
+                                                            <constraint firstAttribute="trailing" secondItem="F4D-HH-A5O" secondAttribute="trailing" id="1iA-EJ-wfX"/>
                                                             <constraint firstItem="fz2-WX-h3t" firstAttribute="top" secondItem="4JA-cy-YSC" secondAttribute="top" id="b7e-UD-BNu"/>
                                                             <constraint firstItem="fz2-WX-h3t" firstAttribute="centerX" secondItem="4JA-cy-YSC" secondAttribute="centerX" id="lin-Sz-63q"/>
-                                                            <constraint firstAttribute="trailing" secondItem="zM5-eG-kIY" secondAttribute="trailing" id="w1W-PW-B0d"/>
+                                                            <constraint firstItem="F4D-HH-A5O" firstAttribute="leading" secondItem="4JA-cy-YSC" secondAttribute="leading" id="urN-xf-VUM"/>
                                                         </constraints>
                                                     </stackView>
                                                 </subviews>
@@ -2994,7 +3005,7 @@
                                         <constraints>
                                             <constraint firstItem="GQo-pw-6cx" firstAttribute="leading" secondItem="uo1-Ac-eSy" secondAttribute="leading" constant="15" id="CPZ-g9-9bR"/>
                                             <constraint firstAttribute="bottom" secondItem="Exr-YB-v8j" secondAttribute="bottom" id="Co6-7D-SAO"/>
-                                            <constraint firstItem="GQo-pw-6cx" firstAttribute="top" secondItem="uo1-Ac-eSy" secondAttribute="top" constant="30" id="H3J-42-RUl"/>
+                                            <constraint firstItem="GQo-pw-6cx" firstAttribute="top" secondItem="uo1-Ac-eSy" secondAttribute="top" constant="20" id="H3J-42-RUl"/>
                                             <constraint firstItem="Exr-YB-v8j" firstAttribute="leading" secondItem="uo1-Ac-eSy" secondAttribute="leading" id="qV8-GG-6Bj"/>
                                             <constraint firstItem="Exr-YB-v8j" firstAttribute="top" secondItem="GQo-pw-6cx" secondAttribute="bottom" constant="30" id="qcS-f4-6RH"/>
                                             <constraint firstAttribute="trailing" secondItem="Exr-YB-v8j" secondAttribute="trailing" id="rWt-5W-b1d"/>
@@ -4202,7 +4213,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Zakariya Mohummed" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A7e-lD-Dcs">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" textContentType="name"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next" textContentType="name"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -4255,7 +4266,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="zakaria2011@live.no" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hvJ-jW-Xy9">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="no" keyboardType="emailAddress" textContentType="email"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -4308,7 +4319,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password123" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZRB-4x-DZX">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="no" secureTextEntry="YES" textContentType="password"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -4361,7 +4372,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password123" placeholder="Repeat Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bUT-tR-kW2">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="no" secureTextEntry="YES" textContentType="password"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -4526,7 +4537,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="que-dx-0R8">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES" textContentType="password"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -4579,7 +4590,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Repeat Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8VG-Ap-8YD">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES" textContentType="password"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -4723,7 +4734,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Code" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7fz-pr-gvn">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="email"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" textContentType="email"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -4814,7 +4825,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="YcT-k9-dml"/>
+        <segue reference="LCl-dZ-pvm"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="ATM" width="50" height="50"/>
