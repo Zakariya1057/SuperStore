@@ -11,6 +11,7 @@ import Foundation
 protocol ListItemsDelegate {
     func contentLoaded(list: ListModel)
     func errorHandler(_ message:String)
+    func logOutUser()
 }
 
 struct ListItemsHandler {
@@ -21,12 +22,12 @@ struct ListItemsHandler {
     
     func request(listId: Int){
         let urlString = "\(K.Host)/\(K.Request.Lists.List)/\(listId)"
-        requestHandler.getRequest(url: urlString, complete: processResults,error:processError)
+        requestHandler.getRequest(url: urlString, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
     func update(listId: Int, listData:[String: String]){
         let urlString = "\(K.Host)/\(K.Request.Lists.List)/\(listId)/\(K.Request.Lists.ItemUpdate)"
-        requestHandler.postRequest(url: urlString, data: listData, complete: processResponse, error: processError)
+        requestHandler.postRequest(url: urlString, data: listData, complete: processResponse, error: processError,logOutUser: logOutUser)
     }
 
     func delete(list_id: Int, list_data:[String: String]){
@@ -35,7 +36,7 @@ struct ListItemsHandler {
         let delete_path = K.Request.Lists.ItemDelete
 
         let url_string = "\(host_url)/\(list_path)/\(list_id)/\(delete_path)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete: processResponse, error: processError)
+        requestHandler.postRequest(url: url_string, data: list_data, complete: processResponse, error: processError,logOutUser: logOutUser)
     }
     
     func create(list_id: Int, list_data:[String: String]){
@@ -44,7 +45,7 @@ struct ListItemsHandler {
         let create_path = K.Request.Lists.ItemCreate
         
         let url_string = "\(host_url)/\(list_path)/\(list_id)/\(create_path)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete: processResponse, error: processError)
+        requestHandler.postRequest(url: url_string, data: list_data, complete: processResponse, error: processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -100,6 +101,10 @@ struct ListItemsHandler {
         }
         
         
+    }
+    
+    func logOutUser(){
+        self.delegate?.logOutUser()
     }
     
     func processResponse(_data: Data){

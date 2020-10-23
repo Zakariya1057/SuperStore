@@ -17,50 +17,51 @@ struct UserHandler {
     
     var delegate: UserDelegate?
     
-    let userSession = UserSession()
+    var userSession = UserSession()
     
     let requestHandler = RequestHandler()
     
     func requestRegister(name: String, email: String, password: String, passwordConfirmation: String){
         let registerPath = K.Request.User.Register
         let urlString = "\(K.Host)/\(registerPath)"
-        requestHandler.postRequest(url: urlString, data: ["name": name, "password": password, "password_confirmation": passwordConfirmation, "email": email ], complete: processResults, error: processError)
+        requestHandler.postRequest(url: urlString, data: ["name": name, "password": password, "password_confirmation": passwordConfirmation, "email": email ], complete: processResults, error: processError, logOutUser: logOutUser )
     }
     
     func requestLogin(email: String, password: String){
         let loginPath = K.Request.User.Login
         let urlString = "\(K.Host)/\(loginPath)"
-        requestHandler.postRequest(url: urlString, data: ["email": email, "password": password], complete: processResults, error: processError)
+        requestHandler.postRequest(url: urlString, data: ["email": email, "password": password], complete: processResults, error: processError, logOutUser: logOutUser)
     }
     
     func requestUpdate(userData: [String: String]){
         let updatePath = K.Request.User.Update
         let urlString = "\(K.Host)/\(updatePath)"
-        requestHandler.postRequest(url: urlString, data: userData, complete: proccessReturn, error: processError)
+        requestHandler.postRequest(url: urlString, data: userData, complete: proccessReturn, error: processError, logOutUser: logOutUser)
     }
     
     func requestLogout(){
         let logOutPath = K.Request.User.LogOut
         let urlString = "\(K.Host)/\(logOutPath)"
-        requestHandler.postRequest(url: urlString, data: ["": ""], complete: { _ in }, error: processError)
+        requestHandler.postRequest(url: urlString, data: ["": ""], complete: { _ in }, error: processError, logOutUser: logOutUser)
+        userSession.logOut()
     }
     
     func requestResetCode(email: String){
         let logOutPath = K.Request.User.SendResetCode
         let urlString = "\(K.Host)/\(logOutPath)"
-        requestHandler.postRequest(url: urlString, data: ["email": email], complete: proccessReturn, error: processError)
+        requestHandler.postRequest(url: urlString, data: ["email": email], complete: proccessReturn, error: processError, logOutUser: logOutUser)
     }
     
     func requestValidateCode(email: String, code: String){
         let logOutPath = K.Request.User.ValidateResetCode
         let urlString = "\(K.Host)/\(logOutPath)"
-        requestHandler.postRequest(url: urlString, data: ["email": email,"code": code], complete: proccessReturn, error: processError)
+        requestHandler.postRequest(url: urlString, data: ["email": email,"code": code], complete: proccessReturn, error: processError, logOutUser: logOutUser)
     }
     
     func requestResetPassword(userData: [String: String]){
         let logOutPath = K.Request.User.ResetPassword
         let urlString = "\(K.Host)/\(logOutPath)"
-        requestHandler.postRequest(url: urlString, data: userData, complete: processResults, error: processError)
+        requestHandler.postRequest(url: urlString, data: userData, complete: processResults, error: processError, logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -97,6 +98,10 @@ struct UserHandler {
         DispatchQueue.main.async {
             self.delegate?.contentLoaded()
         }
+    }
+    
+    func logOutUser(){
+
     }
     
     func processError(_ message:String){

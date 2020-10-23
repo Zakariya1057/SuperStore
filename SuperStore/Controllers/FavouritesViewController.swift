@@ -21,6 +21,8 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var favouritesHandler = FavouritesHandler()
     
+    var userHandler = UserHandler()
+    
     var refreshControl = UIRefreshControl()
     
     var loading: Bool = true
@@ -87,6 +89,11 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         favouritesTableView.reloadData()
     }
 
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
+    }
+    
     deinit {
         notificationToken?.invalidate()
     }

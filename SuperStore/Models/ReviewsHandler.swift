@@ -11,6 +11,7 @@ import Foundation
 protocol ReviewsListDelegate {
     func contentLoaded(reviews: [ReviewModel])
     func errorHandler(_ message:String)
+    func logOutUser()
 }
 
 struct ReviewsHandler {
@@ -27,22 +28,22 @@ struct ReviewsHandler {
     
     func index(product_id: Int){
         let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewsPath)"
-        requestHandler.getRequest(url: url_string, complete: processResults,error:processError)
+        requestHandler.getRequest(url: url_string, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
     func show(product_id: Int){
         let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewPath)"
-        requestHandler.getRequest(url: url_string, complete: processResults,error:processError)
+        requestHandler.getRequest(url: url_string, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
     func create(product_id: Int, review_data: [String: String]){
         let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewCreatePath)"
-        requestHandler.postRequest(url: url_string, data: review_data, complete: processResults, error: processError)
+        requestHandler.postRequest(url: url_string, data: review_data, complete: processResults, error: processError,logOutUser: logOutUser)
     }
     
     func delete(product_id: Int){
         let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewDeletePath)"
-        requestHandler.postRequest(url: url_string, data: ["product_id": String(product_id)], complete: processResponse, error: processError)
+        requestHandler.postRequest(url: url_string, data: ["product_id": String(product_id)], complete: processResponse, error: processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -73,6 +74,10 @@ struct ReviewsHandler {
         }
         
         
+    }
+    
+    func logOutUser(){
+        self.delegate?.logOutUser()
     }
     
     func processResponse(_ data:Data){

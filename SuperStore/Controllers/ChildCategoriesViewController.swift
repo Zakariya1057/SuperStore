@@ -32,6 +32,8 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
     
     var categories: [ChildCategoryModel] = []
     
+    var userHandler = UserHandler()
+    
     var categoriesHistory: Results<ChildCategoryHistory> {
         get {
             return realm.objects(ChildCategoryHistory.self).filter("parentCategoryId = \(parentCategoryId!)")
@@ -91,11 +93,6 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         
     }
     
-    func errorHandler(_ message: String) {
-        loading = false
-        showError(message)
-    }
-    
     func contentLoaded(child_categories: [ChildCategoryModel]) {
         self.categories = child_categories
         configureUI()
@@ -113,6 +110,16 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
             addToHistory(category)
         }
     
+    }
+    
+    func errorHandler(_ message: String) {
+        loading = false
+        showError(message)
+    }
+    
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
     func configureUI(){

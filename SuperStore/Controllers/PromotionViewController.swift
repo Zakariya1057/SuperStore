@@ -16,7 +16,7 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
     var promotionHandler = PromotionHandler()
     
     var promotion_id: Int?
-//    var promotion: PromotionModel?
+    var userHandler = UserHandler()
     
     var promotion: PromotionHistory? {
         return realm.objects(PromotionHistory.self).filter("id = %@", promotion_id!).first
@@ -87,6 +87,11 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
         loading = false
         productsTableView.reloadData()
         showError(message)
+    }
+    
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

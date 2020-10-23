@@ -11,6 +11,7 @@ import Foundation
 protocol GroceriesProductsDelegate {
     func contentLoaded(child_categories: [ChildCategoryModel])
     func errorHandler(_ message:String)
+    func logOutUser()
 }
 
 struct GroceryProductsHandler {
@@ -21,7 +22,7 @@ struct GroceryProductsHandler {
     
     func request(parentCategoryId: Int){
         let urlString = "\(K.Host)/\(K.Request.Grocery.Products)/\(parentCategoryId)"
-        requestHandler.getRequest(url: urlString, complete: processResults,error:processError)
+        requestHandler.getRequest(url: urlString, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -60,6 +61,10 @@ struct GroceryProductsHandler {
         }
         
         
+    }
+    
+    func logOutUser(){
+        self.delegate?.logOutUser()
     }
     
     func processError(_ message:String){

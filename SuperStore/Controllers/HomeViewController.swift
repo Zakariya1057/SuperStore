@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 import RealmSwift
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, HomeDelegate, StoreSelectedDelegate, ListProgressDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, HomeRequestDelegate, StoreSelectedDelegate, ListProgressDelegate {
 
     @IBOutlet weak var listTableView: UITableView!
     
@@ -27,6 +27,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var loading: Bool = true
     
     let realm = try! Realm()
+    
+    var userHandler = UserHandler()
     
     var home: HomeHistory? {
         return self.realm.objects(HomeHistory.self).first
@@ -131,7 +133,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func logOutUser(){
-        
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
     func configureLists(){
@@ -384,7 +387,6 @@ extension HomeViewController {
     }
     
 }
-
 
 // Possible custom tablecell types with identifiers
 enum CustomElementType: String {

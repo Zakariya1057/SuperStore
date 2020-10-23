@@ -15,13 +15,14 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
     
     @IBOutlet weak var mapTableView: UITableView!
     @IBOutlet weak var storesTableView: UITableView!
-    
-//    var stores: [StoreModel] = []
+
     lazy var stores: Results<StoreHistory> = { self.realm.objects(StoreHistory.self).filter("store_type_id = %@", store_type_id!) }()
     
     var searchHandler: SearchHandler = SearchHandler()
     
     var store_type_id: Int?
+    
+    var userHandler = UserHandler()
     
     var selected_store_id: Int?
     
@@ -64,11 +65,15 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
         mapTableView.reloadData()
     }
     
-    
     func errorHandler(_ message: String) {
         loading = false
         showError(message)
         storesTableView.reloadData()
+    }
+    
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -86,6 +86,8 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     var selected_product_id:Int?
     var selectedListId: Int?
     
+    var userHandler = UserHandler()
+    
     var loadingViews: [UIView?] {
         return [productNameLabel,descriptionView,ingredientsView, reviewButton,productImageView,productPriceLabel,productWeightLabel,parentRatingView,addToListButton,monitorButton,allReviewsButton, allergenLabel,promotionView,lifeStyleLabel]
     }
@@ -172,20 +174,27 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
        
     }
     
-    func errorHandler(_ message: String) {
-        showError(message)
-    }
-    
     func contentLoaded(product: ProductDetailsModel) {
         addToHistory(product)
         configureUI()
     }
     
-    func refreshProduct() {
-        productHandler.request(product_id: product_id)
+    func errorHandler(_ message: String) {
+        showError(message)
     }
     
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
+    }
+    
+    // Used by favourites delegate
     func contentLoaded(products: [ProductModel]) {
+        
+    }
+    
+    func refreshProduct() {
+        productHandler.request(product_id: product_id)
     }
     
     func configureUI(){

@@ -19,6 +19,8 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var listsTableView: UITableView!
     
+    var userHandler = UserHandler()
+    
     var listHandler = ListsHandler()
     
     let realm = try! Realm()
@@ -99,6 +101,11 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         showError(message)
         listsTableView.reloadData()
         refreshControl.endRefreshing()
+    }
+    
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
     deinit {

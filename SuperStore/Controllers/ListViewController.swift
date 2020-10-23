@@ -26,6 +26,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let realm = try! Realm()
     
+    var userHandler = UserHandler()
+    
     var delegate:PriceChangeDelegate?
     
     var listItem: ListHistory? {
@@ -112,11 +114,22 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
     }
-    
 
     func contentLoaded(list: ListModel) {
         addToHistory(list)
         configureUI()
+    }
+    
+    func errorHandler(_ message: String) {
+        loading = false
+        listTableView.reloadData()
+        refreshControl.endRefreshing()
+        showError(message)
+    }
+    
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
     func configureUI(){
@@ -130,12 +143,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         stopLoading()
     }
     
-    func errorHandler(_ message: String) {
-        loading = false
-        listTableView.reloadData()
-        refreshControl.endRefreshing()
-        showError(message)
-    }
+
     
     @objc func refresh(_ sender: AnyObject) {
         listHandler.request(listId:list_id!)

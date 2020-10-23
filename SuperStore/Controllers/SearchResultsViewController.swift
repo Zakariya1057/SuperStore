@@ -25,6 +25,8 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     var searchDetails: SearchModel?
     
+    var userHandler = UserHandler()
+    
     @IBOutlet weak var totalProductsLabel: UILabel!
     
     var listHandler = ListItemsHandler()
@@ -108,6 +110,11 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         loading = false
         self.resultsTableView.reloadData()
         showError(message)
+    }
+    
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
     func showError(_ error: String){

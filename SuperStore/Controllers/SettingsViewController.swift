@@ -27,7 +27,7 @@ class SettingsViewController: UIViewController  {
         return userSession.getUserDetails()
     }
     
-    let userHandler = UserHandler()
+    var userHandler = UserHandler()
     var userSession:UserSession {
         return userHandler.userSession
     }
@@ -110,13 +110,8 @@ class SettingsViewController: UIViewController  {
     }
     
     func logOut(){
+        userHandler.userSession.viewController = self
         userHandler.requestLogout()
-        userSession.logOut()
-    
-        let vc = (self.storyboard?.instantiateViewController(withIdentifier: "loginViewController"))! as! LoginViewController
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        self.tabBarController?.tabBar.isHidden = true
-        self.navigationController?.pushViewController(vc, animated: true)
     }
 
 }

@@ -27,6 +27,8 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    var userHandler = UserHandler()
+    
     var reviewsHandler = ReviewsHandler()
     
     var product_id: Int?
@@ -62,6 +64,11 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         loading = false
         self.reviewsTableView.reloadData()
         showError(message)
+    }
+    
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -11,11 +11,13 @@ import Foundation
 protocol SearchSuggestionsDelegate {
     func contentLoaded(suggestions: [SearchModel])
     func errorHandler(_ message:String)
+    func logOutUser()
 }
 
 protocol SearchResultsDelegate {
     func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel], paginate: PaginateResultsModel?)
     func errorHandler(_ message:String)
+    func logOutUser()
 }
 
 struct SearchHandler {
@@ -29,14 +31,14 @@ struct SearchHandler {
         let hostURL = K.Host
         let suggestionsPath = K.Request.Search.Suggestions
         let urlString = "\(hostURL)/\(suggestionsPath)/\(query)"
-        requestHandler.getRequest(url: urlString, complete: processSuggestionsResults,error:processError)
+        requestHandler.getRequest(url: urlString, complete: processSuggestionsResults,error:processError,logOutUser: logOutUser)
     }
     
     func requestResults(searchData: [String: String], page: Int = 1){
         let hostURL = K.Host
         let resultsPath = K.Request.Search.Results
         let urlString = "\(hostURL)/\(resultsPath)?page=\(page)"
-        requestHandler.postRequest(url: urlString, data: searchData, complete: processResults, error: processError)
+        requestHandler.postRequest(url: urlString, data: searchData, complete: processResults, error: processError,logOutUser: logOutUser)
     }
     
     func processSuggestionsResults(_ data:Data){
@@ -141,6 +143,11 @@ struct SearchHandler {
         }
         
         
+    }
+    
+    func logOutUser(){
+        self.resultsDelegate?.logOutUser()
+        self.suggestionsDelegate?.logOutUser()
     }
     
     func processError(_ message:String){

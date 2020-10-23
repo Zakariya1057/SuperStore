@@ -11,6 +11,7 @@ import Foundation
 protocol ListDelegate {
     func contentLoaded(lists: [ListModel])
     func errorHandler(_ message:String)
+    func logOutUser()
 }
 
 struct ListsHandler {
@@ -23,32 +24,32 @@ struct ListsHandler {
     
     func request(){
         let url_string = "\(K.Host)/\(listPath)/"
-        requestHandler.getRequest(url: url_string, complete: processResults,error:processError)
+        requestHandler.getRequest(url: url_string, complete: processResults,error:processError, logOutUser: logOutUser)
     }
     
     func insert(list_data:[String: String]){
         let listInsert = K.Request.Lists.ListCreate
         let url_string = "\(K.Host)/\(listPath)/\(listInsert)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete: processResults, error: processError)
+        requestHandler.postRequest(url: url_string, data: list_data, complete: processResults, error: processError, logOutUser: logOutUser)
     }
     
     func update(list_data: [String: String]){
         let listUpdate = K.Request.Lists.ListUpdate
         let url_string = "\(K.Host)/\(listPath)/\(listUpdate)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete:  { _ in } , error: processError)
+        requestHandler.postRequest(url: url_string, data: list_data, complete:  { _ in } , error: processError, logOutUser: logOutUser)
     }
     
     func delete(list_data: [String: String]){
         let listDelete = K.Request.Lists.ListDelete
         let url_string = "\(K.Host)/\(listPath)/\(listDelete)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete: { _ in } , error: processError)
+        requestHandler.postRequest(url: url_string, data: list_data, complete: { _ in } , error: processError, logOutUser: logOutUser)
     }
     
     // Restarting Shoppping List, Setting All To Unchecked
     func restart(listID: Int){
         let restartPath = K.Request.Lists.ListRestart
         let url_string = "\(K.Host)/\(listPath)/\(listID)/\(restartPath)"
-        requestHandler.postRequest(url: url_string, data: ["identifier": String(listID)], complete: { _ in }, error: processError)
+        requestHandler.postRequest(url: url_string, data: ["identifier": String(listID)], complete: { _ in }, error: processError, logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -91,6 +92,10 @@ struct ListsHandler {
         }
         
         
+    }
+    
+    func logOutUser(){
+        self.delegate?.logOutUser()
     }
     
     func processError(_ message:String){

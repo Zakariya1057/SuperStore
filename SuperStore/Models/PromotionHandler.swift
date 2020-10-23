@@ -11,6 +11,7 @@ import Foundation
 protocol PromotionDelegate {
     func contentLoaded(promotion: PromotionModel)
     func errorHandler(_ message:String)
+    func logOutUser()
 }
 
 
@@ -24,7 +25,7 @@ struct PromotionHandler {
         let host_url = K.Host
         let promotion_path = K.Request.Grocery.Promotion
         let url_string = "\(host_url)/\(promotion_path)/\(promotion_id)"
-        requestHandler.getRequest(url: url_string, complete: processResults,error:processError)
+        requestHandler.getRequest(url: url_string, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -59,6 +60,10 @@ struct PromotionHandler {
         }
         
         
+    }
+    
+    func logOutUser(){
+        self.delegate?.logOutUser()
     }
     
     func processError(_ message:String){

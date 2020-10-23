@@ -22,6 +22,8 @@ class StoreViewController: UIViewController, StoreDelegate {
         }
     }
     
+    var userHandler = UserHandler()
+    
     @IBOutlet weak var storeLogoView: UIImageView!
     @IBOutlet weak var storeNameLabel: UILabel!
     @IBOutlet weak var storeNameView: UIView!
@@ -113,14 +115,19 @@ class StoreViewController: UIViewController, StoreDelegate {
         }
     }
     
-    func errorHandler(_ message: String) {
-        showError(message)
-    }
-    
     func contentLoaded(store: StoreModel) {
         stopLoading()
         addToHistory(store)
         configureUI()
+    }
+    
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
+    }
+    
+    func errorHandler(_ message: String) {
+        showError(message)
     }
     
     func configureUI(){

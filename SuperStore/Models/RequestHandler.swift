@@ -20,7 +20,7 @@ struct RequestHandler {
         return urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
     }
     
-    func getRequest(url urlString: String,complete: @escaping (_ data:Data) -> Void,error: @escaping (_ message:String) -> Void ){
+    func getRequest(url urlString: String,complete: @escaping (_ data:Data) -> Void,error: @escaping (_ message:String) -> Void,logOutUser: @escaping () -> Void){
         
         let urlString = parseURL(urlString: urlString)
         
@@ -40,12 +40,12 @@ struct RequestHandler {
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
-                self.responseHandler(response: response, complete: complete, error: error)
+                self.responseHandler(response: response, complete: complete, error: error,logOutUser: logOutUser)
         }
         
     }
     
-    func postRequest(url urlString: String,data:[String: String],complete: @escaping (_ data:Data) -> Void,error: @escaping (_ message:String) -> Void ){
+    func postRequest(url urlString: String,data:[String: String],complete: @escaping (_ data:Data) -> Void,error: @escaping (_ message:String) -> Void, logOutUser: @escaping () -> Void ){
         
         let body:[String: [String: String]] = ["data": data]
         
@@ -54,8 +54,6 @@ struct RequestHandler {
         let token = userSession.getUserToken() ?? ""
         
         print("POST REQUEST: \(urlString)")
-        
-//        let token = "1|7V4iFvllGXQvS951LOg6nH5URlR49XCH7giatCLX"
         
         let headers: HTTPHeaders = [
             "X-Authorization": "Bearer \(token)",
@@ -66,25 +64,24 @@ struct RequestHandler {
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
-                self.responseHandler(response: response, complete: complete, error: error)
+                self.responseHandler(response: response, complete: complete, error: error,logOutUser: logOutUser)
         }
         
     }
     
-    func responseHandler(response: AFDataResponse<Any>,complete: @escaping (_ data:Data) -> Void,error: @escaping (_ message:String) -> Void){
+    func responseHandler(response: AFDataResponse<Any>,complete: @escaping (_ data:Data) -> Void,error: @escaping (_ message:String) -> Void, logOutUser: @escaping () -> Void){
         
         switch response.result {
         case .success:
             complete(response.data!)
         case .failure(let errorResponse):
             print(errorResponse)
-//
-//
-//            if(errorResponse.responseCode != nil && errorResponse.responseCode! == 401){
-//                 let userSession = UserSession()
-//                 userSession.logOut()
-//             }
-//
+
+            if(errorResponse.responseCode != nil && errorResponse.responseCode! == 401){
+                logOutUser()
+                error("Please try logging again.")
+             }
+
             var errorMessage:String = ""
 
             do {
@@ -98,28 +95,7 @@ struct RequestHandler {
             } catch {
                 print(error)
             }
-//
-//            if(!errorMessageFound){
-//
-//                print("Error Occured: \(errorResponse)")
-//
-//                if errorResponse.errorDescription != nil {
-//                    errorMessage = (errorResponse.errorDescription!)
-//
-//                    errorMessage = errorMessage.replacingOccurrences(of: ".", with: " ")
-//                    errorMessage = errorMessage.replacingOccurrences(of: "URLSessionTask failed with error: ", with: "")
-//                    errorMessage = errorMessage.replacingOccurrences(of: "Response status code was unacceptable: ", with: "Error ")
-//
-//                } else {
-//                    if let errorCode = errorResponse.responseCode {
-//                        errorMessage = "Error Code \(errorCode) "
-//                    }
-//                }
-//
-//                print("Error Description: \(errorMessage)")
-//
-//            }
-//
+
             error(errorMessage)
             
         }

@@ -50,6 +50,8 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
+    var userHandler = UserHandler()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -96,6 +98,11 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     func errorHandler(_ message: String) {
         stopLoading()
         showError(message)
+    }
+    
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

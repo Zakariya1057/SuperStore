@@ -17,6 +17,8 @@ struct UserSession {
     
     let userDefaults = UserDefaults.standard
     
+    var viewController: UIViewController?
+    
     func logOut(){
         let realm = try! Realm()
         UserDefaults.standard.removeObject(forKey: "userSettings")
@@ -24,6 +26,14 @@ struct UserSession {
         try? realm.write({
             realm.delete(realm.objects(UserHistory.self))
         })
+    
+        if viewController != nil {
+            let destinationVC = (viewController!.storyboard?.instantiateViewController(withIdentifier: "loginViewController"))! as! LoginViewController
+            viewController!.navigationController?.setNavigationBarHidden(true, animated: true)
+            viewController!.tabBarController?.tabBar.isHidden = true
+            viewController!.navigationController?.pushViewController(destinationVC, animated: true)
+        }
+
     }
     
     func setLoggedIn(_ userData:UserHistory){

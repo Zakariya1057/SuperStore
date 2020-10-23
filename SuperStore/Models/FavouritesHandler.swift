@@ -11,6 +11,7 @@ import Foundation
 protocol FavouritesDelegate {
     func contentLoaded(products: [ProductModel])
     func errorHandler(_ message:String)
+    func logOutUser()
 }
 
 struct FavouritesHandler {
@@ -23,13 +24,13 @@ struct FavouritesHandler {
     
     func request(){
         let url_string = "\(K.Host)/\(K.Request.Grocery.Favourites)"
-        requestHandler.getRequest(url: url_string, complete: processResults,error:processError)
+        requestHandler.getRequest(url: url_string, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
     func update(product_id: Int, favourite: Bool){
         let productFavourite = K.Request.Grocery.ProductsFavourite
         let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(productFavourite)"
-        requestHandler.postRequest(url: url_string, data: ["favourite": String(favourite)], complete: { _ in }, error: processError)
+        requestHandler.postRequest(url: url_string, data: ["favourite": String(favourite)], complete: { _ in }, error: processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -58,6 +59,10 @@ struct FavouritesHandler {
         }
         
         
+    }
+    
+    func logOutUser(){
+        self.delegate?.logOutUser()
     }
     
     func processError(_ message:String){

@@ -8,21 +8,22 @@
 
 import Foundation
 
-protocol HomeDelegate {
+protocol HomeRequestDelegate {
     func contentLoaded(content: HomeModel)
     func errorHandler(_ message:String)
+    func logOutUser()
 }
 
 struct HomeHandler {
     
-    var delegate: HomeDelegate?
+    var delegate: HomeRequestDelegate?
     
     let requestHandler = RequestHandler()
     
     func request(){
         let homePath = K.Request.Home
         let url = "\(K.Host)/\(homePath)"
-        requestHandler.getRequest(url: url, complete: processResults,error:processError)
+        requestHandler.getRequest(url: url, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -111,7 +112,10 @@ struct HomeHandler {
         return newList
     }
     
-//    func processError(_ message:String, unauthenticated: Bool = false){
+    func logOutUser(){
+        self.delegate?.logOutUser()
+    }
+    
     func processError(_ message:String){
         self.delegate?.errorHandler(message)
     }

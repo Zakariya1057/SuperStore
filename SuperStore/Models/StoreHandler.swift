@@ -11,6 +11,7 @@ import Foundation
 protocol StoreDelegate {
     func contentLoaded(store: StoreModel)
     func errorHandler(_ message:String)
+    func logOutUser()
 }
 
 struct StoreHandler {
@@ -23,7 +24,7 @@ struct StoreHandler {
         let hostURL = K.Host
         let storePath = K.Request.Store
         let urlString = "\(hostURL)/\(storePath)/\(store_id)"
-        requestHandler.getRequest(url: urlString, complete: processResults,error:processError)
+        requestHandler.getRequest(url: urlString, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -64,6 +65,10 @@ struct StoreHandler {
         }
         
         
+    }
+    
+    func logOutUser(){
+        self.delegate?.logOutUser()
     }
     
     func processError(_ message:String){

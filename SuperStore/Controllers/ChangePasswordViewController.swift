@@ -70,6 +70,11 @@ class ChangePasswordViewController: UIViewController, UserDelegate {
         showError(message)
     }
 
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
+    }
+    
     func startLoading() {
         addChild(spinner)
         spinner.view.frame = view.frame

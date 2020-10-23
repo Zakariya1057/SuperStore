@@ -21,7 +21,7 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     
     @IBOutlet weak var groupTableView: UITableView!
     
-//    var categories: [GrandParentCategoryModel] = []
+    var userHandler = UserHandler()
     
     var selected_category: GrandParentCategoryModel?
     
@@ -53,10 +53,6 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
         }
     }
     
-    func errorHandler(_ message: String) {
-        showError(message)
-    }
-
     func contentLoaded(categories: [GrandParentCategoryModel]) {
         
         for category in categories {
@@ -64,6 +60,15 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
         }
         
         configureUI()
+    }
+    
+    func errorHandler(_ message: String) {
+        showError(message)
+    }
+
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
     func configureUI(){

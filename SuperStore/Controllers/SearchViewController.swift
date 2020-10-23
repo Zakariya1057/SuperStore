@@ -22,6 +22,8 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
     let realm = try! Realm()
     lazy var searchHistory: Results<SearchHistory> = { self.realm.objects(SearchHistory.self).filter("searchType = 'history'").sorted(byKeyPath: "usedAt", ascending: false) }()
     
+    var userHandler = UserHandler()
+    
     var searchHandler: SearchHandler = SearchHandler()
     
     var ignoreResults: Bool = false
@@ -43,19 +45,11 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
         populateDefaultSearch()
         
         showHistory()
-//        self.searchList = history
         
         searchHandler.suggestionsDelegate = self
        
         searchTableView.register(UINib(nibName: K.Cells.SearchCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.SearchCell.CellIdentifier)
         
-    }
-    
-    
-    func errorHandler(_ message: String) {
-        showError(message)
-        loading = false
-        searchTableView.reloadData()
     }
     
     func contentLoaded(suggestions: [SearchModel]) {
@@ -69,6 +63,17 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
             
             showSuggestions()
         }
+    }
+    
+    func errorHandler(_ message: String) {
+        showError(message)
+        loading = false
+        searchTableView.reloadData()
+    }
+    
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
