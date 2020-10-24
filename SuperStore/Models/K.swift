@@ -40,6 +40,7 @@ struct K {
             static let Register = "user/register"
             static let Login = "user/login"
             static let Update = "user/update"
+            static let Delete = "user/delete"
             static let LogOut = "user/logout"
             
             static let SendResetCode = "user/reset/send-code"

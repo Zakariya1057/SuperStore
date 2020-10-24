@@ -9,8 +9,8 @@
 import UIKit
 import RealmSwift
 
-class SettingsViewController: UIViewController  {
-    
+class SettingsViewController: UIViewController, UserDelegate  {
+
     @IBOutlet weak var usernameStackView: UIStackView!
     
     @IBOutlet weak var emailStackView: UIStackView!
@@ -56,6 +56,8 @@ class SettingsViewController: UIViewController  {
         
         showUserDetails()
         
+        userHandler.delegate = self
+        
         let usernanmeGesture = UITapGestureRecognizer(target: self, action: #selector(usernamePressed))
         usernameStackView.addGestureRecognizer(usernanmeGesture)
         
@@ -68,6 +70,14 @@ class SettingsViewController: UIViewController  {
     
     deinit {
         notificationToken?.invalidate()
+    }
+    
+    func contentLoaded() {
+        
+    }
+    
+    func errorHandler(_ message: String) {
+        showError(message)
     }
     
     func showUserDetails(){
@@ -109,9 +119,31 @@ class SettingsViewController: UIViewController  {
         }
     }
     
+    @IBAction func deletePressed(_ sender: Any) {
+        let alert = UIAlertController(title: "Delete User", message: "Are you sure you want to delete your account?", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in self.deleteAccount() } ))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true)
+    }
+    
+    func showError(_ error: String){
+        let alert = UIAlertController(title: "Login Error", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    
     func logOut(){
         userHandler.userSession.viewController = self
         userHandler.requestLogout()
+    }
+    
+    func deleteAccount(){
+        userHandler.requestDelete(userData: ["id": String(userDetails!.id), "email": userDetails!.email])
+        logOut()
+        userHandler.userSession.deleteUser()
     }
 
 }

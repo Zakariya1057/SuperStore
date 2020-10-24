@@ -12,6 +12,6 @@ target 'SuperStore' do
   pod 'Alamofire', '~> 5.2'
   pod 'Kingfisher', '~> 5.0'
   pod 'SkeletonView'
-  pod 'RealmSwift'
+  pod 'RealmSwift', '~> 5.0'
   
 end

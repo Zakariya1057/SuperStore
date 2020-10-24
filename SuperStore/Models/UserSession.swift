@@ -36,6 +36,10 @@ struct UserSession {
 
     }
     
+    func deleteUser(){
+        try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
+    }
+    
     func setLoggedIn(_ userData:UserHistory){
         setDefaultRealmForUser(userId: userData.id)
         saveUserInfo(userData: userData)

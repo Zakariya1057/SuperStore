@@ -22,20 +22,22 @@ struct UserHandler {
     let requestHandler = RequestHandler()
     
     func requestRegister(name: String, email: String, password: String, passwordConfirmation: String){
-        let registerPath = K.Request.User.Register
-        let urlString = "\(K.Host)/\(registerPath)"
+        let urlString = "\(K.Host)/\(K.Request.User.Register)"
         requestHandler.postRequest(url: urlString, data: ["name": name, "password": password, "password_confirmation": passwordConfirmation, "email": email ], complete: processResults, error: processError, logOutUser: logOutUser )
     }
     
     func requestLogin(email: String, password: String){
-        let loginPath = K.Request.User.Login
-        let urlString = "\(K.Host)/\(loginPath)"
+        let urlString = "\(K.Host)/\(K.Request.User.Login)"
         requestHandler.postRequest(url: urlString, data: ["email": email, "password": password], complete: processResults, error: processError, logOutUser: logOutUser)
     }
     
     func requestUpdate(userData: [String: String]){
-        let updatePath = K.Request.User.Update
-        let urlString = "\(K.Host)/\(updatePath)"
+        let urlString = "\(K.Host)/\(K.Request.User.Update)"
+        requestHandler.postRequest(url: urlString, data: userData, complete: proccessReturn, error: processError, logOutUser: logOutUser)
+    }
+    
+    func requestDelete(userData: [String: String]){
+        let urlString = "\(K.Host)/\(K.Request.User.Delete)"
         requestHandler.postRequest(url: urlString, data: userData, complete: proccessReturn, error: processError, logOutUser: logOutUser)
     }
     

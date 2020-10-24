@@ -79,7 +79,7 @@ struct RequestHandler {
 
             if(errorResponse.responseCode != nil && errorResponse.responseCode! == 401){
                 logOutUser()
-                error("Please try logging again.")
+                error("Please try logging in again.")
              }
 
             var errorMessage:String = ""

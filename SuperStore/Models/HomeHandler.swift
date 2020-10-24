@@ -47,7 +47,7 @@ struct HomeHandler {
             let date_format: DateFormatter = DateFormatter()
             date_format.dateFormat = "dd MMMM Y"
 
-            for list in data.lists {
+            for list in data.lists ?? [] {
                 
                 var status: ListStatus = .completed
                 
@@ -64,22 +64,22 @@ struct HomeHandler {
                 )
             }
             
-            for store in data.stores {
+            for store in data.stores ?? []{
                 let storeLocation = store.location
                 let location = LocationModel(store_id: store.id, city: storeLocation.city, address_line1: storeLocation.address_line1, address_line2: storeLocation.address_line2, address_line3: storeLocation.address_line3, postcode: storeLocation.postcode, latitude: storeLocation.latitude, longitude: storeLocation.longitude)
                 
                 stores.append(StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [], location: location, facilities: [], store_type_id: store.store_type_id))
             }
             
-            for promotion in data.promotions {
+            for promotion in data.promotions ?? []{
                 promotions.append(PromotionModel(id: promotion.id, name: promotion.name, quantity: promotion.quantity!, price: promotion.price, forQuantity: promotion.for_quantity))
             }
             
-            featured = addProductsToList(products: data.featured)
-            groceries = addProductsToList(products: data.groceries)
-            monitoring = addProductsToList(products: data.monitoring)
+            featured = addProductsToList(products: data.featured ?? [])
+            groceries = addProductsToList(products: data.groceries ?? [])
+            monitoring = addProductsToList(products: data.monitoring ?? [])
             
-            for category in data.categories {
+            for category in data.categories ?? [:] {
                 let name:String = category.key
                 let products:[ProductData] = category.value
                 
