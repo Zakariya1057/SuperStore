@@ -74,6 +74,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         
         if(selectedListId == nil){
             self.navigationItem.rightBarButtonItem = nil
+        } else {
             listRequired = false
         }
         
