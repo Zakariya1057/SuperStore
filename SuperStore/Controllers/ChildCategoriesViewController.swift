@@ -19,16 +19,16 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
 
     let realm = try! Realm()
     
-    var list_delegate: GroceryDelegate?
+//    var list_delegate: GroceryDelegate?
     
     var groceryHandler = GroceryProductsHandler()
     
     var parentCategoryId: Int?
     var parentCategoryName: String? // Set this in parent and pass to child
     
-    var viewcontrollers:[GroceryTableViewController] = []
+    var viewcontrollers:[GroceryTableViewController] = [ GroceryTableViewController() ]
     
-    var header_text:String?
+    var headerText:String?
     
     var categories: [ChildCategoryModel] = []
     
@@ -67,49 +67,67 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = ""
+        self.title = headerText
         
         groceryHandler.delegate = self
         groceryHandler.request(parentCategoryId: parentCategoryId!)
         
-        if(list_delegate == nil){
+        if(selectedListId == nil){
             self.navigationItem.rightBarButtonItem = nil
+            listRequired = false
         }
         
         self.dataSource = self
         configureBar()
         
-        if categoriesHistory.count > 0 {
+        if categoriesHistory.count > 0 && categoriesHistory[0].products.count > 0{
             print("Found In History")
-            self.categories = categoriesHistory.map{$0.getCategoryModel()}
-            configureUI()
             
+            self.viewcontrollers = []
+            
+            self.categories = categoriesHistory.map{$0.getCategoryModel()}
+            loading = false
+            
+            print(self.categories)
             for _ in categories {
                 viewcontrollers.append(GroceryTableViewController())
             }
             
             self.reloadData()
+        } else {
+            viewcontrollers = [GroceryTableViewController()]
         }
         
     }
     
     func contentLoaded(child_categories: [ChildCategoryModel]) {
-        self.categories = child_categories
-        configureUI()
         
-        if loading == false {
-            for _ in child_categories {
-                viewcontrollers.append(GroceryTableViewController())
+        loading = false
+        
+        if child_categories.count > 0 {
+            
+            viewcontrollers = []
+            
+            self.categories = child_categories
+            
+            if loading == false {
+                for _ in child_categories {
+                    self.viewcontrollers.append(GroceryTableViewController())
+                }
+
+                self.reloadData()
             }
 
+            for category in child_categories {
+                addToHistory(category)
+            }
+            
+        } else {
+            self.viewcontrollers[0].loading = false
+            self.viewcontrollers[0].tableView.reloadData()
             self.reloadData()
         }
-        
-        // Adding to history will take longer, run afterwards
-        for category in child_categories {
-            addToHistory(category)
-        }
-    
+
     }
     
     func errorHandler(_ message: String) {
@@ -122,14 +140,6 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         userHandler.requestLogout()
     }
     
-    func configureUI(){
-        loading = false
-        self.title = header_text
-    }
-    
-    func reloadControllers(){
-        
-    }
     
     func configureBar(){
         bar.tintColor = UIColor(named: "Label Color")
@@ -170,8 +180,8 @@ extension ChildCategoriesViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ProductViewController
-        destinationVC.product_id = selected_product_id!
-        destinationVC.delegate = self.list_delegate
+        destinationVC.product_id = self.selected_product_id!
+        destinationVC.selectedListId = self.selectedListId
     }
     
     func addToList(_ product: ProductModel, cell: GroceryTableViewCell?){
@@ -192,6 +202,7 @@ extension ChildCategoriesViewController {
             selected_row!.product?.quantity = item.quantity
             selected_row!.show_quantity_view()
             selected_row!.configureUI()
+            listHandler.create(list_id: selectedListId!, list_data: ["product_id": String(selected_product!.id)])
         }
         
         print("Adding To List")
@@ -210,7 +221,6 @@ extension ChildCategoriesViewController {
     func updateQuantity(_ product: ProductModel) {
 
         if selectedListId != nil {
-         
             let data:[String: String] = [
                 "product_id": String(product.id),
                 "quantity": String(product.quantity),
@@ -218,22 +228,19 @@ extension ChildCategoriesViewController {
             ]
             
             listManager.updateProduct(listId: selectedListId!, product: product)
-            
             listHandler.update(listId:selectedListId!, listData: data)
-            
         }
        
     }
     
 }
 
-
-
 extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
         var item: TMBarItem
         
-        if loading == false {
+        print("Bar Loading: \(loading)")
+        if loading == false && categories.indices.contains(index) {
             item = TMBarItem(title: categories[index].name)
         } else {
             item = TMBarItem(title: "")
@@ -245,19 +252,18 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
     
 
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        return loading ? 1 : categories.count
+        return loading ? 1 : viewcontrollers.count
     }
 
     func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
-       
-        var viewController: GroceryTableViewController
+        let viewController: GroceryTableViewController = loading ? viewcontrollers[0]: viewcontrollers[index]
+
+        print("Generate View Controllers")
         
-        if loading == false {
-            viewController = viewcontrollers[index]
+        if loading == false && categories.indices.contains(index) {
             viewController.products = categories[index].products
+            viewController.selectedListId = self.selectedListId
             viewController.delegate = self
-        } else {
-            viewController = GroceryTableViewController()
         }
 
         viewController.loading = self.loading
@@ -274,31 +280,16 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
         self.navigationController!.popToViewController(viewControllers[viewControllers.count - 7], animated: true)
     }
     
-    func startLoading(_ item: UIView){
-        item.isSkeletonable = true
-        item.showAnimatedGradientSkeleton()
-    }
-    
-    func stopLoading(_ item: UIView){
-        item.hideSkeleton()
-    }
-    
     func addToHistory(_ category: ChildCategoryModel){
 
-        var categoryItem = realm.objects(ChildCategoryHistory.self).filter("id = \(category.id)").first
+        let categoryItem = realm.objects(ChildCategoryHistory.self).filter("id = \(category.id)").first
         
         try! realm.write() {
             if categoryItem == nil {
                 parentCategory!.childCategories.append(category.getRealmObject())
             } else {
-                categoryItem! = category.getRealmObject()
-                
-                categoryItem!.products.removeAll()
-                
-                for product in category.products {
-                    categoryItem!.products.append(product.getRealmObject())
-                }
-                
+                realm.delete(categoryItem!)
+                parentCategory!.childCategories.append(category.getRealmObject())
             }
             
         }

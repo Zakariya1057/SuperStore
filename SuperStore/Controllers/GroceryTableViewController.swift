@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 class GroceryTableViewController: UITableViewController, QuanityChangedDelegate {
 
-    var products: [ProductModel]?
+    var products: [ProductModel] = []
+    
+    let realm = try! Realm()
+    
+    var parentCategoryId: Int?
     
     var delegate:GroceryDelegate?
     
@@ -18,13 +23,18 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
     
     var loading: Bool = true
     
+    var selectedListId: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("Loading: \(loading)")
+        
         tableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? 5: products!.count
+        return loading ? 5: products.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -33,7 +43,16 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
         if loading == false {
             cell.delegate = self.delegate
             cell.quantity_delegate = self
-            cell.product = products![indexPath.row]
+            cell.product = products[indexPath.row]
+            
+            if selectedListId != nil {
+                let listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selectedListId!) AND product_id=\( cell.product!.id )").first
+                
+                if listItem != nil {
+                    cell.product!.quantity = listItem!.quantity
+                }
+            }
+            
             cell.index = indexPath.row
             cell.configureUI()
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -45,15 +64,11 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.showGroceryItem(products![indexPath.row].id)
+        self.delegate?.showGroceryItem(products[indexPath.row].id)
     }
 
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 130.0;
-//    }
-    
     func updateProductQuantity(index: Int, quantity: Int) {
-        self.delegate?.updateQuantity(products![index])
+        self.delegate?.updateQuantity(products[index])
     }
     
 }

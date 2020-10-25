@@ -24,9 +24,9 @@ class ProductDetailsModel: ProductModel {
     
     var recommended: [ProductModel] = []
     
-    init(id: Int, name: String,image: String,description: String?, quantity: Int,price:Double, avgRating: Double?, totalReviewsCount: Int?, promotion: PromotionModel?, storage: String?, weight: String?,parentCategoryId: Int?, parentCategoryName: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel], favourite: Bool?, ingredients: [String], recommended: [ProductModel]) {
+    init(id: Int, name: String,image: String,description: String?, quantity: Int,price:Double, avgRating: Double?, totalReviewsCount: Int?, promotion: PromotionModel?, storage: String?, weight: String?,parentCategoryId: Int?, parentCategoryName: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel], favourite: Bool?, monitoring: Bool?, ingredients: [String], recommended: [ProductModel]) {
         
-        super.init(id: id, name: name, image: image, quantity: quantity, product_id: id, price: price, weight: weight, promotion: promotion, description: description, favourite: favourite, avgRating: avgRating, totalReviewsCount: totalReviewsCount, parentCategoryId: parentCategoryId, parentCategoryName: parentCategoryName)
+        super.init(id: id, name: name, image: image, quantity: quantity, product_id: id, price: price, weight: weight, promotion: promotion, description: description, favourite: favourite, monitoring: monitoring, avgRating: avgRating, totalReviewsCount: totalReviewsCount, parentCategoryId: parentCategoryId, parentCategoryName: parentCategoryName)
         
         self.storage = storage
         self.avgRating = avgRating ?? 0

@@ -106,7 +106,7 @@ struct HomeHandler {
         var newList:[ProductModel] = []
         
         for product in products {
-            newList.append(ProductModel(id: product.id, name: product.name, image: product.small_image, quantity: 0, product_id: product.id, price: product.price, weight: product.weight, promotion: nil, description: product.description, favourite: product.favourite, avgRating: product.avg_rating, totalReviewsCount: product.total_reviews_count, parentCategoryId: product.parent_category_id, parentCategoryName: product.parent_category_name))
+            newList.append(ProductModel(id: product.id, name: product.name, image: product.small_image, quantity: 0, product_id: product.id, price: product.price, weight: product.weight, promotion: nil, description: product.description, favourite: product.favourite, monitoring: product.monitoring, avgRating: product.avg_rating, totalReviewsCount: product.total_reviews_count, parentCategoryId: product.parent_category_id, parentCategoryName: product.parent_category_name))
         }
         
         return newList

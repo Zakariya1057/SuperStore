@@ -146,9 +146,17 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     func addToFavourite(_ product: ProductModel){
         let productItem = favourites.filter("id = \(product.id)").first
         
+        let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+        
         try! realm.write() {
             if productItem == nil {
-                realm.add(product.getRealmObject())
+                
+                if productHistory == nil {
+                    realm.add(product.getRealmObject())
+                } else {
+                    productHistory!.favourite = true
+                }
+                
             } else {
                 productItem!.updated_at = Date()
                 productItem!.name = product.name

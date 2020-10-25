@@ -16,15 +16,17 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var mapTableView: UITableView!
     @IBOutlet weak var storesTableView: UITableView!
 
-    lazy var stores: Results<StoreHistory> = { self.realm.objects(StoreHistory.self).filter("store_type_id = %@", store_type_id!) }()
+    lazy var stores: Results<StoreHistory> = { self.realm.objects(StoreHistory.self).filter("store_type_id = %@", storeTypeID!) }()
     
     var searchHandler: SearchHandler = SearchHandler()
     
-    var store_type_id: Int?
+    var storeTypeID: Int?
     
     var userHandler = UserHandler()
     
-    var selected_store_id: Int?
+    var selectedStoreId: Int?
+    
+    var selectedListId: Int?
     
     var loading: Bool = true
     
@@ -43,7 +45,7 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
         storesTableView.register(UINib(nibName: K.Cells.StoresResultsCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.StoresResultsCell.CellIdentifier)
         
         searchHandler.resultsDelegate = self
-        searchHandler.requestResults(searchData: ["type": "stores", "detail": String(store_type_id!)])
+        searchHandler.requestResults(searchData: ["type": "stores", "detail": String(storeTypeID!)])
         
         storesTableView.rowHeight = 100
         mapTableView.rowHeight = 300
@@ -138,13 +140,13 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "storeResultsToStore" {
             let destinationVC = segue.destination as! StoreViewController
-            destinationVC.store_id = selected_store_id!
-            destinationVC.delegate = self.delegate
+            destinationVC.store_id = selectedStoreId!
+            destinationVC.selectedListId = self.selectedListId
         }
     }
     
     func storeSelected(store_id: Int) {
-        selected_store_id = store_id
+        self.selectedStoreId = store_id
         self.performSegue(withIdentifier: "storeResultsToStore", sender: self)
     }
     
@@ -167,15 +169,19 @@ extension SearchStoresViewController {
                 realm.add(store.getRealmObject())
             } else {
                 storeItem!.facilities.removeAll()
-                storeItem!.opening_hours.removeAll()
                 
                 let storeHistory = store.getRealmObject()
                 
+                if storeItem!.opening_hours.count < 7 {
+                    storeItem!.opening_hours.removeAll()
+                    storeHistory.opening_hours.forEach({ storeItem!.opening_hours.append($0) })
+                }
+                
                 storeHistory.facilities.forEach({ storeItem!.facilities.append($0) })
-                storeHistory.opening_hours.forEach({ storeItem!.opening_hours.append($0) })
                 
                 storeItem!.logo = store.logo
                 storeItem!.name = store.name
+                
             }
             
         }

@@ -178,11 +178,12 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showSearchResults" {
             let destinationVC = segue.destination as! SearchResultsViewController
-            destinationVC.searchDetails = selectedItem
+            destinationVC.searchDetails = self.selectedItem
             destinationVC.selectedListId = self.selectedListId
         } else if segue.identifier == "searchToStoreResults" {
             let destinationVC = segue.destination as! SearchStoresViewController
-            destinationVC.store_type_id =  selectedItem!.id
+            destinationVC.storeTypeID =  self.selectedItem!.id
+            destinationVC.selectedListId = self.selectedListId
         }
     }
     

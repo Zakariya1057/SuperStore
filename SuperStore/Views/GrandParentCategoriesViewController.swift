@@ -13,7 +13,7 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
 
     let realm = try! Realm()
     
-    lazy var categories: Results<GrandParentCategoryHistory> = { self.realm.objects(GrandParentCategoryHistory.self).filter("store_type_id = \(store_type_id!)").sorted(byKeyPath: "id", ascending: false)}()
+    lazy var categories: Results<GrandParentCategoryHistory> = { self.realm.objects(GrandParentCategoryHistory.self).filter("store_type_id = \(store_type_id!)").sorted(byKeyPath: "id", ascending: true)}()
     
     var store_type_id: Int?
     
@@ -25,7 +25,9 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     
     var selected_category: GrandParentCategoryModel?
     
-    var delegate:GroceryDelegate?
+//    var delegate:GroceryDelegate?
+    
+    var selectedListId: Int?
     
     @IBOutlet weak var done_button: UIBarButtonItem!
     
@@ -44,7 +46,7 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
         groceryHandler.request(store_type_id: 1)
         // Do any additional setup after loading the view.
         
-        if(delegate == nil){
+        if(selectedListId == nil){
             self.navigationItem.rightBarButtonItem = nil
         }
         
@@ -54,11 +56,7 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     }
     
     func contentLoaded(categories: [GrandParentCategoryModel]) {
-        
-        for category in categories {
-            self.addToHistory(category)
-        }
-        
+        self.addToHistory(categories)
         configureUI()
     }
     
@@ -111,7 +109,7 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "grandParentToParentCategories" {
             let destinationVC = segue.destination as! ParentCategoriesViewController
-            destinationVC.delegate = delegate
+            destinationVC.selectedListId = selectedListId
 //            destinationVC.grandParentCategory = selected_category
             destinationVC.header_text = selected_category!.name
             destinationVC.categories = selected_category!.child_categories
@@ -129,21 +127,28 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
         self.present(alert, animated: true)
     }
     
-    func addToHistory(_ category: GrandParentCategoryModel){
+    func addToHistory(_ categories: [GrandParentCategoryModel]){
         
-        let categoryItem = categories.first { (categoryHistory) -> Bool in
-            categoryHistory.id == category.id
-        }
-        
-        try! realm.write() {
-            if categoryItem == nil {
-                realm.add(category.getRealmObject())
-            } else {
-
+        try? realm.write({
+            
+            for grandParentCategory in categories {
+                let grandParentCategoryHistory = realm.objects(GrandParentCategoryHistory.self).filter("id = \(grandParentCategory.id)").first
+                
+                if grandParentCategoryHistory == nil {
+                    realm.add(grandParentCategory.getRealmObject())
+                } else {
+                    
+                    for category in grandParentCategory.child_categories {
+                        let categoryHistory = realm.objects(ParentCategoryHistory.self).filter("id = \(category.id)").first
+                        
+                        if categoryHistory == nil {
+                            grandParentCategoryHistory!.child_categories.append(category.getRealmObject())
+                        }
+                    }
+                }
             }
             
-        }
-        
+        })
         
     }
     

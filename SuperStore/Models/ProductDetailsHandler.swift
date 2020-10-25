@@ -20,11 +20,14 @@ struct ProductDetailsHandler {
     
     let requestHandler = RequestHandler()
     
-    let productPath = K.Request.Grocery.Product
-    
     func request(product_id: Int){
-        let url_string = "\(K.Host)/\(productPath)/\(product_id)"
+        let url_string = "\(K.Host)/\(K.Request.Grocery.Product)/\(product_id)"
         requestHandler.getRequest(url: url_string, complete: processResults,error:processError,logOutUser: logOutUser)
+    }
+    
+    func requestMonitor(product_id: Int, userData: [String: String]){
+        let url_string = "\(K.Host)/\(K.Request.Grocery.Product)/\(product_id)/\(K.Request.Grocery.ProductMonitor)"
+        requestHandler.postRequest(url: url_string, data: userData, complete: { _ in },error:processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -64,11 +67,11 @@ struct ProductDetailsHandler {
             
             for product_item in product_details.recommended ?? [] {
                 recommended.append(
-                    ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, quantity: 0, product_id: product_item.id, price: product_item.price, weight: product_item.weight, promotion: nil, description: product_item.description, favourite: product_item.favourite, avgRating: product_item.avg_rating, totalReviewsCount: product_item.total_reviews_count, parentCategoryId: product_item.parent_category_id, parentCategoryName: product_item.parent_category_name)
+                    ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, quantity: 0, product_id: product_item.id, price: product_item.price, weight: product_item.weight, promotion: nil, description: product_item.description, favourite: product_item.favourite, monitoring: nil, avgRating: product_item.avg_rating, totalReviewsCount: product_item.total_reviews_count, parentCategoryId: product_item.parent_category_id, parentCategoryName: product_item.parent_category_name)
                 )
             }
             
-            let product = ProductDetailsModel(id: product_details.id, name: product_details.name, image: product_details.large_image, description: product_details.description, quantity: 0, price: product_details.price, avgRating: product_details.avg_rating, totalReviewsCount: product_details.total_reviews_count, promotion: promotion, storage: product_details.storage, weight: product_details.weight, parentCategoryId: product_details.parent_category_id, parentCategoryName: product_details.parent_category_name, dietary_info: product_details.dietary_info, allergen_info: product_details.allergen_info, brand: product_details.brand, reviews: reviews, favourite: product_details.favourite, ingredients: ingredients, recommended: recommended)
+            let product = ProductDetailsModel(id: product_details.id, name: product_details.name, image: product_details.large_image, description: product_details.description, quantity: 0, price: product_details.price, avgRating: product_details.avg_rating, totalReviewsCount: product_details.total_reviews_count, promotion: promotion, storage: product_details.storage, weight: product_details.weight, parentCategoryId: product_details.parent_category_id, parentCategoryName: product_details.parent_category_name, dietary_info: product_details.dietary_info, allergen_info: product_details.allergen_info, brand: product_details.brand, reviews: reviews, favourite: product_details.favourite, monitoring: product_details.monitoring, ingredients: ingredients, recommended: recommended)
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(product: product)

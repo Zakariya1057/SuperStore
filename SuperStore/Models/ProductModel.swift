@@ -11,7 +11,9 @@ import Foundation
 class ProductModel: ProductItemModel {
     var id: Int
     var description: String?
+    
     var favourite: Bool? = nil
+    var monitoring: Bool? = nil
 
     var avgRating: Double = 0
     var totalReviewsCount: Int = 0
@@ -19,12 +21,13 @@ class ProductModel: ProductItemModel {
     var parentCategoryId: Int?
     var parentCategoryName: String?
 
-    init(id: Int, name: String, image: String, quantity: Int, product_id: Int, price: Double, weight: String?, promotion: PromotionModel?, description: String?, favourite: Bool?, avgRating: Double?, totalReviewsCount: Int?, parentCategoryId: Int?, parentCategoryName: String?) {
+    init(id: Int, name: String, image: String, quantity: Int, product_id: Int, price: Double, weight: String?, promotion: PromotionModel?, description: String?, favourite: Bool?, monitoring: Bool?, avgRating: Double?, totalReviewsCount: Int?, parentCategoryId: Int?, parentCategoryName: String?) {
         self.id = id
         self.description = description
         self.favourite = favourite ?? false
         self.avgRating = avgRating ?? 0
         self.totalReviewsCount = totalReviewsCount ?? 0
+        self.monitoring = monitoring
         
         self.parentCategoryId = parentCategoryId
         self.parentCategoryName = parentCategoryName
@@ -44,6 +47,7 @@ class ProductModel: ProductItemModel {
         product.avgRating = self.avgRating
         product.totalReviewsCount = self.totalReviewsCount
         product.favourite = self.favourite!
+        product.monitoring = self.monitoring ?? false
 
         product.parentCategoryId = self.parentCategoryId ?? 0
         product.parentCategoryName = self.parentCategoryName

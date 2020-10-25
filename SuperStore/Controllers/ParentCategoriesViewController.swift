@@ -19,7 +19,9 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
     
     var selected_category: ParentCategoryModel?
     
-    var delegate:GroceryDelegate?
+//    var delegate:GroceryDelegate?
+    
+    var selectedListId: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +33,7 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
         groupTableView.dataSource = self
         groupTableView.delegate = self
         
-        if(delegate == nil){
+        if(selectedListId == nil){
             self.navigationItem.rightBarButtonItem = nil
         }
         
@@ -56,10 +58,10 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "parentCategoriesToProducts" {
             let destinationVC = segue.destination as! ChildCategoriesViewController
-            destinationVC.list_delegate = delegate
+            destinationVC.selectedListId = selectedListId
             destinationVC.parentCategoryId = selected_category!.id
             destinationVC.parentCategoryName = selected_category!.name
-            destinationVC.header_text = selected_category!.name
+            destinationVC.headerText = selected_category!.name
         }
     }
     

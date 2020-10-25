@@ -148,7 +148,6 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let title = view.annotation?.title!
-        print("Selected A Store: \(title!)")
         selected_store_id = store_details[title!]
         
         if selected_store_id != nil {
@@ -156,13 +155,8 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
         }
         
     }
-        
-    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        print("Deseleted Store")
-    }
     
     @objc func showStore(){
-        print("Show Store")
         self.delegate?.storeSelected(store_id: selected_store_id!)
     }
     

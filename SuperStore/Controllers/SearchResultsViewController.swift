@@ -355,7 +355,6 @@ extension SearchResultsViewController {
         self.filters = []
         
         if searchDetails!.type == .childCategory {
-            print("Child Category: ID = \(searchDetails!.id)")
             let category = realm.objects(ChildCategoryHistory.self).filter("id = %@", searchDetails!.id).first
             
             if category != nil {
@@ -363,7 +362,6 @@ extension SearchResultsViewController {
             }
            
         } else if searchDetails!.type == .parentCategory {
-            print("Parent Category: ID = \(searchDetails!.id)")
             let results = realm.objects(ProductHistory.self).filter("parentCategoryId = %@", searchDetails!.id).sorted(byKeyPath: "avgRating", ascending: false)
             products = results.map{ $0.getProductModel() }
         } else {

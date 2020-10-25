@@ -22,7 +22,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var homeHandler = HomeHandler()
     
-    var notificationToken: NotificationToken?
+    var listNotificationToken: NotificationToken?
+    var monitoredNotificationToken: NotificationToken?
     
     var loading: Bool = true
     
@@ -64,23 +65,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         listTableView.dataSource = self
         listTableView.delegate = self
 
-        let results = realm.objects(ListHistory.self)
-        
-        notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
-            switch changes {
-                case .initial:
-                    self?.configureLists()
-                    self?.listTableView.reloadData()
-                    break
-            case .update(_, _, _, _):
-                    self?.configureLists()
-                    self?.listTableView.reloadData()
-                    break
-                case .error(let error):
-                    fatalError("\(error)")
-            }
-        }
-        
+
+        monitorListChange()
+        monitoredChange()
         
         if home != nil {
             configureUI()
@@ -137,6 +124,22 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         userHandler.requestLogout()
     }
     
+    deinit {
+        listNotificationToken?.invalidate()
+        monitoredNotificationToken?.invalidate()
+    }
+    
+    @objc func refresh(){
+        self.loading = true
+        createHomeSections()
+        listTableView.reloadData()
+        homeHandler.request()
+    }
+
+}
+
+extension HomeViewController {
+    
     func configureLists(){
 
         var showingLists:[ListModel] = []
@@ -147,7 +150,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             if home!.lists.count < 4 {
                 // No List On Page. Get Last 4 Recent. Show
-                let recentLists = self.realm.objects(ListHistory.self).sorted(byKeyPath: "updated", ascending: false)
+                let recentLists = realm.objects(ListHistory.self).sorted(byKeyPath: "updated", ascending: false)
                 
                 for index in 0...3 {
                     if recentLists.indices.contains(index){
@@ -166,21 +169,108 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+    func configureMonited(){
+        // Loop through all monitored products. Still monitered ignore. Otherwise remove.
+        // Add products that are now monitored
+        
+        if realm.isInWriteTransaction {
+            return
+        }
+        
+        print("Monitoring Change")
+        
+        if home != nil {
+            
+            try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+                
+                let monitoringElement = customElements[3] as! ProductElement
+                
+                var ignoreProducts:[Int: String] = [:]
+                var products:[ProductModel] = []
+                
+                for (index, product) in home!.monitoring.enumerated() {
+                    let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id) AND monitoring = true").first
+                    
+                    if productHistory == nil {
+                        print("Removing Unfound Product")
+                        home!.monitoring.remove(at: index)
+                    } else {
+                        products.append(product.getProductModel())
+                        ignoreProducts[product.id] = product.name
+                    }
+                }
+                
+                let newMonitored = realm.objects(ProductHistory.self).filter("monitoring = true")
+                
+                for product in newMonitored {
+                    
+                    if ignoreProducts[product.id] == nil {
+                        products.append(product.getProductModel())
+                        print("Adding new product")
+                        home!.monitoring.append(product)
+                    }
+                    
+                }
+                
+                monitoringElement.products = products
+                
+            })
+
+        }
+        
+    }
+    
     func addSectionProducts( _ products: [ProductModel], _ elementIndex:Int){
         let productElement = customElements[elementIndex] as! ProductElement
         productElement.products = products
     }
     
-    deinit {
-        notificationToken?.invalidate()
+}
+
+extension HomeViewController {
+    
+    func monitoredChange(){
+        let results = realm.objects(ProductHistory.self)
+        
+        monitoredNotificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+                case .initial:
+                    self?.configureMonited()
+                    self?.listTableView.reloadData()
+                    break
+            case .update(_, _, _, _):
+                    self?.configureMonited()
+                    self?.listTableView.reloadData()
+                    break
+                case .error(let error):
+                    fatalError("\(error)")
+            }
+        }
     }
     
-    @objc func refresh(){
-        self.loading = true
-        createHomeSections()
-        listTableView.reloadData()
-        homeHandler.request()
+    func monitorListChange(){
+        let results = realm.objects(ListHistory.self)
+        
+        listNotificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+                case .initial:
+                    self?.configureLists()
+                    self?.listTableView.reloadData()
+                    break
+            case .update(_, _, _, _):
+                    self?.configureLists()
+                    self?.listTableView.reloadData()
+                    break
+                case .error(let error):
+                    fatalError("\(error)")
+            }
+        }
+        
     }
+    
+}
+
+extension HomeViewController {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -211,9 +301,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         return cell
     }
-
+    
 }
-extension  HomeViewController {
+
+extension HomeViewController {
     
     func createHomeSections(){
         customElements = [
@@ -286,94 +377,175 @@ extension HomeViewController {
 extension HomeViewController {
     func addToHistory(_ homeItem: HomeModel){
         
-        try? realm.write(withoutNotifying: [notificationToken!], {
+        if home != nil {
+            print("Updating Home")
+            updateHistory(homeItem)
+        } else {
             
-            if home != nil {
-                //Update home.
-                print("Updating Home")
-                updateHistory(homeItem)
-            } else {
-                realm.add(homeItem.getRealmObject())
+            let home:HomeHistory = HomeHistory()
+            
+            try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+                homeItem.lists.forEach({ home.lists.append( $0.getRealmObject() )})
+                homeItem.stores.forEach({ home.stores.append( $0.getRealmObject() )})
+                homeItem.promotions.forEach({ home.promotions.append( $0.getRealmObject() )})
+                realm.add(home)
+            })
+            
+                
+            var ignoreProducts: [Int: String] = [:]
+            
+            for product in homeItem.featured {
+                
+                try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+                    
+                    if ignoreProducts[product.id] == nil {
+                        ignoreProducts[product.id] = product.name
+                        home.featured.append( product.getRealmObject() )
+                    } else {
+                        home.featured.append( realm.objects(ProductHistory.self).filter("id = \(product.id)").first! )
+                    }
+                    
+                })
+
             }
 
-        })
+            for product in homeItem.groceries {
+                
+                try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+                    if ignoreProducts[product.id] == nil {
+                        ignoreProducts[product.id] = product.name
+                        home.groceries.append( product.getRealmObject() )
+                    } else {
+                        home.groceries.append( realm.objects(ProductHistory.self).filter("id = \(product.id)").first! )
+                    }
+                })
+
+            }
+
+            for product in homeItem.monitoring {
+                
+                try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+                    if ignoreProducts[product.id] == nil {
+                        ignoreProducts[product.id] = product.name
+                        home.monitoring.append( product.getRealmObject() )
+                    } else {
+                        home.monitoring.append( realm.objects(ProductHistory.self).filter("id = \(product.id)").first! )
+                    }
+                })
+
+            }
+
+            for category in homeItem.categories {
+                let categoryItem = FeaturedCategory()
+                categoryItem.name = category.key
+                
+                try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+                    for product in category.value {
+                        if ignoreProducts[product.id] == nil {
+                            ignoreProducts[product.id] = product.name
+                            categoryItem.products.append( product.getRealmObject() )
+                        } else {
+                            categoryItem.products.append( realm.objects(ProductHistory.self).filter("id = \(product.id)").first! )
+                        }
+                    }
+                    
+                    home.categories.append(categoryItem)
+                })
+
+            }
+
+        }
         
     }
     
     func updateHistory(_ homeItem: HomeModel){
         
-        home!.lists.removeAll()
-
-        for list in homeItem.lists {
-
-            let listHistory = realm.objects(ListHistory.self).filter("id = \(list.id)").first
-
-            if listHistory != nil {
-                listHistory!.name = list.name
-                listHistory!.totalPrice = list.totalPrice
-                listHistory!.status = list.status.rawValue
-                listHistory!.tickedOffItems = list.tickedOffItems
-                listHistory!.totalItems = list.totalItems
-                listHistory!.updated = Date()
-                
-                home!.lists.append(listHistory!)
-            } else {
-                home!.lists.append(list.getRealmObject())
-            }
-
-        }
-
-        home!.promotions.removeAll()
-
-        for promotion in homeItem.promotions {
-
-            let promotionHistory = realm.objects(PromotionHistory.self).filter("id = \(promotion.id)").first
-
-            if promotionHistory != nil {
-                home!.promotions.append(promotionHistory!)
-            } else {
-                home!.promotions.append(promotion.getRealmObject())
-            }
-
-        }
-        
-        home!.featured.removeAll()
-
-        for product in homeItem.featured {
-
-            let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
-
-            if productHistory != nil {
-                home!.featured.append(productHistory!)
-            } else {
-                home!.featured.append(product.getRealmObject())
-            }
-
-        }
-        
-        home!.categories.removeAll()
-        realm.delete( realm.objects(FeaturedCategory.self) )
-
-        for category in homeItem.categories {
-            let categoryItem = FeaturedCategory()
-            categoryItem.name = category.key
+        try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
             
-            updateProducts(list: category.value, historyList: categoryItem.products)
-            home!.categories.append(categoryItem)
-        }
+            home!.lists.removeAll()
+            for list in homeItem.lists {
+
+                let listHistory = realm.objects(ListHistory.self).filter("id = \(list.id)").first
+
+                if listHistory != nil {
+                    listHistory!.name = list.name
+                    listHistory!.totalPrice = list.totalPrice
+                    listHistory!.status = list.status.rawValue
+                    listHistory!.tickedOffItems = list.tickedOffItems
+                    listHistory!.totalItems = list.totalItems
+                    listHistory!.updated = Date()
+                    
+                    home!.lists.append(listHistory!)
+                } else {
+                    home!.lists.append(list.getRealmObject())
+                }
+
+            }
+            
+        })
+            
+
+        try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+            home!.promotions.removeAll()
+            for promotion in homeItem.promotions {
+
+                let promotionHistory = realm.objects(PromotionHistory.self).filter("id = \(promotion.id)").first
+
+                if promotionHistory != nil {
+                    home!.promotions.append(promotionHistory!)
+                } else {
+                    home!.promotions.append(promotion.getRealmObject())
+                }
+
+            }
+        })
+
+        try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+            home!.featured.removeAll()
+            for product in homeItem.featured {
+
+                let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+
+                if productHistory != nil {
+                    home!.featured.append(productHistory!)
+                } else {
+                    home!.featured.append(product.getRealmObject())
+                }
+
+            }
+        })
         
-        updateProducts(list: homeItem.featured,   historyList: home!.featured)
-        updateProducts(list: homeItem.monitoring, historyList: home!.monitoring)
-        updateProducts(list: homeItem.groceries,  historyList: home!.groceries)
+        try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+            home!.categories.removeAll()
+            realm.delete( realm.objects(FeaturedCategory.self) )
+
+            for category in homeItem.categories {
+                let categoryItem = FeaturedCategory()
+                categoryItem.name = category.key
+                
+                updateProducts(list: category.value, historyList: categoryItem.products)
+                home!.categories.append(categoryItem)
+            }
+        })
         
+        try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+            updateProducts(list: homeItem.featured, historyList: home!.featured)
+        })
+        
+        try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+            updateProducts(list: homeItem.monitoring, historyList: home!.monitoring)
+        })
+        
+        try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+            updateProducts(list: homeItem.groceries, historyList: home!.groceries)
+        })
+
     }
     
     func updateProducts(list: [ProductModel], historyList: List<ProductHistory>){
-        
         historyList.removeAll()
 
         for product in list {
-
             let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
 
             if productHistory != nil {
@@ -381,7 +553,6 @@ extension HomeViewController {
             } else {
                 historyList.append(product.getRealmObject())
             }
-
         }
         
     }

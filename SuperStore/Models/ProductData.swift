@@ -30,6 +30,7 @@ struct ProductData:Decodable {
     
     var brand:String
     var favourite: Bool?
+    var monitoring: Bool?
     
     var reviews: [ReviewData]?
     var ingredients: [IngredientsData]?

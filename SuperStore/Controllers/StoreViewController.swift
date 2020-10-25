@@ -12,7 +12,9 @@ import RealmSwift
 
 class StoreViewController: UIViewController, StoreDelegate {
 
-    var delegate: GroceryDelegate?
+//    var delegate: GroceryDelegate?
+    
+    var selectedListId: Int?
     
     let realm = try! Realm()
     
@@ -95,7 +97,7 @@ class StoreViewController: UIViewController, StoreDelegate {
         startLoading()
         storeHandler.request(store_id: store_id)
         
-        if store != nil && store!.opening_hours.count == 7 {
+        if store != nil {
             stopLoading()
             configureUI()
         }
@@ -154,24 +156,36 @@ class StoreViewController: UIViewController, StoreDelegate {
     }
     
     func configureOpeningHours(opening_hours: [OpeningHoursModel]){
-        var day_of_week = Calendar.current.component(.weekday, from: Date()) - 2
         
-        if day_of_week == -1 {
-            day_of_week = 6
-        }
-        
-        for (index, hourLabel) in hoursLabels.enumerated() {
-            let day = opening_hours[index]
-            let day_name = dayLabels[index]
+        if opening_hours.count == 7 {
             
-            if day.day_of_week == day_of_week {
-                hourLabel.textColor = .systemBlue
-                day_name.textColor = .systemBlue
+            var day_of_week = Calendar.current.component(.weekday, from: Date()) - 2
+            
+            if day_of_week == -1 {
+                day_of_week = 6
             }
             
-            hourLabel.text = "\(day.opens_at) - \(day.closes_at)".lowercased()
+            for (index, hourLabel) in hoursLabels.enumerated() {
+                
+                if opening_hours.indices.contains(index) {
+                    let day = opening_hours[index]
+                    let day_name = dayLabels[index]
+                    
+                    if day.day_of_week == day_of_week {
+                        hourLabel.textColor = .systemBlue
+                        day_name.textColor = .systemBlue
+                    }
+                    
+                    hourLabel.text = "\(day.opens_at) - \(day.closes_at)".lowercased()
+                }
+
+            }
+            
+        } else {
+            hoursLabels.forEach({ $0.text = "" })
         }
-        
+
+
     }
     
     func configureFacilites(facilities: [String]){
@@ -214,7 +228,7 @@ class StoreViewController: UIViewController, StoreDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! GrandParentCategoriesViewController
-        destinationVC.delegate = self.delegate
+        destinationVC.selectedListId = self.selectedListId
         destinationVC.store_type_id = store!.getStoreModel().store_type_id
     }
     

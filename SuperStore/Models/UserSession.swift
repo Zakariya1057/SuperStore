@@ -58,7 +58,7 @@ struct UserSession {
     
     func getUserDetails() -> UserHistory? {
         let realm = try? Realm()
-        return realm!.objects(UserHistory.self).first
+        return realm?.objects(UserHistory.self).first
     }
     
     private func showUserInfo() -> UserHistory? {

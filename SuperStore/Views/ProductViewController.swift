@@ -218,6 +218,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         ratingView.text = "(\(productItem.totalReviewsCount))"
 
         showFavourite()
+        showMonitoring()
 
         if itemQuantity != nil {
             showQuantityView()
@@ -289,6 +290,16 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         self.performSegue(withIdentifier: "showProductPromotion", sender: self)
     }
     
+    @IBAction func monitorPressed(_ sender: Any) {
+        try? realm.write({
+            product!.monitoring = !product!.monitoring
+            product!.updated_at = Date()
+        })
+        
+        productHandler.requestMonitor(product_id: product_id, userData: ["monitor": String(product!.monitoring)])
+        showMonitoring()
+    }
+    
     @IBAction func favouritePressed(_ sender: Any) {
         
         if product == nil {
@@ -320,6 +331,20 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             
             barItem.tintColor = .systemYellow
             self.navigationItem.rightBarButtonItem = barItem
+            
+        }
+
+        
+    }
+    
+    func showMonitoring(){
+        if(product != nil){
+            
+            if product!.monitoring == true {
+                monitorButton.setTitle("Unmonitor Price", for: .normal)
+            } else {
+                monitorButton.setTitle("Monitor Price", for: .normal)
+            }
             
         }
 
@@ -544,6 +569,9 @@ extension ProductViewController {
                 product!.avgRating = productItem.avgRating
                 product!.product_description = productItem.description
                 product!.image = productItem.image
+                
+                product!.favourite = productItem.favourite!
+                product!.monitoring = productItem.monitoring!
                 
                 product!.parentCategoryId = productItem.parentCategoryId!
                 product!.parentCategoryName = productItem.parentCategoryName

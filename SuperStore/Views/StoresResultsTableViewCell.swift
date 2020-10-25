@@ -37,8 +37,6 @@ class StoresResultsTableViewCell: UITableViewCell {
             let address = [location.address_line1, location.address_line2, location.address_line3, location.city ]
             addressLabel.text = address.compactMap { $0 }.joined(separator: ", ")
             
-            print(store!.opening_hours)
-            
             if store!.opening_hours.count > 0 {
                 let hours = store!.opening_hours[0]
                 openStatusLabel.text = "\(hours.opens_at.lowercased()) - \(hours.closes_at.lowercased())"

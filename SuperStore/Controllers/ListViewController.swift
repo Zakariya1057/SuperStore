@@ -324,6 +324,7 @@ extension ListViewController {
             realm.delete(realm.objects(ListItemHistory.self).filter("product_id = \(product.product_id) AND list_id = \(list_id!)"))
         })
         
+        listHandler.delete(list_id: list_id!, list_data: ["product_id": String(product.product_id)])
         updateListInfo()
     }
     

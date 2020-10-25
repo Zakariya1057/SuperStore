@@ -25,6 +25,8 @@ struct K {
             
             static let Product = "product"
             static let Favourites = "favourites"
+            static let ProductMonitor = "monitor"
+            
             static let FavouritesDelete = "favourites/delete"
             
             static let Promotion = "promotion"
