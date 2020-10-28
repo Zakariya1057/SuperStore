@@ -43,7 +43,6 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
         super.viewDidLoad()
         promotionHandler.delegate = self
         promotionHandler.request(promotion_id: promotion_id!)
-        // Do any additional setup after loading the view.
         
         productsTableView.delegate = self
         productsTableView.dataSource = self

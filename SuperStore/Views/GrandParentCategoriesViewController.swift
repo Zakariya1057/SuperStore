@@ -44,7 +44,6 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
         groceryHandler.delegate = self
         
         groceryHandler.request(store_type_id: 1)
-        // Do any additional setup after loading the view.
         
         if(selectedListId == nil){
             self.navigationItem.rightBarButtonItem = nil

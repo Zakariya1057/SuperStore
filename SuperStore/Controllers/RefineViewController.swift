@@ -124,7 +124,6 @@ class RefineViewController: UIViewController, UITableViewDataSource, UITableView
         
         refineTableView.dataSource = self
         refineTableView.delegate = self
-        // Do any additional setup after loading the view.
         
         addLoadedFilters()
         setLastOptions()

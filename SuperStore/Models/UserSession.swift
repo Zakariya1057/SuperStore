@@ -23,6 +23,8 @@ struct UserSession {
         let realm = try! Realm()
         UserDefaults.standard.removeObject(forKey: "userSettings")
         
+        resetDefaultRealm()
+        
         try? realm.write({
             realm.delete(realm.objects(UserHistory.self))
         })
@@ -45,7 +47,7 @@ struct UserSession {
         saveUserInfo(userData: userData)
         
         let realm = try! Realm()
-        
+       
         try? realm.write({
             realm.add(userData)
         })
@@ -95,6 +97,12 @@ struct UserSession {
             Realm.Configuration.defaultConfiguration = config
         }
 
+    }
+    
+    func resetDefaultRealm(){
+        var config = Realm.Configuration()
+        config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("default.realm")
+        Realm.Configuration.defaultConfiguration = config
     }
 
 }

@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import RealmSwift
+import AuthenticationServices
 
 class RegisterViewController: UIViewController, UserDelegate {
     var userHandler = UserHandler()
 
+    let realm = try! Realm()
+    
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -31,7 +35,6 @@ class RegisterViewController: UIViewController, UserDelegate {
         repeatPasswordField.delegate = self
         
         nameField.delegate = self
-        // Do any additional setup after loading the view.
         
         for (index, field) in fields.enumerated() {
             field.tag = index

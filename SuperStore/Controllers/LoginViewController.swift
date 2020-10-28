@@ -8,6 +8,7 @@
 
 import UIKit
 import AuthenticationServices
+import RealmSwift
 
 class LoginViewController: UIViewController, UserDelegate {
     
@@ -19,6 +20,9 @@ class LoginViewController: UIViewController, UserDelegate {
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
+    let realm = try! Realm()
+    let appleSession = AppleUserSession()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userHandler.delegate = self
@@ -28,7 +32,20 @@ class LoginViewController: UIViewController, UserDelegate {
         
         emailField.tag = 0
         passwordField.tag = 1
-//        setUpSignInAppleButton()
+        setUpSignInAppleButton()
+        
+//
+//        let user = UserHistory()
+//        user.password = "password"
+//        user.userToken = "token"
+//        user.email = "Email"
+//        user.name = "Name"
+//        user.identifier = "Identifier"
+//
+//        try! realm.write({
+//            realm.add(user)
+//        })
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,11 +106,11 @@ class LoginViewController: UIViewController, UserDelegate {
 extension LoginViewController: ASAuthorizationControllerDelegate {
     
     func setUpSignInAppleButton() {
-      let authorizationButton = ASAuthorizationAppleIDButton()
-      authorizationButton.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)
-      authorizationButton.cornerRadius = 10
-      //Add button on some view or stack
-      self.signInButtonStack.addArrangedSubview(authorizationButton)
+        let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
+        authorizationButton.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)
+
+        authorizationButton.cornerRadius = 0
+        self.signInButtonStack.addArrangedSubview(authorizationButton)
     }
     
     @objc func handleAppleIdRequest() {
@@ -105,21 +122,16 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         authorizationController.delegate = self
         authorizationController.performRequests()
     }
-    
+
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-            if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
-                
-                let userIdentifier = appleIDCredential.user
-                let fullName = appleIDCredential.fullName
-                let email = appleIDCredential.email
-                
-                print("User id is \(userIdentifier) \n Full Name is \(String(describing: fullName)) \n Email id is \(String(describing: email))")
-                
-            }
+        if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
+            let user = appleSession.login(appleIDCredential: appleIDCredential)
+            userHandler.requestRegister(name:user.name, email: user.email, password: user.password, passwordConfirmation: user.password, identifier: user.identifier, userToken: user.userToken)
+            startLoading()
+        }
     }
-    
+
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-    // Handle error.
         print(error)
     }
 }

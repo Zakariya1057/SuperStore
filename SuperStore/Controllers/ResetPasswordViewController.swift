@@ -32,7 +32,6 @@ class ResetPasswordViewController: UIViewController, UserDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         userHandler.delegate = self
-        // Do any additional setup after loading the view.
         
         passwordField.delegate = self
         confirmPasswordField.delegate = self

@@ -21,9 +21,9 @@ struct UserHandler {
     
     let requestHandler = RequestHandler()
     
-    func requestRegister(name: String, email: String, password: String, passwordConfirmation: String){
+    func requestRegister(name: String, email: String, password: String, passwordConfirmation: String, identifier: String = "", userToken: String = ""){
         let urlString = "\(K.Host)/\(K.Request.User.Register)"
-        requestHandler.postRequest(url: urlString, data: ["name": name, "password": password, "password_confirmation": passwordConfirmation, "email": email ], complete: processResults, error: processError, logOutUser: logOutUser )
+        requestHandler.postRequest(url: urlString, data: ["name": name, "password": password, "password_confirmation": passwordConfirmation, "email": email, "identifier": identifier, "user_token": userToken ], complete: processResults, error: processError, logOutUser: logOutUser )
     }
     
     func requestLogin(email: String, password: String){
@@ -82,6 +82,7 @@ struct UserHandler {
             user.name = userData.name
             user.email = userData.email
             user.token = userData.token
+            
             
             userSession.setLoggedIn(user)
             

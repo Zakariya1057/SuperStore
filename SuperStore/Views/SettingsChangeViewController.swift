@@ -49,7 +49,6 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
         
         inputField.delegate = self
         userHandler.delegate = self
-        // Do any additional setup after loading the view.
     }
     
 
