@@ -160,7 +160,8 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
             } else {
                 productItem!.updated_at = Date()
                 productItem!.name = product.name
-                productItem!.image = product.image
+                productItem!.smallImage = product.smallImage
+                productItem!.largeImage = product.largeImage
                 productItem!.avgRating = product.avgRating
                 productItem!.totalReviewsCount = product.totalReviewsCount
             }

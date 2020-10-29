@@ -83,7 +83,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
         
-    func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel], paginate: PaginateResultsModel?) {
+    func contentLoaded(stores: [StoreModel], products: [ProductModel], paginate: PaginateResultsModel?) {
         
         if currentPage == 1 {
             self.products = []
@@ -91,9 +91,10 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         }
         
         self.products.append(contentsOf: products)
-        self.filters.append(contentsOf: filters)
         self.paginate = paginate
 
+        generateFilters()
+        
         for product in products {
             addToHistory(product)
         }
@@ -126,6 +127,45 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
 
 //MARK: - Refine Results
 extension SearchResultsViewController {
+    
+    func generateFilters(){
+        
+        var filterCategories: RefineOptionModel = RefineOptionModel(header: "Categories", values: [], type: .category)
+        var filterBrands: RefineOptionModel = RefineOptionModel(header: "Brands", values: [], type: .brand)
+        
+        var uniqueBrands: [String: Int] = [:]
+        var uniqueCategories: [String: Int] = [:]
+                    
+        for product in products {
+            
+            if product.brand != nil {
+                if uniqueBrands[product.brand!] == nil {
+                    uniqueBrands[product.brand!] = 1
+                } else {
+                    uniqueBrands[product.brand!] = uniqueBrands[product.brand!]! + 1
+                }
+            }
+
+            if product.childCategoryName != nil {
+                if uniqueCategories[product.childCategoryName!] == nil {
+                    uniqueCategories[product.childCategoryName!] = 1
+                } else {
+                    uniqueCategories[product.childCategoryName!] = uniqueCategories[product.childCategoryName!]! + 1
+                }
+            }
+            
+        }
+        
+        for category in uniqueCategories {
+            filterCategories.values.append(RefineModel(name: category.key, selected: false, quantity: category.value))
+        }
+        
+        for brand in uniqueBrands {
+            filterBrands.values.append(RefineModel(name: brand.key, selected: false, quantity: brand.value))
+        }
+
+        self.filters = [filterBrands, filterCategories]
+    }
     
     func applyOptions(sort: RefineSortModel?, category: RefineModel?,brand: RefineModel?, dietary: [RefineModel]){
         selectedSort = sort

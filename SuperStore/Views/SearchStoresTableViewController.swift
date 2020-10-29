@@ -56,7 +56,7 @@ class SearchStoresViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     
-    func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel], paginate: PaginateResultsModel?) {
+    func contentLoaded(stores: [StoreModel], products: [ProductModel], paginate: PaginateResultsModel?) {
         
         for store in stores {
             addToHistory(store)

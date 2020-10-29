@@ -25,7 +25,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     @IBOutlet var quantityStepper: UIStepper!
     @IBOutlet var stepperLabel: UILabel!
-    var delegate:GroceryDelegate?
+    var delegate: GroceryDelegate?
     
     var add_to_list_product_id: Int?
     var noDelegateFound: Bool = false
@@ -172,7 +172,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
        
     }
     
-    func contentLoaded(product: ProductDetailsModel) {
+    func contentLoaded(product: ProductModel) {
         addToHistory(product)
         configureUI()
     }
@@ -208,7 +208,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         productPriceLabel.text = "£" + String(format: "%.2f", productItem.price)
         
         if !imageLoaded {
-            productImageView.downloaded(from: productItem.image)
+            productImageView.downloaded(from: productItem.largeImage)
             imageLoaded = true
         }
 
@@ -552,7 +552,7 @@ extension ProductViewController {
 }
 
 extension ProductViewController {
-    func addToHistory(_ productItem: ProductDetailsModel){
+    func addToHistory(_ productItem: ProductModel){
         
         self.recommended = productItem.recommended
         
@@ -563,10 +563,11 @@ extension ProductViewController {
                 
                 realm.delete( realm.objects(ReviewHistory.self).filter("product_id = \(productItem.id)") )
                 
-                product!.brand = productItem.brand
+                product!.brand = productItem.brand ?? ""
                 product!.avgRating = productItem.avgRating
                 product!.product_description = productItem.description
-                product!.image = productItem.image
+                product!.smallImage = productItem.smallImage
+                product!.largeImage = productItem.largeImage
                 
                 product!.favourite = productItem.favourite!
                 product!.monitoring = productItem.monitoring!

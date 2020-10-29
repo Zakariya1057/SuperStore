@@ -71,7 +71,7 @@ class GroceryTableViewCell: UITableViewCell {
         
         showPrice()
         
-        productImage.downloaded(from: current_product.image)
+        productImage.downloaded(from: current_product.smallImage)
         
         if(product!.quantity > 0){
             show_quantity_view()

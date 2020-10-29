@@ -42,7 +42,7 @@ class FeaturedProductCollectionViewCell: UICollectionViewCell {
         }
         
         if product != nil {
-            foodImage.downloaded(from: product!.image)
+            foodImage.downloaded(from: product!.smallImage)
             productLabel.text = product!.name
             
             let price = String(format: "%.2f",product!.price )

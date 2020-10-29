@@ -73,7 +73,7 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         reviewHandler.show(product_id: product!.id)
         
         nameLabel.text = product!.name
-        imageView.downloaded(from: product!.image)
+        imageView.downloaded(from: product!.largeImage)
         
         if review != nil {
             configureUI()

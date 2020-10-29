@@ -320,15 +320,15 @@ extension RefineViewController {
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         
-//        var quantity: String = ""
-//
-//        if item.quantity != nil {
-//            quantity = "(\(String(item.quantity!)))"
-//        }
-//
-//        cell.name = "\(item.name) \(quantity)"
+        var quantity: String = ""
+
+        if item.quantity != nil {
+            quantity = "(\(String(item.quantity!)))"
+        }
+
+        cell.name = "\(item.name) \(quantity)"
         
-        cell.name = "\(item.name)"
+//        cell.name = "\(item.name)"
         
         cell.configureUI()
         

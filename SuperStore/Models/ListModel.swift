@@ -74,7 +74,7 @@ class ListItemModel: ProductItemModel {
         self.ticked_off = ticked_off
         self.id = id
         
-        super.init(name: name, image: image, quantity: quantity, product_id: product_id, price: price, weight: weight, promotion: promotion)
+        super.init(name: name, smallImage: image, largeImage: image, quantity: quantity, product_id: product_id, price: price, weight: weight, promotion: promotion)
 
     }
     
@@ -86,7 +86,7 @@ class ListItemModel: ProductItemModel {
         list.totalPrice = self.totalPrice
         list.product_id = self.product_id
         list.quantity = self.quantity
-        list.image = self.image
+        list.image = self.largeImage
         list.ticked_off = self.ticked_off
         list.weight = self.weight ?? ""
         list.promotion = self.promotion?.getRealmObject()

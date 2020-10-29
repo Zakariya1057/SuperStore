@@ -26,7 +26,7 @@ struct ListManager {
 
                 listItem!.product_id = product.id
                 listItem!.name = product.name
-                listItem!.image = product.image
+                listItem!.image = product.largeImage
                 listItem!.price = product.price
                 listItem!.promotion = product.promotion?.getRealmObject()
                 listItem!.list_id = listId

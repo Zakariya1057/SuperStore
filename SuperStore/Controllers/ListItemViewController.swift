@@ -63,7 +63,7 @@ class ListItemViewController: UIViewController {
         quantityLabel.text = String(product!.quantity)
         productNameLabel.text = String(product!.name) + ( product!.weight != "" ? " (\(product!.weight!))" : "")
         stepper.value = Double(product!.quantity)
-        productImageView.downloaded(from: product!.image)
+        productImageView.downloaded(from: product!.largeImage)
         updateTotalPrice()
     }
     

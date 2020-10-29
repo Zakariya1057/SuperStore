@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ProductDetailsDelegate {
-    func contentLoaded(product: ProductDetailsModel)
+    func contentLoaded(product: ProductModel)
     func errorHandler(_ message:String)
     func logOutUser()
 }
@@ -67,11 +67,11 @@ struct ProductDetailsHandler {
             
             for product_item in product_details.recommended ?? [] {
                 recommended.append(
-                    ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, quantity: 0, product_id: product_item.id, price: product_item.price, weight: product_item.weight, promotion: nil, description: product_item.description, favourite: product_item.favourite, monitoring: nil, avgRating: product_item.avg_rating, totalReviewsCount: product_item.total_reviews_count, parentCategoryId: product_item.parent_category_id, parentCategoryName: product_item.parent_category_name)
+                    ProductModel(id: product_item.id, name: product_item.name, smallImage: product_item.small_image, largeImage: product_item.large_image, description: product_item.description, quantity: 0, price: product_item.price, avgRating: product_item.avg_rating, totalReviewsCount: product_item.total_reviews_count, promotion: nil, storage: product_item.storage, weight: product_item.weight, parentCategoryId: product_item.parent_category_id, parentCategoryName: product_item.parent_category_name, childCategoryName: nil, dietary_info: product_item.dietary_info, allergen_info: product_item.allergen_info, brand: product_item.brand, reviews: [], favourite: nil, monitoring: nil, ingredients: [], recommended: [])
                 )
             }
             
-            let product = ProductDetailsModel(id: product_details.id, name: product_details.name, image: product_details.large_image, description: product_details.description, quantity: 0, price: product_details.price, avgRating: product_details.avg_rating, totalReviewsCount: product_details.total_reviews_count, promotion: promotion, storage: product_details.storage, weight: product_details.weight, parentCategoryId: product_details.parent_category_id, parentCategoryName: product_details.parent_category_name, dietary_info: product_details.dietary_info, allergen_info: product_details.allergen_info, brand: product_details.brand, reviews: reviews, favourite: product_details.favourite, monitoring: product_details.monitoring, ingredients: ingredients, recommended: recommended)
+            let product = ProductModel(id: product_details.id, name: product_details.name, smallImage: product_details.small_image, largeImage: product_details.large_image, description: product_details.description, quantity: 0, price: product_details.price, avgRating: product_details.avg_rating, totalReviewsCount: product_details.total_reviews_count, promotion: promotion, storage: product_details.storage, weight: product_details.weight, parentCategoryId: product_details.parent_category_id, parentCategoryName: product_details.parent_category_name, childCategoryName: nil, dietary_info: product_details.dietary_info, allergen_info: product_details.allergen_info, brand: product_details.brand, reviews: reviews, favourite: product_details.favourite, monitoring: product_details.monitoring, ingredients: ingredients, recommended: recommended)
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(product: product)

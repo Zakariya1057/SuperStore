@@ -9,7 +9,6 @@
 import Foundation
 
 class ProductItemModel {
-    var image: String
     var name: String
     var quantity: Int = 0
     var product_id: Int
@@ -17,12 +16,15 @@ class ProductItemModel {
     var promotion: PromotionModel?
     var weight: String? = nil
     var totalPrice: Double = 1
+    var smallImage: String
+    var largeImage: String
     
     var listManager: ListManager = ListManager()
     
-    init(name: String, image: String,quantity: Int, product_id: Int, price: Double, weight: String?,promotion: PromotionModel?) {
+    init(name: String, smallImage: String, largeImage: String,quantity: Int, product_id: Int, price: Double, weight: String?,promotion: PromotionModel?) {
         self.name = name
-        self.image = image
+        self.smallImage = smallImage
+        self.largeImage = largeImage
         self.quantity = quantity
         self.product_id = product_id
         self.price = price

@@ -13,7 +13,10 @@ class ProductHistory: Object {
     
     @objc dynamic var id: Int = 1
     @objc dynamic var name:String = ""
-    @objc dynamic var image: String = ""
+    
+    @objc dynamic var smallImage: String = ""
+    @objc dynamic var largeImage: String = ""
+    
     @objc dynamic var product_description: String? = ""
     @objc dynamic var price:Double = 0
     
@@ -24,6 +27,7 @@ class ProductHistory: Object {
     
     @objc dynamic var parentCategoryId: Int = 1
     @objc dynamic var parentCategoryName: String? = ""
+    @objc dynamic var childCategoryName: String? = ""
     
     @objc dynamic var storage: String?
     
@@ -54,16 +58,16 @@ class ProductHistory: Object {
         return ["name","parentCategoryId"]
     }
     
-    func getProductModel() -> ProductDetailsModel {
+    func getProductModel() -> ProductModel {
         
-        return ProductDetailsModel(
-            id: self.id, name: self.name, image: self.image,
+        return ProductModel(
+            id: self.id, name: self.name, smallImage: self.smallImage, largeImage: self.largeImage,
             description: self.product_description, quantity: self.quantity,
             price: self.price,avgRating: self.avgRating,
             totalReviewsCount: self.totalReviewsCount,
             promotion: self.promotion?.getPromotionModel(), storage: self.storage,
             weight: self.weight, parentCategoryId: self.parentCategoryId,
-            parentCategoryName: self.parentCategoryName,
+            parentCategoryName: self.parentCategoryName, childCategoryName: self.childCategoryName,
             dietary_info: self.dietary_info, allergen_info: self.allergen_info,
             brand: self.brand, reviews: self.reviews.map {$0.getReviewModel()} , favourite: self.favourite, monitoring: self.monitoring,
             ingredients:self.ingredients.map { "\($0)"} , recommended: [])

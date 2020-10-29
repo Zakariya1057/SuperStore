@@ -33,7 +33,6 @@ struct SearchResultsDataResponse: Decodable {
 struct SearchResultsData: Decodable {
     let stores:[StoreData]
     let products:[ProductData]
-    let filter:FilterResultsData?
     let paginate: PaginateResultsData?
 }
 

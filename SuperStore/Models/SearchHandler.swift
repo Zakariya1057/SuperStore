@@ -15,7 +15,7 @@ protocol SearchSuggestionsDelegate {
 }
 
 protocol SearchResultsDelegate {
-    func contentLoaded(stores: [StoreModel], products: [ProductModel], filters: [RefineOptionModel], paginate: PaginateResultsModel?)
+    func contentLoaded(stores: [StoreModel], products: [ProductModel], paginate: PaginateResultsModel?)
     func errorHandler(_ message:String)
     func logOutUser()
 }
@@ -95,26 +95,11 @@ struct SearchHandler {
             var stores: [StoreModel] = []
             var products: [ProductModel] = []
             var paginate: PaginateResultsModel? = nil
-            
-            var filterCategories: RefineOptionModel = RefineOptionModel(header: "Categories", values: [], type: .category)
-            var filterBrands: RefineOptionModel = RefineOptionModel(header: "Brands", values: [], type: .brand)
-            
-            let filterResults = resultsData.filter ?? FilterResultsData(brands: [:], categories: [:])
-            
-            for brand in filterResults.brands ?? [:] {
-                filterBrands.values.append(RefineModel(name: brand.key, selected: false, quantity: brand.value))
-            }
-            
-            for categories in filterResults.categories ?? [:] {
-                filterCategories.values.append(RefineModel(name: categories.key, selected: false, quantity: categories.value))
-            }
+
             
             if paginateData != nil {
-                print("Paginate Data Found")
                 paginate = PaginateResultsModel(from: paginateData!.from, current: paginateData!.current, to: paginateData!.to, per_page: paginateData!.per_page, next_page_url: paginateData!.next_page_url, current_page_url: paginateData!.current_page_url, prev_page_url: paginateData!.prev_page_url, more_available: paginateData!.more_available)
             }
-            
-            let filters: [RefineOptionModel] = [filterCategories, filterBrands]
 
             for store in resultsData.stores {
                 let hour = OpeningHoursModel(store_id: store.id, opens_at: store.opens_at!, closes_at: store.closes_at!, closed_today: false, day_of_week: 1)
@@ -123,19 +108,22 @@ struct SearchHandler {
                 
             }
             
-            for product_item in resultsData.products {
+            for product in resultsData.products {
                 
                 var promotion: PromotionModel? = nil
                 
-                if product_item.promotion != nil {
-                    promotion = PromotionModel(id: product_item.promotion!.id, name: product_item.promotion!.name, quantity: product_item.promotion!.quantity!, price: product_item.promotion!.price, forQuantity: product_item.promotion!.for_quantity)
+                if product.promotion != nil {
+                    promotion = PromotionModel(id: product.promotion!.id, name: product.promotion!.name, quantity: product.promotion!.quantity!, price: product.promotion!.price, forQuantity: product.promotion!.for_quantity)
                 }
                 
-                products.append( ProductModel(id: product_item.id, name: product_item.name, image: product_item.small_image, quantity: 0, product_id: product_item.id, price: product_item.price, weight: product_item.weight, promotion: promotion, description: product_item.description, favourite: product_item.favourite, monitoring: nil, avgRating: product_item.avg_rating, totalReviewsCount: product_item.total_reviews_count, parentCategoryId: product_item.parent_category_id, parentCategoryName: product_item.parent_category_name) )
+                products.append(
+                    ProductModel(id: product.id, name: product.name, smallImage: product.small_image, largeImage: product.large_image, description: product.description, quantity: 0, price: product.price, avgRating: product.avg_rating, totalReviewsCount: product.total_reviews_count, promotion: promotion, storage: product.storage, weight: product.weight, parentCategoryId: product.parent_category_id, parentCategoryName: product.parent_category_name, childCategoryName: product.child_category_name, dietary_info: product.dietary_info, allergen_info: product.allergen_info, brand: product.brand, reviews: [], favourite: nil, monitoring: nil, ingredients: [], recommended: [])
+                )
+                
             }
             
             DispatchQueue.main.async {
-                self.resultsDelegate?.contentLoaded(stores: stores, products: products, filters: filters, paginate: paginate)
+                self.resultsDelegate?.contentLoaded(stores: stores, products: products, paginate: paginate)
             }
         
         } catch {

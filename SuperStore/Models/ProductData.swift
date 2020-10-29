@@ -39,6 +39,7 @@ struct ProductData:Decodable {
     
     var parent_category_id: Int?
     var parent_category_name: String?
+    var child_category_name: String?
     
     var promotion: PromotionData?
 }
