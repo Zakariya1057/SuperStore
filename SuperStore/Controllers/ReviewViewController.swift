@@ -15,7 +15,6 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     @IBOutlet weak var reviewTextView: UITextView!
     
     @IBOutlet weak var imageView: UIImageView!
-//    var product: ProductDetailsModel?
     
     var product_id: Int?
     

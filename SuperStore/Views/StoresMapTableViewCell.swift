@@ -36,8 +36,6 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
     
     var delegate: StoreSelectedDelegate?
     
-//    @IBOutlet private var mapView: MKMapView!
-    
     var selected_store_id: Int?
     
     @IBOutlet weak var titleLabel: UILabel!

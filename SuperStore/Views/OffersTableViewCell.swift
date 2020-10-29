@@ -65,7 +65,6 @@ class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDe
         
         offersCollectionView.delegate = self
         offersCollectionView.dataSource = self
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

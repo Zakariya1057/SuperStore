@@ -75,6 +75,8 @@ class RegisterViewController: UIViewController, UserDelegate {
             return showError("Passwords don't match")
         }
         
+        view.endEditing(true)
+        
         startLoading()
         userHandler.requestRegister(name: name, email: email, password: password, passwordConfirmation: passwordConfirmation)
     }

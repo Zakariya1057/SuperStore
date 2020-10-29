@@ -8,13 +8,7 @@
 
 import UIKit
 
-//protocol OptionSelectedDelegate {
-//    func optionSelected(section: Int, row: Int)
-//}
-
 class RefineTableViewCell: UITableViewCell {
-
-//    var delegate: OptionSelectedDelegate?
     
     @IBOutlet var nameLabel: UILabel!
     
@@ -27,7 +21,6 @@ class RefineTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         configureUI()
     }
     

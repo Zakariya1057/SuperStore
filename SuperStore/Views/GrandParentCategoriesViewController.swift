@@ -25,8 +25,6 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     
     var selected_category: GrandParentCategoryModel?
     
-//    var delegate:GroceryDelegate?
-    
     var selectedListId: Int?
     
     @IBOutlet weak var done_button: UIBarButtonItem!

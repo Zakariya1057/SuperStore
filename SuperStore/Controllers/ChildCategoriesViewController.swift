@@ -19,8 +19,6 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
 
     let realm = try! Realm()
     
-//    var list_delegate: GroceryDelegate?
-    
     var groceryHandler = GroceryProductsHandler()
     
     var parentCategoryId: Int?

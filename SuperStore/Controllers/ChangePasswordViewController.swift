@@ -50,6 +50,8 @@ class ChangePasswordViewController: UIViewController, UserDelegate {
             return showError("Passwords don't match")
         }
         
+        view.endEditing(true)
+        
         startLoading()
         
     }

@@ -31,7 +31,6 @@ class FeaturedProductCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     func configureUI(){

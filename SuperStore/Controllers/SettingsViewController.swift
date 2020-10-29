@@ -23,6 +23,8 @@ class SettingsViewController: UIViewController, UserDelegate  {
     var fieldName:String = ""
     var fieldValue:String = ""
     
+    let spinner: SpinnerViewController = SpinnerViewController()
+    
     var userDetails: UserHistory? {
         return userSession.getUserDetails()
     }
@@ -73,16 +75,31 @@ class SettingsViewController: UIViewController, UserDelegate  {
     }
     
     func contentLoaded() {
-        
+        stopLoading()
+        userHandler.userSession.deleteUser()
     }
     
     func errorHandler(_ message: String) {
         showError(message)
+        stopLoading()
     }
     
     func showUserDetails(){
         nameLabel.text = userDetails?.name
         emailLabel.text = userDetails?.email
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+    }
+    
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
     }
     
     @objc func usernamePressed(){
@@ -129,7 +146,7 @@ class SettingsViewController: UIViewController, UserDelegate  {
     }
     
     func showError(_ error: String){
-        let alert = UIAlertController(title: "Login Error", message: error, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete Error", message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
@@ -141,9 +158,8 @@ class SettingsViewController: UIViewController, UserDelegate  {
     }
     
     func deleteAccount(){
+        startLoading()
         userHandler.requestDelete(userData: ["id": String(userDetails!.id), "email": userDetails!.email])
-        logOut()
-        userHandler.userSession.deleteUser()
     }
 
 }

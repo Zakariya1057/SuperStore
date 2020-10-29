@@ -49,7 +49,6 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     var filters: [RefineOptionModel] = []
     var paginate: PaginateResultsModel?
     
-//    var noDelegateFound: Bool = false
     var listRequired: Bool = true
     
     var listManager: ListManager = ListManager()

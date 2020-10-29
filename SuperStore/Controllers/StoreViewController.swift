@@ -11,8 +11,6 @@ import SkeletonView
 import RealmSwift
 
 class StoreViewController: UIViewController, StoreDelegate {
-
-//    var delegate: GroceryDelegate?
     
     var selectedListId: Int?
     
@@ -77,7 +75,7 @@ class StoreViewController: UIViewController, StoreDelegate {
     }
     
     var loadingViews: [UIView] {
-        var views:[UIView] = [storeLogoView, storeAddressLabel,storeNameLabel,groceryButton]
+        var views:[UIView] = [storeAddressLabel,storeNameLabel,groceryButton]
         views.append(contentsOf: dayLabels.compactMap { $0 } )
         views.append(contentsOf: hoursLabels.compactMap { $0 } )
         views.append(contentsOf: facilityLabel.compactMap { $0 } )

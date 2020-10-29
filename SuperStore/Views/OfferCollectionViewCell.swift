@@ -25,7 +25,6 @@ class OfferCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     func configureUI() {

@@ -52,13 +52,11 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     @IBOutlet weak var allergenLabel: UILabel!
     @IBOutlet weak var reviewButton: UIButton!
     
-//    @IBOutlet weak var promotionExpiryLabel: UILabel!
     @IBOutlet weak var promotionLabel: UILabel!
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var parentRatingView: UIView!
     
     @IBOutlet weak var reviewsTableView: UITableView!
-//    var product: ProductDetailsModel?
     
     var details_type: String = ""
     

@@ -33,18 +33,6 @@ class LoginViewController: UIViewController, UserDelegate {
         emailField.tag = 0
         passwordField.tag = 1
         setUpSignInAppleButton()
-        
-//
-//        let user = UserHistory()
-//        user.password = "password"
-//        user.userToken = "token"
-//        user.email = "Email"
-//        user.name = "Name"
-//        user.identifier = "Identifier"
-//
-//        try! realm.write({
-//            realm.add(user)
-//        })
 
     }
     
@@ -68,6 +56,8 @@ class LoginViewController: UIViewController, UserDelegate {
             return showError(error!)
         }
 
+        view.endEditing(true)
+        
         startLoading()
         userHandler.requestLogin(email: email, password: password)
     }
@@ -104,7 +94,7 @@ class LoginViewController: UIViewController, UserDelegate {
 }
 
 extension LoginViewController: ASAuthorizationControllerDelegate {
-    
+
     func setUpSignInAppleButton() {
         let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
         authorizationButton.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)

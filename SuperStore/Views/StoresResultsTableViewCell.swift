@@ -24,7 +24,6 @@ class StoresResultsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         configureUI()
-        // Initialization code
     }
 
     func configureUI(){

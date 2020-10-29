@@ -17,8 +17,6 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
     
     let realm = try! Realm()
     
-//    var delegate: UserDetailsChangedDelegate?
-    
     @IBOutlet weak var inputField: UITextField!
     @IBOutlet weak var headerLabel: UILabel!
     
@@ -65,6 +63,8 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
         }
         
         let userData = ["type": type!, type!: input]
+        
+        view.endEditing(true)
         
         startLoading()
         userHandler.requestUpdate(userData: userData)

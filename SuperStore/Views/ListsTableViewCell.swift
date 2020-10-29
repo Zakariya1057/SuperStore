@@ -21,7 +21,6 @@ class ListsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     var loadingViews: [UIView] {

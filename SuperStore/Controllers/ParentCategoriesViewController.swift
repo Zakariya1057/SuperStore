@@ -19,8 +19,6 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
     
     var selected_category: ParentCategoryModel?
     
-//    var delegate:GroceryDelegate?
-    
     var selectedListId: Int?
     
     override func viewDidLoad() {

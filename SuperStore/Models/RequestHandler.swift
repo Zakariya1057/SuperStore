@@ -30,13 +30,13 @@ struct RequestHandler {
         
         let headers: HTTPHeaders = [
             "X-Authorization": "Bearer \(token)",
-            "X-Requested-With": "XMLHttpRequest"
+            "X-Requested-With": "XMLHttpRequest",
         ]
         
         print("GET REQUEST: \(urlString)")
         
         AF
-            .request(urlString, headers: headers,requestModifier: { $0.timeoutInterval = self.requestTimeout })
+            .request(urlString, encoding: JSONEncoding.default, headers: headers,requestModifier: { $0.timeoutInterval = self.requestTimeout })
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
@@ -57,10 +57,12 @@ struct RequestHandler {
         
         let headers: HTTPHeaders = [
             "X-Authorization": "Bearer \(token)",
-            "X-Requested-With": "XMLHttpRequest"
+            "X-Requested-With": "XMLHttpRequest",
         ]
         
-        AF.request(urlString, method: .post, parameters: body,encoder: URLEncodedFormParameterEncoder(destination: .httpBody), headers: headers,requestModifier: { $0.timeoutInterval = self.requestTimeout })
+        
+        
+        AF.request(urlString, method: .post, parameters: body,encoding: JSONEncoding.default, headers: headers,requestModifier: { $0.timeoutInterval = self.requestTimeout })
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in

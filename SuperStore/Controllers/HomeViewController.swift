@@ -38,6 +38,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+//        KingfisherManager.shared.cache.clearMemoryCache()
+//        KingfisherManager.shared.cache.clearDiskCache()
+//        KingfisherManager.shared.cache.cleanExpiredDiskCache()
+        
         homeHandler.delegate = self
         homeHandler.request()
         
@@ -588,7 +594,9 @@ extension UIImageView {
             self.kf.setImage(
                 with: url,
                 options: [
-                    .cacheOriginalImage
+                    .cacheOriginalImage,
+                    .forceTransition,
+                    .scaleFactor(UIScreen.main.scale),
                 ])
         }
 
