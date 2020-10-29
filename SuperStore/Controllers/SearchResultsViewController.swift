@@ -172,7 +172,7 @@ extension SearchResultsViewController {
         selectedCategory = category
         selectedDietary = dietary
         selectedBrand = brand
-        
+        currentPage = 1
         search()
     }
     
