@@ -7,12 +7,10 @@
 //
 
 import Foundation
-import RealmSwift
+import SwiftKeychainWrapper
 import AuthenticationServices
 
 struct AppleUserSession {
-    
-    let realm = try! Realm()
     
     public func login(appleIDCredential: ASAuthorizationAppleIDCredential) -> UserHistory {
 
@@ -32,22 +30,24 @@ struct AppleUserSession {
             user.email = userEmail!
             user.name = "\(userFullName!.givenName!) \(userFullName!.familyName!)"
             
-            try! realm.write({
-                realm.add(user)
-            })
+            KeychainWrapper.standard.set(try! PropertyListEncoder().encode(user), forKey: "appleUserAccounts")
             
         } else if userIdentifier != "" {
             // User identifier found instead. This can mean:
             // 1. User already register.  Get details from storage. Send Details Endpoint.
             // 2. User login previously failed. Network Error. Get details from storage. Send Details Endpoint.
-            let userInfo = realm.objects(UserHistory.self).filter("identifier = %@", userIdentifier).first
             
-            if userInfo == nil {
-                print("Error: No User Found In History.")
-            } else {
+            let userSettings =  KeychainWrapper.standard.data(forKey: "appleUserAccounts")
+            
+            if userSettings != nil {
+                let userInfo = try? PropertyListDecoder().decode(UserHistory.self, from: userSettings!)
+                
                 user.email = userInfo!.email
                 user.name = userInfo!.name
                 user.password = userInfo!.password
+                
+            } else {
+                print("Error: No User Found In History.")
             }
             
         }

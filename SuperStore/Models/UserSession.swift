@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import SwiftKeychainWrapper
 
 struct UserSession {
     
@@ -64,7 +65,7 @@ struct UserSession {
     }
     
     private func showUserInfo() -> UserHistory? {
-        guard let userSettings = userDefaults.object(forKey: "userSettings") as? Data else {
+        guard let userSettings =  KeychainWrapper.standard.data(forKey: "userSetting") else {
             return nil
         }
         
@@ -77,7 +78,7 @@ struct UserSession {
     }
     
     private func saveUserInfo(userData: UserHistory){
-        userDefaults.set(try? PropertyListEncoder().encode(userData), forKey: "userSettings")
+        KeychainWrapper.standard.set(try! PropertyListEncoder().encode(userData), forKey: "userSetting")
     }
     
     func isLoggedIn() -> Bool{
