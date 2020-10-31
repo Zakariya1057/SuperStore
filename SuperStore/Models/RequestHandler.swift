@@ -11,6 +11,12 @@ import Alamofire
 import RealmSwift
 
 struct RequestHandler {
+
+    var offline: Bool = false
+    
+    static var sharedInstance: RequestHandler = {
+        return RequestHandler()
+    }()
     
     let userSession = UserSession()
     
@@ -24,7 +30,7 @@ struct RequestHandler {
         
         let urlString = parseURL(urlString: urlString)
         
-        let token = userSession.getUserToken()!
+        let token = userSession.getUserToken() ?? ""
         
         print("Token: \(token)")
         
@@ -60,8 +66,6 @@ struct RequestHandler {
             "X-Requested-With": "XMLHttpRequest",
         ]
         
-        
-        
         AF.request(urlString, method: .post, parameters: body,encoding: JSONEncoding.default, headers: headers,requestModifier: { $0.timeoutInterval = self.requestTimeout })
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
@@ -74,11 +78,16 @@ struct RequestHandler {
     func responseHandler(response: AFDataResponse<Any>,complete: @escaping (_ data:Data) -> Void,error: @escaping (_ message:String) -> Void, logOutUser: @escaping () -> Void){
         
         switch response.result {
+        
         case .success:
             complete(response.data!)
         case .failure(let errorResponse):
             print(errorResponse)
 
+            if RequestHandler.sharedInstance.offline {
+                return print("Offline. Cancelling Error Message")
+            }
+            
             if(errorResponse.responseCode != nil && errorResponse.responseCode! == 401){
                 logOutUser()
                 error("Please try logging in again.")
@@ -98,9 +107,18 @@ struct RequestHandler {
                 print(error)
             }
 
+            if response.error != nil && response.error!.errorDescription != nil {
+                errorMessage = "\(response.error!.errorDescription!)".replacingOccurrences(of: "URLSessionTask failed with error: ", with: "")
+            }
+            
             error(errorMessage)
             
         }
         
     }
+    
+    func serverReachable(){
+        // Send request to servr, if successfull. Reachable otherwise Unreachable
+    }
+    
 }

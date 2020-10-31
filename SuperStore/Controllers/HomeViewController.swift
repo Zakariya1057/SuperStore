@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 import RealmSwift
+import NotificationBannerSwift
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, HomeRequestDelegate, StoreSelectedDelegate, ListProgressDelegate {
 
@@ -35,14 +36,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return self.realm.objects(HomeHistory.self).first
     }
     
+    var networkManager: NetworkManager = NetworkManager()
+    
+    var offline: Bool = true
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-//        KingfisherManager.shared.cache.clearMemoryCache()
-//        KingfisherManager.shared.cache.clearDiskCache()
-//        KingfisherManager.shared.cache.cleanExpiredDiskCache()
         
         homeHandler.delegate = self
         homeHandler.request()
@@ -78,15 +77,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if home != nil {
             configureUI()
         }
+        
     }
     
     func contentLoaded(content: HomeModel) {
+        self.offline = false
         addToHistory(content)
         configureUI()
     }
     
     func configureUI(){
+        
         self.loading = false
+        
+        configureNotifications()
         
         let content = home!.getHomeModel()
             
@@ -145,9 +149,36 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 }
 
 extension HomeViewController {
+    func configureNotifications(){
+        let banner = StatusBarNotificationBanner(title: "Offline Mode", style: .danger)
+        banner.autoDismiss = false
+        
+        networkManager.reachability.whenReachable = { _ in
+            print("Network is available")
+            RequestHandler.sharedInstance.offline = false
+            self.offline = false
+            banner.dismiss()
+        }
+
+        networkManager.reachability.whenUnreachable = { _ in
+            print("Network is unavailable")
+            self.offline = true
+            RequestHandler.sharedInstance.offline = true
+            banner.show()
+        }
+    }
+}
+
+extension HomeViewController {
     
     func configureLists(){
 
+        if offline {
+            return print("Offline Mode")
+        } else {
+            print("Online Change List")
+        }
+        
         var showingLists:[ListModel] = []
         
         if home != nil {
@@ -176,11 +207,11 @@ extension HomeViewController {
     }
     
     func configureMonited(){
-        // Loop through all monitored products. Still monitered ignore. Otherwise remove.
-        // Add products that are now monitored
         
-        if realm.isInWriteTransaction {
-            return
+        if realm.isInWriteTransaction || offline {
+            return print("Offline Mode/Transaction")
+        } else {
+            print("Online Change List")
         }
         
         print("Monitoring Change")
@@ -188,38 +219,8 @@ extension HomeViewController {
         if home != nil {
             
             try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
-                
                 let monitoringElement = customElements[3] as! ProductElement
-                
-                var ignoreProducts:[Int: String] = [:]
-                var products:[ProductModel] = []
-                
-                for (index, product) in home!.monitoring.enumerated() {
-                    let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id) AND monitoring = true").first
-                    
-                    if productHistory == nil {
-                        print("Removing Unfound Product")
-                        home!.monitoring.remove(at: index)
-                    } else {
-                        products.append(product.getProductModel())
-                        ignoreProducts[product.id] = product.name
-                    }
-                }
-                
-                let newMonitored = realm.objects(ProductHistory.self).filter("monitoring = true")
-                
-                for product in newMonitored {
-                    
-                    if ignoreProducts[product.id] == nil {
-                        products.append(product.getProductModel())
-                        print("Adding new product")
-                        home!.monitoring.append(product)
-                    }
-                    
-                }
-                
-                monitoringElement.products = products
-                
+                monitoringElement.products = realm.objects(ProductHistory.self).filter("monitoring = true").map{ $0.getProductModel() }
             })
 
         }
@@ -431,12 +432,17 @@ extension HomeViewController {
             for product in homeItem.monitoring {
                 
                 try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
-                    if ignoreProducts[product.id] == nil {
-                        ignoreProducts[product.id] = product.name
-                        home.monitoring.append( product.getRealmObject() )
+                    
+                    let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+
+                    if productHistory != nil {
+                        // Product exists, set monitoring to true
+                        productHistory!.monitoring = true
                     } else {
-                        home.monitoring.append( realm.objects(ProductHistory.self).filter("id = \(product.id)").first! )
+                        // Create product, set monitoring to true
+                        realm.add(product.getRealmObject())
                     }
+                    
                 })
 
             }
@@ -538,10 +544,29 @@ extension HomeViewController {
             updateProducts(list: homeItem.featured, historyList: home!.featured)
         })
         
-        try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
-            updateProducts(list: homeItem.monitoring, historyList: home!.monitoring)
-        })
         
+        try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+            // Set all products to not monotirng, get products from home and set to monitoring. Create/update as required.
+            
+            let products = realm.objects(ProductHistory.self).filter("monitoring = true")
+            
+            for product in products {
+                product.monitoring = false
+            }
+            
+            for product in homeItem.monitoring {
+                let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+                
+                if productHistory == nil {
+                    realm.add(product.getRealmObject())
+                } else {
+                    productHistory!.updated_at = Date()
+                    productHistory!.monitoring = true
+                }
+               
+            }
+        })
+
         try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
             updateProducts(list: homeItem.groceries, historyList: home!.groceries)
         })

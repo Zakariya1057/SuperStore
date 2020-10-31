@@ -65,21 +65,24 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
-        // Check for Location Services
         checkLocationServices()
 
-        //Zoom to user location
-        if let userLocation = locationManager.location?.coordinate {
-            let viewRegion = MKCoordinateRegion(center: userLocation, latitudinalMeters: 20000, longitudinalMeters: 20000)
-            mapView.setRegion(viewRegion, animated: false)
-        }
-        
+        zoomUserLocation()
+            
         mapView.delegate = self
 
         showStoreLocations()
         
         DispatchQueue.main.async {
             self.locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func zoomUserLocation(){
+        //Zoom to user location
+        if let userLocation = locationManager.location?.coordinate {
+            let viewRegion = MKCoordinateRegion(center: userLocation, latitudinalMeters: 20000, longitudinalMeters: 20000)
+            mapView.setRegion(viewRegion, animated: false)
         }
     }
     
@@ -124,8 +127,6 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
                 // allow this to show pop up information
                 annotationView?.canShowCallout = true
                 
-//                annotationView?.image = UIImage(named: "pin")
-                
                 // Creating Button
                 let button = UIButton(type: .detailDisclosure)
                 button.addTarget(self, action: #selector(showStore), for: .touchUpInside)
@@ -162,6 +163,12 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
         super.awakeFromNib()
     }
 
+//    func showError(_ error: String){
+//        let alert = UIAlertController(title: "Permission Error", message: "Please turn on location permission in app settings.", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+//        self.present(alert, animated: true)
+//    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
@@ -181,16 +188,20 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
           switch CLLocationManager.authorizationStatus() {
               case .authorizedWhenInUse:
                 mapView!.showsUserLocation = true
+                zoomUserLocation()
                case .denied: // Show alert telling users how to turn on permissions
                break
+            case .authorizedAlways:
+                locationManager.requestWhenInUseAuthorization()
+                mapView!.showsUserLocation = true
+                zoomUserLocation()
+                break
               case .notDetermined:
                 locationManager.requestWhenInUseAuthorization()
                 mapView!.showsUserLocation = true
+                zoomUserLocation()
               case .restricted:
                 // Show an alert letting them know what’s up
-               break
-              case .authorizedAlways:
-                // Authorised
                break
           @unknown default:
             fatalError()

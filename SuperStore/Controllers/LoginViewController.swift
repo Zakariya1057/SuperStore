@@ -104,7 +104,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     }
     
     @objc func handleAppleIdRequest() {
-        print("Button Pressed")
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]

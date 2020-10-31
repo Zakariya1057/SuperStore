@@ -14,5 +14,7 @@ target 'SuperStore' do
   pod 'SkeletonView'
   pod 'RealmSwift', '~> 5.0'
   pod 'SwiftKeychainWrapper'
+  pod 'ReachabilitySwift'
+  pod 'NotificationBannerSwift', '~> 3.0.0'
   
 end
