@@ -9,12 +9,8 @@
 import UIKit
 import RealmSwift
 
-protocol NewListDelegate {
-    func addNewList(_ list: ListModel)
-}
-
-class ListsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource,NewListDelegate, ListDelegate, UISearchBarDelegate {
-
+class ListsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, ListDelegate, UISearchBarDelegate {
+    
     @IBOutlet var searchBar: UISearchBar!
     
     @IBOutlet weak var listsTableView: UITableView!
@@ -22,12 +18,13 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     var userHandler = UserHandler()
     
     var listHandler = ListsHandler()
+    var listItemHandler = ListItemsHandler()
     
     let realm = try! Realm()
     lazy var lists: Results<ListHistory> = {
-        return self.realm.objects(ListHistory.self).sorted(byKeyPath: "created_at", ascending: false)
+        return self.realm.objects(ListHistory.self).filter("deleted = false").sorted(byKeyPath: "created_at", ascending: false)
     }()
-
+    
     var selectedList: ListModel?
     var selectedIndex: Int = 0
     
@@ -39,8 +36,12 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     let loadingCell: Int = 1
     
     var notificationToken: NotificationToken?
-
+    
     var searchText: String = ""
+    
+    var offline: Bool {
+        return RequestHandler.sharedInstance.offline
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,27 +59,27 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         listsTableView.addSubview(refreshControl)
-    
+        
         let results = realm.objects(ListHistory.self)
-
+        
         // Observe Results Notifications
         notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
-                case .initial:
-                    break
+            case .initial:
+                break
             case .update(_, _, _, _):
-                    self?.listsTableView.reloadData()
-                    break
-                case .error(let error):
-                    fatalError("\(error)")
+                self?.listsTableView.reloadData()
+                break
+            case .error(let error):
+                fatalError("\(error)")
             }
         }
         
         if delegate != nil {
-          self.navigationItem.rightBarButtonItem = nil
+            self.navigationItem.rightBarButtonItem = nil
         }
         
-        if lists.count > 0{
+        if lists.count > 0 || offline {
             loading = false
             listsTableView.reloadData()
         }
@@ -86,11 +87,8 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     }
     
     func contentLoaded(lists: [ListModel]) {
-        
-        for list in lists {
-            addUpdateList(list: list)
-        }
-
+        print("Content Loaded")
+        addUpdateLists(lists)
         loading = false
         listsTableView.reloadData()
         refreshControl.endRefreshing()
@@ -122,13 +120,13 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         listItem.status = list.status.rawValue
         self.listsTableView.reloadData()
     }
-
+    
     @IBAction func addPressed(_ sender: Any) {
         performSegue(withIdentifier: "list_to_new_list", sender: self)
     }
-
+    
     @objc func refresh(_ sender: AnyObject) {
-       // Code to refresh table view
+        // Code to refresh table view
         listHandler.request()
     }
     
@@ -161,13 +159,17 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     func confirmDelete(){
         let alert = UIAlertController(title: "Deleting List?", message: "Are you sure you want to delete this list?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
-            self.deleteList()
+            self.deleteList(identifier: self.lists[self.selectedIndex].identifier)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if loading {
+            return
+        }
         
         if lists.indices.contains(indexPath.row) {
             
@@ -186,43 +188,42 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
                 self.performSegue(withIdentifier: "list_to_items", sender: self)
             }
         }
-
+        
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
-            -> UISwipeActionsConfiguration? {
-                
-            if searchText != "" {
-                selectedList = search()[indexPath.row].getListModel()
-            } else {
-                selectedList = lists[indexPath.row].getListModel()
-            }
+    -> UISwipeActionsConfiguration? {
         
-            selectedIndex = indexPath.row
-                
-            let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (_, _, completionHandler) in
-                self.confirmDelete()
-                completionHandler(true)
-            }
-
-            deleteAction.backgroundColor = .systemRed
-
-
-            let editAction = UIContextualAction(style: .normal, title: "Edit") { (_, _, completionHandler) in
-                self.performSegue(withIdentifier: "list_to_edit", sender: self)
-                completionHandler(true)
-            }
-
-            editAction.backgroundColor = .systemGray
-                
-            let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
-            return configuration
+        if searchText != "" {
+            selectedList = search()[indexPath.row].getListModel()
+        } else {
+            selectedList = lists[indexPath.row].getListModel()
+        }
+        
+        selectedIndex = indexPath.row
+        
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (_, _, completionHandler) in
+            self.confirmDelete()
+            completionHandler(true)
+        }
+        
+        deleteAction.backgroundColor = .systemRed
+        
+        
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { (_, _, completionHandler) in
+            self.performSegue(withIdentifier: "list_to_edit", sender: self)
+            completionHandler(true)
+        }
+        
+        editAction.backgroundColor = .systemGray
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        return configuration
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "list_to_new_list" {
             let destinationVC = segue.destination as! NewListViewController
-            destinationVC.delegate = self
             destinationVC.listIndex = lists.count
         } else if (segue.identifier == "list_to_items"){
             let destinationVC = segue.destination as! ListViewController
@@ -234,30 +235,38 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         }
     }
     
-    func addNewList(_ list: ListModel) {
-        listHandler.insert(list_data: ["name": list.name,"identifier": list.identifier,"store_type_id": "1"])
-        self.listsTableView.reloadData()
-    }
     
-    func deleteList(){
-        let deleted_id: String  = String(lists[selectedIndex].id)
-        let identifier: String = lists[selectedIndex].identifier
+    
+    func deleteList(identifier: String){
+
+        let listItem = realm.objects(ListHistory.self).filter("identifier = %@", identifier).first
         
-        try! realm.write() {
-            realm.delete(lists[selectedIndex])
+        if listItem == nil {
+            return print("List Not Found")
         }
+        
+        let listId = listItem!.id
+        
+        try? realm.write(withoutNotifying: [notificationToken!], {
+            realm.delete(realm.objects(ListItemHistory.self).filter("list_id = %@", listItem!.id))
+        
+            if  listItem!.synced && offline {
+                listItem!.deleted = true
+            } else {
+                realm.delete(listItem!)
+            }
+        })
 
         listsTableView.deleteRows(at: [ IndexPath(row: selectedIndex, section: 0)], with: .fade)
-        listHandler.delete(list_data: ["list_id":deleted_id ,"identifier": identifier ])
+        listHandler.delete(list_data: ["list_id": String(listId) ,"identifier": identifier ])
+
     }
     
     func updateListStatus(index: Int, status: ListStatus) {
-//        lists[index].status = status.rawValue
         listsTableView.reloadData()
     }
     
     func updatePrice(index: Int, total_price: Double) {
-//        lists[index].totalPrice = total_price
         listsTableView.reloadData()
     }
     
@@ -273,23 +282,89 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
 }
 
 extension ListsViewController {
-    func addUpdateList(list: ListModel){
+    func addUpdateLists(_ lists: [ListModel]){
         
-        let listItem = realm.objects(ListHistory.self).filter("identifier = %@", list.identifier).first
+        print("Add update list")
         
-        try! realm.write() {
-            if listItem == nil {
-                realm.add(list.getRealmObject())
-            } else {
-                listItem!.id = list.id
-                listItem!.name = list.name
-                listItem!.totalPrice = list.totalPrice
+        // For all lists we received, if found then update, if not then create.
+        // For list item not mentioned due to not being synced send to backend.
+        var foundListIdentifiers: [String: Int] = [:]
+        
+        for list in lists {
+            let listItem = realm.objects(ListHistory.self).filter("identifier = %@", list.identifier).first
+
+            try? realm.write(withoutNotifying: [notificationToken!], {
                 
-                if list.old_total_price != nil {
-                    listItem!.old_total_price = list.old_total_price!
+                if listItem == nil {
+                    realm.add(list.getRealmObject())
+                } else {
+                    
+                    if listItem!.deleted {
+                        realm.delete(listItem!)
+                        listHandler.delete(list_data: ["list_id": String(list.id) ,"identifier": list.identifier ])
+                    } else {
+                        
+                        foundListIdentifiers[list.identifier] = list.id
+                        
+                        listItem!.id = list.id
+                        listItem!.name = list.name
+                        listItem!.totalPrice = list.totalPrice
+                        
+                        if list.old_total_price != nil {
+                            listItem!.old_total_price = list.old_total_price!
+                        }
+                        
+                        if listItem!.synced == false {
+                            
+                            listItem!.synced = true
+                            
+                            print("Syncing List Items. Works for adding new items. Not deleted items")
+                            for category in listItem!.categories {
+                                
+                                for product in category.items {
+                                    let data:[String: String] = [
+                                        "product_id": String(product.product_id),
+                                        "quantity": String(product.quantity),
+                                        "ticked_off": String(product.ticked_off)
+                                    ]
+                                    
+                                    listItemHandler.create(list_id: listItem!.id, list_data: data)
+                                }
+
+                            }
+
+                        }
+                        
+                    }
+
                 }
-                 
-            }
+                
+            })
+
         }
+
+        // Delete offline deleted items.
+        let listsHistory = realm.objects(ListHistory.self)
+        for list in listsHistory {
+
+            if foundListIdentifiers[list.identifier] == nil {
+                // Uploading new offline list
+                if list.synced == false {
+                    print("Unsynced list, created in offline. Sent to endpoint.")
+                    listHandler.insert(list_data: ["name": list.name,"identifier": list.identifier,"store_type_id": "1"])
+                } else {
+                    try? realm.write(withoutNotifying: [notificationToken!], {
+                        realm.delete(realm.objects(ListItemHistory.self).filter("list_id = %@",lists[selectedIndex].id ))
+                        realm.delete(list)
+                    })
+
+                }
+                
+            }
+
+            
+        }
+        
     }
+    
 }

@@ -62,6 +62,10 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         return self.listItem?.getListModel().categories.flatMap { $0.items } ?? []
     }
     
+    var offline: Bool {
+        return RequestHandler.sharedInstance.offline
+    }
+    
     var refreshControl = UIRefreshControl()
     
     var loading: Bool = true
@@ -109,11 +113,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         
+        if offline == false {
+            configureItems()
+        }
+        
         if listItem != nil {
             
             self.title = listItem!.name
             
-            if listItem!.categories.count > 0 {
+            if listItem!.categories.count > 0 || RequestHandler.sharedInstance.offline == true {
                 configureUI()
             }
            
@@ -148,11 +156,26 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.listTableView.reloadData()
         stopLoading()
     }
-    
 
+    func configureItems(){
+        // Remove deleted items.
+        // Update item quantities
+
+        let items = realm.objects(ListItemHistory.self).filter("list_id = \(list_id!) and deleted = true")
+
+        for item in items {
+            listHandler.delete(list_id: list_id!, list_data: ["product_id": String(item.product_id)])
+            realm.delete(item)
+        }
+
+    }
     
     @objc func refresh(_ sender: AnyObject) {
-        listHandler.request(listId:list_id!)
+        if RequestHandler.sharedInstance.offline == false {
+            listHandler.request(listId:list_id!)
+        } else {
+            refreshControl.endRefreshing()
+        }
     }
     
     func stopLoading(){
@@ -178,7 +201,6 @@ extension ListViewController {
     
     @IBAction func addButtonPressed(_ sender: Any) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "searchViewController"))! as! SearchViewController
-//        destinationVC.delegate = self
         destinationVC.selectedListId = self.list_id
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
@@ -190,7 +212,6 @@ extension ListViewController {
             destinationVC.selected_section = selected_section
 
             destinationVC.delegate = self
-//            destinationVC.groceryDelegate = self
             destinationVC.product = list!.categories[selected_section].items[selected_row]
         }
     }
@@ -346,7 +367,6 @@ extension ListViewController {
         
         try? realm.write(withoutNotifying: [notificationToken!], {
             let productItem = realm.objects(ListItemHistory.self).filter("product_id = \(product.product_id) AND list_id = \(list_id!)").first
-            print("\(product.name): \(product.quantity). Ticked: \(product.ticked_off)")
             productItem!.ticked_off = product.ticked_off
             productItem!.quantity = product.quantity
             productItem!.totalPrice = product.totalPrice
@@ -494,8 +514,15 @@ extension ListViewController {
             listTableView.deleteSections(indexSet as IndexSet, with: .fade)
         } else {
             try? realm.write(withoutNotifying: [notificationToken!], {
-                let deleteItem = list!.categories[section].items[row]
-                realm.delete( realm.objects(ListItemHistory.self).filter("list_id = \(list_id!) AND product_id=\(deleteItem.product_id)") )
+                let item = list!.categories[section].items[row]
+                let deleteItem = realm.objects(ListItemHistory.self).filter("list_id = \(list_id!) AND product_id=\(item.product_id)").first
+                
+                if offline {
+                    deleteItem!.deleted = true
+                } else {
+                    realm.delete( deleteItem! )
+                }
+
             })
             
             listTableView.deleteRows(at: [indexPath], with: .fade)

@@ -38,7 +38,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var networkManager: NetworkManager = NetworkManager()
     
-    var offline: Bool = true
+    var offline: Bool {
+        return RequestHandler.sharedInstance.offline
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +83,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func contentLoaded(content: HomeModel) {
-        self.offline = false
         addToHistory(content)
         configureUI()
     }
@@ -156,13 +157,11 @@ extension HomeViewController {
         networkManager.reachability.whenReachable = { _ in
             print("Network is available")
             RequestHandler.sharedInstance.offline = false
-            self.offline = false
             banner.dismiss()
         }
 
         networkManager.reachability.whenUnreachable = { _ in
             print("Network is unavailable")
-            self.offline = true
             RequestHandler.sharedInstance.offline = true
             banner.show()
         }
@@ -187,7 +186,7 @@ extension HomeViewController {
             
             if home!.lists.count < 4 {
                 // No List On Page. Get Last 4 Recent. Show
-                let recentLists = realm.objects(ListHistory.self).sorted(byKeyPath: "updated", ascending: false)
+                let recentLists = realm.objects(ListHistory.self).filter("synced = true AND deleted = false").sorted(byKeyPath: "updated", ascending: false)
                 
                 for index in 0...3 {
                     if recentLists.indices.contains(index){
@@ -392,7 +391,12 @@ extension HomeViewController {
             let home:HomeHistory = HomeHistory()
             
             try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
-                homeItem.lists.forEach({ home.lists.append( $0.getRealmObject() )})
+                homeItem.lists.forEach({
+                    let listHistory = $0.getRealmObject()
+                    listHistory.synced = true
+                    home.lists.append(listHistory)
+                })
+                                       
                 homeItem.stores.forEach({ home.stores.append( $0.getRealmObject() )})
                 homeItem.promotions.forEach({ home.promotions.append( $0.getRealmObject() )})
                 realm.add(home)
@@ -429,10 +433,10 @@ extension HomeViewController {
 
             }
 
-            for product in homeItem.monitoring {
-                
-                try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
-                    
+            
+            try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+                for product in homeItem.monitoring {
+                        
                     let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
 
                     if productHistory != nil {
@@ -440,12 +444,14 @@ extension HomeViewController {
                         productHistory!.monitoring = true
                     } else {
                         // Create product, set monitoring to true
-                        realm.add(product.getRealmObject())
+                        let newProductHistory = product.getRealmObject()
+                        newProductHistory.monitoring = true
+                        realm.add(newProductHistory)
                     }
                     
-                })
+                }
+            })
 
-            }
 
             for category in homeItem.categories {
                 let categoryItem = FeaturedCategory()
@@ -493,6 +499,8 @@ extension HomeViewController {
                 }
 
             }
+            
+            // Remove list items not found in history
             
         })
             

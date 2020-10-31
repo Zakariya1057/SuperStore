@@ -64,7 +64,6 @@ class ListItemTableViewCell: UITableViewCell {
     
     func showPriceTotal(){
         let totalText = "£" + String(format: "%.2f", listManager.calculateProductPrice(product!))
-        print(totalText)
         totalLabel.text = "\(totalText)"
     }
     

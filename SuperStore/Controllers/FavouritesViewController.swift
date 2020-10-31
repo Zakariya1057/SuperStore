@@ -16,7 +16,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     let realm = try! Realm()
     lazy var favourites: Results<ProductHistory> = { self.realm.objects(ProductHistory.self).filter("favourite = true").sorted(byKeyPath: "updated_at", ascending: false)}()
     
-
+    
     var delegate:GroceryDelegate?
     
     var favouritesHandler = FavouritesHandler()
@@ -40,18 +40,18 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         favouritesHandler.request()
         
         let results = realm.objects(ProductHistory.self)
-
+        
         // Observe Results Notifications
         notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
-                case .initial:
-                    // Results are now populated and can be accessed without blocking the UI
-                    self?.favouritesTableView.reloadData()
+            case .initial:
+                // Results are now populated and can be accessed without blocking the UI
+                self?.favouritesTableView.reloadData()
             case .update(_, _, _, _):
-                    self?.favouritesTableView.reloadData()
-                    break
-                case .error(let error):
-                    fatalError("\(error)")
+                self?.favouritesTableView.reloadData()
+                break
+            case .error(let error):
+                fatalError("\(error)")
             }
         }
         
@@ -64,21 +64,17 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         favouritesTableView.addSubview(refreshControl)
     }
-
+    
     @objc func refresh(_ sender: AnyObject) {
-       // Code to refresh table view
+        // Code to refresh table view
         favouritesHandler.request()
     }
     
     func contentLoaded(products: [ProductModel]) {
         loading = false
         refreshControl.endRefreshing()
-
-        let products = products.reversed()
-        for product in products {
-            product.favourite = true
-            addToFavourite(product)
-        }
+        
+        addToFavourite(products)
         
         favouritesTableView.reloadData()
     }
@@ -88,7 +84,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         showError(message)
         favouritesTableView.reloadData()
     }
-
+    
     func logOutUser(){
         userHandler.userSession.viewController = self
         userHandler.requestLogout()
@@ -101,7 +97,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return loading ? 3 : favourites.count
     }
-
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             favouritesHandler.update(product_id: favourites[indexPath.row].getProductModel().id, favourite: false)
@@ -109,7 +105,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
             try! realm.write() {
                 favourites[indexPath.row].favourite = false
             }
-
+            
             favouritesTableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -127,7 +123,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         } else {
             cell.startLoading()
         }
-
+        
         return cell
     }
     
@@ -143,29 +139,37 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         self.present(alert, animated: true)
     }
     
-    func addToFavourite(_ product: ProductModel){
-        let productItem = favourites.filter("id = \(product.id)").first
-        
-        let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+    func addToFavourite(_ products: [ProductModel]){
         
         try! realm.write() {
-            if productItem == nil {
+            
+            // Removing All Favourites
+            let productsHistory = realm.objects(ProductHistory.self).filter("favourite = true")
+            for product in productsHistory {
+                product.favourite = false
+            }
+            
+            for product in products.reversed() {
+                let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
                 
                 if productHistory == nil {
+                    product.favourite = true
                     realm.add(product.getRealmObject())
                 } else {
+                    // Updating product details
+                    productHistory!.name = product.name
                     productHistory!.favourite = true
+                    productHistory!.smallImage = product.smallImage
+                    productHistory!.largeImage = product.largeImage
+                    productHistory!.avgRating = product.avgRating
+                    productHistory!.totalReviewsCount = product.totalReviewsCount
+                    productHistory!.updated_at = Date()
                 }
                 
-            } else {
-                productItem!.updated_at = Date()
-                productItem!.name = product.name
-                productItem!.smallImage = product.smallImage
-                productItem!.largeImage = product.largeImage
-                productItem!.avgRating = product.avgRating
-                productItem!.totalReviewsCount = product.totalReviewsCount
             }
+            
         }
+        
     }
     
 }

@@ -9,48 +9,47 @@
 import UIKit
 import RealmSwift
 
-class NewListViewController: UIViewController {
-    
-    var delegate: NewListDelegate?
+class NewListViewController: UIViewController, ListDelegate {
     
     let realm = try! Realm()
     
     @IBOutlet weak var nameField: UITextField!
     
     let spinner: SpinnerViewController = SpinnerViewController()
+    var userHandler = UserHandler()
     
     var listIndex: Int?
+    
+    var listHandler = ListsHandler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         nameField.delegate = self
+        listHandler.delegate = self
     }
     
-    func validateName() -> String? {
-        let name = nameField.text ?? ""
+    func contentLoaded(lists: [ListModel]) {
+        // Update sync
+        print("Content Loaded")
         
-        if name == "" {
-            return "List name required."
+        let list = realm.objects(ListHistory.self).filter("identifier = %@", lists[0].identifier).first
+        if list != nil {
+            try? realm.write({
+                print("Setting Synced To True")
+                list!.id = lists[0].id
+                list!.synced = true
+            })
         }
         
-        return nil
     }
     
-    func createList(){
-//        let date = Date()
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "dd MMMM Y"
-//
-//        let created_at = formatter.string(from: date)
-        
-        let list = ListModel(id: 1, name: nameField.text!, created_at: Date(), status: .notStarted, identifier: UUID().uuidString, store_id: 1, user_id: 1, totalPrice: 0, categories: [], totalItems: 0, tickedOffItems: 0)
-            
-        try! realm.write() {
-            realm.add(list.getRealmObject())
-        }
-        
-        self.delegate?.addNewList(list)
-        
+    func errorHandler(_ message: String) {
+        showError(message)
+    }
+    
+    func logOutUser() {
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
 
     @IBAction func created_pressed(_ sender: Any) {
@@ -63,13 +62,38 @@ class NewListViewController: UIViewController {
         self.navigationController!.popViewController(animated: true)
     }
     
-    
+}
+
+extension NewListViewController {
+
+    func createList(){
+        
+        let list = ListModel(id: 1, name: nameField.text!, created_at: Date(), status: .notStarted, identifier: UUID().uuidString, store_id: 1, user_id: 1, totalPrice: 0, categories: [], totalItems: 0, tickedOffItems: 0)
+            
+        try! realm.write() {
+            realm.add(list.getRealmObject())
+        }
+        
+        listHandler.insert(list_data: ["name": list.name,"identifier": list.identifier,"store_type_id": "1"])
+        
+    }
+
+    func validateName() -> String? {
+        let name = nameField.text ?? ""
+        
+        if name == "" {
+            return "List name required."
+        }
+        
+        return nil
+    }
+
     func showError(_ error: String){
         let alert = UIAlertController(title: "List Error", message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
-    
+
 }
 
 extension NewListViewController: UITextFieldDelegate {

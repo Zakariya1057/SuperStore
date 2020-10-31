@@ -82,7 +82,8 @@ struct RequestHandler {
         case .success:
             complete(response.data!)
         case .failure(let errorResponse):
-            print(errorResponse)
+            
+//            print(errorResponse)
 
             if RequestHandler.sharedInstance.offline {
                 return print("Offline. Cancelling Error Message")
@@ -107,7 +108,7 @@ struct RequestHandler {
                 print(error)
             }
 
-            if response.error != nil && response.error!.errorDescription != nil {
+            if errorMessage == "" && response.error != nil && response.error!.errorDescription != nil {
                 errorMessage = "\(response.error!.errorDescription!)".replacingOccurrences(of: "URLSessionTask failed with error: ", with: "")
             }
             

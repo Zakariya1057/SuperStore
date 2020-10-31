@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 class ListHistory: Object {
-    @objc dynamic var id: Int = 1
+    @objc dynamic var id: Int = 0
     @objc dynamic var identifier: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var status: String = ""
@@ -22,6 +22,9 @@ class ListHistory: Object {
     
     @objc dynamic var totalPrice: Double = 0
     @objc dynamic var old_total_price: Double = 0
+    
+    @objc dynamic var synced: Bool = false
+    @objc dynamic var deleted: Bool = false
     var categories = List<ListCategoryHistory>()
     
     @objc dynamic var created_at: Date = Date()
@@ -64,9 +67,11 @@ class ListCategoryHistory:Object {
         var listItems: [ListItemModel] = []
         
         for item in items {
-            listItems.append(item.getItemModel())
+            if item.deleted == false {
+                listItems.append(item.getItemModel())
+            }
         }
-        
+
         return ListCategoryModel(id: self.id, name: self.name, aisle_name: self.aisle_name, items: listItems, list_id: list_id)
     }
 }
@@ -84,6 +89,8 @@ class ListItemHistory: Object {
     @objc dynamic var promotion: PromotionHistory? = nil
     @objc dynamic var list_id: Int = 1
     @objc dynamic var created_at: Date = Date()
+    
+    @objc dynamic var deleted: Bool = false
     
     func getItemModel() -> ListItemModel {
         return ListItemModel(id: self.id, name: self.name, image: self.image, quantity: self.quantity, product_id: self.product_id, price: self.price, weight: self.weight, promotion: self.promotion?.getPromotionModel(), list_id: self.list_id, ticked_off: self.ticked_off)
