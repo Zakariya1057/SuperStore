@@ -23,6 +23,10 @@ class ListEditViewController: UIViewController  {
     
     @IBOutlet weak var nameField: UITextField!
     
+    var offline: Bool {
+        return RequestHandler.sharedInstance.offline
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,6 +81,7 @@ class ListEditViewController: UIViewController  {
         
         self.realm.beginWrite()
         list!.name = nameField.text!
+        list!.edited = true
         
         do {
             print("Saving Changes")
@@ -84,8 +89,6 @@ class ListEditViewController: UIViewController  {
         } catch {
             print(error)
         }
-        
-//        self.delegate?.updateList(list: list!, index: list_index!)
         
         listHandler.update(list_data: [
             "identifier": list!.identifier,

@@ -25,6 +25,7 @@ class ListHistory: Object {
     
     @objc dynamic var synced: Bool = false
     @objc dynamic var deleted: Bool = false
+    @objc dynamic var edited: Bool = false
     var categories = List<ListCategoryHistory>()
     
     @objc dynamic var created_at: Date = Date()
@@ -91,6 +92,8 @@ class ListItemHistory: Object {
     @objc dynamic var created_at: Date = Date()
     
     @objc dynamic var deleted: Bool = false
+    @objc dynamic var edited: Bool = true
+    @objc dynamic var synced: Bool = false
     
     func getItemModel() -> ListItemModel {
         return ListItemModel(id: self.id, name: self.name, image: self.image, quantity: self.quantity, product_id: self.product_id, price: self.price, weight: self.weight, promotion: self.promotion?.getPromotionModel(), list_id: self.list_id, ticked_off: self.ticked_off)

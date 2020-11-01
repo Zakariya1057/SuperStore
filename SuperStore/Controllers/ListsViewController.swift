@@ -20,6 +20,8 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     var listHandler = ListsHandler()
     var listItemHandler = ListItemsHandler()
     
+    var listManager: ListManager = ListManager()
+    
     let realm = try! Realm()
     lazy var lists: Results<ListHistory> = {
         return self.realm.objects(ListHistory.self).filter("deleted = false").sorted(byKeyPath: "created_at", ascending: false)
@@ -238,7 +240,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     
     func deleteList(identifier: String){
-
+        
         let listItem = realm.objects(ListHistory.self).filter("identifier = %@", identifier).first
         
         if listItem == nil {
@@ -249,17 +251,17 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         
         try? realm.write(withoutNotifying: [notificationToken!], {
             realm.delete(realm.objects(ListItemHistory.self).filter("list_id = %@", listItem!.id))
-        
+            
             if  listItem!.synced && offline {
                 listItem!.deleted = true
             } else {
                 realm.delete(listItem!)
             }
         })
-
+        
         listsTableView.deleteRows(at: [ IndexPath(row: selectedIndex, section: 0)], with: .fade)
         listHandler.delete(list_data: ["list_id": String(listId) ,"identifier": identifier ])
-
+        
     }
     
     func updateListStatus(index: Int, status: ListStatus) {
@@ -291,35 +293,42 @@ extension ListsViewController {
         var foundListIdentifiers: [String: Int] = [:]
         
         for list in lists {
-            let listItem = realm.objects(ListHistory.self).filter("identifier = %@", list.identifier).first
-
+            let listHistory = realm.objects(ListHistory.self).filter("identifier = %@", list.identifier).first
+            
             try? realm.write(withoutNotifying: [notificationToken!], {
                 
-                if listItem == nil {
+                if listHistory == nil {
                     realm.add(list.getRealmObject())
                 } else {
                     
-                    if listItem!.deleted {
-                        realm.delete(listItem!)
+                    if listHistory!.deleted {
+                        realm.delete(listHistory!)
                         listHandler.delete(list_data: ["list_id": String(list.id) ,"identifier": list.identifier ])
                     } else {
                         
-                        foundListIdentifiers[list.identifier] = list.id
-                        
-                        listItem!.id = list.id
-                        listItem!.name = list.name
-                        listItem!.totalPrice = list.totalPrice
-                        
-                        if list.old_total_price != nil {
-                            listItem!.old_total_price = list.old_total_price!
+                        if listHistory!.edited {
+                            listManager.uploadEditedList(listHistory: listHistory!)
+                        } else {
+                            
+                            listHistory!.id = list.id
+                            listHistory!.name = list.name
+                            listHistory!.totalPrice = list.totalPrice
+                            
+                            if list.old_total_price != nil {
+                                listHistory!.old_total_price = list.old_total_price!
+                            }
+                            
                         }
                         
-                        if listItem!.synced == false {
+                        foundListIdentifiers[list.identifier] = list.id
+                        
+                        // If list create in offline, sync here
+                        if listHistory!.synced == false {
                             
-                            listItem!.synced = true
+                            listHistory!.synced = true
                             
-                            print("Syncing List Items. Works for adding new items. Not deleted items")
-                            for category in listItem!.categories {
+                            // Syncing List Items. Works for adding new items. Not deleted items
+                            for category in listHistory!.categories {
                                 
                                 for product in category.items {
                                     let data:[String: String] = [
@@ -328,43 +337,112 @@ extension ListsViewController {
                                         "ticked_off": String(product.ticked_off)
                                     ]
                                     
-                                    listItemHandler.create(list_id: listItem!.id, list_data: data)
+                                    listItemHandler.create(list_id: listHistory!.id, list_data: data)
                                 }
-
+                                
                             }
-
+                            
                         }
                         
                     }
-
+                    
                 }
                 
             })
-
+            
         }
-
-        // Delete offline deleted items.
+        
         let listsHistory = realm.objects(ListHistory.self)
         for list in listsHistory {
-
             if foundListIdentifiers[list.identifier] == nil {
                 // Uploading new offline list
                 if list.synced == false {
                     print("Unsynced list, created in offline. Sent to endpoint.")
                     listHandler.insert(list_data: ["name": list.name,"identifier": list.identifier,"store_type_id": "1"])
                 } else {
+                    // Delete offline deleted list
                     try? realm.write(withoutNotifying: [notificationToken!], {
                         realm.delete(realm.objects(ListItemHistory.self).filter("list_id = %@",lists[selectedIndex].id ))
                         realm.delete(list)
                     })
-
+                    
                 }
-                
             }
-
-            
         }
         
     }
+    
+//
+//    func uploadEditedList(listHistory: ListHistory){
+//        // List edited:
+//        // Update name
+//        // Update/Insert All Items
+//
+//        var items:[[String: String]] = []
+//
+//        for category in listHistory.categories {
+//
+//            for product in category.items {
+//
+//                items.append([
+//                    "product_id": String(product.product_id),
+//                    "quantity": String(product.quantity),
+//                    "ticked_off": String(product.ticked_off)
+//                ])
+//
+//            }
+//
+//        }
+//
+//        listHandler.update(list_data: [
+//            "identifier": listHistory.identifier,
+//            "name": listHistory.name,
+//            "store_type_id": "1",
+//            "items": items
+//        ])
+//
+//        listHistory.edited = false
+//    }
+//
+//    func configureItems(listId: Int){
+//        // Will only run in online mode.
+//
+//        // Get all soft deleted items, delete them for real
+//        let deletedItems = realm.objects(ListItemHistory.self).filter("list_id = \(listId) and deleted = true")
+//        for item in deletedItems {
+//            listItemHandler.delete(list_id: listId, list_data: ["product_id": String(item.product_id)])
+//            realm.delete(item)
+//        }
+//
+//        var foundListItems: [Int: String] = [:]
+//
+//        // Get all edited items show their changes
+//        let editedItems = realm.objects(ListItemHistory.self).filter("list_id = \(listId) and edited = true")
+//        for item in editedItems {
+//            foundListItems[item.product_id] = item.name
+//
+//            let data:[String: String] = [
+//                "product_id": String(item.product_id),
+//                "quantity": String(item.quantity),
+//                "ticked_off": String(item.ticked_off)
+//            ]
+//
+//
+//            listItemHandler.update(listId: listId, listData: data)
+//        }
+//
+//        // Get all new items, send them to backend
+//        let newItems = realm.objects(ListItemHistory.self).filter("list_id = \(listId) and synced = false")
+//        for item in newItems {
+//
+//            if foundListItems[item.product_id] == nil {
+//                foundListItems[item.product_id] = item.name
+//                listItemHandler.create(list_id: listId, list_data: ["product_id": String(item.product_id)])
+//            }
+//
+//        }
+//
+//    }
+
     
 }

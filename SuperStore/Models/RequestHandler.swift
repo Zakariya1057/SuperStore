@@ -51,9 +51,9 @@ struct RequestHandler {
         
     }
     
-    func postRequest(url urlString: String,data:[String: String],complete: @escaping (_ data:Data) -> Void,error: @escaping (_ message:String) -> Void, logOutUser: @escaping () -> Void ){
+    func postRequest(url urlString: String,data:Parameters,complete: @escaping (_ data:Data) -> Void,error: @escaping (_ message:String) -> Void, logOutUser: @escaping () -> Void ){
         
-        let body:[String: [String: String]] = ["data": data]
+        let body: Parameters = ["data": data]
         
         let urlString = parseURL(urlString: urlString)
         

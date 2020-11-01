@@ -91,6 +91,7 @@ struct UserSession {
         let userId: Int? = userId != nil ? userId : showUserInfo()?.id
         
         if userId != nil {
+           
             // Use the default directory, but replace the filename with the username
             config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("\(userId!).realm")
 

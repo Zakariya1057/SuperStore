@@ -491,7 +491,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EhL-oG-vsM">
                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tbg-yR-nei">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="tbg-yR-nei">
                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                                                         <color key="backgroundColor" name="Grey.Blank"/>
                                                         <constraints>
@@ -604,7 +604,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="kAf-GJ-z0O">
                                         <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="pNe-cx-ynG">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="pNe-cx-ynG">
                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                                                 <color key="backgroundColor" name="Grey.Blank"/>
                                                 <constraints>
@@ -4790,6 +4790,14 @@
             <point key="canvasLocation" x="61" y="-1337"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="XU3-Nd-wUM">
+            <size key="intrinsicContentSize" width="255" height="35"/>
+        </designable>
+        <designable name="tFG-eX-umO">
+            <size key="intrinsicContentSize" width="209.849609375" height="26"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="LCl-dZ-pvm"/>
     </inferredMetricsTieBreakers>

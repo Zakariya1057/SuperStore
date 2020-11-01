@@ -33,7 +33,7 @@ struct ListsHandler {
         requestHandler.postRequest(url: url_string, data: list_data, complete: processResults, error: processError, logOutUser: logOutUser)
     }
     
-    func update(list_data: [String: String]){
+    func update(list_data: [String: Any]){
         let listUpdate = K.Request.Lists.ListUpdate
         let url_string = "\(K.Host)/\(listPath)/\(listUpdate)"
         requestHandler.postRequest(url: url_string, data: list_data, complete:  { _ in } , error: processError, logOutUser: logOutUser)

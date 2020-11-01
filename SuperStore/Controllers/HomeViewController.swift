@@ -486,12 +486,15 @@ extension HomeViewController {
                 let listHistory = realm.objects(ListHistory.self).filter("id = \(list.id)").first
 
                 if listHistory != nil {
-                    listHistory!.name = list.name
-                    listHistory!.totalPrice = list.totalPrice
-                    listHistory!.status = list.status.rawValue
-                    listHistory!.tickedOffItems = list.tickedOffItems
-                    listHistory!.totalItems = list.totalItems
-                    listHistory!.updated = Date()
+                    
+                    if listHistory!.edited == false {
+                        listHistory!.name = list.name
+                        listHistory!.totalPrice = list.totalPrice
+                        listHistory!.status = list.status.rawValue
+                        listHistory!.tickedOffItems = list.tickedOffItems
+                        listHistory!.totalItems = list.totalItems
+                        listHistory!.updated = Date()
+                    }
                     
                     home!.lists.append(listHistory!)
                 } else {

@@ -11,6 +11,8 @@ import RealmSwift
 
 struct ListManager {
     
+    var listHandler = ListsHandler()
+    
     let realm = try! Realm()
     
     func addProductToList(listId: Int, product: ProductModel) -> ListItemHistory {
@@ -122,4 +124,37 @@ extension ListManager {
         return price
     }
     
+}
+
+extension ListManager {
+    func uploadEditedList(listHistory: ListHistory){
+        // List edited:
+        // Update name
+        // Update/Insert All Items
+        
+        var items:[[String: String]] = []
+        
+        for category in listHistory.categories {
+            
+            for product in category.items {
+                
+                items.append([
+                    "product_id": String(product.product_id),
+                    "quantity": String(product.quantity),
+                    "ticked_off": String(product.ticked_off)
+                ])
+                
+            }
+            
+        }
+        
+        listHandler.update(list_data: [
+            "identifier": listHistory.identifier,
+            "name": listHistory.name,
+            "store_type_id": "1",
+            "items": items
+        ])
+        
+        listHistory.edited = false
+    }
 }

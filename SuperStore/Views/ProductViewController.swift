@@ -11,7 +11,7 @@ import Cosmos
 import RealmSwift
 
 class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDelegate, FavouritesDelegate, ListSelectedDelegate, GroceryDelegate {
-
+    
     let realm = try! Realm()
     
     var product: ProductHistory? {
@@ -106,7 +106,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         productHandler.delegate = self
         favouritesHandler.delegate = self
         productHandler.request(product_id: product_id)
-
+        
         similarTableView.delegate = self
         similarTableView.dataSource = self
         
@@ -127,15 +127,15 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         let results = realm.objects(ProductHistory.self).filter("id = \(product_id)")
         notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
-                case .initial:
-                    // Results are now populated and can be accessed without blocking the UI
-                    self?.configureUI()
-                    break
+            case .initial:
+                // Results are now populated and can be accessed without blocking the UI
+                self?.configureUI()
+                break
             case .update(_, _, _, _):
-                    self?.configureUI()
-                    break
-                case .error(let error):
-                    fatalError("\(error)")
+                self?.configureUI()
+                break
+            case .error(let error):
+                fatalError("\(error)")
             }
         }
         
@@ -167,9 +167,9 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
                 stepperLabel.text = "\(itemQuantity!)"
                 showQuantityView()
             }
-
+            
         }
-       
+        
     }
     
     func contentLoaded(product: ProductModel) {
@@ -201,23 +201,23 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         stopLoading()
         
         let productItem = product!.getProductModel()
-
+        
         productNameLabel.text = productItem.name
         productWeightLabel.text = productItem.weight
-
+        
         productPriceLabel.text = "£" + String(format: "%.2f", productItem.price)
         
         if !imageLoaded {
             productImageView.downloaded(from: productItem.largeImage)
             imageLoaded = true
         }
-
+        
         ratingView.rating = productItem.avgRating
         ratingView.text = "(\(productItem.totalReviewsCount))"
-
+        
         showFavourite()
         showMonitoring()
-
+        
         if itemQuantity != nil {
             showQuantityView()
             quantityStepper.value = Double(itemQuantity!)
@@ -230,16 +230,16 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             dietaryView.isHidden = false
             lifeStyleLabel.text = productItem.dietary_info
         }
-
+        
         if(productItem.allergen_info == nil || productItem.allergen_info == ""){
             allergenView.isHidden = true
         } else {
             allergenView.isHidden = false
             allergenLabel.text = productItem.allergen_info
         }
-
+        
         configurePromotion()
-
+        
         reviews = productItem.reviews
         let review_count = reviews.count
         
@@ -252,11 +252,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             allReviewsButton.isHidden = true
             reviewsStackView.isHidden = true
         }
-
+        
         if recommended.count > 0 {
             similarTableView.reloadData()
         }
-        
         
     }
     
@@ -308,7 +307,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             product!.favourite = !product!.favourite
             product!.updated_at = Date()
         }
-       
+        
         favouritesHandler.update(product_id: product_id, favourite: product!.favourite)
         showFavourite()
     }
@@ -316,7 +315,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     func showFavourite(){
         
         if(product != nil){
-         
+            
             let barItem:UIBarButtonItem
             
             if product!.favourite == true {
@@ -331,7 +330,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             self.navigationItem.rightBarButtonItem = barItem
             
         }
-
+        
         
     }
     
@@ -345,11 +344,11 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             }
             
         }
-
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-                
+        
         if segue.identifier == "showProductDetails" {
             
             let destinationVC = segue.destination as! ProductDetailsViewController
@@ -377,9 +376,9 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             let destinationVC = segue.destination as! ReviewViewController
             destinationVC.product_id = product!.id
         }
-
+        
     }
-
+    
 }
 
 extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
@@ -410,12 +409,12 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 cell.startLoading()
             }
-
+            
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             
             return cell
         }
-
+        
     }
     
     func showProduct(product_id: Int) {
@@ -456,7 +455,7 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ProductViewController {
-
+    
     @IBAction func addPressed(_ sender: Any) {
         if noDelegateFound == false {
             showQuantityView()
@@ -466,7 +465,7 @@ extension ProductViewController {
     }
     
     @IBAction func stepperPressed(_ sender: UIStepper) {
-
+        
         let quantity = sender.value
         stepperLabel.text = String(format: "%.0f", quantity)
         
@@ -517,7 +516,7 @@ extension ProductViewController {
     
     func listSelected(list_id: Int) {
         self.selectedListId = list_id
-
+        
         let item = listManager.addProductToList(listId: list_id, product: product!.getProductModel())
         quantityStepper.value = Double(item.quantity)
         stepperLabel.text = "\(item.quantity)"
@@ -528,9 +527,9 @@ extension ProductViewController {
     }
     
     func updateQuantity(_ product: ProductModel) {
-
+        
         if selectedListId != nil {
-         
+            
             let data:[String: String] = [
                 "product_id": String(product.id),
                 "quantity": String(product.quantity),
@@ -542,7 +541,7 @@ extension ProductViewController {
             listHandler.update(listId:selectedListId!, listData: data)
             
         }
-       
+        
     }
     
     func showGroceryItem(_ product_id: Int) {
@@ -590,12 +589,18 @@ extension ProductViewController {
                 } else {
                     product!.promotion = nil
                 }
-               
                 
                 productItem.reviews.forEach({ product!.reviews.append( $0.getRealmObject()) })
                 
                 for recommendedProduct in productItem.recommended {
                     product!.recommended.append( recommendedProduct.id )
+                }
+                
+                let listItems = realm.objects(ListItemHistory.self).filter("product_id = \(productItem.id)")
+                for item in listItems {
+                    item.image = productItem.largeImage
+                    item.promotion = productItem.promotion?.getRealmObject()
+                    item.price = productItem.price
                 }
                 
             } else {
@@ -623,7 +628,7 @@ extension ProductViewController {
                 }
                 
             }
-
+            
         }
         
     }

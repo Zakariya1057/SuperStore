@@ -14,7 +14,9 @@ protocol PriceChangeDelegate {
 }
 
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PriceChangeDelegate, ListItemsDelegate {
-
+    
+    var listManager: ListManager = ListManager()
+    
     @IBOutlet weak var totalPriceLabel: UILabel!
     
     @IBOutlet var oldPriceView: UIView!
@@ -49,7 +51,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var tickedOffItems: Int = 0
     
     @IBOutlet weak var listTableView: UITableView!
-
+    
     @IBOutlet weak var addCategoryButton: UIButton!
     @IBOutlet weak var storeButton: UIButton!
     
@@ -72,8 +74,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var notificationToken: NotificationToken?
     
-    var listManager: ListManager = ListManager()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,26 +95,22 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         listTableView.addSubview(refreshControl) // not required when using UITableViewController
         
         let results = realm.objects(ListItemHistory.self)
-
+        
         notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
-                case .initial:
-                    print("List Change. Initial")
-                    self?.updateListInfo()
-                    break
+            case .initial:
+                print("List Change. Initial")
+                self?.updateListInfo()
+                break
             case .update(_, _, _, _):
-                    print("List Change. Update")
-                    self?.showTotalPrice()
-                    self?.completedCheck()
-                    self?.listTableView.reloadData()
-                    break
-                case .error(let error):
-                    fatalError("\(error)")
+                print("List Change. Update")
+                self?.showTotalPrice()
+                self?.completedCheck()
+                self?.listTableView.reloadData()
+                break
+            case .error(let error):
+                fatalError("\(error)")
             }
-        }
-        
-        if offline == false {
-            configureItems()
         }
         
         if listItem != nil {
@@ -124,11 +120,18 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             if listItem!.categories.count > 0 || RequestHandler.sharedInstance.offline == true {
                 configureUI()
             }
-           
+            
+            try? realm.write(withoutNotifying: [notificationToken!], {
+                if !offline && listItem!.edited {
+                    listManager.uploadEditedList(listHistory: listItem!)
+                    print("List has been edited in offline mode. Upload changes before clearing list")
+                }
+            })
+            
         }
         
     }
-
+    
     func contentLoaded(list: ListModel) {
         addToHistory(list)
         configureUI()
@@ -155,19 +158,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.listTableView.reloadData()
         stopLoading()
-    }
-
-    func configureItems(){
-        // Remove deleted items.
-        // Update item quantities
-
-        let items = realm.objects(ListItemHistory.self).filter("list_id = \(list_id!) and deleted = true")
-
-        for item in items {
-            listHandler.delete(list_id: list_id!, list_data: ["product_id": String(item.product_id)])
-            realm.delete(item)
-        }
-
     }
     
     @objc func refresh(_ sender: AnyObject) {
@@ -210,7 +200,7 @@ extension ListViewController {
             let destinationVC = segue.destination as! ListItemViewController
             destinationVC.selected_row = selected_row
             destinationVC.selected_section = selected_section
-
+            
             destinationVC.delegate = self
             destinationVC.product = list!.categories[selected_section].items[selected_row]
         }
@@ -256,14 +246,14 @@ extension ListViewController {
             let section_item = list!.categories[section]
             let title = section_item.name
             let subtitle = section_item.aisle_name ?? ""
-
+            
             header.headingLabel.text = title
             header.subHeadingLabel.text = subtitle
         }
-
+        
         return header
     }
-
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if loading != true {
@@ -298,22 +288,27 @@ extension ListViewController {
     func addToHistory(_ list: ListModel){
         let item = realm.objects(ListHistory.self).filter("identifier = %@", identifier!).first
         
+        // if list has been edited in offline mode. Upload changes before clearing list
         if item != nil {
+
             try? realm.write(withoutNotifying: [notificationToken!], {
-                
                 realm.delete( realm.objects(ListItemHistory.self).filter("list_id = \(list_id!)") )
                 realm.delete( realm.objects(ListCategoryHistory.self).filter("list_id = \(list_id!)") )
                 
                 for category in list.categories {
                     listItem?.categories.append(category.getRealmObject())
                 }
-            
+                
             })
+
         } else {
             try? realm.write(withoutNotifying: [notificationToken!], {
                 realm.add(list.getRealmObject())
             })
         }
+        
+    
+    
     }
     
     func updateListInfo(){
@@ -322,22 +317,26 @@ extension ListViewController {
             return
         }
         
-        let item = realm.objects(ListHistory.self).filter("identifier = %@", identifier!).first
+        let listHistory = realm.objects(ListHistory.self).filter("identifier = %@", identifier!).first
         
-        if item != nil {
+        if listHistory != nil {
             try? realm.write(withoutNotifying: [notificationToken!], {
                 
                 showTotalPrice()
                 
                 print("Saving Changes")
-                item!.status = list!.status.rawValue
-                item!.totalPrice = totalPrice
+                listHistory!.status = list!.status.rawValue
+                listHistory!.totalPrice = totalPrice
                 
-                item!.tickedOffItems = tickedOffItems
-                item!.totalItems = totalItems
+                if offline {
+                    listHistory!.edited = true
+                }
                 
-                item!.updated = Date()
-
+                listHistory!.tickedOffItems = tickedOffItems
+                listHistory!.totalItems = totalItems
+                
+                listHistory!.updated = Date()
+                
                 self.listTableView.reloadData()
             })
         } else {
@@ -356,13 +355,15 @@ extension ListViewController {
     }
     
     func productChanged(_ product: ListItemModel) {
-  
+        
+        listEdited()
+        
         let data:[String: String] = [
             "product_id": String(product.product_id),
             "quantity": String(product.quantity),
             "ticked_off": String(product.ticked_off)
         ]
-
+        
         listHandler.update(listId: list_id!, listData: data)
         
         try? realm.write(withoutNotifying: [notificationToken!], {
@@ -400,11 +401,11 @@ extension ListViewController {
         status = .notStarted
         
         if (allItems > 0){
-           if(checkedItems == allItems){
-               status = .completed
-           } else if checkedItems > 0 {
-               status = .inProgress
-           }
+            if(checkedItems == allItems){
+                status = .completed
+            } else if checkedItems > 0 {
+                status = .inProgress
+            }
         }
         
         self.tickedOffItems = checkedItems
@@ -418,7 +419,7 @@ extension ListViewController {
         var oldPrice: Double = 0.00
         
         let products = (list?.categories ?? []).map({ $0.items }).joined()
-
+        
         var promotions = [Int: Dictionary<String, [Any]>]()
         
         for product in products {
@@ -496,12 +497,22 @@ extension ListViewController {
 //MARK: - Shared Functionality
 extension ListViewController {
     
+    func listEdited(){
+        try? realm.write(withoutNotifying: [notificationToken!], {
+            if offline {
+                listItem?.edited = true
+            }
+        })
+    }
+    
     func removeItem(section: Int, row: Int){
-
+        
         let product = list!.categories[section].items[row]
         
         let indexPath = IndexPath(row: row, section: section)
         let indexSet = NSIndexSet(index: section)
+        
+        listEdited()
         
         if list!.categories[section].items.count == 1 {
             
@@ -510,19 +521,13 @@ extension ListViewController {
                 realm.delete(deleteCategory!.items)
                 realm.delete(deleteCategory!)
             })
-
+            
             listTableView.deleteSections(indexSet as IndexSet, with: .fade)
         } else {
             try? realm.write(withoutNotifying: [notificationToken!], {
                 let item = list!.categories[section].items[row]
                 let deleteItem = realm.objects(ListItemHistory.self).filter("list_id = \(list_id!) AND product_id=\(item.product_id)").first
-                
-                if offline {
-                    deleteItem!.deleted = true
-                } else {
-                    realm.delete( deleteItem! )
-                }
-
+                realm.delete( deleteItem! )
             })
             
             listTableView.deleteRows(at: [indexPath], with: .fade)
