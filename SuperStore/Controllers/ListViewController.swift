@@ -321,22 +321,22 @@ extension ListViewController {
         
         if listHistory != nil {
             try? realm.write(withoutNotifying: [notificationToken!], {
-                
+
                 showTotalPrice()
-                
+
                 print("Saving Changes")
                 listHistory!.status = list!.status.rawValue
                 listHistory!.totalPrice = totalPrice
-                
+
                 if offline {
                     listHistory!.edited = true
                 }
-                
+
                 listHistory!.tickedOffItems = tickedOffItems
                 listHistory!.totalItems = totalItems
                 
                 listHistory!.updated = Date()
-                
+//
                 self.listTableView.reloadData()
             })
         } else {
@@ -363,9 +363,9 @@ extension ListViewController {
             "quantity": String(product.quantity),
             "ticked_off": String(product.ticked_off)
         ]
-        
+
         listHandler.update(listId: list_id!, listData: data)
-        
+
         try? realm.write(withoutNotifying: [notificationToken!], {
             let productItem = realm.objects(ListItemHistory.self).filter("product_id = \(product.product_id) AND list_id = \(list_id!)").first
             productItem!.ticked_off = product.ticked_off
@@ -373,9 +373,8 @@ extension ListViewController {
             productItem!.totalPrice = product.totalPrice
         })
         
-        showTotalPrice()
-        
         completedCheck()
+//        updateListInfo()
         
     }
     
@@ -409,8 +408,7 @@ extension ListViewController {
         }
         
         self.tickedOffItems = checkedItems
-        self.updateListInfo()
-        
+       
     }
     
     func showTotalPrice(){

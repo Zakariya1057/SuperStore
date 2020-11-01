@@ -30,7 +30,6 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     var add_to_list_product_id: Int?
     var noDelegateFound: Bool = false
     
-    @IBOutlet var stepperPressed: UIStepper!
     @IBOutlet weak var reviewsStackView: UIStackView!
     @IBOutlet weak var ingredientsView: UIView!
     @IBOutlet weak var descriptionView: UIView!
@@ -469,6 +468,10 @@ extension ProductViewController {
         let quantity = sender.value
         stepperLabel.text = String(format: "%.0f", quantity)
         
+        try? realm.write({
+            product!.quantity = Int(quantity)
+        })
+        
         quantityStepper.value = quantity
         delegate?.updateQuantity(product!.getProductModel())
         
@@ -501,6 +504,7 @@ extension ProductViewController {
             let item = listManager.addProductToList(listId: selectedListId!, product: product!.getProductModel())
             quantityStepper.value = Double(item.quantity)
             stepperLabel.text = "\(item.quantity)"
+            itemQuantity = item.quantity
             showQuantityView()
         } else {
             let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
@@ -526,20 +530,21 @@ extension ProductViewController {
         showQuantityView()
     }
     
-    func updateQuantity(_ product: ProductModel) {
+    func updateQuantity(_ productItem: ProductModel) {
         
         if selectedListId != nil {
             
             let data:[String: String] = [
-                "product_id": String(product.id),
-                "quantity": String(product.quantity),
+                "product_id": String(productItem.id),
+                "quantity": String(productItem.quantity),
                 "ticked_off": "false"
             ]
             
-            listManager.updateProduct(listId: selectedListId!, product: product)
+            print("Quantity: \(productItem.quantity)")
+            listManager.updateProduct(listId: selectedListId!, product: productItem)
             
             listHandler.update(listId:selectedListId!, listData: data)
-            
+
         }
         
     }
