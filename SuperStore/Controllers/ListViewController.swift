@@ -13,7 +13,7 @@ protocol PriceChangeDelegate {
     func productRemove(_ product: ListItemModel)
 }
 
-class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PriceChangeDelegate, ListItemsDelegate {
+class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ListItemsDelegate, PriceChangeDelegate {
     
     var listManager: ListManager = ListManager()
     
@@ -30,7 +30,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var userHandler = UserHandler()
     
-    var delegate:PriceChangeDelegate?
+    var delegate: PriceChangeDelegate?
     
     var listItem: ListHistory? {
         return realm.objects(ListHistory.self).filter("identifier = %@", identifier!).first
@@ -100,12 +100,13 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             switch changes {
             case .initial:
                 print("List Change. Initial")
+                self?.completedCheck()
                 self?.updateListInfo()
                 break
             case .update(_, _, _, _):
                 print("List Change. Update")
-                self?.showTotalPrice()
                 self?.completedCheck()
+                self?.updateListInfo()
                 self?.listTableView.reloadData()
                 break
             case .error(let error):
@@ -200,8 +201,6 @@ extension ListViewController {
             let destinationVC = segue.destination as! ListItemViewController
             destinationVC.selected_row = selected_row
             destinationVC.selected_section = selected_section
-            
-            destinationVC.delegate = self
             destinationVC.product = list!.categories[selected_section].items[selected_row]
         }
     }
@@ -325,9 +324,11 @@ extension ListViewController {
                 showTotalPrice()
 
                 print("Saving Changes")
-                listHistory!.status = list!.status.rawValue
+                listHistory!.status = status!.rawValue
                 listHistory!.totalPrice = totalPrice
 
+                print("Total Price: \(totalPrice)")
+                
                 if offline {
                     listHistory!.edited = true
                 }
@@ -336,8 +337,8 @@ extension ListViewController {
                 listHistory!.totalItems = totalItems
                 
                 listHistory!.updated = Date()
-//
-                self.listTableView.reloadData()
+
+//                self.listTableView.reloadData()
             })
         } else {
             print("No List Found. Ignoring")
@@ -440,7 +441,7 @@ extension ListViewController {
             let products = promotion.value["products"] as! [ListItemModel]
             let productCount = products.count
             let promotion = promotion.value["promotion"]![0] as! PromotionModel
-            var newTotalPrice:Double = 0
+            var newTotalPrice: Double = 0
             
             if productCount >= promotion.quantity {
                 

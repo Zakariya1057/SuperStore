@@ -141,10 +141,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @objc func refresh(){
-        self.loading = true
-        createHomeSections()
-        listTableView.reloadData()
-        homeHandler.request()
+        // Code to refresh table view
+        if !offline {
+            self.loading = true
+            createHomeSections()
+            listTableView.reloadData()
+            homeHandler.request()
+        } else {
+            refreshControl.endRefreshing()
+        }
     }
 
 }
@@ -186,7 +191,7 @@ extension HomeViewController {
             
             if home!.lists.count < 4 {
                 // No List On Page. Get Last 4 Recent. Show
-                let recentLists = realm.objects(ListHistory.self).filter("synced = true AND deleted = false").sorted(byKeyPath: "updated", ascending: false)
+                let recentLists = realm.objects(ListHistory.self).filter("deleted = false").sorted(byKeyPath: "updated", ascending: false)
                 
                 for index in 0...3 {
                     if recentLists.indices.contains(index){

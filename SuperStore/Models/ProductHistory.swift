@@ -17,7 +17,7 @@ class ProductHistory: Object {
     @objc dynamic var smallImage: String = ""
     @objc dynamic var largeImage: String = ""
     
-    @objc dynamic var product_description: String? = ""
+    @objc dynamic var product_description: String? = nil
     @objc dynamic var price:Double = 0
     
     @objc dynamic var avgRating: Double = 0
@@ -26,13 +26,13 @@ class ProductHistory: Object {
     @objc dynamic var weight: String? = ""
     
     @objc dynamic var parentCategoryId: Int = 1
-    @objc dynamic var parentCategoryName: String? = ""
-    @objc dynamic var childCategoryName: String? = ""
+    @objc dynamic var parentCategoryName: String? = nil
+    @objc dynamic var childCategoryName: String? = nil
     
     @objc dynamic var storage: String?
     
-    @objc dynamic var dietary_info: String?
-    @objc dynamic var allergen_info: String?
+    @objc dynamic var dietary_info: String? = nil
+    @objc dynamic var allergen_info: String? = nil
     
     @objc dynamic var brand:String = ""
     

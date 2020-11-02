@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ListItemViewController: UIViewController {
     
     var product: ListItemModel?
+    
+    var listItemHistory: ListItemHistory {
+        return realm.objects(ListItemHistory.self).filter("product_id = \(product!.product_id) AND list_id = \(product!.list_id)").first!
+    }
     
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var productTotalLabel: UILabel!
@@ -21,7 +26,8 @@ class ListItemViewController: UIViewController {
     
     @IBOutlet var promotionButton: UIButton!
     
-    var delegate: PriceChangeDelegate?
+    let realm = try! Realm()
+//    var delegate: PriceChangeDelegate?
     
     var selected_row: Int = 0
     var selected_section: Int = 0
@@ -84,14 +90,22 @@ class ListItemViewController: UIViewController {
         if product!.quantity == 0 {
             confirmDelete()
         } else {
-            self.delegate!.productChanged(product!)
+            
+            try? realm.write {
+                listItemHistory.quantity = product!.quantity
+            }
+            
             self.navigationController?.popViewController(animated: true)
         }
         
     }
     
     func deleteItem(){
-        self.delegate!.productRemove(product!)
+        
+        try? realm.write {
+            realm.delete(listItemHistory)
+        }
+        
         self.navigationController?.popViewController(animated: true)
     }
     

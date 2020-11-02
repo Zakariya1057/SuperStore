@@ -15,6 +15,8 @@ class ListEditViewController: UIViewController  {
     
     let realm = try! Realm()
     
+    var listManager: ListManager = ListManager()
+    
     var list: ListHistory? {
         return realm.objects(ListHistory.self).filter("identifier = %@", identifier!).first
     }
@@ -93,7 +95,8 @@ class ListEditViewController: UIViewController  {
         listHandler.update(list_data: [
             "identifier": list!.identifier,
             "name":nameField.text!,
-            "store_type_id": "1"
+            "store_type_id": "1",
+            "items": listManager.getListItems(list!)
         ])
         
         self.navigationController?.popViewController(animated: true)

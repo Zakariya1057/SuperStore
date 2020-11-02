@@ -26,7 +26,7 @@ class ListItemTableViewCell: UITableViewCell {
 
     var product: ListItemModel?
     
-    var delegate:PriceChangeDelegate?
+    var delegate: PriceChangeDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()

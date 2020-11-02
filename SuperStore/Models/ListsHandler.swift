@@ -27,7 +27,7 @@ struct ListsHandler {
         requestHandler.getRequest(url: url_string, complete: processResults,error:processError, logOutUser: logOutUser)
     }
     
-    func insert(list_data:[String: String]){
+    func insert(list_data:[String: Any]){
         let listInsert = K.Request.Lists.ListCreate
         let url_string = "\(K.Host)/\(listPath)/\(listInsert)"
         requestHandler.postRequest(url: url_string, data: list_data, complete: processResults, error: processError, logOutUser: logOutUser)

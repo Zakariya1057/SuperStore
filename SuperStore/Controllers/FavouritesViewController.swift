@@ -16,7 +16,6 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     let realm = try! Realm()
     lazy var favourites: Results<ProductHistory> = { self.realm.objects(ProductHistory.self).filter("favourite = true").sorted(byKeyPath: "updated_at", ascending: false)}()
     
-    
     var delegate:GroceryDelegate?
     
     var favouritesHandler = FavouritesHandler()
@@ -28,6 +27,10 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     var loading: Bool = true
     
     var notificationToken: NotificationToken?
+    
+    var offline: Bool {
+        return RequestHandler.sharedInstance.offline
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,8 +69,11 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @objc func refresh(_ sender: AnyObject) {
-        // Code to refresh table view
-        favouritesHandler.request()
+        if !offline {
+            favouritesHandler.request()
+        } else {
+            refreshControl.endRefreshing()
+        }
     }
     
     func contentLoaded(products: [ProductModel]) {
@@ -118,6 +124,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.product = favourites[indexPath.row].getProductModel()
             cell.showAddButton = false
             cell.showStoreName = false
+            cell.product!.quantity = 0
             cell.configureUI()
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
         } else {

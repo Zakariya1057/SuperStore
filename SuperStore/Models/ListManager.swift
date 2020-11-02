@@ -127,26 +127,30 @@ extension ListManager {
 }
 
 extension ListManager {
-    func uploadEditedList(listHistory: ListHistory){
-        // List edited:
-        // Update name
-        // Update/Insert All Items
-        
+    
+    func getListItems(_ listHistory: ListHistory) -> [[String : String]] {
         var items:[[String: String]] = []
         
         for category in listHistory.categories {
-            
             for product in category.items {
-                
                 items.append([
                     "product_id": String(product.product_id),
                     "quantity": String(product.quantity),
                     "ticked_off": String(product.ticked_off)
                 ])
-                
             }
-            
         }
+        
+        return items
+    }
+    
+    
+    func uploadEditedList(listHistory: ListHistory){
+        // List edited:
+        // Update name
+        // Update/Insert All Items
+        
+        let items = getListItems(listHistory)
         
         listHandler.update(list_data: [
             "identifier": listHistory.identifier,
@@ -157,4 +161,5 @@ extension ListManager {
         
         listHistory.edited = false
     }
+    
 }

@@ -73,6 +73,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         
         search()
         searchHistory()
+        generateFilters()
         
         self.delegate = self
         
@@ -206,6 +207,7 @@ extension SearchResultsViewController {
             data["dietary"] = selectedDietary.compactMap({ $0.name }).joined(separator: ",")
         }
         
+        totalProductsLabel.text = ""
         
         if refresh {
             
@@ -440,8 +442,9 @@ extension SearchResultsViewController {
                 // Add to product history
                 productItem = product.getRealmObject()
             }
-            
+
         }
-        
+
     }
+
 }
