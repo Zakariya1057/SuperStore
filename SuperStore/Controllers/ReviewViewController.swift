@@ -13,8 +13,10 @@ import RealmSwift
 class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDelegate, UITextViewDelegate {
 
     @IBOutlet weak var reviewTextView: UITextView!
-    
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var reviewTitleView: UITextField!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var ratingView: CosmosView!
     
     var product_id: Int?
     
@@ -22,6 +24,10 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         get {
             return realm.objects(ProductHistory.self).filter("id = \(product_id!)").first
         }
+    }
+    
+    var offline: Bool {
+        return RequestHandler.sharedInstance.offline
     }
     
     @IBOutlet var deleteButton: UIButton!
@@ -39,10 +45,6 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         }
     }
 
-    @IBOutlet weak var reviewTitleView: UITextField!
-    @IBOutlet weak var nameLabel: UILabel!
-    
-    @IBOutlet weak var ratingView: CosmosView!
     var reviewHandler = ReviewsHandler()
     
     var requestSent: Bool = false
@@ -57,15 +59,9 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         reviewHandler.delegate = self
         reviewTitleView.delegate = self
         reviewTextView.delegate = self
-        // Do any additional setup after loading the view, typically from a nib.
 
-//        reviewTextView.layer.cornerRadius = 5
         reviewTitleView!.layer.borderWidth = 0
-//        reviewTitleView!.layer.borderColor = CGColor(srgbRed: 0.83, green: 0.83, blue: 0.83, alpha: 1.00)
-        
         reviewTextView.layer.cornerRadius = 5
-//        reviewTextView.layer.borderWidth = 1
-//        reviewTextView.layer.borderColor = CGColor(srgbRed: 0.83, green: 0.83, blue: 0.83, alpha: 1.00)
         
         reviewTextView.toolbarPlaceholder = "Review Text"
        
@@ -133,12 +129,13 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func reviewPressed(_ sender: Any) {
-        // Validate first, are all fields filled up. -> Later
         
+        if offline {
+            return showError("Internet connection required.")
+        }
         
         let text = String(reviewTextView.text ?? "")
         let title = String(reviewTitleView.text ?? "")
@@ -165,6 +162,11 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     }
     
     @IBAction func deletePressed(_ sender: Any) {
+        
+        if offline {
+            return showError("Internet connection required.")
+        }
+        
         confirmDelete()
     }
     

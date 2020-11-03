@@ -38,7 +38,6 @@ struct GroceryCategoriesHandler {
             let grocery_data = try decoder.decode(GroceryCategoriesResponseData.self, from: data)
             let grocery_categories_list = grocery_data.data
             
-//            print(groceryDetails)
             var grocery_categories:[GrandParentCategoryModel] = []
             
             for category in grocery_categories_list {

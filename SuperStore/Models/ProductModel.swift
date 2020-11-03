@@ -83,6 +83,7 @@ class ProductModel: ProductItemModel {
 
         product.parentCategoryId = self.parentCategoryId ?? 0
         product.parentCategoryName = self.parentCategoryName
+        product.childCategoryName = self.childCategoryName
 
         product.promotion = self.promotion?.getRealmObject()
         

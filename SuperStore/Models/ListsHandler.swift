@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol ListDelegate {
     func contentLoaded(lists: [ListModel])
@@ -27,16 +28,16 @@ struct ListsHandler {
         requestHandler.getRequest(url: url_string, complete: processResults,error:processError, logOutUser: logOutUser)
     }
     
-    func insert(list_data:[String: Any]){
+    func insert(list_data: Parameters){
         let listInsert = K.Request.Lists.ListCreate
         let url_string = "\(K.Host)/\(listPath)/\(listInsert)"
         requestHandler.postRequest(url: url_string, data: list_data, complete: processResults, error: processError, logOutUser: logOutUser)
     }
     
-    func update(list_data: [String: Any]){
+    func update(list_data: Parameters){
         let listUpdate = K.Request.Lists.ListUpdate
         let url_string = "\(K.Host)/\(listPath)/\(listUpdate)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete:  { _ in } , error: processError, logOutUser: logOutUser)
+        requestHandler.postRequest(url: url_string, data: list_data, complete: { _ in }, error: processError, logOutUser: logOutUser)
     }
     
     func delete(list_data: [String: String]){

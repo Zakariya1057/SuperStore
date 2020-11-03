@@ -153,7 +153,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password123" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="N0s-kB-z5L">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
+                                                                                        <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -370,7 +370,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="zakaria2011@live.no" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ivq-uM-tCO">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" textContentType="email"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="emailAddress" returnKeyType="done" textContentType="email"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -1106,7 +1106,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="ZMD-Jc-vKc"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES" textContentType="password"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -1143,7 +1143,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="Thd-qG-8QY"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES" textContentType="password"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -1180,7 +1180,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="4nl-Jq-OIt"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES" textContentType="password"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -1256,7 +1256,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="z8k-ZC-qrm"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="username"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="username"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -2174,7 +2174,7 @@
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="250G" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXx-ON-gGI">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="192" height="25"/>
-                                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                 </subviews>
@@ -2259,7 +2259,7 @@
                                                                                                 </connections>
                                                                                             </stepper>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOo-cE-qNu">
-                                                                                                <rect key="frame" x="0.0" y="14" width="77" height="22.5"/>
+                                                                                                <rect key="frame" x="0.0" y="12" width="77" height="26"/>
                                                                                                 <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="19"/>
                                                                                                 <nil key="textColor"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -2312,7 +2312,7 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="20"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reviews" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3c-8q-A5W">
-                                                                                        <rect key="frame" x="0.0" y="-0.5" width="384" height="21"/>
+                                                                                        <rect key="frame" x="0.0" y="-2.5" width="384" height="25"/>
                                                                                         <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
@@ -2613,7 +2613,7 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="25"/>
                                                                                         <subviews>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Life Style" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Foo-9B-LNw">
-                                                                                                <rect key="frame" x="0.0" y="2" width="384" height="21"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="384" height="25"/>
                                                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                                 <nil key="textColor"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -2654,7 +2654,7 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="25"/>
                                                                                         <subviews>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allergen Information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tA6-ll-1q3">
-                                                                                                <rect key="frame" x="0.0" y="2" width="384" height="21"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="384" height="25"/>
                                                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
                                                                                                 <nil key="textColor"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -3246,7 +3246,7 @@
                                                         <rect key="frame" x="276" y="0.0" width="138" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Refine" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Clh-Ls-8Ve">
-                                                                <rect key="frame" x="0.0" y="15" width="123" height="20"/>
+                                                                <rect key="frame" x="0.0" y="13.5" width="123" height="23.5"/>
                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="17"/>
                                                                 <color key="textColor" name="LogoBlue.Light"/>
                                                                 <nil key="highlightedColor"/>
@@ -3335,7 +3335,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="138" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Oc-IL-nBn">
-                                                                <rect key="frame" x="15" y="9" width="64" height="32"/>
+                                                                <rect key="frame" x="15" y="7" width="68" height="36"/>
                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="17"/>
                                                                 <state key="normal" title="Clear All">
                                                                     <color key="titleColor" name="LogoBlue.Light"/>
@@ -3356,7 +3356,7 @@
                                                         <rect key="frame" x="138" y="0.0" width="138" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Refine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s67-qy-ZN4">
-                                                                <rect key="frame" x="42" y="14" width="54" height="22.5"/>
+                                                                <rect key="frame" x="40" y="12" width="58.5" height="26"/>
                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="19"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -3371,7 +3371,7 @@
                                                         <rect key="frame" x="276" y="0.0" width="138" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ihw-Ib-UBN">
-                                                                <rect key="frame" x="79" y="9" width="44" height="32"/>
+                                                                <rect key="frame" x="76" y="7" width="47" height="36"/>
                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="17"/>
                                                                 <state key="normal" title="Apply">
                                                                     <color key="titleColor" name="LogoBlue.Light"/>
@@ -4291,7 +4291,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password123" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZRB-4x-DZX">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
+                                                                                        <textInputTraits key="textInputTraits" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -4344,7 +4344,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password123" placeholder="Repeat Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bUT-tR-kW2">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
+                                                                                        <textInputTraits key="textInputTraits" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -4511,7 +4511,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="que-dx-0R8">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
+                                                                                        <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -4564,7 +4564,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Repeat Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8VG-Ap-8YD">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
+                                                                                        <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -4708,7 +4708,7 @@
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Code" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7fz-pr-gvn">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" textContentType="email"/>
+                                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad" returnKeyType="done" textContentType="one-time-code"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -4799,7 +4799,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="LCl-dZ-pvm"/>
+        <segue reference="YcT-k9-dml"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="ATM" width="50" height="50"/>

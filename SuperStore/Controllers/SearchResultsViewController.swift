@@ -396,12 +396,8 @@ extension SearchResultsViewController {
         self.filters = []
         
         if searchDetails!.type == .childCategory {
-            let category = realm.objects(ChildCategoryHistory.self).filter("id = %@", searchDetails!.id).first
-            
-            if category != nil {
-                category!.products.forEach({ products.append($0.getProductModel()) })
-            }
-           
+            let results = realm.objects(ProductHistory.self).filter("childCategoryName = %@", searchDetails!.name).sorted(byKeyPath: "avgRating", ascending: false)
+            products = results.map{ $0.getProductModel() }
         } else if searchDetails!.type == .parentCategory {
             let results = realm.objects(ProductHistory.self).filter("parentCategoryId = %@", searchDetails!.id).sorted(byKeyPath: "avgRating", ascending: false)
             products = results.map{ $0.getProductModel() }

@@ -11,11 +11,13 @@ import RealmSwift
 
 class ListItemViewController: UIViewController {
     
-    var product: ListItemModel?
+    var listItem: ListItemModel?
     
     var listItemHistory: ListItemHistory {
-        return realm.objects(ListItemHistory.self).filter("product_id = \(product!.product_id) AND list_id = \(product!.list_id)").first!
+        return realm.objects(ListItemHistory.self).filter("product_id = \(listItem!.product_id) AND list_id = \(listItem!.list_id)").first!
     }
+    
+    var listHandler = ListItemsHandler()
     
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var productTotalLabel: UILabel!
@@ -27,7 +29,6 @@ class ListItemViewController: UIViewController {
     @IBOutlet var promotionButton: UIButton!
     
     let realm = try! Realm()
-//    var delegate: PriceChangeDelegate?
     
     var selected_row: Int = 0
     var selected_section: Int = 0
@@ -43,38 +44,38 @@ class ListItemViewController: UIViewController {
         let quantity = Int(sender.value)
         stepper.value = Double(quantity)
         quantityLabel.text = String(quantity)
-        product!.quantity = quantity
+        listItem!.quantity = quantity
         updateTotalPrice()
     }
     
     @IBAction func promotionPressed(_ sender: UIButton) {
         
-        if product?.promotion == nil {
+        if listItem?.promotion == nil {
             return
         }
         
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "promotionViewController"))! as! PromotionViewController
-        destinationVC.promotion_id = product!.promotion!.id
+        destinationVC.promotion_id = listItem!.promotion!.id
         
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     func configureUI(){
         
-        if product?.promotion != nil {
-            promotionButton.setTitle(product!.promotion?.name, for: .normal)
+        if listItem?.promotion != nil {
+            promotionButton.setTitle(listItem!.promotion?.name, for: .normal)
         } else {
             promotionButton.removeFromSuperview()
         }
-        quantityLabel.text = String(product!.quantity)
-        productNameLabel.text = String(product!.name) + ( product!.weight != "" ? " (\(product!.weight!))" : "")
-        stepper.value = Double(product!.quantity)
-        productImageView.downloaded(from: product!.largeImage)
+        quantityLabel.text = String(listItem!.quantity)
+        productNameLabel.text = String(listItem!.name) + ( listItem!.weight != "" ? " (\(listItem!.weight!))" : "")
+        stepper.value = Double(listItem!.quantity)
+        productImageView.downloaded(from: listItem!.largeImage)
         updateTotalPrice()
     }
     
     func updateTotalPrice(){
-        productTotalLabel.text = "£" + String(format: "%.2f", listManager.calculateProductPrice(product!))
+        productTotalLabel.text = "£" + String(format: "%.2f", listManager.calculateProductPrice(listItem!))
     }
     
     func confirmDelete(){
@@ -87,24 +88,32 @@ class ListItemViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        if product!.quantity == 0 {
+        if listItem!.quantity == 0 {
             confirmDelete()
         } else {
             
             try? realm.write {
-                listItemHistory.quantity = product!.quantity
+                listItemHistory.quantity = listItem!.quantity
             }
             
+            let data:[String: String] = [
+                "product_id": String(listItem!.product_id),
+                "quantity": String(listItem!.quantity),
+                "ticked_off": String(listItem!.ticked_off)
+            ]
+            
+            listHandler.update(listId: listItem!.list_id, listData: data)
             self.navigationController?.popViewController(animated: true)
         }
         
     }
     
     func deleteItem(){
-        
         try? realm.write {
             realm.delete(listItemHistory)
         }
+        
+        listHandler.delete(list_id: listItem!.list_id, list_data: ["product_id": String(listItem!.product_id)])
         
         self.navigationController?.popViewController(animated: true)
     }

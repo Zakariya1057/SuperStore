@@ -17,6 +17,16 @@ class StoresResultsTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var openStatusLabel: UILabel!
     
+    var day_of_week: Int {
+        var day_of_week = Calendar.current.component(.weekday, from: Date()) - 2
+        
+        if day_of_week == -1 {
+            day_of_week = 6
+        }
+        
+        return day_of_week
+    }
+    
     var loadingViews: [UIView] {
         return [addressLabel,nameLabel,openStatusLabel,storeImageView]
     }
@@ -36,7 +46,7 @@ class StoresResultsTableViewCell: UITableViewCell {
             let address = [location.address_line1, location.address_line2, location.address_line3, location.city ]
             addressLabel.text = address.compactMap { $0 }.joined(separator: ", ")
             
-            if store!.opening_hours.count > 0 {
+            if store!.opening_hours.count > 0 &&  store!.opening_hours[0].day_of_week == day_of_week {
                 let hours = store!.opening_hours[0]
                 openStatusLabel.text = "\(hours.opens_at.lowercased()) - \(hours.closes_at.lowercased())"
             } else {

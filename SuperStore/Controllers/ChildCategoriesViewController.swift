@@ -16,7 +16,7 @@ protocol ListSelectedDelegate {
 }
 
 class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, GroceriesProductsDelegate, ListSelectedDelegate {
-
+    
     let realm = try! Realm()
     
     var groceryHandler = GroceryProductsHandler()
@@ -113,10 +113,10 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
                 for _ in child_categories {
                     self.viewcontrollers.append(GroceryTableViewController())
                 }
-
+                
                 self.reloadData()
             }
-
+            
             for category in child_categories {
                 addToHistory(category)
             }
@@ -126,7 +126,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
             self.viewcontrollers[0].tableView.reloadData()
             self.reloadData()
         }
-
+        
     }
     
     func errorHandler(_ message: String) {
@@ -157,7 +157,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         bar.indicator.cornerStyle = .square
         bar.fadesContentEdges = true
         bar.spacing = 30.0
-
+        
         // Add to view
         addBar(bar, dataSource: self, at: .top)
     }
@@ -167,7 +167,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
-
+    
 }
 
 extension ChildCategoriesViewController {
@@ -216,9 +216,9 @@ extension ChildCategoriesViewController {
         selected_row!.product?.quantity = item.quantity
         selected_row!.show_quantity_view()
     }
-
+    
     func updateQuantity(_ product: ProductModel) {
-
+        
         if selectedListId != nil {
             let data:[String: String] = [
                 "product_id": String(product.id),
@@ -229,7 +229,7 @@ extension ChildCategoriesViewController {
             listManager.updateProduct(listId: selectedListId!, product: product)
             listHandler.update(listId:selectedListId!, listData: data)
         }
-       
+        
     }
     
 }
@@ -245,18 +245,18 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
             item = TMBarItem(title: "")
             item.image = nil
         }
-
+        
         return item
     }
     
-
+    
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
         return loading ? 1 : viewcontrollers.count
     }
-
+    
     func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
         let viewController: GroceryTableViewController = loading ? viewcontrollers[0]: viewcontrollers[index]
-
+        
         print("Generate View Controllers")
         
         if loading == false && categories.indices.contains(index) {
@@ -264,12 +264,12 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
             viewController.selectedListId = self.selectedListId
             viewController.delegate = self
         }
-
+        
         viewController.loading = self.loading
         
         return viewController
     }
-
+    
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
         return nil
     }
@@ -280,15 +280,39 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
     }
     
     func addToHistory(_ category: ChildCategoryModel){
-
+        
         let categoryItem = realm.objects(ChildCategoryHistory.self).filter("id = \(category.id)").first
         
         try! realm.write() {
+            let categoryHistory = category.getRealmObject()
+            
             if categoryItem == nil {
-                parentCategory!.childCategories.append(category.getRealmObject())
+                parentCategory!.childCategories.append(categoryHistory)
             } else {
                 realm.delete(categoryItem!)
-                parentCategory!.childCategories.append(category.getRealmObject())
+                parentCategory!.childCategories.append(categoryHistory)
+            }
+            
+            // Update product/list details here.
+            for product in category.products {
+                let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+                
+                if productHistory != nil {
+                    productHistory?.price = product.price
+                    productHistory?.avgRating = product.avgRating
+                    productHistory?.totalReviewsCount = product.totalReviewsCount
+                    productHistory?.promotion = product.promotion?.getRealmObject()
+                    productHistory?.largeImage = product.largeImage
+                    productHistory?.smallImage = product.smallImage
+                }
+                
+                let listItemHistory = realm.objects(ListItemHistory.self).filter("product_id = \(product.id)").first
+                
+                if listItemHistory != nil {
+                    listItemHistory?.price = product.price
+                    listItemHistory?.promotion = product.promotion?.getRealmObject()
+                }
+                
             }
             
         }

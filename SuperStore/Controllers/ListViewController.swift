@@ -122,12 +122,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                 configureUI()
             }
             
-            try? realm.write(withoutNotifying: [notificationToken!], {
-                if !offline && listItem!.edited {
+            if listItem!.edited {
+                try? realm.write(withoutNotifying: [notificationToken!], {
                     listManager.uploadEditedList(listHistory: listItem!)
                     print("List has been edited in offline mode. Upload changes before clearing list")
-                }
-            })
+                })
+            }
             
         }
         
@@ -160,11 +160,24 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.listTableView.reloadData()
         stopLoading()
     }
-    
+
     @objc func refresh(_ sender: AnyObject) {
-        if RequestHandler.sharedInstance.offline == false {
-            listHandler.request(listId:list_id!)
+        if !offline {
+            print("Online. Request")
+            
+            if listItem!.edited {
+                try? realm.write(withoutNotifying: [notificationToken!], {
+                    listManager.uploadEditedList(listHistory: listItem!)
+                    print("List has been edited in offline mode. Upload changes before clearing list")
+                    refreshControl.endRefreshing()
+                })
+                
+            } else {
+                listHandler.request(listId:list_id!)
+            }
+
         } else {
+            print("Offline. Ignore")
             refreshControl.endRefreshing()
         }
     }
@@ -201,7 +214,7 @@ extension ListViewController {
             let destinationVC = segue.destination as! ListItemViewController
             destinationVC.selected_row = selected_row
             destinationVC.selected_section = selected_section
-            destinationVC.product = list!.categories[selected_section].items[selected_row]
+            destinationVC.listItem = list!.categories[selected_section].items[selected_row]
         }
     }
     
