@@ -27,6 +27,16 @@ struct SearchHandler {
     
     let requestHandler = RequestHandler()
     
+    var day_of_week: Int {
+        var day_of_week = Calendar.current.component(.weekday, from: Date()) - 2
+        
+        if day_of_week == -1 {
+            day_of_week = 6
+        }
+        
+        return day_of_week
+    }
+    
     func requestSuggestions(query: String){
         let hostURL = K.Host
         let suggestionsPath = K.Request.Search.Suggestions
@@ -102,7 +112,7 @@ struct SearchHandler {
             }
 
             for store in resultsData.stores {
-                let hour = OpeningHoursModel(store_id: store.id, opens_at: store.opens_at!, closes_at: store.closes_at!, closed_today: false, day_of_week: 1)
+                let hour = OpeningHoursModel(store_id: store.id, opens_at: store.opens_at!, closes_at: store.closes_at!, closed_today: false, day_of_week: day_of_week)
                 
                 stores.append( StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [hour], location: LocationModel(store_id: store.id, city: store.location.city, address_line1: store.location.address_line1, address_line2: store.location.address_line2, address_line3: store.location.address_line3, postcode: store.location.postcode,latitude: store.location.latitude, longitude: store.location.longitude), facilities: [], store_type_id: store.store_type_id))
                 

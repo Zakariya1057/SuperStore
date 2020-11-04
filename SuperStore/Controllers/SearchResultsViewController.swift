@@ -53,6 +53,10 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     var listManager: ListManager = ListManager()
     
+    var offline: Bool {
+        return RequestHandler.sharedInstance.offline
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,7 +77,6 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         
         search()
         searchHistory()
-        generateFilters()
         
         self.delegate = self
         
@@ -174,10 +177,15 @@ extension SearchResultsViewController {
         selectedDietary = dietary
         selectedBrand = brand
         currentPage = 1
+        
         search()
     }
     
     func search(refresh: Bool = true){
+        
+        if offline {
+            return searchHistory()
+        }
         
         var data = ["type": getSearchType(), "detail": searchDetails!.name]
         
@@ -345,7 +353,7 @@ extension SearchResultsViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = resultsTableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
         
-        if paginate != nil && paginate!.more_available && indexPath.row + 1 == products.count && currentPage <= paginate!.to{
+        if !offline && paginate != nil && paginate!.more_available && indexPath.row + 1 == products.count && currentPage <= paginate!.to{
             // Load More Items At End
             currentPage = currentPage + 1
             search(refresh: false)
@@ -395,28 +403,68 @@ extension SearchResultsViewController {
         self.products = []
         self.filters = []
         
+        var sortBy: String = "avgRating"
+        var ascending: Bool = false
+        var filterBy: [String] = []
+        
         if searchDetails!.type == .childCategory {
-            let results = realm.objects(ProductHistory.self).filter("childCategoryName = %@", searchDetails!.name).sorted(byKeyPath: "avgRating", ascending: false)
-            products = results.map{ $0.getProductModel() }
+            filterBy.append("childCategoryName = \"\(searchDetails!.name)\"")
         } else if searchDetails!.type == .parentCategory {
-            let results = realm.objects(ProductHistory.self).filter("parentCategoryId = %@", searchDetails!.id).sorted(byKeyPath: "avgRating", ascending: false)
-            products = results.map{ $0.getProductModel() }
+            filterBy.append("parentCategoryId = \(searchDetails!.id)")
         } else {
-            let results = realm.objects(ProductHistory.self).filter("name CONTAINS[c] %@", searchDetails!.name).sorted(byKeyPath: "avgRating", ascending: false)
-            products = results.map{ $0.getProductModel() }
+            filterBy.append("name CONTAINS[c] \"\(searchDetails!.name)\"")
+        }
+        
+        if selectedSort != nil {
+            
+            if selectedSort!.order == .asc {
+                ascending = true
+            }
+            
+            if selectedSort!.sort == "price" {
+                sortBy = "price"
+            }
+            
+        }
+        
+        if selectedBrand != nil {
+            filterBy.append("brand = \"\(selectedBrand!.name)\" ")
+        }
+
+        if selectedDietary.count > 0 {
+            for dietary in selectedDietary {
+                filterBy.append("dietary_info contains \"\(dietary.name)\" ")
+            }
+        }
+        
+        if selectedCategory != nil {
+            filterBy.append("childCategoryName = \"\(selectedCategory!.name)\" ")
         }
      
-        products.sort { (productA, productB) -> Bool in
-            return (productA.avgRating / Double(productA.totalReviewsCount)) < (productB.avgRating / Double(productB.totalReviewsCount))
-        }
+        print(filterBy.joined(separator: " AND "))
         
+        let results = realm.objects(ProductHistory.self).filter(filterBy.joined(separator: " AND ")).sorted(byKeyPath: sortBy, ascending: ascending)
+        
+        products = results.map{ $0.getProductModel() }
+        
+        if selectedSort == nil || selectedSort!.sort == "rating" {
+            products.sort { (productA, productB) -> Bool in
+                return (productA.avgRating / Double(productA.totalReviewsCount)) < (productB.avgRating / Double(productB.totalReviewsCount))
+            }
+        }
+
+        
+        loading = false
+        totalProductsLabel.text = "\(products.count) Products"
+        resultsTableView.reloadData()
+        refreshControl.endRefreshing()
+
         if products.count > 0 {
-            loading = false
-            totalProductsLabel.text = "\(products.count) Products"
-            resultsTableView.reloadData()
-            refreshControl.endRefreshing()
+            resultsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
         
+        generateFilters()
+
     }
     
     func addToHistory(_ product: ProductModel){

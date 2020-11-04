@@ -178,11 +178,10 @@ class StoreViewController: UIViewController, StoreDelegate {
                 }
 
             }
-            
+
         } else {
             hoursLabels.forEach({ $0.text = "" })
         }
-
 
     }
     
