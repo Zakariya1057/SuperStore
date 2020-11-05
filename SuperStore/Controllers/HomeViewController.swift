@@ -156,7 +156,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
 extension HomeViewController {
     func configureNotifications(){
-        let banner = StatusBarNotificationBanner(title: "Offline Mode", style: .info)
+        let banner = StatusBarNotificationBanner(title: "Offline Mode", style: .warning)
         banner.autoDismiss = false
         
         networkManager.reachability.whenReachable = { _ in
