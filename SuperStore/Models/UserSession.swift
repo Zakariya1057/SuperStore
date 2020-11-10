@@ -16,9 +16,15 @@ struct UserSession {
         setDefaultRealmForUser()
     }
     
+    static var sharedInstance: UserSession = {
+        return UserSession()
+    }()
+    
     let userDefaults = UserDefaults.standard
     
     var viewController: UIViewController?
+    
+    var notificationToken: String?
     
     func logOut(){
         let realm = try! Realm()
@@ -84,6 +90,10 @@ struct UserSession {
     func isLoggedIn() -> Bool{
         return showUserInfo() != nil && getUserDetails() != nil
     }
+
+}
+
+extension UserSession {
     
     func setDefaultRealmForUser(userId: Int? = nil) {
         var config = Realm.Configuration()
@@ -106,5 +116,4 @@ struct UserSession {
         config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("default.realm")
         Realm.Configuration.defaultConfiguration = config
     }
-
 }

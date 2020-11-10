@@ -122,6 +122,9 @@
 		2CB51C332548BD2A0090F558 /* AppleUserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB51C322548BD290090F558 /* AppleUserSession.swift */; };
 		2CB51C38254B2B560090F558 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB51C37254B2B560090F558 /* AuthenticationServices.framework */; };
 		2CB51C68254C69ED0090F558 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB51C67254C69ED0090F558 /* NetworkManager.swift */; };
+		2CB51CA1255487D20090F558 /* CustomNotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB51CA0255487D20090F558 /* CustomNotificationDelegate.swift */; };
+		2CB51CAA255489800090F558 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB51CA9255489800090F558 /* NotificationService.swift */; };
+		2CB51CAE255489800090F558 /* PayloadModification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2CB51CA7255489800090F558 /* PayloadModification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2CC1EA1B24FA9550000A9BC4 /* GroceryProductsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1A24FA9550000A9BC4 /* GroceryProductsData.swift */; };
 		2CC1EA1D24FAC003000A9BC4 /* ProductDetailsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1C24FAC003000A9BC4 /* ProductDetailsHandler.swift */; };
 		2CC1EA1F24FAC0EB000A9BC4 /* ProductData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1E24FAC0EB000A9BC4 /* ProductData.swift */; };
@@ -140,6 +143,30 @@
 		2CF239BB25094C8700D4CE91 /* ListsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239BA25094C8600D4CE91 /* ListsData.swift */; };
 		2CF239BD2509549100D4CE91 /* ListItemsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239BC2509549100D4CE91 /* ListItemsData.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2CB51CAC255489800090F558 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C1567AE24C77FD800B8DCB5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2CB51CA6255489800090F558;
+			remoteInfo = PayloadModification;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2CB51CB2255489800090F558 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2CB51CAE255489800090F558 /* PayloadModification.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2A6527B7848ED54283EE5DD9 /* Pods_SuperStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuperStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -267,6 +294,10 @@
 		2CB51C322548BD290090F558 /* AppleUserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUserSession.swift; sourceTree = "<group>"; };
 		2CB51C37254B2B560090F558 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		2CB51C67254C69ED0090F558 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		2CB51CA0255487D20090F558 /* CustomNotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNotificationDelegate.swift; sourceTree = "<group>"; };
+		2CB51CA7255489800090F558 /* PayloadModification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PayloadModification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CB51CA9255489800090F558 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		2CB51CAB255489800090F558 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CC1EA1A24FA9550000A9BC4 /* GroceryProductsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryProductsData.swift; sourceTree = "<group>"; };
 		2CC1EA1C24FAC003000A9BC4 /* ProductDetailsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsHandler.swift; sourceTree = "<group>"; };
 		2CC1EA1E24FAC0EB000A9BC4 /* ProductData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductData.swift; sourceTree = "<group>"; };
@@ -298,6 +329,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2CB51CA4255489800090F558 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -305,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				2C1567B824C77FD800B8DCB5 /* SuperStore */,
+				2CB51CA8255489800090F558 /* PayloadModification */,
 				2C1567B724C77FD800B8DCB5 /* Products */,
 				429EF559B847C30D5A28936C /* Pods */,
 				B75C7985088D4A4D2A58A54C /* Frameworks */,
@@ -315,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				2C1567B624C77FD800B8DCB5 /* SuperStore.app */,
+				2CB51CA7255489800090F558 /* PayloadModification.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -323,10 +363,10 @@
 			isa = PBXGroup;
 			children = (
 				2CB2E7DF25483391009A1A26 /* SuperStore.entitlements */,
-				2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */,
 				2C99F1D525435D4F0007C43F /* SuperStoreRelease.entitlements */,
 				2C1567BB24C77FD800B8DCB5 /* SceneDelegate.swift */,
 				2C9CEED1250678590049E93D /* SceneDelegate.swift */,
+				2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */,
 				2C1567CF24C8B2D500B8DCB5 /* Models */,
 				2C1567CE24C8B2CC00B8DCB5 /* Views */,
 				2C1567CD24C8B2B400B8DCB5 /* Controllers */,
@@ -426,6 +466,7 @@
 			children = (
 				2C1567DA24C8B3B200B8DCB5 /* K.swift */,
 				2CAC060B2530E25600561509 /* HomeHandler.swift */,
+				2CB51CA0255487D20090F558 /* CustomNotificationDelegate.swift */,
 				2CAC060F2530E26700561509 /* HomeData.swift */,
 				2CAC06122530E41700561509 /* HomeModel.swift */,
 				2C43E797253CC4C60084DF7C /* HomeHistory.swift */,
@@ -497,6 +538,15 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		2CB51CA8255489800090F558 /* PayloadModification */ = {
+			isa = PBXGroup;
+			children = (
+				2CB51CA9255489800090F558 /* NotificationService.swift */,
+				2CB51CAB255489800090F558 /* Info.plist */,
+			);
+			path = PayloadModification;
+			sourceTree = "<group>";
+		};
 		429EF559B847C30D5A28936C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -527,15 +577,34 @@
 				2C1567B324C77FD800B8DCB5 /* Frameworks */,
 				2C1567B424C77FD800B8DCB5 /* Resources */,
 				9C9CECD588D6C35B2FE59EE4 /* [CP] Embed Pods Frameworks */,
+				2CB51CB2255489800090F558 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2CB51CAD255489800090F558 /* PBXTargetDependency */,
 			);
 			name = SuperStore;
 			productName = SuperStore;
 			productReference = 2C1567B624C77FD800B8DCB5 /* SuperStore.app */;
 			productType = "com.apple.product-type.application";
+		};
+		2CB51CA6255489800090F558 /* PayloadModification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CB51CAF255489800090F558 /* Build configuration list for PBXNativeTarget "PayloadModification" */;
+			buildPhases = (
+				2CB51CA3255489800090F558 /* Sources */,
+				2CB51CA4255489800090F558 /* Frameworks */,
+				2CB51CA5255489800090F558 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PayloadModification;
+			productName = PayloadModification;
+			productReference = 2CB51CA7255489800090F558 /* PayloadModification.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -543,12 +612,15 @@
 		2C1567AE24C77FD800B8DCB5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1160;
+				LastSwiftUpdateCheck = 1210;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Zakariya Mohummed";
 				TargetAttributes = {
 					2C1567B524C77FD800B8DCB5 = {
 						CreatedOnToolsVersion = 11.6;
+					};
+					2CB51CA6255489800090F558 = {
+						CreatedOnToolsVersion = 12.1;
 					};
 				};
 			};
@@ -566,6 +638,7 @@
 			projectRoot = "";
 			targets = (
 				2C1567B524C77FD800B8DCB5 /* SuperStore */,
+				2CB51CA6255489800090F558 /* PayloadModification */,
 			);
 		};
 /* End PBXProject section */
@@ -600,6 +673,13 @@
 				2CAC05ED252B83FF00561509 /* OffersTableViewCell.xib in Resources */,
 				2CAC05FD252E314F00561509 /* FeaturedProductCollectionViewCell.xib in Resources */,
 				2CB15C7724D190E500461AFE /* StoresResultsTableViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CB51CA5255489800090F558 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,6 +770,7 @@
 				2C9DD12F24FCFC6800544563 /* IngredientsModel.swift in Sources */,
 				2C1567E724CAD62100B8DCB5 /* ReviewsViewController.swift in Sources */,
 				2CB3DCF52527AFB600FC5792 /* RefineTableViewCell.swift in Sources */,
+				2CB51CA1255487D20090F558 /* CustomNotificationDelegate.swift in Sources */,
 				2C266DFF24D6FBC300C66EA5 /* SettingsChangeViewController.swift in Sources */,
 				2CAC05FC252E314F00561509 /* FeaturedProductCollectionViewCell.swift in Sources */,
 				2CC1EA1B24FA9550000A9BC4 /* GroceryProductsData.swift in Sources */,
@@ -760,7 +841,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2CB51CA3255489800090F558 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CB51CAA255489800090F558 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2CB51CAD255489800090F558 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2CB51CA6255489800090F558 /* PayloadModification */;
+			targetProxy = 2CB51CAC255489800090F558 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2C1567BF24C77FD800B8DCB5 /* Main.storyboard */ = {
@@ -902,6 +999,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 78A3D23A2EFDF10530DC6D40 /* Pods-SuperStore.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SuperStore/SuperStore.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -925,6 +1023,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 81D954E4C76C0EAE824B9E7D /* Pods-SuperStore.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SuperStore/SuperStoreRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -939,6 +1038,48 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2CB51CB0255489800090F558 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5FCM3X5N8A;
+				INFOPLIST_FILE = PayloadModification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore.PayloadModification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2CB51CB1255489800090F558 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5FCM3X5N8A;
+				INFOPLIST_FILE = PayloadModification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore.PayloadModification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -961,6 +1102,15 @@
 			buildConfigurations = (
 				2C1567CB24C77FDB00B8DCB5 /* Debug */,
 				2C1567CC24C77FDB00B8DCB5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CB51CAF255489800090F558 /* Build configuration list for PBXNativeTarget "PayloadModification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CB51CB0255489800090F558 /* Debug */,
+				2CB51CB1255489800090F558 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

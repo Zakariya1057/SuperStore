@@ -21,14 +21,18 @@ struct UserHandler {
     
     let requestHandler = RequestHandler()
     
+    var notificationToken: String {
+        return UserSession.sharedInstance.notificationToken ?? ""
+    }
+    
     func requestRegister(name: String, email: String, password: String, passwordConfirmation: String, identifier: String = "", userToken: String = ""){
         let urlString = "\(K.Host)/\(K.Request.User.Register)"
-        requestHandler.postRequest(url: urlString, data: ["name": name, "password": password, "password_confirmation": passwordConfirmation, "email": email, "identifier": identifier, "user_token": userToken ], complete: processResults, error: processError, logOutUser: logOutUser )
+        requestHandler.postRequest(url: urlString, data: ["name": name, "password": password, "password_confirmation": passwordConfirmation, "email": email, "identifier": identifier, "user_token": userToken, "notification_token": notificationToken ], complete: processResults, error: processError, logOutUser: logOutUser )
     }
     
     func requestLogin(email: String, password: String){
         let urlString = "\(K.Host)/\(K.Request.User.Login)"
-        requestHandler.postRequest(url: urlString, data: ["email": email, "password": password], complete: processResults, error: processError, logOutUser: logOutUser)
+        requestHandler.postRequest(url: urlString, data: ["email": email, "password": password, "notification_token": notificationToken], complete: processResults, error: processError, logOutUser: logOutUser)
     }
     
     func requestUpdate(userData: [String: String]){
@@ -44,8 +48,11 @@ struct UserHandler {
     func requestLogout(){
         let logOutPath = K.Request.User.LogOut
         let urlString = "\(K.Host)/\(logOutPath)"
-        requestHandler.postRequest(url: urlString, data: ["": ""], complete: { _ in }, error: processError, logOutUser: logOutUser)
-        userSession.logOut()
+        requestHandler.postRequest(url: urlString, data: ["": ""], complete: { _ in self.delegate?.contentLoaded() }, error: processError, logOutUser: logOutUser)
+        
+        if userSession.viewController != nil {
+            userSession.logOut()
+        }
     }
     
     func requestResetCode(email: String){

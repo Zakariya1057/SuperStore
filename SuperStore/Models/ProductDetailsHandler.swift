@@ -78,7 +78,7 @@ struct ProductDetailsHandler {
             }
 
         } catch {
-            print("Decoding Data Error: \(error)")
+            self.delegate?.errorHandler("Decoding Data Error: \(error)")
         }
         
         

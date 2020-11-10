@@ -38,6 +38,9 @@ class SettingsViewController: UIViewController, UserDelegate  {
     
     let realm = try! Realm()
     
+    var deletePressed: Bool = false
+    var logoutPressed: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,7 +79,17 @@ class SettingsViewController: UIViewController, UserDelegate  {
     
     func contentLoaded() {
         stopLoading()
-        userHandler.userSession.deleteUser()
+        
+        userHandler.userSession.viewController = self
+        
+        if deletePressed {
+            userHandler.userSession.deleteUser()
+        }
+
+        if logoutPressed {
+            userSession.logOut()
+        }
+
     }
     
     func errorHandler(_ message: String) {
@@ -153,12 +166,14 @@ class SettingsViewController: UIViewController, UserDelegate  {
     
     
     func logOut(){
-        userHandler.userSession.viewController = self
+        startLoading()
+        logoutPressed = true
         userHandler.requestLogout()
     }
     
     func deleteAccount(){
         startLoading()
+        deletePressed = true
         userHandler.requestDelete(userData: ["id": String(userDetails!.id), "email": userDetails!.email])
     }
 

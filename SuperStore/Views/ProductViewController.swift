@@ -187,7 +187,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     // Used by favourites delegate
     func contentLoaded(products: [ProductModel]) {
-        
+        //Update all favourites
     }
     
     func refreshProduct() {
@@ -195,6 +195,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     }
     
     func configureUI(){
+        if(product == nil){
+            return showError("No product details found.")
+        }
+        
         // Loading must stop before content set. Otherwise wont change label values
         loading = false
         stopLoading()
