@@ -466,7 +466,6 @@
 			children = (
 				2C1567DA24C8B3B200B8DCB5 /* K.swift */,
 				2CAC060B2530E25600561509 /* HomeHandler.swift */,
-				2CB51CA0255487D20090F558 /* CustomNotificationDelegate.swift */,
 				2CAC060F2530E26700561509 /* HomeData.swift */,
 				2CAC06122530E41700561509 /* HomeModel.swift */,
 				2C43E797253CC4C60084DF7C /* HomeHistory.swift */,
@@ -519,6 +518,7 @@
 				2C21C3A324F6F2A300D90B4B /* RequestHandler.swift */,
 				2C85FECE2520FC6D00CECBD5 /* UserSession.swift */,
 				2CB51C322548BD290090F558 /* AppleUserSession.swift */,
+				2CB51CA0255487D20090F558 /* CustomNotificationDelegate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

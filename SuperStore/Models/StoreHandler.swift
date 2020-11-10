@@ -31,8 +31,6 @@ struct StoreHandler {
         
         do {
             
-            print("Processing Results")
-            
             let decoder = JSONDecoder()
             let decodedStoreData = try decoder.decode(StoreData.self, from: data)
             let storeHours = decodedStoreData.opening_hours!
@@ -61,7 +59,7 @@ struct StoreHandler {
 
             
         } catch {
-            print("Decoding Data Error: \(error)")
+            processError("Decoding Data Error: \(error)")
         }
         
         
@@ -72,6 +70,7 @@ struct StoreHandler {
     }
     
     func processError(_ message:String){
+        print(message)
         self.delegate?.errorHandler(message)
     }
 }

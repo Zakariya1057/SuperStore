@@ -34,8 +34,6 @@ struct ProductDetailsHandler {
         
         do {
             
-            print("Processing Results")
-            
             let decoder = JSONDecoder()
             let data = try decoder.decode(ProductDataResponse.self, from: data)
             let product_details = data.data
@@ -78,7 +76,7 @@ struct ProductDetailsHandler {
             }
 
         } catch {
-            self.delegate?.errorHandler("Decoding Data Error: \(error)")
+            processError("Decoding Data Error: \(error)")
         }
         
         
@@ -89,6 +87,7 @@ struct ProductDetailsHandler {
     }
     
     func processError(_ message:String){
+        print(message)
         self.delegate?.errorHandler(message)
     }
 }

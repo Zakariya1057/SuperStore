@@ -55,8 +55,6 @@ struct SearchHandler {
         
         do {
             
-            print("Processing Results")
-            
             let decoder = JSONDecoder()
             let decodedSuggestionsData = try decoder.decode(SearchSuggestionsDataResponse.self, from: data)
             let suggestionsTypes = decodedSuggestionsData.data
@@ -84,7 +82,7 @@ struct SearchHandler {
             }
         
         } catch {
-            print("Decoding Data Error: \(error)")
+            processError("Decoding Data Error: \(error)")
         }
         
         
@@ -93,8 +91,6 @@ struct SearchHandler {
     func processResults(_ data:Data){
         
         do {
-            
-            print("Processing Results")
             
             let decoder = JSONDecoder()
             let decodedResultsData = try decoder.decode(SearchResultsDataResponse.self, from: data)
@@ -106,7 +102,6 @@ struct SearchHandler {
             var products: [ProductModel] = []
             var paginate: PaginateResultsModel? = nil
 
-            
             if paginateData != nil {
                 paginate = PaginateResultsModel(from: paginateData!.from, current: paginateData!.current, to: paginateData!.to, per_page: paginateData!.per_page, next_page_url: paginateData!.next_page_url, current_page_url: paginateData!.current_page_url, prev_page_url: paginateData!.prev_page_url, more_available: paginateData!.more_available)
             }
@@ -137,7 +132,7 @@ struct SearchHandler {
             }
         
         } catch {
-            print("Decoding Data Error: \(error)")
+            processError("Decoding Data Error: \(error)")
         }
         
         
@@ -149,6 +144,7 @@ struct SearchHandler {
     }
     
     func processError(_ message:String){
+        print(message)
         if (self.suggestionsDelegate != nil){
             self.suggestionsDelegate!.errorHandler(message)
         } else if (self.resultsDelegate != nil){

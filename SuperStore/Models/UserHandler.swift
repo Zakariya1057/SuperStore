@@ -76,8 +76,6 @@ struct UserHandler {
     func processResults(_ data:Data){
         
         do {
-            
-            print("Processing Results")
 
             let decoder = JSONDecoder()
             let decodedUserData = try decoder.decode(UserLoginDataResponse.self, from: data)
@@ -98,7 +96,7 @@ struct UserHandler {
             }
         
         } catch {
-            print("Decoding Data Error: \(error)")
+            processError("Decoding Data Error: \(error)")
         }
         
         
@@ -115,6 +113,7 @@ struct UserHandler {
     }
     
     func processError(_ message:String){
+        print(message)
         self.delegate?.errorHandler(message)
     }
 }

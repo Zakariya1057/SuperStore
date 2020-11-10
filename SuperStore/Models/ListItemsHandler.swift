@@ -97,7 +97,7 @@ struct ListItemsHandler {
             }
 
         } catch {
-            print("Decoding Data Error: \(error)")
+            processError("Decoding Data Error: \(error)")
         }
         
         
@@ -112,6 +112,7 @@ struct ListItemsHandler {
     }
     
     func processError(_ message:String){
+        print(message)
         self.delegate?.errorHandler(message)
     }
 }

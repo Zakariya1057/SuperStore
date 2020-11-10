@@ -37,8 +37,6 @@ struct FavouritesHandler {
         
         do {
             
-            print("Processing Results")
-            
             let decoder = JSONDecoder()
             let data = try decoder.decode(FavouritesDataResponse.self, from: data)
             let products_list = data.data
@@ -56,10 +54,9 @@ struct FavouritesHandler {
             }
 
         } catch {
-            print("Decoding Data Error: \(error)")
+            processError("Decoding Data Error: \(error)")
         }
-        
-        
+
     }
     
     func logOutUser(){
@@ -67,6 +64,7 @@ struct FavouritesHandler {
     }
     
     func processError(_ message:String){
+        print(message)
         self.delegate?.errorHandler(message)
     }
 }

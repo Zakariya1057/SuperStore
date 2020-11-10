@@ -32,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        UIApplication.shared.registerForRemoteNotifications()
         configureNotification(application: application)
         
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        
         return true
     }
     
@@ -78,8 +80,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     // This function will be called right after user tap on the notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("Notification PRessed")
+        print("Notification Pressed")
 
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        
         let content = response.notification.request.content.userInfo
         
         if let aps = content["aps"] as? [String: AnyObject] {
