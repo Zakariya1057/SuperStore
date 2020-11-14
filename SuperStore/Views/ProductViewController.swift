@@ -105,6 +105,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         productHandler.delegate = self
         favouritesHandler.delegate = self
         productHandler.request(product_id: product_id)
+        favouritesHandler.request()
         
         similarTableView.delegate = self
         similarTableView.dataSource = self
@@ -188,6 +189,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     // Used by favourites delegate
     func contentLoaded(products: [ProductModel]) {
         //Update all favourites
+        favouritesHandler.addToFavourite(products)
     }
     
     func refreshProduct() {

@@ -643,6 +643,7 @@ extension UIImageView {
                 options: [
                     .cacheOriginalImage,
                     .forceTransition,
+                    .onFailureImage(KFCrossPlatformImage(named: "No Image")),
                     .scaleFactor(UIScreen.main.scale),
                 ])
         }

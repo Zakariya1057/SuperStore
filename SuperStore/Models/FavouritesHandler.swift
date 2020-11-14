@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol FavouritesDelegate {
     func contentLoaded(products: [ProductModel])
@@ -67,4 +68,43 @@ struct FavouritesHandler {
         print(message)
         self.delegate?.errorHandler(message)
     }
+}
+
+extension FavouritesHandler {
+    
+    func addToFavourite(_ products: [ProductModel]){
+        
+        let realm = try! Realm()
+        
+        try! realm.write() {
+            
+            // Removing All Favourites
+            let productsHistory = realm.objects(ProductHistory.self).filter("favourite = true")
+            for product in productsHistory {
+                product.favourite = false
+            }
+            
+            for product in products.reversed() {
+                let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+                
+                if productHistory == nil {
+                    product.favourite = true
+                    realm.add(product.getRealmObject())
+                } else {
+                    // Updating product details
+                    productHistory!.name = product.name
+                    productHistory!.favourite = true
+                    productHistory!.smallImage = product.smallImage
+                    productHistory!.largeImage = product.largeImage
+                    productHistory!.avgRating = product.avgRating
+                    productHistory!.totalReviewsCount = product.totalReviewsCount
+                    productHistory!.updated_at = Date()
+                }
+                
+            }
+            
+        }
+        
+    }
+    
 }

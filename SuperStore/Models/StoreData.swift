@@ -16,8 +16,6 @@ struct StoreData: Decodable {
     let opening_hours: [OpeningHoursData]?
     var location: LocationData
     var facilities: [FacilityData]?
-    var closes_at: String?
-    var opens_at: String?
 }
 
 struct OpeningHoursData: Decodable {

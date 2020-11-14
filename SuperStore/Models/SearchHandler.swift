@@ -107,9 +107,15 @@ struct SearchHandler {
             }
 
             for store in resultsData.stores {
-                let hour = OpeningHoursModel(store_id: store.id, opens_at: store.opens_at!, closes_at: store.closes_at!, closed_today: false, day_of_week: day_of_week)
+
+                var openingHours: [OpeningHoursModel] = []
                 
-                stores.append( StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [hour], location: LocationModel(store_id: store.id, city: store.location.city, address_line1: store.location.address_line1, address_line2: store.location.address_line2, address_line3: store.location.address_line3, postcode: store.location.postcode,latitude: store.location.latitude, longitude: store.location.longitude), facilities: [], store_type_id: store.store_type_id))
+                if store.opening_hours != nil && store.opening_hours!.count > 0 {
+                    let storeHours = store.opening_hours![0]
+                    openingHours.append(OpeningHoursModel(store_id: store.id, opens_at: storeHours.opens_at, closes_at: storeHours.closes_at, closed_today: storeHours.closed_today ?? false, day_of_week: storeHours.day_of_week))
+                }
+
+                stores.append( StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: openingHours, location: LocationModel(store_id: store.id, city: store.location.city, address_line1: store.location.address_line1, address_line2: store.location.address_line2, address_line3: store.location.address_line3, postcode: store.location.postcode,latitude: store.location.latitude, longitude: store.location.longitude), facilities: [], store_type_id: store.store_type_id))
                 
             }
             
