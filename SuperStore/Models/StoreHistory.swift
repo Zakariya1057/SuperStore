@@ -40,8 +40,8 @@ class StoreHistory: Object {
 }
 
 class OpeningHoursHistory: Object {
-    @objc dynamic var opens_at: String = ""
-    @objc dynamic var closes_at: String = ""
+    @objc dynamic var opens_at: String? = nil
+    @objc dynamic var closes_at: String? = nil
     @objc dynamic var closed_today: Bool = false
     @objc dynamic var day_of_week: Int = 1
     @objc dynamic var store_id: Int = 1

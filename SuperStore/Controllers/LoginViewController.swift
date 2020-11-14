@@ -20,6 +20,7 @@ class LoginViewController: UIViewController, UserDelegate {
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
+
     let realm = try! Realm()
     let appleSession = AppleUserSession()
     
@@ -89,6 +90,11 @@ class LoginViewController: UIViewController, UserDelegate {
     func errorHandler(_ message: String) {
         stopLoading()
         showError(message)
+    }
+    
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
 }

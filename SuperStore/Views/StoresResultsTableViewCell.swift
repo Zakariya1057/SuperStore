@@ -46,9 +46,9 @@ class StoresResultsTableViewCell: UITableViewCell {
             let address = [location.address_line1, location.address_line2, location.address_line3, location.city ]
             addressLabel.text = address.compactMap { $0 }.joined(separator: ", ")
             
-            if store!.opening_hours.count > 0 &&  store!.opening_hours[0].day_of_week == day_of_week {
+            if store!.opening_hours.count > 0 && store!.opening_hours[0].day_of_week == day_of_week && store!.opening_hours[0].closed_today != true {
                 let hours = store!.opening_hours[0]
-                openStatusLabel.text = "\(hours.opens_at.lowercased()) - \(hours.closes_at.lowercased())"
+                openStatusLabel.text = "\(hours.opens_at!.lowercased()) - \(hours.closes_at!.lowercased())"
             } else {
                 openStatusLabel.text = ""
             }

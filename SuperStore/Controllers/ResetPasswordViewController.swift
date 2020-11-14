@@ -88,6 +88,11 @@ class ResetPasswordViewController: UIViewController, UserDelegate {
         stopLoading()
         showError(message)
     }
+    
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
+    }
 
 }
 

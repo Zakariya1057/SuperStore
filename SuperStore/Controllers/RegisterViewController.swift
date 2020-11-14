@@ -110,6 +110,11 @@ class RegisterViewController: UIViewController, UserDelegate {
         self.present(alert, animated: true)
     }
     
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
+    }
+    
 }
 
 extension RegisterViewController: UITextFieldDelegate {

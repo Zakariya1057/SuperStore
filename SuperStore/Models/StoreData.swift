@@ -21,8 +21,8 @@ struct StoreData: Decodable {
 }
 
 struct OpeningHoursData: Decodable {
-    let opens_at:String
-    let closes_at:String
+    let opens_at:String?
+    let closes_at:String?
     let closed_today:Bool?
     let day_of_week:Int
 }

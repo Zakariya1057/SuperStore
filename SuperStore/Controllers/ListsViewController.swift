@@ -352,7 +352,7 @@ extension ListsViewController {
                 } else {
                     // Delete offline deleted list
                     try? realm.write(withoutNotifying: [notificationToken!], {
-                        realm.delete(realm.objects(ListItemHistory.self).filter("list_id = %@",lists[selectedIndex].id ))
+                        realm.delete(realm.objects(ListItemHistory.self).filter("list_id = %@",list.id ))
                         realm.delete(list)
                     })
                     

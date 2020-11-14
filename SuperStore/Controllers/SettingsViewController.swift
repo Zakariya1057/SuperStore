@@ -97,6 +97,11 @@ class SettingsViewController: UIViewController, UserDelegate  {
         stopLoading()
     }
     
+    func logOutUser(){
+        userHandler.userSession.viewController = self
+        userSession.logOut()
+    }
+    
     func showUserDetails(){
         nameLabel.text = userDetails?.name
         emailLabel.text = userDetails?.email
@@ -159,7 +164,7 @@ class SettingsViewController: UIViewController, UserDelegate  {
     }
     
     func showError(_ error: String){
-        let alert = UIAlertController(title: "Delete Error", message: error, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Settings Error", message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }

@@ -174,7 +174,12 @@ class StoreViewController: UIViewController, StoreDelegate {
                         day_name.textColor = .systemBlue
                     }
                     
-                    hourLabel.text = "\(day.opens_at) - \(day.closes_at)".lowercased()
+                    if day.closed_today {
+                        hourLabel.text = "Closed"
+                    } else {
+                        hourLabel.text = "\(day.opens_at!) - \(day.closes_at!)".lowercased()
+                    }
+                    
                 }
 
             }

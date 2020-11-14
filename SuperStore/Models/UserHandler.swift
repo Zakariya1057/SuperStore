@@ -11,6 +11,7 @@ import Foundation
 protocol UserDelegate {
     func contentLoaded()
     func errorHandler(_ message:String)
+    func logOutUser()
 }
 
 struct UserHandler {
@@ -22,7 +23,7 @@ struct UserHandler {
     let requestHandler = RequestHandler()
     
     var notificationToken: String {
-        return UserSession.sharedInstance.notificationToken ?? ""
+        return UserSession.sharedInstance.notificationToken ?? "1"
     }
     
     func requestRegister(name: String, email: String, password: String, passwordConfirmation: String, identifier: String = "", userToken: String = ""){
@@ -109,7 +110,8 @@ struct UserHandler {
     }
     
     func logOutUser(){
-
+        print("Delete/Logout Unauth. Log User Out")
+        self.delegate?.logOutUser()
     }
     
     func processError(_ message:String){
