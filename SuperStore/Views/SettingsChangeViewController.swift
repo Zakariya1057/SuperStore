@@ -17,6 +17,7 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
     
     let realm = try! Realm()
     
+    @IBOutlet var saveBarItem: UIBarButtonItem!
     @IBOutlet weak var inputField: UITextField!
     @IBOutlet weak var headerLabel: UILabel!
     
@@ -102,12 +103,14 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
         spinner.view.frame = view.frame
         view.addSubview(spinner.view)
         spinner.didMove(toParent: self)
+        saveBarItem.isEnabled = false
     }
     
     func stopLoading(){
         spinner.willMove(toParent: nil)
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
+        saveBarItem.isEnabled = true
     }
     
 }

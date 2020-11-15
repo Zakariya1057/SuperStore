@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class ListEditViewController: UIViewController  {
+class ListEditViewController: UIViewController, ListDelegate  {
     
     var listHandler = ListsHandler()
     
@@ -20,8 +20,14 @@ class ListEditViewController: UIViewController  {
     var list: ListHistory? {
         return realm.objects(ListHistory.self).filter("identifier = %@", identifier!).first
     }
-
+    
+    @IBOutlet var createBarItem: UIBarButtonItem!
+    
+    let spinner: SpinnerViewController = SpinnerViewController()
+    
     var identifier: String?
+    
+    var userHandler = UserHandler()
     
     @IBOutlet weak var nameField: UITextField!
     
@@ -31,12 +37,27 @@ class ListEditViewController: UIViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        listHandler.delegate = self
         
         nameField.delegate = self
         
         if list != nil {
             nameField.text = list?.name
         }
+    }
+    
+    func contentLoaded(lists: [ListModel]) {
+        stopLoading()
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func errorHandler(_ message: String) {
+        showError(message)
+    }
+    
+    func logOutUser() {
+        userHandler.userSession.viewController = self
+        userHandler.requestLogout()
     }
     
     func validateName() -> String? {
@@ -99,7 +120,12 @@ class ListEditViewController: UIViewController  {
             "items": listManager.getListItems(list!)
         ])
         
-        self.navigationController?.popViewController(animated: true)
+        if offline {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            startLoading()
+        }
+        
     }
     
     func showError(_ error: String){
@@ -110,6 +136,7 @@ class ListEditViewController: UIViewController  {
     
     
 }
+
 
 extension ListEditViewController: UITextFieldDelegate {
     
@@ -125,4 +152,21 @@ extension ListEditViewController: UITextFieldDelegate {
         return count <= 50
     }
     
+}
+
+extension ListEditViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+        createBarItem.isEnabled = false
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+        createBarItem.isEnabled = true
+    }
 }

@@ -14,14 +14,20 @@ class StoresMapElement: CustomElementModel {
     var type: CustomElementType { return .storesMap }
     var position: CGFloat?
     var stores: [StoreModel]?
+    var errorDelegate: UserLocationDeniedDelegate?
     var loading: Bool = false
     var delegate: StoreSelectedDelegate?
     
-    init(title: String, stores:[StoreModel], delegate: StoreSelectedDelegate) {
+    init(title: String, stores:[StoreModel], delegate: StoreSelectedDelegate, errorDelegate: UserLocationDeniedDelegate) {
         self.title = title
         self.stores = stores
         self.delegate = delegate
+        self.errorDelegate = errorDelegate
     }
+}
+
+protocol UserLocationDeniedDelegate {
+    func showError(_ error: String)
 }
 
 protocol StoreSelectedDelegate {
@@ -30,11 +36,13 @@ protocol StoreSelectedDelegate {
 }
 
 class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegate, MKMapViewDelegate {
-
+    
     var model: StoresMapElement!
     var stores: [StoreModel] = []
     
     var delegate: StoreSelectedDelegate?
+    
+    var errorDelegate: UserLocationDeniedDelegate?
     
     var selected_store_id: Int?
     
@@ -56,6 +64,7 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
         self.model = model
         self.stores = model.stores ?? []
         self.delegate = model.delegate
+        self.errorDelegate = model.errorDelegate
         
         configureUI()
     }
@@ -66,11 +75,11 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         checkLocationServices()
-
+        
         zoomUserLocation()
-            
+        
         mapView.delegate = self
-
+        
         showStoreLocations()
         
         DispatchQueue.main.async {
@@ -95,7 +104,7 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
             let location = store.location
             let addressList = [location.address_line1, location.address_line2, location.address_line3, location.city ]
             let address = addressList.compactMap { $0 }.joined(separator: ", ")
-
+            
             annotation.subtitle = address
             annotation.coordinate = CLLocationCoordinate2D(
                 latitude: CLLocationDegrees(store.location.latitude),
@@ -106,24 +115,24 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
             
             store_details[store.name] = store.id
         }
-
+        
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-
+        
         if annotation is MKUserLocation {
             return nil
         } else {
             // this is our unique identifier for view reuse
             let identifier = "Capital"
-
+            
             // attempt to find a cell we can recycle
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-
+            
             if annotationView == nil {
                 // we didn't find one; make a new one
                 annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-
+                
                 // allow this to show pop up information
                 annotationView?.canShowCallout = true
                 
@@ -138,11 +147,11 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
                 // we have a view to reuse, so give it the new annotation
                 annotationView?.annotation = annotation
             }
-
+            
             // whether it's a new view or a recycled one, send it back
             return annotationView
         }
-
+        
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -162,12 +171,6 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
-//    func showError(_ error: String){
-//        let alert = UIAlertController(title: "Permission Error", message: "Please turn on location permission in app settings.", preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-//        self.present(alert, animated: true)
-//    }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -175,54 +178,56 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
     }
     
     func checkLocationServices() {
-      if CLLocationManager.locationServicesEnabled() {
-        checkLocationAuthorization()
-      } else {
-        // Show alert letting the user know they have to turn this on.
-      }
+        if CLLocationManager.locationServicesEnabled() {
+            checkLocationAuthorization()
+        } else {
+            // Show alert letting the user know they have to turn this on.
+        }
     }
     
     func checkLocationAuthorization() {
         
         if mapView != nil {
-          switch CLLocationManager.authorizationStatus() {
-              case .authorizedWhenInUse:
+            switch CLLocationManager.authorizationStatus() {
+            case .authorizedWhenInUse:
                 mapView!.showsUserLocation = true
                 zoomUserLocation()
-               case .denied: // Show alert telling users how to turn on permissions
-               break
+            case .denied: // Show alert telling users how to turn on permissions
+                print("User Location Permission Denied")
+                // errorDelegate?.showError("User location permission denied.\nPlease change from Apple settings.")
+                break
             case .authorizedAlways:
                 locationManager.requestWhenInUseAuthorization()
                 mapView!.showsUserLocation = true
                 zoomUserLocation()
                 break
-              case .notDetermined:
+            case .notDetermined:
                 locationManager.requestWhenInUseAuthorization()
                 mapView!.showsUserLocation = true
                 zoomUserLocation()
-              case .restricted:
-                // Show an alert letting them know what’s up
-               break
-          @unknown default:
-            fatalError()
-          }
+            case .restricted:
+                errorDelegate?.showError("User location permission denied.\nPlease change from Apple settings.")
+                break
+            @unknown default:
+                fatalError()
+            }
             
         }
-
+        
     }
     
 }
 
 private extension MKMapView {
-  func centerToLocation(
-    _ location: CLLocation,
-    regionRadius: CLLocationDistance = 1000
-  ) {
-    let coordinateRegion = MKCoordinateRegion(
-      center: location.coordinate,
-      latitudinalMeters: regionRadius,
-      longitudinalMeters: regionRadius)
-    setRegion(coordinateRegion, animated: true)
-  }
+    func centerToLocation(
+        _ location: CLLocation,
+        regionRadius: CLLocationDistance = 1000
+    ) {
+        let coordinateRegion = MKCoordinateRegion(
+            center: location.coordinate,
+            latitudinalMeters: regionRadius,
+            longitudinalMeters: regionRadius)
+        setRegion(coordinateRegion, animated: true)
+    }
 }
 

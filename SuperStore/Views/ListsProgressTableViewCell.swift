@@ -170,6 +170,8 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
         
         let listCount = lists.count
         
+        print(listCount)
+        
         for (index, list) in lists.enumerated() {
 
             listStackViews[index].isHidden = false

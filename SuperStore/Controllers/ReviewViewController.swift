@@ -12,6 +12,8 @@ import RealmSwift
 
 class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDelegate, UITextViewDelegate {
 
+    @IBOutlet var saveBarItem: UIBarButtonItem!
+    
     @IBOutlet weak var reviewTextView: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var reviewTitleView: UITextField!
@@ -198,14 +200,16 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         spinner.view.frame = view.frame
         view.addSubview(spinner.view)
         spinner.didMove(toParent: self)
+        saveBarItem.isEnabled = false
     }
     
     func stopLoading(){
         spinner.willMove(toParent: nil)
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
+        saveBarItem.isEnabled = true
     }
-    
+
 }
 
 extension ReviewViewController {

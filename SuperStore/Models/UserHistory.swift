@@ -17,6 +17,7 @@ class UserHistory: Object, Codable {
     @objc dynamic var identifier: String = ""
     @objc dynamic var userToken: String = ""
     @objc dynamic var password: String = ""
+    @objc dynamic var send_notifications: Bool = true
     
     func getUserModel() -> UserModel {
         return UserModel(id: self.id, name: self.name, token: self.token, email: self.email)

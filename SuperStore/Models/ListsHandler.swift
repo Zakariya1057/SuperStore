@@ -37,7 +37,7 @@ struct ListsHandler {
     func update(list_data: Parameters){
         let listUpdate = K.Request.Lists.ListUpdate
         let url_string = "\(K.Host)/\(listPath)/\(listUpdate)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete: { _ in }, error: processError, logOutUser: logOutUser)
+        requestHandler.postRequest(url: url_string, data: list_data, complete: { _ in self.delegate?.contentLoaded(lists: [] ) }, error: processError, logOutUser: logOutUser)
     }
     
     func delete(list_data: [String: String]){
@@ -50,7 +50,7 @@ struct ListsHandler {
     func restart(listID: Int){
         let restartPath = K.Request.Lists.ListRestart
         let url_string = "\(K.Host)/\(listPath)/\(listID)/\(restartPath)"
-        requestHandler.postRequest(url: url_string, data: ["identifier": String(listID)], complete: { _ in }, error: processError, logOutUser: logOutUser)
+        requestHandler.postRequest(url: url_string, data: ["identifier": String(listID)], complete: { _ in self.delegate?.contentLoaded(lists: [] )}, error: processError, logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){

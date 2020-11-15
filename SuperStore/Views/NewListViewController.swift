@@ -20,7 +20,12 @@ class NewListViewController: UIViewController, ListDelegate {
     
     var listIndex: Int?
     
+    @IBOutlet var createBarItem: UIBarButtonItem!
     var listHandler = ListsHandler()
+    
+    var offline: Bool {
+        return RequestHandler.sharedInstance.offline
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +46,8 @@ class NewListViewController: UIViewController, ListDelegate {
             })
         }
         
+        stopLoading()
+        self.navigationController?.popViewController(animated: true)
     }
     
     func errorHandler(_ message: String) {
@@ -59,7 +66,6 @@ class NewListViewController: UIViewController, ListDelegate {
         }
         
         createList()
-        self.navigationController!.popViewController(animated: true)
     }
     
 }
@@ -67,6 +73,8 @@ class NewListViewController: UIViewController, ListDelegate {
 extension NewListViewController {
 
     func createList(){
+        
+        startLoading()
         
         let list = ListModel(id: 0, name: nameField.text!, created_at: Date(), status: .notStarted, identifier: UUID().uuidString, store_id: 1, user_id: 1, totalPrice: 0, categories: [], totalItems: 0, tickedOffItems: 0)
             
@@ -76,6 +84,10 @@ extension NewListViewController {
         
         listHandler.insert(list_data: ["name": list.name,"identifier": list.identifier,"store_type_id": "1"])
         
+        if offline {
+            stopLoading()
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 
     func validateName() -> String? {
@@ -110,4 +122,21 @@ extension NewListViewController: UITextFieldDelegate {
         return count <= 50
     }
     
+}
+
+extension NewListViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+        createBarItem.isEnabled = false
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+        createBarItem.isEnabled = true
+    }
 }

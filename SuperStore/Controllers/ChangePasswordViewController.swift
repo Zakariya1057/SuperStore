@@ -10,6 +10,8 @@ import UIKit
 
 class ChangePasswordViewController: UIViewController, UserDelegate {
 
+    @IBOutlet var saveBarItem: UIBarButtonItem!
+    
     @IBOutlet weak var currentPasswordField: UITextField!
     @IBOutlet weak var newPasswordField: UITextField!
     @IBOutlet weak var repeatPasswordField: UITextField!
@@ -32,8 +34,6 @@ class ChangePasswordViewController: UIViewController, UserDelegate {
         let newPassword = newPasswordField.text ?? ""
         let passwordConfirmation = repeatPasswordField.text ?? ""
         
-        userHandler.requestUpdate(userData: ["type": "password","current_password": currentPassword, "password": newPassword, "password_confirmation": passwordConfirmation])
-        
         let validationFields: [[String: String]] = [
             ["field": "Current Password", "value": currentPassword, "type": "password"],
             ["field": "New Password", "value": newPassword, "type": "password"],
@@ -53,6 +53,8 @@ class ChangePasswordViewController: UIViewController, UserDelegate {
         view.endEditing(true)
         
         startLoading()
+        
+        userHandler.requestUpdate(userData: ["type": "password","current_password": currentPassword, "password": newPassword, "password_confirmation": passwordConfirmation])
         
     }
     
@@ -82,12 +84,14 @@ class ChangePasswordViewController: UIViewController, UserDelegate {
         spinner.view.frame = view.frame
         view.addSubview(spinner.view)
         spinner.didMove(toParent: self)
+        saveBarItem.isEnabled = false
     }
     
     func stopLoading(){
         spinner.willMove(toParent: nil)
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
+        saveBarItem.isEnabled = true
     }
     
 }

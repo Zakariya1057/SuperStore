@@ -33,10 +33,11 @@ struct UserSession {
         resetDefaultRealm()
         
         try? realm.write({
-            realm.delete(realm.objects(UserHistory.self))
+            realm.deleteAll()
+//            realm.delete(realm.objects(UserHistory.self))
         })
     
-        if viewController != nil {
+        if viewController != nil && isLoggedIn() == false {
             let destinationVC = (viewController!.storyboard?.instantiateViewController(withIdentifier: "loginViewController"))! as! LoginViewController
             viewController!.navigationController?.setNavigationBarHidden(true, animated: true)
             viewController!.tabBarController?.tabBar.isHidden = true

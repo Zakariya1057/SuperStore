@@ -11,7 +11,7 @@ import Kingfisher
 import RealmSwift
 import NotificationBannerSwift
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, HomeRequestDelegate, StoreSelectedDelegate, ListProgressDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, HomeRequestDelegate, StoreSelectedDelegate, ListProgressDelegate, UserLocationDeniedDelegate {
 
     @IBOutlet weak var listTableView: UITableView!
     
@@ -330,7 +330,7 @@ extension HomeViewController {
             
             ListsProgressElement(title: "List Progress", delegate: self, lists: []),
 
-            StoresMapElement(title: "Stores", stores: [], delegate: self),
+            StoresMapElement(title: "Stores", stores: [], delegate: self, errorDelegate: self),
 
             ProductElement(title: "Grocery Items",delegate: self, scrollDelegate: self, products: []),
 
@@ -494,7 +494,7 @@ extension HomeViewController {
             home!.lists.removeAll()
             for list in homeItem.lists {
 
-                let listHistory = realm.objects(ListHistory.self).filter("id = \(list.id)").first
+                let listHistory = realm.objects(ListHistory.self).filter("identifier = %@", list.identifier).first
 
                 if listHistory != nil {
                     

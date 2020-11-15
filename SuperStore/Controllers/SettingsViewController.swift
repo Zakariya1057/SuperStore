@@ -20,6 +20,8 @@ class SettingsViewController: UIViewController, UserDelegate  {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     
+    @IBOutlet var notificationSwitch: UISwitch!
+    
     var fieldName:String = ""
     var fieldValue:String = ""
     
@@ -84,6 +86,7 @@ class SettingsViewController: UIViewController, UserDelegate  {
         
         if deletePressed {
             userHandler.userSession.deleteUser()
+            userSession.logOut()
         }
 
         if logoutPressed {
@@ -105,6 +108,7 @@ class SettingsViewController: UIViewController, UserDelegate  {
     func showUserDetails(){
         nameLabel.text = userDetails?.name
         emailLabel.text = userDetails?.email
+        notificationSwitch.isOn = userDetails?.send_notifications ?? true
     }
     
     func stopLoading(){
@@ -167,6 +171,47 @@ class SettingsViewController: UIViewController, UserDelegate  {
         let alert = UIAlertController(title: "Settings Error", message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
+    }
+    
+    
+    @IBAction func notificationSwitchPressed(_ sender: UISwitch) {
+        // If permission denied, ask user to change app settings notifications.
+        
+        let notificationsEnabled = sender.isOn
+        
+        if(notificationsEnabled){
+            
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                
+                DispatchQueue.main.async {
+                    
+                    if let error = error {
+                        self.showError(error.localizedDescription)
+                    } else {
+                        
+                        if notificationsEnabled {
+                            if granted == false {
+                                sender.isOn = false
+                                return self.showError("Notification permission denied.\nPlease enable from Apple settings.")
+                            }
+                        }
+                        
+                        try? self.realm.write({
+                            self.userDetails!.send_notifications = notificationsEnabled
+                        })
+                        
+                        self.userHandler.requestUpdate(userData: ["type":"send_notifications", "send_notifications": sender.isOn])
+                        
+                    }
+                    
+                }
+
+            }
+            
+        }
+        
+
     }
     
     
