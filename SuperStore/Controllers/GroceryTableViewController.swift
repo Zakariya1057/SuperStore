@@ -23,7 +23,7 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
     
     var loading: Bool = true
     
-    var selectedListId: Int?
+    var selectedListID: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +45,8 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
             cell.quantity_delegate = self
             cell.product = products[indexPath.row]
             
-            if selectedListId != nil {
-                let listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selectedListId!) AND product_id=\( cell.product!.id )").first
+            if selectedListID != nil {
+                let listItem = realm.objects(ListItemHistory.self).filter("listID = \(selectedListID!) AND productID=\( cell.product!.id )").first
                 
                 if listItem != nil {
                     cell.product!.quantity = listItem!.quantity

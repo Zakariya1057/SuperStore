@@ -15,23 +15,23 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var groupTableView: UITableView!
     
     var categories: [ParentCategoryModel]?
-    var header_text: String?
+    var headerText: String?
     
-    var selected_category: ParentCategoryModel?
+    var selectedCategory: ParentCategoryModel?
     
-    var selectedListId: Int?
+    var selectedListID: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         groupTableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
         
-        self.title = header_text!
+        self.title = headerText!
         
         groupTableView.dataSource = self
         groupTableView.delegate = self
         
-        if(selectedListId == nil){
+        if(selectedListID == nil){
             self.navigationItem.rightBarButtonItem = nil
         }
         
@@ -49,17 +49,17 @@ class ParentCategoriesViewController: UIViewController, UITableViewDataSource, U
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selected_category = categories![indexPath.row]
+        self.selectedCategory = categories![indexPath.row]
         self.performSegue(withIdentifier: "parentCategoriesToProducts", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "parentCategoriesToProducts" {
             let destinationVC = segue.destination as! ChildCategoriesViewController
-            destinationVC.selectedListId = selectedListId
-            destinationVC.parentCategoryId = selected_category!.id
-            destinationVC.parentCategoryName = selected_category!.name
-            destinationVC.headerText = selected_category!.name
+            destinationVC.selectedListID = selectedListID
+            destinationVC.parentCategoryId = selectedCategory!.id
+            destinationVC.parentCategoryName = selectedCategory!.name
+            destinationVC.headerText = selectedCategory!.name
         }
     }
     

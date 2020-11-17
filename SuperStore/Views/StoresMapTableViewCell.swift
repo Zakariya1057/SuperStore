@@ -31,8 +31,8 @@ protocol UserLocationDeniedDelegate {
 }
 
 protocol StoreSelectedDelegate {
-    func storePressed(store_id: Int)
-    func storeSelected(store_id: Int)
+    func storePressed(storeID: Int)
+    func storeSelected(storeID: Int)
 }
 
 class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegate, MKMapViewDelegate {
@@ -102,7 +102,7 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
             annotation.title = store.name
             
             let location = store.location
-            let addressList = [location.address_line1, location.address_line2, location.address_line3, location.city ]
+            let addressList = [location.addressLine1, location.addressLine2, location.addressLine3, location.city ]
             let address = addressList.compactMap { $0 }.joined(separator: ", ")
             
             annotation.subtitle = address
@@ -159,13 +159,13 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
         selected_store_id = store_details[title!]
         
         if selected_store_id != nil {
-            delegate?.storePressed(store_id: selected_store_id!)
+            delegate?.storePressed(storeID: selected_store_id!)
         }
         
     }
     
     @objc func showStore(){
-        self.delegate?.storeSelected(store_id: selected_store_id!)
+        self.delegate?.storeSelected(storeID: selected_store_id!)
     }
     
     override func awakeFromNib() {

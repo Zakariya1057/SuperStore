@@ -20,12 +20,9 @@ struct GroceryCategoriesHandler {
     
     let requestHandler = RequestHandler()
     
-    func request(store_type_id: Int){
-        // Get All Categories - Grand Parent Categories, Parent Categories
-        let host_url = K.Host
-        let grocery_path = K.Request.Grocery.Categories
-        let url_string = "\(host_url)/\(grocery_path)/\(store_type_id)"
-        requestHandler.getRequest(url: url_string, complete: processResults,error:processError,logOutUser: logOutUser)
+    func request(storeTypeID: Int){
+        let urlString = "\(K.Host)/\(K.Request.Grocery.Categories)/\(storeTypeID)"
+        requestHandler.getRequest(url: urlString, complete: processResults, error:processError, logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -44,10 +41,10 @@ struct GroceryCategoriesHandler {
                 var parent_categories:[ParentCategoryModel] = []
                 
                 for child_category in child_categories_list {
-                    parent_categories.append( ParentCategoryModel(id: child_category.id, name: child_category.name, parentCategoryId: category.id, child_categories: []) )
+                    parent_categories.append( ParentCategoryModel(id: child_category.id, name: child_category.name, parentCategoryId: category.id, childCategories: []) )
                 }
                 
-                grocery_categories.append( GrandParentCategoryModel(id: category.id, name: category.name, child_categories: parent_categories) )
+                grocery_categories.append( GrandParentCategoryModel(id: category.id, name: category.name, childCategories: parent_categories) )
             }
             
             DispatchQueue.main.async {

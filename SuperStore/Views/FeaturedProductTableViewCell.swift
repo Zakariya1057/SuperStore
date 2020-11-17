@@ -102,7 +102,7 @@ extension FeaturedProductTableViewCell: UICollectionViewDelegate, UICollectionVi
         if !loading {
             // Product Selected, Navigate
             print("Product Selected")
-            self.delegate?.showProduct(product_id: products[indexPath.row].id)
+            self.delegate?.showProduct(productID: products[indexPath.row].id)
         }
     }
 }

@@ -14,7 +14,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var favouritesTableView: UITableView!
     
     let realm = try! Realm()
-    lazy var favourites: Results<ProductHistory> = { self.realm.objects(ProductHistory.self).filter("favourite = true").sorted(byKeyPath: "updated_at", ascending: false)}()
+    lazy var favourites: Results<ProductHistory> = { self.realm.objects(ProductHistory.self).filter("favourite = true").sorted(byKeyPath: "updatedAt", ascending: false)}()
     
     var delegate:GroceryDelegate?
     
@@ -106,7 +106,7 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            favouritesHandler.update(product_id: favourites[indexPath.row].getProductModel().id, favourite: false)
+            favouritesHandler.update(productID: favourites[indexPath.row].getProductModel().id, favourite: false)
             
             try! realm.write() {
                 favourites[indexPath.row].favourite = false
@@ -135,9 +135,9 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
-        vc.product_id = favourites[indexPath.row].getProductModel().id
-        self.navigationController?.pushViewController(vc, animated: true)
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
+        destinationVC.productID = favourites[indexPath.row].getProductModel().id
+        self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     func showError(_ error: String){

@@ -17,7 +17,7 @@ class ProductHistory: Object {
     @objc dynamic var smallImage: String = ""
     @objc dynamic var largeImage: String = ""
     
-    @objc dynamic var product_description: String? = nil
+    @objc dynamic var productDescription: String? = nil
     @objc dynamic var price:Double = 0
     
     @objc dynamic var avgRating: Double = 0
@@ -31,8 +31,8 @@ class ProductHistory: Object {
     
     @objc dynamic var storage: String?
     
-    @objc dynamic var dietary_info: String? = nil
-    @objc dynamic var allergen_info: String? = nil
+    @objc dynamic var dietaryInfo: String? = nil
+    @objc dynamic var allergenInfo: String? = nil
     
     @objc dynamic var brand:String = ""
     
@@ -45,8 +45,8 @@ class ProductHistory: Object {
     @objc dynamic var favourite: Bool = false
     @objc dynamic var monitoring: Bool = false
     
-    @objc dynamic var updated_at: Date = Date()
-    @objc dynamic var created_at: Date = Date()
+    @objc dynamic var updatedAt: Date = Date()
+    @objc dynamic var createdAt: Date = Date()
     
     @objc dynamic var promotion: PromotionHistory? = nil
     
@@ -59,17 +59,18 @@ class ProductHistory: Object {
     }
     
     func getProductModel() -> ProductModel {
-        
+
         return ProductModel(
             id: self.id, name: self.name, smallImage: self.smallImage, largeImage: self.largeImage,
-            description: self.product_description, quantity: self.quantity,
+            description: self.productDescription, quantity: self.quantity,
             price: self.price,avgRating: self.avgRating,
             totalReviewsCount: self.totalReviewsCount,
             promotion: self.promotion?.getPromotionModel(), storage: self.storage,
             weight: self.weight, parentCategoryId: self.parentCategoryId,
             parentCategoryName: self.parentCategoryName, childCategoryName: self.childCategoryName,
-            dietary_info: self.dietary_info, allergen_info: self.allergen_info,
+            dietaryInfo: self.dietaryInfo, allergenInfo: self.allergenInfo,
             brand: self.brand, reviews: self.reviews.map {$0.getReviewModel()} , favourite: self.favourite, monitoring: self.monitoring,
             ingredients:self.ingredients.map { "\($0)"} , recommended: [])
+
     }
 }

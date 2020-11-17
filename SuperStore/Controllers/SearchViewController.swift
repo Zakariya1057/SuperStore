@@ -30,7 +30,7 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
     
     var selectedItem:SearchModel?
     
-    var selectedListId: Int?
+    var selectedListID: Int?
     
     var loading: Bool = false
     
@@ -179,11 +179,11 @@ extension SearchViewController: UITableViewDelegate,UITableViewDataSource {
         if segue.identifier == "showSearchResults" {
             let destinationVC = segue.destination as! SearchResultsViewController
             destinationVC.searchDetails = self.selectedItem
-            destinationVC.selectedListId = self.selectedListId
+            destinationVC.selectedListID = self.selectedListID
         } else if segue.identifier == "searchToStoreResults" {
             let destinationVC = segue.destination as! SearchStoresViewController
             destinationVC.storeTypeID =  self.selectedItem!.id
-            destinationVC.selectedListId = self.selectedListId
+            destinationVC.selectedListID = self.selectedListID
         }
     }
     

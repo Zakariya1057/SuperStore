@@ -130,7 +130,6 @@
 		2CC1EA1F24FAC0EB000A9BC4 /* ProductData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1E24FAC0EB000A9BC4 /* ProductData.swift */; };
 		2CC1EA2124FAC46A000A9BC4 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA2024FAC46A000A9BC4 /* ReviewModel.swift */; };
 		2CC1EA2324FAC4B9000A9BC4 /* ReviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA2224FAC4B9000A9BC4 /* ReviewData.swift */; };
-		2CC1EA2524FACADA000A9BC4 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA2424FACADA000A9BC4 /* ProductDetailsModel.swift */; };
 		2CCE48D425177F9F00AE3BCA /* SearchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */; };
 		2CCE48D825177FE700AE3BCA /* SearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE48D725177FE700AE3BCA /* SearchData.swift */; };
 		2CD5E02F25324AB000E4A01B /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD5E02E25324AB000E4A01B /* SearchHistory.swift */; };
@@ -303,7 +302,6 @@
 		2CC1EA1E24FAC0EB000A9BC4 /* ProductData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductData.swift; sourceTree = "<group>"; };
 		2CC1EA2024FAC46A000A9BC4 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		2CC1EA2224FAC4B9000A9BC4 /* ReviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewData.swift; sourceTree = "<group>"; };
-		2CC1EA2424FACADA000A9BC4 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
 		2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHandler.swift; sourceTree = "<group>"; };
 		2CCE48D725177FE700AE3BCA /* SearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchData.swift; sourceTree = "<group>"; };
 		2CD5E02E25324AB000E4A01B /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
@@ -479,7 +477,6 @@
 				2C266DF024D5A6C900C66EA5 /* ProductModel.swift */,
 				2C0D447E2535B2390046E2B0 /* ProductHistory.swift */,
 				2CC1EA1C24FAC003000A9BC4 /* ProductDetailsHandler.swift */,
-				2CC1EA2424FACADA000A9BC4 /* ProductDetailsModel.swift */,
 				2C9DD12C24FCFC3800544563 /* IngredientsData.swift */,
 				2C9DD12E24FCFC6800544563 /* IngredientsModel.swift */,
 				2CABCB6E2505559500E26574 /* PromotionHandler.swift */,
@@ -777,7 +774,6 @@
 				2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */,
 				2C9C1B9124CEEF90001ACA35 /* ListPriceUpdateTableViewCell.swift in Sources */,
 				2C21C3A624F6F36B00D90B4B /* StoreHandler.swift in Sources */,
-				2CC1EA2524FACADA000A9BC4 /* ProductDetailsModel.swift in Sources */,
 				2CD5E02F25324AB000E4A01B /* SearchHistory.swift in Sources */,
 				2CAC05F2252CE24E00561509 /* OfferCollectionViewCell.swift in Sources */,
 				2C1567F024CADB9C00B8DCB5 /* ReviewTableViewCell.swift in Sources */,

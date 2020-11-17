@@ -12,13 +12,13 @@ import RealmSwift
 struct ListModel {
     var id: Int
     var name: String
-    var created_at: Date
+    var createdAt: Date
     var status: ListStatus
     var identifier: String
-    var store_id: Int?
-    var user_id: Int
+    var storeID: Int?
+    var userID: Int
     var totalPrice: Double
-    var old_total_price: Double?
+    var oldTotalPrice: Double?
     var categories: [ListCategoryModel]
     var totalItems: Int
     var tickedOffItems: Int
@@ -28,12 +28,12 @@ struct ListModel {
         list.id = self.id
         list.name = self.name
         list.identifier = self.identifier
-        list.created_at = Date()
+        list.createdAt = Date()
         list.status = self.status.rawValue
         list.totalPrice = self.totalPrice
         list.tickedOffItems = self.tickedOffItems
         list.totalItems = self.totalItems
-        list.old_total_price = self.old_total_price ?? 0
+        list.oldTotalPrice = self.oldTotalPrice ?? 0
         return list
     }
 }
@@ -41,16 +41,16 @@ struct ListModel {
 struct ListCategoryModel {
     var id: Int
     var name: String
-    var aisle_name: String?
+    var aisleName: String?
     var items: [ListItemModel]
-    var list_id: Int
+    var listID: Int
     
     func getRealmObject() -> ListCategoryHistory {
         let category = ListCategoryHistory()
         
         category.id = self.id
         category.name = self.name
-        category.list_id = self.list_id
+        category.listID = self.listID
         
         let items = List<ListItemHistory>()
 
@@ -66,15 +66,15 @@ struct ListCategoryModel {
 
 class ListItemModel: ProductItemModel {
     var id: Int
-    var ticked_off: Bool
-    var list_id: Int
+    var tickedOff: Bool
+    var listID: Int
     
-    init(id: Int, name: String, image: String, quantity: Int, product_id: Int, price: Double, weight: String?, promotion: PromotionModel?, list_id: Int, ticked_off: Bool) {
-        self.list_id = list_id
-        self.ticked_off = ticked_off
+    init(id: Int, name: String, image: String, quantity: Int, productID: Int, price: Double, weight: String?, promotion: PromotionModel?, listID: Int, tickedOff: Bool) {
+        self.listID = listID
+        self.tickedOff = tickedOff
         self.id = id
         
-        super.init(name: name, smallImage: image, largeImage: image, quantity: quantity, product_id: product_id, price: price, weight: weight, promotion: promotion)
+        super.init(name: name, smallImage: image, largeImage: image, quantity: quantity, productID: productID, price: price, weight: weight, promotion: promotion)
 
     }
     
@@ -84,13 +84,13 @@ class ListItemModel: ProductItemModel {
         list.name = self.name
         list.price = self.price
         list.totalPrice = self.totalPrice
-        list.product_id = self.product_id
+        list.productID = self.productID
         list.quantity = self.quantity
         list.image = self.largeImage
-        list.ticked_off = self.ticked_off
+        list.tickedOff = self.tickedOff
         list.weight = self.weight ?? ""
         list.promotion = self.promotion?.getRealmObject()
-        list.list_id = self.list_id
+        list.listID = self.listID
         return list
     }
 }

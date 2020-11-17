@@ -43,37 +43,36 @@ class StoresResultsTableViewCell: UITableViewCell {
             nameLabel.text = store!.name
             
             let location = store!.location
-            let address = [location.address_line1, location.address_line2, location.address_line3, location.city ]
+            let address = [location.addressLine1, location.addressLine2, location.addressLine3, location.city ]
             addressLabel.text = address.compactMap { $0 }.joined(separator: ", ")
             
-            if store!.opening_hours.count == 0 {
+            if store!.openingHours.count == 0 {
                 openStatusLabel.text = ""
-            } else if store!.opening_hours.count == 1 {
-                let hour = store!.opening_hours[0]
+            } else if store!.openingHours.count == 1 {
+                let hour = store!.openingHours[0]
                 
-                if hour.closed_today {
+                if hour.closedToday {
                     openStatusLabel.text = "Closed"
                 } else {
-                    openStatusLabel.text = "\(hour.opens_at!.lowercased()) - \(hour.closes_at!.lowercased())"
+                    openStatusLabel.text = "\(hour.opensAt!.lowercased()) - \(hour.closesAt!.lowercased())"
                 }
                 
             } else {
                 // Multiple hours given, all days of week.
-                let hour = store!.opening_hours.first { (hour) -> Bool in
-                    return hour.day_of_week == day_of_week
+                let hour = store!.openingHours.first { (hour) -> Bool in
+                    return hour.dayOfWeek == day_of_week
                 }
                 
                 if(hour != nil){
-                    if hour!.closed_today {
+                    if hour!.closedToday {
                         openStatusLabel.text = "Closed Today"
                     } else {
-                        openStatusLabel.text = "\(hour!.opens_at!.lowercased()) - \(hour!.closes_at!.lowercased())"
+                        openStatusLabel.text = "\(hour!.opensAt!.lowercased()) - \(hour!.closesAt!.lowercased())"
                     }
                 } else {
                     print("No Hour For Day Given")
                 }
                 
-                print( store!.opening_hours)
             }
 
         }

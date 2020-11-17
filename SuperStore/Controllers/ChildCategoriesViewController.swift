@@ -12,7 +12,7 @@ import Pageboy
 import RealmSwift
 
 protocol ListSelectedDelegate {
-    func listSelected(list_id: Int)
+    func listSelected(listID: Int)
 }
 
 class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, GroceriesProductsDelegate, ListSelectedDelegate {
@@ -47,18 +47,15 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
     var listRequired: Bool = true
     var listManager: ListManager = ListManager()
     
-    var selected_product: ProductModel?
-    var selected_row: GroceryTableViewCell?
-    var selected_product_id:Int?
+    var selectedProduct: ProductModel?
+    var selectedRow: GroceryTableViewCell?
+    var selectedProductID:Int?
     
-    // Create bar
     let bar = TMBar.ButtonBar()
     
     var listHandler = ListItemsHandler()
     
-    var add_to_list_product_index: Int?
-    
-    var selectedListId: Int?
+    var selectedListID: Int?
     
     var loading: Bool = true
     
@@ -70,7 +67,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         groceryHandler.delegate = self
         groceryHandler.request(parentCategoryId: parentCategoryId!)
         
-        if(selectedListId == nil){
+        if(selectedListID == nil){
             self.navigationItem.rightBarButtonItem = nil
         } else {
             listRequired = false
@@ -172,62 +169,62 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
 
 extension ChildCategoriesViewController {
     
-    func showGroceryItem(_ product_id: Int){
-        self.selected_product_id = product_id
+    func showGroceryItem(_ productID: Int){
+        self.selectedProductID = productID
         self.performSegue(withIdentifier: K.Paths.showGroceryItem, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ProductViewController
-        destinationVC.product_id = self.selected_product_id!
-        destinationVC.selectedListId = self.selectedListId
+        destinationVC.productID = self.selectedProductID!
+        destinationVC.selectedListID = self.selectedListID
     }
     
     func addToList(_ product: ProductModel, cell: GroceryTableViewCell?){
         
-        selected_row = cell
+        selectedRow = cell
         
         product.parentCategoryId = parentCategoryId
         product.parentCategoryName = parentCategoryName
         
-        selected_product = product
+        selectedProduct = product
         
         if listRequired {
             let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
             destinationVC.delegate = self
             present(destinationVC, animated: true)
         } else {
-            let item = listManager.addProductToList(listId: selectedListId!, product: product)
-            selected_row!.product?.quantity = item.quantity
-            selected_row!.show_quantity_view()
-            selected_row!.configureUI()
-            listHandler.create(list_id: selectedListId!, list_data: ["product_id": String(selected_product!.id)])
+            let item = listManager.addProductToList(listID: selectedListID!, product: product)
+            selectedRow!.product?.quantity = item.quantity
+            selectedRow!.show_quantity_view()
+            selectedRow!.configureUI()
+            listHandler.create(listID: selectedListID!, listData: ["product_id": String(selectedProduct!.id)])
         }
         
         print("Adding To List")
     }
     
-    func listSelected(list_id: Int) {
-        self.selectedListId = list_id
-        selected_row?.show_quantity_view()
-        listHandler.create(list_id: list_id, list_data: ["product_id": String(selected_product!.id)])
+    func listSelected(listID: Int) {
+        self.selectedListID = listID
+        selectedRow?.show_quantity_view()
+        listHandler.create(listID: listID, listData: ["product_id": String(selectedProduct!.id)])
         
-        let item = listManager.addProductToList(listId: list_id, product: selected_product!)
-        selected_row!.product?.quantity = item.quantity
-        selected_row!.show_quantity_view()
+        let item = listManager.addProductToList(listID: listID, product: selectedProduct!)
+        selectedRow!.product?.quantity = item.quantity
+        selectedRow!.show_quantity_view()
     }
     
     func updateQuantity(_ product: ProductModel) {
         
-        if selectedListId != nil {
+        if selectedListID != nil {
             let data:[String: String] = [
                 "product_id": String(product.id),
                 "quantity": String(product.quantity),
                 "ticked_off": "false"
             ]
             
-            listManager.updateProduct(listId: selectedListId!, product: product)
-            listHandler.update(listId:selectedListId!, listData: data)
+            listManager.updateProduct(listID: selectedListID!, product: product)
+            listHandler.update(listID: selectedListID!, listData: data)
         }
         
     }
@@ -261,7 +258,7 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
         
         if loading == false && categories.indices.contains(index) {
             viewController.products = categories[index].products
-            viewController.selectedListId = self.selectedListId
+            viewController.selectedListID = self.selectedListID
             viewController.delegate = self
         }
         
@@ -306,7 +303,7 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
                     productHistory?.smallImage = product.smallImage
                 }
                 
-                let listItemHistory = realm.objects(ListItemHistory.self).filter("product_id = \(product.id)").first
+                let listItemHistory = realm.objects(ListItemHistory.self).filter("productID = \(product.id)").first
                 
                 if listItemHistory != nil {
                     listItemHistory?.price = product.price

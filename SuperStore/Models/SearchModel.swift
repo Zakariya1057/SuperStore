@@ -39,9 +39,9 @@ struct PaginateResultsModel {
     var from: Int
     var current: Int
     var to: Int
-    var per_page: Int
-    var next_page_url: String?
-    var current_page_url: String
-    var prev_page_url:String?
-    var more_available: Bool
+    var perPage: Int
+    var nextPageUrl: String?
+    var currentPageUrl: String
+    var prevPageUrl:String?
+    var moreAvailable: Bool
 }

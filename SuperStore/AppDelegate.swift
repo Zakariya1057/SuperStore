@@ -117,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                 let productPrice: Double = notificationData["price"]! as! Double
                                 
                                 let productHistory = realm.objects(ProductHistory.self).filter("id = \(productID)").first
-                                let listHistory = realm.objects(ListItemHistory.self).filter("product_id = \(productID)").first
+                                let listHistory = realm.objects(ListItemHistory.self).filter("productID = \(productID)").first
                                 
                                 productHistory?.price = productPrice
                                 listHistory?.price = productPrice
@@ -165,14 +165,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     if let conversationVC = storyboard.instantiateViewController(withIdentifier: "productViewController") as? ProductViewController,
                         let tabBarController = rootViewController as? UITabBarController,
                         let navController = tabBarController.selectedViewController as? UINavigationController {
-                        conversationVC.product_id = ID
+                        conversationVC.productID = ID
                         navController.pushViewController(conversationVC, animated: true)
                     }
                 } else {
                     if let conversationVC = storyboard.instantiateViewController(withIdentifier: "promotionViewController") as? PromotionViewController,
                         let tabBarController = rootViewController as? UITabBarController,
                         let navController = tabBarController.selectedViewController as? UINavigationController {
-                        conversationVC.promotion_id = ID
+                        conversationVC.promotionID = ID
                         navController.pushViewController(conversationVC, animated: true)
                     }
                 }

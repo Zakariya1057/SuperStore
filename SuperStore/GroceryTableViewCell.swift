@@ -10,7 +10,7 @@ import UIKit
 import Cosmos
 
 protocol GroceryDelegate {
-    func showGroceryItem(_ product_id: Int)
+    func showGroceryItem(_ productID: Int)
     func addToList(_ product: ProductModel, cell: GroceryTableViewCell?)
     func updateQuantity(_ product: ProductModel)
 }

@@ -16,7 +16,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     var product: ProductHistory? {
         get {
-            return realm.objects(ProductHistory.self).filter("id = \(product_id)").first
+            return realm.objects(ProductHistory.self).filter("id = \(productID)").first
         }
     }
     
@@ -27,7 +27,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     @IBOutlet var stepperLabel: UILabel!
     var delegate: GroceryDelegate?
     
-    var add_to_list_product_id: Int?
+    var addToListProductId: Int?
     var noDelegateFound: Bool = false
     
     @IBOutlet weak var reviewsStackView: UIStackView!
@@ -57,11 +57,11 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     @IBOutlet weak var reviewsTableView: UITableView!
     
-    var details_type: String = ""
+    var detailType: String = ""
     
     var productHandler = ProductDetailsHandler()
     
-    var product_id:Int = 1
+    var productID:Int = 1
     
     var itemQuantity: Int?
     
@@ -80,8 +80,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     var listManager: ListManager = ListManager()
     
-    var selected_product_id:Int?
-    var selectedListId: Int?
+    var selectedListID: Int?
     
     var userHandler = UserHandler()
     
@@ -104,7 +103,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         
         productHandler.delegate = self
         favouritesHandler.delegate = self
-        productHandler.request(product_id: product_id)
+        productHandler.request(productID: productID)
         favouritesHandler.request()
         
         similarTableView.delegate = self
@@ -124,7 +123,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         
         reviewsTableView.register(UINib(nibName: K.Cells.ReviewCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ReviewCell.CellIdentifier)
         
-        let results = realm.objects(ProductHistory.self).filter("id = \(product_id)")
+        let results = realm.objects(ProductHistory.self).filter("id = \(productID)")
         notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
@@ -157,9 +156,9 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             delegate = self
         }
         
-        if selectedListId != nil {
+        if selectedListID != nil {
             
-            let listItem = realm.objects(ListItemHistory.self).filter("list_id = \(selectedListId!) AND product_id=\(product_id)").first
+            let listItem = realm.objects(ListItemHistory.self).filter("listID = \(selectedListID!) AND productID=\(productID)").first
             
             if listItem != nil {
                 itemQuantity = listItem!.quantity
@@ -193,7 +192,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     }
     
     func refreshProduct() {
-        productHandler.request(product_id: product_id)
+        productHandler.request(productID: productID)
     }
     
     func configureUI(){
@@ -229,18 +228,18 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             stepperLabel.text = String(itemQuantity!)
         }
         
-        if(productItem.dietary_info == nil || productItem.dietary_info == ""){
+        if(productItem.dietaryInfo == nil || productItem.dietaryInfo == ""){
             dietaryView.isHidden = true
         } else {
             dietaryView.isHidden = false
-            lifeStyleLabel.text = productItem.dietary_info
+            lifeStyleLabel.text = productItem.dietaryInfo
         }
         
-        if(productItem.allergen_info == nil || productItem.allergen_info == ""){
+        if(productItem.allergenInfo == nil || productItem.allergenInfo == ""){
             allergenView.isHidden = true
         } else {
             allergenView.isHidden = false
-            allergenLabel.text = productItem.allergen_info
+            allergenLabel.text = productItem.allergenInfo
         }
         
         configurePromotion()
@@ -279,12 +278,12 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     }
     
     @objc func showIngredients(){
-        details_type = "ingredients"
+        detailType = "ingredients"
         self.performSegue(withIdentifier: "showProductDetails", sender: self)
     }
     
     @objc func showDescription(){
-        details_type = "description"
+        detailType = "description"
         self.performSegue(withIdentifier: "showProductDetails", sender: self)
     }
     
@@ -295,10 +294,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     @IBAction func monitorPressed(_ sender: Any) {
         try? realm.write({
             product!.monitoring = !product!.monitoring
-            product!.updated_at = Date()
+            product!.updatedAt = Date()
         })
         
-        productHandler.requestMonitor(product_id: product_id, userData: ["monitor": String(product!.monitoring)])
+        productHandler.requestMonitor(productID: productID, userData: ["monitor": String(product!.monitoring)])
         showMonitoring()
     }
     
@@ -310,10 +309,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         
         try! realm.write() {
             product!.favourite = !product!.favourite
-            product!.updated_at = Date()
+            product!.updatedAt = Date()
         }
         
-        favouritesHandler.update(product_id: product_id, favourite: product!.favourite)
+        favouritesHandler.update(productID: productID, favourite: product!.favourite)
         showFavourite()
     }
     
@@ -358,17 +357,17 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             
             let destinationVC = segue.destination as! ProductDetailsViewController
             
-            if(details_type == "ingredients"){
+            if(detailType == "ingredients"){
                 destinationVC.header_text = "Ingredients"
                 destinationVC.list = product!.getProductModel().ingredients
-            } else if(details_type == "description"){
+            } else if(detailType == "description"){
                 destinationVC.header_text = "Description"
                 destinationVC.list = [ product!.getProductModel().description ?? "" ]
             }
             
         } else if segue.identifier == "productToReviews" {
             let destinationVC = segue.destination as! ReviewsViewController
-            destinationVC.product_id = product_id
+            destinationVC.productID = productID
         }  else if segue.identifier == "showProductPromotion" {
             let destinationVC = segue.destination as! PromotionViewController
             
@@ -376,10 +375,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
                 destinationVC.delegate = self.delegate
             }
             
-            destinationVC.promotion_id = product!.promotion!.getPromotionModel().id
+            destinationVC.promotionID = product!.promotion!.getPromotionModel().id
         } else if segue.identifier == "productToCreateReview" {
             let destinationVC = segue.destination as! ReviewViewController
-            destinationVC.product_id = product!.id
+            destinationVC.productID = product!.id
         }
         
     }
@@ -422,9 +421,9 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
-    func showProduct(product_id: Int) {
+    func showProduct(productID: Int) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
-        destinationVC.product_id = product_id
+        destinationVC.productID = productID
         
         if noDelegateFound == false {
             destinationVC.delegate = self.delegate
@@ -465,7 +464,6 @@ extension ProductViewController {
         if noDelegateFound == false {
             showQuantityView()
         }
-        
         self.delegate?.addToList(product!.getProductModel(), cell: nil)
     }
     
@@ -485,7 +483,7 @@ extension ProductViewController {
     func showAddButtonView(){
         print("Show Add Button")
         stepperStackView.isHidden = true
-        selectedListId = nil
+        selectedListID = nil
         addButton.isHidden = false
     }
     
@@ -498,8 +496,8 @@ extension ProductViewController {
     
     func addToList(_ productItem: ProductModel, cell: GroceryTableViewCell?){
         
-        if selectedListId != nil {
-            let item = listManager.addProductToList(listId: selectedListId!, product: product!.getProductModel())
+        if selectedListID != nil {
+            let item = listManager.addProductToList(listID: selectedListID!, product: product!.getProductModel())
             quantityStepper.value = Double(item.quantity)
             stepperLabel.text = "\(item.quantity)"
             itemQuantity = item.quantity
@@ -509,45 +507,45 @@ extension ProductViewController {
             destinationVC.delegate = self
             
             self.present(destinationVC, animated: true)
-            self.add_to_list_product_id = product!.id
+            self.addToListProductId = product!.id
         }
         
         print("Adding To List")
     }
     
     
-    func listSelected(list_id: Int) {
-        self.selectedListId = list_id
+    func listSelected(listID: Int) {
+        self.selectedListID = listID
         
-        let item = listManager.addProductToList(listId: list_id, product: product!.getProductModel())
+        let item = listManager.addProductToList(listID: listID, product: product!.getProductModel())
         quantityStepper.value = Double(item.quantity)
         stepperLabel.text = "\(item.quantity)"
         
-        listHandler.create(list_id: list_id, list_data: ["product_id": String(add_to_list_product_id!)])
+        listHandler.create(listID: listID, listData: ["productID": String(addToListProductId!)])
         
         showQuantityView()
     }
     
     func updateQuantity(_ productItem: ProductModel) {
         
-        if selectedListId != nil {
+        if selectedListID != nil {
             
             let data:[String: String] = [
-                "product_id": String(productItem.id),
+                "productID": String(productItem.id),
                 "quantity": String(productItem.quantity),
                 "ticked_off": "false"
             ]
             
             print("Quantity: \(productItem.quantity)")
-            listManager.updateProduct(listId: selectedListId!, product: productItem)
+            listManager.updateProduct(listID: selectedListID!, product: productItem)
             
-            listHandler.update(listId:selectedListId!, listData: data)
+            listHandler.update(listID:selectedListID!, listData: data)
 
         }
         
     }
     
-    func showGroceryItem(_ product_id: Int) {
+    func showGroceryItem(_ productID: Int) {
         
     }
     
@@ -563,12 +561,12 @@ extension ProductViewController {
             if product != nil {
                 print("Updating Product")
                 
-                realm.delete( realm.objects(ReviewHistory.self).filter("product_id = \(productItem.id)") )
+                realm.delete( realm.objects(ReviewHistory.self).filter("productID = \(productItem.id)") )
                 
                 product!.price = productItem.price
                 product!.brand = productItem.brand ?? ""
                 product!.avgRating = productItem.avgRating
-                product!.product_description = productItem.description
+                product!.productDescription = productItem.description
                 product!.smallImage = productItem.smallImage
                 product!.largeImage = productItem.largeImage
                 
@@ -579,8 +577,8 @@ extension ProductViewController {
                 product!.parentCategoryName = productItem.parentCategoryName
                 
                 product!.weight = productItem.weight
-                product!.allergen_info = productItem.allergen_info
-                product!.dietary_info = productItem.dietary_info
+                product!.allergenInfo = productItem.allergenInfo
+                product!.dietaryInfo = productItem.dietaryInfo
                 product!.storage = productItem.storage
                 
                 productItem.ingredients.forEach({product!.ingredients.append($0)})
@@ -600,7 +598,7 @@ extension ProductViewController {
                     product!.recommended.append( recommendedProduct.id )
                 }
                 
-                let listItems = realm.objects(ListItemHistory.self).filter("product_id = \(productItem.id)")
+                let listItems = realm.objects(ListItemHistory.self).filter("productID = \(productItem.id)")
                 for item in listItems {
                     item.image = productItem.largeImage
                     item.promotion = productItem.promotion?.getRealmObject()

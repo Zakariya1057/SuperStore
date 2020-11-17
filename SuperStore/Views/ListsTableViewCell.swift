@@ -43,7 +43,7 @@ class ListsTableViewCell: UITableViewCell {
 
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd MMMM Y"
-            let date = dateFormatter.string(from: list!.created_at)
+            let date = dateFormatter.string(from: list!.createdAt)
             
             createdLabel.text = date
             

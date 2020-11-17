@@ -40,17 +40,17 @@ struct StoreHandler {
             var opening_hours: [OpeningHoursModel] = []
             var facilities: [String] = []
             
-            let location:LocationModel = LocationModel(store_id: decodedStoreData.id, city: storeLocation.city, address_line1: storeLocation.address_line1, address_line2: storeLocation.address_line2, address_line3: storeLocation.address_line3, postcode: storeLocation.postcode, latitude: storeLocation.latitude, longitude:storeLocation.longitude )
+            let location:LocationModel = LocationModel(storeID: decodedStoreData.id, city: storeLocation.city, addressLine1: storeLocation.address_line1, addressLine2: storeLocation.address_line2, addressLine3: storeLocation.address_line3, postcode: storeLocation.postcode, latitude: storeLocation.latitude, longitude:storeLocation.longitude )
             
             for hour in storeHours {
-                opening_hours.append(OpeningHoursModel(store_id: decodedStoreData.id, opens_at: hour.opens_at, closes_at: hour.closes_at, closed_today: hour.closed_today ?? false, day_of_week: hour.day_of_week))
+                opening_hours.append(OpeningHoursModel(storeID: decodedStoreData.id, opensAt: hour.opens_at, closesAt: hour.closes_at, closedToday: hour.closed_today ?? false, dayOfWeek: hour.day_of_week))
             }
             
             for facility in storeFacilities {
                 facilities.append(facility.name.lowercased())
             }
             
-            let store = StoreModel(id: decodedStoreData.id, name: decodedStoreData.name, logo: decodedStoreData.small_logo, opening_hours: opening_hours, location: location, facilities: facilities, store_type_id: decodedStoreData.store_type_id)
+            let store = StoreModel(id: decodedStoreData.id, name: decodedStoreData.name, logo: decodedStoreData.small_logo, openingHours: opening_hours, location: location, facilities: facilities, storeTypeID: decodedStoreData.store_type_id)
 
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(store: store)

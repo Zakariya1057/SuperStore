@@ -24,33 +24,33 @@ struct ListsHandler {
     var listPath = K.Request.Lists.List
     
     func request(){
-        let url_string = "\(K.Host)/\(listPath)/"
-        requestHandler.getRequest(url: url_string, complete: processResults,error:processError, logOutUser: logOutUser)
+        let urlString = "\(K.Host)/\(listPath)/"
+        requestHandler.getRequest(url: urlString, complete: processResults,error:processError, logOutUser: logOutUser)
     }
     
     func insert(list_data: Parameters){
         let listInsert = K.Request.Lists.ListCreate
-        let url_string = "\(K.Host)/\(listPath)/\(listInsert)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete: processResults, error: processError, logOutUser: logOutUser)
+        let urlString = "\(K.Host)/\(listPath)/\(listInsert)"
+        requestHandler.postRequest(url: urlString, data: list_data, complete: processResults, error: processError, logOutUser: logOutUser)
     }
     
     func update(list_data: Parameters){
         let listUpdate = K.Request.Lists.ListUpdate
-        let url_string = "\(K.Host)/\(listPath)/\(listUpdate)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete: { _ in self.delegate?.contentLoaded(lists: [] ) }, error: processError, logOutUser: logOutUser)
+        let urlString = "\(K.Host)/\(listPath)/\(listUpdate)"
+        requestHandler.postRequest(url: urlString, data: list_data, complete: { _ in self.delegate?.contentLoaded(lists: [] ) }, error: processError, logOutUser: logOutUser)
     }
     
     func delete(list_data: [String: String]){
         let listDelete = K.Request.Lists.ListDelete
-        let url_string = "\(K.Host)/\(listPath)/\(listDelete)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete: { _ in } , error: processError, logOutUser: logOutUser)
+        let urlString = "\(K.Host)/\(listPath)/\(listDelete)"
+        requestHandler.postRequest(url: urlString, data: list_data, complete: { _ in } , error: processError, logOutUser: logOutUser)
     }
     
     // Restarting Shoppping List, Setting All To Unchecked
     func restart(listID: Int){
         let restartPath = K.Request.Lists.ListRestart
-        let url_string = "\(K.Host)/\(listPath)/\(listID)/\(restartPath)"
-        requestHandler.postRequest(url: url_string, data: ["identifier": String(listID)], complete: { _ in self.delegate?.contentLoaded(lists: [] )}, error: processError, logOutUser: logOutUser)
+        let urlString = "\(K.Host)/\(listPath)/\(listID)/\(restartPath)"
+        requestHandler.postRequest(url: urlString, data: ["identifier": String(listID)], complete: { _ in self.delegate?.contentLoaded(lists: [] )}, error: processError, logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -81,7 +81,7 @@ struct ListsHandler {
 
                 let created_date: Date = date_format.date(from: list.created_at)!
                 
-                lists.append( ListModel(id: list.id, name: list.name, created_at: created_date, status: status, identifier: list.identifier, store_id: list.store_id, user_id: list.user_id, totalPrice: list.total_price, old_total_price: list.old_total_price, categories: [], totalItems: list.total_items, tickedOffItems: list.ticked_off_items))
+                lists.append( ListModel(id: list.id, name: list.name, createdAt: created_date, status: status, identifier: list.identifier, storeID: list.store_id, userID: list.user_id, totalPrice: list.total_price, oldTotalPrice: list.old_total_price, categories: [], totalItems: list.total_items, tickedOffItems: list.ticked_off_items))
             }
             
             DispatchQueue.main.async {

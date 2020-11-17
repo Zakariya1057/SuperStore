@@ -12,25 +12,25 @@ import RealmSwift
 class GrandParentCategoryHistory: Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
-    @objc dynamic var store_type_id: Int = 1
-    var child_categories = List<ParentCategoryHistory>()
+    @objc dynamic var storeTypeID: Int = 1
+    var childCategories = List<ParentCategoryHistory>()
     
     override static func primaryKey() -> String? {
         return "id"
     }
     
     override static func indexedProperties() -> [String] {
-        return ["store_type_id"]
+        return ["storeTypeID"]
     }
     
     func getCategoryModel() -> GrandParentCategoryModel {
         
         var categoriesList:[ParentCategoryModel] = []
-        for category in child_categories {
+        for category in childCategories {
             categoriesList.append(category.getCategoryModel())
         }
         
-        return GrandParentCategoryModel(id: self.id, name: self.name, child_categories: categoriesList)
+        return GrandParentCategoryModel(id: self.id, name: self.name, childCategories: categoriesList)
     }
 }
 
@@ -55,7 +55,7 @@ class ParentCategoryHistory: Object {
             categoriesList.append(category.getCategoryModel())
         }
         
-        return ParentCategoryModel(id: self.id, name: self.name, parentCategoryId: self.parentCategoryId, child_categories: categoriesList)
+        return ParentCategoryModel(id: self.id, name: self.name, parentCategoryId: self.parentCategoryId, childCategories: categoriesList)
     }
 }
 

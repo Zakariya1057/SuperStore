@@ -15,10 +15,10 @@ class ReviewHistory: Object {
     @objc dynamic var text: String = ""
     @objc dynamic var title: String = ""
     @objc dynamic var rating: Int = 1
-    @objc dynamic var product_id: Int = 1
-    @objc dynamic var user_id: Int = 1
-    @objc dynamic var updated_at: Date = Date()
-    @objc dynamic var created_at: Date = Date()
+    @objc dynamic var productID: Int = 1
+    @objc dynamic var userID: Int = 1
+    @objc dynamic var updatedAt: Date = Date()
+    @objc dynamic var createdAt: Date = Date()
     
     override static func primaryKey() -> String? {
         return "id"
@@ -26,7 +26,7 @@ class ReviewHistory: Object {
     
     func getReviewModel () -> ReviewModel {
 
-        return ReviewModel(id: self.id, text: self.text, title: self.title, rating: self.rating, name: self.name, product_id: self.product_id, user_id: self.user_id, updated_at: self.updated_at, created_at: self.created_at)
+        return ReviewModel(id: self.id, text: self.text, title: self.title, rating: self.rating, name: self.name, productID: self.productID, userID: self.userID, updatedAt: self.updatedAt, createdAt: self.createdAt)
     }
     
 }

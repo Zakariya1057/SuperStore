@@ -20,32 +20,30 @@ struct ListItemsHandler {
     
     let requestHandler = RequestHandler()
     
-    func request(listId: Int){
-        let urlString = "\(K.Host)/\(K.Request.Lists.List)/\(listId)"
+    func request(listID: Int){
+        let urlString = "\(K.Host)/\(K.Request.Lists.List)/\(listID)"
         requestHandler.getRequest(url: urlString, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
-    func update(listId: Int, listData:[String: String]){
-        let urlString = "\(K.Host)/\(K.Request.Lists.List)/\(listId)/\(K.Request.Lists.ItemUpdate)"
+    func update(listID: Int, listData:[String: String]){
+        let urlString = "\(K.Host)/\(K.Request.Lists.List)/\(listID)/\(K.Request.Lists.ItemUpdate)"
         requestHandler.postRequest(url: urlString, data: listData, complete: processResponse, error: processError,logOutUser: logOutUser)
     }
 
-    func delete(list_id: Int, list_data:[String: String]){
-        let host_url = K.Host
-        let list_path = K.Request.Lists.List
-        let delete_path = K.Request.Lists.ItemDelete
+    func delete(listID: Int, listData:[String: String]){
+        let listPath = K.Request.Lists.List
+        let deletePath = K.Request.Lists.ItemDelete
 
-        let url_string = "\(host_url)/\(list_path)/\(list_id)/\(delete_path)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete: processResponse, error: processError,logOutUser: logOutUser)
+        let urlString = "\(K.Host)/\(listPath)/\(listID)/\(deletePath)"
+        requestHandler.postRequest(url: urlString, data: listData, complete: processResponse, error: processError,logOutUser: logOutUser)
     }
     
-    func create(list_id: Int, list_data:[String: String]){
-        let host_url = K.Host
-        let list_path = K.Request.Lists.List
-        let create_path = K.Request.Lists.ItemCreate
+    func create(listID: Int, listData:[String: String]){
+        let listPath = K.Request.Lists.List
+        let createPath = K.Request.Lists.ItemCreate
         
-        let url_string = "\(host_url)/\(list_path)/\(list_id)/\(create_path)"
-        requestHandler.postRequest(url: url_string, data: list_data, complete: processResponse, error: processError,logOutUser: logOutUser)
+        let urlString = "\(K.Host)/\(listPath)/\(listID)/\(createPath)"
+        requestHandler.postRequest(url: urlString, data: listData, complete: processResponse, error: processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -68,10 +66,10 @@ struct ListItemsHandler {
                         promotion = PromotionModel(id: item.promotion!.id, name: item.promotion!.name, quantity: item.promotion!.quantity!, price: item.promotion!.price, forQuantity: item.promotion!.for_quantity)
                     }
                     
-                    items.append(ListItemModel(id: item.id, name: item.name, image: item.large_image!, quantity: item.quantity, product_id: item.product_id, price: item.price, weight: item.weight, promotion: promotion, list_id: list_data.id, ticked_off: item.ticked_off))
+                    items.append(ListItemModel(id: item.id, name: item.name, image: item.large_image!, quantity: item.quantity, productID: item.product_id, price: item.price, weight: item.weight, promotion: promotion, listID: list_data.id, tickedOff: item.ticked_off))
                 }
                 
-                categories.append(ListCategoryModel(id: category.id, name: category.name, aisle_name: category.aisle_name, items: items, list_id: list_data.id))
+                categories.append(ListCategoryModel(id: category.id, name: category.name, aisleName: category.aisle_name, items: items, listID: list_data.id))
             }
             
             let list_status:String = list_data.status.lowercased()
@@ -90,7 +88,7 @@ struct ListItemsHandler {
 
             let created_date: Date = date_format.date(from: list_data.created_at)!
             
-            let list = ListModel(id: list_data.id, name: list_data.name, created_at: created_date, status: status, identifier: list_data.identifier, store_id: list_data.store_id, user_id: list_data.user_id, totalPrice: list_data.total_price, old_total_price: list_data.old_total_price, categories: categories,totalItems: list_data.total_items, tickedOffItems: list_data.ticked_off_items)
+            let list = ListModel(id: list_data.id, name: list_data.name, createdAt: created_date, status: status, identifier: list_data.identifier, storeID: list_data.store_id, userID: list_data.user_id, totalPrice: list_data.total_price, oldTotalPrice: list_data.old_total_price, categories: categories,totalItems: list_data.total_items, tickedOffItems: list_data.ticked_off_items)
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(list: list)

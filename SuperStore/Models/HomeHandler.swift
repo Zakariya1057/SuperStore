@@ -21,9 +21,7 @@ struct HomeHandler {
     let requestHandler = RequestHandler()
     
     func request(){
-        let homePath = K.Request.Home
-        let url = "\(K.Host)/\(homePath)"
-        requestHandler.getRequest(url: url, complete: processResults,error:processError,logOutUser: logOutUser)
+        requestHandler.getRequest(url: "\(K.Host)/\(K.Request.Home)", complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -44,8 +42,8 @@ struct HomeHandler {
             
             var categories: [String: [ProductModel]] = [:]
             
-            let date_format: DateFormatter = DateFormatter()
-            date_format.dateFormat = "dd MMMM Y"
+            let dateFormat: DateFormatter = DateFormatter()
+            dateFormat.dateFormat = "dd MMMM Y"
 
             for list in data.lists ?? [] {
                 
@@ -57,18 +55,18 @@ struct HomeHandler {
                     status = .notStarted
                 }
                 
-                let created_date: Date = date_format.date(from: list.created_at)!
+                let createdDate: Date = dateFormat.date(from: list.created_at)!
                 
                 lists.append(
-                    ListModel(id: list.id, name: list.name, created_at: created_date, status: status, identifier: list.identifier, store_id: list.store_id, user_id: list.user_id, totalPrice: list.total_price, old_total_price: list.old_total_price, categories: [], totalItems: list.total_items, tickedOffItems: list.ticked_off_items)
+                    ListModel(id: list.id, name: list.name, createdAt: createdDate, status: status, identifier: list.identifier, storeID: list.store_id, userID: list.user_id, totalPrice: list.total_price, oldTotalPrice: list.old_total_price, categories: [], totalItems: list.total_items, tickedOffItems: list.ticked_off_items)
                 )
             }
             
             for store in data.stores ?? []{
                 let storeLocation = store.location
-                let location = LocationModel(store_id: store.id, city: storeLocation.city, address_line1: storeLocation.address_line1, address_line2: storeLocation.address_line2, address_line3: storeLocation.address_line3, postcode: storeLocation.postcode, latitude: storeLocation.latitude, longitude: storeLocation.longitude)
+                let location = LocationModel(storeID: store.id, city: storeLocation.city, addressLine1: storeLocation.address_line1, addressLine2: storeLocation.address_line2, addressLine3: storeLocation.address_line3, postcode: storeLocation.postcode, latitude: storeLocation.latitude, longitude: storeLocation.longitude)
                 
-                stores.append(StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: [], location: location, facilities: [], store_type_id: store.store_type_id))
+                stores.append(StoreModel(id: store.id, name: store.name, logo: store.small_logo, openingHours: [], location: location, facilities: [], storeTypeID: store.store_type_id))
             }
             
             for promotion in data.promotions ?? []{
@@ -92,7 +90,6 @@ struct HomeHandler {
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(content: content)
             }
-
             
         } catch {
             processError("Decoding Data Error: \(error)")
@@ -107,7 +104,7 @@ struct HomeHandler {
         
         for product in products {
             newList.append(
-                ProductModel(id: product.id, name: product.name, smallImage: product.small_image, largeImage: product.large_image, description: product.description, quantity: 0, price: product.price, avgRating: product.avg_rating, totalReviewsCount: product.total_reviews_count, promotion: nil, storage: product.storage, weight: product.weight, parentCategoryId: product.parent_category_id, parentCategoryName: product.parent_category_name, childCategoryName: nil, dietary_info: product.dietary_info, allergen_info: product.allergen_info, brand: product.brand, reviews: [], favourite: nil, monitoring: nil, ingredients: [], recommended: []))
+                ProductModel(id: product.id, name: product.name, smallImage: product.small_image, largeImage: product.large_image, description: product.description, quantity: 0, price: product.price, avgRating: product.avg_rating, totalReviewsCount: product.total_reviews_count, promotion: nil, storage: product.storage, weight: product.weight, parentCategoryId: product.parent_category_id, parentCategoryName: product.parent_category_name, childCategoryName: nil, dietaryInfo: product.dietary_info, allergenInfo: product.allergen_info, brand: product.brand, reviews: [], favourite: nil, monitoring: nil, ingredients: [], recommended: []))
         }
         
         return newList

@@ -103,7 +103,7 @@ struct SearchHandler {
             var paginate: PaginateResultsModel? = nil
 
             if paginateData != nil {
-                paginate = PaginateResultsModel(from: paginateData!.from, current: paginateData!.current, to: paginateData!.to, per_page: paginateData!.per_page, next_page_url: paginateData!.next_page_url, current_page_url: paginateData!.current_page_url, prev_page_url: paginateData!.prev_page_url, more_available: paginateData!.more_available)
+                paginate = PaginateResultsModel(from: paginateData!.from, current: paginateData!.current, to: paginateData!.to, perPage: paginateData!.per_page, nextPageUrl: paginateData!.next_page_url, currentPageUrl: paginateData!.current_page_url, prevPageUrl: paginateData!.prev_page_url, moreAvailable: paginateData!.more_available)
             }
 
             for store in resultsData.stores {
@@ -112,10 +112,10 @@ struct SearchHandler {
                 
                 if store.opening_hours != nil && store.opening_hours!.count > 0 {
                     let storeHours = store.opening_hours![0]
-                    openingHours.append(OpeningHoursModel(store_id: store.id, opens_at: storeHours.opens_at, closes_at: storeHours.closes_at, closed_today: storeHours.closed_today ?? false, day_of_week: storeHours.day_of_week))
+                    openingHours.append(OpeningHoursModel(storeID: store.id, opensAt: storeHours.opens_at, closesAt: storeHours.closes_at, closedToday: storeHours.closed_today ?? false, dayOfWeek: storeHours.day_of_week))
                 }
 
-                stores.append( StoreModel(id: store.id, name: store.name, logo: store.small_logo, opening_hours: openingHours, location: LocationModel(store_id: store.id, city: store.location.city, address_line1: store.location.address_line1, address_line2: store.location.address_line2, address_line3: store.location.address_line3, postcode: store.location.postcode,latitude: store.location.latitude, longitude: store.location.longitude), facilities: [], store_type_id: store.store_type_id))
+                stores.append( StoreModel(id: store.id, name: store.name, logo: store.small_logo, openingHours: openingHours, location: LocationModel(storeID: store.id, city: store.location.city, addressLine1: store.location.address_line1, addressLine2: store.location.address_line2, addressLine3: store.location.address_line3, postcode: store.location.postcode,latitude: store.location.latitude, longitude: store.location.longitude), facilities: [], storeTypeID: store.store_type_id))
                 
             }
             
@@ -128,7 +128,7 @@ struct SearchHandler {
                 }
                 
                 products.append(
-                    ProductModel(id: product.id, name: product.name, smallImage: product.small_image, largeImage: product.large_image, description: product.description, quantity: 0, price: product.price, avgRating: product.avg_rating, totalReviewsCount: product.total_reviews_count, promotion: promotion, storage: product.storage, weight: product.weight, parentCategoryId: product.parent_category_id, parentCategoryName: product.parent_category_name, childCategoryName: product.child_category_name, dietary_info: product.dietary_info, allergen_info: product.allergen_info, brand: product.brand, reviews: [], favourite: nil, monitoring: nil, ingredients: [], recommended: [])
+                    ProductModel(id: product.id, name: product.name, smallImage: product.small_image, largeImage: product.large_image, description: product.description, quantity: 0, price: product.price, avgRating: product.avg_rating, totalReviewsCount: product.total_reviews_count, promotion: promotion, storage: product.storage, weight: product.weight, parentCategoryId: product.parent_category_id, parentCategoryName: product.parent_category_name, childCategoryName: product.child_category_name, dietaryInfo: product.dietary_info, allergenInfo: product.allergen_info, brand: product.brand, reviews: [], favourite: nil, monitoring: nil, ingredients: [], recommended: [])
                 )
                 
             }

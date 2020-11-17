@@ -12,7 +12,7 @@ import RealmSwift
 struct GrandParentCategoryModel {
     var id: Int
     var name:String
-    var child_categories: [ParentCategoryModel]
+    var childCategories: [ParentCategoryModel]
     
     func getRealmObject() -> GrandParentCategoryHistory {
         let category = GrandParentCategoryHistory()
@@ -21,11 +21,11 @@ struct GrandParentCategoryModel {
         
         let categories = List<ParentCategoryHistory>()
         
-        for category in self.child_categories {
+        for category in self.childCategories {
             categories.append(category.getRealmObject())
         }
         
-        category.child_categories = categories
+        category.childCategories = categories
         
         return category
     }
@@ -35,7 +35,7 @@ struct ParentCategoryModel {
     var id: Int
     var name:String
     var parentCategoryId: Int
-    var child_categories: [ChildCategoryModel]
+    var childCategories: [ChildCategoryModel]
     
     func getRealmObject() -> ParentCategoryHistory {
         let category = ParentCategoryHistory()
@@ -45,7 +45,7 @@ struct ParentCategoryModel {
         category.parentCategoryId = self.parentCategoryId
         let categories = List<ChildCategoryHistory>()
         
-        for category in self.child_categories {
+        for category in self.childCategories {
             categories.append(category.getRealmObject())
         }
         

@@ -26,24 +26,24 @@ struct ReviewsHandler {
     let reviewCreatePath = K.Request.Reviews.ReviewCreate
     let reviewDeletePath = K.Request.Reviews.ReviewDelete
     
-    func index(product_id: Int){
-        let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewsPath)"
-        requestHandler.getRequest(url: url_string, complete: processResults,error:processError,logOutUser: logOutUser)
+    func index(productID: Int){
+        let urlString = "\(K.Host)/\(productPath)/\(productID)/\(reviewsPath)"
+        requestHandler.getRequest(url: urlString, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
-    func show(product_id: Int){
-        let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewPath)"
-        requestHandler.getRequest(url: url_string, complete: processResults,error:processError,logOutUser: logOutUser)
+    func show(productID: Int){
+        let urlString = "\(K.Host)/\(productPath)/\(productID)/\(reviewPath)"
+        requestHandler.getRequest(url: urlString, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
-    func create(product_id: Int, review_data: [String: String]){
-        let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewCreatePath)"
-        requestHandler.postRequest(url: url_string, data: review_data, complete: processResults, error: processError,logOutUser: logOutUser)
+    func create(productID: Int, reviewData: [String: String]){
+        let urlString = "\(K.Host)/\(productPath)/\(productID)/\(reviewCreatePath)"
+        requestHandler.postRequest(url: urlString, data: reviewData, complete: processResults, error: processError,logOutUser: logOutUser)
     }
     
-    func delete(product_id: Int){
-        let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(reviewDeletePath)"
-        requestHandler.postRequest(url: url_string, data: ["product_id": String(product_id)], complete: processResponse, error: processError,logOutUser: logOutUser)
+    func delete(productID: Int){
+        let urlString = "\(K.Host)/\(productPath)/\(productID)/\(reviewDeletePath)"
+        requestHandler.postRequest(url: urlString, data: ["product_id": String(productID)], complete: processResponse, error: processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -60,7 +60,7 @@ struct ReviewsHandler {
             date_format.dateFormat = "dd MMMM Y"
             
             for review in reviews_list {
-                reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name, product_id: review.product_id, user_id: review.user_id, updated_at: date_format.date(from: review.updated_at)! , created_at: date_format.date(from: review.created_at)!))
+                reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name, productID: review.product_id, userID: review.user_id, updatedAt: date_format.date(from: review.updated_at)! , createdAt: date_format.date(from: review.created_at)!))
             }
             
             DispatchQueue.main.async {

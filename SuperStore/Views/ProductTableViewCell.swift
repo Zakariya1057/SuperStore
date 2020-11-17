@@ -30,7 +30,7 @@ protocol ScrollCollectionDelegate {
 }
 
 protocol ProductDelegate {
-    func showProduct(product_id:Int)
+    func showProduct(productID:Int)
 }
 
 class ProductTableViewCell: UITableViewCell,CustomElementCell {
@@ -116,7 +116,7 @@ extension ProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !loading {
-            self.delegate?.showProduct(product_id: products[indexPath.row].id)
+            self.delegate?.showProduct(productID: products[indexPath.row].id)
         }
     }
 

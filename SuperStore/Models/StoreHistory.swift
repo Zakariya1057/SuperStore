@@ -13,10 +13,10 @@ class StoreHistory: Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
     @objc dynamic var logo: String = ""
-    @objc dynamic var store_type_id: Int = 1
+    @objc dynamic var storeTypeID: Int = 1
    
     @objc dynamic var location: LocationHistory?
-    var opening_hours = List<OpeningHoursHistory>()
+    var openingHours = List<OpeningHoursHistory>()
     
     var facilities = List<String>()
     
@@ -25,45 +25,45 @@ class StoreHistory: Object {
     }
     
     override static func indexedProperties() -> [String] {
-        return ["store_type_id"]
+        return ["storeTypeID"]
     }
     
     func getStoreModel() -> StoreModel {
         var hours: [OpeningHoursModel] = []
         
-        for hour in self.opening_hours {
+        for hour in self.openingHours {
             hours.append( hour.getHourModel() )
         }
         
-        return StoreModel(id: self.id, name: self.name, logo: self.logo, opening_hours: hours, location: self.location!.getLocationModel(), facilities: self.facilities.map{ "\($0)"}, store_type_id: self.store_type_id)
+        return StoreModel(id: self.id, name: self.name, logo: self.logo, openingHours: hours, location: self.location!.getLocationModel(), facilities: self.facilities.map{ "\($0)"}, storeTypeID: self.storeTypeID)
     }
 }
 
 class OpeningHoursHistory: Object {
-    @objc dynamic var opens_at: String? = nil
-    @objc dynamic var closes_at: String? = nil
-    @objc dynamic var closed_today: Bool = false
-    @objc dynamic var day_of_week: Int = 1
-    @objc dynamic var store_id: Int = 1
+    @objc dynamic var opensAt: String? = nil
+    @objc dynamic var closesAt: String? = nil
+    @objc dynamic var closedToday: Bool = false
+    @objc dynamic var dayOfWeek: Int = 1
+    @objc dynamic var storeID: Int = 1
     
     func getHourModel() -> OpeningHoursModel {
-        return OpeningHoursModel(store_id: self.store_id, opens_at: self.opens_at, closes_at: self.closes_at, closed_today: self.closed_today, day_of_week: self.day_of_week)
+        return OpeningHoursModel(storeID: self.storeID, opensAt: self.opensAt, closesAt: self.closesAt, closedToday: self.closedToday, dayOfWeek: self.dayOfWeek)
     }
 }
 
 class LocationHistory: Object {
     @objc dynamic var city: String = ""
-    @objc dynamic var address_line1: String = ""
-    @objc dynamic var address_line2: String? = nil
-    @objc dynamic var address_line3: String? = nil
+    @objc dynamic var addressLine1: String = ""
+    @objc dynamic var addressLine2: String? = nil
+    @objc dynamic var addressLine3: String? = nil
     @objc dynamic var postcode: String = ""
     
     @objc dynamic var latitude: Double = 0
     @objc dynamic var longitude: Double = 0
     
-    @objc dynamic var store_id: Int = 1
+    @objc dynamic var storeID: Int = 1
     
     func getLocationModel() -> LocationModel {
-        return LocationModel(store_id: self.store_id, city: self.city, address_line1: self.address_line1, address_line2: self.address_line2, address_line3: self.address_line3, postcode: self.postcode, latitude: self.latitude, longitude: self.longitude)
+        return LocationModel(storeID: self.storeID, city: self.city, addressLine1: self.addressLine1, addressLine2: self.addressLine2, addressLine3: self.addressLine3, postcode: self.postcode, latitude: self.latitude, longitude: self.longitude)
     }
 }

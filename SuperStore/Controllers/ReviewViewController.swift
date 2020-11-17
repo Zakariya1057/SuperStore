@@ -20,11 +20,11 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ratingView: CosmosView!
     
-    var product_id: Int?
+    var productID: Int?
     
     var product: ProductHistory? {
         get {
-            return realm.objects(ProductHistory.self).filter("id = \(product_id!)").first
+            return realm.objects(ProductHistory.self).filter("id = \(productID!)").first
         }
     }
     
@@ -43,7 +43,7 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     
     var review: ReviewHistory? {
         get {
-            return realm.objects(ReviewHistory.self).filter("product_id = \(product!.id) AND user_id = \(user_id)").first
+            return realm.objects(ReviewHistory.self).filter("productID = \(product!.id) AND user_id = \(user_id)").first
         }
     }
 
@@ -68,7 +68,7 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         reviewTextView.toolbarPlaceholder = "Review Text"
        
         reviewHandler.delegate = self
-        reviewHandler.show(product_id: product!.id)
+        reviewHandler.show(productID: product!.id)
         
         nameLabel.text = product!.name
         imageView.downloaded(from: product!.largeImage)
@@ -155,7 +155,7 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         
         startLoading()
     
-        reviewHandler.create(product_id: product!.id, review_data: [
+        reviewHandler.create(productID: product!.id, reviewData: [
             "rating": rating,
             "title": title,
             "text": text
@@ -182,7 +182,7 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
                 self.realm.delete(self.review!)
             }
             
-            self.reviewHandler.delete(product_id: self.product!.id)
+            self.reviewHandler.delete(productID: self.product!.id)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -215,7 +215,7 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
 extension ReviewViewController {
     func addToHistory(_ productReview: ReviewModel){
     
-        let reviewItem = realm.objects(ReviewHistory.self).filter("id = \(productReview.id) AND product_id = \(product!.id) AND user_id = \(productReview.user_id)").first
+        let reviewItem = realm.objects(ReviewHistory.self).filter("id = \(productReview.id) AND productID = \(product!.id) AND userID = \(productReview.userID)").first
         
         try! realm.write() {
             if reviewItem == nil {
@@ -225,10 +225,10 @@ extension ReviewViewController {
                 reviewItem!.title = productReview.title
                 reviewItem!.rating = productReview.rating
                 reviewItem!.text = productReview.text
-                reviewItem!.updated_at = Date()
+                reviewItem!.updatedAt = Date()
             }
             
-            let productReviews = realm.objects(ReviewHistory.self).filter("product_id = \(product!.id)")
+            let productReviews = realm.objects(ReviewHistory.self).filter("productID = \(product!.id)")
             product!.totalReviewsCount = productReviews.count
             
             var totalRating = 0

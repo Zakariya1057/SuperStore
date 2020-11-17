@@ -15,11 +15,11 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
     
     var promotionHandler = PromotionHandler()
     
-    var promotion_id: Int?
+    var promotionID: Int?
     var userHandler = UserHandler()
     
     var promotion: PromotionHistory? {
-        return realm.objects(PromotionHistory.self).filter("id = %@", promotion_id!).first
+        return realm.objects(PromotionHistory.self).filter("id = %@", promotionID!).first
     }
     
     var products:[ProductModel] = []
@@ -42,7 +42,7 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         promotionHandler.delegate = self
-        promotionHandler.request(promotion_id: promotion_id!)
+        promotionHandler.request(promotionID: promotionID!)
         
         productsTableView.delegate = self
         productsTableView.dataSource = self
@@ -123,7 +123,7 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
-        destinationVC.product_id = products[indexPath.row].id
+        destinationVC.productID = products[indexPath.row].id
         destinationVC.delegate = self.delegate
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }

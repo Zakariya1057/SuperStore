@@ -13,10 +13,10 @@ struct StoreModel {
     var id: Int
     var name: String
     var logo: String
-    var opening_hours: [OpeningHoursModel]
+    var openingHours: [OpeningHoursModel]
     var location: LocationModel
     var facilities: [String]
-    var store_type_id: Int
+    var storeTypeID: Int
     
     func getRealmObject() -> StoreHistory {
         let store = StoreHistory()
@@ -33,12 +33,13 @@ struct StoreModel {
             storeFacilities.append(facility)
         }
         
-        for hour in self.opening_hours {
+        for hour in self.openingHours {
             storeHours.append(hour.getRealmObject())
         }
         
-        store.opening_hours = storeHours
+        store.openingHours = storeHours
         store.facilities = storeFacilities
+        store.storeTypeID = storeTypeID
 
         store.location = self.location.getRealmObject()
         
@@ -47,33 +48,33 @@ struct StoreModel {
 }
 
 struct OpeningHoursModel {
-    let store_id: Int
+    let storeID: Int
     
-    let opens_at:String?
-    let closes_at:String?
-    let closed_today:Bool
-    let day_of_week:Int
+    let opensAt:String?
+    let closesAt:String?
+    let closedToday:Bool
+    let dayOfWeek:Int
     
     func getRealmObject() -> OpeningHoursHistory {
         let hour = OpeningHoursHistory()
         
-        hour.opens_at = self.opens_at
-        hour.closes_at = self.closes_at
-        hour.day_of_week = self.day_of_week
-        hour.closed_today = self.closed_today
-        hour.store_id = self.store_id
+        hour.opensAt = self.opensAt
+        hour.closesAt = self.closesAt
+        hour.dayOfWeek = self.dayOfWeek
+        hour.closedToday = self.closedToday
+        hour.storeID = self.storeID
         
         return hour
     }
 }
 
 struct LocationModel:Decodable {
-    let store_id: Int
+    let storeID: Int
     
     let city: String
-    let address_line1: String
-    let address_line2: String?
-    let address_line3: String?
+    let addressLine1: String
+    let addressLine2: String?
+    let addressLine3: String?
     let postcode: String
     
     var latitude: Double
@@ -82,9 +83,9 @@ struct LocationModel:Decodable {
     func getRealmObject() -> LocationHistory {
         let location = LocationHistory()
         location.city = self.city
-        location.address_line1 = self.address_line1
-        location.address_line2 = self.address_line2
-        location.address_line3 = self.address_line3
+        location.addressLine1 = self.addressLine1
+        location.addressLine2 = self.addressLine2
+        location.addressLine3 = self.addressLine3
         
         location.latitude = self.latitude
         location.longitude = self.longitude

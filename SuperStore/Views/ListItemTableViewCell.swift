@@ -10,7 +10,7 @@ import UIKit
 
 class ListItemTableViewCell: UITableViewCell {
     
-    var ticked_off:Bool = false
+    var tickedOff:Bool = false
     
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -43,15 +43,15 @@ class ListItemTableViewCell: UITableViewCell {
                 .bold(String(product!.quantity))
                 .normal(" x " + currentProduct.name)
         
-        ticked_off = currentProduct.ticked_off
+        tickedOff = currentProduct.tickedOff
         showCheckBox()
         showPriceTotal()
         
     }
     
     @IBAction func checkBoxPressed(_ sender: UIButton) {
-        ticked_off = !ticked_off
-        product!.ticked_off = ticked_off
+        tickedOff = !tickedOff
+        product!.tickedOff = tickedOff
         delegate!.productChanged(product!)
         
         showCheckBox()
@@ -68,7 +68,7 @@ class ListItemTableViewCell: UITableViewCell {
     }
     
     func showCheckBox(){
-        if !ticked_off {
+        if !tickedOff {
             tickBoxButton.tintColor = .label
             tickBoxButton.setImage(UIImage(systemName: "square"), for: .normal)
         } else {

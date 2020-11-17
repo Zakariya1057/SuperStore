@@ -12,13 +12,13 @@ import RealmSwift
 
 class StoreViewController: UIViewController, StoreDelegate {
     
-    var selectedListId: Int?
+    var selectedListID: Int?
     
     let realm = try! Realm()
     
     var store: StoreHistory? {
         get {
-            return realm.objects(StoreHistory.self).filter("id = \(store_id)").first
+            return realm.objects(StoreHistory.self).filter("id = \(storeID)").first
         }
     }
     
@@ -85,7 +85,7 @@ class StoreViewController: UIViewController, StoreDelegate {
     var removed:Bool = false
     var storeHandler:StoreHandler = StoreHandler()
     
-    var store_id: Int = 1
+    var storeID: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +93,7 @@ class StoreViewController: UIViewController, StoreDelegate {
         storeHandler.delegate = self
         
         startLoading()
-        storeHandler.request(store_id: store_id)
+        storeHandler.request(store_id: storeID)
         
         if store != nil {
             stopLoading()
@@ -134,13 +134,13 @@ class StoreViewController: UIViewController, StoreDelegate {
         
         let storeItem = store!.getStoreModel()
         
-        let opening_hours = storeItem.opening_hours
+        let openingHours = storeItem.openingHours
         let facilities = storeItem.facilities
         let location = storeItem.location
         
 
         configureDetails(store: storeItem)
-        configureOpeningHours(opening_hours: opening_hours)
+        configureOpeningHours(openingHours: openingHours)
         configureLocation(location: location)
         configureFacilites(facilities: facilities)
     }
@@ -153,9 +153,9 @@ class StoreViewController: UIViewController, StoreDelegate {
         storeNameLabel.text = name
     }
     
-    func configureOpeningHours(opening_hours: [OpeningHoursModel]){
+    func configureOpeningHours(openingHours: [OpeningHoursModel]){
         
-        if opening_hours.count == 7 {
+        if openingHours.count == 7 {
             
             var day_of_week = Calendar.current.component(.weekday, from: Date()) - 2
             
@@ -165,19 +165,19 @@ class StoreViewController: UIViewController, StoreDelegate {
             
             for (index, hourLabel) in hoursLabels.enumerated() {
                 
-                if opening_hours.indices.contains(index) {
-                    let day = opening_hours[index]
+                if openingHours.indices.contains(index) {
+                    let day = openingHours[index]
                     let day_name = dayLabels[index]
                     
-                    if day.day_of_week == day_of_week {
+                    if day.dayOfWeek == day_of_week {
                         hourLabel.textColor = .systemBlue
                         day_name.textColor = .systemBlue
                     }
                     
-                    if day.closed_today {
+                    if day.closedToday {
                         hourLabel.text = "Closed"
                     } else {
-                        hourLabel.text = "\(day.opens_at!) - \(day.closes_at!)".lowercased()
+                        hourLabel.text = "\(day.opensAt!) - \(day.closesAt!)".lowercased()
                     }
                     
                 }
@@ -218,7 +218,7 @@ class StoreViewController: UIViewController, StoreDelegate {
     }
     
     func configureLocation(location: LocationModel){
-        let address_items = [location.address_line1, location.address_line2, location.address_line3, location.city ]
+        let address_items = [location.addressLine1, location.addressLine2, location.addressLine3, location.city ]
         storeAddressLabel.text = address_items.compactMap { $0 }.joined(separator: ", ")
     }
     
@@ -230,8 +230,8 @@ class StoreViewController: UIViewController, StoreDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! GrandParentCategoriesViewController
-        destinationVC.selectedListId = self.selectedListId
-        destinationVC.store_type_id = store!.getStoreModel().store_type_id
+        destinationVC.selectedListID = self.selectedListID
+        destinationVC.storeTypeID = store!.getStoreModel().storeTypeID
     }
     
 }
@@ -245,12 +245,12 @@ extension StoreViewController {
             } else {
                 
                 store!.facilities.removeAll()
-                store!.opening_hours.removeAll()
+                store!.openingHours.removeAll()
                 
                 let storeHistory = storeItem.getRealmObject()
                 
                 storeHistory.facilities.forEach({ store!.facilities.append($0) })
-                storeHistory.opening_hours.forEach({ store!.opening_hours.append($0) })
+                storeHistory.openingHours.forEach({ store!.openingHours.append($0) })
                 
                 store!.logo = storeHistory.logo
                 store!.name = storeHistory.name

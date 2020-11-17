@@ -15,9 +15,9 @@ struct ListManager {
     
     let realm = try! Realm()
     
-    func addProductToList(listId: Int, product: ProductModel) -> ListItemHistory {
+    func addProductToList(listID: Int, product: ProductModel) -> ListItemHistory {
 
-        var listItem = realm.objects(ListItemHistory.self).filter("list_id = \(listId) AND product_id = \(product.id)").first
+        var listItem = realm.objects(ListItemHistory.self).filter("listID = \(listID) AND productID = \(product.id)").first
 
         try! realm.write() {
 
@@ -26,15 +26,15 @@ struct ListManager {
 
                 print("Product Creating List Item Quantity")
 
-                listItem!.product_id = product.id
+                listItem!.productID = product.id
                 listItem!.name = product.name
                 listItem!.image = product.largeImage
                 listItem!.price = product.price
                 listItem!.promotion = product.promotion?.getRealmObject()
-                listItem!.list_id = listId
+                listItem!.listID = listID
                 listItem!.quantity = product.quantity == 0 ? 1 : product.quantity
 
-                var listCategory = realm.objects(ListCategoryHistory.self).filter("list_id = \(listId) AND id = \(product.parentCategoryId!)").first
+                var listCategory = realm.objects(ListCategoryHistory.self).filter("listID = \(listID) AND id = \(product.parentCategoryId!)").first
 
                 print("Category Name: \(product.parentCategoryName!)")
                 if listCategory != nil {
@@ -43,10 +43,10 @@ struct ListManager {
                     listCategory = ListCategoryHistory()
                     listCategory!.id = product.parentCategoryId!
                     listCategory!.name = product.parentCategoryName!
-                    listCategory!.list_id = listId
+                    listCategory!.listID = listID
                     listCategory!.items.append(listItem!)
 
-                    let list = realm.objects(ListHistory.self).filter("id = \(listId)").first
+                    let list = realm.objects(ListHistory.self).filter("id = \(listID)").first
 
                     list!.categories.append(listCategory!)
                 }
@@ -60,19 +60,19 @@ struct ListManager {
         return listItem!
     }
     
-    func updateProduct(listId: Int, product: ProductModel){
+    func updateProduct(listID: Int, product: ProductModel){
         
-        var item = realm.objects(ListItemHistory.self).filter("list_id = \(listId) AND product_id = \(product.id)").first
+        var item = realm.objects(ListItemHistory.self).filter("listID = \(listID) AND productID = \(product.id)").first
         
         if item == nil {
-            print("list_id = \(listId) AND product_id = \(product.id)")
+            print("listID = \(listID) AND productID = \(product.id)")
             print("Error: No List Item Found. Adding It")
             
-            item = addProductToList(listId: listId, product: product)
+            item = addProductToList(listID: listID, product: product)
         }
         
         if(product.quantity == 0){
-            removeProductFromList(listId: listId,product: nil,item: item)
+            removeProductFromList(listId: listID,product: nil,item: item)
         } else {
             try! realm.write() {
                 print("Product Updating List Item Quantity")
@@ -86,7 +86,7 @@ struct ListManager {
     func removeProductFromList(listId: Int, product: ProductModel?, item: ListItemHistory? = nil){
         try! realm.write() {
             if item == nil {
-                realm.delete(realm.objects(ListItemHistory.self).filter("list_id = \(listId) AND product_id = \(product!.id)"))
+                realm.delete(realm.objects(ListItemHistory.self).filter("listID = \(listId) AND productID = \(product!.id)"))
             } else {
                 realm.delete(item!)
             }
@@ -134,9 +134,9 @@ extension ListManager {
         for category in listHistory.categories {
             for product in category.items {
                 items.append([
-                    "product_id": String(product.product_id),
+                    "product_id": String(product.productID),
                     "quantity": String(product.quantity),
-                    "ticked_off": String(product.ticked_off)
+                    "ticked_off": String(product.tickedOff)
                 ])
             }
         }

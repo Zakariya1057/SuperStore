@@ -197,7 +197,7 @@ extension HomeViewController {
             
             if home!.lists.count < 4 {
                 // No List On Page. Get Last 4 Recent. Show
-                let recentLists = realm.objects(ListHistory.self).filter("deleted = false").sorted(byKeyPath: "updated", ascending: false)
+                let recentLists = realm.objects(ListHistory.self).filter("deleted = false").sorted(byKeyPath: "updatedAt", ascending: false)
                 
                 for index in 0...3 {
                     if recentLists.indices.contains(index){
@@ -350,22 +350,22 @@ extension HomeViewController {
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
-    func showProduct(product_id: Int) {
+    func showProduct(productID: Int) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
-        destinationVC.product_id = product_id
+        destinationVC.productID = productID
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
-    func showPromotion(promotion_id: Int) {
+    func showPromotion(promotionID: Int) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "promotionViewController"))! as! PromotionViewController
-        destinationVC.promotion_id = promotion_id
+        destinationVC.promotionID = promotionID
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
-    func listSelected(identifier: String, list_id: Int) {
+    func listSelected(identifier: String, listID: Int) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listViewController"))! as! ListViewController
         destinationVC.identifier = identifier
-        destinationVC.list_id = list_id
+        destinationVC.listID = listID
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
@@ -380,13 +380,13 @@ extension HomeViewController {
         
     }
     
-    func storePressed(store_id: Int) {
+    func storePressed(storeID: Int) {
         print("Store Selected")
     }
     
-    func storeSelected(store_id: Int) {
+    func storeSelected(storeID: Int) {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "storeViewController"))! as! StoreViewController
-        destinationVC.store_id = store_id
+        destinationVC.storeID = storeID
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
@@ -504,7 +504,7 @@ extension HomeViewController {
                         listHistory!.status = list.status.rawValue
                         listHistory!.tickedOffItems = list.tickedOffItems
                         listHistory!.totalItems = list.totalItems
-                        listHistory!.updated = Date()
+                        listHistory!.updatedAt = Date()
                     }
                     
                     home!.lists.append(listHistory!)
@@ -582,7 +582,7 @@ extension HomeViewController {
                 if productHistory == nil {
                     realm.add(product.getRealmObject())
                 } else {
-                    productHistory!.updated_at = Date()
+                    productHistory!.updatedAt = Date()
                     productHistory!.monitoring = true
                 }
                

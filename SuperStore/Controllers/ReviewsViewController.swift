@@ -17,13 +17,13 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var product: ProductHistory? {
         get {
-            return realm.objects(ProductHistory.self).filter("id = \(product_id!)").first
+            return realm.objects(ProductHistory.self).filter("id = \(productID!)").first
         }
     }
     
     var reviews: Results<ReviewHistory> {
         get {
-            return realm.objects(ReviewHistory.self).filter("product_id = \(product_id!)").sorted(byKeyPath: "updated_at", ascending: false)
+            return realm.objects(ReviewHistory.self).filter("productID = \(productID!)").sorted(byKeyPath: "updatedAt", ascending: false)
         }
     }
     
@@ -31,7 +31,7 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var reviewsHandler = ReviewsHandler()
     
-    var product_id: Int?
+    var productID: Int?
     
     var loading:Bool = true
     
@@ -42,7 +42,7 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.reviewsTableView.dataSource = self
         
         reviewsHandler.delegate = self
-        reviewsHandler.index(product_id: product_id!)
+        reviewsHandler.index(productID: productID!)
         
         if reviews.count > 0 {
             loading = false

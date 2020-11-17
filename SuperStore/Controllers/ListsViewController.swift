@@ -24,7 +24,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     let realm = try! Realm()
     lazy var lists: Results<ListHistory> = {
-        return self.realm.objects(ListHistory.self).filter("deleted = false").sorted(byKeyPath: "created_at", ascending: false)
+        return self.realm.objects(ListHistory.self).filter("deleted = false").sorted(byKeyPath: "createdAt", ascending: false)
     }()
     
     var selectedList: ListModel?
@@ -189,7 +189,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
             selectedIndex = indexPath.row
             
             if delegate != nil {
-                self.delegate?.listSelected(list_id: selectedList!.id)
+                self.delegate?.listSelected(listID: selectedList!.id)
                 self.dismiss(animated: true, completion: nil)
             } else {
                 self.performSegue(withIdentifier: "list_to_items", sender: self)
@@ -234,7 +234,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         } else if (segue.identifier == "list_to_items"){
             let destinationVC = segue.destination as! ListViewController
             destinationVC.identifier = lists[selectedIndex].identifier
-            destinationVC.list_id = selectedList!.id
+            destinationVC.listID = selectedList!.id
         } else if (segue.identifier == "list_to_edit"){
             let destinationVC = segue.destination as! ListEditViewController
             destinationVC.identifier = lists[selectedIndex].identifier
@@ -251,10 +251,10 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
             return print("List Not Found")
         }
         
-        let listId = listItem!.id
+        let listID = listItem!.id
         
         try? realm.write(withoutNotifying: [notificationToken!], {
-            realm.delete(realm.objects(ListItemHistory.self).filter("list_id = %@", listItem!.id))
+            realm.delete(realm.objects(ListItemHistory.self).filter("listID = %@", listItem!.id))
             
             if  listItem!.synced && offline {
                 listItem!.deleted = true
@@ -264,7 +264,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         })
         
         listsTableView.deleteRows(at: [ IndexPath(row: selectedIndex, section: 0)], with: .fade)
-        listHandler.delete(list_data: ["list_id": String(listId) ,"identifier": identifier ])
+        listHandler.delete(list_data: ["list_id": String(listID) ,"identifier": identifier ])
         
     }
     
@@ -283,7 +283,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     }
     
     func search() -> Results<ListHistory> {
-        return self.realm.objects(ListHistory.self).filter("name CONTAINS[c] %@", searchText).sorted(byKeyPath: "created_at", ascending: false)
+        return self.realm.objects(ListHistory.self).filter("name CONTAINS[c] %@", searchText).sorted(byKeyPath: "createdAt", ascending: false)
     }
 }
 
@@ -320,8 +320,8 @@ extension ListsViewController {
                             listHistory!.name = list.name
                             listHistory!.totalPrice = list.totalPrice
 
-                            if list.old_total_price != nil {
-                                listHistory!.old_total_price = list.old_total_price!
+                            if list.oldTotalPrice != nil {
+                                listHistory!.oldTotalPrice = list.oldTotalPrice!
                             }
 
                         }
@@ -352,7 +352,7 @@ extension ListsViewController {
                 } else {
                     // Delete offline deleted list
                     try? realm.write(withoutNotifying: [notificationToken!], {
-                        realm.delete(realm.objects(ListItemHistory.self).filter("list_id = %@",list.id ))
+                        realm.delete(realm.objects(ListItemHistory.self).filter("listID = %@",list.id ))
                         realm.delete(list)
                     })
                     

@@ -24,7 +24,7 @@ class ListsProgressElement: CustomElementModel {
 }
 
 protocol ListProgressDelegate {
-    func listSelected(identifier: String, list_id: Int)
+    func listSelected(identifier: String, listID: Int)
 }
 
 class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
@@ -229,8 +229,8 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
         if sender.name != nil {
             let details = sender.name!.split(separator: "|")
             let identifier: String = String(details[1])
-            let list_id: Int = Int(details[0])!
-            self.delegate?.listSelected(identifier: identifier, list_id: list_id)
+            let listID: Int = Int(details[0])!
+            self.delegate?.listSelected(identifier: identifier, listID: listID)
         }
     }
     

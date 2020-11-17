@@ -20,14 +20,14 @@ struct ProductDetailsHandler {
     
     let requestHandler = RequestHandler()
     
-    func request(product_id: Int){
-        let url_string = "\(K.Host)/\(K.Request.Grocery.Product)/\(product_id)"
-        requestHandler.getRequest(url: url_string, complete: processResults,error:processError,logOutUser: logOutUser)
+    func request(productID: Int){
+        let urlString = "\(K.Host)/\(K.Request.Grocery.Product)/\(productID)"
+        requestHandler.getRequest(url: urlString, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
-    func requestMonitor(product_id: Int, userData: [String: String]){
-        let url_string = "\(K.Host)/\(K.Request.Grocery.Product)/\(product_id)/\(K.Request.Grocery.ProductMonitor)"
-        requestHandler.postRequest(url: url_string, data: userData, complete: { _ in },error:processError,logOutUser: logOutUser)
+    func requestMonitor(productID: Int, userData: [String: String]){
+        let urlString = "\(K.Host)/\(K.Request.Grocery.Product)/\(productID)/\(K.Request.Grocery.ProductMonitor)"
+        requestHandler.postRequest(url: urlString, data: userData, complete: { _ in },error:processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -36,40 +36,40 @@ struct ProductDetailsHandler {
             
             let decoder = JSONDecoder()
             let data = try decoder.decode(ProductDataResponse.self, from: data)
-            let product_details = data.data
+            let productDetails = data.data
             
-            let product_ingredients = product_details.ingredients
+            let productIngredients = productDetails.ingredients
             
             var ingredients: [String] = []
             
-            for ingredient in product_ingredients ?? [] {
+            for ingredient in productIngredients ?? [] {
                 ingredients.append( ingredient.name)
             }
             
             var reviews: [ReviewModel] = []
             
-            let date_format: DateFormatter = DateFormatter()
-            date_format.dateFormat = "dd MMMM Y"
+            let dateFormat: DateFormatter = DateFormatter()
+            dateFormat.dateFormat = "dd MMMM Y"
             
-            for review in product_details.reviews ?? [] {
-                reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name, product_id: review.product_id, user_id: review.user_id, updated_at: date_format.date(from: review.updated_at)! , created_at: date_format.date(from: review.created_at)!) )
+            for review in productDetails.reviews ?? [] {
+                reviews.append( ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name, productID: review.product_id, userID: review.user_id, updatedAt: dateFormat.date(from: review.updated_at)! , createdAt: dateFormat.date(from: review.created_at)!) )
             }
             
             var promotion: PromotionModel? = nil
 
-            if product_details.promotion != nil {
-                promotion = PromotionModel(id: product_details.promotion!.id, name:  product_details.promotion!.name, quantity:  product_details.promotion!.quantity!, price: product_details.promotion!.price, forQuantity: product_details.promotion!.for_quantity)
+            if productDetails.promotion != nil {
+                promotion = PromotionModel(id: productDetails.promotion!.id, name:  productDetails.promotion!.name, quantity:  productDetails.promotion!.quantity!, price: productDetails.promotion!.price, forQuantity: productDetails.promotion!.for_quantity)
             }
             
             var recommended: [ProductModel] = []
             
-            for product_item in product_details.recommended ?? [] {
+            for productItem in productDetails.recommended ?? [] {
                 recommended.append(
-                    ProductModel(id: product_item.id, name: product_item.name, smallImage: product_item.small_image, largeImage: product_item.large_image, description: product_item.description, quantity: 0, price: product_item.price, avgRating: product_item.avg_rating, totalReviewsCount: product_item.total_reviews_count, promotion: nil, storage: product_item.storage, weight: product_item.weight, parentCategoryId: product_item.parent_category_id, parentCategoryName: product_item.parent_category_name, childCategoryName: nil, dietary_info: product_item.dietary_info, allergen_info: product_item.allergen_info, brand: product_item.brand, reviews: [], favourite: nil, monitoring: nil, ingredients: [], recommended: [])
+                    ProductModel(id: productItem.id, name: productItem.name, smallImage: productItem.small_image, largeImage: productItem.large_image, description: productItem.description, quantity: 0, price: productItem.price, avgRating: productItem.avg_rating, totalReviewsCount: productItem.total_reviews_count, promotion: nil, storage: productItem.storage, weight: productItem.weight, parentCategoryId: productItem.parent_category_id, parentCategoryName: productItem.parent_category_name, childCategoryName: nil, dietaryInfo: productItem.dietary_info, allergenInfo: productItem.allergen_info, brand: productItem.brand, reviews: [], favourite: nil, monitoring: nil, ingredients: [], recommended: [])
                 )
             }
             
-            let product = ProductModel(id: product_details.id, name: product_details.name, smallImage: product_details.small_image, largeImage: product_details.large_image, description: product_details.description, quantity: 0, price: product_details.price, avgRating: product_details.avg_rating, totalReviewsCount: product_details.total_reviews_count, promotion: promotion, storage: product_details.storage, weight: product_details.weight, parentCategoryId: product_details.parent_category_id, parentCategoryName: product_details.parent_category_name, childCategoryName: nil, dietary_info: product_details.dietary_info, allergen_info: product_details.allergen_info, brand: product_details.brand, reviews: reviews, favourite: product_details.favourite, monitoring: product_details.monitoring, ingredients: ingredients, recommended: recommended)
+            let product = ProductModel(id: productDetails.id, name: productDetails.name, smallImage: productDetails.small_image, largeImage: productDetails.large_image, description: productDetails.description, quantity: 0, price: productDetails.price, avgRating: productDetails.avg_rating, totalReviewsCount: productDetails.total_reviews_count, promotion: promotion, storage: productDetails.storage, weight: productDetails.weight, parentCategoryId: productDetails.parent_category_id, parentCategoryName: productDetails.parent_category_name, childCategoryName: nil, dietaryInfo: productDetails.dietary_info, allergenInfo: productDetails.allergen_info, brand: productDetails.brand, reviews: reviews, favourite: productDetails.favourite, monitoring: productDetails.monitoring, ingredients: ingredients, recommended: recommended)
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(product: product)

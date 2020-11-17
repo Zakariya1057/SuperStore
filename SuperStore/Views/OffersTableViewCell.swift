@@ -24,7 +24,7 @@ class OffersElement: CustomElementModel {
 }
 
 protocol OfferSelectedDelegate {
-    func showPromotion(promotion_id: Int)
+    func showPromotion(promotionID: Int)
 }
 
 class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -96,7 +96,7 @@ extension OffersTableViewCell {
         if !loading {
             // Product Selected, Navigate
             print("Offer Selected")
-            self.delegate?.showPromotion(promotion_id: promotions[indexPath.row].id)
+            self.delegate?.showPromotion(promotionID: promotions[indexPath.row].id)
         }
     }
 }

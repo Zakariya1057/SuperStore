@@ -26,8 +26,8 @@ class ProductModel: ProductItemModel {
     
     var storage: String?
     
-    var dietary_info: String?
-    var allergen_info: String?
+    var dietaryInfo: String?
+    var allergenInfo: String?
     
     var brand: String?
     
@@ -37,7 +37,7 @@ class ProductModel: ProductItemModel {
     
     var recommended: [ProductModel] = []
     
-    init(id: Int, name: String, smallImage: String, largeImage: String,description: String?, quantity: Int,price:Double, avgRating: Double?, totalReviewsCount: Int?, promotion: PromotionModel?, storage: String?, weight: String?,parentCategoryId: Int?, parentCategoryName: String?, childCategoryName: String?, dietary_info: String?, allergen_info: String?, brand: String, reviews: [ReviewModel], favourite: Bool?, monitoring: Bool?, ingredients: [String], recommended: [ProductModel]) {
+    init(id: Int, name: String, smallImage: String, largeImage: String,description: String?, quantity: Int,price:Double, avgRating: Double?, totalReviewsCount: Int?, promotion: PromotionModel?, storage: String?, weight: String?,parentCategoryId: Int?, parentCategoryName: String?, childCategoryName: String?, dietaryInfo: String?, allergenInfo: String?, brand: String, reviews: [ReviewModel], favourite: Bool?, monitoring: Bool?, ingredients: [String], recommended: [ProductModel]) {
         
         self.id = id
         self.description = description
@@ -53,26 +53,26 @@ class ProductModel: ProductItemModel {
         self.storage = storage
         self.avgRating = avgRating ?? 0
         self.totalReviewsCount = totalReviewsCount ?? 0
-        self.dietary_info = dietary_info
-        self.allergen_info = allergen_info
+        self.dietaryInfo = dietaryInfo
+        self.allergenInfo = allergenInfo
         self.brand = brand
         self.reviews = reviews
         self.favourite = favourite
         self.ingredients = ingredients
         self.recommended = recommended
         
-        super.init(name: name, smallImage: smallImage,largeImage: largeImage, quantity: quantity, product_id: id, price: price, weight: weight, promotion: promotion)
+        super.init(name: name, smallImage: smallImage,largeImage: largeImage, quantity: quantity, productID: id, price: price, weight: weight, promotion: promotion)
     }
     
     func getRealmObject() -> ProductHistory {
         
         let product = ProductHistory()
         
-        product.id = self.product_id
+        product.id = self.productID
         product.name = self.name
         product.smallImage = self.smallImage
         product.largeImage = self.largeImage
-        product.product_description = self.description
+        product.productDescription = self.description
         product.quantity = self.quantity
         product.weight = self.weight
         product.price = self.price
@@ -97,8 +97,8 @@ class ProductModel: ProductItemModel {
         self.recommended.forEach({ product.recommended.append( $0.id ) })
         
         product.brand = self.brand ?? ""
-        product.dietary_info = self.dietary_info
-        product.allergen_info = self.allergen_info
+        product.dietaryInfo = self.dietaryInfo
+        product.allergenInfo = self.allergenInfo
         
         product.reviews = reviewsList
         product.ingredients = ingredientsList

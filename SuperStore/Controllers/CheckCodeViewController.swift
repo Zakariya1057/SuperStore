@@ -10,7 +10,7 @@ import UIKit
 
 class CheckCodeViewController: UIViewController, UserDelegate {
 
-    var email:String?
+    var email: String?
     @IBOutlet weak var codeField: UITextField!
     
     let spinner: SpinnerViewController = SpinnerViewController()

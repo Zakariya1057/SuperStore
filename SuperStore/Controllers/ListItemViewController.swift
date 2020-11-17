@@ -1,5 +1,4 @@
 //
-//  Choose your custom row height     } ListViewController.swift
 //  SuperStore
 //
 //  Created by Zakariya Mohummed on 30/07/2020.
@@ -14,7 +13,7 @@ class ListItemViewController: UIViewController {
     var listItem: ListItemModel?
     
     var listItemHistory: ListItemHistory {
-        return realm.objects(ListItemHistory.self).filter("product_id = \(listItem!.product_id) AND list_id = \(listItem!.list_id)").first!
+        return realm.objects(ListItemHistory.self).filter("productID = \(listItem!.productID) AND listID = \(listItem!.listID)").first!
     }
     
     var listHandler = ListItemsHandler()
@@ -29,9 +28,6 @@ class ListItemViewController: UIViewController {
     @IBOutlet var promotionButton: UIButton!
     
     let realm = try! Realm()
-    
-    var selected_row: Int = 0
-    var selected_section: Int = 0
     
     var listManager: ListManager = ListManager()
     
@@ -55,7 +51,7 @@ class ListItemViewController: UIViewController {
         }
         
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "promotionViewController"))! as! PromotionViewController
-        destinationVC.promotion_id = listItem!.promotion!.id
+        destinationVC.promotionID = listItem!.promotion!.id
         
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
@@ -97,12 +93,12 @@ class ListItemViewController: UIViewController {
             }
             
             let data:[String: String] = [
-                "product_id": String(listItem!.product_id),
+                "product_id": String(listItem!.productID),
                 "quantity": String(listItem!.quantity),
-                "ticked_off": String(listItem!.ticked_off)
+                "ticked_off": String(listItem!.tickedOff)
             ]
             
-            listHandler.update(listId: listItem!.list_id, listData: data)
+            listHandler.update(listID: listItem!.listID, listData: data)
             self.navigationController?.popViewController(animated: true)
         }
         
@@ -113,7 +109,7 @@ class ListItemViewController: UIViewController {
             realm.delete(listItemHistory)
         }
         
-        listHandler.delete(list_id: listItem!.list_id, list_data: ["product_id": String(listItem!.product_id)])
+        listHandler.delete(listID: listItem!.listID, listData: ["product_id": String(listItem!.productID)])
         
         self.navigationController?.popViewController(animated: true)
     }

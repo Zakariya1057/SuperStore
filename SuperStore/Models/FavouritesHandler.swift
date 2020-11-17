@@ -24,14 +24,14 @@ struct FavouritesHandler {
     let productPath = K.Request.Grocery.Product
     
     func request(){
-        let url_string = "\(K.Host)/\(K.Request.Grocery.Favourites)"
-        requestHandler.getRequest(url: url_string, complete: processResults,error:processError,logOutUser: logOutUser)
+        let urlString = "\(K.Host)/\(K.Request.Grocery.Favourites)"
+        requestHandler.getRequest(url: urlString, complete: processResults,error:processError,logOutUser: logOutUser)
     }
     
-    func update(product_id: Int, favourite: Bool){
+    func update(productID: Int, favourite: Bool){
         let productFavourite = K.Request.Grocery.ProductsFavourite
-        let url_string = "\(K.Host)/\(productPath)/\(product_id)/\(productFavourite)"
-        requestHandler.postRequest(url: url_string, data: ["favourite": String(favourite)], complete: { _ in }, error: processError,logOutUser: logOutUser)
+        let urlString = "\(K.Host)/\(productPath)/\(productID)/\(productFavourite)"
+        requestHandler.postRequest(url: urlString, data: ["favourite": String(favourite)], complete: { _ in }, error: processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){
@@ -47,7 +47,7 @@ struct FavouritesHandler {
             for product in products_list {
                 
                 products.append(
-                    ProductModel(id: product.id, name: product.name, smallImage: product.small_image, largeImage: product.large_image, description: product.description, quantity: 0, price: product.price, avgRating: product.avg_rating, totalReviewsCount: product.total_reviews_count, promotion: nil, storage: product.storage, weight: product.weight, parentCategoryId: product.parent_category_id, parentCategoryName: product.parent_category_name, childCategoryName: nil,dietary_info: product.storage, allergen_info: product.allergen_info, brand: product.brand, reviews: [], favourite: true, monitoring: nil, ingredients: [], recommended: []))
+                    ProductModel(id: product.id, name: product.name, smallImage: product.small_image, largeImage: product.large_image, description: product.description, quantity: 0, price: product.price, avgRating: product.avg_rating, totalReviewsCount: product.total_reviews_count, promotion: nil, storage: product.storage, weight: product.weight, parentCategoryId: product.parent_category_id, parentCategoryName: product.parent_category_name, childCategoryName: nil,dietaryInfo: product.dietary_info, allergenInfo: product.allergen_info, brand: product.brand, reviews: [], favourite: true, monitoring: nil, ingredients: [], recommended: []))
             }
             
             DispatchQueue.main.async {
@@ -98,7 +98,7 @@ extension FavouritesHandler {
                     productHistory!.largeImage = product.largeImage
                     productHistory!.avgRating = product.avgRating
                     productHistory!.totalReviewsCount = product.totalReviewsCount
-                    productHistory!.updated_at = Date()
+                    productHistory!.updatedAt = Date()
                 }
                 
             }
