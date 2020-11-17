@@ -573,6 +573,7 @@ extension ProductViewController {
                 
                 realm.delete( realm.objects(ReviewHistory.self).filter("product_id = \(productItem.id)") )
                 
+                product!.price = productItem.price
                 product!.brand = productItem.brand ?? ""
                 product!.avgRating = productItem.avgRating
                 product!.product_description = productItem.description
