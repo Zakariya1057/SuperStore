@@ -470,24 +470,16 @@ extension ProductViewController {
     }
     
     @IBAction func stepperPressed(_ sender: UIStepper) {
-        
         let quantity = sender.value
+
         stepperLabel.text = String(format: "%.0f", quantity)
-        
-        try? realm.write({
-            product!.quantity = Int(quantity)
-        })
-        
-        quantityStepper.value = quantity
         delegate?.updateQuantity(product!.getProductModel())
-        
+
         if(quantity == 0){
             showAddButtonView()
-            
             quantityStepper.value = 1
             stepperLabel.text = "1"
         }
-        
     }
     
     func showAddButtonView(){
