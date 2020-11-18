@@ -44,10 +44,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var totalPrice: Double = 0
     
-    var totalItems: Int {
-        return items.count
-    }
-    
     var tickedOffItems: Int = 0
     
     @IBOutlet weak var listTableView: UITableView!
@@ -59,6 +55,10 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var selected_section: Int = 0
     
     var listID: Int?
+    
+    var totalItems: Int {
+        return items.count
+    }
     
     var items:[ListItemModel] {
         return self.listItem?.getListModel().categories.flatMap { $0.items } ?? []
@@ -94,29 +94,22 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         listTableView.addSubview(refreshControl) // not required when using UITableViewController
         
-        let results = realm.objects(ListItemHistory.self)
+        print("Setting The Values")
         
-        notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
-            switch changes {
-            case .initial:
-                print("List Change. Initial")
-                self?.completedCheck()
-                self?.updateListInfo()
-                break
-            case .update(_, _, _, _):
-                print("List Change. Update")
-                self?.completedCheck()
-                self?.updateListInfo()
-                self?.listTableView.reloadData()
-                break
-            case .error(let error):
-                fatalError("\(error)")
-            }
-        }
+        configureObserver()
         
         if listItem != nil {
             
             self.title = listItem!.name
+            
+//            self.totalItems = listItem!.totalItems
+            self.tickedOffItems = listItem!.tickedOffItems
+            self.status = ListStatus(rawValue: listItem!.status)
+            self.totalPrice = listItem!.totalPrice
+            
+            print("Total Price: \(totalPrice)")
+            print("Total Items: \(tickedOffItems)")
+            print("Total Ticked Off: \(totalItems)")
             
             if listItem!.categories.count > 0 || RequestHandler.sharedInstance.offline == true {
                 configureUI()
@@ -134,6 +127,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func contentLoaded(list: ListModel) {
+        print("Content Loaded")
         addToHistory(list)
         configureUI()
     }
@@ -295,6 +289,29 @@ extension ListViewController {
 
 //MARK: - History Management
 extension ListViewController {
+    
+    func configureObserver(){
+        let results = realm.objects(ListItemHistory.self)
+        notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+            case .initial:
+                print("List Change. Initial")
+                self?.completedCheck()
+                self?.updateListInfo()
+                break
+            case .update(_, _, _, _):
+                print("List Change. Update")
+                self?.completedCheck()
+                self?.updateListInfo()
+                self?.listTableView.reloadData()
+                break
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
+    }
+    
+    
     func addToHistory(_ list: ListModel){
         let item = realm.objects(ListHistory.self).filter("identifier = %@", identifier!).first
         
@@ -323,7 +340,7 @@ extension ListViewController {
     
     func updateListInfo(){
         
-        if realm.isInWriteTransaction {
+        if realm.isInWriteTransaction || loading {
             return
         }
         
@@ -339,17 +356,20 @@ extension ListViewController {
                 listHistory!.totalPrice = totalPrice
 
                 print("Total Price: \(totalPrice)")
+                print("Total Items: \(tickedOffItems)")
+                print("Total Ticked Off: \(totalItems)")
                 
                 if offline {
                     listHistory!.edited = true
                 }
 
                 listHistory!.tickedOffItems = tickedOffItems
-                listHistory!.totalItems = totalItems
+                
+                if !(totalItems == 0 && listHistory!.totalItems != 0){
+                    listHistory!.totalItems = totalItems
+                }
                 
                 listHistory!.updatedAt = Date()
-
-//                self.listTableView.reloadData()
             })
         } else {
             print("No List Found. Ignoring")
@@ -386,7 +406,10 @@ extension ListViewController {
         })
         
         completedCheck()
-//        updateListInfo()
+        
+        try? realm.write(withoutNotifying: [notificationToken!], {
+            listItem?.tickedOffItems = self.tickedOffItems
+        })
         
     }
     
@@ -396,7 +419,12 @@ extension ListViewController {
 extension ListViewController {
     
     func completedCheck(){
-        //Check if all products completed. If the case then update the parent
+        // Check if all products completed. If the case then update the parent
+        
+        if loading {
+            return
+        }
+        
         var checkedItems = 0
         var allItems = 0
         
@@ -424,6 +452,7 @@ extension ListViewController {
     }
     
     func showTotalPrice(){
+        
         var price:Double = 0.00
         var priceNoPromotion: Double = 0.00
         var oldPrice: Double = 0.00

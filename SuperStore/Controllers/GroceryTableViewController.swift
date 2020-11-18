@@ -45,6 +45,8 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
             cell.quantity_delegate = self
             cell.product = products[indexPath.row]
             
+            cell.product!.quantity = 0
+            
             if selectedListID != nil {
                 let listItem = realm.objects(ListItemHistory.self).filter("listID = \(selectedListID!) AND productID=\( cell.product!.id )").first
                 

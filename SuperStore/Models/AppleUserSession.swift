@@ -37,7 +37,7 @@ struct AppleUserSession {
             // 1. User already register.  Get details from storage. Send Details Endpoint.
             // 2. User login previously failed. Network Error. Get details from storage. Send Details Endpoint.
             
-            let userSettings =  KeychainWrapper.standard.data(forKey: "appleUserAccounts")
+            let userSettings = KeychainWrapper.standard.data(forKey: "appleUserAccounts")
             
             if userSettings != nil {
                 let userInfo = try? PropertyListDecoder().decode(UserHistory.self, from: userSettings!)

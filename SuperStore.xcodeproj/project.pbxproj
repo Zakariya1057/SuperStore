@@ -109,6 +109,7 @@
 		2CB19B1825653A0500C19550 /* GroceryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB19B1725653A0500C19550 /* GroceryTableViewCell.swift */; };
 		2CB19B2D25653A5600C19550 /* ReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB19B2C25653A5600C19550 /* ReviewTableViewCell.xib */; };
 		2CB19B5725653B4700C19550 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB19B5625653B4700C19550 /* ReviewTableViewCell.swift */; };
+		2CB19B832565A8C900C19550 /* GroceryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB19B822565A8C900C19550 /* GroceryTableViewCell.xib */; };
 		2CB3DCE72525B89400FC5792 /* CheckCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCE62525B89400FC5792 /* CheckCodeViewController.swift */; };
 		2CB3DCEA2525B8A300FC5792 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCE92525B8A300FC5792 /* ResetPasswordViewController.swift */; };
 		2CB3DCF52527AFB600FC5792 /* RefineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCF32527AFB600FC5792 /* RefineTableViewCell.swift */; };
@@ -277,6 +278,7 @@
 		2CB19B1725653A0500C19550 /* GroceryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroceryTableViewCell.swift; path = ../../../../../.Trash/GroceryTableViewCell.swift; sourceTree = "<group>"; };
 		2CB19B2C25653A5600C19550 /* ReviewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewTableViewCell.xib; sourceTree = "<group>"; };
 		2CB19B5625653B4700C19550 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
+		2CB19B822565A8C900C19550 /* GroceryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroceryTableViewCell.xib; sourceTree = "<group>"; };
 		2CB2E7DF25483391009A1A26 /* SuperStore.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SuperStore.entitlements; sourceTree = "<group>"; };
 		2CB3DCE62525B89400FC5792 /* CheckCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCodeViewController.swift; sourceTree = "<group>"; };
 		2CB3DCE92525B8A300FC5792 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 				2C9C1B9024CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib */,
 				2CB3DCFA252A180900FC5792 /* ListsProgressTableViewCell.swift */,
 				2CB19B1725653A0500C19550 /* GroceryTableViewCell.swift */,
+				2CB19B822565A8C900C19550 /* GroceryTableViewCell.xib */,
 				2CB3DCFB252A180900FC5792 /* ListsProgressTableViewCell.xib */,
 				2CAC05EA252B83FF00561509 /* OffersTableViewCell.swift */,
 				2CAC05EB252B83FF00561509 /* OffersTableViewCell.xib */,
@@ -646,6 +649,7 @@
 				2CB15C9524D2FB8900461AFE /* ListItemTableViewCell.xib in Resources */,
 				2C9C1B8624CDDDCE001ACA35 /* OpenSans-ExtraBold.ttf in Resources */,
 				2C9C1B9224CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib in Resources */,
+				2CB19B832565A8C900C19550 /* GroceryTableViewCell.xib in Resources */,
 				2CB3DCFD252A180900FC5792 /* ListsProgressTableViewCell.xib in Resources */,
 				2CB3DCF62527AFB600FC5792 /* RefineTableViewCell.xib in Resources */,
 				2CAC05F3252CE24E00561509 /* OfferCollectionViewCell.xib in Resources */,

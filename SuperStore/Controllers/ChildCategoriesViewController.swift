@@ -17,6 +17,7 @@ protocol ListSelectedDelegate {
 
 class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, GroceriesProductsDelegate, ListSelectedDelegate {
     
+    @IBOutlet var rightBarButton: UIBarButtonItem!
     let realm = try! Realm()
     
     var groceryHandler = GroceryProductsHandler()
@@ -68,7 +69,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         groceryHandler.request(parentCategoryId: parentCategoryId!)
         
         if(selectedListID == nil){
-            self.navigationItem.rightBarButtonItem = nil
+            rightBarButton.title = "Select List"
         } else {
             listRequired = false
         }
@@ -189,10 +190,8 @@ extension ChildCategoriesViewController {
         
         selectedProduct = product
         
-        if listRequired {
-            let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
-            destinationVC.delegate = self
-            present(destinationVC, animated: true)
+        if selectedListID == nil {
+            selectLists()
         } else {
             let item = listManager.addProductToList(listID: selectedListID!, product: product)
             selectedRow!.product?.quantity = item.quantity
@@ -204,14 +203,31 @@ extension ChildCategoriesViewController {
         print("Adding To List")
     }
     
+    func selectLists(){
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
+        destinationVC.delegate = self
+        present(destinationVC, animated: true)
+    }
+    
     func listSelected(listID: Int) {
         self.selectedListID = listID
-        selectedRow?.show_quantity_view()
-        listHandler.create(listID: listID, listData: ["product_id": String(selectedProduct!.id)])
         
-        let item = listManager.addProductToList(listID: listID, product: selectedProduct!)
-        selectedRow!.product?.quantity = item.quantity
-        selectedRow!.show_quantity_view()
+        if selectedProduct != nil {
+            selectedRow?.show_quantity_view()
+            listHandler.create(listID: listID, listData: ["product_id": String(selectedProduct!.id)])
+            
+            rightBarButton.isEnabled = true
+            let item = listManager.addProductToList(listID: listID, product: selectedProduct!)
+            selectedRow!.product?.quantity = item.quantity
+            selectedRow!.show_quantity_view()
+        }
+
+        rightBarButton.title = "Change List"
+        
+        for viewController in viewcontrollers {
+            viewController.selectedListID = listID
+            viewController.tableView.reloadData()
+        }
     }
     
     func updateQuantity(_ product: ProductModel) {
@@ -271,9 +287,15 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
         return nil
     }
     
-    @IBAction func done_pressed(_ sender: Any) {
-        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 7], animated: true)
+    @IBAction func barButtonPressed(_ sender: UIBarButtonItem) {
+        
+        if listRequired {
+            selectLists()
+        } else {
+            let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 7], animated: true)
+        }
+
     }
     
     func addToHistory(_ category: ChildCategoryModel){
