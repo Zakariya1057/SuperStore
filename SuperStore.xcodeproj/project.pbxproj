@@ -30,10 +30,6 @@
 		2C1567E124C9A0DF00B8DCB5 /* GroceryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567E024C9A0DF00B8DCB5 /* GroceryTableViewController.swift */; };
 		2C1567E524CAD08300B8DCB5 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567E424CAD08300B8DCB5 /* ReviewViewController.swift */; };
 		2C1567E724CAD62100B8DCB5 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567E624CAD62100B8DCB5 /* ReviewsViewController.swift */; };
-		2C1567EA24CADB6000B8DCB5 /* GroceryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567E824CADB6000B8DCB5 /* GroceryTableViewCell.swift */; };
-		2C1567EB24CADB6000B8DCB5 /* GroceryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C1567E924CADB6000B8DCB5 /* GroceryTableViewCell.xib */; };
-		2C1567F024CADB9C00B8DCB5 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567EE24CADB9C00B8DCB5 /* ReviewTableViewCell.swift */; };
-		2C1567F124CADB9C00B8DCB5 /* ReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C1567EF24CADB9C00B8DCB5 /* ReviewTableViewCell.xib */; };
 		2C1567F324CC830B00B8DCB5 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567F224CC830B00B8DCB5 /* ProductViewController.swift */; };
 		2C1567F524CC845600B8DCB5 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567F424CC845600B8DCB5 /* ProductDetailsViewController.swift */; };
 		2C21C3A424F6F2A300D90B4B /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C21C3A324F6F2A300D90B4B /* RequestHandler.swift */; };
@@ -110,6 +106,9 @@
 		2CB15C9524D2FB8900461AFE /* ListItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB15C9324D2FB8900461AFE /* ListItemTableViewCell.xib */; };
 		2CB15C9724D2FCD400461AFE /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB15C9624D2FCD400461AFE /* ListViewController.swift */; };
 		2CB15C9924D36E7E00461AFE /* StoreSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB15C9824D36E7E00461AFE /* StoreSelectViewController.swift */; };
+		2CB19B1825653A0500C19550 /* GroceryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB19B1725653A0500C19550 /* GroceryTableViewCell.swift */; };
+		2CB19B2D25653A5600C19550 /* ReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB19B2C25653A5600C19550 /* ReviewTableViewCell.xib */; };
+		2CB19B5725653B4700C19550 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB19B5625653B4700C19550 /* ReviewTableViewCell.swift */; };
 		2CB3DCE72525B89400FC5792 /* CheckCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCE62525B89400FC5792 /* CheckCodeViewController.swift */; };
 		2CB3DCEA2525B8A300FC5792 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCE92525B8A300FC5792 /* ResetPasswordViewController.swift */; };
 		2CB3DCF52527AFB600FC5792 /* RefineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCF32527AFB600FC5792 /* RefineTableViewCell.swift */; };
@@ -194,10 +193,6 @@
 		2C1567E024C9A0DF00B8DCB5 /* GroceryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryTableViewController.swift; sourceTree = "<group>"; };
 		2C1567E424CAD08300B8DCB5 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		2C1567E624CAD62100B8DCB5 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
-		2C1567E824CADB6000B8DCB5 /* GroceryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GroceryTableViewCell.swift; path = SuperStore/GroceryTableViewCell.swift; sourceTree = SOURCE_ROOT; };
-		2C1567E924CADB6000B8DCB5 /* GroceryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GroceryTableViewCell.xib; path = SuperStore/GroceryTableViewCell.xib; sourceTree = SOURCE_ROOT; };
-		2C1567EE24CADB9C00B8DCB5 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = SOURCE_ROOT; };
-		2C1567EF24CADB9C00B8DCB5 /* ReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		2C1567F224CC830B00B8DCB5 /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductViewController.swift; path = SuperStore/Views/ProductViewController.swift; sourceTree = SOURCE_ROOT; };
 		2C1567F424CC845600B8DCB5 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductDetailsViewController.swift; path = SuperStore/Views/ProductDetailsViewController.swift; sourceTree = SOURCE_ROOT; };
 		2C21C3A324F6F2A300D90B4B /* RequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
@@ -279,6 +274,9 @@
 		2CB15C9324D2FB8900461AFE /* ListItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListItemTableViewCell.xib; sourceTree = "<group>"; };
 		2CB15C9624D2FCD400461AFE /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		2CB15C9824D36E7E00461AFE /* StoreSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreSelectViewController.swift; path = SuperStore/Views/StoreSelectViewController.swift; sourceTree = SOURCE_ROOT; };
+		2CB19B1725653A0500C19550 /* GroceryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroceryTableViewCell.swift; path = ../../../../../.Trash/GroceryTableViewCell.swift; sourceTree = "<group>"; };
+		2CB19B2C25653A5600C19550 /* ReviewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewTableViewCell.xib; sourceTree = "<group>"; };
+		2CB19B5625653B4700C19550 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		2CB2E7DF25483391009A1A26 /* SuperStore.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SuperStore.entitlements; sourceTree = "<group>"; };
 		2CB3DCE62525B89400FC5792 /* CheckCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCodeViewController.swift; sourceTree = "<group>"; };
 		2CB3DCE92525B8A300FC5792 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
@@ -433,21 +431,20 @@
 				2C9C1B8F24CEEF8F001ACA35 /* ListPriceUpdateTableViewCell.swift */,
 				2C9C1B9024CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib */,
 				2CB3DCFA252A180900FC5792 /* ListsProgressTableViewCell.swift */,
+				2CB19B1725653A0500C19550 /* GroceryTableViewCell.swift */,
 				2CB3DCFB252A180900FC5792 /* ListsProgressTableViewCell.xib */,
 				2CAC05EA252B83FF00561509 /* OffersTableViewCell.swift */,
 				2CAC05EB252B83FF00561509 /* OffersTableViewCell.xib */,
 				2CAC05F0252CE24E00561509 /* OfferCollectionViewCell.swift */,
 				2CAC05F1252CE24E00561509 /* OfferCollectionViewCell.xib */,
-				2C1567EE24CADB9C00B8DCB5 /* ReviewTableViewCell.swift */,
-				2C1567EF24CADB9C00B8DCB5 /* ReviewTableViewCell.xib */,
-				2C1567E824CADB6000B8DCB5 /* GroceryTableViewCell.swift */,
-				2C1567E924CADB6000B8DCB5 /* GroceryTableViewCell.xib */,
 				2CB3DCF32527AFB600FC5792 /* RefineTableViewCell.swift */,
 				2CB3DCF42527AFB600FC5792 /* RefineTableViewCell.xib */,
 				2C3F537C24D184C80095C4B1 /* SearchTableViewCell.swift */,
 				2C3F537D24D184C80095C4B1 /* SearchTableViewCell.xib */,
 				2C85FEB4251FB04700CECBD5 /* HomeSectionHeader.swift */,
 				2C85FEC9251FB50800CECBD5 /* HomeSectionHeader.xib */,
+				2CB19B5625653B4700C19550 /* ReviewTableViewCell.swift */,
+				2CB19B2C25653A5600C19550 /* ReviewTableViewCell.xib */,
 				2CB15C8024D2D7FE00461AFE /* ListsTableViewCell.swift */,
 				2CB3EDA425041F31000E7C7A /* ListSectionHeader.swift */,
 				2CB3EDA825041FDD000E7C7A /* ListSectionHeader.xib */,
@@ -660,13 +657,12 @@
 				2CAC0602252E334F00561509 /* FeaturedProductTableViewCell.xib in Resources */,
 				2C85FECA251FB50800CECBD5 /* HomeSectionHeader.xib in Resources */,
 				2C1567C624C77FDB00B8DCB5 /* LaunchScreen.storyboard in Resources */,
+				2CB19B2D25653A5600C19550 /* ReviewTableViewCell.xib in Resources */,
 				2C1567C324C77FDB00B8DCB5 /* Assets.xcassets in Resources */,
 				2C9C1B7B24CCD07F001ACA35 /* ProductCollectionViewCell.xib in Resources */,
 				2C9C1B8224CDD794001ACA35 /* ProductTableViewCell.xib in Resources */,
 				2C1567C124C77FD800B8DCB5 /* Main.storyboard in Resources */,
 				2C3F537F24D184C80095C4B1 /* SearchTableViewCell.xib in Resources */,
-				2C1567F124CADB9C00B8DCB5 /* ReviewTableViewCell.xib in Resources */,
-				2C1567EB24CADB6000B8DCB5 /* GroceryTableViewCell.xib in Resources */,
 				2CAC05ED252B83FF00561509 /* OffersTableViewCell.xib in Resources */,
 				2CAC05FD252E314F00561509 /* FeaturedProductCollectionViewCell.xib in Resources */,
 				2CB15C7724D190E500461AFE /* StoresResultsTableViewCell.xib in Resources */,
@@ -748,6 +744,7 @@
 				2C266DF724D5DEDA00C66EA5 /* ListModel.swift in Sources */,
 				2C1567D924C8B36E00B8DCB5 /* FavouritesViewController.swift in Sources */,
 				2CF239BB25094C8700D4CE91 /* ListsData.swift in Sources */,
+				2CB19B1825653A0500C19550 /* GroceryTableViewCell.swift in Sources */,
 				2CB15C9924D36E7E00461AFE /* StoreSelectViewController.swift in Sources */,
 				2C0D44902537827D0046E2B0 /* GroceryHistory.swift in Sources */,
 				2C1567E524CAD08300B8DCB5 /* ReviewViewController.swift in Sources */,
@@ -776,7 +773,6 @@
 				2C21C3A624F6F36B00D90B4B /* StoreHandler.swift in Sources */,
 				2CD5E02F25324AB000E4A01B /* SearchHistory.swift in Sources */,
 				2CAC05F2252CE24E00561509 /* OfferCollectionViewCell.swift in Sources */,
-				2C1567F024CADB9C00B8DCB5 /* ReviewTableViewCell.swift in Sources */,
 				2C266DFB24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift in Sources */,
 				2CC1EA2124FAC46A000A9BC4 /* ReviewModel.swift in Sources */,
 				2CCE48D425177F9F00AE3BCA /* SearchHandler.swift in Sources */,
@@ -793,7 +789,6 @@
 				2CD5E03325337BE000E4A01B /* ListHistory.swift in Sources */,
 				2C0E93CA250F987700378C97 /* FavouritesData.swift in Sources */,
 				2CAC06102530E26700561509 /* HomeData.swift in Sources */,
-				2C1567EA24CADB6000B8DCB5 /* GroceryTableViewCell.swift in Sources */,
 				2C21C3AE24F8187100D90B4B /* GroceryCategoriesModel.swift in Sources */,
 				2C266DF924D5DEF300C66EA5 /* StoreModel.swift in Sources */,
 				2CE7AB0224D077C700A31782 /* SettingsViewController.swift in Sources */,
@@ -807,6 +802,7 @@
 				2CB3EDA525041F31000E7C7A /* ListSectionHeader.swift in Sources */,
 				2CB15C9724D2FCD400461AFE /* ListViewController.swift in Sources */,
 				2C6F6220251357D100179C2B /* ForgotPasswordViewController.swift in Sources */,
+				2CB19B5725653B4700C19550 /* ReviewTableViewCell.swift in Sources */,
 				2C9C1B7A24CCD07F001ACA35 /* ProductCollectionViewCell.swift in Sources */,
 				2C0D448A253602810046E2B0 /* UserModel.swift in Sources */,
 				2CB3EDA325040E92000E7C7A /* ListItemViewController.swift in Sources */,
@@ -995,7 +991,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 78A3D23A2EFDF10530DC6D40 /* Pods-SuperStore.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SuperStore/SuperStore.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1019,7 +1014,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 81D954E4C76C0EAE824B9E7D /* Pods-SuperStore.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SuperStore/SuperStoreRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
