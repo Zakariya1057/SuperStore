@@ -10,8 +10,8 @@ import UIKit
 import Cosmos
 import RealmSwift
 
-class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDelegate, FavouritesDelegate, ListSelectedDelegate, GroceryDelegate {
-    
+class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDelegate, FavouritesDelegate, ListSelectedDelegate, GroceryDelegate, ListItemsDelegate {
+
     let realm = try! Realm()
     
     var product: ProductHistory? {
@@ -27,7 +27,6 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     @IBOutlet var stepperLabel: UILabel!
     var delegate: GroceryDelegate?
     
-    var addToListProductId: Int?
     var noDelegateFound: Bool = false
     
     @IBOutlet weak var reviewsStackView: UIStackView!
@@ -99,6 +98,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         
         similarTableView.register(UINib(nibName: K.Cells.ProductCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ProductCell.CellIdentifier)
         
+        listHandler.delegate = self
         startLoading()
         
         productHandler.delegate = self
@@ -189,6 +189,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     func contentLoaded(products: [ProductModel]) {
         //Update all favourites
         favouritesHandler.addToFavourite(products)
+    }
+    
+    // Used by list manager
+    func contentLoaded(list: ListModel) {
     }
     
     func refreshProduct() {
@@ -507,7 +511,6 @@ extension ProductViewController {
             destinationVC.delegate = self
             
             self.present(destinationVC, animated: true)
-            self.addToListProductId = product!.id
         }
         
         print("Adding To List")
@@ -521,7 +524,7 @@ extension ProductViewController {
         quantityStepper.value = Double(item.quantity)
         stepperLabel.text = "\(item.quantity)"
         
-        listHandler.create(listID: listID, listData: ["productID": String(addToListProductId!)])
+        listHandler.create(listID: listID, listData: ["product_id": String(product!.id)])
         
         showQuantityView()
     }
@@ -530,8 +533,10 @@ extension ProductViewController {
         
         if selectedListID != nil {
             
+            productItem.quantity = Int(quantityStepper.value)
+            
             let data:[String: String] = [
-                "productID": String(productItem.id),
+                "product_id": String(productItem.id),
                 "quantity": String(productItem.quantity),
                 "ticked_off": "false"
             ]
