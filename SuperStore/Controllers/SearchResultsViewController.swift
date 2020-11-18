@@ -34,6 +34,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     var selectedProduct: ProductModel?
     var selected_row: GroceryTableViewCell?
     
+    @IBOutlet var rightBarButton: UIBarButtonItem!
     var selectedListID: Int?
     
     var selectedSort: RefineSortModel?
@@ -83,7 +84,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         if(selectedListID != nil){
             self.listRequired = false
         } else {
-            self.navigationItem.rightBarButtonItem = nil
+            rightBarButton.title = "Select List"
         }
     }
         
@@ -290,10 +291,8 @@ extension SearchResultsViewController {
         selectedProduct = product
         selected_row = cell
         
-        if listRequired {
-            let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
-            destinationVC.delegate = self
-            present(destinationVC, animated: true)
+        if selectedProduct == nil {
+            selectList()
         } else {
             let item = listManager.addProductToList(listID: selectedListID!, product: selectedProduct!)
             selected_row!.product?.quantity = item.quantity
@@ -305,17 +304,35 @@ extension SearchResultsViewController {
     
     func listSelected(listID: Int) {
         self.selectedListID = listID
-        listHandler.create(listID: listID, listData: ["product_id": String(selectedProduct!.id)])
         
-        let item = listManager.addProductToList(listID: listID, product: selectedProduct!)
-        selected_row!.product?.quantity = item.quantity
-        selected_row!.show_quantity_view()
+        if selectedProduct != nil {
+            listHandler.create(listID: listID, listData: ["product_id": String(selectedProduct!.id)])
+            
+            let item = listManager.addProductToList(listID: listID, product: selectedProduct!)
+            selected_row!.product?.quantity = item.quantity
+            selected_row!.show_quantity_view()
+        }
+        
+        rightBarButton.title = "Change List"
+        resultsTableView.reloadData()
+
     }
     
     
-    @IBAction func donePressed(_ sender: Any) {
-        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+    @IBAction func barButtonPressed(_ sender: UIBarButtonItem) {
+        if listRequired {
+            selectList()
+        } else {
+            let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+        }
+
+    }
+    
+    func selectList(){
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listsViewController"))! as! ListsViewController
+        destinationVC.delegate = self
+        present(destinationVC, animated: true)
     }
     
     func showGroceryItem(_ productID: Int) {
@@ -362,6 +379,8 @@ extension SearchResultsViewController {
         if loading == false {
             
             cell.product = products[indexPath.row]
+            
+            cell.product!.quantity = 0
             
             if selectedListID != nil {
                 let listItem = realm.objects(ListItemHistory.self).filter("listID = \(selectedListID!) AND productID=\( products[indexPath.row].id )").first
