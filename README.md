@@ -12,3 +12,4 @@ Features:
 * Offline Mode - Saving products and grocery lists locally. Sync with backend when online. 
 
 
+https://im2.ezgif.com/tmp/ezgif-2-7662e6bb4f06.gif
