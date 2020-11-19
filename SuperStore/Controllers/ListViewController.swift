@@ -94,22 +94,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         listTableView.addSubview(refreshControl) // not required when using UITableViewController
         
-        print("Setting The Values")
-        
         configureObserver()
         
         if listItem != nil {
             
             self.title = listItem!.name
             
-//            self.totalItems = listItem!.totalItems
             self.tickedOffItems = listItem!.tickedOffItems
             self.status = ListStatus(rawValue: listItem!.status)
             self.totalPrice = listItem!.totalPrice
-            
-            print("Total Price: \(totalPrice)")
-            print("Total Items: \(tickedOffItems)")
-            print("Total Ticked Off: \(totalItems)")
             
             if listItem!.categories.count > 0 || RequestHandler.sharedInstance.offline == true {
                 configureUI()
@@ -352,12 +345,9 @@ extension ListViewController {
                 showTotalPrice()
 
                 print("Saving Changes")
+                
                 listHistory!.status = status!.rawValue
                 listHistory!.totalPrice = totalPrice
-
-                print("Total Price: \(totalPrice)")
-                print("Total Items: \(tickedOffItems)")
-                print("Total Ticked Off: \(totalItems)")
                 
                 if offline {
                     listHistory!.edited = true

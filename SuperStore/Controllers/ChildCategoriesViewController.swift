@@ -78,14 +78,12 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         configureBar()
         
         if categoriesHistory.count > 0 && categoriesHistory[0].products.count > 0{
-            print("Found In History")
             
             self.viewcontrollers = []
             
             self.categories = categoriesHistory.map{$0.getCategoryModel()}
             loading = false
             
-            print(self.categories)
             for _ in categories {
                 viewcontrollers.append(GroceryTableViewController())
             }
@@ -251,7 +249,6 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
         var item: TMBarItem
         
-        print("Bar Loading: \(loading)")
         if loading == false && categories.indices.contains(index) {
             item = TMBarItem(title: categories[index].name)
         } else {
@@ -269,8 +266,6 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
     
     func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
         let viewController: GroceryTableViewController = loading ? viewcontrollers[0]: viewcontrollers[index]
-        
-        print("Generate View Controllers")
         
         if loading == false && categories.indices.contains(index) {
             viewController.products = categories[index].products

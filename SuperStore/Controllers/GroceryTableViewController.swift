@@ -27,9 +27,6 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("Loading: \(loading)")
-        
         tableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
     }
 

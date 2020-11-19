@@ -10,14 +10,5 @@ import UIKit
 
 class ListSectionHeader: UITableViewHeaderFooterView {
     @IBOutlet weak var headingLabel: UILabel!
-    
     @IBOutlet weak var subHeadingLabel: UILabel!
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
 }

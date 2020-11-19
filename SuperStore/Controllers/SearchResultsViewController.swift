@@ -459,8 +459,6 @@ extension SearchResultsViewController {
         if selectedCategory != nil {
             filterBy.append("childCategoryName = \"\(selectedCategory!.name)\" ")
         }
-     
-        print(filterBy.joined(separator: " AND "))
         
         let results = realm.objects(ProductHistory.self).filter(filterBy.joined(separator: " AND ")).sorted(byKeyPath: sortBy, ascending: ascending)
         
@@ -498,7 +496,6 @@ extension SearchResultsViewController {
                 } else {
                     let category = realm.objects(ChildCategoryHistory.self).filter("id = %@", searchDetails!.id).first
                     category!.products.append(product.getRealmObject())
-                    print("Adding Results To Child Category")
                 }
                     
             } else {

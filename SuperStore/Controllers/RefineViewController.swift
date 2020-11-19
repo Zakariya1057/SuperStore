@@ -178,7 +178,6 @@ class RefineViewController: UIViewController, UITableViewDataSource, UITableView
                 
                 for dietaryHistory in refineHistory?.dietary ?? [] {
                     
-                    print(dietaryHistory)
                     if dietaryHistory == item {
                         item.selected = true
                         selectedDietary.append(item)
@@ -197,7 +196,6 @@ class RefineViewController: UIViewController, UITableViewDataSource, UITableView
 extension RefineViewController {
     
     @IBAction func donePressed(_ sender: Any) {
-        print(selectedDietary)
         self.delegate?.applyOptions(sort: selectedSort, category: selectedCategory,brand: selectedBrand, dietary: selectedDietary)
         self.dismiss(animated: true, completion: nil)
     }
@@ -236,7 +234,6 @@ extension RefineViewController {
                         }
                         
                         if !found {
-                            print(item)
                             selectedDietary.append(item)
                         }
 

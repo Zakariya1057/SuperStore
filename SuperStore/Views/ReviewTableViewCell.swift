@@ -35,7 +35,6 @@ class ReviewTableViewCell: UITableViewCell {
             let rating: Double = Double(product_review.rating)
             
             ratingView.rating = rating
-//            ratingView.text = "\(product_review.rating)/5"
             
             titleLabel?.text = product_review.title
             usernameField.text = product_review.name
@@ -45,8 +44,6 @@ class ReviewTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func startLoading(){

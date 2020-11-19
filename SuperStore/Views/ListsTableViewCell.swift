@@ -33,8 +33,6 @@ class ListsTableViewCell: UITableViewCell {
         
         if list != nil {
             
-//            stopLoading()
-            
             let status = list!.status
             
             listNameLabel.text = list!.name

@@ -398,7 +398,7 @@ extension HomeViewController {
             print("Updating Home")
             updateHistory(homeItem)
         } else {
-            
+            print("Creating Home")
             let home:HomeHistory = HomeHistory()
             
             try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
@@ -430,7 +430,7 @@ extension HomeViewController {
                 })
 
             }
-
+            
             for product in homeItem.groceries {
                 
                 try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
@@ -443,7 +443,6 @@ extension HomeViewController {
                 })
 
             }
-
             
             try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
                 for product in homeItem.monitoring {
@@ -457,13 +456,13 @@ extension HomeViewController {
                         // Create product, set monitoring to true
                         let newProductHistory = product.getRealmObject()
                         newProductHistory.monitoring = true
+                        ignoreProducts[product.id] = product.name
                         realm.add(newProductHistory)
                     }
                     
                 }
             })
-
-
+            
             for category in homeItem.categories {
                 let categoryItem = FeaturedCategory()
                 categoryItem.name = category.key
@@ -479,6 +478,7 @@ extension HomeViewController {
                     }
                     
                     home.categories.append(categoryItem)
+
                 })
 
             }

@@ -541,7 +541,6 @@ extension ProductViewController {
                 "ticked_off": "false"
             ]
             
-            print("Quantity: \(productItem.quantity)")
             listManager.updateProduct(listID: selectedListID!, product: productItem)
             
             listHandler.update(listID:selectedListID!, listData: data)

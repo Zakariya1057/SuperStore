@@ -43,7 +43,7 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
     
     var review: ReviewHistory? {
         get {
-            return realm.objects(ReviewHistory.self).filter("productID = \(product!.id) AND user_id = \(user_id)").first
+            return realm.objects(ReviewHistory.self).filter("productID = \(product!.id) AND userID = \(user_id)").first
         }
     }
 
@@ -219,7 +219,6 @@ extension ReviewViewController {
         
         try! realm.write() {
             if reviewItem == nil {
-                print("Add To Item")
                 product!.reviews.append(productReview.getRealmObject())
             } else {
                 reviewItem!.title = productReview.title
