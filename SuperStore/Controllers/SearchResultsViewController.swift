@@ -216,7 +216,7 @@ extension SearchResultsViewController {
             data["dietary"] = selectedDietary.compactMap({ $0.name }).joined(separator: ",")
         }
         
-        totalProductsLabel.text = ""
+        totalProductsLabel.text = "Loading Products..."
         
         if refresh {
             
@@ -291,8 +291,9 @@ extension SearchResultsViewController {
         selectedProduct = product
         selected_row = cell
         
-        if selectedProduct == nil {
+        if selectedListID == nil {
             selectList()
+            selectedProduct = nil
         } else {
             let item = listManager.addProductToList(listID: selectedListID!, product: selectedProduct!)
             selected_row!.product?.quantity = item.quantity

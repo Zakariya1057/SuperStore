@@ -235,6 +235,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
             let destinationVC = segue.destination as! ListViewController
             destinationVC.identifier = lists[selectedIndex].identifier
             destinationVC.listID = selectedList!.id
+            destinationVC.listNotificationToken = notificationToken
         } else if (segue.identifier == "list_to_edit"){
             let destinationVC = segue.destination as! ListEditViewController
             destinationVC.identifier = lists[selectedIndex].identifier

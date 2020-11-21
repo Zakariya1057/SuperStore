@@ -120,7 +120,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         } else {
             self.viewcontrollers[0].loading = false
             self.viewcontrollers[0].tableView.reloadData()
-            self.reloadData()
+//            self.reloadData()
         }
         
     }
@@ -286,6 +286,7 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
         
         if listRequired {
             selectLists()
+            selectedProduct = nil
         } else {
             let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
             self.navigationController!.popToViewController(viewControllers[viewControllers.count - 7], animated: true)

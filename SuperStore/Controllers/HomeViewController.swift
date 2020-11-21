@@ -186,7 +186,7 @@ extension HomeViewController {
         if offline {
             return print("Offline Mode")
         } else {
-            print("Online Change List")
+            print("Online Change List. Lists")
         }
         
         var showingLists:[ListModel] = []
@@ -221,7 +221,7 @@ extension HomeViewController {
         if realm.isInWriteTransaction || offline {
             return print("Offline Mode/Transaction")
         } else {
-            print("Online Change List")
+            print("Online Change List. Monitor")
         }
         
         print("Monitoring Change")
@@ -366,6 +366,7 @@ extension HomeViewController {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listViewController"))! as! ListViewController
         destinationVC.identifier = identifier
         destinationVC.listID = listID
+        destinationVC.listNotificationToken = monitoredNotificationToken
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     

@@ -82,8 +82,6 @@ struct RequestHandler {
         case .success:
             complete(response.data!)
         case .failure(let errorResponse):
-            
-//            print(errorResponse)
 
             if RequestHandler.sharedInstance.offline {
                 return print("Offline. Cancelling Error Message")
