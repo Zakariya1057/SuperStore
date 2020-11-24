@@ -38,6 +38,8 @@ class ResetPasswordViewController: UIViewController, UserDelegate {
         
         passwordField.tag = 0
         confirmPasswordField.tag = 1
+        
+        passwordField.becomeFirstResponder()
     }
     
     @IBAction func changePressed(_ sender: Any) {
@@ -56,7 +58,7 @@ class ResetPasswordViewController: UIViewController, UserDelegate {
         }
 
         startLoading()
-        userHandler.requestResetPassword(userData: ["email": email!,"code": code!,"password": password, "password_confirmation": passwordConfirmation])
+        userHandler.requestResetPassword(email: email!, password: password, passwordConfirmation: passwordConfirmation, code: code!)
 
     }
     

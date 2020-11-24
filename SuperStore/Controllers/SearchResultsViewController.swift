@@ -288,12 +288,12 @@ extension SearchResultsViewController {
 
     func addToList(_ product: ProductModel, cell: GroceryTableViewCell?){
         
+        print("Add To List PRessed")
         selectedProduct = product
         selected_row = cell
         
         if selectedListID == nil {
             selectList()
-            selectedProduct = nil
         } else {
             let item = listManager.addProductToList(listID: selectedListID!, product: selectedProduct!)
             selected_row!.product?.quantity = item.quantity
@@ -312,6 +312,8 @@ extension SearchResultsViewController {
             let item = listManager.addProductToList(listID: listID, product: selectedProduct!)
             selected_row!.product?.quantity = item.quantity
             selected_row!.show_quantity_view()
+            
+            selectedProduct = nil
         }
         
         rightBarButton.title = "Change List"
@@ -460,6 +462,8 @@ extension SearchResultsViewController {
         if selectedCategory != nil {
             filterBy.append("childCategoryName = \"\(selectedCategory!.name)\" ")
         }
+        
+        print(filterBy.joined(separator: " AND "))
         
         let results = realm.objects(ProductHistory.self).filter(filterBy.joined(separator: " AND ")).sorted(byKeyPath: sortBy, ascending: ascending)
         

@@ -21,6 +21,8 @@ class CheckCodeViewController: UIViewController, UserDelegate {
         
         userHandler.delegate = self
         codeField.delegate = self
+        
+        codeField.becomeFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {

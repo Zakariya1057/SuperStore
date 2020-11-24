@@ -27,6 +27,8 @@ class ChangePasswordViewController: UIViewController, UserDelegate {
         currentPasswordField.delegate = self
         newPasswordField.delegate = self
         repeatPasswordField.delegate = self
+        
+        currentPasswordField.becomeFirstResponder()
     }
     
     @IBAction func savePressed(_ sender: Any) {

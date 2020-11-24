@@ -47,7 +47,7 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
         showHistory()
         
         searchHandler.suggestionsDelegate = self
-       
+        
         searchTableView.register(UINib(nibName: K.Cells.SearchCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.SearchCell.CellIdentifier)
         
     }

@@ -31,6 +31,8 @@ class NewListViewController: UIViewController, ListDelegate {
         super.viewDidLoad()
         nameField.delegate = self
         listHandler.delegate = self
+        
+        nameField.becomeFirstResponder()
     }
     
     func contentLoaded(lists: [ListModel]) {

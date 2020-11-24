@@ -20,6 +20,8 @@ class ForgotPasswordViewController: UIViewController, UserDelegate {
 
         emailField.delegate = self
         userHandler.delegate = self
+        
+        emailField.becomeFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {

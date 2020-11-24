@@ -44,6 +44,8 @@ class ListEditViewController: UIViewController, ListDelegate  {
         if list != nil {
             nameField.text = list?.name
         }
+        
+        nameField.becomeFirstResponder()
     }
     
     func contentLoaded(lists: [ListModel]) {
@@ -115,7 +117,7 @@ class ListEditViewController: UIViewController, ListDelegate  {
         
         listHandler.update(list_data: [
             "identifier": list!.identifier,
-            "name":nameField.text!,
+            "name": nameField.text!,
             "store_type_id": "1",
             "items": listManager.getListItems(list!)
         ])

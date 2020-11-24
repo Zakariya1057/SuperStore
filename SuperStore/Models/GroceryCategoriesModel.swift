@@ -75,7 +75,9 @@ struct ChildCategoryModel {
             if let productItem = realm?.objects(ProductHistory.self).filter("id = \(product.id)").first {
                 productList.append(productItem)
             } else {
-                productList.append(product.getRealmObject())
+                let productItem = product.getRealmObject()
+                productItem.childCategoryName = self.name
+                productList.append(productItem)
             }
         }
         

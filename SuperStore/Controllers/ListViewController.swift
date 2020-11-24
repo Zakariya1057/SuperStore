@@ -71,7 +71,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var loading: Bool = true
     
     var notificationToken: NotificationToken?
-    var listNotificationToken: NotificationToken?
+//    var listNotificationToken: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,7 +109,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             
             if listItem!.edited {
-                try? realm.write(withoutNotifying: [notificationToken!, listNotificationToken!], {
+                try? realm.write(withoutNotifying: [notificationToken!], {
                     listManager.uploadEditedList(listHistory: listItem!)
                     print("List has been edited in offline mode. Upload changes before clearing list")
                 })
@@ -153,7 +153,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             print("Online. Request")
             
             if listItem!.edited {
-                try? realm.write(withoutNotifying: [notificationToken!, listNotificationToken!], {
+                try? realm.write(withoutNotifying: [notificationToken!], {
                     listManager.uploadEditedList(listHistory: listItem!)
                     print("List has been edited in offline mode. Upload changes before clearing list")
                     refreshControl.endRefreshing()
@@ -177,7 +177,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     deinit {
         notificationToken?.invalidate()
-        listNotificationToken?.invalidate()
+//        listNotificationToken?.invalidate()
     }
     
     func showError(_ error: String){
@@ -312,7 +312,7 @@ extension ListViewController {
         // if list has been edited in offline mode. Upload changes before clearing list
         if item != nil {
 
-            try? realm.write(withoutNotifying: [notificationToken!, listNotificationToken!], {
+            try? realm.write(withoutNotifying: [notificationToken!], {
                 realm.delete( realm.objects(ListItemHistory.self).filter("listID = \(listID!)") )
                 realm.delete( realm.objects(ListCategoryHistory.self).filter("listID = \(listID!)") )
                 
@@ -323,7 +323,7 @@ extension ListViewController {
             })
 
         } else {
-            try? realm.write(withoutNotifying: [notificationToken!, listNotificationToken!], {
+            try? realm.write(withoutNotifying: [notificationToken!], {
                 realm.add(list.getRealmObject())
             })
         }
@@ -341,11 +341,12 @@ extension ListViewController {
         let listHistory = realm.objects(ListHistory.self).filter("identifier = %@", identifier!).first
         
         if listHistory != nil {
-            try? realm.write(withoutNotifying: [notificationToken!, listNotificationToken!], {
+            try? realm.write(withoutNotifying: [notificationToken!], {
 
                 showTotalPrice()
 
                 print("Saving Changes")
+                print("Set Total Price: \(self.totalPrice)")
                 
                 self.list = listItem?.getListModel()
                 
@@ -371,7 +372,7 @@ extension ListViewController {
     }
     
     func productRemove(_ product: ListItemModel) {
-        try? realm.write(withoutNotifying:[notificationToken!, listNotificationToken!], {
+        try? realm.write(withoutNotifying:[notificationToken!], {
             realm.delete(realm.objects(ListItemHistory.self).filter("productID = \(product.productID) AND listID = \(listID!)"))
         })
         
@@ -393,7 +394,7 @@ extension ListViewController {
 
         completedCheck()
         
-        try? realm.write(withoutNotifying: [notificationToken!, listNotificationToken!], {
+        try? realm.write(withoutNotifying: [notificationToken!], {
             let productItem = realm.objects(ListItemHistory.self).filter("productID = \(product.productID) AND listID = \(listID!)").first
             productItem!.tickedOff = product.tickedOff
             productItem!.quantity = product.quantity
@@ -401,6 +402,7 @@ extension ListViewController {
             
             listItem?.totalItems = self.totalItems
             listItem?.tickedOffItems = self.tickedOffItems
+            listItem?.status = self.status!.rawValue
         })
 
     }
@@ -449,20 +451,18 @@ extension ListViewController {
         var priceNoPromotion: Double = 0.00
         var oldPrice: Double = 0.00
         
-        let products = (list?.categories ?? []).map({ $0.items }).joined()
+        let products = (listItem?.getListModel().categories ?? []).map({ $0.items }).joined()
         
         var promotions = [Int: Dictionary<String, [Any]>]()
         
         for product in products {
             
             if product.promotion != nil {
-                
                 if let _ = promotions[product.promotion!.id] {
                     promotions[product.promotion!.id]!["products"]!.append(product)
                 } else {
                     promotions[product.promotion!.id] = ["products": [product], "promotion": [product.promotion!]]
                 }
-                
             }
             
             price += listManager.calculateProductPrice(product)
@@ -471,19 +471,24 @@ extension ListViewController {
         
         for promotion in promotions {
             let products = promotion.value["products"] as! [ListItemModel]
-            let productCount = products.count
             let promotion = promotion.value["promotion"]![0] as! PromotionModel
             var newTotalPrice: Double = 0
             
-            if productCount >= promotion.quantity {
+            var totalQuantity = 0
+            
+            for product in products {
+                totalQuantity += product.quantity
+            }
+            
+            print("Total Quantity: \(totalQuantity)")
+            
+            if totalQuantity >= promotion.quantity {
                 
                 var highestPrice: Double = 0
                 var previousTotalPrice: Double = 0
-                var totalQuantity = 0
                 
                 for product in products {
                     previousTotalPrice = previousTotalPrice + listManager.calculateProductPrice(product)
-                    totalQuantity = totalQuantity + product.quantity
                     
                     if product.price > highestPrice {
                         highestPrice = product.price
@@ -529,7 +534,7 @@ extension ListViewController {
 extension ListViewController {
     
     func listEdited(){
-        try? realm.write(withoutNotifying: [notificationToken!, listNotificationToken!], {
+        try? realm.write(withoutNotifying: [notificationToken!], {
             if offline {
                 listItem?.edited = true
             }
@@ -545,32 +550,31 @@ extension ListViewController {
         
         listEdited()
         
-        if list!.categories[section].items.count == 1 {
-            
-            try? realm.write(withoutNotifying: [notificationToken!, listNotificationToken!], {
+        try? realm.write(withoutNotifying: [notificationToken!], {
+           
+            if list!.categories[section].items.count == 1 {
                 let deleteCategory = realm.objects(ListCategoryHistory.self).filter("listID = \(listID!) AND id=\(list!.categories[section].id)").first
                 realm.delete(deleteCategory!.items)
                 realm.delete(deleteCategory!)
-            })
-            
-            self.list = listItem?.getListModel()
-            
-            listTableView.deleteSections(indexSet as IndexSet, with: .fade)
-        } else {
-            try? realm.write(withoutNotifying: [notificationToken!, listNotificationToken!], {
+                
+                self.list = listItem?.getListModel()
+                
+                listTableView.deleteSections(indexSet as IndexSet, with: .fade)
+            } else {
                 let item = list!.categories[section].items[row]
                 let deleteItem = realm.objects(ListItemHistory.self).filter("listID = \(listID!) AND productID = \(item.productID)").first
                 realm.delete( deleteItem! )
-            })
+                
+                self.list = listItem?.getListModel()
+                
+                listTableView.deleteRows(at: [indexPath], with: .fade)
+            }
             
-            self.list = listItem?.getListModel()
+            listHandler.delete(listID: listID!, listData: ["product_id": String(product.productID)])
             
-            listTableView.deleteRows(at: [indexPath], with: .fade)
-        }
-        
-        listHandler.delete(listID: listID!, listData: ["product_id": String(product.productID)])
-        
-        showTotalPrice()
+            showTotalPrice()
+        })
+
     }
     
 }

@@ -66,8 +66,8 @@ struct UserHandler {
         requestHandler.postRequest(url: "\(K.Host)/\(K.Request.User.ValidateResetCode)", data: ["email": email,"code": code], complete: proccessReturn, error: processError, logOutUser: logOutUser)
     }
     
-    func requestResetPassword(userData: [String: String]){
-        requestHandler.postRequest(url: "\(K.Host)/\(K.Request.User.ResetPassword)", data: userData, complete: processResults, error: processError, logOutUser: logOutUser)
+    func requestResetPassword(email: String, password: String, passwordConfirmation: String, code: String){
+    requestHandler.postRequest(url: "\(K.Host)/\(K.Request.User.ResetPassword)", data: ["email": email,"code": code,"password": password, "password_confirmation": passwordConfirmation, "notification_token": notificationToken], complete: processResults, error: processError, logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){

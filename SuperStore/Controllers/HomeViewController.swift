@@ -366,7 +366,7 @@ extension HomeViewController {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listViewController"))! as! ListViewController
         destinationVC.identifier = identifier
         destinationVC.listID = listID
-        destinationVC.listNotificationToken = monitoredNotificationToken
+//        destinationVC.listNotificationToken = monitoredNotificationToken
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     

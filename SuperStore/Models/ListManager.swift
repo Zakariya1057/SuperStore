@@ -50,6 +50,8 @@ struct ListManager {
 
                     list!.categories.append(listCategory!)
                 }
+                
+//                listReflectChanges(listID: listID)
             } else {
                 // Update list item Instead Of Creating
                 print("Product Item Found. Updating Instead")
@@ -72,25 +74,58 @@ struct ListManager {
         }
         
         if(product.quantity == 0){
-            removeProductFromList(listId: listID,product: nil,item: item)
+            removeProductFromList(listID: listID,product: nil,item: item)
         } else {
             try! realm.write() {
                 print("Product Updating List Item Quantity")
                 item!.quantity = product.quantity
+//                listReflectChanges(listID: listID)
             }
 
         }
 
     }
     
-    func removeProductFromList(listId: Int, product: ProductModel?, item: ListItemHistory? = nil){
+    func removeProductFromList(listID: Int, product: ProductModel?, item: ListItemHistory? = nil){
         try! realm.write() {
             if item == nil {
-                realm.delete(realm.objects(ListItemHistory.self).filter("listID = \(listId) AND productID = \(product!.id)"))
+                realm.delete(realm.objects(ListItemHistory.self).filter("listID = \(listID) AND productID = \(product!.id)"))
             } else {
                 realm.delete(item!)
             }
+            
+//            listReflectChanges(listID: listID)
+            
         }
+        
+    }
+    
+    func listReflectChanges(listID: Int){
+        // Update list items checked, totals
+        
+//        try! realm.write() {
+            let list = realm.objects(ListHistory.self).filter("id = \(listID)").first
+            
+            if list != nil {
+                print("Updating List Details.")
+                let items = realm.objects(ListItemHistory.self).filter("listID = \(listID)")
+                
+                list?.totalItems = items.count
+                list?.tickedOffItems = items.filter("tickedOff = true").count
+                
+                var total: Double = 0
+                
+                for item in items {
+                    total = total + calculateProductPrice(item.getItemModel())
+                }
+                
+                list?.totalPrice = total
+                
+            } else {
+                print("No List Found: \(listID)")
+            }
+//        }
+        
     }
     
 }

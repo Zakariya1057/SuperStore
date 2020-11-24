@@ -48,6 +48,8 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
         
         inputField.delegate = self
         userHandler.delegate = self
+        
+        inputField.becomeFirstResponder()
     }
     
 
