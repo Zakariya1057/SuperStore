@@ -26,6 +26,8 @@ class ListHistory: Object {
     @objc dynamic var synced: Bool = false
     @objc dynamic var deleted: Bool = false
     @objc dynamic var edited: Bool = false
+    @objc dynamic var mode: String = "overwrite" // Append to online list instead of overwrite. (Append/Overwrite)
+    
     var categories = List<ListCategoryHistory>()
     
     @objc dynamic var createdAt: Date = Date()

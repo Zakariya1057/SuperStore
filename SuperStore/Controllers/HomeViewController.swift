@@ -164,17 +164,19 @@ extension HomeViewController {
     func configureNotifications(){
         let banner = StatusBarNotificationBanner(title: "Offline Mode", style: .warning)
         banner.autoDismiss = false
+        banner.alpha = 0
+        banner.show()
         
         networkManager.reachability.whenReachable = { _ in
             print("Network is available")
             RequestHandler.sharedInstance.offline = false
-            banner.dismiss()
+            banner.alpha = 0
         }
 
         networkManager.reachability.whenUnreachable = { _ in
             print("Network is unavailable")
             RequestHandler.sharedInstance.offline = true
-            banner.show()
+            banner.alpha = 1
         }
     }
 }
@@ -183,6 +185,12 @@ extension HomeViewController {
     
     func configureLists(){
 
+        if !userHandler.userSession.isLoggedIn() {
+            listNotificationToken?.invalidate()
+            monitoredNotificationToken?.invalidate()
+            return
+        }
+        
         if offline {
             return print("Offline Mode")
         } else {
@@ -217,6 +225,12 @@ extension HomeViewController {
     }
     
     func configureMonited(){
+        
+        if !userHandler.userSession.isLoggedIn() {
+            listNotificationToken?.invalidate()
+            monitoredNotificationToken?.invalidate()
+            return
+        }
         
         if realm.isInWriteTransaction || offline {
             return print("Offline Mode/Transaction")

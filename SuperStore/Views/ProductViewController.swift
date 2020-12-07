@@ -127,7 +127,6 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
-                // Results are now populated and can be accessed without blocking the UI
                 self?.configureUI()
                 break
             case .update(_, _, _, _):
@@ -200,6 +199,13 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     }
     
     func configureUI(){
+        print("Product Configure UI")
+        
+        if !userHandler.userSession.isLoggedIn() {
+            notificationToken?.invalidate()
+            return
+        }
+        
         if(product == nil){
             return showError("No product details found.")
         }

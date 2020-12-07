@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if userSession.isLoggedIn() {
             initialViewController = storyboard.instantiateViewController(withIdentifier: "homeViewController")
         } else {
-            userSession.resetDefaultRealm()
+//            userSession.resetDefaultRealm()
             initialViewController = storyboard.instantiateViewController(withIdentifier: "loginNavigationController")
         }
         

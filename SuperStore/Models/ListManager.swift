@@ -30,6 +30,7 @@ struct ListManager {
                 listItem!.name = product.name
                 listItem!.image = product.largeImage
                 listItem!.price = product.price
+                listItem!.weight = product.weight ?? ""
                 listItem!.promotion = product.promotion?.getRealmObject()
                 listItem!.listID = listID
                 listItem!.quantity = product.quantity == 0 ? 1 : product.quantity
@@ -47,7 +48,12 @@ struct ListManager {
                     listCategory!.items.append(listItem!)
 
                     let list = realm.objects(ListHistory.self).filter("id = \(listID)").first
-
+                    
+                    if list!.totalItems > 0 && list!.categories.count == 0 {
+                        // List not loaded, when online append to current list.
+                        list!.mode = "append"
+                    }
+                    
                     list!.categories.append(listCategory!)
                 }
                 
@@ -191,10 +197,12 @@ extension ListManager {
             "identifier": listHistory.identifier,
             "name": listHistory.name,
             "store_type_id": "1",
-            "items": items
+            "items": items,
+            "mode": listHistory.mode
         ])
         
         listHistory.edited = false
+        listHistory.mode = "overwrite"
     }
     
 }

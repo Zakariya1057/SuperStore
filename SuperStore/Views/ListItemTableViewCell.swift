@@ -38,10 +38,16 @@ class ListItemTableViewCell: UITableViewCell {
         
         let currentProduct = product!
         
+        var name: String = currentProduct.name
+            
+        if currentProduct.weight != nil {
+            name += " (\(currentProduct.weight!))"
+        }
+        
         nameLabel.attributedText =
             NSMutableAttributedString()
                 .bold(String(product!.quantity))
-                .normal(" x " + currentProduct.name)
+                .normal(" x " + name)
         
         tickedOff = currentProduct.tickedOff
         showCheckBox()

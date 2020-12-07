@@ -12,9 +12,9 @@ import SwiftKeychainWrapper
 
 struct UserSession {
     
-    init() {
-        setDefaultRealmForUser()
-    }
+//    init() {
+//        setDefaultRealmForUser()
+//    }
     
     static var sharedInstance: UserSession = {
         return UserSession()
@@ -30,11 +30,10 @@ struct UserSession {
         let realm = try! Realm()
         UserDefaults.standard.removeObject(forKey: "userSettings")
         
-        resetDefaultRealm()
+//        resetDefaultRealm()
         
         try? realm.write({
             realm.deleteAll()
-//            realm.delete(realm.objects(UserHistory.self))
         })
     
         if viewController != nil && isLoggedIn() == false {
@@ -51,7 +50,7 @@ struct UserSession {
     }
     
     func setLoggedIn(_ userData:UserHistory){
-        setDefaultRealmForUser(userId: userData.id)
+//        setDefaultRealmForUser(userId: userData.id)
         saveUserInfo(userData: userData)
         
         let realm = try! Realm()
@@ -95,26 +94,25 @@ struct UserSession {
 }
 
 extension UserSession {
-    
-    func setDefaultRealmForUser(userId: Int? = nil) {
-        var config = Realm.Configuration()
-        
-        let userId: Int? = userId != nil ? userId : showUserInfo()?.id
-        
-        if userId != nil {
-           
-            // Use the default directory, but replace the filename with the username
-            config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("\(userId!).realm")
-
-            // Set this as the configuration used for the default Realm
-            Realm.Configuration.defaultConfiguration = config
-        }
-
-    }
-    
-    func resetDefaultRealm(){
-        var config = Realm.Configuration()
-        config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("default.realm")
-        Realm.Configuration.defaultConfiguration = config
-    }
+//    func setDefaultRealmForUser(userId: Int? = nil) {
+//        var config = Realm.Configuration()
+//
+//        let userId: Int? = userId != nil ? userId : showUserInfo()?.id
+//
+//        if userId != nil {
+//
+//            // Use the default directory, but replace the filename with the username
+//            config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("\(userId!).realm")
+//
+//            // Set this as the configuration used for the default Realm
+//            Realm.Configuration.defaultConfiguration = config
+//        }
+//
+//    }
+//
+//    func resetDefaultRealm(){
+//        var config = Realm.Configuration()
+//        config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("default.realm")
+//        Realm.Configuration.defaultConfiguration = config
+//    }
 }

@@ -103,9 +103,14 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.status = ListStatus(rawValue: listItem!.status)
             self.totalPrice = listItem!.totalPrice
             
-            if listItem!.categories.count > 0 || RequestHandler.sharedInstance.offline == true {
-                self.list = listItem?.getListModel()
-                configureUI()
+            if RequestHandler.sharedInstance.offline == true {
+                if listItem!.totalItems > 0 && listItem!.categories.count == 0 {
+                    // Grocery list items not downloaded. Show error message. Connection Required To Load List.
+                    return showError("Internet connection required to load list")
+                } else if listItem!.categories.count > 0 {
+                    self.list = listItem?.getListModel()
+                    configureUI()
+                }
             }
             
             if listItem!.edited {
@@ -177,7 +182,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     deinit {
         notificationToken?.invalidate()
-//        listNotificationToken?.invalidate()
     }
     
     func showError(_ error: String){
@@ -414,6 +418,11 @@ extension ListViewController {
     
     func completedCheck(){
         // Check if all products completed. If the case then update the parent
+        
+        if !userHandler.userSession.isLoggedIn() {
+            notificationToken?.invalidate()
+            return
+        }
         
         if loading {
             return
