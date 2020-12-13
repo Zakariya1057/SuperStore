@@ -149,7 +149,7 @@ class StoreViewController: UIViewController, StoreDelegate {
         let name = store.name
         let logo = store.logo
         
-        storeLogoView.downloaded(from: logo)
+//        storeLogoView.downloaded(from: logo)
         storeNameLabel.text = name
     }
     

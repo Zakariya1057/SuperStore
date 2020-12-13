@@ -101,8 +101,10 @@ class SettingsViewController: UIViewController, UserDelegate  {
     }
     
     func logOutUser(){
-        userHandler.userSession.viewController = self
-        userSession.logOut()
+        if userSession.isLoggedIn() {
+            userHandler.userSession.viewController = self
+            userSession.logOut()
+        }
     }
     
     func showUserDetails(){

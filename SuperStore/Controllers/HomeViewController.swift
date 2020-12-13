@@ -48,6 +48,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         homeHandler.delegate = self
         homeHandler.request()
         
+        // Deletes all kingfisher cached images
+//        KingfisherManager.shared.cache.clearMemoryCache()
+//        KingfisherManager.shared.cache.clearDiskCache()
+//        KingfisherManager.shared.cache.cleanExpiredDiskCache()
+        
         createHomeSections()
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")

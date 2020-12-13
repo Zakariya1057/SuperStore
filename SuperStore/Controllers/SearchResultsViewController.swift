@@ -288,7 +288,6 @@ extension SearchResultsViewController {
 
     func addToList(_ product: ProductModel, cell: GroceryTableViewCell?){
         
-        print("Add To List PRessed")
         selectedProduct = product
         selected_row = cell
         
@@ -477,7 +476,7 @@ extension SearchResultsViewController {
 
         
         loading = false
-        totalProductsLabel.text = "\(products.count) Products"
+        totalProductsLabel.text = products.count > 0 ? "\(products.count) Products" : "Loading Products..."
         resultsTableView.reloadData()
         refreshControl.endRefreshing()
 

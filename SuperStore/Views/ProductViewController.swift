@@ -252,6 +252,12 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
             allergenLabel.text = productItem.allergenInfo
         }
         
+        if(productItem.ingredients.count == 0){
+            ingredientsView.isHidden = true
+        } else {
+            ingredientsView.isHidden = false
+        }
+        
         configurePromotion()
         
         reviews = productItem.reviews

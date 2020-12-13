@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-
+        
         // Deleting All Realm Data
 //        try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
         print(Realm.Configuration.defaultConfiguration.fileURL!)
