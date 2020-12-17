@@ -36,6 +36,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return self.realm.objects(HomeHistory.self).first
     }
     
+    var listManager: ListManager = ListManager()
+    
     var networkManager: NetworkManager = NetworkManager()
     
     var offline: Bool {
@@ -169,18 +171,28 @@ extension HomeViewController {
     func configureNotifications(){
         let banner = StatusBarNotificationBanner(title: "Offline Mode", style: .warning)
         banner.autoDismiss = false
-        banner.alpha = 0
-        banner.show()
         
-        networkManager.reachability.whenReachable = { _ in
+        networkManager.reachability.whenReachable = { [self] _ in
             print("Network is available")
             RequestHandler.sharedInstance.offline = false
+            banner.dismiss()
             banner.alpha = 0
+            
+            // Lists changed offline, now back online. Sync with endpoint.
+            let editedLists = realm.objects(ListHistory.self).filter("edited = true OR deleted = true")
+            
+            try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
+                for editedList in editedLists {
+                    listManager.uploadEditedList(listHistory: editedList)
+                }
+            })
+            
         }
 
         networkManager.reachability.whenUnreachable = { _ in
             print("Network is unavailable")
             RequestHandler.sharedInstance.offline = true
+            banner.show()
             banner.alpha = 1
         }
     }

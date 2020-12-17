@@ -14,15 +14,14 @@ class ListItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet var nameView: UIView!
     @IBOutlet weak var tickBoxButton: UIButton!
     
     var listManager: ListManager = ListManager()
     
     var loadingViews: [UIView] {
-        return [nameLabel,tickBoxButton,tickBoxButton,totalLabel]
+        return [nameLabel,tickBoxButton,totalLabel]
     }
-    
-    var productIndex: Int = 0
 
     var product: ListItemModel?
     

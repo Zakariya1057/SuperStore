@@ -212,7 +212,7 @@ extension ListViewController {
 
 //MARK: - TableView
 extension ListViewController {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         if loading != true {
             return list?.categories.count ?? 0
@@ -261,7 +261,7 @@ extension ListViewController {
         if loading != true {
             return list?.categories[section].items.count ?? 0
         } else {
-            return 3
+            return 5
         }
     }
     
@@ -270,7 +270,6 @@ extension ListViewController {
         
         if loading != true {
             cell.product = list!.categories[indexPath.section].items[indexPath.row]
-            cell.productIndex = indexPath.row
             cell.delegate = self
             
             cell.configureUI()

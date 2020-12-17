@@ -11,7 +11,7 @@ target 'SuperStore' do
   pod 'IQKeyboardManagerSwift'
   pod 'Alamofire', '~> 5.3'
   pod 'Kingfisher', '~> 5.0'
-  pod 'SkeletonView'
+  pod 'SkeletonView', '~> 1.10.0'
   pod 'RealmSwift', '~> 5.0'
   pod 'SwiftKeychainWrapper'
   pod 'ReachabilitySwift'

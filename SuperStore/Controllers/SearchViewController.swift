@@ -123,7 +123,9 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        search(text: searchBar.text ?? "")
+        if searchBar.text != "" {
+            search(text: searchBar.text ?? "")
+        }
     }
     
     

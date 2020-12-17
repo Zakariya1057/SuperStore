@@ -97,6 +97,7 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
     
     func contentLoaded(child_categories: [ChildCategoryModel]) {
         
+        print("Content Loaded")
         loading = false
         
         if child_categories.count > 0 {
@@ -118,8 +119,9 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
             }
             
         } else {
-            self.viewcontrollers[0].loading = false
-            self.viewcontrollers[0].tableView.reloadData()
+            self.reloadData()
+//            self.viewcontrollers[0].loading = false
+//            self.viewcontrollers[0].tableView.reloadData()
 //            self.reloadData()
         }
         

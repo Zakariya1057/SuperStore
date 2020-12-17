@@ -216,7 +216,7 @@ extension SearchResultsViewController {
             data["dietary"] = selectedDietary.compactMap({ $0.name }).joined(separator: ",")
         }
         
-        totalProductsLabel.text = "Loading Products..."
+        totalProductsLabel.text = "Loading Products"
         
         if refresh {
             
@@ -476,7 +476,7 @@ extension SearchResultsViewController {
 
         
         loading = false
-        totalProductsLabel.text = products.count > 0 ? "\(products.count) Products" : "Loading Products..."
+        totalProductsLabel.text = products.count > 0 ? "\(products.count) Products" : "Loading Products"
         resultsTableView.reloadData()
         refreshControl.endRefreshing()
 

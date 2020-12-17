@@ -198,7 +198,7 @@ extension ListManager {
             "name": listHistory.name,
             "store_type_id": "1",
             "items": items,
-            "mode": listHistory.mode
+            "mode": listHistory.deleted ? "delete" : "overwrite"
         ])
         
         listHistory.edited = false

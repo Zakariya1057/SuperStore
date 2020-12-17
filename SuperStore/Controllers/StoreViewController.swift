@@ -147,10 +147,10 @@ class StoreViewController: UIViewController, StoreDelegate {
     
     func configureDetails(store: StoreModel){
         let name = store.name
-        let logo = store.logo
-        
-//        storeLogoView.downloaded(from: logo)
         storeNameLabel.text = name
+        
+//        let logo = store.logo
+//        storeLogoView.downloaded(from: logo)
     }
     
     func configureOpeningHours(openingHours: [OpeningHoursModel]){

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Super Store.png",
+      "filename" : "logo_fixed_transparent.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Super Store@2x.png",
+      "filename" : "logo_fixed_transparent@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Super Store@3x.png",
+      "filename" : "logo_fixed_transparent@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
