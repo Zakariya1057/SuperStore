@@ -128,6 +128,7 @@ extension NewListViewController: UITextFieldDelegate {
 
 extension NewListViewController {
     func startLoading() {
+        view.endEditing(true)
         addChild(spinner)
         spinner.view.frame = view.frame
         view.addSubview(spinner.view)

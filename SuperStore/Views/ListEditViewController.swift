@@ -35,6 +35,8 @@ class ListEditViewController: UIViewController, ListDelegate  {
         return RequestHandler.sharedInstance.offline
     }
     
+    var nameChanged: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         listHandler.delegate = self
@@ -78,6 +80,11 @@ class ListEditViewController: UIViewController, ListDelegate  {
             
             self.realm.beginWrite()
             self.list!.restartList()
+            
+            if self.offline {
+                self.navigationController?.popViewController(animated: true)
+                self.list!.edited = true
+            }
             
             do {
                 print("Saving Changes")
@@ -158,6 +165,7 @@ extension ListEditViewController: UITextFieldDelegate {
 
 extension ListEditViewController {
     func startLoading() {
+        view.endEditing(true)
         addChild(spinner)
         spinner.view.frame = view.frame
         view.addSubview(spinner.view)
