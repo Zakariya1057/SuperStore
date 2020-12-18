@@ -505,10 +505,15 @@ extension HomeViewController {
                             ignoreProducts[product.id] = product.name
                             categoryItem.products.append( product.getRealmObject() )
                         } else {
-                            categoryItem.products.append( realm.objects(ProductHistory.self).filter("id = \(product.id)").first! )
+                            let productItem = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
+                            
+                            if productItem != nil {
+                                categoryItem.products.append(productItem!)
+                            }
+                           
                         }
                     }
-                    
+
                     home.categories.append(categoryItem)
 
                 })
