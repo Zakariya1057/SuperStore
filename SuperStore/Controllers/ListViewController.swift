@@ -205,6 +205,7 @@ extension ListViewController {
         if segue.identifier == "list_item_details" {
             let destinationVC = segue.destination as! ListItemViewController
             destinationVC.listItem = list!.categories[selected_section].items[selected_row]
+            destinationVC.parentCategoryId = list!.categories[selected_section].id
         }
     }
     

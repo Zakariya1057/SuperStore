@@ -17,6 +17,7 @@ class ListItemViewController: UIViewController {
     }
     
     var listHandler = ListItemsHandler()
+    var listManager = ListManager()
     
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var productTotalLabel: UILabel!
@@ -25,11 +26,11 @@ class ListItemViewController: UIViewController {
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productImageView: UIImageView!
     
+    var parentCategoryId: Int?
+    
     @IBOutlet var promotionButton: UIButton!
     
     let realm = try! Realm()
-    
-    var listManager: ListManager = ListManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,11 +106,10 @@ class ListItemViewController: UIViewController {
     }
     
     func deleteItem(){
-        try? realm.write {
-            realm.delete(listItemHistory)
-        }
-        
-        listHandler.delete(listID: listItem!.listID, listData: ["product_id": String(listItem!.productID)])
+//        try? realm.write {
+//            realm.delete(listItemHistory)
+//        }
+        listManager.removeProductFromList(listID: listItem!.listID, parentCategoryId: parentCategoryId!, item: listItemHistory)
         
         self.navigationController?.popViewController(animated: true)
     }

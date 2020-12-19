@@ -57,7 +57,6 @@ struct ListManager {
                     list!.categories.append(listCategory!)
                 }
                 
-//                listReflectChanges(listID: listID)
             } else {
                 // Update list item Instead Of Creating
                 print("Product Item Found. Updating Instead")
@@ -80,27 +79,34 @@ struct ListManager {
         }
         
         if(product.quantity == 0){
-            removeProductFromList(listID: listID,product: nil,item: item)
+            removeProductFromList(listID: listID,parentCategoryId: product.parentCategoryId!, item: item)
         } else {
             try! realm.write() {
                 print("Product Updating List Item Quantity")
                 item!.quantity = product.quantity
-//                listReflectChanges(listID: listID)
             }
 
         }
 
     }
     
-    func removeProductFromList(listID: Int, product: ProductModel?, item: ListItemHistory? = nil){
+    func removeProductFromList(listID: Int, parentCategoryId: Int, item: ListItemHistory? = nil){
         try! realm.write() {
+            
+            let listCategory = realm.objects(ListCategoryHistory.self).filter("listID = \(listID) AND id = \(parentCategoryId)").first
+            
+            if listCategory != nil {
+                if listCategory!.items.count == 1 {
+                    realm.delete(listCategory!.items)
+                    realm.delete(listCategory!)
+                }
+            }
+            
             if item == nil {
-                realm.delete(realm.objects(ListItemHistory.self).filter("listID = \(listID) AND productID = \(product!.id)"))
+                realm.delete(realm.objects(ListItemHistory.self).filter("listID = \(listID) AND productID = \(item!.productID)"))
             } else {
                 realm.delete(item!)
             }
-            
-//            listReflectChanges(listID: listID)
             
         }
         
