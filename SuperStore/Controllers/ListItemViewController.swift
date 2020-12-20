@@ -93,24 +93,26 @@ class ListItemViewController: UIViewController {
                 listItemHistory.quantity = listItem!.quantity
             }
             
-            let data:[String: String] = [
-                "product_id": String(listItem!.productID),
-                "quantity": String(listItem!.quantity),
-                "ticked_off": String(listItem!.tickedOff)
-            ]
-            
-            listHandler.update(listID: listItem!.listID, listData: data)
+            updateItem()
             self.navigationController?.popViewController(animated: true)
         }
         
     }
     
-    func deleteItem(){
-//        try? realm.write {
-//            realm.delete(listItemHistory)
-//        }
-        listManager.removeProductFromList(listID: listItem!.listID, parentCategoryId: parentCategoryId!, item: listItemHistory)
+    func updateItem(){
+        let data:[String: String] = [
+            "product_id": String(listItem!.productID),
+            "quantity": String(listItem!.quantity),
+            "ticked_off": String(listItem!.tickedOff)
+        ]
         
+        listHandler.update(listID: listItem!.listID, listData: data)
+    }
+    
+    func deleteItem(){
+        listItem!.quantity = 0
+        listManager.removeProductFromList(listID: listItem!.listID, parentCategoryId: parentCategoryId!, item: listItemHistory)
+        updateItem()
         self.navigationController?.popViewController(animated: true)
     }
     

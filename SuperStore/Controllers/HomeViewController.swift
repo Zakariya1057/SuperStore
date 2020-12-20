@@ -551,8 +551,6 @@ extension HomeViewController {
 
             }
             
-            // Remove list items not found in history
-            
         })
             
 
