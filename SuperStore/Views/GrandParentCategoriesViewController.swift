@@ -72,7 +72,7 @@ class GrandParentCategoriesViewController: UIViewController, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? 5 : categories.count
+        return loading ? 13 : categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

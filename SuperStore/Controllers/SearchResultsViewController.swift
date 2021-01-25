@@ -308,6 +308,8 @@ extension SearchResultsViewController {
         if selectedProduct != nil {
             listHandler.create(listID: listID, listData: ["product_id": String(selectedProduct!.id)])
             
+            print("Adding To List: \(selectedProduct!.name)")
+            
             let item = listManager.addProductToList(listID: listID, product: selectedProduct!)
             selected_row!.product?.quantity = item.quantity
             selected_row!.show_quantity_view()
@@ -323,6 +325,7 @@ extension SearchResultsViewController {
     
     @IBAction func barButtonPressed(_ sender: UIBarButtonItem) {
         if listRequired {
+            selectedProduct = nil
             selectList()
         } else {
             let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]

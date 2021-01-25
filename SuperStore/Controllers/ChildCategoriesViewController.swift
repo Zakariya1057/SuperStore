@@ -287,8 +287,8 @@ extension ChildCategoriesViewController: PageboyViewControllerDataSource, TMBarD
     @IBAction func barButtonPressed(_ sender: UIBarButtonItem) {
         
         if listRequired {
-            selectLists()
             selectedProduct = nil
+            selectLists()
         } else {
             let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
             self.navigationController!.popToViewController(viewControllers[viewControllers.count - 7], animated: true)
