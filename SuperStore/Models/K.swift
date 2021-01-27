@@ -10,12 +10,11 @@ import Foundation
 
 struct K {
     
-    // Live
-//    static let Host = "http://3.11.81.156/api"
-    // Beta
-//    static let Host = "http://18.133.76.60/api"
-    // Dev
-    static let Host = "http://192.168.1.187/api"
+//    Live
+    static let Host = "http://18.132.201.151:8080/api"
+    
+//    Dev
+//    static let Host = "http://192.168.1.187/api"
     
     struct Request {
         static let Store = "store"

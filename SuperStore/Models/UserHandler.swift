@@ -23,8 +23,8 @@ struct UserHandler {
     
     let requestHandler = RequestHandler()
     
-    var notificationToken: String {
-        return UserSession.sharedInstance.notificationToken ?? " "
+    var notificationToken: String? {
+        return UserSession.sharedInstance.notificationToken
     }
     
     func requestRegister(name: String, email: String, password: String, passwordConfirmation: String, identifier: String = "", userToken: String = ""){
