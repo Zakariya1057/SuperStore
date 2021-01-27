@@ -181,38 +181,15 @@ class SettingsViewController: UIViewController, UserDelegate  {
         
         let notificationsEnabled = sender.isOn
         
-        if(notificationsEnabled){
-            
-            let center = UNUserNotificationCenter.current()
-            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-                
-                DispatchQueue.main.async {
-                    
-                    if let error = error {
-                        self.showError(error.localizedDescription)
-                    } else {
-                        
-                        if notificationsEnabled {
-                            if granted == false {
-                                sender.isOn = false
-                                return self.showError("Notification permission denied.\nPlease enable from Apple settings.")
-                            }
-                        }
-                        
-                        try? self.realm.write({
-                            self.userDetails!.send_notifications = notificationsEnabled
-                        })
-                        
-                        self.userHandler.requestUpdate(userData: ["type":"send_notifications", "send_notifications": sender.isOn])
-                        
-                    }
-                    
-                }
-
-            }
-            
-        }
+        try? self.realm.write({
+            self.userDetails!.send_notifications = notificationsEnabled
+        })
         
+        self.userHandler.requestUpdate(userData: [
+            "type":"send_notifications",
+            "send_notifications": sender.isOn,
+            "notification_token": UserSession.sharedInstance.notificationToken
+        ])
 
     }
     
