@@ -31,7 +31,7 @@ struct UserSession {
         })
     
         if viewController != nil && isLoggedIn() == false {
-            let destinationVC = (viewController!.storyboard?.instantiateViewController(withIdentifier: "loginViewController"))! as! LoginViewController
+            let destinationVC = (viewController!.storyboard?.instantiateViewController(withIdentifier: "homeViewController"))!
             viewController!.navigationController?.setNavigationBarHidden(true, animated: true)
             viewController!.tabBarController?.tabBar.isHidden = true
             viewController!.navigationController?.pushViewController(destinationVC, animated: true)
