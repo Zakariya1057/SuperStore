@@ -58,6 +58,10 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         return RequestHandler.sharedInstance.offline
     }
     
+    var loggedIn: Bool {
+        return userHandler.userSession.isLoggedIn()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -75,6 +79,10 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         self.title = searchDetails!.name
         
         searchHandler.resultsDelegate = self
+        
+        if (!loggedIn) {
+            self.navigationItem.rightBarButtonItem = nil
+        }
         
         search()
         searchHistory()
@@ -387,7 +395,7 @@ extension SearchResultsViewController {
             
             cell.product!.quantity = 0
             
-            if selectedListID != nil {
+            if loggedIn && selectedListID != nil {
                 let listItem = realm.objects(ListItemHistory.self).filter("listID = \(selectedListID!) AND productID=\( products[indexPath.row].id )").first
                 
                 if listItem != nil {
@@ -395,6 +403,12 @@ extension SearchResultsViewController {
                 }
             }
 
+            if loggedIn {
+                cell.showAddButton = true
+            } else {
+                cell.hideAll = true
+            }
+            
             cell.delegate = self.delegate
             cell.quantity_delegate = self
             

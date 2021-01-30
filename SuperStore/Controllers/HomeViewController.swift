@@ -11,7 +11,7 @@ import Kingfisher
 import RealmSwift
 import NotificationBannerSwift
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, HomeRequestDelegate, StoreSelectedDelegate, ListProgressDelegate, UserLocationDeniedDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, HomeRequestDelegate, StoreSelectedDelegate, ListProgressDelegate, UserLocationDeniedDelegate, UITabBarControllerDelegate {
 
     @IBOutlet weak var listTableView: UITableView!
     
@@ -44,6 +44,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return RequestHandler.sharedInstance.offline
     }
 
+    var loggedIn: Bool {
+        return userHandler.userSession.isLoggedIn()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,9 +55,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         homeHandler.request()
         
         // Deletes all kingfisher cached images
-//        KingfisherManager.shared.cache.clearMemoryCache()
-//        KingfisherManager.shared.cache.clearDiskCache()
-//        KingfisherManager.shared.cache.cleanExpiredDiskCache()
+        KingfisherManager.shared.cache.clearMemoryCache()
+        KingfisherManager.shared.cache.clearDiskCache()
+        KingfisherManager.shared.cache.cleanExpiredDiskCache()
         
         createHomeSections()
         
@@ -79,19 +83,19 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         listTableView.dataSource = self
         listTableView.delegate = self
 
-
-        monitorListChange()
-        monitoredChange()
-        
         if home != nil {
             configureUI()
         }
         
+        monitorListChange()
+        monitoredChange()
+
     }
     
     func contentLoaded(content: HomeModel) {
         addToHistory(content)
         configureUI()
+        print(content.monitoring)
     }
     
     func configureUI(){
@@ -106,20 +110,34 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         configureLists()
         
-        let storeElement = customElements[1] as! StoresMapElement
-        storeElement.stores = content.stores
+        print(content.monitoring.count)
+        for element in customElements {
 
-        let groceryProductElement = customElements[2] as! ProductElement
-        groceryProductElement.products = content.groceries
-
-        addSectionProducts(content.groceries, 2)
-        addSectionProducts(content.monitoring, 3)
-        
-        let offerElement = customElements[4] as! OffersElement
-        offerElement.promotions = content.promotions
-        
-        let featuredElement = customElements[5] as! FeaturedProductElement
-        featuredElement.products = content.featured
+            switch element {
+                case is StoresMapElement:
+                    let storeElement = element as! StoresMapElement
+                    storeElement.stores = content.stores
+                    break
+                case is GroceryProductElement:
+                    let productElement = element as! GroceryProductElement
+                    productElement.products = content.groceries
+                    break
+                case is MonitoringProductElement:
+                    let productElement = element as! MonitoringProductElement
+                    productElement.products = content.monitoring.reversed()
+                    break
+                case is OffersElement:
+                    let offerElement = element as! OffersElement
+                    offerElement.promotions = content.promotions
+                    break
+                case is FeaturedProductElement:
+                    let featuredElement = element as! FeaturedProductElement
+                    featuredElement.products = content.featured
+                    break
+                default:
+                    print("Unknown Type Encountered: \(element.type)")
+            }
+        }
         
         for category in content.categories {
             let name = category.key
@@ -202,11 +220,11 @@ extension HomeViewController {
     
     func configureLists(){
 
-        if !userHandler.userSession.isLoggedIn() {
-            listNotificationToken?.invalidate()
-            monitoredNotificationToken?.invalidate()
-            return
-        }
+//        if !userHandler.userSession.isLoggedIn() {
+//            listNotificationToken?.invalidate()
+//            monitoredNotificationToken?.invalidate()
+//            return
+//        }
         
         if offline {
             return print("Offline Mode")
@@ -216,7 +234,7 @@ extension HomeViewController {
         
         var showingLists:[ListModel] = []
         
-        if home != nil {
+        if home != nil && loggedIn && customElements[0] is ListsProgressElement{
             
             let listElement = customElements[0] as! ListsProgressElement
             
@@ -243,11 +261,11 @@ extension HomeViewController {
     
     func configureMonited(){
         
-        if !userHandler.userSession.isLoggedIn() {
-            listNotificationToken?.invalidate()
-            monitoredNotificationToken?.invalidate()
-            return
-        }
+//        if !userHandler.userSession.isLoggedIn() {
+//            listNotificationToken?.invalidate()
+//            monitoredNotificationToken?.invalidate()
+//            return
+//        }
         
         if realm.isInWriteTransaction || offline {
             return print("Offline Mode/Transaction")
@@ -257,11 +275,13 @@ extension HomeViewController {
         
         print("Monitoring Change")
         
-        if home != nil {
+        if home != nil && loggedIn {
+            
+            print(customElements)
             
             try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
                 let monitoringElement = customElements[3] as! ProductElement
-                monitoringElement.products = realm.objects(ProductHistory.self).filter("monitoring = true").map{ $0.getProductModel() }
+                monitoringElement.products = realm.objects(ProductHistory.self).filter("monitoring = true").map{ $0.getProductModel() }.reversed()
             })
 
         }
@@ -355,6 +375,9 @@ extension HomeViewController {
 extension HomeViewController {
     
     func createHomeSections(){
+        
+        print("Update Home Sections")
+        
         customElements = [
             
 //            ListPriceUpdateElement(title: "Grocery List Price Changes",delegate: self),
@@ -363,15 +386,22 @@ extension HomeViewController {
 
             StoresMapElement(title: "Stores", stores: [], delegate: self, errorDelegate: self),
 
-            ProductElement(title: "Grocery Items",delegate: self, scrollDelegate: self, products: []),
+            GroceryProductElement(title: "Grocery Items",delegate: self, scrollDelegate: self, products: []),
 
-            ProductElement(title: "Monitoring",delegate: self, scrollDelegate: self, products: []),
+            MonitoringProductElement(title: "Monitoring",delegate: self, scrollDelegate: self, products: []),
 
             OffersElement(title: "Offers", delegate: self, promotions: []),
 
             FeaturedProductElement(title: "Featured",delegate: self, products: []),
             
         ]
+        
+        if !loggedIn {
+            print("Removing Items")
+            customElements.remove(at: 0) // Hiding List Progress
+            customElements.remove(at: 1) // Hiding Grocery List Items
+            customElements.remove(at: 1) // Hiding Monitoring Items
+        }
     }
 }
 
@@ -397,19 +427,16 @@ extension HomeViewController {
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "listViewController"))! as! ListViewController
         destinationVC.identifier = identifier
         destinationVC.listID = listID
-//        destinationVC.listNotificationToken = monitoredNotificationToken
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     func didScroll(to position: CGFloat, title: String) {
-    
         self.scrollPositions[title] = position
         for item in customElements {
             if item.title == title {
                 item.position = position
             }
         }
-        
     }
     
     func storePressed(storeID: Int) {
@@ -433,6 +460,8 @@ extension HomeViewController {
             print("Creating Home")
             let home:HomeHistory = HomeHistory()
             
+//            print("Reached 1")
+            
             try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
                 homeItem.lists.forEach({
                     let listHistory = $0.getRealmObject()
@@ -444,8 +473,9 @@ extension HomeViewController {
                 homeItem.promotions.forEach({ home.promotions.append( $0.getRealmObject() )})
                 realm.add(home)
             })
-            
                 
+//            print("Reached 2")
+            
             var ignoreProducts: [Int: String] = [:]
             
             for product in homeItem.featured {
@@ -463,6 +493,8 @@ extension HomeViewController {
 
             }
             
+//            print("Reached 3")
+            
             for product in homeItem.groceries {
                 
                 try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
@@ -475,6 +507,8 @@ extension HomeViewController {
                 })
 
             }
+            
+//            print("Reached 4")
             
             try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
                 for product in homeItem.monitoring {
@@ -494,6 +528,8 @@ extension HomeViewController {
                     
                 }
             })
+            
+//            print("Reached 5")
             
             for category in homeItem.categories {
                 let categoryItem = FeaturedCategory()
@@ -519,6 +555,8 @@ extension HomeViewController {
                 })
 
             }
+            
+//            print("Reached 6")
 
         }
         
@@ -615,7 +653,9 @@ extension HomeViewController {
                 let productHistory = realm.objects(ProductHistory.self).filter("id = \(product.id)").first
                 
                 if productHistory == nil {
-                    realm.add(product.getRealmObject())
+                    let newProductHistory = product.getRealmObject()
+                    newProductHistory.monitoring = true
+                    realm.add(newProductHistory)
                 } else {
                     productHistory!.updatedAt = Date()
                     productHistory!.monitoring = true

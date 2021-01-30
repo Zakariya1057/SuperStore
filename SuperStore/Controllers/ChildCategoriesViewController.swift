@@ -60,6 +60,10 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
     
     var loading: Bool = true
     
+    var loggedIn: Bool {
+        return userHandler.userSession.isLoggedIn()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,11 +72,16 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
         groceryHandler.delegate = self
         groceryHandler.request(parentCategoryId: parentCategoryId!)
         
-        if(selectedListID == nil){
-            rightBarButton.title = "Select List"
+        if loggedIn {
+            if(selectedListID == nil){
+                rightBarButton.title = "Select List"
+            } else {
+                listRequired = false
+            }
         } else {
-            listRequired = false
+            self.navigationItem.rightBarButtonItem = nil
         }
+
         
         self.dataSource = self
         configureBar()
@@ -120,9 +129,6 @@ class ChildCategoriesViewController: TabmanViewController,GroceryDelegate, Groce
             
         } else {
             self.reloadData()
-//            self.viewcontrollers[0].loading = false
-//            self.viewcontrollers[0].tableView.reloadData()
-//            self.reloadData()
         }
         
     }

@@ -132,6 +132,9 @@
 		2CC1EA2324FAC4B9000A9BC4 /* ReviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA2224FAC4B9000A9BC4 /* ReviewData.swift */; };
 		2CCE48D425177F9F00AE3BCA /* SearchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */; };
 		2CCE48D825177FE700AE3BCA /* SearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE48D725177FE700AE3BCA /* SearchData.swift */; };
+		2CD4BC4525C4661200F2F4E5 /* LoginToUseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD4BC4325C4661100F2F4E5 /* LoginToUseTableViewCell.swift */; };
+		2CD4BC4625C4661200F2F4E5 /* LoginToUseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CD4BC4425C4661100F2F4E5 /* LoginToUseTableViewCell.xib */; };
+		2CD4BC5D25C5A50400F2F4E5 /* GroceryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD4BC5C25C5A50300F2F4E5 /* GroceryTableViewCell.swift */; };
 		2CD5E02F25324AB000E4A01B /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD5E02E25324AB000E4A01B /* SearchHistory.swift */; };
 		2CD5E03325337BE000E4A01B /* ListHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD5E03225337BE000E4A01B /* ListHistory.swift */; };
 		2CDE10ED251D2662001B0479 /* UserHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE10EC251D2662001B0479 /* UserHandler.swift */; };
@@ -304,6 +307,9 @@
 		2CC1EA2224FAC4B9000A9BC4 /* ReviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewData.swift; sourceTree = "<group>"; };
 		2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHandler.swift; sourceTree = "<group>"; };
 		2CCE48D725177FE700AE3BCA /* SearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchData.swift; sourceTree = "<group>"; };
+		2CD4BC4325C4661100F2F4E5 /* LoginToUseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginToUseTableViewCell.swift; sourceTree = "<group>"; };
+		2CD4BC4425C4661100F2F4E5 /* LoginToUseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginToUseTableViewCell.xib; sourceTree = "<group>"; };
+		2CD4BC5C25C5A50300F2F4E5 /* GroceryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroceryTableViewCell.swift; path = ../../../../../.Trash/GroceryTableViewCell.swift; sourceTree = "<group>"; };
 		2CD5E02E25324AB000E4A01B /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
 		2CD5E03225337BE000E4A01B /* ListHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHistory.swift; sourceTree = "<group>"; };
 		2CDE10EC251D2662001B0479 /* UserHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHandler.swift; sourceTree = "<group>"; };
@@ -434,6 +440,7 @@
 				2C9C1B9024CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib */,
 				2CB3DCFA252A180900FC5792 /* ListsProgressTableViewCell.swift */,
 				2CB19B1725653A0500C19550 /* GroceryTableViewCell.swift */,
+				2CD4BC5C25C5A50300F2F4E5 /* GroceryTableViewCell.swift */,
 				2CB19B822565A8C900C19550 /* GroceryTableViewCell.xib */,
 				2CB3DCFB252A180900FC5792 /* ListsProgressTableViewCell.xib */,
 				2CAC05EA252B83FF00561509 /* OffersTableViewCell.swift */,
@@ -455,6 +462,8 @@
 				2CB15C8124D2D7FE00461AFE /* ListsTableViewCell.xib */,
 				2CB15C9324D2FB8900461AFE /* ListItemTableViewCell.xib */,
 				2CB15C9224D2FB8900461AFE /* ListItemTableViewCell.swift */,
+				2CD4BC4325C4661100F2F4E5 /* LoginToUseTableViewCell.swift */,
+				2CD4BC4425C4661100F2F4E5 /* LoginToUseTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -649,6 +658,7 @@
 				2CB15C9524D2FB8900461AFE /* ListItemTableViewCell.xib in Resources */,
 				2C9C1B8624CDDDCE001ACA35 /* OpenSans-ExtraBold.ttf in Resources */,
 				2C9C1B9224CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib in Resources */,
+				2CD4BC4625C4661200F2F4E5 /* LoginToUseTableViewCell.xib in Resources */,
 				2CB19B832565A8C900C19550 /* GroceryTableViewCell.xib in Resources */,
 				2CB3DCFD252A180900FC5792 /* ListsProgressTableViewCell.xib in Resources */,
 				2CB3DCF62527AFB600FC5792 /* RefineTableViewCell.xib in Resources */,
@@ -805,6 +815,7 @@
 				2CB3DCEA2525B8A300FC5792 /* ResetPasswordViewController.swift in Sources */,
 				2CB3EDA525041F31000E7C7A /* ListSectionHeader.swift in Sources */,
 				2CB15C9724D2FCD400461AFE /* ListViewController.swift in Sources */,
+				2CD4BC4525C4661200F2F4E5 /* LoginToUseTableViewCell.swift in Sources */,
 				2C6F6220251357D100179C2B /* ForgotPasswordViewController.swift in Sources */,
 				2CB19B5725653B4700C19550 /* ReviewTableViewCell.swift in Sources */,
 				2C9C1B7A24CCD07F001ACA35 /* ProductCollectionViewCell.swift in Sources */,
@@ -832,6 +843,7 @@
 				2C21C3B224FA7C2500D90B4B /* ChildCategoriesViewController.swift in Sources */,
 				2CAB6A3B251F932D00774B89 /* ErrorData.swift in Sources */,
 				2C266DF124D5A6C900C66EA5 /* ProductModel.swift in Sources */,
+				2CD4BC5D25C5A50400F2F4E5 /* GroceryTableViewCell.swift in Sources */,
 				2CAC060C2530E25600561509 /* HomeHandler.swift in Sources */,
 				2C0D44792534DD090046E2B0 /* PromotionHistory.swift in Sources */,
 			);
@@ -1006,7 +1018,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.51;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1030,7 +1042,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.51;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1052,7 +1064,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.51;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore.PayloadModification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1074,7 +1086,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.51;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore.PayloadModification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

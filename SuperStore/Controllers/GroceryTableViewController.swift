@@ -25,6 +25,12 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
     
     var selectedListID: Int?
     
+    var userHandler = UserHandler()
+    
+    var loggedIn: Bool {
+        return userHandler.userSession.isLoggedIn()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
@@ -44,12 +50,18 @@ class GroceryTableViewController: UITableViewController, QuanityChangedDelegate 
             
             cell.product!.quantity = 0
             
-            if selectedListID != nil {
+            if loggedIn && selectedListID != nil {
                 let listItem = realm.objects(ListItemHistory.self).filter("listID = \(selectedListID!) AND productID=\( cell.product!.id )").first
                 
                 if listItem != nil {
                     cell.product!.quantity = listItem!.quantity
                 }
+            }
+            
+            if loggedIn {
+                cell.showAddButton = true
+            } else {
+                cell.hideAll = true
             }
             
             cell.index = indexPath.row

@@ -43,6 +43,10 @@ class SettingsViewController: UIViewController, UserDelegate  {
     var deletePressed: Bool = false
     var logoutPressed: Bool = false
     
+    var loggedIn: Bool {
+        return userHandler.userSession.isLoggedIn()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,6 +77,23 @@ class SettingsViewController: UIViewController, UserDelegate  {
         
         let passwordGesture = UITapGestureRecognizer(target: self, action: #selector(passswordPressed))
         passwordStackView.addGestureRecognizer(passwordGesture)
+        
+        if !loggedIn {
+            let controller = storyboard!.instantiateViewController(withIdentifier: "loginViewController")
+            addChild(controller)
+            controller.view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(controller.view)
+
+            NSLayoutConstraint.activate([
+                controller.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+                controller.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+                controller.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+                controller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+            ])
+            
+            controller.didMove(toParent: self)
+        }
+
     }
     
     deinit {

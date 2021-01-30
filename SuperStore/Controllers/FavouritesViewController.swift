@@ -32,15 +32,31 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         return RequestHandler.sharedInstance.offline
     }
     
+    var loggedIn: Bool {
+        return userHandler.userSession.isLoggedIn()
+    }
+    
+    var loadingCell: Int = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         favouritesTableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
+        
+        favouritesTableView.register(UINib(nibName: K.Cells.LoginToUseTableCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.LoginToUseTableCell.CellIdentifier)
         
         favouritesTableView.dataSource = self
         favouritesTableView.delegate = self
         
         favouritesHandler.delegate = self
-        favouritesHandler.request()
+        
+        if(loggedIn){
+            favouritesHandler.request()
+            
+            refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
+            refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+            favouritesTableView.addSubview(refreshControl)
+        }
         
         let results = realm.objects(ProductHistory.self)
         
@@ -63,9 +79,6 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
             favouritesTableView.reloadData()
         }
         
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
-        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
-        favouritesTableView.addSubview(refreshControl)
     }
     
     @objc func refresh(_ sender: AnyObject) {
@@ -101,10 +114,11 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? 3 : favourites.count
+        return loading ? loadingCell : favourites.count
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+
         if editingStyle == .delete {
             favouritesHandler.update(productID: favourites[indexPath.row].getProductModel().id, favourite: false)
             
@@ -116,25 +130,42 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return loggedIn
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell
         
-        if loading == false {
-            cell.delegate = self.delegate
-            cell.product = favourites[indexPath.row].getProductModel()
-            cell.showAddButton = false
-            cell.showStoreName = false
-            cell.product!.quantity = 0
-            cell.configureUI()
-            cell.selectionStyle = UITableViewCell.SelectionStyle.none
-        } else {
-            cell.startLoading()
+        let cell = loggedIn ?
+            tableView.dequeueReusableCell(withIdentifier:K.Cells.GroceryCell.CellIdentifier , for: indexPath) as! GroceryTableViewCell :
+            tableView.dequeueReusableCell(withIdentifier:K.Cells.LoginToUseTableCell.CellIdentifier , for: indexPath) as! LoginToUseTableViewCell
+
+        cell.selectionStyle = .none
+        
+        if let cell = cell as? GroceryTableViewCell {
+            if loading == false {
+                cell.delegate = self.delegate
+                cell.product = favourites[indexPath.row].getProductModel()
+                cell.hideAll = true
+                cell.product!.quantity = 0
+                cell.configureUI()
+            } else {
+                cell.startLoading()
+            }
+        } else if let cell = cell as? LoginToUseTableViewCell {
+            cell.delegate = self
+            cell.page = "favourites"
+            cell.awakeFromNib()
         }
-        
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if !loggedIn {
+            return
+        }
+        
         let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "productViewController"))! as! ProductViewController
         destinationVC.productID = favourites[indexPath.row].getProductModel().id
         self.navigationController?.pushViewController(destinationVC, animated: true)
@@ -146,4 +177,10 @@ class FavouritesViewController: UIViewController, UITableViewDelegate, UITableVi
         self.present(alert, animated: true)
     }
 
+}
+
+extension FavouritesViewController: LoginPressedDelegate {
+    func loginPressed(){
+        self.tabBarController?.selectedIndex = 4
+    }
 }

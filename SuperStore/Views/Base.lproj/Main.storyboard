@@ -702,7 +702,7 @@
         <!--Home-->
         <scene sceneID="XQc-FC-O3f">
             <objects>
-                <viewController id="prj-rm-qu0" customClass="HomeViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homePageViewController" id="prj-rm-qu0" customClass="HomeViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hVz-mR-ML1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2353,7 +2353,7 @@
                                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <segue destination="G9a-TG-ILp" kind="show" identifier="productToCreateReview" id="SfR-Kx-IOj"/>
+                                                                                    <action selector="reviewPressed:" destination="blb-Wd-ZdE" eventType="touchUpInside" id="PM1-lL-nx9"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -2805,6 +2805,7 @@
                         <outlet property="stepperStackView" destination="VrZ-vP-b1p" id="X0L-mO-tOZ"/>
                         <segue destination="GlI-wz-KoF" kind="show" identifier="showProductDetails" id="k0H-Uq-sqx"/>
                         <segue destination="NiB-m5-sPY" kind="show" identifier="showProductPromotion" id="oKE-l5-P9g"/>
+                        <segue destination="G9a-TG-ILp" kind="show" identifier="productToCreateReview" id="UH1-0s-Hoj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FGT-yZ-4As" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

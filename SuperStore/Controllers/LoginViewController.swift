@@ -20,7 +20,6 @@ class LoginViewController: UIViewController, UserDelegate {
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
-
     let realm = try! Realm()
     let appleSession = AppleUserSession()
     
@@ -84,6 +83,7 @@ class LoginViewController: UIViewController, UserDelegate {
     
     func contentLoaded() {
         stopLoading()
+        self.tabBarController?.tabBar.removeFromSuperview()
         self.performSegue(withIdentifier: "loginToHome", sender: self)
     }
     

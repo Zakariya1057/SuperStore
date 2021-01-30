@@ -39,6 +39,10 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
     
     var loading: Bool = true
     
+    var loggedIn: Bool {
+        return userHandler.userSession.isLoggedIn()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         promotionHandler.delegate = self
@@ -107,11 +111,10 @@ class PromotionViewController: UIViewController, PromotionDelegate, UITableViewD
             
             if self.delegate != nil {
                 cell.delegate = self.delegate
-            } else {
-                cell.showAddButton = false
-                cell.showStoreName = false
             }
 
+            cell.hideAll = true
+            
             cell.configureUI()
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
         } else {

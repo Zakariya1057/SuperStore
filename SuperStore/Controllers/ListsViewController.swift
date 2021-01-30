@@ -15,6 +15,8 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var listsTableView: UITableView!
     
+    let spinner: SpinnerViewController = SpinnerViewController()
+    
     var userHandler = UserHandler()
     
     var listHandler = ListsHandler()
@@ -35,7 +37,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     var delegate: ListSelectedDelegate?
     
     var loading: Bool = true
-    let loadingCell: Int = 1
+    var loadingCell: Int = 1
     
     var notificationToken: NotificationToken?
     
@@ -45,6 +47,10 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         return RequestHandler.sharedInstance.offline
     }
     
+    var loggedIn: Bool {
+        return userHandler.userSession.isLoggedIn()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,15 +58,23 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         
         listsTableView.register(UINib(nibName: K.Cells.ListCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ListCell.CellIdentifier)
         
+        listsTableView.register(UINib(nibName: K.Cells.LoginToUseTableCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.LoginToUseTableCell.CellIdentifier)
+        
         listsTableView.delegate = self
         listsTableView.dataSource = self
         
         listHandler.delegate = self
-        listHandler.request()
         
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
-        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
-        listsTableView.addSubview(refreshControl)
+        if loggedIn {
+            listHandler.request()
+            
+            refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
+            refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+            listsTableView.addSubview(refreshControl)
+            
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+        }
         
         let results = realm.objects(ListHistory.self)
         
@@ -85,7 +99,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
             loading = false
             listsTableView.reloadData()
         }
-        
+
     }
     
     func contentLoaded(lists: [ListModel]) {
@@ -146,19 +160,32 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.ListCell.CellIdentifier , for: indexPath) as! ListsTableViewCell
         
-        if !loading {
-            if searchText != "" {
-                cell.list = search()[indexPath.row].getListModel()
-            } else {
-                cell.list = lists[indexPath.row].getListModel()
+        let cell = loggedIn ?
+            tableView.dequeueReusableCell(withIdentifier:K.Cells.ListCell.CellIdentifier , for: indexPath) as! ListsTableViewCell :
+            tableView.dequeueReusableCell(withIdentifier:K.Cells.LoginToUseTableCell.CellIdentifier , for: indexPath) as! LoginToUseTableViewCell
+
+        cell.selectionStyle = .none
+        
+//        let cell = tableView.dequeueReusableCell(withIdentifier:K.Cells.ListCell.CellIdentifier , for: indexPath) as! ListsTableViewCell
+        
+        if let cell = cell as? ListsTableViewCell {
+            if !loading {
+                if searchText != "" {
+                    cell.list = search()[indexPath.row].getListModel()
+                } else {
+                    cell.list = lists[indexPath.row].getListModel()
+                }
             }
+            
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+            cell.loading = loading
+            cell.configureUI()
+        } else if let cell = cell as? LoginToUseTableViewCell {
+            cell.delegate = self
+            cell.page = "lists"
+            cell.awakeFromNib()
         }
-        
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
-        cell.loading = loading
-        cell.configureUI()
         
         return cell
     }
@@ -172,9 +199,13 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
         self.present(alert, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return loggedIn
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if loading {
+        if loading || !loggedIn {
             return
         }
         
@@ -263,6 +294,7 @@ class ListsViewController: UIViewController,UITableViewDelegate, UITableViewData
                 realm.delete(listItem!)
             }
         })
+        
         
         listsTableView.deleteRows(at: [ IndexPath(row: selectedIndex, section: 0)], with: .fade)
         listHandler.delete(list_data: ["list_id": String(listID) ,"identifier": identifier ])
@@ -363,4 +395,25 @@ extension ListsViewController {
         
     }
     
+}
+
+extension ListsViewController: LoginPressedDelegate {
+    func loginPressed(){
+        self.tabBarController?.selectedIndex = 4
+    }
+}
+
+extension ListsViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+    }
 }
