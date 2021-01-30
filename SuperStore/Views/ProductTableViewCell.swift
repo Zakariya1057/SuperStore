@@ -25,6 +25,9 @@ class ProductElement: CustomElementModel {
     }
 }
 
+class GroceryProductElement: ProductElement { }
+class MonitoringProductElement: ProductElement { }
+
 protocol ScrollCollectionDelegate {
     func didScroll(to position: CGFloat, title: String)
 }
