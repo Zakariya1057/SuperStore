@@ -10,8 +10,9 @@ import Foundation
 
 struct SearchModel {
     var id: Int
-    var name:String
+    var name: String
     var type: SearchType
+    var textSearch: Bool = false
     
     func getSearchObject(_ searchType: String) -> SearchHistory{
         // Returns Realms Class
@@ -20,6 +21,7 @@ struct SearchModel {
         history.id = self.id
         history.searchType = searchType
         history.type = self.type.rawValue
+        history.textSearch = self.textSearch
         
         return history
     }

@@ -64,7 +64,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         resultsTableView.register(UINib(nibName: K.Cells.GroceryCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.GroceryCell.CellIdentifier)
         resultsTableView.dataSource = self
         resultsTableView.delegate = self
@@ -196,7 +196,11 @@ extension SearchResultsViewController {
             return searchHistory()
         }
         
-        var data = ["type": getSearchType(), "detail": searchDetails!.name]
+        var data:[String: Any] = [
+            "type": getSearchType(),
+            "detail": searchDetails!.name,
+            "text_search": searchDetails!.textSearch
+        ]
         
         if selectedSort != nil {
             let sortBy = selectedSort!.sort

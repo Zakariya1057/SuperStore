@@ -89,7 +89,9 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
         var history:[SearchModel] = []
         
         for item in searchHistory {
-            history.append(SearchModel(id: item.id, name: item.name, type: SearchType(rawValue: item.type)!))
+            var historyItem = SearchModel(id: item.id, name: item.name, type: SearchType(rawValue: item.type)!)
+            historyItem.textSearch = item.textSearch
+            history.append(historyItem)
         }
         
         self.searchList = history
@@ -124,7 +126,33 @@ class SearchViewController: UIViewController,UISearchBarDelegate, SearchSuggesti
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if searchBar.text != "" {
-            search(text: searchBar.text ?? "")
+            let search = searchBar.text ?? ""
+            
+            if search.lowercased() == "asda" {
+                selectedItem = SearchModel(id: 1, name: search, type: .store)
+                addToSearchHistory(search: selectedItem!)
+                self.performSegue(withIdentifier: "searchToStoreResults", sender: self)
+            } else {
+                
+                var type: SearchType
+                var id: Int = 0
+                
+                if searchList.count > 0 {
+                    type = searchList[0].type
+                    id = searchList[0].id
+//                    type = searchList[0].type
+                } else {
+//                    type = .product
+                }
+                
+                type = .product
+                
+                selectedItem = SearchModel(id: id, name: search, type: type)
+                selectedItem?.textSearch = true
+                addToSearchHistory(search: selectedItem!)
+                self.performSegue(withIdentifier: "showSearchResults", sender: self)
+            }
+
         }
     }
     
@@ -202,7 +230,7 @@ extension SearchViewController {
                 
                 let items = realm.objects(SearchHistory.self).filter("searchType = 'history'", search.name).sorted(byKeyPath: "usedAt", ascending: false)
                 
-                if items.count > 5 {
+                if items.count > 7 {
 
                     print("Removing Older Items From History")
                     
@@ -231,7 +259,11 @@ extension SearchViewController {
     func populateDefaultSearch() {
       if searchHistory.count == 0 {
 
-        let defaultHistory:[SearchModel] = [SearchModel(id: 1, name: "Apples", type: .childCategory), SearchModel(id: 1, name: "Fruit", type: .parentCategory), SearchModel(id: 1, name: "Asda", type: .store)]
+        let defaultHistory:[SearchModel] = [
+            SearchModel(id: 1, name: "Apples", type: .childCategory),
+            SearchModel(id: 1, name: "Fruit", type: .parentCategory),
+            SearchModel(id: 1, name: "Asda", type: .store)
+        ]
 
         for suggestion in defaultHistory {
             addToSearchHistory(search: suggestion)

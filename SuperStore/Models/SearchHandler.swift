@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol SearchSuggestionsDelegate {
     func contentLoaded(suggestions: [SearchModel])
@@ -44,7 +45,7 @@ struct SearchHandler {
         requestHandler.getRequest(url: urlString, complete: processSuggestionsResults,error:processError,logOutUser: logOutUser)
     }
     
-    func requestResults(searchData: [String: String], page: Int = 1){
+    func requestResults(searchData: Parameters, page: Int = 1){
         let hostURL = K.Host
         let resultsPath = K.Request.Search.Results
         let urlString = "\(hostURL)/\(resultsPath)?page=\(page)"

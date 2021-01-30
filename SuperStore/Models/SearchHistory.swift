@@ -14,6 +14,7 @@ class SearchHistory: Object {
     @objc dynamic var searchType: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var type: String = ""
+    @objc dynamic var textSearch: Bool = false
     @objc dynamic var usedAt: Date = Date()
     
     override static func indexedProperties() -> [String] {

@@ -95,7 +95,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func contentLoaded(content: HomeModel) {
         addToHistory(content)
         configureUI()
-        print(content.monitoring)
     }
     
     func configureUI(){
@@ -110,7 +109,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         configureLists()
         
-        print(content.monitoring.count)
         for element in customElements {
 
             switch element {
@@ -276,14 +274,10 @@ extension HomeViewController {
         print("Monitoring Change")
         
         if home != nil && loggedIn {
-            
-            print(customElements)
-            
             try? realm.write(withoutNotifying: [listNotificationToken!, monitoredNotificationToken!], {
                 let monitoringElement = customElements[3] as! ProductElement
                 monitoringElement.products = realm.objects(ProductHistory.self).filter("monitoring = true").map{ $0.getProductModel() }.reversed()
             })
-
         }
         
     }
