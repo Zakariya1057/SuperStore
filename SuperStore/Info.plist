@@ -31,11 +31,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Location Required To Show Nearby Stores</string>
+	<string>User Location required to find nearby stores</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Location Required To Show Nearby Stores</string>
+	<string>User Location required to find nearby stores</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location Required To Show Nearby Stores</string>
+	<string>User Location required to find nearby stores</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Regular.ttf</string>
