@@ -31,9 +31,9 @@ class GroceryTableViewCell: UITableViewCell {
     @IBOutlet weak var stepper_label: UILabel!
     var product: ProductModel?
     
-    var showAddButton:Bool = true
-    var showStoreName: Bool = true
-    var show_quantity:Bool = false
+    var showAddButton: Bool = true
+    var showStoreName: Bool = false
+    var hideAll: Bool = false
     
     var quantity_delegate: QuanityChangedDelegate?
     
@@ -64,36 +64,48 @@ class GroceryTableViewCell: UITableViewCell {
     var listManager: ListManager = ListManager()
     
     func configureUI(){
-        let current_product = product!
+        let currentProduct = product!
         
         stopLoading()
-        productNameLabel.text = current_product.name
+        productNameLabel.text = currentProduct.name
+        if currentProduct.weight != nil {
+            productNameLabel.text! += " (\(currentProduct.weight!))"
+        }
         
         showPrice()
         
-        productImage.downloaded(from: current_product.smallImage)
+        productImage.downloaded(from: currentProduct.smallImage)
+        
+        let rating = currentProduct.avgRating
+        let num = currentProduct.totalReviewsCount
+        
+        reviewView.rating = rating
+        reviewView.text = "(\(num))"
+        
+        if hideAll {
+            return hide_all()
+        }
         
         if(product!.quantity > 0){
             show_quantity_view()
             
             stepper_label.text = String(product!.quantity)
             quantityStepper.value = Double(product!.quantity)
+
         } else {
             if(showAddButton){
+                print("Show Add Button")
                 stepper_label.text = "1"
                 quantityStepper.value = 1
                 
                 show_add_button_view()
-            } else {
+            }
+
+            if (showStoreName){
                 show_store_name_view()
             }
         }
         
-        let rating = current_product.avgRating
-        let num = current_product.totalReviewsCount
-        
-        reviewView.rating = rating
-        reviewView.text = "(\(num))"
     }
     
     func showPrice(){
@@ -169,6 +181,13 @@ extension GroceryTableViewCell {
         left_info_view.isHidden = false
         stepper_stack_view.isHidden = true
         storeNameLabel.isHidden = false
+        addButton.isHidden = true
+    }
+    
+    func hide_all(){
+        left_info_view.isHidden = true
+        stepper_stack_view.isHidden = true
+        storeNameLabel.isHidden = true
         addButton.isHidden = true
     }
 }
