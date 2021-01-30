@@ -93,6 +93,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     
     var notificationToken: NotificationToken?
     
+    var loggedIn: Bool {
+        return userHandler.userSession.isLoggedIn()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -104,7 +108,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         productHandler.delegate = self
         favouritesHandler.delegate = self
         productHandler.request(productID: productID)
-        favouritesHandler.request()
+        
+        if(loggedIn){
+            favouritesHandler.request()
+        }
         
         similarTableView.delegate = self
         similarTableView.dataSource = self
@@ -169,6 +176,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
         }
         
     }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        notificationToken?.invalidate()
+    }
     
     func contentLoaded(product: ProductModel) {
         addToHistory(product)
@@ -201,10 +212,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     func configureUI(){
         print("Product Configure UI")
         
-        if !userHandler.userSession.isLoggedIn() {
-            notificationToken?.invalidate()
-            return
-        }
+//        if !userHandler.userSession.isLoggedIn() {
+//            notificationToken?.invalidate()
+//            return
+//        }
         
         if(product == nil){
             return showError("No product details found.")
@@ -308,6 +319,11 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     }
     
     @IBAction func monitorPressed(_ sender: Any) {
+        
+        if !loggedIn {
+            return showError("To monitor product you have to Login/Register")
+        }
+        
         try? realm.write({
             product!.monitoring = !product!.monitoring
             product!.updatedAt = Date()
@@ -318,6 +334,10 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     }
     
     @IBAction func favouritePressed(_ sender: Any) {
+        
+        if !loggedIn {
+            return showError("To add product to favourites you have to Login/Register")
+        }
         
         if product == nil {
             return
@@ -476,7 +496,21 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ProductViewController {
     
+    @IBAction func reviewPressed(_ sender: Any) {
+        if !loggedIn {
+            return showError("To write a review you have to Login/Register")
+        }
+        
+        self.performSegue(withIdentifier: "productToCreateReview", sender: self)
+    }
+    
+    
     @IBAction func addPressed(_ sender: Any) {
+        
+        if !loggedIn {
+            return showError("To add to list you have to Login/Register")
+        }
+        
         if noDelegateFound == false {
             showQuantityView()
         }
@@ -577,8 +611,6 @@ extension ProductViewController {
             if product != nil {
                 print("Updating Product")
                 
-                realm.delete( realm.objects(ReviewHistory.self).filter("productID = \(productItem.id)") )
-                
                 product!.price = productItem.price
                 product!.brand = productItem.brand ?? ""
                 product!.avgRating = productItem.avgRating
@@ -586,8 +618,8 @@ extension ProductViewController {
                 product!.smallImage = productItem.smallImage
                 product!.largeImage = productItem.largeImage
                 
-                product!.favourite = productItem.favourite!
-                product!.monitoring = productItem.monitoring!
+                product!.favourite = productItem.favourite ?? false
+                product!.monitoring = productItem.monitoring ?? false
                 
                 product!.parentCategoryId = productItem.parentCategoryId!
                 product!.parentCategoryName = productItem.parentCategoryName
@@ -608,7 +640,12 @@ extension ProductViewController {
                     product!.promotion = nil
                 }
                 
-                productItem.reviews.forEach({ product!.reviews.append( $0.getRealmObject()) })
+                for review in productItem.reviews {
+                    let reviewHistory = realm.objects(ReviewHistory.self).filter("id = \(review.id)").first
+                    if(reviewHistory == nil){
+                        product!.reviews.append( review.getRealmObject() )
+                    }
+                }
                 
                 for recommendedProduct in productItem.recommended {
                     product!.recommended.append( recommendedProduct.id )
