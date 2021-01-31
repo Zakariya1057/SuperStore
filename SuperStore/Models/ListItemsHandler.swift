@@ -63,7 +63,7 @@ struct ListItemsHandler {
                     
                     var promotion: PromotionModel? = nil
                     if item.promotion != nil {
-                        promotion = PromotionModel(id: item.promotion!.id, name: item.promotion!.name, quantity: item.promotion!.quantity!, price: item.promotion!.price, forQuantity: item.promotion!.for_quantity)
+                        promotion = PromotionModel(id: item.promotion!.id, name: item.promotion!.name, quantity: item.promotion!.quantity, price: item.promotion!.price, forQuantity: item.promotion!.for_quantity)
                     }
                     
                     items.append(ListItemModel(id: item.id, name: item.name, image: item.large_image!, quantity: item.quantity, productID: item.product_id, price: item.price, weight: item.weight, promotion: promotion, listID: list_data.id, tickedOff: item.ticked_off))

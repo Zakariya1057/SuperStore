@@ -125,7 +125,7 @@ struct SearchHandler {
                 var promotion: PromotionModel? = nil
                 
                 if product.promotion != nil {
-                    promotion = PromotionModel(id: product.promotion!.id, name: product.promotion!.name, quantity: product.promotion!.quantity!, price: product.promotion!.price, forQuantity: product.promotion!.for_quantity)
+                    promotion = PromotionModel(id: product.promotion!.id, name: product.promotion!.name, quantity: product.promotion!.quantity, price: product.promotion!.price, forQuantity: product.promotion!.for_quantity)
                 }
                 
                 products.append(

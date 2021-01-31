@@ -48,7 +48,7 @@ struct ProductData:Decodable {
 struct PromotionData:Decodable {
     var id: Int
     var name: String
-    var quantity: Int?
+    var quantity: Int
     var price: Double?
     var for_quantity: Int?
     let products: [ProductData]?

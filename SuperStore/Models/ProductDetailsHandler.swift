@@ -58,7 +58,7 @@ struct ProductDetailsHandler {
             var promotion: PromotionModel? = nil
 
             if productDetails.promotion != nil {
-                promotion = PromotionModel(id: productDetails.promotion!.id, name:  productDetails.promotion!.name, quantity:  productDetails.promotion!.quantity!, price: productDetails.promotion!.price, forQuantity: productDetails.promotion!.for_quantity)
+                promotion = PromotionModel(id: productDetails.promotion!.id, name:  productDetails.promotion!.name, quantity:  productDetails.promotion!.quantity, price: productDetails.promotion!.price, forQuantity: productDetails.promotion!.for_quantity)
             }
             
             var recommended: [ProductModel] = []

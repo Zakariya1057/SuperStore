@@ -70,7 +70,7 @@ struct HomeHandler {
             }
             
             for promotion in data.promotions ?? []{
-                promotions.append(PromotionModel(id: promotion.id, name: promotion.name, quantity: promotion.quantity!, price: promotion.price, forQuantity: promotion.for_quantity))
+                promotions.append(PromotionModel(id: promotion.id, name: promotion.name, quantity: promotion.quantity, price: promotion.price, forQuantity: promotion.for_quantity))
             }
             
             featured = addProductsToList(products: data.featured ?? [])
