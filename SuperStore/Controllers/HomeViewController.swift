@@ -55,9 +55,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         homeHandler.request()
         
         // Deletes all kingfisher cached images
-        KingfisherManager.shared.cache.clearMemoryCache()
-        KingfisherManager.shared.cache.clearDiskCache()
-        KingfisherManager.shared.cache.cleanExpiredDiskCache()
+//        KingfisherManager.shared.cache.clearMemoryCache()
+//        KingfisherManager.shared.cache.clearDiskCache()
+//        KingfisherManager.shared.cache.cleanExpiredDiskCache()
         
         createHomeSections()
         
