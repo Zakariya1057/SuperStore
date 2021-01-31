@@ -179,6 +179,11 @@ struct K {
             static let CellNibName    = "RefineTableViewCell"
         }
         
+        struct LoginToUseTableCell {
+            static let CellIdentifier = "ReusableLoginToUseTableViewCell"
+            static let CellNibName    = "LoginToUseTableViewCell"
+        }
+        
     }
     
 }

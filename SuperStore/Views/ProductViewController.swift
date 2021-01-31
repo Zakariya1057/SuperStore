@@ -321,7 +321,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     @IBAction func monitorPressed(_ sender: Any) {
         
         if !loggedIn {
-            return showError("To monitor product you have to Login/Register")
+            return showLoginPage()
         }
         
         try? realm.write({
@@ -336,7 +336,7 @@ class ProductViewController: UIViewController, ProductDelegate,ProductDetailsDel
     @IBAction func favouritePressed(_ sender: Any) {
         
         if !loggedIn {
-            return showError("To add product to favourites you have to Login/Register")
+            return showLoginPage()
         }
         
         if product == nil {
@@ -508,7 +508,7 @@ extension ProductViewController {
     @IBAction func addPressed(_ sender: Any) {
         
         if !loggedIn {
-            return showError("To add to list you have to Login/Register")
+            return showLoginPage()
         }
         
         if noDelegateFound == false {
@@ -688,4 +688,11 @@ extension ProductViewController {
         
     }
     
+}
+
+extension ProductViewController {
+    func showLoginPage(){
+        let destinationVC = (self.storyboard?.instantiateViewController(withIdentifier: "loginViewController"))! as! LoginViewController
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
 }

@@ -32,29 +32,21 @@ struct PromotionHandler {
             
             let decoder = JSONDecoder()
             let data = try decoder.decode(PromotionDataResponse.self, from: data)
-            let promotion_data = data.data
+            let promotionData = data.data
             
-            var products:[ProductModel] = []
+            var promotion: PromotionModel = PromotionModel(id: promotionData.id, name: promotionData.name, quantity: promotionData.quantity ?? 0, price: promotionData.price, forQuantity: promotionData.for_quantity)
             
-            var promotion: PromotionModel? = nil
-            
-            for product in promotion_data.products ?? [] {
-                
-                if promotion == nil {
-                    promotion = PromotionModel(id: product.promotion!.id, name: product.promotion!.name, quantity: product.promotion!.quantity ?? 0, price: product.promotion!.price, forQuantity: product.promotion!.for_quantity)
-                }
-                
-                products.append(
+            for product in promotionData.products ?? [] {
+
+                promotion.products.append(
                     ProductModel(id: product.id, name: product.name, smallImage: product.small_image, largeImage: product.large_image, description: product.description, quantity: 0, price: product.price, avgRating: product.avg_rating, totalReviewsCount: product.total_reviews_count, promotion: promotion, storage: product.storage, weight: product.weight, parentCategoryId: product.parent_category_id, parentCategoryName: product.parent_category_name, childCategoryName: nil, dietaryInfo: product.dietary_info, allergenInfo: product.allergen_info, brand: product.brand, reviews: [], favourite: nil, monitoring: nil, ingredients: [], recommended: [])
                 )
                 
 
             }
 
-            promotion!.products = products
-
             DispatchQueue.main.async {
-                self.delegate?.contentLoaded(promotion: promotion!)
+                self.delegate?.contentLoaded(promotion: promotion)
             }
 
         } catch {

@@ -96,6 +96,7 @@ class RegisterViewController: UIViewController, UserDelegate {
     
     func contentLoaded() {
         stopLoading()
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.tabBarController?.tabBar.removeFromSuperview()
         performSegue(withIdentifier: "registerToHome", sender: self)
     }

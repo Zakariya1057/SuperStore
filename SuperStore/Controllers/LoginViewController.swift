@@ -36,10 +36,10 @@ class LoginViewController: UIViewController, UserDelegate {
 
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        navigationController?.setNavigationBarHidden(true, animated: animated)
+//    }
 
     @IBAction func loginPressed(_ sender: Any) {
         let email = emailField.text ?? ""
@@ -83,6 +83,7 @@ class LoginViewController: UIViewController, UserDelegate {
     
     func contentLoaded() {
         stopLoading()
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.tabBarController?.tabBar.removeFromSuperview()
         self.performSegue(withIdentifier: "loginToHome", sender: self)
     }

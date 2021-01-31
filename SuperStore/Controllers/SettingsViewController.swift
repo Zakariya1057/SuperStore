@@ -83,6 +83,7 @@ class SettingsViewController: UIViewController, UserDelegate  {
             addChild(controller)
             controller.view.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(controller.view)
+            self.navigationItem.rightBarButtonItem = nil
 
             NSLayoutConstraint.activate([
                 controller.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),

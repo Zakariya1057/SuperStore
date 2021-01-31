@@ -84,6 +84,7 @@ class ResetPasswordViewController: UIViewController, UserDelegate {
     
     func contentLoaded() {
         stopLoading()
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.tabBarController?.tabBar.removeFromSuperview()
         self.performSegue(withIdentifier: "resetPasswordToHome", sender: self)
     }
