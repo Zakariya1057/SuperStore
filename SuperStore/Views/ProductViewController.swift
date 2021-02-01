@@ -498,7 +498,7 @@ extension ProductViewController {
     
     @IBAction func reviewPressed(_ sender: Any) {
         if !loggedIn {
-            return showError("To write a review you have to Login/Register")
+            return showLoginPage()
         }
         
         self.performSegue(withIdentifier: "productToCreateReview", sender: self)
