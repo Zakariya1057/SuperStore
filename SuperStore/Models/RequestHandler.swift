@@ -98,8 +98,8 @@ struct RequestHandler {
                 if let data = response.data {
                     let decoder = JSONDecoder()
 
-                    let decodedData = try decoder.decode(ErrorDataResponse.self, from: data)
-                    errorMessage = decodedData.data.error
+//                    let decodedData = try decoder.decode(ErrorDataResponse.self, from: data)
+//                    errorMessage = decodedData.data.error
                 }
 
             } catch {

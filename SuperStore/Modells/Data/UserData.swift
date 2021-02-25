@@ -2,13 +2,13 @@
 //  UserData.swift
 //  SuperStore
 //
-//  Created by Zakariya Mohummed on 26/09/2020.
-//  Copyright © 2020 Zakariya Mohummed. All rights reserved.
+//  Created by Zakariya Mohummed on 25/02/2021.
+//  Copyright © 2021 Zakariya Mohummed. All rights reserved.
 //
 
 import Foundation
 
-struct UserLoginDataResponse:Decodable {
+struct UserDataResponse: Decodable {
     var data: UserData
 }
 

@@ -22,11 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         // add these lines
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let initialViewController: UIViewController = storyboard.instantiateViewController(withIdentifier: "homeViewController")
+//        let initialViewController: UIViewController = storyboard.instantiateViewController(withIdentifier: "homeViewController")
         
-        window?.rootViewController = initialViewController
+//        window?.rootViewController = initialViewController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -72,29 +72,29 @@ struct UserHandler {
     
     func processResults(_ data:Data){
         
-        do {
-
-            let decoder = JSONDecoder()
-            let decodedUserData = try decoder.decode(UserLoginDataResponse.self, from: data)
-            
-            let userData:UserData = decodedUserData.data
-            
-            let user = UserHistory()
-            user.id = userData.id
-            user.name = userData.name
-            user.email = userData.email
-            user.token = userData.token
-            user.send_notifications = userData.send_notifications
-            
-            userSession.setLoggedIn(user)
-            
-            DispatchQueue.main.async {
-                self.delegate?.contentLoaded()
-            }
-        
-        } catch {
-            processError("Decoding Data Error: \(error)")
-        }
+//        do {
+//
+//            let decoder = JSONDecoder()
+////            let decodedUserData = try decoder.decode(UserLoginDataResponse.self, from: data)
+//            
+////            let userData:UserData = decodedUserData.data
+//            
+//            let user = UserHistory()
+//            user.id = userData.id
+//            user.name = userData.name
+//            user.email = userData.email
+//            user.token = userData.token
+//            user.send_notifications = userData.send_notifications
+//            
+//            userSession.setLoggedIn(user)
+//            
+//            DispatchQueue.main.async {
+//                self.delegate?.contentLoaded()
+//            }
+//        
+//        } catch {
+//            processError("Decoding Data Error: \(error)")
+//        }
         
         
     }
