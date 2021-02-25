@@ -32,7 +32,8 @@ struct StoreHandler {
         do {
             
             let decoder = JSONDecoder()
-            let decodedStoreData = try decoder.decode(StoreData.self, from: data)
+            let decodedStoreResponse = try decoder.decode(StoreResponseData.self, from: data)
+            let decodedStoreData = decodedStoreResponse.data
             let storeHours = decodedStoreData.opening_hours!
             let storeLocation = decodedStoreData.location
             let storeFacilities = decodedStoreData.facilities!

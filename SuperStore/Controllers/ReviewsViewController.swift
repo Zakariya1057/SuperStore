@@ -52,9 +52,11 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
          reviewsTableView.register(UINib(nibName: K.Cells.ReviewCell.CellNibName, bundle: nil), forCellReuseIdentifier:K.Cells.ReviewCell.CellIdentifier)
     }
     
-    func contentLoaded(reviews: [ReviewModel]) {
+    func contentLoaded(review: ReviewModel?) {
 
-        addToHistory(reviews)
+        if review != nil {
+            addToHistory(review!)
+        }
         
         loading = false
         reviewsTableView.reloadData()
@@ -98,14 +100,11 @@ class ReviewsViewController: UIViewController, UITableViewDelegate, UITableViewD
 }
 
 extension ReviewsViewController {
-    func addToHistory(_ reviews: [ReviewModel]){
+    func addToHistory(_ review: ReviewModel){
         
         try? realm.write {
             realm.delete(self.reviews)
-            
-            for review in reviews {
-                product!.reviews.append(review.getRealmObject())
-            }
+            product!.reviews.append(review.getRealmObject())
         }
 
     }

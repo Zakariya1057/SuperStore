@@ -31,7 +31,7 @@ struct FavouritesHandler {
     func update(productID: Int, favourite: Bool){
         let productFavourite = K.Request.Grocery.ProductsFavourite
         let urlString = "\(K.Host)/\(productPath)/\(productID)/\(productFavourite)"
-        requestHandler.postRequest(url: urlString, data: ["favourite": String(favourite)], complete: { _ in }, error: processError,logOutUser: logOutUser)
+        requestHandler.postRequest(url: urlString, data: ["favourite": favourite], complete: { _ in }, error: processError,logOutUser: logOutUser)
     }
     
     func processResults(_ data:Data){

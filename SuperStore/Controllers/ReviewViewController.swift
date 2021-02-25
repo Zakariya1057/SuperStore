@@ -78,11 +78,11 @@ class ReviewViewController: UIViewController, ReviewsListDelegate, UITextFieldDe
         }
     }
     
-    func contentLoaded(reviews: [ReviewModel]) {
+    func contentLoaded(review: ReviewModel?) {
         stopLoading()
         
-        if reviews.count > 0 {
-            addToHistory(reviews[0])
+        if review != nil {
+            addToHistory(review!)
             configureUI()
         }
         
