@@ -23,8 +23,6 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     var interactor: LoginBusinessLogic?
     var router: (NSObjectProtocol & LoginRoutingLogic & LoginDataPassing)?
     
-    let spinner: SpinnerViewController = SpinnerViewController()
-    
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -73,12 +71,16 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     {
         super.viewDidLoad()
         setUpSignInAppleButton()
+        setupTextFieldDelegates()
     }
     
     // MARK: Do something
+    let spinner: SpinnerViewController = SpinnerViewController()
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    
+    @IBOutlet var textFields: [UITextField]!
     
     @IBOutlet var appleSignInStackView: UIStackView!
     
@@ -100,23 +102,17 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     //MARK: - Actions
     
     @IBAction func loginButtonPressed(_ sender: Any) {
+        submitForm()
+    }
+    
+    private func submitForm(){
         startLoading()
         
-        // 1. Pass Username + Password To Interactor
-        // 2. Next Apple Login Pressed. Interactor is callback.
         let email = emailField.text ?? ""
         let password = passwordField.text ?? ""
-        
+
         let request = Login.Login.Request(email: email, password: password)
         interactor?.login(request: request)
-    }
-}
-
-extension LoginViewController {
-    func showError(title: String, error: String){
-        let alert = UIAlertController(title: title, message: error, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alert, animated: true)
     }
 }
 
@@ -134,6 +130,29 @@ extension LoginViewController {
         spinner.willMove(toParent: nil)
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    
+    private func setupTextFieldDelegates(){
+        for field in textFields {
+            field.delegate = self
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        if let index = textFields.firstIndex(of: textField) {
+            if index < textFields.count - 1 {
+                let nextTextField = textFields[index + 1]
+                nextTextField.becomeFirstResponder()
+            } else {
+                submitForm()
+            }
+        }
+        return true
     }
 }
 
@@ -167,6 +186,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print(error)
+        showError(title: "Apple Login Error", error: error.localizedDescription)
     }
 }
+

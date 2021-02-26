@@ -27,11 +27,13 @@ protocol LoginDataStore
 class LoginInteractor: LoginBusinessLogic, LoginDataStore
 {
     var presenter: LoginPresentationLogic?
-    var worker: UserAuthWorker = UserAuthWorker(userAuth: UserAuthAPI())
+    var authWorker: UserAuthWorker = UserAuthWorker(userAuth: UserAuthAPI())
+    
     var loginWorker: LoginWorker = LoginWorker()
     
+    var validationWorker: UserValidationWorker = UserValidationWorker()
+    
     var email: String?
-    // MARK: Do something
     
     func login(request: Login.Login.Request)
     {
@@ -40,7 +42,19 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
 
         self.email = email
         
-        worker.login(email: email, password: password, completionHandler: loginCompletionHandler)
+        let formFields: [UserFormField] = [
+            UserFormField(name: "Email", value: email, type: .email),
+            UserFormField(name: "Password", value: password, type: .password)
+        ]
+        
+        let error = validationWorker.validateFields(formFields)
+
+        if let error = error {
+            self.presenter?.presentLogin(response: Login.Login.Response(error: error))
+        } else {
+            authWorker.login(email: email, password: password, completionHandler: loginCompletionHandler)
+        }
+        
     }
     
     func appleLogin(request: Login.AppleLogin.Request){
@@ -55,7 +69,7 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
             let identifier = userHistory.identifier
             let userToken = userHistory.userToken
             
-            worker.register(
+            authWorker.register(
                 name: name,
                 email: email,
                 password: password,
@@ -72,15 +86,6 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
     }
     
     private func loginCompletionHandler(user: UserLoginModel?, error: String?){
-        if user != nil {
-            self.saveUserDetails(user: user!)
-            self.presenter?.presentLogin(response: Login.Login.Response(error: nil))
-        } else {
-            self.presenter?.presentLogin(response: Login.Login.Response(error: error))
-        }
-    }
-    
-    private func saveUserDetails(user: UserLoginModel){
-        // Store Returned Data In Realm.
+        self.presenter?.presentLogin(response: Login.Login.Response(error: error))
     }
 }

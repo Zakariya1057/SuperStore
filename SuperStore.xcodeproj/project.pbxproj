@@ -52,6 +52,7 @@
 		2C14779A25E9175E000E8F66 /* NewPasswordModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779425E9175E000E8F66 /* NewPasswordModels.swift */; };
 		2C14779B25E9175E000E8F66 /* NewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779525E9175E000E8F66 /* NewPasswordViewController.swift */; };
 		2C14779C25E9175E000E8F66 /* NewPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779625E9175E000E8F66 /* NewPasswordInteractor.swift */; };
+		2C1477A025E94CEE000E8F66 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779F25E94CEE000E8F66 /* ErrorViewController.swift */; };
 		2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */; };
 		2C1567C124C77FD800B8DCB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C1567BF24C77FD800B8DCB5 /* Main.storyboard */; };
 		2C1567C324C77FDB00B8DCB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C1567C224C77FDB00B8DCB5 /* Assets.xcassets */; };
@@ -258,6 +259,7 @@
 		2C14779425E9175E000E8F66 /* NewPasswordModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewPasswordModels.swift; path = SuperStore/Modells/Realm/NewPasswordModels.swift; sourceTree = SOURCE_ROOT; };
 		2C14779525E9175E000E8F66 /* NewPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewPasswordViewController.swift; path = SuperStore/Modells/Realm/NewPasswordViewController.swift; sourceTree = SOURCE_ROOT; };
 		2C14779625E9175E000E8F66 /* NewPasswordInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewPasswordInteractor.swift; path = SuperStore/Modells/Realm/NewPasswordInteractor.swift; sourceTree = SOURCE_ROOT; };
+		2C14779F25E94CEE000E8F66 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		2C1567B624C77FD800B8DCB5 /* SuperStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C1567BB24C77FD800B8DCB5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				2C14770325E833A7000E8F66 /* SpinnerViewController.swift */,
+				2C14779F25E94CEE000E8F66 /* ErrorViewController.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1089,6 +1092,7 @@
 				2C9DD12B24FC201100544563 /* PromotionData.swift in Sources */,
 				2C21C3A824F6F4B200D90B4B /* StoreData.swift in Sources */,
 				2CC1EA2324FAC4B9000A9BC4 /* ReviewsData.swift in Sources */,
+				2C1477A025E94CEE000E8F66 /* ErrorViewController.swift in Sources */,
 				2C14778025E91737000E8F66 /* SendEmailInteractor.swift in Sources */,
 				2C14777D25E91737000E8F66 /* SendEmailRouter.swift in Sources */,
 				2CB51C68254C69ED0090F558 /* NetworkManager.swift in Sources */,

@@ -9,5 +9,76 @@
 import Foundation
 
 class UserValidationWorker {
+
+    func validateFields(_ validationFields: [UserFormField]) -> String? {
+        for field in validationFields {
+
+            let value = field.value
+            let fieldName = field.name
+            let type = field.type
+            
+            if value == "" {
+                return "\(fieldName) required."
+            }
+
+            if type == .email {
+                if !isValidEmail(value){
+                    return "Invalid Email."
+                }
+            }
+
+            if type == .code {
+                if !isValidCode(value){
+                    return "\(fieldName) must be at least 7 characters long."
+                }
+            }
+
+            if type == .password {
+                if !isValidPassword(value){
+                    return "\(fieldName) must be at least 8 characters long."
+                }
+            }
+
+            if type == .name {
+                if !isValidName(value){
+                    return "\(fieldName) must be at least 3 characters long."
+                }
+            }
+            
+        }
+        
+        return nil
+    }
     
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
+
+    func isValidPassword(_ password: String) -> Bool {
+        return password.count >= 8
+    }
+
+    func isValidName(_ name: String) -> Bool {
+        return name.count >= 3
+    }
+
+    func isValidCode(_ code: String) -> Bool {
+        return code.count >= 7
+    }
+}
+
+struct UserFormField {
+    var name: String
+    var value: String
+    var type: UserFormFieldType
+}
+
+
+enum UserFormFieldType {
+    case email
+    case name
+    case password
+    case code
 }

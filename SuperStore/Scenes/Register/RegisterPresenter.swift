@@ -14,18 +14,24 @@ import UIKit
 
 protocol RegisterPresentationLogic
 {
-  func presentUserEmail(response: Register.GetEmail.Response)
+    func presentUserEmail(response: Register.GetEmail.Response)
+    func presentRegisteredUser(response: Register.Register.Response)
 }
 
 class RegisterPresenter: RegisterPresentationLogic
 {
-  weak var viewController: RegisterDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentUserEmail(response: Register.GetEmail.Response)
-  {
-    let viewModel = Register.GetEmail.ViewModel(email: response.email)
-    viewController?.displayUserEmail(viewModel: viewModel)
-  }
+    weak var viewController: RegisterDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentUserEmail(response: Register.GetEmail.Response)
+    {
+        let viewModel = Register.GetEmail.ViewModel(email: response.email)
+        viewController?.displayUserEmail(viewModel: viewModel)
+    }
+    
+    func presentRegisteredUser(response: Register.Register.Response){
+        let viewModel = Register.Register.ViewModel(error: response.error)
+        viewController?.displayRegisteredUser(viewModel: viewModel)
+    }
 }

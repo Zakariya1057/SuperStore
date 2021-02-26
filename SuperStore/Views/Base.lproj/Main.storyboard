@@ -270,6 +270,8 @@
                         <outlet property="appleSignInStackView" destination="QO3-sT-zQe" id="2PZ-HN-0Qz"/>
                         <outlet property="emailField" destination="O2r-9v-Av2" id="0RN-TH-2Lt"/>
                         <outlet property="passwordField" destination="N0s-kB-z5L" id="B2P-mW-Igg"/>
+                        <outletCollection property="textFields" destination="O2r-9v-Av2" collectionClass="NSMutableArray" id="p3L-vh-j6d"/>
+                        <outletCollection property="textFields" destination="N0s-kB-z5L" collectionClass="NSMutableArray" id="IxS-4y-Fqo"/>
                         <segue destination="pZG-ZY-ksW" kind="show" identifier="loginToHome" id="YcT-k9-dml"/>
                     </connections>
                 </viewController>
@@ -2115,7 +2117,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zk9-e4-itb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
-                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
+                                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
                                                                                         <rect key="frame" x="87" y="2" width="210" height="26"/>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -2864,7 +2866,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz2-WX-h3t">
                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="64.5" y="7.5" width="255" height="35"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -4384,8 +4386,7 @@
                                                                                     <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="registerButtonPressed:" destination="cCO-u5-Mic" eventType="touchUpInside" id="xAI-z1-mtu"/>
-                                                                                    <action selector="registerPressed:" destination="cCO-u5-Mic" eventType="touchUpInside" id="cQj-ER-KBd"/>
+                                                                                    <action selector="registerButtonPressed:" destination="cCO-u5-Mic" eventType="touchUpInside" id="RVg-aq-USU"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -4435,8 +4436,12 @@
                     <connections>
                         <outlet property="emailField" destination="hvJ-jW-Xy9" id="8g1-nE-hqn"/>
                         <outlet property="nameField" destination="A7e-lD-Dcs" id="fxV-QV-GCu"/>
+                        <outlet property="passwordConfirmField" destination="bUT-tR-kW2" id="yri-3F-jU6"/>
                         <outlet property="passwordField" destination="ZRB-4x-DZX" id="W7e-pm-7be"/>
-                        <outlet property="repeatPasswordField" destination="bUT-tR-kW2" id="Kw1-AR-gCL"/>
+                        <outletCollection property="textFields" destination="bUT-tR-kW2" collectionClass="NSMutableArray" id="EfW-Ph-MNB"/>
+                        <outletCollection property="textFields" destination="ZRB-4x-DZX" collectionClass="NSMutableArray" id="gEQ-Re-zf5"/>
+                        <outletCollection property="textFields" destination="hvJ-jW-Xy9" collectionClass="NSMutableArray" id="ftL-xA-mqH"/>
+                        <outletCollection property="textFields" destination="A7e-lD-Dcs" collectionClass="NSMutableArray" id="nvY-kE-tm5"/>
                         <segue destination="pZG-ZY-ksW" kind="show" identifier="registerToHome" id="LCl-dZ-pvm"/>
                     </connections>
                 </viewController>
@@ -4803,14 +4808,6 @@
             <point key="canvasLocation" x="61" y="-1337"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="XU3-Nd-wUM">
-            <size key="intrinsicContentSize" width="255" height="35"/>
-        </designable>
-        <designable name="tFG-eX-umO">
-            <size key="intrinsicContentSize" width="209.849609375" height="26"/>
-        </designable>
-    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="LCl-dZ-pvm"/>
     </inferredMetricsTieBreakers>
