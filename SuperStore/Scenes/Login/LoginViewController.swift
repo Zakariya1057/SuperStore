@@ -102,12 +102,16 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     //MARK: - Actions
     
     @IBAction func loginButtonPressed(_ sender: Any) {
+        startLoading()
+        dismissKeyboard()
         submitForm()
     }
     
+    private func dismissKeyboard(){
+        view.endEditing(true)
+    }
+    
     private func submitForm(){
-        startLoading()
-        
         let email = emailField.text ?? ""
         let password = passwordField.text ?? ""
 
@@ -118,7 +122,6 @@ class LoginViewController: UIViewController, LoginDisplayLogic
 
 extension LoginViewController {
     func startLoading() {
-        print("Start Loading")
         addChild(spinner)
         spinner.view.frame = view.frame
         view.addSubview(spinner.view)
@@ -126,7 +129,6 @@ extension LoginViewController {
     }
     
     func stopLoading(){
-        print("Stop Loading")
         spinner.willMove(toParent: nil)
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
@@ -149,6 +151,8 @@ extension LoginViewController: UITextFieldDelegate {
                 let nextTextField = textFields[index + 1]
                 nextTextField.becomeFirstResponder()
             } else {
+                startLoading()
+                dismissKeyboard()
                 submitForm()
             }
         }

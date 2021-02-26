@@ -14,28 +14,58 @@ import UIKit
 
 protocol VerifyCodeBusinessLogic
 {
-  func doSomething(request: VerifyCode.Something.Request)
+    func verifyCode(request: VerifyCode.VerifyCode.Request)
 }
 
 protocol VerifyCodeDataStore
 {
-  //var name: String { get set }
+    var email: String { get set }
+    var code: String { get set }
 }
 
 class VerifyCodeInteractor: VerifyCodeBusinessLogic, VerifyCodeDataStore
 {
-  var presenter: VerifyCodePresentationLogic?
-  var worker: VerifyCodeWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: VerifyCode.Something.Request)
-  {
-    worker = VerifyCodeWorker()
-    worker?.doSomeWork()
+    var presenter: VerifyCodePresentationLogic?
+    var resetWorker: ResetPasswordWorker = ResetPasswordWorker(passwordReset: ResetPasswordAPI())
     
-    let response = VerifyCode.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var validationWorker: UserValidationWorker = UserValidationWorker()
+    
+    var email: String = ""
+    var code: String = ""
+    
+    // MARK: Do something
+    
+    func verifyCode(request: VerifyCode.VerifyCode.Request)
+    {
+        let code = request.code
+        
+        let error = validateForm(code: code)
+        
+        self.code = code
+        
+        if error == nil {
+            resetWorker.verifyCode(email: email, code: code) { (error: String?) in
+                let response = VerifyCode.VerifyCode.Response(error: error)
+                self.presenter?.presentCodeVerified(response: response)
+            }
+        }
+
+    }
+    
+    func validateForm(code: String) -> String? {
+        
+        let formFields: [UserFormField] = [
+            UserFormField(name: "Reset Code", value: code, type: .code)
+        ]
+        
+        let error = validationWorker.validateFields(formFields)
+
+        if let error = error {
+            let response = VerifyCode.VerifyCode.Response(error: error)
+            presenter?.presentCodeVerified(response: response)
+            return error
+        }
+        
+        return nil
+    }
 }

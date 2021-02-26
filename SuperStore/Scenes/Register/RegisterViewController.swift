@@ -74,7 +74,8 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         setupTextFieldDelegates()
     }
     
-    // MARK: Do something
+    // MARK: Outlets
+    
     let spinner: SpinnerViewController = SpinnerViewController()
     
     @IBOutlet weak var nameField: UITextField!
@@ -84,9 +85,38 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     
     @IBOutlet var textFields: [UITextField]!
     
+    //MARK: - Actions
+    
     @IBAction func registerButtonPressed(_ sender: Any) {
         startLoading()
+        dismissKeyboard()
         submitForm()
+    }
+    
+    //MARK: - Display
+    
+    func displayUserEmail(viewModel: Register.GetEmail.ViewModel)
+    {
+        emailField.text = viewModel.email
+    }
+    
+    func displayRegisteredUser(viewModel: Register.Register.ViewModel){
+        stopLoading()
+        
+        let error = viewModel.error
+        
+        if let error = error {
+            showError(title: "Register Error", error: error)
+        } else {
+            // Navigate To Home
+            print("Success")
+        }
+    }
+    
+    //MARK: - Extra
+    
+    private func dismissKeyboard(){
+        view.endEditing(true)
     }
     
     private func submitForm(){
@@ -108,29 +138,10 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         let request = Register.GetEmail.Request()
         interactor?.getEmail(request: request)
     }
-    
-    func displayUserEmail(viewModel: Register.GetEmail.ViewModel)
-    {
-        emailField.text = viewModel.email
-    }
-    
-    func displayRegisteredUser(viewModel: Register.Register.ViewModel){
-        stopLoading()
-        
-        let error = viewModel.error
-        
-        if let error = error {
-            showError(title: "Register Error", error: error)
-        } else {
-            // Navigate To Home
-            print("Success")
-        }
-    }
 }
 
 extension RegisterViewController {
     func startLoading() {
-        print("Start Loading")
         addChild(spinner)
         spinner.view.frame = view.frame
         view.addSubview(spinner.view)
@@ -138,12 +149,10 @@ extension RegisterViewController {
     }
     
     func stopLoading(){
-        print("Stop Loading")
         spinner.willMove(toParent: nil)
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
     }
-    
 }
 
 extension RegisterViewController: UITextFieldDelegate {
@@ -162,6 +171,8 @@ extension RegisterViewController: UITextFieldDelegate {
                 let nextTextField = textFields[index + 1]
                 nextTextField.becomeFirstResponder()
             } else {
+                startLoading()
+                dismissKeyboard()
                 submitForm()
             }
         }

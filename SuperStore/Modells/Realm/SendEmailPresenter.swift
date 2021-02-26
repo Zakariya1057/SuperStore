@@ -14,18 +14,23 @@ import UIKit
 
 protocol SendEmailPresentationLogic
 {
-  func presentSomething(response: SendEmail.Something.Response)
+    func presentEmail(response: SendEmail.GetEmail.Response)
+    func presentEmailSent(response: SendEmail.SendEmail.Response)
 }
 
 class SendEmailPresenter: SendEmailPresentationLogic
 {
-  weak var viewController: SendEmailDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: SendEmail.Something.Response)
-  {
-    let viewModel = SendEmail.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+    weak var viewController: SendEmailDisplayLogic?
+    
+    func presentEmailSent(response: SendEmail.SendEmail.Response)
+    {
+        let viewModel = SendEmail.SendEmail.ViewModel(error: response.error)
+        viewController?.displayEmailSent(viewModel: viewModel)
+    }
+    
+    func presentEmail(response: SendEmail.GetEmail.Response)
+    {
+        let viewModel = SendEmail.GetEmail.ViewModel(email: response.email)
+        viewController?.displayEmail(viewModel: viewModel)
+    }
 }

@@ -10,10 +10,10 @@ import Foundation
 import Alamofire
 
 protocol RequestProtocol {
-    func post(url: String, data:Parameters, complete: @escaping ( () throws -> Data) -> Void)
-    func get(url: String, complete: @escaping ( () throws -> Data) -> Void)
+    func post(url: String, data:Parameters, completionHandler: @escaping ( () throws -> Data) -> Void)
+    func get(url: String, completionHandler: @escaping ( () throws -> Data) -> Void)
     
-    func responseHandler(response: AFDataResponse<Any>, complete: @escaping ( () throws -> (Data)) -> Void)
+    func responseHandler(response: AFDataResponse<Any>, completionHandler: @escaping ( () throws -> (Data)) -> Void)
 }
 
 enum RequestError: Error {
@@ -24,7 +24,7 @@ struct RequestWorker: RequestProtocol {
 
     var requestTimeout: Double = 10
     
-    func get(url: String, complete: @escaping (() throws -> Data) -> Void) {
+    func get(url: String, completionHandler: @escaping (() throws -> Data) -> Void) {
         let urlString = parseURL(urlString: url)
         
         let headers: HTTPHeaders = setHeaders()
@@ -36,11 +36,11 @@ struct RequestWorker: RequestProtocol {
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
-                responseHandler(response: response, complete: complete)
+                responseHandler(response: response, completionHandler: completionHandler)
         }
     }
     
-    func post(url: String, data:Parameters, complete: @escaping ( () throws -> (Data)) -> Void) {
+    func post(url: String, data:Parameters, completionHandler: @escaping ( () throws -> (Data)) -> Void) {
         let urlString = parseURL(urlString: url)
 
         let headers: HTTPHeaders = setHeaders()
@@ -50,21 +50,21 @@ struct RequestWorker: RequestProtocol {
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
-                responseHandler(response: response, complete: complete)
+                responseHandler(response: response, completionHandler: completionHandler)
             }
     }
     
-    func responseHandler(response: AFDataResponse<Any>, complete: @escaping ( () throws -> (Data)) -> Void) {
+    func responseHandler(response: AFDataResponse<Any>, completionHandler: @escaping ( () throws -> (Data)) -> Void) {
         
         switch response.result {
             case .success:
-                complete({
+                completionHandler({
                     return response.data!
                 })
                 break
             case .failure(let errorResponse):
                 print(errorResponse)
-                complete({
+                completionHandler({
                     throw handlerResponseError(response: response, errorResponse: errorResponse)
                 })
                 break

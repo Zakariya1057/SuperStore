@@ -14,7 +14,7 @@ import UIKit
 
 protocol VerifyCodePresentationLogic
 {
-  func presentSomething(response: VerifyCode.Something.Response)
+  func presentCodeVerified(response: VerifyCode.VerifyCode.Response)
 }
 
 class VerifyCodePresenter: VerifyCodePresentationLogic
@@ -23,9 +23,9 @@ class VerifyCodePresenter: VerifyCodePresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: VerifyCode.Something.Response)
+  func presentCodeVerified(response: VerifyCode.VerifyCode.Response)
   {
-    let viewModel = VerifyCode.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    let viewModel = VerifyCode.VerifyCode.ViewModel(error: response.error)
+    viewController?.displayVerifiedCode(viewModel: viewModel)
   }
 }

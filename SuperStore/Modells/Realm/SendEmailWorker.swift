@@ -14,7 +14,8 @@ import UIKit
 
 class SendEmailWorker
 {
-  func doSomeWork()
-  {
-  }
+    // Send Error Email Request
+    func doSomeWork()
+    {
+    }
 }

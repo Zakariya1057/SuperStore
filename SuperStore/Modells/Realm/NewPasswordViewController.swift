@@ -14,76 +14,135 @@ import UIKit
 
 protocol NewPasswordDisplayLogic: class
 {
-  func displaySomething(viewModel: NewPassword.Something.ViewModel)
+    func displayNewPassword(viewModel: NewPassword.NewPassword.ViewModel)
 }
 
 class NewPasswordViewController: UIViewController, NewPasswordDisplayLogic
 {
-  var interactor: NewPasswordBusinessLogic?
-  var router: (NSObjectProtocol & NewPasswordRoutingLogic & NewPasswordDataPassing)?
-
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = NewPasswordInteractor()
-    let presenter = NewPasswordPresenter()
-    let router = NewPasswordRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    var interactor: NewPasswordBusinessLogic?
+    var router: (NSObjectProtocol & NewPasswordRoutingLogic & NewPasswordDataPassing)?
+    
+    // MARK: Object lifecycle
+    
+    let spinner: SpinnerViewController = SpinnerViewController()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-  }
-  
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = NewPassword.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: NewPassword.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup()
+    {
+        let viewController = self
+        let interactor = NewPasswordInteractor()
+        let presenter = NewPasswordPresenter()
+        let router = NewPasswordRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+    }
+    
+    // MARK: IB Outlets
+    
+    @IBOutlet var passwordField: UITextField!
+    @IBOutlet var passwordConfirmField: UITextField!
+    
+    //MARK: - Display
+    
+    func displayNewPassword(viewModel: NewPassword.NewPassword.ViewModel)
+    {
+        stopLoading()
+        if let error = viewModel.error {
+            showError(title: "Change Password Error", error: error)
+        } else {
+            print("Success")
+        }
+    }
+    
+    //MARK: - Actions
+    
+    @IBAction func changePasswordButtonPressed(_ sender: Any) {
+        startLoading()
+        dismissKeyboard()
+        submitForm()
+    }
+    
+    //MARK: - Extra
+    
+    private func submitForm(){
+        let password = passwordField.text ?? ""
+        let passwordConfirm = passwordConfirmField.text ?? ""
+        
+        let request = NewPassword.NewPassword.Request(password: password, passwordConfirm: passwordConfirm)
+        interactor?.newPassword(request: request)
+    }
+    
+    private func dismissKeyboard(){
+        view.endEditing(true)
+    }
+}
+
+extension NewPasswordViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+    }
+}
+
+extension NewPasswordViewController: UITextFieldDelegate {
+    
+    private func setupTextFieldDelegate(){
+        passwordField.delegate = self
+        passwordConfirmField.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        
+        startLoading()
+        dismissKeyboard()
+        submitForm()
+        
+        return true
+    }
 }

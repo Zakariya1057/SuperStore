@@ -15,6 +15,7 @@ import UIKit
 @objc protocol LoginRoutingLogic
 {
     func routeToRegister(segue: UIStoryboardSegue?)
+    func routeToSendEmail(segue: UIStoryboardSegue?)
 }
 
 protocol LoginDataPassing
@@ -44,17 +45,43 @@ class LoginRouter: NSObject, LoginRoutingLogic, LoginDataPassing
         }
     }
     
-    // MARK: Navigation
+    func routeToSendEmail(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! SendEmailViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToRegister(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "SendEmailViewController") as! SendEmailViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToRegister(source: dataStore!, destination: &destinationDS)
+            navigateToRegister(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    // MARK: Register
     
     func navigateToRegister(source: LoginViewController, destination: RegisterViewController)
     {
         source.show(destination, sender: nil)
     }
     
-    // MARK: Passing data
-    
     func passDataToRegister(source: LoginDataStore, destination: inout RegisterDataStore)
     {
         destination.email = source.email
     }
+    
+    // MARK: Reset Password
+    
+    func navigateToRegister(source: LoginViewController, destination: SendEmailViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    func passDataToRegister(source: LoginDataStore, destination: inout SendEmailDataStore)
+    {
+        destination.email = source.email
+    }
 }
+

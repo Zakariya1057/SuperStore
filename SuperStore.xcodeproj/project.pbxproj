@@ -53,6 +53,7 @@
 		2C14779B25E9175E000E8F66 /* NewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779525E9175E000E8F66 /* NewPasswordViewController.swift */; };
 		2C14779C25E9175E000E8F66 /* NewPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779625E9175E000E8F66 /* NewPasswordInteractor.swift */; };
 		2C1477A025E94CEE000E8F66 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779F25E94CEE000E8F66 /* ErrorViewController.swift */; };
+		2C1477A425E96DD8000E8F66 /* ResetPasswordWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1477A325E96DD8000E8F66 /* ResetPasswordWorker.swift */; };
 		2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */; };
 		2C1567C124C77FD800B8DCB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C1567BF24C77FD800B8DCB5 /* Main.storyboard */; };
 		2C1567C324C77FDB00B8DCB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C1567C224C77FDB00B8DCB5 /* Assets.xcassets */; };
@@ -83,7 +84,7 @@
 		2C266DF924D5DEF300C66EA5 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266DF824D5DEF300C66EA5 /* StoreModel.swift */; };
 		2C266DFB24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266DFA24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift */; };
 		2C266DFF24D6FBC300C66EA5 /* SettingsChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266DFE24D6FBC300C66EA5 /* SettingsChangeViewController.swift */; };
-		2C266E0124D702BD00C66EA5 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266E0024D702BD00C66EA5 /* ChangePasswordViewController.swift */; };
+		2C266E0124D702BD00C66EA5 /* 1ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266E0024D702BD00C66EA5 /* 1ChangePasswordViewController.swift */; };
 		2C266E0324D70C3900C66EA5 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C266E0224D70C3900C66EA5 /* SearchModel.swift */; };
 		2C362F8C253A062D000846C0 /* ListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C362F8B253A062D000846C0 /* ListManager.swift */; };
 		2C362F90253B0777000846C0 /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C362F8F253B0777000846C0 /* ItemModel.swift */; };
@@ -180,6 +181,7 @@
 		2CD5E02F25324AB000E4A01B /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD5E02E25324AB000E4A01B /* SearchHistory.swift */; };
 		2CD5E03325337BE000E4A01B /* ListHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD5E03225337BE000E4A01B /* ListHistory.swift */; };
 		2CDE10ED251D2662001B0479 /* UserHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE10EC251D2662001B0479 /* UserHandler.swift */; };
+		2CDFB60025E972B2002CE30D /* ResetPasswordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFB5FF25E972B2002CE30D /* ResetPasswordAPI.swift */; };
 		2CE7AB0224D077C700A31782 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7AB0124D077C700A31782 /* SettingsViewController.swift */; };
 		2CF239B525094A7F00D4CE91 /* ListsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B425094A7F00D4CE91 /* ListsHandler.swift */; };
 		2CF239B725094A9000D4CE91 /* ListItemsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */; };
@@ -260,6 +262,7 @@
 		2C14779525E9175E000E8F66 /* NewPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewPasswordViewController.swift; path = SuperStore/Modells/Realm/NewPasswordViewController.swift; sourceTree = SOURCE_ROOT; };
 		2C14779625E9175E000E8F66 /* NewPasswordInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewPasswordInteractor.swift; path = SuperStore/Modells/Realm/NewPasswordInteractor.swift; sourceTree = SOURCE_ROOT; };
 		2C14779F25E94CEE000E8F66 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
+		2C1477A325E96DD8000E8F66 /* ResetPasswordWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordWorker.swift; sourceTree = "<group>"; };
 		2C1567B624C77FD800B8DCB5 /* SuperStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C1567BB24C77FD800B8DCB5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -293,7 +296,7 @@
 		2C266DF824D5DEF300C66EA5 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		2C266DFA24D6E65A00C66EA5 /* GrandParentCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GrandParentCategoriesViewController.swift; path = SuperStore/Views/GrandParentCategoriesViewController.swift; sourceTree = SOURCE_ROOT; };
 		2C266DFE24D6FBC300C66EA5 /* SettingsChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsChangeViewController.swift; path = SuperStore/Views/SettingsChangeViewController.swift; sourceTree = SOURCE_ROOT; };
-		2C266E0024D702BD00C66EA5 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		2C266E0024D702BD00C66EA5 /* 1ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		2C266E0224D70C3900C66EA5 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		2C362F8B253A062D000846C0 /* ListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListManager.swift; sourceTree = "<group>"; };
 		2C362F8F253B0777000846C0 /* ItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
@@ -398,6 +401,7 @@
 		2CD5E02E25324AB000E4A01B /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
 		2CD5E03225337BE000E4A01B /* ListHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHistory.swift; sourceTree = "<group>"; };
 		2CDE10EC251D2662001B0479 /* UserHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHandler.swift; sourceTree = "<group>"; };
+		2CDFB5FF25E972B2002CE30D /* ResetPasswordAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordAPI.swift; sourceTree = "<group>"; };
 		2CE7AB0124D077C700A31782 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2CF239B425094A7F00D4CE91 /* ListsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsHandler.swift; sourceTree = "<group>"; };
 		2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemsHandler.swift; sourceTree = "<group>"; };
@@ -516,6 +520,17 @@
 			path = NewPassword;
 			sourceTree = "<group>";
 		};
+		2C1477A725E96E06000E8F66 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				2C1476BE25E7ADAC000E8F66 /* UserAuthWorker.swift */,
+				2C1477A325E96DD8000E8F66 /* ResetPasswordWorker.swift */,
+				2C14775D25E9070D000E8F66 /* UserSessionWorker.swift */,
+				2C1476C825E7AEEB000E8F66 /* UserValidationWorker.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		2C1567AD24C77FD800B8DCB5 = {
 			isa = PBXGroup;
 			children = (
@@ -590,7 +605,7 @@
 				2C1567E024C9A0DF00B8DCB5 /* GroceryTableViewController.swift */,
 				2CE7AB0124D077C700A31782 /* SettingsViewController.swift */,
 				2C266DFE24D6FBC300C66EA5 /* SettingsChangeViewController.swift */,
-				2C266E0024D702BD00C66EA5 /* ChangePasswordViewController.swift */,
+				2C266E0024D702BD00C66EA5 /* 1ChangePasswordViewController.swift */,
 				2CB15C9824D36E7E00461AFE /* StoreSelectViewController.swift */,
 				2CAB6A40251F962E00774B89 /* 1SpinnerViewController.swift */,
 			);
@@ -720,9 +735,7 @@
 		2C910B2225E7AA0900BCEACC /* Workers */ = {
 			isa = PBXGroup;
 			children = (
-				2C1476BE25E7ADAC000E8F66 /* UserAuthWorker.swift */,
-				2C14775D25E9070D000E8F66 /* UserSessionWorker.swift */,
-				2C1476C825E7AEEB000E8F66 /* UserValidationWorker.swift */,
+				2C1477A725E96E06000E8F66 /* User */,
 				2C1476D025E7B388000E8F66 /* RequestWorker.swift */,
 				2C1476FB25E831B0000E8F66 /* SpinnerWorker.swift */,
 			);
@@ -743,6 +756,7 @@
 			isa = PBXGroup;
 			children = (
 				2C1476C225E7AE15000E8F66 /* UserAuthAPI.swift */,
+				2CDFB5FF25E972B2002CE30D /* ResetPasswordAPI.swift */,
 				2C1476F525E82FF6000E8F66 /* UserRealmStore.swift */,
 			);
 			path = Services;
@@ -977,6 +991,7 @@
 				2C21C3B424FA7C5F00D90B4B /* ParentCategoriesViewController.swift in Sources */,
 				2C1476C325E7AE15000E8F66 /* UserAuthAPI.swift in Sources */,
 				2C43E798253CC4C60084DF7C /* HomeHistory.swift in Sources */,
+				2C1477A425E96DD8000E8F66 /* ResetPasswordWorker.swift in Sources */,
 				2CABCB6F2505559500E26574 /* PromotionHandler.swift in Sources */,
 				2C21C3B024F8E4E600D90B4B /* GroceryCategoriesHandler.swift in Sources */,
 				2CB15C8224D2D7FE00461AFE /* ListsTableViewCell.swift in Sources */,
@@ -987,6 +1002,7 @@
 				2CB3EDAB25054D3D000E7C7A /* PromotionViewController.swift in Sources */,
 				2CB1424B25E3F12800EAF272 /* GroceryTableViewCell.swift in Sources */,
 				2C9CEED2250678590049E93D /* SceneDelegate.swift in Sources */,
+				2CDFB60025E972B2002CE30D /* ResetPasswordAPI.swift in Sources */,
 				2C0D447F2535B2390046E2B0 /* ProductHistory.swift in Sources */,
 				2C910B4025E7AABF00BCEACC /* LoginPresenter.swift in Sources */,
 				2CDE10ED251D2662001B0479 /* UserHandler.swift in Sources */,
@@ -1088,7 +1104,7 @@
 				2C362F90253B0777000846C0 /* ItemModel.swift in Sources */,
 				2C21C3B624FA844400D90B4B /* GroceryProductsHandler.swift in Sources */,
 				2C910B4125E7AABF00BCEACC /* LoginWorker.swift in Sources */,
-				2C266E0124D702BD00C66EA5 /* ChangePasswordViewController.swift in Sources */,
+				2C266E0124D702BD00C66EA5 /* 1ChangePasswordViewController.swift in Sources */,
 				2C9DD12B24FC201100544563 /* PromotionData.swift in Sources */,
 				2C21C3A824F6F4B200D90B4B /* StoreData.swift in Sources */,
 				2CC1EA2324FAC4B9000A9BC4 /* ReviewsData.swift in Sources */,

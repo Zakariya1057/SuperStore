@@ -14,28 +14,58 @@ import UIKit
 
 protocol NewPasswordBusinessLogic
 {
-  func doSomething(request: NewPassword.Something.Request)
+    func newPassword(request: NewPassword.NewPassword.Request)
 }
 
 protocol NewPasswordDataStore
 {
-  //var name: String { get set }
+    var email: String { get set }
+    var code: String { get set }
 }
 
 class NewPasswordInteractor: NewPasswordBusinessLogic, NewPasswordDataStore
 {
-  var presenter: NewPasswordPresentationLogic?
-  var worker: NewPasswordWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: NewPassword.Something.Request)
-  {
-    worker = NewPasswordWorker()
-    worker?.doSomeWork()
+    var email: String = ""
+    var code: String = ""
     
-    let response = NewPassword.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var presenter: NewPasswordPresentationLogic?
+    
+    var resetWorker: ResetPasswordWorker = ResetPasswordWorker(passwordReset: ResetPasswordAPI())
+    var validationWorker: UserValidationWorker = UserValidationWorker()
+    
+    func newPassword(request: NewPassword.NewPassword.Request)
+    {
+        let password = request.password
+        let passwordConfirm = request.passwordConfirm
+        
+        let error = validateForm(password: password, passwordConfirm: passwordConfirm)
+        
+        if error == nil {
+            resetWorker.newPassword(email: email, code: code, password: password, passwordConfirmation: passwordConfirm) { (user: UserLoginModel?, error: String?) in
+                let response = NewPassword.NewPassword.Response(error: error)
+                self.presenter?.presentNewPassword(response: response)
+            }
+        }
+
+    }
+    
+    func validateForm(password: String, passwordConfirm: String) -> String? {
+        
+        let formFields: [UserFormField] = [
+            UserFormField(name: "Email", value: email, type: .email),
+            UserFormField(name: "Password", value: password, type: .password),
+            UserFormField(name: "Confirm Password", value: passwordConfirm, type: .password),
+            UserPasswordMatch(name: "Password match", value: password, type: .confirm, repeatValue: passwordConfirm)
+        ]
+        
+        let error = validationWorker.validateFields(formFields)
+
+        if let error = error {
+            let response = NewPassword.NewPassword.Response(error: error)
+            self.presenter?.presentNewPassword(response: response)
+            return error
+        }
+        
+        return nil
+    }
 }

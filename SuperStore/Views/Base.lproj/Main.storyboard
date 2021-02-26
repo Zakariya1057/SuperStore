@@ -206,7 +206,7 @@
                                                                                     <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <segue destination="uFD-DX-1Oq" kind="show" id="Ty8-fe-ubB"/>
+                                                                                    <segue destination="uFD-DX-1Oq" kind="show" identifier="SendEmail" id="Ty8-fe-ubB"/>
                                                                                 </connections>
                                                                             </button>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QO3-sT-zQe">
@@ -310,10 +310,10 @@
             </objects>
             <point key="canvasLocation" x="3929" y="1053"/>
         </scene>
-        <!--Password Reset-->
+        <!--Reset Password-->
         <scene sceneID="6tw-jB-cjU">
             <objects>
-                <viewController id="uFD-DX-1Oq" customClass="ForgotPasswordViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SendEmailViewController" id="uFD-DX-1Oq" customClass="SendEmailViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KzQ-cL-1FQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -369,10 +369,10 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ivq-uM-tCO">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="zakaria2011@live.no" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ivq-uM-tCO">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="done" textContentType="email"/>
+                                                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="send" textContentType="email"/>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
@@ -396,11 +396,11 @@
                                                                                     <constraint firstAttribute="height" constant="40" id="4Nh-ei-ZfQ"/>
                                                                                 </constraints>
                                                                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="16"/>
-                                                                                <state key="normal" title="Send Code">
+                                                                                <state key="normal" title="Send Reset Email">
                                                                                     <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="sendPressed:" destination="uFD-DX-1Oq" eventType="touchUpInside" id="SNI-da-xUD"/>
+                                                                                    <action selector="sendResetEmailButtonPressed:" destination="uFD-DX-1Oq" eventType="touchUpInside" id="ZD9-ed-hMm"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -443,10 +443,10 @@
                             <constraint firstAttribute="bottom" secondItem="2AA-PO-k7W" secondAttribute="bottom" id="a2p-FD-d63"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Password Reset" id="UmL-Fg-T0M"/>
+                    <navigationItem key="navigationItem" title="Reset Password" id="UmL-Fg-T0M"/>
                     <connections>
-                        <outlet property="emailField" destination="ivq-uM-tCO" id="WLF-4E-Mfo"/>
-                        <segue destination="hap-VT-6ww" kind="show" identifier="emailToCode" id="Vdi-E5-ydV"/>
+                        <outlet property="emailField" destination="ivq-uM-tCO" id="4vX-PJ-VIK"/>
+                        <segue destination="hap-VT-6ww" kind="show" identifier="VerifyCode" id="xFu-JM-IhK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mDw-hu-sz3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2117,7 +2117,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zk9-e4-itb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
-                                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
+                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
                                                                                         <rect key="frame" x="87" y="2" width="210" height="26"/>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -2866,7 +2866,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz2-WX-h3t">
                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="64.5" y="7.5" width="255" height="35"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -4355,7 +4355,7 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Repeat Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bUT-tR-kW2">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bUT-tR-kW2">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                         <textInputTraits key="textInputTraits" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
@@ -4470,7 +4470,7 @@
         <!--New Password-->
         <scene sceneID="7MC-eD-RpA">
             <objects>
-                <viewController id="VjR-j8-LNH" customClass="ResetPasswordViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewPasswordViewController" id="VjR-j8-LNH" customClass="NewPasswordViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2ey-Hr-L5X">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4526,7 +4526,7 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="que-dx-0R8">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password1234" placeholder="New Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="que-dx-0R8">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                         <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
@@ -4579,7 +4579,7 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Repeat Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8VG-Ap-8YD">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password4321" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8VG-Ap-8YD">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                         <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
@@ -4610,7 +4610,7 @@
                                                                                     <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="changePressed:" destination="VjR-j8-LNH" eventType="touchUpInside" id="Tgh-46-Nfk"/>
+                                                                                    <action selector="changePasswordButtonPressed:" destination="VjR-j8-LNH" eventType="touchUpInside" id="q7H-it-DBP"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -4655,8 +4655,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="New Password" id="fvS-y3-aY8"/>
                     <connections>
-                        <outlet property="confirmPasswordField" destination="8VG-Ap-8YD" id="Ih1-kj-4nV"/>
-                        <outlet property="passwordField" destination="que-dx-0R8" id="g9U-qd-VGl"/>
+                        <outlet property="passwordConfirmField" destination="8VG-Ap-8YD" id="DdY-FW-eZ2"/>
+                        <outlet property="passwordField" destination="que-dx-0R8" id="hIP-pe-4lH"/>
                         <segue destination="pZG-ZY-ksW" kind="show" identifier="resetPasswordToHome" id="u7w-yi-evN"/>
                     </connections>
                 </viewController>
@@ -4667,7 +4667,7 @@
         <!--Reset Code-->
         <scene sceneID="xcU-wE-yqc">
             <objects>
-                <viewController id="hap-VT-6ww" customClass="CheckCodeViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VerifyCodeViewController" id="hap-VT-6ww" customClass="VerifyCodeViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="amu-fq-DTd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4750,11 +4750,11 @@
                                                                                     <constraint firstAttribute="height" constant="40" id="CTS-ay-ga0"/>
                                                                                 </constraints>
                                                                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="16"/>
-                                                                                <state key="normal" title="Check Code">
+                                                                                <state key="normal" title="Verify Code">
                                                                                     <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="checkPressed:" destination="hap-VT-6ww" eventType="touchUpInside" id="X8C-ve-oCq"/>
+                                                                                    <action selector="verifyCodeButtonPressed:" destination="hap-VT-6ww" eventType="touchUpInside" id="cFL-dh-b6z"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -4799,8 +4799,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Reset Code" id="Bha-dC-cmy"/>
                     <connections>
-                        <outlet property="codeField" destination="7fz-pr-gvn" id="Jd8-FZ-tOf"/>
-                        <segue destination="VjR-j8-LNH" kind="show" identifier="codeToResetPassword" id="JG1-Tw-vyx"/>
+                        <outlet property="codeField" destination="7fz-pr-gvn" id="Rzg-Ue-npF"/>
+                        <segue destination="VjR-j8-LNH" kind="show" identifier="NewPassword" id="zT1-fj-Yok"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GBP-94-fxN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -4808,6 +4808,14 @@
             <point key="canvasLocation" x="61" y="-1337"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="XU3-Nd-wUM">
+            <size key="intrinsicContentSize" width="255" height="35"/>
+        </designable>
+        <designable name="tFG-eX-umO">
+            <size key="intrinsicContentSize" width="209.849609375" height="26"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="LCl-dZ-pvm"/>
     </inferredMetricsTieBreakers>

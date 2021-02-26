@@ -14,28 +14,59 @@ import UIKit
 
 protocol SendEmailBusinessLogic
 {
-  func doSomething(request: SendEmail.Something.Request)
+    func sendEmail(request: SendEmail.SendEmail.Request)
+    func getEmail(request: SendEmail.GetEmail.Request)
 }
 
 protocol SendEmailDataStore
 {
-  //var name: String { get set }
+    var email: String? { get set }
 }
 
 class SendEmailInteractor: SendEmailBusinessLogic, SendEmailDataStore
 {
-  var presenter: SendEmailPresentationLogic?
-  var worker: SendEmailWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: SendEmail.Something.Request)
-  {
-    worker = SendEmailWorker()
-    worker?.doSomeWork()
+    var presenter: SendEmailPresentationLogic?
+    var resetWorker: ResetPasswordWorker = ResetPasswordWorker(passwordReset: ResetPasswordAPI())
     
-    let response = SendEmail.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var validationWorker: UserValidationWorker = UserValidationWorker()
+    var email: String?
+    
+    func sendEmail(request: SendEmail.SendEmail.Request)
+    {
+        let email = request.email
+        
+        let error = validateForm(email: email)
+        
+        if error == nil {
+            self.email = email
+            resetWorker.sendEmail(email: email) { (error: String?) in
+                let response = SendEmail.SendEmail.Response(error: error)
+                self.presenter?.presentEmailSent(response: response)
+            }
+        }
+
+    }
+    
+    func getEmail(request: SendEmail.GetEmail.Request){
+        if let email = email {
+            let response = SendEmail.GetEmail.Response(email: email)
+            presenter?.presentEmail(response: response)
+        }
+    }
+    
+    func validateForm(email: String) -> String? {
+        let formFields: [UserFormField] = [
+            UserFormField(name: "Email", value: email, type: .email)
+        ]
+        
+        let error = validationWorker.validateFields(formFields)
+
+        if let error = error {
+            let response = SendEmail.SendEmail.Response(error: error)
+            presenter?.presentEmailSent(response: response)
+            return error
+        }
+        
+        return nil
+    }
 }

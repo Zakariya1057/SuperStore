@@ -16,16 +16,20 @@ enum NewPassword
 {
   // MARK: Use cases
   
-  enum Something
+  enum NewPassword
   {
     struct Request
     {
+        var password: String
+        var passwordConfirm: String
     }
     struct Response
     {
+        var error: String?
     }
     struct ViewModel
     {
+        var error: String?
     }
   }
 }

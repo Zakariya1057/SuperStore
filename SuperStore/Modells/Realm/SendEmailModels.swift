@@ -14,18 +14,35 @@ import UIKit
 
 enum SendEmail
 {
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
+    // MARK: Use cases
+    
+    enum GetEmail
     {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var email: String
+        }
+        struct ViewModel
+        {
+            var email: String
+        }
     }
-    struct Response
+    enum SendEmail
     {
+        struct Request
+        {
+            var email: String
+        }
+        struct Response
+        {
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var error: String?
+        }
     }
-    struct ViewModel
-    {
-    }
-  }
 }

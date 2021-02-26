@@ -14,7 +14,7 @@ import UIKit
 
 protocol NewPasswordPresentationLogic
 {
-  func presentSomething(response: NewPassword.Something.Response)
+  func presentNewPassword(response: NewPassword.NewPassword.Response)
 }
 
 class NewPasswordPresenter: NewPasswordPresentationLogic
@@ -23,9 +23,9 @@ class NewPasswordPresenter: NewPasswordPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: NewPassword.Something.Response)
+  func presentNewPassword(response: NewPassword.NewPassword.Response)
   {
-    let viewModel = NewPassword.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    let viewModel = NewPassword.NewPassword.ViewModel(error: response.error)
+    viewController?.displayNewPassword(viewModel: viewModel)
   }
 }

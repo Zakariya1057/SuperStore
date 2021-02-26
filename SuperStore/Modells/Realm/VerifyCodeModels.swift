@@ -16,16 +16,19 @@ enum VerifyCode
 {
   // MARK: Use cases
   
-  enum Something
+  enum VerifyCode
   {
     struct Request
     {
+        var code: String
     }
     struct Response
     {
+        var error: String?
     }
     struct ViewModel
     {
+        var error: String?
     }
   }
 }
