@@ -48,13 +48,13 @@ class ResetPasswordAPI: ResetPasswordProtocol {
         }
     }
     
-    func newPassword(email: String, code: String, password: String, passwordConfirmation: String, notificationToken: String?, completionHandler: @escaping (UserLoginModel?, String?) -> Void) {
+    func newPassword(email: String, code: String, password: String, passwordConfirmation: String, notificationToken: String, completionHandler: @escaping (UserLoginModel?, String?) -> Void) {
         
         let verifyData: Parameters = [
             "email": email,
             "code": code,
             "password": password,
-            "password_confirm": passwordConfirmation,
+            "password_confirmation": passwordConfirmation,
             "notification_token": notificationToken
         ]
         

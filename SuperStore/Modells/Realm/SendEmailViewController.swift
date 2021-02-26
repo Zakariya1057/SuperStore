@@ -105,14 +105,6 @@ class SendEmailViewController: UIViewController, SendEmailDisplayLogic
         }
     }
     
-    private func dismissKeyboard(){
-        view.endEditing(true)
-    }
-    
-    func displayEmail(viewModel: SendEmail.GetEmail.ViewModel) {
-        emailField.text = viewModel.email
-    }
-    
     //MARK: - Actions
     
     @IBAction func sendResetEmailButtonPressed(_ sender: Any) {
@@ -120,6 +112,16 @@ class SendEmailViewController: UIViewController, SendEmailDisplayLogic
         dismissKeyboard()
         submitForm()
     }
+    
+    //MARK: - Extra
+    private func dismissKeyboard(){
+        view.endEditing(true)
+    }
+    
+    func displayEmail(viewModel: SendEmail.GetEmail.ViewModel) {
+        emailField.text = viewModel.email
+    }
+
 }
 
 extension SendEmailViewController {

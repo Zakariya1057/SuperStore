@@ -46,7 +46,7 @@ protocol ResetPasswordProtocol {
     
     func newPassword(
         email: String, code: String, password: String,
-        passwordConfirmation: String,notificationToken: String?,
+        passwordConfirmation: String,notificationToken: String,
         completionHandler: @escaping ( UserLoginModel?, String?) -> Void
     )
 }
