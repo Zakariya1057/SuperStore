@@ -23,7 +23,7 @@ class SettingsChangeViewController: UIViewController, UserDelegate {
     
     var userHandler = UserHandler()
     
-    var userDetails: UserHistory? {
+    var userDetails: User? {
         return userSession.getUserDetails()
     }
     

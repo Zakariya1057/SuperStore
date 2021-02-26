@@ -15,7 +15,7 @@ import AuthenticationServices
 
 protocol LoginDisplayLogic: class
 {
-    func displayError(viewModel: Login.Login.ViewModel)
+    func displayLoggedInUser(viewModel: Login.Login.ViewModel)
 }
 
 class LoginViewController: UIViewController, LoginDisplayLogic
@@ -24,7 +24,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     var router: (NSObjectProtocol & LoginRoutingLogic & LoginDataPassing)?
     
     let spinner: SpinnerViewController = SpinnerViewController()
-
+    
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -84,7 +84,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     
     //MARK: - Display
     
-    func displayError(viewModel: Login.Login.ViewModel)
+    func displayLoggedInUser(viewModel: Login.Login.ViewModel)
     {
         stopLoading()
         
@@ -94,6 +94,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
             let error = viewModel.error!
             showError(title: "Login Failed", error: error)
         }
+        
     }
     
     //MARK: - Actions
@@ -121,13 +122,15 @@ extension LoginViewController {
 
 extension LoginViewController {
     func startLoading() {
+        print("Start Loading")
         addChild(spinner)
         spinner.view.frame = view.frame
         view.addSubview(spinner.view)
         spinner.didMove(toParent: self)
     }
-
+    
     func stopLoading(){
+        print("Stop Loading")
         spinner.willMove(toParent: nil)
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
@@ -135,15 +138,15 @@ extension LoginViewController {
 }
 
 extension LoginViewController: ASAuthorizationControllerDelegate {
-
+    
     func setUpSignInAppleButton() {
         let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
         authorizationButton.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)
-
+        
         authorizationButton.cornerRadius = 0
         self.appleSignInStackView.addArrangedSubview(authorizationButton)
     }
-
+    
     @objc func handleAppleIdRequest() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
@@ -152,15 +155,17 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         authorizationController.delegate = self
         authorizationController.performRequests()
     }
-
+    
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
-//            let user = appleSession.login(appleIDCredential: appleIDCredential)
-//            userHandler.requestRegister(name:user.name, email: user.email, password: user.password, passwordConfirmation: user.password, identifier: user.identifier, userToken: user.userToken)
-//            startLoading()
+            let request = Login.AppleLogin.Request(appleIDCredential: appleIDCredential)
+            startLoading()
+            interactor?.appleLogin(request: request)
+        } else {
+            showError(title: "Apple Login Error", error: "Error occured please try again later.")
         }
     }
-
+    
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print(error)
     }

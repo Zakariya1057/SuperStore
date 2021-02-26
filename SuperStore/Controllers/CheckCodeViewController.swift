@@ -33,8 +33,8 @@ class CheckCodeViewController: UIViewController, UserDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "codeToResetPassword" {
             let destinationVC = segue.destination as! ResetPasswordViewController
-            destinationVC.email = email
-            destinationVC.code = codeField.text
+//            destinationVC.email = email
+//            destinationVC.code = codeField.text
         }
     }
     

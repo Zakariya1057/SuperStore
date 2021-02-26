@@ -45,6 +45,7 @@ struct RequestWorker: RequestProtocol {
 
         let headers: HTTPHeaders = setHeaders()
         
+        print("POST REQUEST: \(urlString)")
         AF.request(urlString, method: .post, parameters: ["data": data] ,encoding: JSONEncoding.default, headers: headers,requestModifier: { $0.timeoutInterval = self.requestTimeout })
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
@@ -104,7 +105,7 @@ extension RequestWorker {
     
     private func decodeErrorMessage(data: Data) -> String? {
         let decoder = JSONDecoder()
-        let decodedData = try? decoder.decode(ErrorResponseModel.self, from: data)
+        let decodedData = try? decoder.decode(ErrorResponseData.self, from: data)
         return decodedData?.data.error
     }
 }

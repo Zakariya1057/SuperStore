@@ -43,7 +43,7 @@ struct UserSession {
         try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
     }
     
-    func setLoggedIn(_ userData:UserHistory){
+    func setLoggedIn(_ userData:User){
         saveUserInfo(userData: userData)
         
         let realm = try! Realm()
@@ -58,25 +58,25 @@ struct UserSession {
         return details?.token
     }
     
-    func getUserDetails() -> UserHistory? {
+    func getUserDetails() -> User? {
         let realm = try? Realm()
-        return realm?.objects(UserHistory.self).first
+        return realm?.objects(User.self).first
     }
     
-    private func showUserInfo() -> UserHistory? {
+    private func showUserInfo() -> User? {
         guard let userSettings =  KeychainWrapper.standard.data(forKey: "userSetting") else {
             return nil
         }
         
         // Use PropertyListDecoder to convert Data into Player
-        guard let details = try? PropertyListDecoder().decode(UserHistory.self, from: userSettings) else {
+        guard let details = try? PropertyListDecoder().decode(User.self, from: userSettings) else {
             return nil
         }
         
         return details
     }
     
-    private func saveUserInfo(userData: UserHistory){
+    private func saveUserInfo(userData: User){
         KeychainWrapper.standard.set(try! PropertyListEncoder().encode(userData), forKey: "userSetting")
     }
     

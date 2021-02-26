@@ -54,7 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.reduce("") { $0 + String(format: "%02x", $1) }
         print("Device token: \(token)")
-        UserSession.sharedInstance.notificationToken = token
+//        UserSession.sharedInstance.notificationToken = token
+        UserSessionWorker.notificationToken = token
     }
     
 

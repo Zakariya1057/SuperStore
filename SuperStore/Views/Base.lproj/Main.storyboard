@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="94c-iB-MQr">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -206,7 +206,7 @@
                                                                                     <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <segue destination="uFD-DX-1Oq" kind="show" id="t5a-u7-5wm"/>
+                                                                                    <segue destination="uFD-DX-1Oq" kind="show" id="Ty8-fe-ubB"/>
                                                                                 </connections>
                                                                             </button>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QO3-sT-zQe">
@@ -222,7 +222,7 @@
                                                                                     <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <segue destination="cCO-u5-Mic" kind="show" id="GfM-r6-FWb"/>
+                                                                                    <segue destination="cCO-u5-Mic" kind="show" identifier="Register" id="MdK-gi-yqu"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -443,7 +443,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Password Reset" id="UmL-Fg-T0M"/>
                     <connections>
-                        <outlet property="emailField" destination="ivq-uM-tCO" id="TfV-U5-Hg8"/>
+                        <outlet property="emailField" destination="ivq-uM-tCO" id="WLF-4E-Mfo"/>
                         <segue destination="hap-VT-6ww" kind="show" identifier="emailToCode" id="Vdi-E5-ydV"/>
                     </connections>
                 </viewController>
@@ -4138,7 +4138,7 @@
         <!--Create Account-->
         <scene sceneID="aeL-yS-5C6">
             <objects>
-                <viewController id="cCO-u5-Mic" customClass="RegisterViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterViewController" id="cCO-u5-Mic" customClass="RegisterViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XCG-0D-YpU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4384,6 +4384,7 @@
                                                                                     <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 </state>
                                                                                 <connections>
+                                                                                    <action selector="registerButtonPressed:" destination="cCO-u5-Mic" eventType="touchUpInside" id="xAI-z1-mtu"/>
                                                                                     <action selector="registerPressed:" destination="cCO-u5-Mic" eventType="touchUpInside" id="cQj-ER-KBd"/>
                                                                                 </connections>
                                                                             </button>
@@ -4811,7 +4812,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="YcT-k9-dml"/>
+        <segue reference="LCl-dZ-pvm"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="ATM" width="50" height="50"/>

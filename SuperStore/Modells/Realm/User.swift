@@ -2,14 +2,14 @@
 //  UserHistory.swift
 //  SuperStore
 //
-//  Created by Zakariya Mohummed on 13/10/2020.
-//  Copyright © 2020 Zakariya Mohummed. All rights reserved.
+//  Created by Zakariya Mohummed on 26/02/2021.
+//  Copyright © 2021 Zakariya Mohummed. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-class UserHistory: Object, Codable {
+class User: Object, Codable {
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
     @objc dynamic var token: String = ""
@@ -17,9 +17,5 @@ class UserHistory: Object, Codable {
     @objc dynamic var identifier: String = ""
     @objc dynamic var userToken: String = ""
     @objc dynamic var password: String = ""
-    @objc dynamic var send_notifications: Bool = true
-    
-    func getUserModel() -> UserModel {
-        return UserModel(id: self.id, name: self.name, token: self.token, email: self.email)
-    }
+    @objc dynamic var sendNotifications: Bool = true
 }

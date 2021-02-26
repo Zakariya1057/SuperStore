@@ -16,7 +16,43 @@ struct UserAuthAPI: UserAuthProtocol {
     let requestWorker: RequestProtocol = RequestWorker()
 
     func login(email: String, password: String, notificationToken: String?, completionHandler: @escaping (UserLoginModel?, String?) -> Void) {
-        requestWorker.post(url:"http://192.168.1.187/api/user/login", data: ["email": email, "password": password, "notification_token": notificationToken]) { (response: () throws -> Data) in
+        
+        let registerData: Parameters = [
+            "email": email,
+            "password": password,
+            "notification_token": notificationToken ?? ""
+        ]
+        
+        requestWorker.post(url:"http://192.168.1.187/api/user/login", data: registerData) { (response: () throws -> Data) in
+            do {
+                let data = try response()
+                
+                let userResponseData =  try? jsonDecoder.decode(UserDataResponse.self, from: data)
+                let user = createUserLogin(userResponseData: userResponseData)
+                
+                completionHandler(user, nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(nil, errorMessage)
+            } catch {
+                completionHandler(nil, "Login Failed. Please try again later.")
+            }
+        }
+    }
+    
+    func register(name: String, email: String, password: String, passwordConfirmation: String, notificationToken: String? = "",  identifier: String? = nil, userToken: String? = nil, completionHandler: @escaping (UserLoginModel?, String?) -> Void) {
+        
+        let registerData: Parameters = [
+            "name": name,
+            "email": email,
+            "password": password,
+            "password_confirmation": passwordConfirmation,
+            "notification_token": notificationToken ?? "",
+            "identifier": identifier ?? "",
+            "user_token": userToken ?? ""
+        ]
+        
+        requestWorker.post(url:"http://192.168.1.187/api/user/register", data: registerData) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 

@@ -27,6 +27,6 @@ class LoginPresenter: LoginPresentationLogic
     func presentLogin(response: Login.Login.Response)
     {
         let viewModel = Login.Login.ViewModel(error: response.error)
-        viewController?.displayError(viewModel: viewModel)
+        viewController?.displayLoggedInUser(viewModel: viewModel)
     }
 }

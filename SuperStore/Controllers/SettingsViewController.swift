@@ -27,7 +27,7 @@ class SettingsViewController: UIViewController, UserDelegate  {
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
-    var userDetails: UserHistory? {
+    var userDetails: User? {
         return userSession.getUserDetails()
     }
     
@@ -50,7 +50,7 @@ class SettingsViewController: UIViewController, UserDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let results = realm.objects(UserHistory.self)
+        let results = realm.objects(User.self)
         
         notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
@@ -132,7 +132,7 @@ class SettingsViewController: UIViewController, UserDelegate  {
     func showUserDetails(){
         nameLabel.text = userDetails?.name
         emailLabel.text = userDetails?.email
-        notificationSwitch.isOn = userDetails?.send_notifications ?? true
+        notificationSwitch.isOn = userDetails?.sendNotifications ?? true
     }
     
     func stopLoading(){
@@ -204,7 +204,7 @@ class SettingsViewController: UIViewController, UserDelegate  {
         let notificationsEnabled = sender.isOn
         
         try? self.realm.write({
-            self.userDetails!.send_notifications = notificationsEnabled
+            self.userDetails!.sendNotifications = notificationsEnabled
         })
         
         self.userHandler.requestUpdate(userData: [
