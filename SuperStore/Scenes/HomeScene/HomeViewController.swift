@@ -25,8 +25,6 @@ class HomeViewController: UIViewController, HomeDisplayLogic, UITableViewDataSou
     
     // MARK: Object lifecycle
     
-    @IBOutlet var tableView: UITableView!
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -84,11 +82,15 @@ class HomeViewController: UIViewController, HomeDisplayLogic, UITableViewDataSou
         tableView.delegate = self
     }
     
-    // MARK: Do something
+    //MARK: - IB Outlets
     
-    //@IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet var tableView: UITableView!
+    
+    var scrollPositions: [String: CGFloat] = [:]
+    var homeCells: [CustomElementModel] = []
     
     var homeModel: HomeModel?
+    var loading: Bool = false
     
     func getHome()
     {
@@ -96,12 +98,17 @@ class HomeViewController: UIViewController, HomeDisplayLogic, UITableViewDataSou
         interactor?.getHome(request: request)
     }
     
+    //MARK: - Display
+    
     func displayHome(viewModel: Home.GetHome.ViewModel)
     {
         homeModel = viewModel.home
         populateCells()
     }
     
+}
+
+extension HomeViewController {
     private func populateCells(){
         if let homeModel = homeModel {
             
@@ -146,52 +153,10 @@ class HomeViewController: UIViewController, HomeDisplayLogic, UITableViewDataSou
             
         }
     }
-    
-    var homeCells: [CustomElementModel] = []
-    
-    private func setupHomeCell(){
-        homeCells = [
-            ListsProgressElement(title: "List Progress", listPressedCallBack: listPressed, lists: []),
-            StoresMapElement(title: "Stores", storePressed: storePressed, stores: []),
-            GroceryProductElement(title: "Grocery Items", productPressedCallBack: productPressed, scrollCallBack: cellScroll, products: []),
-            MonitoringProductElement(title: "Monitoring", productPressedCallBack: productPressed, scrollCallBack: cellScroll, products: []),
-            OffersElement(title: "Offers", offerPressedCallBack: promotionPressed, promotions: []),
-            FeaturedProductElement(title: "Featured", productPressedCallBack: productPressed, scrollCallBack: {_,_ in }, products: [])
-        ]
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return homeCells.count
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let title = homeCells[section].title
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier:  K.Sections.HomeHeader.SectionIdentifier) as! HomeSectionHeader
-        header.headingLabel.text = title
-        return header
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    var loading: Bool = false
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellModel = homeCells[indexPath.section]
-        let cellIdentifier = cellModel.type.rawValue
-        let customCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CustomElementCell
-        
-        cellModel.loading = self.loading
-        customCell.configure(withModel: cellModel)
-        
-        let cell = customCell as! UITableViewCell
-        
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
-        
-        return cell
-    }
-    
+
+}
+
+extension HomeViewController {
     private func registerTableViewCells(){
         let productsCellNib = UINib(nibName: "ProductsCell", bundle: nil)
         tableView.register(productsCellNib, forCellReuseIdentifier: "ProductsCell")
@@ -209,6 +174,50 @@ class HomeViewController: UIViewController, HomeDisplayLogic, UITableViewDataSou
         tableView.register(listsProgressCell, forCellReuseIdentifier: "ListsProgressCell")
     }
     
+    private func setupHomeCell(){
+        homeCells = [
+            ListsProgressElement(title: "List Progress", listPressedCallBack: listPressed, lists: []),
+            StoresMapElement(title: "Stores", storePressed: storePressed, stores: []),
+            GroceryProductElement(title: "Grocery Items", productPressedCallBack: productPressed, scrollCallBack: cellScroll, products: []),
+            MonitoringProductElement(title: "Monitoring", productPressedCallBack: productPressed, scrollCallBack: cellScroll, products: []),
+            OffersElement(title: "Offers", offerPressedCallBack: promotionPressed, promotions: []),
+            FeaturedProductElement(title: "Featured", productPressedCallBack: productPressed, scrollCallBack: {_,_ in }, products: [])
+        ]
+    }
+}
+
+extension HomeViewController {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return homeCells.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let title = homeCells[section].title
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier:  K.Sections.HomeHeader.SectionIdentifier) as! HomeSectionHeader
+        header.headingLabel.text = title
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellModel = homeCells[indexPath.section]
+        let cellIdentifier = cellModel.type.rawValue
+        let customCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CustomElementCell
+        
+        cellModel.position = scrollPositions[ cellModel.title ]
+        cellModel.loading = self.loading
+        customCell.configure(withModel: cellModel)
+        
+        let cell = customCell as! UITableViewCell
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        
+        return cell
+    }
 }
 
 extension HomeViewController {
@@ -228,8 +237,8 @@ extension HomeViewController {
         print("Product Pressed")
     }
     
-    private func cellScroll(to: CGFloat, title: String){
-        print("Cell Scroll")
+    private func cellScroll(position: CGFloat, title: String){
+        scrollPositions[title] = position
     }
 }
 
