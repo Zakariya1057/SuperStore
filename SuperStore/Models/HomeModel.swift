@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct HomeModel {
-    var lists: [ListModel]
-    var stores: [StoreModel]
-    var featured: [ProductModel]
-    var groceries: [ProductModel]
-    var monitoring: [ProductModel]
-    var promotions: [PromotionModel]
-    var categories: [String: [ProductModel]]
-}
+//struct HomeModel {
+//    var lists: [ListModel]
+//    var stores: [StoreModel]
+//    var featured: [ProductModel]
+//    var groceries: [ProductModel]
+//    var monitoring: [ProductModel]
+//    var promotions: [PromotionModel]
+//    var categories: [String: [ProductModel]]
+//}

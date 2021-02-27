@@ -80,53 +80,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     
                     type = type.lowercased()
                         
-                        if type == "promotion" {
-                            let promotionID: Int = notificationData["id"]! as! Int
-                            
-                            if delete {
-                                realm.delete( realm.objects(PromotionHistory.self).filter("id = \(promotionID)") )
-                            } else {
-
-                                let promotionName: String = notificationData["name"]! as! String
-                                let promotionPrice: Double = notificationData["price"]! as! Double
-                                let promotionForQuantity: Int = notificationData["for_quantity"]! as! Int
-                                let promotionQuantity: Int = notificationData["quantity"]! as! Int
-                                
-                                let promotionHistory = realm.objects(PromotionHistory.self).filter("id = %@", promotionID).first
-                                
-                                if promotionHistory == nil {
-                                    let newPromotionHistory = PromotionHistory()
-                                    newPromotionHistory.id = promotionID
-                                    newPromotionHistory.name = promotionName
-                                    newPromotionHistory.price = promotionPrice
-                                    newPromotionHistory.forQuantity = promotionForQuantity
-                                    newPromotionHistory.quantity = promotionQuantity
-                                    // Set all fields: expires
-                                    
-                                    // Insert into history
-                                     realm.add(newPromotionHistory)
-                                }
-                                
-                            }
-
-                        } else if type == "product" {
-                            let productID: Int = notificationData["id"]! as! Int
-                            
-                            if delete {
-                                realm.delete(realm.objects(ProductHistory.self).filter("id = \(productID)"))
-                            } else {
-                                let productPrice: Double = notificationData["price"]! as! Double
-                                
-                                let productHistory = realm.objects(ProductHistory.self).filter("id = \(productID)").first
-                                let listHistory = realm.objects(ListItemHistory.self).filter("productID = \(productID)").first
-                                
-                                productHistory?.price = productPrice
-                                listHistory?.price = productPrice
-                            }
-
-                        } else {
-                            print("Notification Error: Unknown Type: \(type)")
-                        }
+//                        if type == "promotion" {
+//                            let promotionID: Int = notificationData["id"]! as! Int
+//                            
+//                            if delete {
+//                                realm.delete( realm.objects(PromotionHistory.self).filter("id = \(promotionID)") )
+//                            } else {
+//
+//                                let promotionName: String = notificationData["name"]! as! String
+//                                let promotionPrice: Double = notificationData["price"]! as! Double
+//                                let promotionForQuantity: Int = notificationData["for_quantity"]! as! Int
+//                                let promotionQuantity: Int = notificationData["quantity"]! as! Int
+//                                
+//                                let promotionHistory = realm.objects(PromotionHistory.self).filter("id = %@", promotionID).first
+//                                
+//                                if promotionHistory == nil {
+//                                    let newPromotionHistory = PromotionHistory()
+//                                    newPromotionHistory.id = promotionID
+//                                    newPromotionHistory.name = promotionName
+//                                    newPromotionHistory.price = promotionPrice
+//                                    newPromotionHistory.forQuantity = promotionForQuantity
+//                                    newPromotionHistory.quantity = promotionQuantity
+//                                    // Set all fields: expires
+//                                    
+//                                    // Insert into history
+//                                     realm.add(newPromotionHistory)
+//                                }
+//                                
+//                            }
+//
+//                        } else if type == "product" {
+//                            let productID: Int = notificationData["id"]! as! Int
+//                            
+//                            if delete {
+//                                realm.delete(realm.objects(ProductHistory.self).filter("id = \(productID)"))
+//                            } else {
+//                                let productPrice: Double = notificationData["price"]! as! Double
+//                                
+//                                let productHistory = realm.objects(ProductHistory.self).filter("id = \(productID)").first
+//                                let listHistory = realm.objects(ListItemHistory.self).filter("productID = \(productID)").first
+//                                
+//                                productHistory?.price = productPrice
+//                                listHistory?.price = productPrice
+//                            }
+//
+//                        } else {
+//                            print("Notification Error: Unknown Type: \(type)")
+//                        }
 
                     }
                     
@@ -162,21 +162,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-                if type == "product" {
-                    if let conversationVC = storyboard.instantiateViewController(withIdentifier: "productViewController") as? ProductViewController,
-                        let tabBarController = rootViewController as? UITabBarController,
-                        let navController = tabBarController.selectedViewController as? UINavigationController {
-                        conversationVC.productID = ID
-                        navController.pushViewController(conversationVC, animated: true)
-                    }
-                } else {
-                    if let conversationVC = storyboard.instantiateViewController(withIdentifier: "promotionViewController") as? PromotionViewController,
-                        let tabBarController = rootViewController as? UITabBarController,
-                        let navController = tabBarController.selectedViewController as? UINavigationController {
-                        conversationVC.promotionID = ID
-                        navController.pushViewController(conversationVC, animated: true)
-                    }
-                }
+//                if type == "product" {
+//                    if let conversationVC = storyboard.instantiateViewController(withIdentifier: "productViewController") as? ProductViewController,
+//                        let tabBarController = rootViewController as? UITabBarController,
+//                        let navController = tabBarController.selectedViewController as? UINavigationController {
+//                        conversationVC.productID = ID
+//                        navController.pushViewController(conversationVC, animated: true)
+//                    }
+//                } else {
+//                    if let conversationVC = storyboard.instantiateViewController(withIdentifier: "promotionViewController") as? PromotionViewController,
+//                        let tabBarController = rootViewController as? UITabBarController,
+//                        let navController = tabBarController.selectedViewController as? UINavigationController {
+//                        conversationVC.promotionID = ID
+//                        navController.pushViewController(conversationVC, animated: true)
+//                    }
+//                }
 
                 
             }

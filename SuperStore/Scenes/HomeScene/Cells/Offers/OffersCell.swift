@@ -11,27 +11,23 @@ import UIKit
 class OffersElement: CustomElementModel {
     var title: String
     var type: CustomElementType { return .offers }
-    var delegate: OfferSelectedDelegate
+    var offerPressedCallBack: (Int) -> Void
     var position: CGFloat?
     var promotions: [PromotionModel]?
     var loading: Bool = false
     
-    init(title: String,delegate: OfferSelectedDelegate, promotions: [PromotionModel]) {
+    init(title: String, offerPressedCallBack: @escaping (Int) -> Void, promotions: [PromotionModel]) {
         self.title = title
-        self.delegate = delegate
+        self.offerPressedCallBack = offerPressedCallBack
         self.promotions = promotions
     }
-}
-
-protocol OfferSelectedDelegate {
-    func showPromotion(promotionID: Int)
 }
 
 class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDelegate, UICollectionViewDataSource {
 
     var model: OffersElement!
     
-    var delegate: OfferSelectedDelegate?
+    var offerPressedCallBack: ((Int) -> Void)? = nil
     
     @IBOutlet var offersCollectionView: UICollectionView!
     
@@ -46,7 +42,7 @@ class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDe
         }
         
         self.model = model
-        self.delegate = model.delegate
+        self.offerPressedCallBack = model.offerPressedCallBack
         self.promotions = model.promotions ?? []
         self.loading = model.loading
         
@@ -95,7 +91,7 @@ extension OffersTableViewCell {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !loading {
             // Offer Selected, Navigate
-            self.delegate?.showPromotion(promotionID: promotions[indexPath.row].id)
+//            self.delegate?.showPromotion(promotionID: promotions[indexPath.row].id)
         }
     }
 }

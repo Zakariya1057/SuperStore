@@ -8,22 +8,9 @@
 
 import UIKit
 
-class FeaturedProductElement: CustomElementModel {
-    var title: String
-    var type: CustomElementType { return .featuredProducts }
-    var delegate: ProductDelegate
-    var products: [ProductModel]
-    var position: CGFloat?
-    var loading: Bool = false
-    
-    init(title: String,delegate: ProductDelegate,products: [ProductModel]) {
-        self.title = title
-        self.delegate = delegate
-        self.products = products
-    }
-}
+class FeaturedProductElement: ProductElement { }
 
-class FeaturedProductTableViewCell: UITableViewCell,CustomElementCell {
+class FeaturedProductCell: UITableViewCell,CustomElementCell {
     
     @IBOutlet weak var productCollection: UICollectionView!
     
@@ -43,7 +30,7 @@ class FeaturedProductTableViewCell: UITableViewCell,CustomElementCell {
         }
         
         self.model = model
-        self.delegate = model.delegate
+//        self.delegate = model.delegate
         self.loading = model.loading
         
         self.products = model.products
@@ -78,7 +65,7 @@ class FeaturedProductTableViewCell: UITableViewCell,CustomElementCell {
     
 }
 
-extension FeaturedProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension FeaturedProductCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return loading ? 5 : products.count

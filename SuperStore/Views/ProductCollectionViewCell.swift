@@ -43,7 +43,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
         if product != nil {
             foodImage.downloaded(from: product!.smallImage)
             productLabel.text = product!.name
-            
+
             let price = String(format: "%.2f",product!.price )
             foodPriceLabel.text = "£\(price)"
         }

@@ -11,14 +11,14 @@ import UIKit
 class ListsProgressElement: CustomElementModel {
     var title: String
     var type: CustomElementType { return .listsProgress }
-    var delegate: ListProgressDelegate
+    var listPressedCallBack: (Int) -> Void
     var position: CGFloat?
     var lists:[ListModel]?
     var loading: Bool = false
     
-    init(title: String,delegate: ListProgressDelegate, lists:[ListModel]) {
+    init(title: String, listPressedCallBack: @escaping (Int) -> Void, lists:[ListModel]) {
         self.title = title
-        self.delegate = delegate
+        self.listPressedCallBack = listPressedCallBack
         self.lists = lists
     }
 }
@@ -27,7 +27,7 @@ protocol ListProgressDelegate {
     func listSelected(identifier: String, listID: Int)
 }
 
-class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
+class ListsProgressCell: UITableViewCell,CustomElementCell {
 
     var loading: Bool = true
     
@@ -136,7 +136,7 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
         ]
     }
     
-    var delegate: ListProgressDelegate?
+    var listPressedCallBack: ((Int) -> Void)? = nil
     
     func configure(withModel elementModel: CustomElementModel) {
         guard let model = elementModel as? ListsProgressElement else {
@@ -145,7 +145,7 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
         }
         
         self.model = model
-        self.delegate = model.delegate
+        self.listPressedCallBack = model.listPressedCallBack
         self.lists = model.lists ?? []
         self.loading = model.loading
         
@@ -228,7 +228,7 @@ class ListsProgressTableViewCell: UITableViewCell,CustomElementCell {
             let details = sender.name!.split(separator: "|")
             let identifier: String = String(details[1])
             let listID: Int = Int(details[0])!
-            self.delegate?.listSelected(identifier: identifier, listID: listID)
+//            self.delegate?.listSelected(identifier: identifier, listID: listID)
         }
     }
     

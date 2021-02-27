@@ -46,6 +46,7 @@ struct RequestWorker: RequestProtocol {
         let headers: HTTPHeaders = setHeaders()
         
         print("POST REQUEST: \(urlString)")
+        
         AF.request(urlString, method: .post, parameters: ["data": data] ,encoding: JSONEncoding.default, headers: headers,requestModifier: { $0.timeoutInterval = self.requestTimeout })
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])

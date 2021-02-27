@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct UserModel: Codable {
-    var id: Int
-    var name: String
-    var token: String
-    var email: String
-}
+//struct UserModel: Codable {
+//    var id: Int
+//    var name: String
+//    var token: String
+//    var email: String
+//}

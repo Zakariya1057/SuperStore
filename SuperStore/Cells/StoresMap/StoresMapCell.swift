@@ -14,15 +14,13 @@ class StoresMapElement: CustomElementModel {
     var type: CustomElementType { return .storesMap }
     var position: CGFloat?
     var stores: [StoreModel]?
-    var errorDelegate: UserLocationDeniedDelegate?
     var loading: Bool = false
-    var delegate: StoreSelectedDelegate?
+    var storePressed: (Int) -> Void
     
-    init(title: String, stores:[StoreModel], delegate: StoreSelectedDelegate, errorDelegate: UserLocationDeniedDelegate) {
+    init(title: String, storePressed: @escaping (Int) -> Void, stores:[StoreModel]) {
         self.title = title
         self.stores = stores
-        self.delegate = delegate
-        self.errorDelegate = errorDelegate
+        self.storePressed = storePressed
     }
 }
 
@@ -35,14 +33,12 @@ protocol StoreSelectedDelegate {
     func storeSelected(storeID: Int)
 }
 
-class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegate, MKMapViewDelegate {
+class StoresMapCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegate, MKMapViewDelegate {
     
     var model: StoresMapElement!
     var stores: [StoreModel] = []
     
-    var delegate: StoreSelectedDelegate?
-    
-    var errorDelegate: UserLocationDeniedDelegate?
+    var storePressed: ((Int) -> Void)? = nil
     
     var selected_store_id: Int?
     
@@ -63,8 +59,7 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
         
         self.model = model
         self.stores = model.stores ?? []
-        self.delegate = model.delegate
-        self.errorDelegate = model.errorDelegate
+        self.storePressed = model.storePressed
         
         configureUI()
     }
@@ -159,13 +154,13 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
         selected_store_id = store_details[title!]
         
         if selected_store_id != nil {
-            delegate?.storePressed(storeID: selected_store_id!)
+//            delegate?.storePressed(storeID: selected_store_id!)
         }
         
     }
     
     @objc func showStore(){
-        self.delegate?.storeSelected(storeID: selected_store_id!)
+//        self.delegate?.storeSelected(storeID: selected_store_id!)
     }
     
     override func awakeFromNib() {
@@ -206,7 +201,7 @@ class StoresMapTableViewCell: UITableViewCell,CustomElementCell, CLLocationManag
                 mapView!.showsUserLocation = true
                 zoomUserLocation()
             case .restricted:
-                errorDelegate?.showError("User location permission denied.\nPlease change from Apple settings.")
+//                errorDelegate?.showError("User location permission denied.\nPlease change from Apple settings.")
                 break
             @unknown default:
                 fatalError()

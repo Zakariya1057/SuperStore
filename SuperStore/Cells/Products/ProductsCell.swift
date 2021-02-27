@@ -11,17 +11,21 @@ import UIKit
 class ProductElement: CustomElementModel {
     var title: String
     var type: CustomElementType { return .products }
-    var delegate: ProductDelegate?
-    var scrollDelegate: ScrollCollectionDelegate?
+    
+    var productPressedCallBack: (Int) -> Void
+    var scrollCallBack: (CGFloat, String) -> Void
+    
     var products: [ProductModel]
     var position: CGFloat?
     var loading: Bool = false
     
-    init(title: String,delegate: ProductDelegate, scrollDelegate: ScrollCollectionDelegate?,products: [ProductModel]) {
+    init(title: String, productPressedCallBack: @escaping (Int) -> Void, scrollCallBack: @escaping (CGFloat, String) -> Void ,products: [ProductModel]) {
         self.title = title
-        self.delegate = delegate
+        
+        self.productPressedCallBack = productPressedCallBack
+        self.scrollCallBack = scrollCallBack
+        
         self.products = products
-        self.scrollDelegate = scrollDelegate
     }
 }
 
@@ -36,14 +40,16 @@ protocol ProductDelegate {
     func showProduct(productID:Int)
 }
 
-class ProductTableViewCell: UITableViewCell,CustomElementCell {
+class ProductsCell: UITableViewCell,CustomElementCell {
     
     @IBOutlet weak var productCollection: UICollectionView!
     
     var model: ProductElement!
     var products: [ProductModel] = []
     
-    var delegate:ProductDelegate?
+    var productPressedCallBack: ((Int) -> Void?)? = nil
+    var scrollCallBack: ((CGFloat, String) -> Void)? = nil
+    
     var scrollDelegate: ScrollCollectionDelegate?
     
     var loading: Bool = true
@@ -57,8 +63,8 @@ class ProductTableViewCell: UITableViewCell,CustomElementCell {
         }
         
         self.model = model
-        self.delegate = model.delegate
-        self.scrollDelegate = model.scrollDelegate
+        self.productPressedCallBack = model.productPressedCallBack
+        self.scrollCallBack = model.scrollCallBack
         self.loading = model.loading
         
         self.products = model.products
@@ -97,7 +103,7 @@ class ProductTableViewCell: UITableViewCell,CustomElementCell {
     
 }
 
-extension ProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ProductsCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return loading ? 5 : products.count
@@ -119,13 +125,13 @@ extension ProductTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !loading {
-            self.delegate?.showProduct(productID: products[indexPath.row].id)
+//            self.delegate?.showProduct(productID: products[indexPath.row].id)
         }
     }
 
 }
 
-extension ProductTableViewCell: UIScrollViewDelegate {
+extension ProductsCell: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollDelegate?.didScroll(to: scrollView.contentOffset.x, title: model.title)

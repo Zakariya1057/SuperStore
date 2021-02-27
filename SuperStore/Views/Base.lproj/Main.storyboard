@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="94c-iB-MQr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7l5-1e-azF">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -704,7 +704,7 @@
         <!--Home-->
         <scene sceneID="XQc-FC-O3f">
             <objects>
-                <viewController storyboardIdentifier="homePageViewController" id="prj-rm-qu0" customClass="HomeViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="prj-rm-qu0" customClass="HomeViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hVz-mR-ML1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -725,7 +725,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="gXb-Eq-fSq"/>
                     <connections>
-                        <outlet property="listTableView" destination="Eof-vc-QCj" id="aDV-xV-O6O"/>
+                        <outlet property="tableView" destination="Eof-vc-QCj" id="PFB-7w-4IE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5il-zc-Jag" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
