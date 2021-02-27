@@ -44,6 +44,51 @@ struct Config {
         public static var Home: String {
             return host + "/home"
         }
+        
+        public struct Product {
+            
+            private static var ProductRoute: String {
+                return host + "/product"
+            }
+            
+            
+            public static var Show: String {
+                return ProductRoute + "/"
+            }
+            
+            public static var Favourite: String {
+                return ProductRoute + "/favourite"
+            }
+            
+            public static var Monitor: String {
+                return ProductRoute + "/monitor"
+            }
+            
+            public struct Review {
+                
+                private static var ReviewRoute: String {
+                    return ProductRoute + "/review"
+                }
+                
+                private static var Show: String {
+                    return ReviewRoute + "/"
+                }
+                
+                private static var All: String {
+                    return ReviewRoute + "/"
+                }
+                
+                private static var Create: String {
+                    return ReviewRoute + "/create"
+                }
+                
+                public static var Delete: String {
+                    return ReviewRoute + "/delete"
+                }
+                
+            }
+            
+        }
     }
     
 }

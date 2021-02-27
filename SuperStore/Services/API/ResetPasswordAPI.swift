@@ -12,7 +12,6 @@ import Alamofire
 class ResetPasswordAPI: ResetPasswordProtocol {
     
     let jsonDecoder = JSONDecoder()
-    
     let requestWorker: RequestProtocol = RequestWorker()
     
     func sendEmail(email: String, completionHandler: @escaping (String?) -> Void) {

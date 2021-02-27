@@ -14,17 +14,17 @@ import UIKit
 
 class HomeWorker
 {
-    var homeAPI: HomeProtocol
+    var homeAPI: HomeRequestProtocol
     
-    init(homeAPI: HomeProtocol) {
+    init(homeAPI: HomeRequestProtocol) {
         self.homeAPI = homeAPI
     }
     
-    func getHome(completionHandler: @escaping (_ homeModel: HomeModel?, _ error: String?) -> Void){
+    func getHome(completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void){
         homeAPI.getHome(completionHandler: completionHandler)
     }
 }
 
-protocol HomeProtocol {
-    func getHome(completionHandler: @escaping (_ homeModel: HomeModel?, _ error: String?) -> Void)
+protocol HomeRequestProtocol {
+    func getHome(completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void)
 }

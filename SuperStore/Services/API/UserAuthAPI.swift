@@ -12,7 +12,6 @@ import Alamofire
 struct UserAuthAPI: UserAuthProtocol {
 
     let jsonDecoder = JSONDecoder()
-    
     let requestWorker: RequestProtocol = RequestWorker()
 
     func login(email: String, password: String, notificationToken: String?, completionHandler: @escaping (UserLoginModel?, String?) -> Void) {

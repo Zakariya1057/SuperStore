@@ -10,17 +10,15 @@ import Foundation
 
 class ProductModel {
 
+    var id: Int
     var name: String
-    var quantity: Int = 0
-    var productID: Int
     var price: Double
     var promotion: PromotionModel?
-    var weight: String? = nil
-    var totalPrice: Double = 1
+    
+    
     var smallImage: String
     var largeImage: String
     
-    var id: Int
     var description: String?
 
     var favourite: Bool? = nil
@@ -34,11 +32,11 @@ class ProductModel {
     var childCategoryName: String?
 
     var storage: String?
+    var weight: String? = nil
+    var brand: String?
 
     var dietaryInfo: String?
     var allergenInfo: String?
-
-    var brand: String?
 
     var reviews: [ReviewModel] = []
 
@@ -49,7 +47,6 @@ class ProductModel {
     init(id: Int, name: String, smallImage: String, largeImage: String,description: String?, quantity: Int,price:Double, avgRating: Double?, totalReviewsCount: Int?, promotion: PromotionModel?, storage: String?, weight: String?,parentCategoryId: Int?, parentCategoryName: String?, childCategoryName: String?, dietaryInfo: String?, allergenInfo: String?, brand: String, reviews: [ReviewModel], favourite: Bool?, monitoring: Bool?, ingredients: [String], recommended: [ProductModel]) {
 
         self.id = id
-        self.productID = id
         self.description = description
         self.favourite = favourite ?? false
         self.avgRating = avgRating ?? 0
@@ -74,11 +71,9 @@ class ProductModel {
         self.name = name
         self.smallImage = smallImage
         self.largeImage = largeImage
-        self.quantity = quantity
         self.price = price
         self.weight = weight
         self.promotion = promotion
-        self.totalPrice = 1
     }
 
 }

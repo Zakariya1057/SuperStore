@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pZG-ZY-ksW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="blb-Wd-ZdE">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -2054,10 +2054,10 @@
             </objects>
             <point key="canvasLocation" x="3928.985507246377" y="135.9375"/>
         </scene>
-        <!--Product View Controller-->
+        <!--Show Product View Controller-->
         <scene sceneID="ixV-0Q-BRA">
             <objects>
-                <viewController storyboardIdentifier="productViewController" id="blb-Wd-ZdE" customClass="ProductViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="productViewController" id="blb-Wd-ZdE" customClass="ShowProductViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cB3-qo-NKP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2225,7 +2225,7 @@
                                                                                     <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="monitorPressed:" destination="blb-Wd-ZdE" eventType="touchUpInside" id="KJD-Uj-Vcp"/>
+                                                                                    <action selector="monitorButtonPressed:" destination="blb-Wd-ZdE" eventType="touchUpInside" id="jtP-X6-YzI"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -2251,7 +2251,7 @@
                                                                                     <color key="titleColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="addPressed:" destination="blb-Wd-ZdE" eventType="touchUpInside" id="jKM-vu-0cH"/>
+                                                                                    <action selector="addToListButtonPressed:" destination="blb-Wd-ZdE" eventType="touchUpInside" id="Nic-eI-pu1"/>
                                                                                 </connections>
                                                                             </button>
                                                                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VrZ-vP-b1p">
@@ -2266,7 +2266,7 @@
                                                                                                     <constraint firstAttribute="width" constant="95" id="u9U-kn-3hO"/>
                                                                                                 </constraints>
                                                                                                 <connections>
-                                                                                                    <action selector="stepperPressed:" destination="blb-Wd-ZdE" eventType="valueChanged" id="4Jp-OQ-AEZ"/>
+                                                                                                    <action selector="quantityStepperPressed:" destination="blb-Wd-ZdE" eventType="valueChanged" id="mNi-Rm-Ahd"/>
                                                                                                 </connections>
                                                                                             </stepper>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOo-cE-qNu">
@@ -2355,7 +2355,7 @@
                                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="reviewPressed:" destination="blb-Wd-ZdE" eventType="touchUpInside" id="PM1-lL-nx9"/>
+                                                                                    <segue destination="G9a-TG-ILp" kind="show" id="LCm-Yp-yeS"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -2401,7 +2401,8 @@
                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <segue destination="vzB-w0-Xa0" kind="show" identifier="productToReviews" id="H1i-DM-h5f"/>
+                                                                            <action selector="allReviewButtonPressed:" destination="blb-Wd-ZdE" eventType="touchUpInside" id="p9m-8u-4bx"/>
+                                                                            <segue destination="vzB-w0-Xa0" kind="show" id="dei-s3-jgx"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -2773,7 +2774,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" image="star" catalog="system" id="l96-Ro-t0a">
                             <color key="tintColor" systemColor="systemYellowColor"/>
                             <connections>
-                                <action selector="favouritePressed:" destination="blb-Wd-ZdE" id="qdL-Ky-XRY"/>
+                                <action selector="favouriteButtonPressed:" destination="blb-Wd-ZdE" id="IuP-YJ-i0T"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2787,14 +2788,13 @@
                         <outlet property="descriptionView" destination="rML-Le-dqo" id="Icw-zD-bpm"/>
                         <outlet property="dietaryView" destination="Q4G-kq-2Pm" id="WbW-uf-yBo"/>
                         <outlet property="favouriteBarItem" destination="l96-Ro-t0a" id="N9a-Nd-hlf"/>
+                        <outlet property="imageView" destination="Nrg-n9-WPK" id="Hm0-gi-eDG"/>
                         <outlet property="ingredientsView" destination="orR-Jr-CrQ" id="zeW-Sj-VQP"/>
                         <outlet property="lifeStyleLabel" destination="byc-1t-N15" id="l0C-of-8sO"/>
                         <outlet property="monitorButton" destination="QxR-hS-YCK" id="F8V-m9-3q7"/>
+                        <outlet property="nameLabel" destination="2lE-Qu-POF" id="Z6C-xe-F5i"/>
                         <outlet property="parentRatingView" destination="zk9-e4-itb" id="8GI-CP-YyP"/>
-                        <outlet property="productImageView" destination="Nrg-n9-WPK" id="fVg-Lt-eEl"/>
-                        <outlet property="productNameLabel" destination="2lE-Qu-POF" id="5t8-6V-9eF"/>
-                        <outlet property="productPriceLabel" destination="qrR-D0-Pcl" id="hEV-RZ-HJz"/>
-                        <outlet property="productWeightLabel" destination="EXx-ON-gGI" id="NgJ-oB-ZIe"/>
+                        <outlet property="priceLabel" destination="qrR-D0-Pcl" id="Db1-U0-kNR"/>
                         <outlet property="promotionLabel" destination="Svs-Ab-oYP" id="N8G-VJ-T5k"/>
                         <outlet property="promotionView" destination="gLh-tu-iik" id="dsb-XZ-mmM"/>
                         <outlet property="quantityStepper" destination="yHd-qI-sl4" id="TAI-W2-OeM"/>
@@ -2805,9 +2805,9 @@
                         <outlet property="similarTableView" destination="iWE-UD-bYf" id="Q9b-aa-h4U"/>
                         <outlet property="stepperLabel" destination="gOo-cE-qNu" id="bTY-ux-H76"/>
                         <outlet property="stepperStackView" destination="VrZ-vP-b1p" id="X0L-mO-tOZ"/>
+                        <outlet property="weightLabel" destination="EXx-ON-gGI" id="1IQ-fj-I9c"/>
                         <segue destination="GlI-wz-KoF" kind="show" identifier="showProductDetails" id="k0H-Uq-sqx"/>
                         <segue destination="NiB-m5-sPY" kind="show" identifier="showProductPromotion" id="oKE-l5-P9g"/>
-                        <segue destination="G9a-TG-ILp" kind="show" identifier="productToCreateReview" id="UH1-0s-Hoj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FGT-yZ-4As" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

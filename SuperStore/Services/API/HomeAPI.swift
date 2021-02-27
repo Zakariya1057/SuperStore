@@ -8,13 +8,13 @@
 
 import Foundation
 
-class HomeAPI: HomeProtocol {
+class HomeAPI: HomeRequestProtocol {
 
     let jsonDecoder = JSONDecoder()
     
     let requestWorker: RequestProtocol = RequestWorker()
 
-    func getHome(completionHandler: @escaping (_ homeModel: HomeModel?, _ error: String?) -> Void) {
+    func getHome(completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void) {
         requestWorker.get(url: Config.Route.Home) { (response: () throws -> Data) in
             do {
                 let data = try response()
