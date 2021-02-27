@@ -23,7 +23,7 @@ struct UserAuthAPI: UserAuthProtocol {
             "notification_token": notificationToken ?? ""
         ]
         
-        requestWorker.post(url:"http://192.168.1.187/api/user/login", data: registerData) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Route.User.Login, data: registerData) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 
@@ -52,7 +52,7 @@ struct UserAuthAPI: UserAuthProtocol {
             "user_token": userToken ?? ""
         ]
         
-        requestWorker.post(url:"http://192.168.1.187/api/user/register", data: registerData) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Route.User.Register, data: registerData) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 

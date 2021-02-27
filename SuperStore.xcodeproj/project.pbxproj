@@ -182,6 +182,7 @@
 		2CD5E03325337BE000E4A01B /* ListHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD5E03225337BE000E4A01B /* ListHistory.swift */; };
 		2CDE10ED251D2662001B0479 /* UserHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE10EC251D2662001B0479 /* UserHandler.swift */; };
 		2CDFB60025E972B2002CE30D /* ResetPasswordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFB5FF25E972B2002CE30D /* ResetPasswordAPI.swift */; };
+		2CDFB60925EA5EDA002CE30D /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFB60825EA5EDA002CE30D /* Config.swift */; };
 		2CE7AB0224D077C700A31782 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7AB0124D077C700A31782 /* SettingsViewController.swift */; };
 		2CF239B525094A7F00D4CE91 /* ListsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B425094A7F00D4CE91 /* ListsHandler.swift */; };
 		2CF239B725094A9000D4CE91 /* ListItemsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */; };
@@ -402,6 +403,7 @@
 		2CD5E03225337BE000E4A01B /* ListHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHistory.swift; sourceTree = "<group>"; };
 		2CDE10EC251D2662001B0479 /* UserHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHandler.swift; sourceTree = "<group>"; };
 		2CDFB5FF25E972B2002CE30D /* ResetPasswordAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordAPI.swift; sourceTree = "<group>"; };
+		2CDFB60825EA5EDA002CE30D /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		2CE7AB0124D077C700A31782 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2CF239B425094A7F00D4CE91 /* ListsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsHandler.swift; sourceTree = "<group>"; };
 		2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemsHandler.swift; sourceTree = "<group>"; };
@@ -561,6 +563,7 @@
 				2C910B2425E7AA4F00BCEACC /* Services */,
 				2C910B2325E7AA2C00BCEACC /* Modells */,
 				2C910B2125E7AA0300BCEACC /* Scenes */,
+				2CDFB60725EA5ECA002CE30D /* Config */,
 				2C910B2225E7AA0900BCEACC /* Workers */,
 				2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */,
 				2C1567CF24C8B2D500B8DCB5 /* Models */,
@@ -799,6 +802,14 @@
 			path = PayloadModification;
 			sourceTree = "<group>";
 		};
+		2CDFB60725EA5ECA002CE30D /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				2CDFB60825EA5EDA002CE30D /* Config.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		429EF559B847C30D5A28936C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1022,6 +1033,7 @@
 				2C0D44842535B33A0046E2B0 /* ReviewHistory.swift in Sources */,
 				2C910B4525E7AABF00BCEACC /* LoginInteractor.swift in Sources */,
 				2C9C1B8124CDD794001ACA35 /* ProductTableViewCell.swift in Sources */,
+				2CDFB60925EA5EDA002CE30D /* Config.swift in Sources */,
 				2C910B4425E7AABF00BCEACC /* LoginViewController.swift in Sources */,
 				2C1567D724C8B36200B8DCB5 /* ListsViewController.swift in Sources */,
 				2CAC06132530E41700561509 /* HomeModel.swift in Sources */,
