@@ -71,15 +71,9 @@ class HomeViewController: UIViewController, HomeDisplayLogic, UITableViewDataSou
     {
         super.viewDidLoad()
         
-        setupHomeCell()
+        setupHomeCells()
         registerTableViewCells()
         getHome()
-        
-        let nib = UINib(nibName: K.Sections.HomeHeader.SectionNibName, bundle: nil)
-        tableView.register(nib, forHeaderFooterViewReuseIdentifier: K.Sections.HomeHeader.SectionIdentifier)
-        
-        tableView.dataSource = self
-        tableView.delegate = self
     }
     
     //MARK: - IB Outlets
@@ -112,7 +106,7 @@ extension HomeViewController {
     private func populateCells(){
         if let homeModel = homeModel {
             
-            setupHomeCell()
+            setupHomeCells()
             
             for element in homeCells {
                 
@@ -158,6 +152,9 @@ extension HomeViewController {
 
 extension HomeViewController {
     private func registerTableViewCells(){
+        let nib = UINib(nibName: K.Sections.HomeHeader.SectionNibName, bundle: nil)
+        tableView.register(nib, forHeaderFooterViewReuseIdentifier: K.Sections.HomeHeader.SectionIdentifier)
+        
         let productsCellNib = UINib(nibName: "ProductsCell", bundle: nil)
         tableView.register(productsCellNib, forCellReuseIdentifier: "ProductsCell")
         
@@ -174,7 +171,12 @@ extension HomeViewController {
         tableView.register(listsProgressCell, forCellReuseIdentifier: "ListsProgressCell")
     }
     
-    private func setupHomeCell(){
+    private func setUpTableView(){
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+    
+    private func setupHomeCells(){
         homeCells = [
             ListsProgressElement(title: "List Progress", listPressedCallBack: listPressed, lists: []),
             StoresMapElement(title: "Stores", storePressed: storePressed, stores: []),

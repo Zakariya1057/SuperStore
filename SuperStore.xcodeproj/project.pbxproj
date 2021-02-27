@@ -799,7 +799,8 @@
 				2C910B3925E7AAA600BCEACC /* Login */,
 				2C14772825E9020E000E8F66 /* Register */,
 				2C14775425E905C9000E8F66 /* ResetPassword */,
-				2CDFB61825EA6250002CE30D /* HomeScene */,
+				2CDFB61825EA6250002CE30D /* Home */,
+				2CB2CFE525EAF78F00A00F7F /* Product */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -867,6 +868,13 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		2CB2CFE525EAF78F00A00F7F /* Product */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
 		2CB51CA8255489800090F558 /* PayloadModification */ = {
 			isa = PBXGroup;
 			children = (
@@ -884,7 +892,7 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
-		2CDFB61825EA6250002CE30D /* HomeScene */ = {
+		2CDFB61825EA6250002CE30D /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				2CDFB62B25EA630F002CE30D /* Cells */,
@@ -895,7 +903,7 @@
 				2CDFB63325EA6359002CE30D /* HomeViewController.swift */,
 				2CDFB63425EA6359002CE30D /* HomeInteractor.swift */,
 			);
-			path = HomeScene;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		2CDFB62B25EA630F002CE30D /* Cells */ = {
