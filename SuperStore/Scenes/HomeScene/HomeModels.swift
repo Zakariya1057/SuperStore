@@ -24,17 +24,13 @@ enum Home
     }
     struct Response
     {
-        var groceries: [ProductModel]
-//        var lists: [ListModel]
-//        var stores: [StoreModel]
-//        var featured: [ProductModel]
-//        var groceries: [ProductModel]
-//        var monitoring: [ProductModel]
-//        var promotions: [PromotionModel]
-//        var categories: [String: [ProductModel]]
+        var home: HomeModel?
+        var error: String?
     }
     struct ViewModel
     {
+        var home: HomeModel?
+        var error: String?
     }
   }
 }

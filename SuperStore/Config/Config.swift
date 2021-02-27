@@ -40,6 +40,10 @@ struct Config {
             }
             
         }
+        
+        public static var Home: String {
+            return host + "/home"
+        }
     }
     
 }

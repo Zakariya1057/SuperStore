@@ -14,7 +14,7 @@ import UIKit
 
 protocol HomeDisplayLogic: class
 {
-    func displaySomething(viewModel: Home.GetHome.ViewModel)
+    func displayHome(viewModel: Home.GetHome.ViewModel)
 }
 
 class HomeViewController: UIViewController, HomeDisplayLogic, UITableViewDataSource, UITableViewDelegate
@@ -73,8 +73,12 @@ class HomeViewController: UIViewController, HomeDisplayLogic, UITableViewDataSou
     {
         super.viewDidLoad()
         
+        setupHomeCell()
         registerTableViewCells()
         getHome()
+        
+        let nib = UINib(nibName: K.Sections.HomeHeader.SectionNibName, bundle: nil)
+        tableView.register(nib, forHeaderFooterViewReuseIdentifier: K.Sections.HomeHeader.SectionIdentifier)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -84,19 +88,69 @@ class HomeViewController: UIViewController, HomeDisplayLogic, UITableViewDataSou
     
     //@IBOutlet weak var nameTextField: UITextField!
     
+    var homeModel: HomeModel?
+    
     func getHome()
     {
         let request = Home.GetHome.Request()
         interactor?.getHome(request: request)
     }
     
-    func displaySomething(viewModel: Home.GetHome.ViewModel)
+    func displayHome(viewModel: Home.GetHome.ViewModel)
     {
-        //nameTextField.text = viewModel.name
+        homeModel = viewModel.home
+        populateCells()
     }
     
-    var homeCells: [CustomElementModel] {
-        return [
+    private func populateCells(){
+        if let homeModel = homeModel {
+            
+            setupHomeCell()
+            
+            for element in homeCells {
+                
+                switch element {
+                case is StoresMapElement:
+                    let storeElement = element as! StoresMapElement
+                    storeElement.stores = homeModel.stores
+                    break
+                case is GroceryProductElement:
+                    let productElement = element as! GroceryProductElement
+                    productElement.products = homeModel.groceries
+                    break
+                case is MonitoringProductElement:
+                    let productElement = element as! MonitoringProductElement
+                    productElement.products = homeModel.monitoring.reversed()
+                    break
+                case is OffersElement:
+                    let offerElement = element as! OffersElement
+                    offerElement.promotions = homeModel.promotions
+                    break
+                case is FeaturedProductElement:
+                    let featuredElement = element as! FeaturedProductElement
+                    featuredElement.products = homeModel.featured
+                    break
+                default:
+                    print("Unknown Type Encountered: \(element.type)")
+                }
+            }
+            
+            for category in homeModel.categories {
+                let name = category.key
+                let products = category.value
+                let element = ProductElement(title: name, productPressedCallBack: productPressed, scrollCallBack: cellScroll, products: products)
+                homeCells.append(element)
+            }
+            
+            tableView.reloadData()
+            
+        }
+    }
+    
+    var homeCells: [CustomElementModel] = []
+    
+    private func setupHomeCell(){
+        homeCells = [
             ListsProgressElement(title: "List Progress", listPressedCallBack: listPressed, lists: []),
             StoresMapElement(title: "Stores", storePressed: storePressed, stores: []),
             GroceryProductElement(title: "Grocery Items", productPressedCallBack: productPressed, scrollCallBack: cellScroll, products: []),
@@ -106,8 +160,19 @@ class HomeViewController: UIViewController, HomeDisplayLogic, UITableViewDataSou
         ]
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return homeCells.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let title = homeCells[section].title
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier:  K.Sections.HomeHeader.SectionIdentifier) as! HomeSectionHeader
+        header.headingLabel.text = title
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
     var loading: Bool = false

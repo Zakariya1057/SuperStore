@@ -23,7 +23,7 @@ class OffersElement: CustomElementModel {
     }
 }
 
-class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDelegate, UICollectionViewDataSource {
+class OffersCell: UITableViewCell,CustomElementCell, UICollectionViewDelegate, UICollectionViewDataSource {
 
     var model: OffersElement!
     
@@ -71,7 +71,7 @@ class OffersTableViewCell: UITableViewCell,CustomElementCell, UICollectionViewDe
     
 }
 
-extension OffersTableViewCell {
+extension OffersCell {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return loading ? 4 : promotions.count
     }

@@ -14,37 +14,71 @@ class HomeAPI: HomeProtocol {
     
     let requestWorker: RequestProtocol = RequestWorker()
 
-    func getHome(completionHandler: @escaping (_ homeModel: Home.GetHome.Response, _ error: String?) -> Void) {
-        
-//        requestWorker.post(url: Config.Route.User.ResetPassword.SendEmail, data: ["email": email]) { (response: () throws -> Data) in
-//            do {
-//                _ = try response()
-//                completionHandler(nil)
-//            } catch RequestError.Error(let errorMessage){
-//                print(errorMessage)
-//                completionHandler(errorMessage)
-//            } catch {
-//                completionHandler("Login Failed. Please try again later.")
-//            }
-//        }
+    func getHome(completionHandler: @escaping (_ homeModel: HomeModel?, _ error: String?) -> Void) {
+        requestWorker.get(url: Config.Route.Home) { (response: () throws -> Data) in
+            do {
+                let data = try response()
+                let homeResponseData =  try? self.jsonDecoder.decode(HomeResponeData.self, from: data)
+                let home = self.createHomeModel(homeResponseData: homeResponseData)
+                completionHandler(home, nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(nil, errorMessage)
+            } catch {
+                completionHandler(nil, "Failed To Fetch Home. Please try again later.")
+            }
+        }
     }
 }
 
 extension HomeAPI {
-    private func createHomeItems(userResponseData: UserDataResponse?) -> UserLoginModel? {
+    private func createHomeModel(homeResponseData: HomeResponeData?) -> HomeModel? {
         
-        if let userResponseData = userResponseData {
-            let userData = userResponseData.data
-            
-            return UserLoginModel(
-                id: userData.id,
-                name: userData.name,
-                token: userData.token,
-                email: userData.email,
-                send_notifications: userData.send_notifications
+        if let homeResponseData = homeResponseData {
+            let homeData = homeResponseData.data
+
+            return HomeModel(
+                lists: createListModel(listData: homeData.lists ?? []),
+                stores:createStoresModel(storeData: homeData.stores ?? []),
+                featured: createProductModel(productData: homeData.featured ?? []),
+                groceries: createProductModel(productData: homeData.groceries ?? []),
+                monitoring: createProductModel(productData: homeData.monitoring ?? []),
+                promotions: createPromotionModel(promotionData: homeData.promotions ?? []),
+                categories: createCategoriesModel(categoryData: homeData.categories ?? [:])
             )
         }
         
         return nil
+    }
+    
+    private func createCategoriesModel(categoryData: [String : [ProductData]]) -> [String: [ProductModel]]{
+        
+        var categories: [String: [ProductModel]] = [:]
+        
+        for category in categoryData {
+            let categoryName:String = category.key
+            let products:[ProductModel] = createProductModel(productData: category.value)
+
+            categories[categoryName] = products
+        }
+        
+        return categories
+            
+    }
+    
+    private func createPromotionModel(promotionData: [PromotionData]) -> [PromotionModel]{
+        return promotionData.map { $0.getPromotionModel() }
+    }
+    
+    private func createProductModel(productData: [ProductData]) -> [ProductModel]{
+        return productData.map { $0.getProductModel() }
+    }
+    
+    private func createListModel(listData: [ListData]) -> [ListModel] {
+        return listData.map{ $0.getListModel() }
+    }
+    
+    private func createStoresModel(storeData: [StoreData]) -> [StoreModel] {
+        return storeData.map{ $0.getStoreModel() }
     }
 }

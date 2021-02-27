@@ -68,7 +68,7 @@
 //                let list_status:String = list.status.lowercased()
 //                var status: ListStatus = .notStarted
 //                
-//                if list_status.contains("completed"){
+//                if list_status.conftains("completed"){
 //                    status = .completed
 //                } else if list_status.contains("in progress"){
 //                    status = .inProgress

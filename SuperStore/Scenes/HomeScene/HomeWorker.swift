@@ -20,15 +20,11 @@ class HomeWorker
         self.homeAPI = homeAPI
     }
     
-    func getHome(completionHandler: @escaping (_ homeModel: Home.GetHome.Response, _ error: String?) -> Void){
-        print("Get Home")
-//        homeAPI.getHome { (<#UserLoginModel?#>, <#String?#>) in
-//            <#code#>
-//        }
-        // Send Request Get Home Data.
+    func getHome(completionHandler: @escaping (_ homeModel: HomeModel?, _ error: String?) -> Void){
+        homeAPI.getHome(completionHandler: completionHandler)
     }
 }
 
 protocol HomeProtocol {
-    func getHome(completionHandler: @escaping (_ homeModel: Home.GetHome.Response, _ error: String?) -> Void)
+    func getHome(completionHandler: @escaping (_ homeModel: HomeModel?, _ error: String?) -> Void)
 }

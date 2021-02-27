@@ -50,8 +50,6 @@ class ProductsCell: UITableViewCell,CustomElementCell {
     var productPressedCallBack: ((Int) -> Void?)? = nil
     var scrollCallBack: ((CGFloat, String) -> Void)? = nil
     
-    var scrollDelegate: ScrollCollectionDelegate?
-    
     var loading: Bool = true
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -125,7 +123,9 @@ extension ProductsCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !loading {
-//            self.delegate?.showProduct(productID: products[indexPath.row].id)
+            if let productPressedCallBack = productPressedCallBack {
+                productPressedCallBack(products[indexPath.row].id)
+            }
         }
     }
 
@@ -134,7 +134,9 @@ extension ProductsCell: UICollectionViewDelegate, UICollectionViewDataSource {
 extension ProductsCell: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollDelegate?.didScroll(to: scrollView.contentOffset.x, title: model.title)
+        if let scrollCallBack = scrollCallBack {
+            scrollCallBack(scrollView.contentOffset.x,model.title)
+        }
     }
 }
 

@@ -26,19 +26,12 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
 {
   var presenter: HomePresentationLogic?
   var worker: HomeWorker? = HomeWorker(homeAPI: HomeAPI())
-  //var name: String = ""
-  
-  // MARK: Do something
   
   func getHome(request: Home.GetHome.Request)
   {
-    worker?.getHome(completionHandler: { (homeModel: Home.GetHome.Response, error: String?) in
-        print("Home Fetched")
+    worker?.getHome(completionHandler: { (homeModel: HomeModel?, error: String?) in
+        let response = Home.GetHome.Response(home: homeModel, error: error)
+        self.presenter?.presentHome(response: response)
     })
-//    worker =
-//    worker?.doSomeWork()
-    
-//    let response = Home.GetHome.Response()
-//    presenter?.presentSomething(response: response)
   }
 }
