@@ -51,7 +51,7 @@ struct ReviewsHandler {
         do {
             
             let decoder = JSONDecoder()
-            let data = try decoder.decode(ReviewsResponseData.self, from: data)
+            let data = try decoder.decode(ReviewsDataResponse.self, from: data)
             let review = data.data[0]
             
             var userReview:ReviewModel? = nil

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ErrorResponseData: Decodable {
+struct ErrorDataResponse: Decodable {
     var data: ErrorData
 }
 

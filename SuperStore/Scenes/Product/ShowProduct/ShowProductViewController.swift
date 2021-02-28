@@ -101,7 +101,6 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var lifeStyleLabel: UILabel!
     @IBOutlet weak var allergenLabel: UILabel!
-    @IBOutlet weak var reviewButton: UIButton!
     
     @IBOutlet weak var promotionLabel: UILabel!
     @IBOutlet weak var ratingView: CosmosView!
@@ -110,7 +109,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet weak var reviewsTableView: UITableView!
     
     @IBOutlet weak var monitorButton: UIButton!
-    @IBOutlet weak var similarTableView: UITableView!
+    @IBOutlet weak var recommendedTableView: UITableView!
     @IBOutlet weak var addToListButton: UIButton!
     
     
@@ -133,7 +132,6 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
             
             if let review = product.review {
                 reviews.append(review)
-                print("Reached")
                 reviewsTableView.reloadData()
             }
 
@@ -149,7 +147,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
             lifeStyleLabel.text = product.dietaryInfo
             
             recommendedProducts = product.recommended
-            similarTableView.reloadData()
+            recommendedTableView.reloadData()
         }
     }
     
@@ -158,7 +156,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         let request = ShowProduct.GetProduct.Request()
         interactor?.getProduct(request: request)
     }
-    
+
 }
 
 extension ShowProductViewController {
@@ -167,13 +165,19 @@ extension ShowProductViewController {
     }
     
     @IBAction func favouriteButtonPressed(_ sender: Any) {
+        
     }
     
     @IBAction func addToListButtonPressed(_ sender: Any) {
     
     }
     
+    @IBAction func reviewButtonPressed(_ sender: Any) {
+    
+    }
+    
     @IBAction func allReviewButtonPressed(_ sender: Any) {
+        router?.routeToShowReviews(segue: nil)
     }
     
     @IBAction func quantityStepperPressed(_ sender: Any) {
@@ -184,7 +188,7 @@ extension ShowProductViewController {
 
 extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableView == reviewsTableView ? reviews.count : recommendedProducts.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -212,7 +216,7 @@ extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func configureProductsCell(indexPath: IndexPath) -> ProductsCell {
-        let cell = similarTableView.dequeueReusableCell(withIdentifier: "ProductsCell", for: indexPath) as! ProductsCell
+        let cell = recommendedTableView.dequeueReusableCell(withIdentifier: "ProductsCell", for: indexPath) as! ProductsCell
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         cell.loading = self.loading
         cell.configure(withModel: ProductElement(title: "Recommended", productPressedCallBack: productPressed, scrollCallBack: cellScroll, products: recommendedProducts))
@@ -224,13 +228,13 @@ extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate 
         reviewsTableView.register(reviewCellNib, forCellReuseIdentifier: "ReviewCell")
         
         let productsCellNib = UINib(nibName: "ProductsCell", bundle: nil)
-        similarTableView.register(productsCellNib, forCellReuseIdentifier: "ProductsCell")
+        recommendedTableView.register(productsCellNib, forCellReuseIdentifier: "ProductsCell")
         
         reviewsTableView.delegate = self
         reviewsTableView.dataSource = self
         
-        similarTableView.delegate = self
-        similarTableView.dataSource = self
+        recommendedTableView.delegate = self
+        recommendedTableView.dataSource = self
     }
 }
 

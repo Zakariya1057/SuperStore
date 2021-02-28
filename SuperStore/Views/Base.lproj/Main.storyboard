@@ -2355,7 +2355,7 @@
                                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <segue destination="G9a-TG-ILp" kind="show" id="LCm-Yp-yeS"/>
+                                                                                    <action selector="reviewButtonPressed:" destination="blb-Wd-ZdE" eventType="touchUpInside" id="v2g-bD-jMt"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -2401,8 +2401,7 @@
                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <action selector="allReviewButtonPressed:" destination="blb-Wd-ZdE" eventType="touchUpInside" id="p9m-8u-4bx"/>
-                                                                            <segue destination="vzB-w0-Xa0" kind="show" id="dei-s3-jgx"/>
+                                                                            <action selector="allReviewButtonPressed:" destination="blb-Wd-ZdE" eventType="touchUpInside" id="OtW-xv-tlj"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -2799,15 +2798,17 @@
                         <outlet property="promotionView" destination="gLh-tu-iik" id="dsb-XZ-mmM"/>
                         <outlet property="quantityStepper" destination="yHd-qI-sl4" id="TAI-W2-OeM"/>
                         <outlet property="ratingView" destination="tFG-eX-umO" id="hcu-eX-wkL"/>
-                        <outlet property="reviewButton" destination="cUy-Y0-cUw" id="1Oi-ZT-R5G"/>
+                        <outlet property="recommendedTableView" destination="iWE-UD-bYf" id="s5j-yr-rW0"/>
                         <outlet property="reviewsStackView" destination="yEq-bc-8oK" id="47f-lp-adR"/>
                         <outlet property="reviewsTableView" destination="lXz-GS-7sY" id="hAj-Y0-aSz"/>
-                        <outlet property="similarTableView" destination="iWE-UD-bYf" id="Q9b-aa-h4U"/>
                         <outlet property="stepperLabel" destination="gOo-cE-qNu" id="bTY-ux-H76"/>
                         <outlet property="stepperStackView" destination="VrZ-vP-b1p" id="X0L-mO-tOZ"/>
                         <outlet property="weightLabel" destination="EXx-ON-gGI" id="1IQ-fj-I9c"/>
                         <segue destination="GlI-wz-KoF" kind="show" identifier="showProductDetails" id="k0H-Uq-sqx"/>
                         <segue destination="NiB-m5-sPY" kind="show" identifier="showProductPromotion" id="oKE-l5-P9g"/>
+                        <segue destination="G9a-TG-ILp" kind="show" id="133-yt-xcq"/>
+                        <segue destination="vzB-w0-Xa0" kind="show" identifier="ShowReviews" id="NWg-bu-4lm"/>
+                        <segue destination="Zlc-Ks-iVt" kind="show" id="Qv6-ck-VDI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FGT-yZ-4As" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2817,7 +2818,7 @@
         <!--Review-->
         <scene sceneID="EOY-pR-E4c">
             <objects>
-                <viewController id="G9a-TG-ILp" customClass="ReviewViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditReviewViewController" id="G9a-TG-ILp" customClass="EditReviewViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QEI-io-rYO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3039,7 +3040,7 @@
         <!--Reviews-->
         <scene sceneID="49j-EO-8qB">
             <objects>
-                <viewController id="vzB-w0-Xa0" customClass="ReviewsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowReviewsViewController" id="vzB-w0-Xa0" customClass="ShowReviewsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SVV-sc-s2l">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3060,17 +3061,17 @@
                     </view>
                     <navigationItem key="navigationItem" title="Reviews" id="ioC-Z1-v28"/>
                     <connections>
-                        <outlet property="reviewsTableView" destination="QpJ-hy-QQq" id="5M4-OQ-b7J"/>
+                        <outlet property="reviewsTableView" destination="QpJ-hy-QQq" id="jAv-er-FZL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CWW-co-2AR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="12976.8115942029" y="-374.33035714285711"/>
         </scene>
-        <!--Promotion View Controller-->
+        <!--Promotion-->
         <scene sceneID="VyZ-9z-UuA">
             <objects>
-                <viewController storyboardIdentifier="promotionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NiB-m5-sPY" customClass="PromotionViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowPromotionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NiB-m5-sPY" customClass="ShowPromotionViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GkX-gK-9e7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3173,7 +3174,7 @@
                             <constraint firstItem="Vkl-XQ-FkG" firstAttribute="leading" secondItem="GkX-gK-9e7" secondAttribute="leading" id="wQ1-IB-bCj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="pkH-zn-Fpe"/>
+                    <navigationItem key="navigationItem" title="Promotion" id="pkH-zn-Fpe"/>
                     <connections>
                         <outlet property="productsTableView" destination="jq5-I9-xte" id="vqZ-Qy-fcR"/>
                         <outlet property="promotionExpiresLabel" destination="fVf-FN-EsO" id="0KX-LL-Cci"/>
@@ -3184,12 +3185,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qCk-Wr-uFR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="14128.985507246378" y="-374.33035714285711"/>
+            <point key="canvasLocation" x="14209" y="-374"/>
         </scene>
-        <!--Ingredients-->
+        <!--Show Details View Controller-->
         <scene sceneID="I5A-7F-LHz">
             <objects>
-                <viewController id="GlI-wz-KoF" customClass="ProductDetailsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowDetailsViewController" id="GlI-wz-KoF" customClass="ShowDetailsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QPP-rx-WUS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3208,14 +3209,14 @@
                             <constraint firstItem="wNK-Vv-qXw" firstAttribute="top" secondItem="XO2-bn-rZG" secondAttribute="top" id="UXE-bw-AKn"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Ingredients" id="m1F-FX-yIt"/>
+                    <navigationItem key="navigationItem" id="m1F-FX-yIt"/>
                     <connections>
                         <outlet property="ingredientsTableView" destination="wNK-Vv-qXw" id="AOf-xM-rYV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iXh-u6-2jZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="14128.985507246378" y="653.57142857142856"/>
+            <point key="canvasLocation" x="14210" y="654"/>
         </scene>
         <!--Search Results View Controller-->
         <scene sceneID="XMg-x4-msD">
@@ -4806,6 +4807,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GBP-94-fxN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="61" y="-1337"/>
+        </scene>
+        <!--Show Ingredients View Controller-->
+        <scene sceneID="ZiS-ep-6YT">
+            <objects>
+                <viewController storyboardIdentifier="ShowIngredientsViewController" id="Zlc-Ks-iVt" customClass="ShowIngredientsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tNd-vy-c8I">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vCt-tC-tBi">
+                                <rect key="frame" x="0.0" y="88" width="414" height="705"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="p5f-p8-A9F"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="p5f-p8-A9F" firstAttribute="bottom" secondItem="vCt-tC-tBi" secondAttribute="bottom" constant="20" id="Uum-ry-hCF"/>
+                            <constraint firstItem="vCt-tC-tBi" firstAttribute="top" secondItem="p5f-p8-A9F" secondAttribute="top" id="mdx-iP-hDA"/>
+                            <constraint firstItem="vCt-tC-tBi" firstAttribute="leading" secondItem="p5f-p8-A9F" secondAttribute="leading" id="tan-9q-HRM"/>
+                            <constraint firstItem="p5f-p8-A9F" firstAttribute="trailing" secondItem="vCt-tC-tBi" secondAttribute="trailing" id="vYa-WV-qp3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="4ce-dL-xwf"/>
+                    <connections>
+                        <outlet property="ingredientsTableView" destination="vCt-tC-tBi" id="w3l-x5-L6X"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Wl-Zx-ZwV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="15414" y="136"/>
         </scene>
     </scenes>
     <designables>

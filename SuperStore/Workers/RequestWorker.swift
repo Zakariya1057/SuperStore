@@ -107,7 +107,7 @@ extension RequestWorker {
     
     private func decodeErrorMessage(data: Data) -> String? {
         let decoder = JSONDecoder()
-        let decodedData = try? decoder.decode(ErrorResponseData.self, from: data)
+        let decodedData = try? decoder.decode(ErrorDataResponse.self, from: data)
         return decodedData?.data.error
     }
 }

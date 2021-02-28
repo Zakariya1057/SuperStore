@@ -7,7 +7,12 @@
 //
 
 import Foundation
-struct ReviewResponseData: Decodable {
+
+struct ReviewsDataResponse: Decodable {
+    var data: [ReviewData]
+}
+
+struct ReviewDataResponse: Decodable {
     var data: ReviewData?
 }
 

@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct ReviewsResponseData: Decodable {
-    var data: [ReviewData]
-}
+//struct ReviewsResponseData: Decodable {
+//    var data: [ReviewData]
+//}

@@ -19,8 +19,8 @@ class ProductAPI: ProductRequestProtocol {
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
                 let data = try response()
-                let productResponseData =  try self.jsonDecoder.decode(ProductDataResponse.self, from: data)
-                let product = self.createProductModel(productResponseData: productResponseData)
+                let productDataResponse =  try self.jsonDecoder.decode(ProductDataResponse.self, from: data)
+                let product = self.createProductModel(productDataResponse: productDataResponse)
                 completionHandler(product, nil)
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
@@ -36,10 +36,10 @@ class ProductAPI: ProductRequestProtocol {
 
 extension ProductAPI {
     
-    private func createProductModel(productResponseData: ProductDataResponse?) -> ProductModel? {
+    private func createProductModel(productDataResponse: ProductDataResponse?) -> ProductModel? {
         
-        if let productResponseData = productResponseData {
-            let productData = productResponseData.data
+        if let productDataResponse = productDataResponse {
+            let productData = productDataResponse.data
             return productData.getProductModel()
         }
         

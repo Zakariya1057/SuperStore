@@ -66,24 +66,24 @@ struct Config {
             
             public struct Review {
                 
-                private static var ReviewRoute: String {
+                public static var ReviewRoute: String {
                     return ProductRoute + "/review"
                 }
                 
-                private static var Show: String {
-                    return ReviewRoute + "/"
+                public static var Show: String {
+                    return "/review"
                 }
                 
-                private static var All: String {
-                    return ReviewRoute + "/"
+                public static var All: String {
+                    return "/reviews"
                 }
                 
-                private static var Create: String {
-                    return ReviewRoute + "/create"
+                public static var Create: String {
+                    return "/create"
                 }
                 
                 public static var Delete: String {
-                    return ReviewRoute + "/delete"
+                    return "/delete"
                 }
                 
             }

@@ -18,8 +18,8 @@ class HomeAPI: HomeRequestProtocol {
         requestWorker.get(url: Config.Route.Home) { (response: () throws -> Data) in
             do {
                 let data = try response()
-                let homeResponseData =  try self.jsonDecoder.decode(HomeResponeData.self, from: data)
-                let home = self.createHomeModel(homeResponseData: homeResponseData)
+                let homeDataResponse =  try self.jsonDecoder.decode(HomeDataRespone.self, from: data)
+                let home = self.createHomeModel(homeDataResponse: homeDataResponse)
                 completionHandler(home, nil)
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
@@ -33,10 +33,10 @@ class HomeAPI: HomeRequestProtocol {
 }
 
 extension HomeAPI {
-    private func createHomeModel(homeResponseData: HomeResponeData?) -> HomeModel? {
+    private func createHomeModel(homeDataResponse: HomeDataRespone?) -> HomeModel? {
         
-        if let homeResponseData = homeResponseData {
-            let homeData = homeResponseData.data
+        if let homeDataResponse = homeDataResponse {
+            let homeData = homeDataResponse.data
 
             return HomeModel(
                 lists: createListModel(listData: homeData.lists ?? []),

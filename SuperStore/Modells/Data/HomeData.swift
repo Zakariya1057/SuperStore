@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct HomeResponeData: Decodable {
+struct HomeDataRespone: Decodable {
     var data: HomeData
 }
 
