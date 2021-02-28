@@ -18,14 +18,15 @@ class HomeAPI: HomeRequestProtocol {
         requestWorker.get(url: Config.Route.Home) { (response: () throws -> Data) in
             do {
                 let data = try response()
-                let homeResponseData =  try? self.jsonDecoder.decode(HomeResponeData.self, from: data)
+                let homeResponseData =  try self.jsonDecoder.decode(HomeResponeData.self, from: data)
                 let home = self.createHomeModel(homeResponseData: homeResponseData)
                 completionHandler(home, nil)
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
                 completionHandler(nil, errorMessage)
             } catch {
-                completionHandler(nil, "Failed To Fetch Home. Please try again later.")
+                print(error)
+                completionHandler(nil, "Failed to fetch home. Decoding error, please try again later.")
             }
         }
     }

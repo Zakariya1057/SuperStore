@@ -70,6 +70,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        registerReviewsTableView()
         getProduct()
     }
     
@@ -113,14 +114,42 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet weak var addToListButton: UIButton!
     
     
+    var scrollPosition: CGFloat = CGFloat(0)
+    var loading: Bool = false
+    
+    var reviews: [ReviewModel] = []
+    var recommendedProducts: [ProductModel] = []
+    
     //MARK: - Display
     
     func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
     {
-        if let product = viewModel.product {
+        if let product = viewModel.displayedProduct {
+            imageView.downloaded(from: product.largeImage)
+            
             nameLabel.text = product.name
-            priceLabel.text = "£\( String(format: "%.2f", product.price) )" // Currency Change Here
+            priceLabel.text = product.price
             weightLabel.text = product.weight
+            
+            if let review = product.review {
+                reviews.append(review)
+                print("Reached")
+                reviewsTableView.reloadData()
+            }
+
+            allReviewsButton.setTitle("All Reviews (\(product.totalReviewsCount))", for: .normal)
+            
+            if let promotion = product.promotion {
+                promotionLabel.text = promotion.name
+            } else {
+                promotionView.removeFromSuperview()
+            }
+            
+            allergenLabel.text = product.allergenInfo
+            lifeStyleLabel.text = product.dietaryInfo
+            
+            recommendedProducts = product.recommended
+            similarTableView.reloadData()
         }
     }
     
@@ -149,5 +178,68 @@ extension ShowProductViewController {
     
     @IBAction func quantityStepperPressed(_ sender: Any) {
     
+    }
+}
+
+
+extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableView == reviewsTableView ? reviews.count : recommendedProducts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return tableView == reviewsTableView ? configureReviewCell(indexPath: indexPath) : configureProductsCell(indexPath: indexPath)
+    }
+    
+    func configureReviewCell(indexPath: IndexPath) -> ReviewCell {
+        let cell = reviewsTableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewCell
+        
+        if loading == false {
+
+            if reviews.count > 0 {
+                cell.review = reviews[indexPath.row]
+            }
+
+            cell.configureUI()
+
+        } else {
+            cell.startLoading()
+        }
+
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+
+        return cell
+    }
+    
+    func configureProductsCell(indexPath: IndexPath) -> ProductsCell {
+        let cell = similarTableView.dequeueReusableCell(withIdentifier: "ProductsCell", for: indexPath) as! ProductsCell
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        cell.loading = self.loading
+        cell.configure(withModel: ProductElement(title: "Recommended", productPressedCallBack: productPressed, scrollCallBack: cellScroll, products: recommendedProducts))
+        return cell
+    }
+    
+    func registerReviewsTableView(){
+        let reviewCellNib = UINib(nibName: "ReviewCell", bundle: nil)
+        reviewsTableView.register(reviewCellNib, forCellReuseIdentifier: "ReviewCell")
+        
+        let productsCellNib = UINib(nibName: "ProductsCell", bundle: nil)
+        similarTableView.register(productsCellNib, forCellReuseIdentifier: "ProductsCell")
+        
+        reviewsTableView.delegate = self
+        reviewsTableView.dataSource = self
+        
+        similarTableView.delegate = self
+        similarTableView.dataSource = self
+    }
+}
+
+extension ShowProductViewController {
+    private func productPressed(productID: Int){
+        print("Product Pressed")
+    }
+    
+    private func cellScroll(position: CGFloat, title: String){
+        scrollPosition = position
     }
 }

@@ -17,7 +17,7 @@ protocol HomeDisplayLogic: class
     func displayHome(viewModel: Home.GetHome.ViewModel)
 }
 
-class HomeViewController: UIViewController, HomeDisplayLogic, UITableViewDataSource, UITableViewDelegate
+class HomeViewController: UIViewController, HomeDisplayLogic
 {
     
     var interactor: HomeBusinessLogic?
@@ -150,7 +150,7 @@ extension HomeViewController {
 
 }
 
-extension HomeViewController {
+extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     private func registerTableViewCells(){
         let nib = UINib(nibName: K.Sections.HomeHeader.SectionNibName, bundle: nil)
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: K.Sections.HomeHeader.SectionIdentifier)

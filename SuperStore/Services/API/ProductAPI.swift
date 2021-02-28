@@ -19,14 +19,15 @@ class ProductAPI: ProductRequestProtocol {
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
                 let data = try response()
-                let productResponseData =  try? self.jsonDecoder.decode(ProductDataResponse.self, from: data)
+                let productResponseData =  try self.jsonDecoder.decode(ProductDataResponse.self, from: data)
                 let product = self.createProductModel(productResponseData: productResponseData)
                 completionHandler(product, nil)
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
                 completionHandler(nil, errorMessage)
             } catch {
-                completionHandler(nil, "Failed To Fetch Home. Please try again later.")
+                print(error)
+                completionHandler(nil, "Failed to get product. Decoding error, please try again later.")
             }
         }
     }

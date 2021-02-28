@@ -26,7 +26,7 @@ class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
 {
     var presenter: ShowProductPresentationLogic?
     var productWorker: ProductWorker = ProductWorker(productAPI: ProductAPI())
-    var productID: Int = 1
+    var productID: Int = 106
     
     func getProduct(request: ShowProduct.GetProduct.Request)
     {

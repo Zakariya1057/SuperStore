@@ -63,14 +63,18 @@ struct ProductData:Decodable {
             dietaryInfo: dietary_info,
             allergenInfo: allergen_info,
             brand: brand,
+            
             reviews: reviews?.map({ (review: ReviewData) in
                 return review.getReviewModel()
             }) ?? [],
-            favourite: favourite,
-            monitoring: monitoring,
+            
+            favourite: favourite ?? false,
+            monitoring: monitoring ?? false,
+            
             ingredients: ingredients?.map({ (ingredient: IngredientsData) in
                 return ingredient.name
             }) ?? [],
+            
             recommended: recommended?.map({ (product: ProductData) in
                 return product.getProductModel()
             }) ?? []

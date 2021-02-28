@@ -24,7 +24,8 @@ class ResetPasswordAPI: ResetPasswordProtocol {
                 print(errorMessage)
                 completionHandler(errorMessage)
             } catch {
-                completionHandler("Login Failed. Please try again later.")
+                print(error)
+                completionHandler("Reset Failed. Decoding error, please try again later.")
             }
         }
         

@@ -26,7 +26,7 @@ struct UserAuthAPI: UserAuthProtocol {
             do {
                 let data = try response()
                 
-                let userResponseData =  try? jsonDecoder.decode(UserDataResponse.self, from: data)
+                let userResponseData =  try jsonDecoder.decode(UserDataResponse.self, from: data)
                 let user = createUserLogin(userResponseData: userResponseData)
                 
                 completionHandler(user, nil)
@@ -34,7 +34,8 @@ struct UserAuthAPI: UserAuthProtocol {
                 print(errorMessage)
                 completionHandler(nil, errorMessage)
             } catch {
-                completionHandler(nil, "Login Failed. Please try again later.")
+                print(error)
+                completionHandler(nil, "Login Failed. Decoding error, please try again later.")
             }
         }
     }
