@@ -14,28 +14,26 @@ import UIKit
 
 protocol ShowIngredientsBusinessLogic
 {
-  func doSomething(request: ShowIngredients.Something.Request)
+    func getIngredients(request: ShowIngredients.GetIngredients.Request)
 }
 
 protocol ShowIngredientsDataStore
 {
-  //var name: String { get set }
+    var ingredients: [String] { get set }
 }
 
 class ShowIngredientsInteractor: ShowIngredientsBusinessLogic, ShowIngredientsDataStore
 {
-  var presenter: ShowIngredientsPresentationLogic?
-  var worker: ShowIngredientsWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: ShowIngredients.Something.Request)
-  {
-    worker = ShowIngredientsWorker()
-    worker?.doSomeWork()
+    var presenter: ShowIngredientsPresentationLogic?
+    var worker: ShowIngredientsWorker?
     
-    let response = ShowIngredients.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var ingredients: [String] = []
+    
+    // MARK: Do something
+    
+    func getIngredients(request: ShowIngredients.GetIngredients.Request)
+    {
+        let response = ShowIngredients.GetIngredients.Response(ingredients: ingredients)
+        presenter?.presentSomething(response: response)
+    }
 }

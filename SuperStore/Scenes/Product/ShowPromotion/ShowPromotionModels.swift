@@ -16,16 +16,20 @@ enum ShowPromotion
 {
   // MARK: Use cases
   
-  enum Something
+  enum GetPromotion
   {
     struct Request
     {
     }
     struct Response
     {
+        var promotion: PromotionModel?
+        var error: String?
     }
     struct ViewModel
     {
+        var promotion: PromotionModel?
+        var error: String?
     }
   }
 }

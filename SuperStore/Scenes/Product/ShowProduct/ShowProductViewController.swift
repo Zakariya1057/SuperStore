@@ -71,6 +71,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     {
         super.viewDidLoad()
         registerReviewsTableView()
+        setupGestureRecognizer()
         getProduct()
     }
     
@@ -119,6 +120,8 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     var reviews: [ReviewModel] = []
     var recommendedProducts: [ProductModel] = []
     
+    var selectedProductID: Int?
+    
     //MARK: - Display
     
     func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
@@ -135,6 +138,9 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 reviewsTableView.reloadData()
             }
 
+            ratingView.rating = product.avgRating
+            ratingView.text = "(\(product.totalReviewsCount))"
+            
             allReviewsButton.setTitle("All Reviews (\(product.totalReviewsCount))", for: .normal)
             
             if let promotion = product.promotion {
@@ -185,6 +191,32 @@ extension ShowProductViewController {
     }
 }
 
+extension ShowProductViewController {
+    
+    func setupGestureRecognizer(){
+        let ingredientsPressedGesture = UITapGestureRecognizer(target: self, action: #selector(ingredientsButtonPressed))
+        ingredientsView.addGestureRecognizer(ingredientsPressedGesture)
+        
+        let descriptionPressedGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionButtonPressed))
+        descriptionView.addGestureRecognizer(descriptionPressedGesture)
+
+        let promotionPressedGesture = UITapGestureRecognizer(target: self, action: #selector(promotionButtonPressed))
+        promotionView.addGestureRecognizer(promotionPressedGesture)
+    }
+   
+    @objc func promotionButtonPressed(){
+        router?.routeToShowPromotion(segue: nil)
+    }
+    
+    @objc func ingredientsButtonPressed(){
+        router?.routeToShowIngredients(segue: nil)
+    }
+
+    @objc func descriptionButtonPressed(){
+        router?.routeToShowDescription(segue: nil)
+    }
+
+}
 
 extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -241,6 +273,8 @@ extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate 
 extension ShowProductViewController {
     private func productPressed(productID: Int){
         print("Product Pressed")
+        selectedProductID = productID
+        router?.routeToShowProduct(segue: nil)
     }
     
     private func cellScroll(position: CGFloat, title: String){

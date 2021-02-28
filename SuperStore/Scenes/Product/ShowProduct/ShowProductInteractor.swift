@@ -20,17 +20,21 @@ protocol ShowProductBusinessLogic
 protocol ShowProductDataStore
 {
     var productID: Int { get set }
+    var product: ProductModel? { get set }
 }
 
 class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
 {
     var presenter: ShowProductPresentationLogic?
     var productWorker: ProductWorker = ProductWorker(productAPI: ProductAPI())
-    var productID: Int = 106
+    
+    var productID: Int = 416
+    var product: ProductModel?
     
     func getProduct(request: ShowProduct.GetProduct.Request)
     {
         productWorker.getProduct(productID: productID) { (product: ProductModel?, error: String?) in
+            self.product = product
             let response = ShowProduct.GetProduct.Response(product: product, error: error)
             self.presenter?.presentProduct(response: response)
         }

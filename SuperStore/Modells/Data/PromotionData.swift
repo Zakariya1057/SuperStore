@@ -21,6 +21,15 @@ struct PromotionData:Decodable {
     let products: [ProductData]?
     
     func getPromotionModel() -> PromotionModel {
-        return PromotionModel(id: id, name: name, quantity: quantity, price: price, forQuantity: for_quantity)
+        return PromotionModel(
+            id: id,
+            name: name,
+            quantity: quantity,
+            price: price,
+            forQuantity: for_quantity,
+            products: products?.map({ (product: ProductData) in
+                return product.getProductModel()
+            }) ?? []
+        )
     }
 }

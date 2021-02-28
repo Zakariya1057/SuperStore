@@ -12,43 +12,43 @@ struct Config {
     
     struct Route {
         
-        private static let host: String = "http://192.168.1.187/api"
+        private static let Host: String = "http://192.168.1.187/api"
         
         public struct User {
             
             public static var Register: String {
-                return host + "/user/register"
+                return Host + "/user/register"
             }
             
             public static var Login: String {
-                return host + "/user/login"
+                return Host + "/user/login"
             }
             
             struct ResetPassword {
                 
                 public static var SendEmail: String {
-                    return host + "/user/reset/send-code"
+                    return Host + "/user/reset/send-code"
                 }
                 
                 public static var VerifyCode: String {
-                    return host + "/user/reset/validate-code"
+                    return Host + "/user/reset/validate-code"
                 }
                 
                 public static var NewPassword: String {
-                    return host + "/user/reset/password"
+                    return Host + "/user/reset/password"
                 }
             }
             
         }
         
         public static var Home: String {
-            return host + "/home"
+            return Host + "/home"
         }
         
         public struct Product {
             
             private static var ProductRoute: String {
-                return host + "/product"
+                return Host + "/product"
             }
             
             
@@ -89,6 +89,11 @@ struct Config {
             }
             
         }
+        
+        public static var Promotion: String {
+            return Host + "/promotion"
+        }
+        
     }
     
 }

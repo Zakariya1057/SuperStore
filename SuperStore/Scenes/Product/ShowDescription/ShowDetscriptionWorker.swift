@@ -12,7 +12,7 @@
 
 import UIKit
 
-class ShowDetailsWorker
+class ShowDescriptionWorker
 {
   func doSomeWork()
   {

@@ -14,28 +14,27 @@ import UIKit
 
 protocol ShowPromotionBusinessLogic
 {
-  func doSomething(request: ShowPromotion.Something.Request)
+    func getPromotion(request: ShowPromotion.GetPromotion.Request)
 }
 
 protocol ShowPromotionDataStore
 {
-  //var name: String { get set }
+    var promotionID: Int { get set }
 }
 
 class ShowPromotionInteractor: ShowPromotionBusinessLogic, ShowPromotionDataStore
 {
-  var presenter: ShowPromotionPresentationLogic?
-  var worker: ShowPromotionWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: ShowPromotion.Something.Request)
-  {
-    worker = ShowPromotionWorker()
-    worker?.doSomeWork()
+    var presenter: ShowPromotionPresentationLogic?
+    var promotionWorker: PromotionWorker = PromotionWorker(promotionAPI: PromotionAPI())
     
-    let response = ShowPromotion.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var promotionID: Int = 1
+    
+    func getPromotion(request: ShowPromotion.GetPromotion.Request)
+    {
+        promotionWorker.getPromotion(promotionID: promotionID) { (promotion: PromotionModel?, error: String?) in
+            let response = ShowPromotion.GetPromotion.Response(promotion: promotion, error: error)
+            self.presenter?.presentPromotion(response: response)
+        }
+
+    }
 }

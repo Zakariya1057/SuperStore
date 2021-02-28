@@ -14,7 +14,7 @@ import UIKit
 
 protocol ShowPromotionPresentationLogic
 {
-  func presentSomething(response: ShowPromotion.Something.Response)
+  func presentPromotion(response: ShowPromotion.GetPromotion.Response)
 }
 
 class ShowPromotionPresenter: ShowPromotionPresentationLogic
@@ -23,9 +23,9 @@ class ShowPromotionPresenter: ShowPromotionPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: ShowPromotion.Something.Response)
+  func presentPromotion(response: ShowPromotion.GetPromotion.Response)
   {
-    let viewModel = ShowPromotion.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    let viewModel = ShowPromotion.GetPromotion.ViewModel(promotion: response.promotion, error: response.error)
+    viewController?.displayPromotion(viewModel: viewModel)
   }
 }

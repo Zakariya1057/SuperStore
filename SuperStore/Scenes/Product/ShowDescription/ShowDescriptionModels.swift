@@ -12,20 +12,22 @@
 
 import UIKit
 
-enum ShowDetails
+enum ShowDescription
 {
   // MARK: Use cases
   
-  enum Something
+  enum GetDescription
   {
     struct Request
     {
     }
     struct Response
     {
+        var description: String
     }
     struct ViewModel
     {
+        var description: String
     }
   }
 }

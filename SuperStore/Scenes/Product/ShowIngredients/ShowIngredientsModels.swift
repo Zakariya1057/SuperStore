@@ -16,16 +16,18 @@ enum ShowIngredients
 {
   // MARK: Use cases
   
-  enum Something
+  enum GetIngredients
   {
     struct Request
     {
     }
     struct Response
     {
+        var ingredients: [String]
     }
     struct ViewModel
     {
+        var ingredients: [String]
     }
   }
 }

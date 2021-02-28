@@ -1,5 +1,5 @@
 //
-//  ShowDetailsRouter.swift
+//  ShowDescriptionRouter.swift
 //  SuperStore
 //
 //  Created by Zakariya Mohummed on 28/02/2021.
@@ -12,20 +12,20 @@
 
 import UIKit
 
-@objc protocol ShowDetailsRoutingLogic
+@objc protocol ShowDescriptionRoutingLogic
 {
   //func routeToSomewhere(segue: UIStoryboardSegue?)
 }
 
-protocol ShowDetailsDataPassing
+protocol ShowDescriptionDataPassing
 {
-  var dataStore: ShowDetailsDataStore? { get }
+  var dataStore: ShowDescriptionDataStore? { get }
 }
 
-class ShowDetailsRouter: NSObject, ShowDetailsRoutingLogic, ShowDetailsDataPassing
+class ShowDescriptionRouter: NSObject, ShowDescriptionRoutingLogic, ShowDescriptionDataPassing
 {
-  weak var viewController: ShowDetailsViewController?
-  var dataStore: ShowDetailsDataStore?
+  weak var viewController: ShowDescriptionViewController?
+  var dataStore: ShowDescriptionDataStore?
   
   // MARK: Routing
   
@@ -46,14 +46,14 @@ class ShowDetailsRouter: NSObject, ShowDetailsRoutingLogic, ShowDetailsDataPassi
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: ShowDetailsViewController, destination: SomewhereViewController)
+  //func navigateToSomewhere(source: ShowDescriptionViewController, destination: SomewhereViewController)
   //{
   //  source.show(destination, sender: nil)
   //}
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: ShowDetailsDataStore, destination: inout SomewhereDataStore)
+  //func passDataToSomewhere(source: ShowDescriptionDataStore, destination: inout SomewhereDataStore)
   //{
   //  destination.name = source.name
   //}

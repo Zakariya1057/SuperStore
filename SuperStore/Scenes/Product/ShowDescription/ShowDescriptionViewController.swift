@@ -1,5 +1,5 @@
 //
-//  ShowIngredientsViewController.swift
+//  ShowDescriptionViewController.swift
 //  SuperStore
 //
 //  Created by Zakariya Mohummed on 28/02/2021.
@@ -12,15 +12,15 @@
 
 import UIKit
 
-protocol ShowIngredientsDisplayLogic: class
+protocol ShowDescriptionDisplayLogic: class
 {
-    func displayIngredients(viewModel: ShowIngredients.GetIngredients.ViewModel)
+    func displayDescription(viewModel: ShowDescription.GetDescription.ViewModel)
 }
 
-class ShowIngredientsViewController: UIViewController, ShowIngredientsDisplayLogic
+class ShowDescriptionViewController: UIViewController, ShowDescriptionDisplayLogic
 {
-    var interactor: ShowIngredientsBusinessLogic?
-    var router: (NSObjectProtocol & ShowIngredientsRoutingLogic & ShowIngredientsDataPassing)?
+    var interactor: ShowDescriptionBusinessLogic?
+    var router: (NSObjectProtocol & ShowDescriptionRoutingLogic & ShowDescriptionDataPassing)?
     
     // MARK: Object lifecycle
     
@@ -41,9 +41,9 @@ class ShowIngredientsViewController: UIViewController, ShowIngredientsDisplayLog
     private func setup()
     {
         let viewController = self
-        let interactor = ShowIngredientsInteractor()
-        let presenter = ShowIngredientsPresenter()
-        let router = ShowIngredientsRouter()
+        let interactor = ShowDescriptionInteractor()
+        let presenter = ShowDescriptionPresenter()
+        let router = ShowDescriptionRouter()
         viewController.interactor = interactor
         viewController.router = router
         interactor.presenter = presenter
@@ -70,41 +70,42 @@ class ShowIngredientsViewController: UIViewController, ShowIngredientsDisplayLog
     {
         super.viewDidLoad()
         setupTableView()
-        getIngredients()
+        getDescription()
     }
     
     // MARK: Do something
     
-    @IBOutlet weak var ingredientsTableView: UITableView!
+    @IBOutlet var descriptionTableView: UITableView!
+    var productDescription: String = ""
     
-    var ingredients: [String] = []
-    
-    func getIngredients()
+    func getDescription()
     {
-        let request = ShowIngredients.GetIngredients.Request()
-        interactor?.getIngredients(request: request)
+        let request = ShowDescription.GetDescription.Request()
+        interactor?.doSomething(request: request)
     }
     
-    func displayIngredients(viewModel: ShowIngredients.GetIngredients.ViewModel)
+    func displayDescription(viewModel: ShowDescription.GetDescription.ViewModel)
     {
-        ingredients = viewModel.ingredients
-        ingredientsTableView.reloadData()
+        productDescription = viewModel.description
+        descriptionTableView.reloadData()
+        //nameTextField.text = viewModel.name
     }
 }
 
-extension ShowIngredientsViewController: UITableViewDelegate, UITableViewDataSource {
+extension ShowDescriptionViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func setupTableView(){
-        ingredientsTableView.delegate = self
-        ingredientsTableView.dataSource = self
+        descriptionTableView.delegate = self
+        descriptionTableView.dataSource = self
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredients.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = ingredients[indexPath.row]
+        cell.textLabel?.text = productDescription
         cell.textLabel?.numberOfLines = 5
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell

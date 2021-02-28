@@ -2057,7 +2057,7 @@
         <!--Show Product View Controller-->
         <scene sceneID="ixV-0Q-BRA">
             <objects>
-                <viewController storyboardIdentifier="productViewController" id="blb-Wd-ZdE" customClass="ShowProductViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowProductViewController" id="blb-Wd-ZdE" customClass="ShowProductViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cB3-qo-NKP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2805,10 +2805,10 @@
                         <outlet property="stepperStackView" destination="VrZ-vP-b1p" id="X0L-mO-tOZ"/>
                         <outlet property="weightLabel" destination="EXx-ON-gGI" id="1IQ-fj-I9c"/>
                         <segue destination="GlI-wz-KoF" kind="show" identifier="showProductDetails" id="k0H-Uq-sqx"/>
-                        <segue destination="NiB-m5-sPY" kind="show" identifier="showProductPromotion" id="oKE-l5-P9g"/>
+                        <segue destination="NiB-m5-sPY" kind="show" identifier="ShowPromotion" id="oKE-l5-P9g"/>
                         <segue destination="G9a-TG-ILp" kind="show" id="133-yt-xcq"/>
                         <segue destination="vzB-w0-Xa0" kind="show" identifier="ShowReviews" id="NWg-bu-4lm"/>
-                        <segue destination="Zlc-Ks-iVt" kind="show" id="Qv6-ck-VDI"/>
+                        <segue destination="Zlc-Ks-iVt" kind="show" identifier="ShowIngredients" id="Qv6-ck-VDI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FGT-yZ-4As" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3176,21 +3176,21 @@
                     </view>
                     <navigationItem key="navigationItem" title="Promotion" id="pkH-zn-Fpe"/>
                     <connections>
-                        <outlet property="productsTableView" destination="jq5-I9-xte" id="vqZ-Qy-fcR"/>
-                        <outlet property="promotionExpiresLabel" destination="fVf-FN-EsO" id="0KX-LL-Cci"/>
-                        <outlet property="promotionExpiryView" destination="C9Y-ut-iRW" id="cTT-vc-vST"/>
-                        <outlet property="promotionNameLabel" destination="D5n-eZ-2gq" id="aVA-xz-pIk"/>
-                        <outlet property="promotionNameView" destination="qy4-E2-00T" id="ME0-DP-ZQ1"/>
+                        <outlet property="promotionExpiresLabel" destination="fVf-FN-EsO" id="Ihy-2w-09p"/>
+                        <outlet property="promotionExpiryView" destination="C9Y-ut-iRW" id="DaJ-z9-QkW"/>
+                        <outlet property="promotionNameLabel" destination="D5n-eZ-2gq" id="uXU-aD-Lj1"/>
+                        <outlet property="promotionNameView" destination="qy4-E2-00T" id="efk-v1-gK8"/>
+                        <outlet property="promotionTableView" destination="jq5-I9-xte" id="ihX-g8-6Ts"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qCk-Wr-uFR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="14209" y="-374"/>
         </scene>
-        <!--Show Details View Controller-->
+        <!--Description-->
         <scene sceneID="I5A-7F-LHz">
             <objects>
-                <viewController storyboardIdentifier="ShowDetailsViewController" id="GlI-wz-KoF" customClass="ShowDetailsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowDescriptionViewController" id="GlI-wz-KoF" customClass="ShowDescriptionViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QPP-rx-WUS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3209,9 +3209,9 @@
                             <constraint firstItem="wNK-Vv-qXw" firstAttribute="top" secondItem="XO2-bn-rZG" secondAttribute="top" id="UXE-bw-AKn"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="m1F-FX-yIt"/>
+                    <navigationItem key="navigationItem" title="Description" id="m1F-FX-yIt"/>
                     <connections>
-                        <outlet property="ingredientsTableView" destination="wNK-Vv-qXw" id="AOf-xM-rYV"/>
+                        <outlet property="descriptionTableView" destination="wNK-Vv-qXw" id="jdO-xC-PaQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iXh-u6-2jZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -4808,7 +4808,7 @@
             </objects>
             <point key="canvasLocation" x="61" y="-1337"/>
         </scene>
-        <!--Show Ingredients View Controller-->
+        <!--Ingredients-->
         <scene sceneID="ZiS-ep-6YT">
             <objects>
                 <viewController storyboardIdentifier="ShowIngredientsViewController" id="Zlc-Ks-iVt" customClass="ShowIngredientsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -4830,7 +4830,7 @@
                             <constraint firstItem="p5f-p8-A9F" firstAttribute="trailing" secondItem="vCt-tC-tBi" secondAttribute="trailing" id="vYa-WV-qp3"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="4ce-dL-xwf"/>
+                    <navigationItem key="navigationItem" title="Ingredients" id="4ce-dL-xwf"/>
                     <connections>
                         <outlet property="ingredientsTableView" destination="vCt-tC-tBi" id="w3l-x5-L6X"/>
                     </connections>

@@ -14,7 +14,11 @@ import UIKit
 
 @objc protocol ShowProductRoutingLogic
 {
+    func routeToShowProduct(segue: UIStoryboardSegue?)
+    func routeToShowPromotion(segue: UIStoryboardSegue?)
     func routeToShowReviews(segue: UIStoryboardSegue?)
+    func routeToShowDescription(segue: UIStoryboardSegue?)
+    func routeToShowIngredients(segue: UIStoryboardSegue?)
 }
 
 protocol ShowProductDataPassing
@@ -29,31 +33,133 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     
     // MARK: Routing
     
+    func routeToShowProduct(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowProductViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowProduct(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowProductViewController") as! ShowProductViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowProduct(source: dataStore!, destination: &destinationDS)
+            navigateToShowProduct(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    func routeToShowPromotion(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowPromotionViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowPromotion(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowPromotionViewController") as! ShowPromotionViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowPromotion(source: dataStore!, destination: &destinationDS)
+            navigateToShowPromotion(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    
+    func routeToShowDescription(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowDescriptionViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowDescription(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowDescriptionViewController") as! ShowDescriptionViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowDescription(source: dataStore!, destination: &destinationDS)
+            navigateToShowDescription(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    func routeToShowIngredients(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowIngredientsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowIngredients(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowIngredientsViewController") as! ShowIngredientsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowIngredients(source: dataStore!, destination: &destinationDS)
+            navigateToShowIngredients(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     func routeToShowReviews(segue: UIStoryboardSegue?)
     {
-      if let segue = segue {
-        let destinationVC = segue.destination as! ShowReviewsViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-      } else {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowReviewsViewController") as! ShowReviewsViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-        navigateToSomewhere(source: viewController!, destination: destinationVC)
-      }
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowReviewsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowReviews(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowReviewsViewController") as! ShowReviewsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowReviews(source: dataStore!, destination: &destinationDS)
+            navigateToShowReviews(source: viewController!, destination: destinationVC)
+        }
     }
     
     // MARK: Navigation
     
-    func navigateToSomewhere(source: ShowProductViewController, destination: ShowReviewsViewController)
+    func navigateToShowReviews(source: ShowProductViewController, destination: ShowReviewsViewController)
     {
-      source.show(destination, sender: nil)
+        source.show(destination, sender: nil)
     }
     
+    func navigateToShowIngredients(source: ShowProductViewController, destination: ShowIngredientsViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    func navigateToShowDescription(source: ShowProductViewController, destination: ShowDescriptionViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    func navigateToShowPromotion(source: ShowProductViewController, destination: ShowPromotionViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    func navigateToShowProduct(source: ShowProductViewController, destination: ShowProductViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    
     // MARK: - Passing Data
-    func passDataToSomewhere(source: ShowProductDataStore, destination: inout ShowReviewsDataStore)
+    func passDataToShowReviews(source: ShowProductDataStore, destination: inout ShowReviewsDataStore)
     {
         destination.productID = source.productID
+    }
+
+    func passDataToShowIngredients(source: ShowProductDataStore, destination: inout ShowIngredientsDataStore)
+    {
+        destination.ingredients = source.product?.ingredients ?? []
+    }
+    
+    func passDataToShowDescription(source: ShowProductDataStore, destination: inout ShowDescriptionDataStore)
+    {
+        destination.description = source.product?.description ?? ""
+    }
+    
+    func passDataToShowPromotion(source: ShowProductDataStore, destination: inout ShowPromotionDataStore)
+    {
+        destination.promotionID = source.product!.promotion!.id
+    }
+    
+    func passDataToShowProduct(source: ShowProductDataStore, destination: inout ShowProductDataStore)
+    {
+        destination.productID = viewController!.selectedProductID!
     }
 }
