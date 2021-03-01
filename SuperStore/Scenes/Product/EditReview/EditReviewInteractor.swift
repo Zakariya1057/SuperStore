@@ -14,7 +14,12 @@ import UIKit
 
 protocol EditReviewBusinessLogic
 {
+    var reviewToEdit: ReviewModel? { get set }
+    
     func getReview(request: EditReview.GetReview.Request)
+    func createReview(request: EditReview.CreateReview.Request)
+    func updateReview(request: EditReview.UpdateReview.Request)
+    func deleteReview(request: EditReview.DeleteReview.Request)
 }
 
 protocol EditReviewDataStore
@@ -28,14 +33,79 @@ class EditReviewInteractor: EditReviewBusinessLogic, EditReviewDataStore
     var reviewWorker: ReviewWorker = ReviewWorker(reviewAPI: ReviewAPI())
     
     var product: ProductModel?
+    var reviewToEdit: ReviewModel?
     
     func getReview(request: EditReview.GetReview.Request)
     {
         if let product = product {
             reviewWorker.getReview(productID: product.id) { (review: ReviewModel?, error: String?) in
+                self.reviewToEdit = review
                 let response = EditReview.GetReview.Response(review: review, product: self.product, error: error)
                 self.presenter?.presentReview(response: response)
             }
         }
+    }
+    
+    func createReview(request: EditReview.CreateReview.Request){
+        let error = validateReviewForm(request.reviewFormField)
+        
+        if let error = error {
+            let response = EditReview.CreateReview.Response(error: error)
+            self.presenter?.presentReviewCreated(response: response)
+        } else {
+            let review = buildReviewFromReviewForm(request.reviewFormField)
+            reviewWorker.createReview(review: review) { (error: String?) in
+                let response = EditReview.CreateReview.Response(error: error)
+                self.presenter?.presentReviewCreated(response: response)
+            }
+        }
+    }
+    
+    func updateReview(request: EditReview.UpdateReview.Request){
+        let error = validateReviewForm(request.reviewFormField)
+        
+        if let error = error {
+            let response = EditReview.UpdateReview.Response(error: error)
+            self.presenter?.presentReviewUpdated(response: response)
+        } else {
+            let review = buildReviewFromReviewForm(request.reviewFormField)
+            reviewWorker.updateReview(review: review) { (error: String?) in
+                let response = EditReview.UpdateReview.Response(error: error)
+                self.presenter?.presentReviewUpdated(response: response)
+            }
+        }
+    }
+    
+    func deleteReview(request: EditReview.DeleteReview.Request){
+        reviewWorker.deleteReview(productID: product!.id){ (error: String?) in
+            let response = EditReview.CreateReview.Response(error: error)
+            self.presenter?.presentReviewCreated(response: response)
+        }
+    }
+    
+    private func buildReviewFromReviewForm(_ reviewForm:EditReview.ReviewFormFields) -> ReviewModel {
+        return ReviewModel(
+            id: 1,
+            text: reviewForm.text,
+            title: reviewForm.title,
+            rating: Int(reviewForm.rating),
+            name: "",
+            productID: product!.id,
+            userID: 0,
+            updatedAt: Date(),
+            createdAt: Date()
+        )
+    }
+    
+    private func validateReviewForm(_ reviewForm:EditReview.ReviewFormFields) -> String? {
+        if reviewForm.text.replacingOccurrences(of: " ", with: "") == "" {
+            return "Review text required"
+        }
+        
+        if reviewForm.title.replacingOccurrences(of: " ", with: "") == "" {
+            return "Review title required"
+        }
+        
+        return nil
     }
 }

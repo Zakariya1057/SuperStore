@@ -16,6 +16,9 @@ import Cosmos
 protocol EditReviewDisplayLogic: class
 {
     func displayReview(viewModel: EditReview.GetReview.ViewModel)
+    func displayReviewCreated(viewModel: EditReview.CreateReview.ViewModel)
+    func displayReviewUpdated(viewModel: EditReview.UpdateReview.ViewModel)
+    func displayReviewDeleted(viewModel: EditReview.DeleteReview.ViewModel)
 }
 
 class EditReviewViewController: UIViewController, EditReviewDisplayLogic
@@ -81,14 +84,19 @@ class EditReviewViewController: UIViewController, EditReviewDisplayLogic
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet var deleteButton: UIButton!
     
+    let spinner: SpinnerViewController = SpinnerViewController()
+    
     func getReview()
     {
+        startLoading()
         let request = EditReview.GetReview.Request()
         interactor?.getReview(request: request)
     }
     
     func displayReview(viewModel: EditReview.GetReview.ViewModel)
     {
+        stopLoading()
+        
         if let review = viewModel.displayedReview {
             ratingView.rating = Double(review.rating)
             titleTextField.text = review.title
@@ -98,14 +106,86 @@ class EditReviewViewController: UIViewController, EditReviewDisplayLogic
             deleteButton.alpha = 1
         }
     }
+    
+    func displayReviewCreated(viewModel: EditReview.CreateReview.ViewModel) {
+        stopLoading()
+        
+        if let error = viewModel.error {
+            showError(title: "Review Error", error: error)
+        } else {
+            router?.routeToProduct(segue: nil)
+        }
+    }
+    
+    func displayReviewUpdated(viewModel: EditReview.UpdateReview.ViewModel) {
+        stopLoading()
+        
+        if let error = viewModel.error {
+            showError(title: "Review Error", error: error)
+        } else {
+            router?.routeToProduct(segue: nil)
+        }
+    }
+    
+    func displayReviewDeleted(viewModel: EditReview.DeleteReview.ViewModel) {
+        stopLoading()
+        
+        if let error = viewModel.error {
+            showError(title: "Review Error", error: error)
+        } else {
+            router?.routeToProduct(segue: nil)
+        }
+    }
+    
+    
+    func submitForm(){
+        
+        let text = contentTextView.text ?? ""
+        let title = titleTextField.text ?? ""
+        let rating = ratingView.rating
+        
+        if (interactor?.reviewToEdit) != nil {
+            let reviewFormField: EditReview.ReviewFormFields = EditReview.ReviewFormFields(
+                text: text, title: title, rating: rating
+            )
+            
+            let request = EditReview.UpdateReview.Request(reviewFormField: reviewFormField)
+            interactor?.updateReview(request: request)
+        } else {
+            let reviewFormField: EditReview.ReviewFormFields = EditReview.ReviewFormFields(
+                text: text, title: title, rating: rating
+            )
+            
+            let request = EditReview.CreateReview.Request(reviewFormField: reviewFormField)
+            interactor?.createReview(request: request)
+        }
+    }
 }
 
 extension EditReviewViewController {
     @IBAction func saveBarButtonPressed(_ sender: Any) {
-        
+        startLoading()
+        submitForm()
     }
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
-        
+        startLoading()
+        let request = EditReview.DeleteReview.Request()
+        interactor?.deleteReview(request: request)
+    }
+}
+
+extension EditReviewViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
     }
 }

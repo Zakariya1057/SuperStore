@@ -197,10 +197,7 @@ extension ShowProductViewController {
     @IBAction func favouriteButtonPressed(_ sender: Any) {
         
         if let product = product {
-            var favourite: Bool = product.favourite
-            
-            print("Favourite: " + String(favourite))
-            favourite = !favourite
+            let favourite: Bool = !product.favourite
             
             updateFavourite(favourite: favourite)
             

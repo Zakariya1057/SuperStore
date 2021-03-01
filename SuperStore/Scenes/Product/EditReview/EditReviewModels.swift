@@ -16,17 +16,25 @@ enum EditReview
 {
     // MARK: Use cases
     
+    struct ReviewFormFields {
+        var text: String
+        var title: String
+        var rating: Double
+    }
+    
     enum GetReview
     {
         struct Request
         {
         }
+        
         struct Response
         {
             var review: ReviewModel?
             var product: ProductModel?
             var error: String?
         }
+        
         struct ViewModel
         {
             struct DisplayedReview {
@@ -40,6 +48,56 @@ enum EditReview
             }
             
             var displayedReview: DisplayedReview?
+            var error: String?
+        }
+    }
+    
+    enum CreateReview {
+        struct Request
+        {
+            var reviewFormField: ReviewFormFields
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
+    
+    enum UpdateReview {
+        struct Request
+        {
+            var reviewFormField: ReviewFormFields
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
+    
+    enum DeleteReview {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
             var error: String?
         }
     }

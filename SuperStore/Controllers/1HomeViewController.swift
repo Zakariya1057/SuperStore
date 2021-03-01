@@ -6,10 +6,10 @@
 ////  Copyright © 2020 Zakariya Mohummed. All rights reserved.
 ////
 //
-import UIKit
-import Kingfisher
-import RealmSwift
-import NotificationBannerSwift
+//import UIKit
+//import Kingfisher
+//import RealmSwift
+//import NotificationBannerSwift
 //
 //class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,ShowListDelegate, ProductDelegate, ScrollCollectionDelegate, OfferSelectedDelegate, HomeRequestDelegate, StoreSelectedDelegate, ListProgressDelegate, UserLocationDeniedDelegate, UITabBarControllerDelegate {
 //
@@ -703,84 +703,4 @@ import NotificationBannerSwift
 //    func configure(withModel: CustomElementModel)
 //}
 
-extension UIImageView {
-    func downloaded(from urlString: String, contentMode mode: UIView.ContentMode = .scaleAspectFit)  {
-        if let url  = URL(string: urlString) {
-            self.kf.indicatorType = .activity
-            self.kf.setImage(
-                with: url,
-                options: [
-                    .cacheOriginalImage,
-                    .forceTransition,
-                    .onFailureImage(KFCrossPlatformImage(named: "No Image")),
-                    .scaleFactor(UIScreen.main.scale),
-                ])
-        }
 
-    }
-}
-
-extension NSMutableAttributedString {
-    var fontSize:CGFloat { return 16 }
-    var boldFontSize: CGFloat { return 17 }
-    
-    var boldFont:UIFont { return UIFont(name: "System", size: boldFontSize) ?? UIFont.boldSystemFont(ofSize: boldFontSize) }
-    var normalFont:UIFont { return UIFont(name: "System", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)}
-
-    func bold(_ value:String) -> NSMutableAttributedString {
-
-        let attributes:[NSAttributedString.Key : Any] = [
-            .font : boldFont
-        ]
-
-        self.append(NSAttributedString(string: value, attributes:attributes))
-        return self
-    }
-
-    func normal(_ value:String) -> NSMutableAttributedString {
-
-        let attributes:[NSAttributedString.Key : Any] = [
-            .font : normalFont,
-        ]
-
-        self.append(NSAttributedString(string: value, attributes:attributes))
-        return self
-    }
-    /* Other styling methods */
-    func orangeHighlight(_ value:String) -> NSMutableAttributedString {
-
-        let attributes:[NSAttributedString.Key : Any] = [
-            .font :  normalFont,
-            .foregroundColor : UIColor.white,
-            .backgroundColor : UIColor.orange
-        ]
-
-        self.append(NSAttributedString(string: value, attributes:attributes))
-        return self
-    }
-
-    func blackHighlight(_ value:String) -> NSMutableAttributedString {
-
-        let attributes:[NSAttributedString.Key : Any] = [
-            .font :  normalFont,
-            .foregroundColor : UIColor.white,
-            .backgroundColor : UIColor.black
-
-        ]
-
-        self.append(NSAttributedString(string: value, attributes:attributes))
-        return self
-    }
-
-    func underlined(_ value:String) -> NSMutableAttributedString {
-
-        let attributes:[NSAttributedString.Key : Any] = [
-            .font :  normalFont,
-            .underlineStyle : NSUnderlineStyle.single.rawValue
-
-        ]
-
-        self.append(NSAttributedString(string: value, attributes:attributes))
-        return self
-    }
-}
