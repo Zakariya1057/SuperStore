@@ -80,6 +80,8 @@ class ShowPromotionViewController: UIViewController, ShowPromotionDisplayLogic
         getPromotion()
     }
     
+    var selectedProductID: Int?
+    
     var loading: Bool = false
     var promotion: PromotionModel? = nil
     
@@ -92,7 +94,7 @@ class ShowPromotionViewController: UIViewController, ShowPromotionDisplayLogic
     func displayPromotion(viewModel: ShowPromotion.GetPromotion.ViewModel)
     {
         promotion = viewModel.promotion
-        print(promotion!.products)
+        title = viewModel.promotion?.name
         promotionTableView.reloadData()
     }
 }
@@ -123,14 +125,6 @@ extension ShowPromotionViewController: UITableViewDelegate, UITableViewDataSourc
             if let promotion = promotion {
                 cell.product = promotion.products[indexPath.row]
             }
-            
-//            cell.product = products[indexPath.row]
-//
-//            if self.delegate != nil {
-//                cell.delegate = self.delegate
-//            }
-//
-//            cell.hideAll = true
 
             cell.configureUI()
         } else {
@@ -140,5 +134,14 @@ extension ShowPromotionViewController: UITableViewDelegate, UITableViewDataSourc
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
         
+    }
+}
+
+extension ShowPromotionViewController {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let promotion = promotion {
+            selectedProductID = promotion.products[indexPath.row].id
+            router?.routeToShowProduct(segue: nil)
+        }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jkW-G1-5eG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pZG-ZY-ksW">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -456,7 +456,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="hB9-dL-Gqt">
             <objects>
-                <tabBarController storyboardIdentifier="homeViewController" automaticallyAdjustsScrollViewInsets="NO" id="pZG-ZY-ksW" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="pZG-ZY-ksW" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="EoF-Mk-Iq0"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PBQ-GT-Mf9">
@@ -2117,7 +2117,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zk9-e4-itb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
-                                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
+                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
                                                                                         <rect key="frame" x="87" y="2" width="210" height="26"/>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -2867,7 +2867,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz2-WX-h3t">
                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="64.5" y="7.5" width="255" height="35"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -3068,7 +3068,7 @@
             </objects>
             <point key="canvasLocation" x="12976.8115942029" y="-374.33035714285711"/>
         </scene>
-        <!--Promotion-->
+        <!--Show Promotion View Controller-->
         <scene sceneID="VyZ-9z-UuA">
             <objects>
                 <viewController storyboardIdentifier="ShowPromotionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NiB-m5-sPY" customClass="ShowPromotionViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -3174,7 +3174,7 @@
                             <constraint firstItem="Vkl-XQ-FkG" firstAttribute="leading" secondItem="GkX-gK-9e7" secondAttribute="leading" id="wQ1-IB-bCj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Promotion" id="pkH-zn-Fpe"/>
+                    <navigationItem key="navigationItem" id="pkH-zn-Fpe"/>
                     <connections>
                         <outlet property="promotionExpiresLabel" destination="fVf-FN-EsO" id="Ihy-2w-09p"/>
                         <outlet property="promotionExpiryView" destination="C9Y-ut-iRW" id="DaJ-z9-QkW"/>
@@ -4840,6 +4840,14 @@
             <point key="canvasLocation" x="15414" y="136"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="XU3-Nd-wUM">
+            <size key="intrinsicContentSize" width="255" height="35"/>
+        </designable>
+        <designable name="tFG-eX-umO">
+            <size key="intrinsicContentSize" width="209.849609375" height="26"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="LCl-dZ-pvm"/>
     </inferredMetricsTieBreakers>

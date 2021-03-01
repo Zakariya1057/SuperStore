@@ -1071,6 +1071,7 @@
 				2C2BC86025EBE0760038882B /* User */,
 				2CDFB61825EA6250002CE30D /* Home */,
 				2C7294A925ECF13000D280B3 /* Favourites */,
+				2CDA612725ECFF0D00FD3956 /* Search */,
 				2C2BC7EB25EBB8640038882B /* Product */,
 			);
 			path = Scenes;
@@ -1160,6 +1161,13 @@
 				2CB51CAB255489800090F558 /* Info.plist */,
 			);
 			path = PayloadModification;
+			sourceTree = "<group>";
+		};
+		2CDA612725ECFF0D00FD3956 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		2CDFB60725EA5ECA002CE30D /* Config */ = {

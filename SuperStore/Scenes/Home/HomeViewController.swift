@@ -87,6 +87,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     var loading: Bool = false
     
     var selectedProductID: Int?
+    var selectedPromotionID: Int?
     
     func getHome()
     {
@@ -231,7 +232,8 @@ extension HomeViewController {
 
 extension HomeViewController {
     private func promotionPressed(promotionID: Int){
-        print("Promotion Pressed")
+        selectedPromotionID = promotionID
+        router?.routeToShowPromotion(segue: nil)
     }
     
     private func storePressed(storeID: Int){

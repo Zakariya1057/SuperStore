@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol HomeRoutingLogic
 {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToShowPromotion(segue: UIStoryboardSegue?)
     func routeToShowProduct(segue: UIStoryboardSegue?)
 }
 
@@ -45,7 +45,27 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
         }
     }
     
+    func routeToShowPromotion(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowPromotionViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowPromotion(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowPromotionViewController") as! ShowPromotionViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowPromotion(source: dataStore!, destination: &destinationDS)
+            navigateToShowPromotion(source: viewController!, destination: destinationVC)
+        }
+    }
+    
 //    MARK: Navigation
+    
+    func navigateToShowPromotion(source: HomeViewController, destination: ShowPromotionViewController)
+    {
+        source.show(destination, sender: nil)
+    }
     
     func navigateToShowProduct(source: HomeViewController, destination: ShowProductViewController)
     {
@@ -57,5 +77,10 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     func passDataToShowProduct(source: HomeDataStore, destination: inout ShowProductDataStore)
     {
         destination.productID = viewController!.selectedProductID!
+    }
+    
+    func passDataToShowPromotion(source: HomeDataStore, destination: inout ShowPromotionDataStore)
+    {
+        destination.promotionID = viewController!.selectedPromotionID!
     }
 }

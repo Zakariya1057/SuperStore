@@ -91,7 +91,9 @@ extension OffersCell {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !loading {
             // Offer Selected, Navigate
-//            self.delegate?.showPromotion(promotionID: promotions[indexPath.row].id)
+            if let offerPressedCallBack = offerPressedCallBack {
+                offerPressedCallBack(promotions[indexPath.row].id)
+            }
         }
     }
 }

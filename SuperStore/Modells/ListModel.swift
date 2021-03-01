@@ -14,7 +14,7 @@ struct ListModel {
     var createdAt: Date
     var status: ListStatus
     var identifier: String
-    var storeID: Int?
+    var storeTypeID: Int?
     var userID: Int
     var totalPrice: Double
     var oldTotalPrice: Double?
