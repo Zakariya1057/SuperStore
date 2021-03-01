@@ -14,28 +14,45 @@ import UIKit
 
 protocol EditReviewPresentationLogic
 {
-  func presentReview(response: EditReview.GetReview.Response)
+    func presentReview(response: EditReview.GetReview.Response)
+    func presentReviewCreated(response: EditReview.CreateReview.Response)
+    func presentReviewUpdated(response: EditReview.UpdateReview.Response)
+    func presentReviewDeleted(response: EditReview.DeleteReview.Response)
 }
 
 class EditReviewPresenter: EditReviewPresentationLogic
 {
-  weak var viewController: EditReviewDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentReview(response: EditReview.GetReview.Response)
-  {
-    var displayedReview: EditReview.GetReview.ViewModel.DisplayedReview?
     
-    if let review = response.review, let product = response.product {
-        displayedReview = EditReview.GetReview.ViewModel.DisplayedReview(
-            id: review.id, image: product.largeImage,
-            productName: product.name, text: review.text,
-            title: review.title, rating: Double(review.rating), name: review.name
-        )
+    weak var viewController: EditReviewDisplayLogic?
+    
+    func presentReview(response: EditReview.GetReview.Response)
+    {
+        var displayedReview: EditReview.GetReview.ViewModel.DisplayedReview?
+        
+        if let review = response.review, let product = response.product {
+            displayedReview = EditReview.GetReview.ViewModel.DisplayedReview(
+                id: review.id, image: product.largeImage,
+                productName: product.name, text: review.text,
+                title: review.title, rating: Double(review.rating), name: review.name
+            )
+        }
+        
+        let viewModel = EditReview.GetReview.ViewModel(displayedReview: displayedReview, error: response.error)
+        viewController?.displayReview(viewModel: viewModel)
     }
     
-    let viewModel = EditReview.GetReview.ViewModel(displayedReview: displayedReview, error: response.error)
-    viewController?.displayReview(viewModel: viewModel)
-  }
+    func presentReviewCreated(response: EditReview.CreateReview.Response) {
+        let viewModel = EditReview.CreateReview.ViewModel(error: response.error)
+        viewController?.displayReviewCreated(viewModel: viewModel)
+    }
+    
+    func presentReviewUpdated(response: EditReview.UpdateReview.Response) {
+        let viewModel = EditReview.UpdateReview.ViewModel(error: response.error)
+        viewController?.displayReviewUpdated(viewModel: viewModel)
+    }
+    
+    func presentReviewDeleted(response: EditReview.DeleteReview.Response) {
+        let viewModel = EditReview.DeleteReview.ViewModel(error: response.error)
+        viewController?.displayReviewDeleted(viewModel: viewModel)
+    }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class ReviewAPI: ReviewRequestProtocol {
 
@@ -55,15 +56,66 @@ class ReviewAPI: ReviewRequestProtocol {
     }
     
     func deleteReview(productID: Int, completionHandler: @escaping (String?) -> Void){
+        let url = Config.Route.Product.Show + String(productID) +  Config.Route.Product.Review.Delete
         
+        requestWorker.post(url: url, data: ["product_id": productID]) { (response: () throws -> Data) in
+            do {
+                _ = try response()
+                completionHandler(nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(errorMessage)
+            } catch {
+                print(error)
+                completionHandler("Failed to create review. Decoding error, please try again later.")
+            }
+        }
     }
 
-    func createReview(productID: Int, completionHandler: @escaping (String?) -> Void){
+    func createReview(review: ReviewModel, completionHandler: @escaping (String?) -> Void){
+        let url = Config.Route.Product.Show + String(review.productID) +  Config.Route.Product.Review.Create
         
+        let reviewData: Parameters = [
+            "text": review.text,
+            "title": review.title,
+            "rating": review.rating
+        ]
+        
+        requestWorker.post(url: url, data: reviewData) { (response: () throws -> Data) in
+            do {
+                _ = try response()
+                completionHandler(nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(errorMessage)
+            } catch {
+                print(error)
+                completionHandler("Failed to create review. Decoding error, please try again later.")
+            }
+        }
     }
     
-    func updateReview(productID: Int, completionHandler: @escaping (String?) -> Void){
+    func updateReview(review: ReviewModel, completionHandler: @escaping (String?) -> Void){
+        let url = Config.Route.Product.Show + String(review.productID) +  Config.Route.Product.Review.Update
         
+        let reviewData: Parameters = [
+            "text": review.text,
+            "title": review.title,
+            "rating": review.rating
+        ]
+        
+        requestWorker.post(url: url, data: reviewData) { (response: () throws -> Data) in
+            do {
+                _ = try response()
+                completionHandler(nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(errorMessage)
+            } catch {
+                print(error)
+                completionHandler("Failed to update review. Decoding error, please try again later.")
+            }
+        }
     }
 }
 

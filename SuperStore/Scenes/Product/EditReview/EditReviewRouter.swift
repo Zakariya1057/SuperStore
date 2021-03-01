@@ -14,47 +14,47 @@ import UIKit
 
 @objc protocol EditReviewRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToProduct(segue: UIStoryboardSegue?)
 }
 
 protocol EditReviewDataPassing
 {
-  var dataStore: EditReviewDataStore? { get }
+    var dataStore: EditReviewDataStore? { get }
 }
 
 class EditReviewRouter: NSObject, EditReviewRoutingLogic, EditReviewDataPassing
 {
-  weak var viewController: EditReviewViewController?
-  var dataStore: EditReviewDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: EditReviewViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: EditReviewDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    weak var viewController: EditReviewViewController?
+    var dataStore: EditReviewDataStore?
+    
+    // MARK: Routing
+    
+    func routeToProduct(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowProductViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowProduct(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowProductViewController") as! ShowProductViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowProduct(source: dataStore!, destination: &destinationDS)
+            navigateToShowProduct(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    // MARK: Navigation
+    
+    func navigateToShowProduct(source: EditReviewViewController, destination: ShowProductViewController)
+    {
+        source.navigationController?.popViewController(animated: true)
+    }
+    
+    //   MARK: Passing data
+    
+    func passDataToShowProduct(source: EditReviewDataStore, destination: inout ShowProductDataStore)
+    {
+        
+    }
 }

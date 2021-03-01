@@ -51,7 +51,6 @@ struct Config {
                 return Host + "/product"
             }
             
-            
             public static var Show: String {
                 return ProductRoute + "/"
             }
@@ -61,17 +60,17 @@ struct Config {
             }
             
             public static var Monitor: String {
-                return ProductRoute + "/monitor"
+                return  "/monitor"
             }
             
             public struct Review {
                 
                 public static var ReviewRoute: String {
-                    return ProductRoute + "/review"
+                    return "/review"
                 }
                 
                 public static var Show: String {
-                    return "/review"
+                    return ReviewRoute
                 }
                 
                 public static var All: String {
@@ -79,11 +78,15 @@ struct Config {
                 }
                 
                 public static var Create: String {
-                    return "/create"
+                    return ReviewRoute + "/create"
+                }
+                
+                public static var Update: String {
+                    return ReviewRoute + "/create"
                 }
                 
                 public static var Delete: String {
-                    return "/delete"
+                    return ReviewRoute + "/delete"
                 }
                 
             }
