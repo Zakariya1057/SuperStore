@@ -81,7 +81,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnK-QZ-xmF">
                                                                         <rect key="frame" x="0.0" y="0.0" width="366" height="20"/>
                                                                         <subviews>
-                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDL-SK-bQP" customClass="CosmosView" customModule="Cosmos">
+                                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KDL-SK-bQP" customClass="CosmosView" customModule="Cosmos">
                                                                                 <rect key="frame" x="0.0" y="-1.5" width="366" height="23"/>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                 <userDefinedRuntimeAttributes>
@@ -243,11 +243,6 @@
             <point key="canvasLocation" x="198.55072463768118" y="83.705357142857139"/>
         </collectionViewCell>
     </objects>
-    <designables>
-        <designable name="KDL-SK-bQP">
-            <size key="intrinsicContentSize" width="174.923828125" height="23"/>
-        </designable>
-    </designables>
     <resources>
         <namedColor name="LogoBlue">
             <color red="0.097999997437000275" green="0.46299999952316284" blue="0.80400002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

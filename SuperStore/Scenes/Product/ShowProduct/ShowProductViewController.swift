@@ -272,7 +272,6 @@ extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate 
 
 extension ShowProductViewController {
     private func productPressed(productID: Int){
-        print("Product Pressed")
         selectedProductID = productID
         router?.routeToShowProduct(segue: nil)
     }

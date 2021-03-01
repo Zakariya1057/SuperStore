@@ -61,7 +61,6 @@ class StoresMapCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegat
         self.stores = model.stores ?? []
         self.storePressed = model.storePressed
         
-        print(self.stores)
         configureUI()
     }
     

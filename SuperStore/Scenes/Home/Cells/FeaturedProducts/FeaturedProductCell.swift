@@ -8,7 +8,9 @@
 
 import UIKit
 
-class FeaturedProductElement: ProductElement { }
+class FeaturedProductElement: ProductElement {
+    override var type: CustomElementType { return .featuredProducts }
+}
 
 class FeaturedProductCell: UITableViewCell,CustomElementCell {
     
@@ -17,7 +19,8 @@ class FeaturedProductCell: UITableViewCell,CustomElementCell {
     var model: FeaturedProductElement!
     var products: [ProductModel] = []
     
-    var delegate:ProductDelegate?
+    var productPressedCallBack: ((Int) -> Void?)? = nil
+    var scrollCallBack: ((CGFloat, String) -> Void)? = nil
     
     var loading: Bool = true
     
@@ -30,8 +33,8 @@ class FeaturedProductCell: UITableViewCell,CustomElementCell {
         }
         
         self.model = model
-//        self.delegate = model.delegate
         self.loading = model.loading
+        self.productPressedCallBack = model.productPressedCallBack
         
         self.products = model.products
         self.productCollection.reloadData()
@@ -88,7 +91,9 @@ extension FeaturedProductCell: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !loading {
             // Product Selected, Navigate
-            self.delegate?.showProduct(productID: products[indexPath.row].id)
+            if let productPressedCallBack = productPressedCallBack {
+                productPressedCallBack(products[indexPath.row].id)
+            }
         }
     }
 }

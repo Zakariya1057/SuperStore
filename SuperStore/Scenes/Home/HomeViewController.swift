@@ -86,6 +86,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     var homeModel: HomeModel?
     var loading: Bool = false
     
+    var selectedProductID: Int?
+    
     func getHome()
     {
         let request = Home.GetHome.Request()
@@ -111,6 +113,7 @@ extension HomeViewController {
             for element in homeCells {
                 
                 switch element {
+                
                 case is StoresMapElement:
                     let storeElement = element as! StoresMapElement
                     storeElement.stores = homeModel.stores
@@ -130,10 +133,12 @@ extension HomeViewController {
                 case is FeaturedProductElement:
                     let featuredElement = element as! FeaturedProductElement
                     featuredElement.products = homeModel.featured
+                    print("Featurf.")
                     break
                 default:
                     print("Unknown Type Encountered: \(element.type)")
                 }
+                
             }
             
             for category in homeModel.categories {
@@ -164,11 +169,13 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let offersCell = UINib(nibName: "OffersCell", bundle: nil)
         tableView.register(offersCell, forCellReuseIdentifier: "OffersCell")
         
-        let featuredProductsCell = UINib(nibName: "FeaturedProductsCell", bundle: nil)
-        tableView.register(featuredProductsCell, forCellReuseIdentifier: "FeaturedProductsCell")
+        let featuredProductsCell = UINib(nibName: "FeaturedProductCell", bundle: nil)
+        tableView.register(featuredProductsCell, forCellReuseIdentifier: "FeaturedProductCell")
         
         let listsProgressCell = UINib(nibName: "ListsProgressCell", bundle: nil)
         tableView.register(listsProgressCell, forCellReuseIdentifier: "ListsProgressCell")
+        
+        setUpTableView()
     }
     
     private func setUpTableView(){
@@ -207,6 +214,7 @@ extension HomeViewController {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellModel = homeCells[indexPath.section]
+        print(cellModel.type)
         let cellIdentifier = cellModel.type.rawValue
         let customCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CustomElementCell
         
@@ -236,7 +244,8 @@ extension HomeViewController {
     }
     
     private func productPressed(productID: Int){
-        print("Product Pressed")
+        self.selectedProductID = productID
+        router?.routeToShowProduct(segue: nil)
     }
     
     private func cellScroll(position: CGFloat, title: String){
@@ -249,7 +258,7 @@ enum CustomElementType: String {
     case storesMap        = "StoresMapCell"
     case listsProgress    = "ListsProgressCell"
     case offers           = "OffersCell"
-    case featuredProducts = "FeaturedProductsCell"
+    case featuredProducts = "FeaturedProductCell"
     case listPriceUpdate  = "ListPriceUpdate"
 }
 

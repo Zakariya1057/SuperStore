@@ -763,10 +763,10 @@
 			isa = PBXGroup;
 			children = (
 				2C1567BF24C77FD800B8DCB5 /* Main.storyboard */,
-				2C9C1B7824CCD07F001ACA35 /* ProductCollectionViewCell.swift */,
-				2C9C1B7924CCD07F001ACA35 /* ProductCollectionViewCell.xib */,
 				2CAC05FA252E314F00561509 /* FeaturedProductCollectionViewCell.swift */,
 				2CAC05FB252E314F00561509 /* FeaturedProductCollectionViewCell.xib */,
+				2C9C1B7824CCD07F001ACA35 /* ProductCollectionViewCell.swift */,
+				2C9C1B7924CCD07F001ACA35 /* ProductCollectionViewCell.xib */,
 				2CB15C7424D190E500461AFE /* StoresResultsTableViewCell.swift */,
 				2CB15C7524D190E500461AFE /* StoresResultsTableViewCell.xib */,
 				2C9C1B8F24CEEF8F001ACA35 /* ListPriceUpdateTableViewCell.swift */,

@@ -84,7 +84,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1n-ZB-R56">
                                                                 <rect key="frame" x="0.0" y="0.0" width="354" height="35"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYA-oO-zY4" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YYA-oO-zY4" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="0.0" y="6" width="354" height="23"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -284,11 +284,6 @@
             <point key="canvasLocation" x="148.55072463768118" y="125.55803571428571"/>
         </tableViewCell>
     </objects>
-    <designables>
-        <designable name="YYA-oO-zY4">
-            <size key="intrinsicContentSize" width="174.923828125" height="23"/>
-        </designable>
-    </designables>
     <resources>
         <namedColor name="LogoBlue">
             <color red="0.097999997437000275" green="0.46299999952316284" blue="0.80400002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
