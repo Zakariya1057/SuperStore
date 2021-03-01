@@ -61,4 +61,22 @@ enum ShowProduct
             var error: String?
         }
     }
+    
+    
+    enum UpdateFavourite
+    {
+        struct Request
+        {
+            var productID: Int
+            var favourite: Bool
+        }
+        struct Response
+        {
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
 }

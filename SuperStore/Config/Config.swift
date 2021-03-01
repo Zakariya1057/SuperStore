@@ -57,7 +57,7 @@ struct Config {
             }
             
             public static var Favourite: String {
-                return ProductRoute + "/favourite"
+                return "/favourite"
             }
             
             public static var Monitor: String {
@@ -88,6 +88,10 @@ struct Config {
                 
             }
             
+        }
+        
+        public static var Favourites: String {
+            return Host + "/favourites"
         }
         
         public static var Promotion: String {

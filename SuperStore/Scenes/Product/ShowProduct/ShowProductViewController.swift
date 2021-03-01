@@ -16,10 +16,12 @@ import Cosmos
 protocol ShowProductDisplayLogic: class
 {
     func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
+    func displayFavourite(viewModel: ShowProduct.UpdateFavourite.ViewModel)
 }
 
 class ShowProductViewController: UIViewController, ShowProductDisplayLogic
 {
+    
     var interactor: ShowProductBusinessLogic?
     var router: (NSObjectProtocol & ShowProductRoutingLogic & ShowProductDataPassing)?
     
@@ -113,7 +115,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet weak var recommendedTableView: UITableView!
     @IBOutlet weak var addToListButton: UIButton!
     
-    
+    var product: ShowProduct.DisplayedProduct?
     var scrollPosition: CGFloat = CGFloat(0)
     var loading: Bool = false
     
@@ -124,9 +126,16 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     
     //MARK: - Display
     
+    func displayFavourite(viewModel: ShowProduct.UpdateFavourite.ViewModel) {
+        
+    }
+    
     func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
     {
         if let product = viewModel.displayedProduct {
+            
+            self.product = product
+            
             imageView.downloaded(from: product.largeImage)
             
             nameLabel.text = product.name
@@ -137,7 +146,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 reviews.append(review)
                 reviewsTableView.reloadData()
             }
-
+            
             ratingView.rating = product.avgRating
             ratingView.text = "(\(product.totalReviewsCount))"
             
@@ -162,24 +171,52 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         let request = ShowProduct.GetProduct.Request()
         interactor?.getProduct(request: request)
     }
-
+    
+    func updateFavourite(favourite: Bool) {
+        let barItem:UIBarButtonItem
+        
+        if favourite == true {
+            barItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(favouriteButtonPressed))
+            barItem.image = UIImage(systemName: "star.fill")
+        } else {
+            barItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(favouriteButtonPressed))
+            barItem.image = UIImage(systemName: "star")
+        }
+        
+        barItem.tintColor = .systemYellow
+        self.navigationItem.rightBarButtonItem = barItem
+    }
+    
 }
 
 extension ShowProductViewController {
     @IBAction func monitorButtonPressed(_ sender: Any) {
-    
+        
     }
     
     @IBAction func favouriteButtonPressed(_ sender: Any) {
         
+        if let product = product {
+            var favourite: Bool = product.favourite
+            
+            print("Favourite: " + String(favourite))
+            favourite = !favourite
+            
+            updateFavourite(favourite: favourite)
+            
+            let request = ShowProduct.UpdateFavourite.Request(productID: product.id, favourite: favourite)
+            interactor?.updateFavourite(request: request)
+            
+            self.product!.favourite = favourite
+        }
     }
     
     @IBAction func addToListButtonPressed(_ sender: Any) {
-    
+        
     }
     
     @IBAction func reviewButtonPressed(_ sender: Any) {
-    
+        
     }
     
     @IBAction func allReviewButtonPressed(_ sender: Any) {
@@ -187,7 +224,7 @@ extension ShowProductViewController {
     }
     
     @IBAction func quantityStepperPressed(_ sender: Any) {
-    
+        
     }
 }
 
@@ -199,11 +236,11 @@ extension ShowProductViewController {
         
         let descriptionPressedGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionButtonPressed))
         descriptionView.addGestureRecognizer(descriptionPressedGesture)
-
+        
         let promotionPressedGesture = UITapGestureRecognizer(target: self, action: #selector(promotionButtonPressed))
         promotionView.addGestureRecognizer(promotionPressedGesture)
     }
-   
+    
     @objc func promotionButtonPressed(){
         router?.routeToShowPromotion(segue: nil)
     }
@@ -211,11 +248,11 @@ extension ShowProductViewController {
     @objc func ingredientsButtonPressed(){
         router?.routeToShowIngredients(segue: nil)
     }
-
+    
     @objc func descriptionButtonPressed(){
         router?.routeToShowDescription(segue: nil)
     }
-
+    
 }
 
 extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate {
@@ -231,19 +268,19 @@ extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate 
         let cell = reviewsTableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewCell
         
         if loading == false {
-
+            
             if reviews.count > 0 {
                 cell.review = reviews[indexPath.row]
             }
-
+            
             cell.configureUI()
-
+            
         } else {
             cell.startLoading()
         }
-
+        
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
-
+        
         return cell
     }
     

@@ -15,6 +15,7 @@ import UIKit
 protocol ShowProductBusinessLogic
 {
     func getProduct(request: ShowProduct.GetProduct.Request)
+    func updateFavourite(request: ShowProduct.UpdateFavourite.Request)
 }
 
 protocol ShowProductDataStore
@@ -27,6 +28,7 @@ class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
 {
     var presenter: ShowProductPresentationLogic?
     var productWorker: ProductWorker = ProductWorker(productAPI: ProductAPI())
+    var favouriteWorker: FavouriteWorker = FavouriteWorker(favouriteAPI: FavouriteAPI())
     
     var productID: Int = 416
     var product: ProductModel?
@@ -37,6 +39,13 @@ class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
             self.product = product
             let response = ShowProduct.GetProduct.Response(product: product, error: error)
             self.presenter?.presentProduct(response: response)
+        }
+    }
+    
+    func updateFavourite(request: ShowProduct.UpdateFavourite.Request){
+        favouriteWorker.updateFavourite(productID: request.productID, favourite: request.favourite) { (error: String?) in
+            let response = ShowProduct.UpdateFavourite.Response(error: error)
+            self.presenter?.presentFavourite(response: response)
         }
     }
 }

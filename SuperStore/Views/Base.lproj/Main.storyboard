@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pZG-ZY-ksW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jkW-G1-5eG">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -303,7 +303,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Favourites" id="79Q-VX-Z5T"/>
                     <connections>
-                        <outlet property="favouritesTableView" destination="xae-6G-Fcf" id="T08-a2-DzR"/>
+                        <outlet property="favouriteTableView" destination="xae-6G-Fcf" id="h5J-hj-uOI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKB-LZ-uUn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

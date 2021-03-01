@@ -25,7 +25,7 @@ protocol ShowReviewsDataStore
 class ShowReviewsInteractor: ShowReviewsBusinessLogic, ShowReviewsDataStore
 {
     var presenter: ShowReviewsPresentationLogic?
-    var reviewsWorker: ReviewsWorker = ReviewsWorker(reviewAPI: ReviewAPI())
+    var reviewWorker: ReviewWorker = ReviewWorker(reviewAPI: ReviewAPI())
     
     var productID: Int = 1
     
@@ -33,7 +33,7 @@ class ShowReviewsInteractor: ShowReviewsBusinessLogic, ShowReviewsDataStore
     
     func getReviews(request: ShowReviews.GetReviews.Request)
     {
-        reviewsWorker.getReviews(productID: productID) { (reviews: [ReviewModel], error: String?) in
+        reviewWorker.getReviews(productID: productID) { (reviews: [ReviewModel], error: String?) in
             let response = ShowReviews.GetReviews.Response(reviews: reviews, error: error)
             self.presenter?.presentReviews(response: response)
         }

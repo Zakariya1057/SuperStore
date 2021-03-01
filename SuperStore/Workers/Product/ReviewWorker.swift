@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ReviewsWorker {
+class ReviewWorker {
     var reviewAPI: ReviewRequestProtocol
     
     init(reviewAPI: ReviewRequestProtocol) {

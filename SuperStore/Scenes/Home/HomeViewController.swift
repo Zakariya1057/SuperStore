@@ -133,7 +133,6 @@ extension HomeViewController {
                 case is FeaturedProductElement:
                     let featuredElement = element as! FeaturedProductElement
                     featuredElement.products = homeModel.featured
-                    print("Featurf.")
                     break
                 default:
                     print("Unknown Type Encountered: \(element.type)")

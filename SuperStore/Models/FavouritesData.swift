@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct FavouritesDataResponse: Decodable {
-    var data: [ProductData]
-}
+//struct FavouritesDataResponse: Decodable {
+//    var data: [ProductData]
+//}

@@ -22,6 +22,7 @@ enum RequestError: Error {
 
 struct RequestWorker: RequestProtocol {
 
+    var userSession: UserSession = UserSession()
     var requestTimeout: Double = 10
     
     func get(url: String, completionHandler: @escaping (() throws -> Data) -> Void) {
@@ -95,7 +96,9 @@ extension RequestWorker {
     }
     
     private func setHeaders() -> HTTPHeaders {
-        let token = ""
+        let token = userSession.getUserToken() ?? ""
+        
+        print("Token: \(token)")
         
         let headers: HTTPHeaders = [
             "X-Authorization": "Bearer \(token)",

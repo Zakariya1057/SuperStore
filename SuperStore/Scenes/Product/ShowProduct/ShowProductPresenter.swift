@@ -14,44 +14,49 @@ import UIKit
 
 protocol ShowProductPresentationLogic
 {
-  func presentProduct(response: ShowProduct.GetProduct.Response)
+    func presentProduct(response: ShowProduct.GetProduct.Response)
+    func presentFavourite(response: ShowProduct.UpdateFavourite.Response)
 }
 
 class ShowProductPresenter: ShowProductPresentationLogic
 {
-  weak var viewController: ShowProductDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentProduct(response: ShowProduct.GetProduct.Response)
-  {
+    weak var viewController: ShowProductDisplayLogic?
     
-    var displayedProduct: ShowProduct.DisplayedProduct?
+    // MARK: Do something
     
-    if let product = response.product {
-        displayedProduct = ShowProduct.DisplayedProduct(
-            id: product.id,
-            name: product.name,
-            price: "£\( String(format: "%.2f", product.price) )",
-            promotion: product.promotion,
-            largeImage: product.largeImage,
-            description: product.description ?? "",
-            favourite: product.favourite,
-            monitoring: product.monitoring,
-            avgRating: product.avgRating,
-            totalReviewsCount: product.totalReviewsCount,
-            storage: product.storage,
-            weight: product.weight,
-            dietaryInfo: product.dietaryInfo,
-            allergenInfo: product.allergenInfo,
-            review: product.reviews.first,
-            ingredients: product.ingredients,
-            recommended: product.recommended)
+    func presentProduct(response: ShowProduct.GetProduct.Response)
+    {
+        
+        var displayedProduct: ShowProduct.DisplayedProduct?
+        
+        if let product = response.product {
+            displayedProduct = ShowProduct.DisplayedProduct(
+                id: product.id,
+                name: product.name,
+                price: "£\( String(format: "%.2f", product.price) )",
+                promotion: product.promotion,
+                largeImage: product.largeImage,
+                description: product.description ?? "",
+                favourite: product.favourite,
+                monitoring: product.monitoring,
+                avgRating: product.avgRating,
+                totalReviewsCount: product.totalReviewsCount,
+                storage: product.storage,
+                weight: product.weight,
+                dietaryInfo: product.dietaryInfo,
+                allergenInfo: product.allergenInfo,
+                review: product.reviews.first,
+                ingredients: product.ingredients,
+                recommended: product.recommended)
+        }
+        
+        
+        let viewModel = ShowProduct.GetProduct.ViewModel(displayedProduct: displayedProduct, error: response.error)
+        viewController?.displayProduct(viewModel: viewModel)
+        
     }
-
     
-    let viewModel = ShowProduct.GetProduct.ViewModel(displayedProduct: displayedProduct, error: response.error)
-    viewController?.displayProduct(viewModel: viewModel)
-
-  }
+    func presentFavourite(response: ShowProduct.UpdateFavourite.Response){
+        
+    }
 }
