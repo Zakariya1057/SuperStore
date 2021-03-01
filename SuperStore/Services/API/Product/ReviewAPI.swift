@@ -14,6 +14,22 @@ class ReviewAPI: ReviewRequestProtocol {
     let requestWorker: RequestProtocol = RequestWorker()
     
     func getReview(productID: Int, completionHandler: @escaping (ReviewModel?, String?) -> Void) {
+        let url = Config.Route.Product.Show + String(productID) + Config.Route.Product.Review.Show
+        
+        requestWorker.get(url: url) { (response: () throws -> Data) in
+            do {
+                let data = try response()
+                let reviewDataResponse =  try self.jsonDecoder.decode(ReviewDataResponse.self, from: data)
+                let reviews = self.createReviewModel(reviewDataResponse: reviewDataResponse)
+                completionHandler(reviews, nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(nil, errorMessage)
+            } catch {
+                print(error)
+                completionHandler(nil, "Failed to get review. Decoding error, please try again later.")
+            }
+        }
         
     }
     
@@ -38,8 +54,17 @@ class ReviewAPI: ReviewRequestProtocol {
         
     }
     
+    func deleteReview(productID: Int, completionHandler: @escaping (String?) -> Void){
+        
+    }
 
+    func createReview(productID: Int, completionHandler: @escaping (String?) -> Void){
+        
+    }
     
+    func updateReview(productID: Int, completionHandler: @escaping (String?) -> Void){
+        
+    }
 }
 
 extension ReviewAPI {

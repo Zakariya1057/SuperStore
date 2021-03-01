@@ -11,79 +11,101 @@
 //
 
 import UIKit
+import Cosmos
 
 protocol EditReviewDisplayLogic: class
 {
-  func displaySomething(viewModel: EditReview.Something.ViewModel)
+    func displayReview(viewModel: EditReview.GetReview.ViewModel)
 }
 
 class EditReviewViewController: UIViewController, EditReviewDisplayLogic
 {
-  var interactor: EditReviewBusinessLogic?
-  var router: (NSObjectProtocol & EditReviewRoutingLogic & EditReviewDataPassing)?
-
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = EditReviewInteractor()
-    let presenter = EditReviewPresenter()
-    let router = EditReviewRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    var interactor: EditReviewBusinessLogic?
+    var router: (NSObjectProtocol & EditReviewRoutingLogic & EditReviewDataPassing)?
+    
+    // MARK: Object lifecycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-  }
-  
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = EditReview.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: EditReview.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup()
+    {
+        let viewController = self
+        let interactor = EditReviewInteractor()
+        let presenter = EditReviewPresenter()
+        let router = EditReviewRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        getReview()
+    }
+    
+    // MARK: IB Outlets
+    @IBOutlet var titleTextField: UITextField!
+    @IBOutlet var contentTextView: UITextView!
+    @IBOutlet weak var productImageView: UIImageView!
+    @IBOutlet var productNameLabel: UILabel!
+    @IBOutlet weak var ratingView: CosmosView!
+    @IBOutlet var deleteButton: UIButton!
+    
+    func getReview()
+    {
+        let request = EditReview.GetReview.Request()
+        interactor?.getReview(request: request)
+    }
+    
+    func displayReview(viewModel: EditReview.GetReview.ViewModel)
+    {
+        if let review = viewModel.displayedReview {
+            ratingView.rating = Double(review.rating)
+            titleTextField.text = review.title
+            contentTextView.text = review.text
+            productNameLabel.text = review.productName
+            productImageView.downloaded(from: review.image)
+            deleteButton.alpha = 1
+        }
+    }
+}
+
+extension EditReviewViewController {
+    @IBAction func saveBarButtonPressed(_ sender: Any) {
+        
+    }
+    
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        
+    }
 }

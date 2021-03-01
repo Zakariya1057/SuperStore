@@ -14,18 +14,33 @@ import UIKit
 
 enum EditReview
 {
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
+    // MARK: Use cases
+    
+    enum GetReview
     {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var review: ReviewModel?
+            var product: ProductModel?
+            var error: String?
+        }
+        struct ViewModel
+        {
+            struct DisplayedReview {
+                var id: Int
+                var image: String
+                var productName: String
+                var text: String
+                var title: String
+                var rating: Double
+                var name: String
+            }
+            
+            var displayedReview: DisplayedReview?
+            var error: String?
+        }
     }
-    struct Response
-    {
-    }
-    struct ViewModel
-    {
-    }
-  }
 }

@@ -14,7 +14,7 @@ import UIKit
 
 protocol EditReviewPresentationLogic
 {
-  func presentSomething(response: EditReview.Something.Response)
+  func presentReview(response: EditReview.GetReview.Response)
 }
 
 class EditReviewPresenter: EditReviewPresentationLogic
@@ -23,9 +23,19 @@ class EditReviewPresenter: EditReviewPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: EditReview.Something.Response)
+  func presentReview(response: EditReview.GetReview.Response)
   {
-    let viewModel = EditReview.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    var displayedReview: EditReview.GetReview.ViewModel.DisplayedReview?
+    
+    if let review = response.review, let product = response.product {
+        displayedReview = EditReview.GetReview.ViewModel.DisplayedReview(
+            id: review.id, image: product.largeImage,
+            productName: product.name, text: review.text,
+            title: review.title, rating: Double(review.rating), name: review.name
+        )
+    }
+    
+    let viewModel = EditReview.GetReview.ViewModel(displayedReview: displayedReview, error: response.error)
+    viewController?.displayReview(viewModel: viewModel)
   }
 }

@@ -18,6 +18,22 @@ class ReviewWorker {
     func getReviews(productID: Int, completionHandler: @escaping (_ reviews: [ReviewModel], _ error: String?) -> Void){
         reviewAPI.getReviews(productID: productID, completionHandler: completionHandler)
     }
+    
+    func getReview(productID: Int, completionHandler: @escaping (_ review: ReviewModel?, _ error: String?) -> Void){
+        reviewAPI.getReview(productID: productID, completionHandler: completionHandler)
+    }
+    
+    func deleteReview(){
+        
+    }
+    
+    func createReview(){
+        
+    }
+
+    func updateReview(){
+        
+    }
 }
 
 protocol ReviewRequestProtocol {

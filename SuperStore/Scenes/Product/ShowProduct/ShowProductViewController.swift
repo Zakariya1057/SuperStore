@@ -216,7 +216,7 @@ extension ShowProductViewController {
     }
     
     @IBAction func reviewButtonPressed(_ sender: Any) {
-        
+        router?.routeToEditReview(segue: nil)
     }
     
     @IBAction func allReviewButtonPressed(_ sender: Any) {

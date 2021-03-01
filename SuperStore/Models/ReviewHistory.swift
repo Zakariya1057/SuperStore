@@ -24,9 +24,9 @@ class ReviewHistory: Object {
         return "id"
     }
     
-    func getReviewModel () -> ReviewModel {
-
-        return ReviewModel(id: self.id, text: self.text, title: self.title, rating: self.rating, name: self.name, productID: self.productID, userID: self.userID, updatedAt: self.updatedAt, createdAt: self.createdAt)
-    }
+//    func getReviewModel () -> ReviewModel {
+//
+//        return ReviewModel(id: self.id, text: self.text, title: self.title, rating: self.rating, name: self.name, productID: self.productID, userID: self.userID, updatedAt: self.updatedAt, createdAt: self.createdAt)
+//    }
     
 }

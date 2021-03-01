@@ -19,6 +19,7 @@ import UIKit
     func routeToShowReviews(segue: UIStoryboardSegue?)
     func routeToShowDescription(segue: UIStoryboardSegue?)
     func routeToShowIngredients(segue: UIStoryboardSegue?)
+    func routeToEditReview(segue: UIStoryboardSegue?)
 }
 
 protocol ShowProductDataPassing
@@ -32,6 +33,21 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     var dataStore: ShowProductDataStore?
     
     // MARK: Routing
+    
+    func routeToEditReview(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! EditReviewViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToEditReview(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditReviewViewController") as! EditReviewViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToEditReview(source: dataStore!, destination: &destinationDS)
+            navigateToEditReview(source: viewController!, destination: destinationVC)
+        }
+    }
     
     func routeToShowProduct(segue: UIStoryboardSegue?)
     {
@@ -111,6 +127,11 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     
     // MARK: Navigation
     
+    func navigateToEditReview(source: ShowProductViewController, destination: EditReviewViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
     func navigateToShowReviews(source: ShowProductViewController, destination: ShowReviewsViewController)
     {
         source.show(destination, sender: nil)
@@ -161,5 +182,10 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     func passDataToShowProduct(source: ShowProductDataStore, destination: inout ShowProductDataStore)
     {
         destination.productID = viewController!.selectedProductID!
+    }
+    
+    func passDataToEditReview(source: ShowProductDataStore, destination: inout EditReviewDataStore)
+    {
+        destination.product = source.product!
     }
 }

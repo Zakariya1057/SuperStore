@@ -59,9 +59,9 @@ struct ReviewsHandler {
             let date_format: DateFormatter = DateFormatter()
             date_format.dateFormat = "dd MMMM Y"
             
-//            if let review = review {
-                userReview = ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name, productID: review.product_id, userID: review.user_id, updatedAt: date_format.date(from: review.updated_at)! , createdAt: date_format.date(from: review.created_at)!)
-//            }
+////            if let review = review {
+//                userReview = ReviewModel(id: review.id, text: review.text, title: review.title, rating: review.rating, name: review.name, productID: review.product_id, userID: review.user_id, updatedAt: date_format.date(from: review.updated_at)! , createdAt: date_format.date(from: review.created_at)!)
+////            }
             
             DispatchQueue.main.async {
                 self.delegate?.contentLoaded(review: userReview)

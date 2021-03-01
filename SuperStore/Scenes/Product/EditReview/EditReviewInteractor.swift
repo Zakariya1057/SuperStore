@@ -14,28 +14,28 @@ import UIKit
 
 protocol EditReviewBusinessLogic
 {
-  func doSomething(request: EditReview.Something.Request)
+    func getReview(request: EditReview.GetReview.Request)
 }
 
 protocol EditReviewDataStore
 {
-  //var name: String { get set }
+    var product: ProductModel? { get set }
 }
 
 class EditReviewInteractor: EditReviewBusinessLogic, EditReviewDataStore
 {
-  var presenter: EditReviewPresentationLogic?
-  var worker: EditReviewWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: EditReview.Something.Request)
-  {
-    worker = EditReviewWorker()
-    worker?.doSomeWork()
+    var presenter: EditReviewPresentationLogic?
+    var reviewWorker: ReviewWorker = ReviewWorker(reviewAPI: ReviewAPI())
     
-    let response = EditReview.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var product: ProductModel?
+    
+    func getReview(request: EditReview.GetReview.Request)
+    {
+        if let product = product {
+            reviewWorker.getReview(productID: product.id) { (review: ReviewModel?, error: String?) in
+                let response = EditReview.GetReview.Response(review: review, product: self.product, error: error)
+                self.presenter?.presentReview(response: response)
+            }
+        }
+    }
 }
