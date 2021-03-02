@@ -77,14 +77,11 @@ class StoreViewController: UIViewController, StoreDisplayLogic
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     
-    // Opening Hours Labels START
     @IBOutlet var openingHoursDayLabels: [UILabel]!
     @IBOutlet var openingHoursTimeLabels: [UILabel]!
-    // Opening Hours Labels END
-    
     
     // Facilities Labels START
-    @IBOutlet weak var carView: UIStackView!
+    @IBOutlet weak var carParkView: UIStackView!
     @IBOutlet weak var customerWCView: UIStackView!
     @IBOutlet weak var heliumBalloonsView: UIStackView!
     @IBOutlet weak var disabledView: UIStackView!
@@ -92,6 +89,7 @@ class StoreViewController: UIViewController, StoreDisplayLogic
     @IBOutlet weak var paypointView: UIStackView!
     @IBOutlet weak var atmView: UIStackView!
     @IBOutlet weak var babyChangingView: UIStackView!
+    @IBOutlet weak var petrolFillingStationView: UIStackView!
     // Facilities Labels END
     
     func getStore()
@@ -107,26 +105,53 @@ class StoreViewController: UIViewController, StoreDisplayLogic
             addressLabel.text = store.address
             logoImageView.downloaded(from: store.logo)
             
-            for (index, opening) in store.openingHours.enumerated() {
-                // Set Hours
-                let hourLabel: UILabel = openingHoursTimeLabels[index]
-                let dayLabel: UILabel = openingHoursDayLabels[index]
-                    
-                hourLabel.text = opening.hours
-                
-                if opening.today {
-                    
-                    if opening.closedToday {
-                        dayLabel.textColor = .systemRed
-                        hourLabel.textColor = .systemRed
-                    } else {
-                        dayLabel.textColor = .systemBlue
-                        hourLabel.textColor = .systemBlue
-                    }
 
+            displayOpeningHours(openingHours: store.openingHours)
+            displayFacilities(facilities: store.facilites)
+        }
+    }
+    
+    private func displayOpeningHours(openingHours: [Store.GetStore.ViewModel.DisplayOpeningHour]){
+        for (index, opening) in openingHours.enumerated() {
+            // Set Hours
+            let hourLabel: UILabel = openingHoursTimeLabels[index]
+            let dayLabel: UILabel = openingHoursDayLabels[index]
+            
+            hourLabel.text = opening.hours
+            
+            if opening.today {
+                
+                if opening.closedToday {
+                    dayLabel.textColor = .systemRed
+                    hourLabel.textColor = .systemRed
+                } else {
+                    dayLabel.textColor = .systemBlue
+                    hourLabel.textColor = .systemBlue
                 }
+                
             }
         }
-
     }
+    
+    private func displayFacilities(facilities: Store.GetStore.ViewModel.DisplayFacilites){
+        let facilitySettings: [UIView: Bool] = [
+            carParkView: facilities.carPark,
+            atmView: facilities.ATM,
+            babyChangingView: facilities.babyChanging,
+            customerWCView: facilities.customerWC,
+            heliumBalloonsView: facilities.heliumBaloons,
+            disabledView: facilities.disabledAccess,
+            chargingView: facilities.electricVehicleChargingPoint,
+            paypointView: facilities.paypoint,
+            petrolFillingStationView: facilities.petrolFillingStation
+            
+        ]
+        
+        for (facilityView, facilityEnabled) in facilitySettings {
+            if !facilityEnabled {
+                facilityView.removeFromSuperview()
+            }
+        }
+    }
+
 }

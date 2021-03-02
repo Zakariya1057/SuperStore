@@ -31,11 +31,70 @@ class StorePresenter: StorePresentationLogic
         if let store = response.store {
             let address = createAddress(location: store.location)
             let openingHours = createOpeningHours(openingHour: store.openingHours)
-            displayedStore = Store.GetStore.ViewModel.DisplayedStore(name: store.name, logo: store.logo, address: address, openingHours: openingHours)
+            let facilities = createFacilites(facilites: store.facilities)
+            
+            
+            displayedStore = Store.GetStore.ViewModel.DisplayedStore(name: store.name, logo: store.logo, address: address, openingHours: openingHours, facilites: facilities)
         }
         
         let viewModel = Store.GetStore.ViewModel(displayedStore: displayedStore, error: response.error)
         viewController?.displayStore(viewModel: viewModel)
+    }
+}
+
+extension StorePresenter {
+    private func createFacilites(facilites: [String]) -> Store.GetStore.ViewModel.DisplayFacilites {
+        let displayFacilities = Store.GetStore.ViewModel.DisplayFacilites()
+        
+        //        let facilityData: [String: String] = [
+        //            "baby changing": "carPark",
+        //            "car park": "carPark",
+        //            "cash machine": "carPark",
+        //            "customer wc": "carPark",
+        //            "disabled facilities": "carPark",
+        //            "electric vehicle charging point": "carPark",
+        //            "helium balloons": "carPark",
+        //            "paypoint": "carPark",
+        //            "petrol filling station": "carPark",
+        //            "photo cake machines": "carPark",
+        //        ]
+        //
+        for facility in facilites {
+            switch facility.lowercased() {
+            
+            case "baby changing":
+                displayFacilities.babyChanging = true
+                break
+            case "car park":
+                displayFacilities.carPark = true
+                break
+            case "cash machine":
+                displayFacilities.ATM = true
+                break
+            case "customer wc":
+                displayFacilities.customerWC = true
+                break
+            case "disabled facilities":
+                displayFacilities.disabledAccess = true
+                break
+            case "helium balloons":
+                displayFacilities.heliumBaloons = true
+                break
+            case "paypoint":
+                displayFacilities.paypoint = true
+                break
+            case "petrol filling station":
+                displayFacilities.petrolFillingStation = true
+                break
+            case "photo cake machines":
+                displayFacilities.photoCakeMachines = true
+                break
+            default:
+                break
+            }
+        }
+        
+        return displayFacilities
     }
     
     private func createAddress(location: LocationModel) -> String {
@@ -59,6 +118,9 @@ class StorePresenter: StorePresentationLogic
         return displayOpeningHours
     }
     
+}
+
+extension StorePresenter {
     private func getDayOfWeek() -> Int {
         var dayOfWeek = Calendar.current.component(.weekday, from: Date()) - 2
         if dayOfWeek == -1 {
