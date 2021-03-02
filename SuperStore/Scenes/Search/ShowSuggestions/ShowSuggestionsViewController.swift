@@ -78,8 +78,11 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     @IBOutlet var suggestionsTableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     
-    var suggestions: [SuggestionModel] = []
-    //@IBOutlet weak var nameTextField: UITextField!
+    var suggestions: [SuggestionModel] = [
+        SuggestionModel(id: 1, name: "Asda", type: .store),
+        SuggestionModel(id: 1, name: "Fruit", type: .parentCategory),
+        SuggestionModel(id: 1, name: "Apples", type: .childCategory),
+    ]
     
     func displaySuggestions(viewModel: ShowSuggestions.GetSuggestions.ViewModel)
     {

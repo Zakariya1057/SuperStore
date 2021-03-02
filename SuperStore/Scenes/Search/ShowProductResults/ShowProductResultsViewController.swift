@@ -70,6 +70,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     {
         super.viewDidLoad()
         setupProductsTableView()
+        updateTitle()
         getResults()
     }
     
@@ -81,6 +82,10 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     var products: [ProductModel] = []
     
     var selectedProductID: Int?
+    
+    func updateTitle(){
+        title = interactor!.productQueryModel.query
+    }
     
     func getResults()
     {

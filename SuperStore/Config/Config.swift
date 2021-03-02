@@ -120,6 +120,10 @@ struct Config {
 
         }
         
+        public static var Store: String {
+            return Host + "/store"
+        }
+        
         public static var Favourites: String {
             return Host + "/favourites"
         }

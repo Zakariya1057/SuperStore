@@ -69,17 +69,12 @@ class FavouriteAPI: FavouriteRequestProtocol {
 
 extension FavouriteAPI {
     
-    private func createProductModels(favouritesDataResponse: FavouritesDataResponse?) -> [ProductModel] {
-
-        if let favouritesDataResponse = favouritesDataResponse {
-            let productsData = favouritesDataResponse.data
-            
-            return productsData.map { (product: ProductData) in
-                return product.getProductModel()
-            }
+    private func createProductModels(favouritesDataResponse: FavouritesDataResponse) -> [ProductModel] {
+        let productsData = favouritesDataResponse.data
+        
+        return productsData.map { (product: ProductData) in
+            return product.getProductModel()
         }
-
-        return []
     }
 }
 

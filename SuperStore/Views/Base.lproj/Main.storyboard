@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pZG-ZY-ksW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hXH-95-1lc">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1353,7 +1353,7 @@
         <!--Store View Controller-->
         <scene sceneID="tZQ-od-epd">
             <objects>
-                <viewController storyboardIdentifier="storeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hXH-95-1lc" customClass="StoreViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StoreViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hXH-95-1lc" customClass="StoreViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pak-4a-iQo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1900,33 +1900,31 @@
                     </view>
                     <navigationItem key="navigationItem" id="orb-X8-5EM"/>
                     <connections>
+                        <outlet property="addressLabel" destination="Tr2-4b-aIQ" id="VB0-HN-26u"/>
                         <outlet property="atmView" destination="Ixz-j3-ihJ" id="MJl-WM-Ftc"/>
                         <outlet property="babyChangingView" destination="VZX-7U-aAb" id="D2A-hD-MJm"/>
                         <outlet property="carView" destination="GMR-xt-sgc" id="JOY-1g-qIb"/>
                         <outlet property="chargingView" destination="jT1-Do-o69" id="IGF-yR-ftO"/>
                         <outlet property="customerWCView" destination="fQm-3x-TAm" id="OZc-Zs-Og7"/>
                         <outlet property="disabledView" destination="ycT-Ln-G8E" id="dFh-ok-ieB"/>
-                        <outlet property="fridayLabel" destination="L8p-x2-9az" id="XDz-PA-NzH"/>
-                        <outlet property="fridayTextLabel" destination="hne-eZ-WoP" id="aJR-vX-7x5"/>
-                        <outlet property="groceryButton" destination="Hjt-py-Ujw" id="q04-fq-Jwi"/>
                         <outlet property="heliumBalloonsView" destination="E0b-4b-8Gm" id="RxI-K8-cYk"/>
-                        <outlet property="mondayLabel" destination="Krx-o2-9SM" id="i56-cg-Tp6"/>
-                        <outlet property="mondayTextLabel" destination="AV2-SK-Usn" id="5MW-wE-DVp"/>
+                        <outlet property="logoImageView" destination="vha-7q-B5X" id="yN7-6L-CZf"/>
+                        <outlet property="nameLabel" destination="SVj-gh-CXc" id="8Q8-W7-rb6"/>
                         <outlet property="paypointView" destination="LGH-ER-yIr" id="RkW-aw-Ym6"/>
-                        <outlet property="saturdayLabel" destination="jAJ-T6-XqC" id="gIr-T5-Km8"/>
-                        <outlet property="saturdayTextLabel" destination="4gq-39-wBs" id="gRv-xm-Nlf"/>
-                        <outlet property="storeAddressLabel" destination="Tr2-4b-aIQ" id="hjx-ny-aqA"/>
-                        <outlet property="storeLogoView" destination="vha-7q-B5X" id="0bu-4d-PE5"/>
-                        <outlet property="storeNameLabel" destination="SVj-gh-CXc" id="SeB-6I-Cdj"/>
-                        <outlet property="storeNameView" destination="c0v-T1-E97" id="2kl-W1-SKf"/>
-                        <outlet property="sundatTextLabel" destination="abN-Eq-FSI" id="ooT-gJ-asY"/>
-                        <outlet property="sundayLabel" destination="4kX-an-w74" id="vzn-iu-obX"/>
-                        <outlet property="thurdayTextLabel" destination="rSc-zN-hm2" id="bef-f4-hGa"/>
-                        <outlet property="thursdayLabel" destination="g5k-2y-kV1" id="sjl-ux-JeD"/>
-                        <outlet property="tuedayLabel" destination="l7V-U8-HzS" id="7pX-WO-YwI"/>
-                        <outlet property="tuesdayTextLabel" destination="Gem-l6-G6f" id="6xE-ca-Kv2"/>
-                        <outlet property="wednesdayLabel" destination="Lu6-r7-EIb" id="O9G-mz-tCB"/>
-                        <outlet property="wednesdayTextLabel" destination="83l-Gd-PVb" id="mdD-Fg-8Dg"/>
+                        <outletCollection property="openingHoursTimeLabels" destination="Krx-o2-9SM" collectionClass="NSMutableArray" id="eRC-cO-GWX"/>
+                        <outletCollection property="openingHoursTimeLabels" destination="l7V-U8-HzS" collectionClass="NSMutableArray" id="EBY-zD-Zxf"/>
+                        <outletCollection property="openingHoursTimeLabels" destination="Lu6-r7-EIb" collectionClass="NSMutableArray" id="bPa-th-RzL"/>
+                        <outletCollection property="openingHoursTimeLabels" destination="g5k-2y-kV1" collectionClass="NSMutableArray" id="8XK-QF-baK"/>
+                        <outletCollection property="openingHoursTimeLabels" destination="L8p-x2-9az" collectionClass="NSMutableArray" id="CC2-MR-8Ba"/>
+                        <outletCollection property="openingHoursTimeLabels" destination="jAJ-T6-XqC" collectionClass="NSMutableArray" id="900-4x-tOy"/>
+                        <outletCollection property="openingHoursTimeLabels" destination="4kX-an-w74" collectionClass="NSMutableArray" id="MZm-LM-LAR"/>
+                        <outletCollection property="openingHoursDayLabels" destination="AV2-SK-Usn" collectionClass="NSMutableArray" id="Etd-wu-weF"/>
+                        <outletCollection property="openingHoursDayLabels" destination="Gem-l6-G6f" collectionClass="NSMutableArray" id="Pf8-fC-3n5"/>
+                        <outletCollection property="openingHoursDayLabels" destination="83l-Gd-PVb" collectionClass="NSMutableArray" id="zUX-Bg-baN"/>
+                        <outletCollection property="openingHoursDayLabels" destination="rSc-zN-hm2" collectionClass="NSMutableArray" id="eaU-Js-bzN"/>
+                        <outletCollection property="openingHoursDayLabels" destination="hne-eZ-WoP" collectionClass="NSMutableArray" id="Vg6-e9-iu8"/>
+                        <outletCollection property="openingHoursDayLabels" destination="4gq-39-wBs" collectionClass="NSMutableArray" id="yQ1-Yo-0og"/>
+                        <outletCollection property="openingHoursDayLabels" destination="abN-Eq-FSI" collectionClass="NSMutableArray" id="Tsp-kA-rwh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dNH-Jp-K3l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2117,7 +2115,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zk9-e4-itb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
-                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
+                                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
                                                                                         <rect key="frame" x="87" y="2" width="210" height="26"/>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -2867,7 +2865,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz2-WX-h3t">
                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="64.5" y="7.5" width="255" height="35"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -3312,7 +3310,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bPE-zb-jXG">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="dqX-qc-VNu">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Done" id="dqX-qc-VNu">
                             <connections>
                                 <action selector="doneButtonPressed:" destination="KFj-5f-9Wu" id="3tP-yw-83O"/>
                             </connections>
@@ -3328,10 +3326,10 @@
             </objects>
             <point key="canvasLocation" x="5942.0289855072469" y="-374.33035714285711"/>
         </scene>
-        <!--Refine View Controller-->
+        <!--Show Refine View Controller-->
         <scene sceneID="X2P-yg-Lgc">
             <objects>
-                <viewController id="HXj-j2-Hvf" customClass="RefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="HXj-j2-Hvf" customClass="ShowRefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3441,7 +3439,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="4go-LM-O2J"/>
                     <connections>
-                        <outlet property="refineTableView" destination="rba-FI-OxR" id="RUy-9G-aus"/>
+                        <outlet property="refineTableView" destination="rba-FI-OxR" id="ha1-Vs-gO7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQk-So-2Ap" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

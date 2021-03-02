@@ -8,16 +8,12 @@
 
 import UIKit
 
-class RefineTableViewCell: UITableViewCell {
+class RefineOptionCell: UITableViewCell {
     
     @IBOutlet var nameLabel: UILabel!
-    
     @IBOutlet var tickBoxImage: UIImageView!
-    var name:String?
-    var selectedOption: Bool = false
-    
-    var section: Int?
-    var row: Int?
+
+    var refineOption: RefineOptionModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,24 +21,17 @@ class RefineTableViewCell: UITableViewCell {
     }
     
     func configureUI(){
-        nameLabel.text = name ?? ""
+        nameLabel.text = refineOption?.name
         showCheckBox()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
-    @IBAction func checkBoxPressed(_ sender: UIButton) {
-        selectedOption = !selectedOption
-//        delegate?.optionSelected(section: section!, row: row!)
-        showCheckBox()
-    }
-    
     func showCheckBox(){
-        if !selectedOption {
+        if ((refineOption?.checked) != nil) {
             tickBoxImage.tintColor = .label
             tickBoxImage.image = UIImage(systemName: "circle")
         } else {

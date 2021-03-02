@@ -15,6 +15,7 @@ import UIKit
 protocol ShowProductResultsBusinessLogic
 {
     func getResults(request: ShowProductResults.GetResults.Request)
+    var productQueryModel: ProductQueryModel { get set }
 }
 
 protocol ShowProductResultsDataStore

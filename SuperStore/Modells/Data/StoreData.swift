@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct StoreResponseData: Decodable {
+struct StoreDataResponse: Decodable {
     var data: StoreData
 }
 
@@ -80,6 +80,6 @@ struct LocationData:Decodable {
     }
 }
 
-struct FacilityData:Decodable {
+struct FacilityData: Decodable {
     let name:String
 }
