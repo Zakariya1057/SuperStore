@@ -17,11 +17,12 @@ protocol ShowProductDisplayLogic: class
 {
     func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
     func displayFavourite(viewModel: ShowProduct.UpdateFavourite.ViewModel)
+    func displayMonitoring(viewModel: ShowProduct.UpdateMonitoring.ViewModel)
 }
 
 class ShowProductViewController: UIViewController, ShowProductDisplayLogic
 {
-    
+
     var interactor: ShowProductBusinessLogic?
     var router: (NSObjectProtocol & ShowProductRoutingLogic & ShowProductDataPassing)?
     
@@ -126,8 +127,16 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     
     //MARK: - Display
     
+    func displayMonitoring(viewModel: ShowProduct.UpdateMonitoring.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "Monitor Error", error: error)
+        }
+    }
+    
     func displayFavourite(viewModel: ShowProduct.UpdateFavourite.ViewModel) {
-        
+        if let error = viewModel.error {
+            showError(title: "Favourite Error", error: error)
+        }
     }
     
     func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
@@ -135,6 +144,9 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         if let product = viewModel.displayedProduct {
             
             self.product = product
+            
+            updateFavouriteButton(favourite: product.favourite)
+            updateMonitorButton(monitor: product.monitoring)
             
             imageView.downloaded(from: product.largeImage)
             
@@ -172,7 +184,15 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         interactor?.getProduct(request: request)
     }
     
-    func updateFavourite(favourite: Bool) {
+    func updateMonitorButton(monitor: Bool){
+        if monitor {
+            monitorButton.setTitle("Monitoring Price", for: .normal)
+        } else {
+            monitorButton.setTitle("Monitor Price", for: .normal)
+        }
+    }
+    
+    func updateFavouriteButton(favourite: Bool) {
         let barItem:UIBarButtonItem
         
         if favourite == true {
@@ -192,6 +212,15 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
 extension ShowProductViewController {
     @IBAction func monitorButtonPressed(_ sender: Any) {
         
+        if let product = product {
+            let monitoring: Bool = !product.monitoring
+            self.product!.monitoring = monitoring
+            
+            updateMonitorButton(monitor: monitoring)
+            
+            let request = ShowProduct.UpdateMonitoring.Request(monitor: monitoring)
+            interactor?.updateMonitoring(request: request)
+        }
     }
     
     @IBAction func favouriteButtonPressed(_ sender: Any) {
@@ -199,9 +228,9 @@ extension ShowProductViewController {
         if let product = product {
             let favourite: Bool = !product.favourite
             
-            updateFavourite(favourite: favourite)
+            updateFavouriteButton(favourite: favourite)
             
-            let request = ShowProduct.UpdateFavourite.Request(productID: product.id, favourite: favourite)
+            let request = ShowProduct.UpdateFavourite.Request(favourite: favourite)
             interactor?.updateFavourite(request: request)
             
             self.product!.favourite = favourite

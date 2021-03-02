@@ -1305,7 +1305,7 @@
         <!--Search-->
         <scene sceneID="WTz-jE-ek7">
             <objects>
-                <viewController storyboardIdentifier="searchViewController" id="9j8-KF-TXp" customClass="SearchViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="searchViewController" id="9j8-KF-TXp" customClass="ShowSuggestionsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ra0-vs-CTa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1340,8 +1340,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="YZc-ls-dbO"/>
                     <connections>
-                        <outlet property="searchBar" destination="rj1-QC-1jG" id="rcI-l9-zeC"/>
-                        <outlet property="searchTableView" destination="qBQ-nM-rQS" id="w6L-5J-dA0"/>
+                        <outlet property="searchBar" destination="rj1-QC-1jG" id="87Q-6y-W1S"/>
+                        <outlet property="suggestionsTableView" destination="qBQ-nM-rQS" id="LPy-k2-3lL"/>
                         <segue destination="KFj-5f-9Wu" kind="show" identifier="showSearchResults" id="g3X-Fa-yHF"/>
                         <segue destination="WbC-sT-OPu" kind="show" identifier="searchToStoreResults" id="zdn-Ua-fwR"/>
                     </connections>

@@ -16,6 +16,7 @@ protocol ShowProductPresentationLogic
 {
     func presentProduct(response: ShowProduct.GetProduct.Response)
     func presentFavourite(response: ShowProduct.UpdateFavourite.Response)
+    func presentMonitoring(response: ShowProduct.UpdateMonitoring.Response)
 }
 
 class ShowProductPresenter: ShowProductPresentationLogic
@@ -57,6 +58,12 @@ class ShowProductPresenter: ShowProductPresentationLogic
     }
     
     func presentFavourite(response: ShowProduct.UpdateFavourite.Response){
-        
+        let viewModel = ShowProduct.UpdateFavourite.ViewModel(error: response.error)
+        viewController?.displayFavourite(viewModel: viewModel)
+    }
+    
+    func presentMonitoring(response: ShowProduct.UpdateMonitoring.Response){
+        let viewModel = ShowProduct.UpdateMonitoring.ViewModel(error: response.error)
+        viewController?.displayMonitoring(viewModel: viewModel)
     }
 }

@@ -18,8 +18,13 @@ class ProductWorker {
     func getProduct(productID: Int, completionHandler: @escaping (_ product: ProductModel?, _ error: String?) -> Void){
         productAPI.getProduct(productID: productID, completionHandler: completionHandler)
     }
+    
+    func updateMonitor(productID: Int, monitor: Bool, completionHandler: @escaping (String?) -> Void){
+        productAPI.updateMonitor(productID: productID, monitor: monitor, completionHandler: completionHandler)
+    }
 }
 
 protocol ProductRequestProtocol {
     func getProduct(productID: Int, completionHandler: @escaping (_ product: ProductModel?, _ error: String?) -> Void)
+    func updateMonitor(productID: Int, monitor: Bool, completionHandler: @escaping (String?) -> Void)
 }

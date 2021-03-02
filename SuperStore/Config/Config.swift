@@ -93,6 +93,20 @@ struct Config {
             
         }
         
+        public struct Search {
+            public static var SearchRoute: String {
+                return Host + "/search"
+            }
+            
+            public static var Suggestions: String {
+                return SearchRoute + "/suggestions"
+            }
+            
+            public static var Results: String {
+                return SearchRoute + "/results"
+            }
+        }
+        
         public static var Favourites: String {
             return Host + "/favourites"
         }

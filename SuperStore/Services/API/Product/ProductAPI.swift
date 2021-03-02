@@ -32,6 +32,23 @@ class ProductAPI: ProductRequestProtocol {
         }
     }
     
+    func updateMonitor(productID: Int, monitor: Bool, completionHandler: @escaping (String?) -> Void){
+        let url = Config.Route.Product.Show + String(productID) + Config.Route.Product.Monitor
+        
+        requestWorker.post(url: url, data: ["monitor": monitor]) { (response: () throws -> Data) in
+            do {
+                _ = try response()
+                completionHandler(nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(errorMessage)
+            } catch {
+                print(error)
+                completionHandler("Failed to update monitor. Decoding error, please try again later.")
+            }
+        }
+    }
+    
 }
 
 extension ProductAPI {

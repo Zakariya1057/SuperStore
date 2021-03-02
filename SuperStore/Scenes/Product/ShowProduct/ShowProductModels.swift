@@ -67,8 +67,23 @@ enum ShowProduct
     {
         struct Request
         {
-            var productID: Int
             var favourite: Bool
+        }
+        struct Response
+        {
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
+    
+    enum UpdateMonitoring
+    {
+        struct Request
+        {
+            var monitor: Bool
         }
         struct Response
         {

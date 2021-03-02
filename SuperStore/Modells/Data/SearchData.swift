@@ -1,14 +1,15 @@
 //
-//  SeriesData.swift
-//  ZPlayer
+//  SearchDat.swift
+//  SuperStore
 //
-//  Created by Zakariya Mohummed on 25/05/2020.
-//  Copyright © 2020 Zakariya Mohummed. All rights reserved.
+//  Created by Zakariya Mohummed on 02/03/2021.
+//  Copyright © 2021 Zakariya Mohummed. All rights reserved.
 //
 
 import Foundation
 
-// Search Suggestions
+// Suggestions
+
 struct SearchSuggestionsDataResponse: Decodable {
     let data: SearchSuggestionsData
 }
@@ -25,7 +26,7 @@ struct SearchOptionData: Decodable {
     var name: String
 }
 
-// Search Results
+// Results
 struct SearchResultsDataResponse: Decodable {
     let data: SearchResultsData
 }

@@ -16,6 +16,7 @@ protocol ShowProductBusinessLogic
 {
     func getProduct(request: ShowProduct.GetProduct.Request)
     func updateFavourite(request: ShowProduct.UpdateFavourite.Request)
+    func updateMonitoring(request: ShowProduct.UpdateMonitoring.Request)
 }
 
 protocol ShowProductDataStore
@@ -43,9 +44,16 @@ class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
     }
     
     func updateFavourite(request: ShowProduct.UpdateFavourite.Request){
-        favouriteWorker.updateFavourite(productID: request.productID, favourite: request.favourite) { (error: String?) in
+        favouriteWorker.updateFavourite(productID: product!.id, favourite: request.favourite) { (error: String?) in
             let response = ShowProduct.UpdateFavourite.Response(error: error)
             self.presenter?.presentFavourite(response: response)
+        }
+    }
+    
+    func updateMonitoring(request: ShowProduct.UpdateMonitoring.Request){
+        productWorker.updateMonitor(productID: product!.id, monitor: request.monitor) { (error: String?) in
+            let response = ShowProduct.UpdateMonitoring.Response(error: error)
+            self.presenter?.presentMonitoring(response: response)
         }
     }
 }
