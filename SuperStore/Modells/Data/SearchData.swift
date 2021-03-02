@@ -26,21 +26,42 @@ struct SearchOptionData: Decodable {
     var name: String
 }
 
-// Results
-struct SearchResultsDataResponse: Decodable {
-    let data: SearchResultsData
+// Product
+struct ProductResultsDataResponse: Decodable {
+    let data: ProductResultsData
 }
 
-struct SearchResultsData: Decodable {
-    let stores:[StoreData]
-    let products:[ProductData]
+struct ProductResultsData: Decodable {
+    var products: [ProductData]
     let paginate: PaginateResultsData?
 }
 
-struct FilterResultsData: Decodable {
-    let brands:[String: Int]?
-    let categories:[String: Int]?
+// Store
+struct StoreResultsDataResponse: Decodable {
+    let data: StoreResultsData
 }
+
+struct StoreResultsData: Decodable {
+    var stores: [StoreData]
+}
+
+// Promotion
+
+//struct SearchResultsDataResponse: Decodable {
+//    let data: SearchResultsData
+//}
+//
+//struct SearchResultsData: Decodable {
+//    let stores:[StoreData]
+//    let products:[ProductData]
+//    let paginate: PaginateResultsData?
+//}
+//
+//struct FilterResultsData: Decodable {
+//    let brands:[String: Int]?
+//    let categories:[String: Int]?
+//}
+//
 
 struct PaginateResultsData: Decodable {
     var from: Int

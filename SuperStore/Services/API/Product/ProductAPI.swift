@@ -53,13 +53,8 @@ class ProductAPI: ProductRequestProtocol {
 
 extension ProductAPI {
     
-    private func createProductModel(productDataResponse: ProductDataResponse?) -> ProductModel? {
-        
-        if let productDataResponse = productDataResponse {
-            let productData = productDataResponse.data
-            return productData.getProductModel()
-        }
-        
-        return nil
+    private func createProductModel(productDataResponse: ProductDataResponse) -> ProductModel {
+        let productData = productDataResponse.data
+        return productData.getProductModel()
     }
 }

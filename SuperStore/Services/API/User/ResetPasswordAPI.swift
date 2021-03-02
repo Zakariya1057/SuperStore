@@ -62,7 +62,7 @@ class ResetPasswordAPI: ResetPasswordProtocol {
             do {
                 let data = try response()
                 
-                let userDataResponse =  try? self.jsonDecoder.decode(UserDataResponse.self, from: data)
+                let userDataResponse =  try self.jsonDecoder.decode(UserDataResponse.self, from: data)
                 let user = self.createUserLogin(userDataResponse: userDataResponse)
                 
                 completionHandler(user, nil)
@@ -78,20 +78,14 @@ class ResetPasswordAPI: ResetPasswordProtocol {
 }
 
 extension ResetPasswordAPI {
-    private func createUserLogin(userDataResponse: UserDataResponse?) -> UserLoginModel? {
-        
-        if let userDataResponse = userDataResponse {
-            let userData = userDataResponse.data
-            
-            return UserLoginModel(
-                id: userData.id,
-                name: userData.name,
-                token: userData.token,
-                email: userData.email,
-                send_notifications: userData.send_notifications
-            )
-        }
-        
-        return nil
+    private func createUserLogin(userDataResponse: UserDataResponse) -> UserLoginModel {
+        let userData = userDataResponse.data
+        return UserLoginModel(
+            id: userData.id,
+            name: userData.name,
+            token: userData.token,
+            email: userData.email,
+            send_notifications: userData.send_notifications
+        )
     }
 }

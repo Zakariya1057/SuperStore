@@ -19,13 +19,13 @@ class SearchWorker {
         searchAPI.getSuggestions(query: query, completionHandler: completionHandler)
     }
     
-    func getResults(data: KeyValuePairs<String, Any>, completionHandler: @escaping (_ error: String?) -> Void){
-//        favouriteAPI.deleteFavourite(productID: productID, completionHandler: completionHandler)
+    func getProductResults(data: ProductQueryModel, completionHandler: @escaping (_ ResultsModel: ProductResultsModel?, _ error: String?) -> Void){
+        searchAPI.getProductResults(data: data, completionHandler: completionHandler)
     }
     
 }
 
 protocol SearchRequestProtocol {
     func getSuggestions(query: String, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void)
-    func getResults(data: KeyValuePairs<String, Any>, completionHandler: @escaping ( _ ResultsModel: ResultsModel?, _ error: String?) -> Void)
+    func getProductResults(data: ProductQueryModel, completionHandler: @escaping ( _ ResultsModel: ProductResultsModel?, _ error: String?) -> Void)
 }

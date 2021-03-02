@@ -102,9 +102,22 @@ struct Config {
                 return SearchRoute + "/suggestions"
             }
             
-            public static var Results: String {
-                return SearchRoute + "/results"
+            public struct Results {
+                
+                public static var SearchResultsRoute: String {
+                    return SearchRoute + "/results"
+                }
+                
+                public static var Product: String {
+                    return SearchResultsRoute + "/product"
+                }
+                
+                public static var Store: String {
+                    return SearchResultsRoute + "/store"
+                }
             }
+            
+
         }
         
         public static var Favourites: String {

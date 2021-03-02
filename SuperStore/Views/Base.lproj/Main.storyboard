@@ -3216,10 +3216,10 @@
             </objects>
             <point key="canvasLocation" x="14210" y="654"/>
         </scene>
-        <!--Search Results View Controller-->
+        <!--Show Product Results View Controller-->
         <scene sceneID="XMg-x4-msD">
             <objects>
-                <viewController id="KFj-5f-9Wu" customClass="SearchResultsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowProductResultsViewController" id="KFj-5f-9Wu" customClass="ShowProductResultsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ggj-td-FJz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3257,18 +3257,21 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ATj-ed-dZ1">
                                                         <rect key="frame" x="276" y="0.0" width="138" height="50"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Refine" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Clh-Ls-8Ve">
-                                                                <rect key="frame" x="0.0" y="15" width="123" height="20"/>
-                                                                <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="17"/>
-                                                                <color key="textColor" name="LogoBlue.Light"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfe-Rh-pcu" userLabel="RefineButton">
+                                                                <rect key="frame" x="72" y="8.5" width="51" height="33"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                                <state key="normal" title="Refine">
+                                                                    <color key="titleColor" name="LogoBlue.Light"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="refineButtonPressed:" destination="KFj-5f-9Wu" eventType="touchUpInside" id="8S6-Bi-c7N"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="Clh-Ls-8Ve" firstAttribute="centerY" secondItem="ATj-ed-dZ1" secondAttribute="centerY" id="Idg-kv-cbw"/>
+                                                            <constraint firstItem="jfe-Rh-pcu" firstAttribute="centerY" secondItem="ATj-ed-dZ1" secondAttribute="centerY" id="IOn-AO-96n"/>
                                                             <constraint firstAttribute="height" constant="50" id="Wo5-Gn-kFv"/>
-                                                            <constraint firstItem="Clh-Ls-8Ve" firstAttribute="leading" secondItem="ATj-ed-dZ1" secondAttribute="leading" id="wRn-n1-xgw"/>
-                                                            <constraint firstAttribute="trailing" secondItem="Clh-Ls-8Ve" secondAttribute="trailing" constant="15" id="zep-RC-Nf2"/>
+                                                            <constraint firstAttribute="trailing" secondItem="jfe-Rh-pcu" secondAttribute="trailing" constant="15" id="Xgj-Nd-LHm"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -3311,15 +3314,13 @@
                     <navigationItem key="navigationItem" id="bPE-zb-jXG">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="dqX-qc-VNu">
                             <connections>
-                                <action selector="barButtonPressed:" destination="KFj-5f-9Wu" id="abk-1W-jwf"/>
+                                <action selector="doneButtonPressed:" destination="KFj-5f-9Wu" id="3tP-yw-83O"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="refineView" destination="ATj-ed-dZ1" id="jrd-aq-m10"/>
-                        <outlet property="resultsTableView" destination="aSa-81-33v" id="dTS-IF-hGU"/>
-                        <outlet property="rightBarButton" destination="dqX-qc-VNu" id="6nh-bL-iRO"/>
-                        <outlet property="totalProductsLabel" destination="yIu-L1-2uc" id="s2C-Nf-Stc"/>
+                        <outlet property="productsTableView" destination="aSa-81-33v" id="cEA-Zn-cJp"/>
+                        <outlet property="totalProductsLabel" destination="yIu-L1-2uc" id="UrZ-Iy-kpc"/>
                         <segue destination="HXj-j2-Hvf" kind="presentation" identifier="resultsOption" id="nTw-Hq-Edo"/>
                     </connections>
                 </viewController>

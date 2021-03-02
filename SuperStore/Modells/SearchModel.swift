@@ -15,8 +15,16 @@ struct SuggestionModel {
     var textSearch: Bool = false
 }
 
-struct ResultsModel {
-    
+struct ProductResultsModel {
+    var products: [ProductModel]
+}
+
+struct StoreResultsModel {
+    var stores: [ProductModel]
+}
+
+struct PromotionResultsModel {
+    var promotion: [PromotionModel]
 }
 
 enum SearchType: String {

@@ -56,7 +56,7 @@ struct UserAuthAPI: UserAuthProtocol {
             do {
                 let data = try response()
                 
-                let userDataResponse =  try? jsonDecoder.decode(UserDataResponse.self, from: data)
+                let userDataResponse =  try jsonDecoder.decode(UserDataResponse.self, from: data)
                 let user = createUserLogin(userDataResponse: userDataResponse)
                 
                 completionHandler(user, nil)
@@ -72,20 +72,15 @@ struct UserAuthAPI: UserAuthProtocol {
 }
 
 extension UserAuthAPI {
-    private func createUserLogin(userDataResponse: UserDataResponse?) -> UserLoginModel? {
+    private func createUserLogin(userDataResponse: UserDataResponse) -> UserLoginModel? {
+        let userData = userDataResponse.data
         
-        if let userDataResponse = userDataResponse {
-            let userData = userDataResponse.data
-            
-            return UserLoginModel(
-                id: userData.id,
-                name: userData.name,
-                token: userData.token,
-                email: userData.email,
-                send_notifications: userData.send_notifications
-            )
-        }
-        
-        return nil
+        return UserLoginModel(
+            id: userData.id,
+            name: userData.name,
+            token: userData.token,
+            email: userData.email,
+            send_notifications: userData.send_notifications
+        )
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class SearchAPI: SearchRequestProtocol {
     
@@ -33,8 +34,47 @@ class SearchAPI: SearchRequestProtocol {
         }
     }
     
-    func getResults(data: KeyValuePairs<String, Any>, completionHandler: @escaping (ResultsModel?, String?) -> Void) {
+    func getProductResults(data: ProductQueryModel, completionHandler: @escaping (ProductResultsModel?, String?) -> Void) {
         
+        let url = Config.Route.Search.Results.Product
+        
+        let queryData: Parameters = [
+            "query": data.query,
+            "type": data.type,
+            "sort": data.sort,
+            "order": data.order,
+            "dietary": data.dietary,
+            "child_category": data.childCategory,
+            "brand": data.brand,
+            "text_search": data.textSearch
+        ]
+        
+        requestWorker.post(url: url, data: queryData) { (response: () throws -> Data) in
+            do {
+                let data = try response()
+                
+                let productResultsDataResponse =  try self.jsonDecoder.decode(ProductResultsDataResponse.self, from: data)
+                let results = self.createproductResultsModel(productResultsDataResponse: productResultsDataResponse)
+                
+                completionHandler(results, nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(nil, errorMessage)
+            } catch {
+                completionHandler(nil, "Failed To Reset Password. Please try again later.")
+            }
+        }
+    }
+}
+
+extension SearchAPI {
+    private func createproductResultsModel(productResultsDataResponse: ProductResultsDataResponse) -> ProductResultsModel? {
+        let productResultsData = productResultsDataResponse.data
+        let products: [ProductModel] = productResultsData.products.map { (product: ProductData) in
+            return product.getProductModel()
+        }
+        
+        return ProductResultsModel(products: products)
     }
 }
 

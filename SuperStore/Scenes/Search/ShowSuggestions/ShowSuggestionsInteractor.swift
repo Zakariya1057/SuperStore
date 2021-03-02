@@ -14,26 +14,26 @@ import UIKit
 
 protocol ShowSuggestionsBusinessLogic
 {
-  func getSuggestions(request: ShowSuggestions.GetSuggestions.Request)
+    func getSuggestions(request: ShowSuggestions.GetSuggestions.Request)
+    var productQueryModel: ProductQueryModel? { get set }
 }
 
 protocol ShowSuggestionsDataStore
 {
-  //var name: String { get set }
+    var productQueryModel: ProductQueryModel? { get set }
 }
 
 class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDataStore
 {
-  var presenter: ShowSuggestionsPresentationLogic?
-  var searchWorker: SearchWorker = SearchWorker(searchAPI: SearchAPI())
-  
-  // MARK: Do something
-  
-  func getSuggestions(request: ShowSuggestions.GetSuggestions.Request)
-  {
-    searchWorker.getSuggestions(query: request.query) { (suggestions: [SuggestionModel], error: String?) in
-        let response = ShowSuggestions.GetSuggestions.Response(suggestions: suggestions, error: error)
-        self.presenter?.presentSuggestions(response: response)
+    var presenter: ShowSuggestionsPresentationLogic?
+    var searchWorker: SearchWorker = SearchWorker(searchAPI: SearchAPI())
+    var productQueryModel: ProductQueryModel? = nil
+    
+    func getSuggestions(request: ShowSuggestions.GetSuggestions.Request)
+    {
+        searchWorker.getSuggestions(query: request.query) { (suggestions: [SuggestionModel], error: String?) in
+            let response = ShowSuggestions.GetSuggestions.Response(suggestions: suggestions, error: error)
+            self.presenter?.presentSuggestions(response: response)
+        }
     }
-  }
 }

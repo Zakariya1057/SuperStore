@@ -87,6 +87,7 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
             showError(title: "Search Error", error: error)
         } else {
             self.suggestions = viewModel.suggestions
+            
             suggestionsTableView.reloadData()
         }
     }
@@ -126,14 +127,21 @@ extension ShowSuggestionsViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     func setupFavouriteTableView(){
-        let productCellNib = UINib(nibName: "SearchSuggestionCell", bundle: nil)
-        suggestionsTableView.register(productCellNib, forCellReuseIdentifier: "SearchSuggestionCell")
+        let suggestionCellNib = UINib(nibName: "SearchSuggestionCell", bundle: nil)
+        suggestionsTableView.register(suggestionCellNib, forCellReuseIdentifier: "SearchSuggestionCell")
         
         suggestionsTableView.delegate = self
         suggestionsTableView.dataSource = self
     }
 }
 
+extension ShowSuggestionsViewController {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let suggestion: SuggestionModel = suggestions[indexPath.row]
+        interactor?.productQueryModel = ProductQueryModel(query: suggestion.name, type: suggestion.type.rawValue)
+        router?.routeToShowProductResults(segue: nil)
+    }
+}
 
 extension ShowSuggestionsViewController: UISearchBarDelegate {
     
