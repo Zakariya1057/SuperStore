@@ -138,7 +138,17 @@ extension ShowSuggestionsViewController: UITableViewDataSource, UITableViewDeleg
 extension ShowSuggestionsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let suggestion: SuggestionModel = suggestions[indexPath.row]
-        interactor?.productQueryModel = ProductQueryModel(query: suggestion.name, type: suggestion.type.rawValue)
+        var type: String
+        
+        if suggestion.type == .product {
+            type = "products"
+        } else if suggestion.type == .childCategory {
+            type = "child_categories"
+        } else {
+            type = "parent_categories"
+        }
+        
+        interactor?.productQueryModel = ProductQueryModel(query: suggestion.name, type: type)
         router?.routeToShowProductResults(segue: nil)
     }
 }

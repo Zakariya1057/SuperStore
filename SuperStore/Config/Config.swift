@@ -63,32 +63,32 @@ struct Config {
                 return  "/monitor"
             }
             
-            public struct Review {
-                
-                public static var ReviewRoute: String {
-                    return "/review"
-                }
-                
-                public static var Show: String {
-                    return ReviewRoute
-                }
-                
-                public static var All: String {
-                    return "/reviews"
-                }
-                
-                public static var Create: String {
-                    return ReviewRoute + "/create"
-                }
-                
-                public static var Update: String {
-                    return ReviewRoute + "/create"
-                }
-                
-                public static var Delete: String {
-                    return ReviewRoute + "/delete"
-                }
-                
+        }
+        
+        public struct Review {
+            
+            public static var ReviewRoute: String {
+                return Host + "/review"
+            }
+            
+            public static var Show: String {
+                return "/show"
+            }
+            
+            public static var All: String {
+                return "/"
+            }
+            
+            public static var Create: String {
+                return "/create"
+            }
+            
+            public static var Update: String {
+                return "/create"
+            }
+            
+            public static var Delete: String {
+                return "/delete"
             }
             
         }

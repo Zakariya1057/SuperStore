@@ -80,6 +80,8 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     var products: [ProductModel] = []
     
+    var selectedProductID: Int?
+    
     func getResults()
     {
         let request = ShowProductResults.GetResults.Request()
@@ -107,6 +109,11 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return configureProductCell(indexPath: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedProductID = products[indexPath.row].id
+        router?.routeToShowProduct(segue: nil)
     }
     
     func configureProductCell(indexPath: IndexPath) -> ProductCell {
