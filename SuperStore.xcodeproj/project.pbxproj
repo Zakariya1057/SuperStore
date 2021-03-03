@@ -166,8 +166,35 @@
 		2C70824925F009ED00345147 /* NewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70824325F009ED00345147 /* NewPasswordViewController.swift */; };
 		2C70824A25F009ED00345147 /* NewPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70824425F009ED00345147 /* NewPasswordPresenter.swift */; };
 		2C70824B25F009ED00345147 /* NewPasswordModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70824525F009ED00345147 /* NewPasswordModels.swift */; };
-		2C70825325F00B2200345147 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70825225F00B2200345147 /* User.swift */; };
+		2C70825325F00B2200345147 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70825225F00B2200345147 /* UserObject.swift */; };
 		2C70825725F00B6A00345147 /* SendEmailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70825625F00B6A00345147 /* SendEmailPresenter.swift */; };
+		2C70827425F0100700345147 /* EditPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70826E25F0100700345147 /* EditPasswordPresenter.swift */; };
+		2C70827525F0100700345147 /* EditPasswordWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70826F25F0100700345147 /* EditPasswordWorker.swift */; };
+		2C70827625F0100700345147 /* EditPasswordRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70827025F0100700345147 /* EditPasswordRouter.swift */; };
+		2C70827725F0100700345147 /* EditPasswordModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70827125F0100700345147 /* EditPasswordModels.swift */; };
+		2C70827825F0100700345147 /* EditPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70827225F0100700345147 /* EditPasswordViewController.swift */; };
+		2C70827925F0100700345147 /* EditPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70827325F0100700345147 /* EditPasswordInteractor.swift */; };
+		2C70828725F0108500345147 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70828125F0108500345147 /* SettingsPresenter.swift */; };
+		2C70828825F0108500345147 /* SettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70828225F0108500345147 /* SettingsWorker.swift */; };
+		2C70828925F0108500345147 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70828325F0108500345147 /* SettingsRouter.swift */; };
+		2C70828A25F0108500345147 /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70828425F0108500345147 /* SettingsModels.swift */; };
+		2C70828B25F0108500345147 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70828525F0108500345147 /* SettingsViewController.swift */; };
+		2C70828C25F0108500345147 /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70828625F0108500345147 /* SettingsInteractor.swift */; };
+		2C70829C25F013A700345147 /* EditNamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70829625F013A600345147 /* EditNamePresenter.swift */; };
+		2C70829D25F013A700345147 /* EditNameWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70829725F013A600345147 /* EditNameWorker.swift */; };
+		2C70829E25F013A700345147 /* EditNameRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70829825F013A600345147 /* EditNameRouter.swift */; };
+		2C70829F25F013A700345147 /* EditNameModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70829925F013A600345147 /* EditNameModels.swift */; };
+		2C7082A025F013A700345147 /* EditNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70829A25F013A700345147 /* EditNameViewController.swift */; };
+		2C7082A125F013A700345147 /* EditNameInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70829B25F013A700345147 /* EditNameInteractor.swift */; };
+		2C7082AA25F013B200345147 /* EditEmailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082A425F013B200345147 /* EditEmailPresenter.swift */; };
+		2C7082AB25F013B200345147 /* EditEmailWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082A525F013B200345147 /* EditEmailWorker.swift */; };
+		2C7082AC25F013B200345147 /* EditEmailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082A625F013B200345147 /* EditEmailRouter.swift */; };
+		2C7082AD25F013B200345147 /* EditEmailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082A725F013B200345147 /* EditEmailModels.swift */; };
+		2C7082AE25F013B200345147 /* EditEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082A825F013B200345147 /* EditEmailViewController.swift */; };
+		2C7082AF25F013B200345147 /* EditEmailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082A925F013B200345147 /* EditEmailInteractor.swift */; };
+		2C7082B325F0146100345147 /* UserWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082B225F0146100345147 /* UserWorker.swift */; };
+		2C7082B725F0155700345147 /* UserSettingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082B625F0155700345147 /* UserSettingAPI.swift */; };
+		2C7082D025F01C7500345147 /* UserHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082CF25F01C7500345147 /* UserHistoryModel.swift */; };
 		2C72943925EBE75500D280B3 /* ResetPasswordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C72943825EBE75500D280B3 /* ResetPasswordAPI.swift */; };
 		2C72945425EBE77900D280B3 /* PromotionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C72945325EBE77900D280B3 /* PromotionAPI.swift */; };
 		2C72945A25EBE79C00D280B3 /* PromotionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C72945925EBE79C00D280B3 /* PromotionWorker.swift */; };
@@ -325,7 +352,7 @@
 		2CDFB63825EA6359002CE30D /* HomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFB63225EA6359002CE30D /* HomeModels.swift */; };
 		2CDFB63925EA6359002CE30D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFB63325EA6359002CE30D /* HomeViewController.swift */; };
 		2CDFB63A25EA6359002CE30D /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFB63425EA6359002CE30D /* HomeInteractor.swift */; };
-		2CE7AB0224D077C700A31782 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7AB0124D077C700A31782 /* SettingsViewController.swift */; };
+		2CE7AB0224D077C700A31782 /* 1SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7AB0124D077C700A31782 /* 1SettingsViewController.swift */; };
 		2CF239B525094A7F00D4CE91 /* ListsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B425094A7F00D4CE91 /* ListsHandler.swift */; };
 		2CF239B725094A9000D4CE91 /* ListItemsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */; };
 		2CF239B925094BAC00D4CE91 /* 1LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B825094BAC00D4CE91 /* 1LoginViewController.swift */; };
@@ -521,8 +548,35 @@
 		2C70824325F009ED00345147 /* NewPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPasswordViewController.swift; sourceTree = "<group>"; };
 		2C70824425F009ED00345147 /* NewPasswordPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPasswordPresenter.swift; sourceTree = "<group>"; };
 		2C70824525F009ED00345147 /* NewPasswordModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPasswordModels.swift; sourceTree = "<group>"; };
-		2C70825225F00B2200345147 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2C70825225F00B2200345147 /* UserObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		2C70825625F00B6A00345147 /* SendEmailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendEmailPresenter.swift; sourceTree = "<group>"; };
+		2C70826E25F0100700345147 /* EditPasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordPresenter.swift; sourceTree = "<group>"; };
+		2C70826F25F0100700345147 /* EditPasswordWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordWorker.swift; sourceTree = "<group>"; };
+		2C70827025F0100700345147 /* EditPasswordRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordRouter.swift; sourceTree = "<group>"; };
+		2C70827125F0100700345147 /* EditPasswordModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordModels.swift; sourceTree = "<group>"; };
+		2C70827225F0100700345147 /* EditPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordViewController.swift; sourceTree = "<group>"; };
+		2C70827325F0100700345147 /* EditPasswordInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordInteractor.swift; sourceTree = "<group>"; };
+		2C70828125F0108500345147 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		2C70828225F0108500345147 /* SettingsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWorker.swift; sourceTree = "<group>"; };
+		2C70828325F0108500345147 /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
+		2C70828425F0108500345147 /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
+		2C70828525F0108500345147 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		2C70828625F0108500345147 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		2C70829625F013A600345147 /* EditNamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNamePresenter.swift; sourceTree = "<group>"; };
+		2C70829725F013A600345147 /* EditNameWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameWorker.swift; sourceTree = "<group>"; };
+		2C70829825F013A600345147 /* EditNameRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameRouter.swift; sourceTree = "<group>"; };
+		2C70829925F013A600345147 /* EditNameModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameModels.swift; sourceTree = "<group>"; };
+		2C70829A25F013A700345147 /* EditNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameViewController.swift; sourceTree = "<group>"; };
+		2C70829B25F013A700345147 /* EditNameInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameInteractor.swift; sourceTree = "<group>"; };
+		2C7082A425F013B200345147 /* EditEmailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailPresenter.swift; sourceTree = "<group>"; };
+		2C7082A525F013B200345147 /* EditEmailWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailWorker.swift; sourceTree = "<group>"; };
+		2C7082A625F013B200345147 /* EditEmailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailRouter.swift; sourceTree = "<group>"; };
+		2C7082A725F013B200345147 /* EditEmailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailModels.swift; sourceTree = "<group>"; };
+		2C7082A825F013B200345147 /* EditEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailViewController.swift; sourceTree = "<group>"; };
+		2C7082A925F013B200345147 /* EditEmailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailInteractor.swift; sourceTree = "<group>"; };
+		2C7082B225F0146100345147 /* UserWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWorker.swift; sourceTree = "<group>"; };
+		2C7082B625F0155700345147 /* UserSettingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingAPI.swift; sourceTree = "<group>"; };
+		2C7082CF25F01C7500345147 /* UserHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistoryModel.swift; sourceTree = "<group>"; };
 		2C72943825EBE75500D280B3 /* ResetPasswordAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordAPI.swift; sourceTree = "<group>"; };
 		2C72945325EBE77900D280B3 /* PromotionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionAPI.swift; sourceTree = "<group>"; };
 		2C72945925EBE79C00D280B3 /* PromotionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionWorker.swift; sourceTree = "<group>"; };
@@ -690,7 +744,7 @@
 		2CDFB63425EA6359002CE30D /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		2CDFB68125EA7248002CE30D /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
 		2CDFB68225EA7248002CE30D /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
-		2CE7AB0124D077C700A31782 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		2CE7AB0124D077C700A31782 /* 1SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1SettingsViewController.swift; sourceTree = "<group>"; };
 		2CF239B425094A7F00D4CE91 /* ListsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsHandler.swift; sourceTree = "<group>"; };
 		2CF239B625094A9000D4CE91 /* ListItemsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemsHandler.swift; sourceTree = "<group>"; };
 		2CF239B825094BAC00D4CE91 /* 1LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1LoginViewController.swift; sourceTree = "<group>"; };
@@ -723,7 +777,7 @@
 		2C1476EB25E82BDC000E8F66 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				2C70825225F00B2200345147 /* User.swift */,
+				2C70825225F00B2200345147 /* UserObject.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -827,6 +881,7 @@
 				2C1477A325E96DD8000E8F66 /* ResetPasswordWorker.swift */,
 				2C14775D25E9070D000E8F66 /* UserSessionWorker.swift */,
 				2C1476C825E7AEEB000E8F66 /* UserValidationWorker.swift */,
+				2C7082B225F0146100345147 /* UserWorker.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -905,7 +960,7 @@
 				2C21C3B324FA7C5E00D90B4B /* 1ParentCategoriesViewController.swift */,
 				2C21C3B124FA7C2500D90B4B /* 1ChildCategoriesViewController.swift */,
 				2C1567E024C9A0DF00B8DCB5 /* 1GroceryTableViewController.swift */,
-				2CE7AB0124D077C700A31782 /* SettingsViewController.swift */,
+				2CE7AB0124D077C700A31782 /* 1SettingsViewController.swift */,
 				2C266DFE24D6FBC300C66EA5 /* SettingsChangeViewController.swift */,
 				2C266E0024D702BD00C66EA5 /* 1ChangePasswordViewController.swift */,
 				2CB15C9824D36E7E00461AFE /* StoreSelectViewController.swift */,
@@ -1013,6 +1068,7 @@
 		2C2BC7EB25EBB8640038882B /* Product */ = {
 			isa = PBXGroup;
 			children = (
+				2CB2CFE525EAF78F00A00F7F /* ShowProduct */,
 				2C2BC7F725EBBD210038882B /* ShowDescription */,
 				2C2BC83525EBC04F0038882B /* ShowIngredients */,
 				2C2BC82425EBBF940038882B /* ShowPromotion */,
@@ -1200,6 +1256,77 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
+		2C70825A25F00DC900345147 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2C70828025F0105F00345147 /* Settings */,
+				2C70825D25F00F9400345147 /* EditName */,
+				2C70829525F0137A00345147 /* EditEmail */,
+				2C70825C25F00E3A00345147 /* EditPassword */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		2C70825C25F00E3A00345147 /* EditPassword */ = {
+			isa = PBXGroup;
+			children = (
+				2C70826E25F0100700345147 /* EditPasswordPresenter.swift */,
+				2C70826F25F0100700345147 /* EditPasswordWorker.swift */,
+				2C70827025F0100700345147 /* EditPasswordRouter.swift */,
+				2C70827125F0100700345147 /* EditPasswordModels.swift */,
+				2C70827225F0100700345147 /* EditPasswordViewController.swift */,
+				2C70827325F0100700345147 /* EditPasswordInteractor.swift */,
+			);
+			path = EditPassword;
+			sourceTree = "<group>";
+		};
+		2C70825D25F00F9400345147 /* EditName */ = {
+			isa = PBXGroup;
+			children = (
+				2C70829625F013A600345147 /* EditNamePresenter.swift */,
+				2C70829725F013A600345147 /* EditNameWorker.swift */,
+				2C70829825F013A600345147 /* EditNameRouter.swift */,
+				2C70829925F013A600345147 /* EditNameModels.swift */,
+				2C70829A25F013A700345147 /* EditNameViewController.swift */,
+				2C70829B25F013A700345147 /* EditNameInteractor.swift */,
+			);
+			path = EditName;
+			sourceTree = "<group>";
+		};
+		2C70828025F0105F00345147 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2C70828125F0108500345147 /* SettingsPresenter.swift */,
+				2C70828225F0108500345147 /* SettingsWorker.swift */,
+				2C70828325F0108500345147 /* SettingsRouter.swift */,
+				2C70828425F0108500345147 /* SettingsModels.swift */,
+				2C70828525F0108500345147 /* SettingsViewController.swift */,
+				2C70828625F0108500345147 /* SettingsInteractor.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		2C70829525F0137A00345147 /* EditEmail */ = {
+			isa = PBXGroup;
+			children = (
+				2C7082A425F013B200345147 /* EditEmailPresenter.swift */,
+				2C7082A525F013B200345147 /* EditEmailWorker.swift */,
+				2C7082A625F013B200345147 /* EditEmailRouter.swift */,
+				2C7082A725F013B200345147 /* EditEmailModels.swift */,
+				2C7082A825F013B200345147 /* EditEmailViewController.swift */,
+				2C7082A925F013B200345147 /* EditEmailInteractor.swift */,
+			);
+			path = EditEmail;
+			sourceTree = "<group>";
+		};
+		2C7082D325F01CB500345147 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				2C7082CF25F01C7500345147 /* UserHistoryModel.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		2C72942C25EBE58800D280B3 /* Product */ = {
 			isa = PBXGroup;
 			children = (
@@ -1214,6 +1341,7 @@
 			children = (
 				2C1476C225E7AE15000E8F66 /* UserAuthAPI.swift */,
 				2C72943825EBE75500D280B3 /* ResetPasswordAPI.swift */,
+				2C7082B625F0155700345147 /* UserSettingAPI.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1279,6 +1407,7 @@
 				2CA11F2025EEB5FB0054AE19 /* Store */,
 				2CA11F5C25EF8CBC0054AE19 /* Groceries */,
 				2C2BC7EB25EBB8640038882B /* Product */,
+				2C70825A25F00DC900345147 /* Settings */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -1300,9 +1429,9 @@
 			isa = PBXGroup;
 			children = (
 				2CB2CFB625EAA6C500A00F7F /* HomeModel.swift */,
+				2C48E7CC25EAA064001A5702 /* UserModel.swift */,
 				2C1476D725E7C402000E8F66 /* UserLoginModel.swift */,
 				2C48E7B625EA9DCF001A5702 /* ProductModel.swift */,
-				2C48E7CC25EAA064001A5702 /* UserModel.swift */,
 				2C48E7D025EAA06E001A5702 /* StoreModel.swift */,
 				2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */,
 				2C48E7D425EAA078001A5702 /* ListModel.swift */,
@@ -1312,6 +1441,7 @@
 				2C55F9DA25EE4121007BBFA8 /* ResultModel.swift */,
 				2C48E7D825EAA089001A5702 /* PromotionModel.swift */,
 				2CA11F0125EE860C0054AE19 /* RefineModel.swift */,
+				2C7082D325F01CB500345147 /* History */,
 				2C1476EC25E82BE1000E8F66 /* Data */,
 				2C1476EB25E82BDC000E8F66 /* Realm */,
 			);
@@ -1491,10 +1621,9 @@
 		2CDA614625EE38E100FD3956 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				2CB2CFE525EAF78F00A00F7F /* ShowProduct */,
 				2C55F9BE25EE3B50007BBFA8 /* ShowSuggestions */,
-				2C55F9F225EE4B46007BBFA8 /* ShowStoreResults */,
 				2C55F9F125EE4B3B007BBFA8 /* ShowProductResults */,
+				2C55F9F225EE4B46007BBFA8 /* ShowStoreResults */,
 				2C55FA1725EE4C0C007BBFA8 /* ShowRefine */,
 			);
 			path = Search;
@@ -1829,10 +1958,13 @@
 				2CDE10ED251D2662001B0479 /* UserHandler.swift in Sources */,
 				2C0E93C8250F975D00378C97 /* FavouritesHandler.swift in Sources */,
 				2CA11F6C25EF8E490054AE19 /* GrandParentCategoriesInteractor.swift in Sources */,
+				2C7082AF25F013B200345147 /* EditEmailInteractor.swift in Sources */,
 				2CB3DCE72525B89400FC5792 /* CheckCodeViewController.swift in Sources */,
 				2C55F9C925EE3B62007BBFA8 /* ShowSuggestionsViewController.swift in Sources */,
+				2C70829E25F013A700345147 /* EditNameRouter.swift in Sources */,
 				2C2BC7DD25EAF9220038882B /* ShowProductInteractor.swift in Sources */,
 				2C1476E625E82B91000E8F66 /* UserData.swift in Sources */,
+				2C7082B725F0155700345147 /* UserSettingAPI.swift in Sources */,
 				2CF239B525094A7F00D4CE91 /* ListsHandler.swift in Sources */,
 				2C55F9D225EE3C2E007BBFA8 /* SearchModel.swift in Sources */,
 				2C85FEB5251FB04700CECBD5 /* HomeSectionHeader.swift in Sources */,
@@ -1851,16 +1983,19 @@
 				2C910B4525E7AABF00BCEACC /* LoginInteractor.swift in Sources */,
 				2C48E7D525EAA078001A5702 /* ListModel.swift in Sources */,
 				2CA11F9C25EF90F00054AE19 /* CategoryModel.swift in Sources */,
+				2C70827525F0100700345147 /* EditPasswordWorker.swift in Sources */,
 				2C9C1B8124CDD794001ACA35 /* ProductsCell.swift in Sources */,
 				2CDFB60925EA5EDA002CE30D /* Config.swift in Sources */,
 				2C2BC82125EBBF2E0038882B /* ShowDescriptionInteractor.swift in Sources */,
 				2C55FA0E25EE4BF9007BBFA8 /* ShowProductResultsWorker.swift in Sources */,
 				2C70823825F009D000345147 /* SendEmailInteractor.swift in Sources */,
+				2C70827825F0100700345147 /* EditPasswordViewController.swift in Sources */,
 				2C2BC81C25EBBF2E0038882B /* ShowDescriptionPresenter.swift in Sources */,
 				2CDA612B25ED0FC700FD3956 /* ReviewModel.swift in Sources */,
 				2CA11F6B25EF8E490054AE19 /* GrandParentCategoriesViewController.swift in Sources */,
 				2C910B4425E7AABF00BCEACC /* LoginViewController.swift in Sources */,
 				2C1567D724C8B36200B8DCB5 /* ListsViewController.swift in Sources */,
+				2C70828925F0108500345147 /* SettingsRouter.swift in Sources */,
 				2CAC06132530E41700561509 /* 1HomeModel.swift in Sources */,
 				2C1567F324CC830B00B8DCB5 /* 1ProductViewController.swift in Sources */,
 				2C0D4487253601270046E2B0 /* 1UserHistory.swift in Sources */,
@@ -1873,6 +2008,7 @@
 				2C2BC80525EBBF040038882B /* ShowReviewsInteractor.swift in Sources */,
 				2CBF020525EFDE0C003AD5DF /* GroceryTableInteractor.swift in Sources */,
 				2CB51C332548BD2A0090F558 /* AppleUserSession.swift in Sources */,
+				2C70829D25F013A700345147 /* EditNameWorker.swift in Sources */,
 				2C266E0324D70C3900C66EA5 /* 1SearchModel.swift in Sources */,
 				2C6F621E25134F9B00179C2B /* 1RegisterViewController.swift in Sources */,
 				2C21C3A424F6F2A300D90B4B /* RequestHandler.swift in Sources */,
@@ -1896,6 +2032,7 @@
 				2C266DFF24D6FBC300C66EA5 /* SettingsChangeViewController.swift in Sources */,
 				2C14773325E90246000E8F66 /* RegisterViewController.swift in Sources */,
 				2CA11EED25EE84620054AE19 /* ShowRefineModels.swift in Sources */,
+				2C70827425F0100700345147 /* EditPasswordPresenter.swift in Sources */,
 				2CAC05FC252E314F00561509 /* FeaturedProductCollectionViewCell.swift in Sources */,
 				2CA11EEF25EE84620054AE19 /* ShowRefineInteractor.swift in Sources */,
 				2C2BC7D825EAF9220038882B /* ShowProductPresenter.swift in Sources */,
@@ -1903,13 +2040,16 @@
 				2CC1EA1B24FA9550000A9BC4 /* GroceryProductsData.swift in Sources */,
 				2C70824825F009ED00345147 /* NewPasswordWorker.swift in Sources */,
 				2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */,
+				2C70828B25F0108500345147 /* SettingsViewController.swift in Sources */,
 				2CA11F0225EE860C0054AE19 /* RefineModel.swift in Sources */,
 				2C55F9C725EE3B62007BBFA8 /* ShowSuggestionsRouter.swift in Sources */,
 				2CDFB63925EA6359002CE30D /* HomeViewController.swift in Sources */,
+				2C7082B325F0146100345147 /* UserWorker.swift in Sources */,
 				2C70825725F00B6A00345147 /* SendEmailPresenter.swift in Sources */,
 				2C55FA2325EE4C7C007BBFA8 /* ShowStoreResultsWorker.swift in Sources */,
 				2CA11F8525EF8E6D0054AE19 /* ChildCategoriesRouter.swift in Sources */,
 				2CDFB63825EA6359002CE30D /* HomeModels.swift in Sources */,
+				2C70829C25F013A700345147 /* EditNamePresenter.swift in Sources */,
 				2CA11F6925EF8E490054AE19 /* GrandParentCategoriesRouter.swift in Sources */,
 				2C2BC80F25EBBF180038882B /* EditReviewWorker.swift in Sources */,
 				2C14775E25E9070D000E8F66 /* UserSessionWorker.swift in Sources */,
@@ -1929,18 +2069,21 @@
 				2C266DFB24D6E65A00C66EA5 /* 1GrandParentCategoriesViewController.swift in Sources */,
 				2C55F9CE25EE3B9C007BBFA8 /* SearchAPI.swift in Sources */,
 				2CBF020725EFDE0C003AD5DF /* GroceryTablePresenter.swift in Sources */,
+				2C70828A25F0108500345147 /* SettingsModels.swift in Sources */,
 				2CC1EA2124FAC46A000A9BC4 /* 1ReviewModel.swift in Sources */,
 				2C48E7D125EAA06E001A5702 /* StoreModel.swift in Sources */,
 				2C7294A225ECEAEB00D280B3 /* FavouriteWorker.swift in Sources */,
 				2CDFB63725EA6359002CE30D /* HomeRouter.swift in Sources */,
 				2CA11F6825EF8E490054AE19 /* GrandParentCategoriesWorker.swift in Sources */,
 				2C2BC83225EBBFD40038882B /* ShowPromotionInteractor.swift in Sources */,
+				2C7082AD25F013B200345147 /* EditEmailModels.swift in Sources */,
 				2C70823925F009D000345147 /* SendEmailWorker.swift in Sources */,
 				2CA11F4125EEB6A50054AE19 /* StoreInteractor.swift in Sources */,
 				2CCE48D425177F9F00AE3BCA /* SearchHandler.swift in Sources */,
 				2C55FA0D25EE4BF9007BBFA8 /* ShowProductResultsPresenter.swift in Sources */,
 				2C2BC83E25EBC0680038882B /* ShowIngredientsRouter.swift in Sources */,
 				2C1567E124C9A0DF00B8DCB5 /* 1GroceryTableViewController.swift in Sources */,
+				2C7082AB25F013B200345147 /* EditEmailWorker.swift in Sources */,
 				2CF239B725094A9000D4CE91 /* ListItemsHandler.swift in Sources */,
 				2C55F9C525EE3B62007BBFA8 /* ShowSuggestionsPresenter.swift in Sources */,
 				2C1476D825E7C402000E8F66 /* UserLoginModel.swift in Sources */,
@@ -1953,17 +2096,21 @@
 				2C70823B25F009D000345147 /* SendEmailRouter.swift in Sources */,
 				2C1567F524CC845600B8DCB5 /* ProductDetailsViewController.swift in Sources */,
 				2C2BC83D25EBC0680038882B /* ShowIngredientsWorker.swift in Sources */,
+				2C7082D025F01C7500345147 /* UserHistoryModel.swift in Sources */,
 				2C2BC81125EBBF180038882B /* EditReviewModels.swift in Sources */,
 				2CA11F8325EF8E6D0054AE19 /* ChildCategoriesPresenter.swift in Sources */,
 				2CA11F3D25EEB6A50054AE19 /* StoreWorker.swift in Sources */,
 				2CB2CFC925EAA80200A00F7F /* StoreData.swift in Sources */,
 				2C70822C25F009BE00345147 /* VerifyCodeInteractor.swift in Sources */,
+				2C7082A125F013A700345147 /* EditNameInteractor.swift in Sources */,
+				2C7082A025F013A700345147 /* EditNameViewController.swift in Sources */,
 				2C2BC83125EBBFD40038882B /* ShowPromotionViewController.swift in Sources */,
 				2C362F95253B0E3D000846C0 /* 1PromotionModel.swift in Sources */,
 				2CBF020A25EFDE0C003AD5DF /* GroceryTableModels.swift in Sources */,
 				2CB15C9424D2FB8900461AFE /* ListItemTableViewCell.swift in Sources */,
 				2C2BC7E825EAFCFB0038882B /* ProductAPI.swift in Sources */,
 				2C2BC7E225EAFCEA0038882B /* ProductWorker.swift in Sources */,
+				2C70828725F0108500345147 /* SettingsPresenter.swift in Sources */,
 				2CA7C779250E547B002FF1B6 /* ListEditViewController.swift in Sources */,
 				2C0D448D253768B30046E2B0 /* StoreHistory.swift in Sources */,
 				2C70824725F009ED00345147 /* NewPasswordInteractor.swift in Sources */,
@@ -1987,7 +2134,7 @@
 				2CB2CFCD25EAA80E00A00F7F /* ProductData.swift in Sources */,
 				2CA11F3C25EEB6A50054AE19 /* StorePresenter.swift in Sources */,
 				2CDFB63525EA6359002CE30D /* HomePresenter.swift in Sources */,
-				2CE7AB0224D077C700A31782 /* SettingsViewController.swift in Sources */,
+				2CE7AB0224D077C700A31782 /* 1SettingsViewController.swift in Sources */,
 				2C14773425E90246000E8F66 /* RegisterInteractor.swift in Sources */,
 				2CC1EA1D24FAC003000A9BC4 /* ProductDetailsHandler.swift in Sources */,
 				2C3F537E24D184C80095C4B1 /* SearchSuggestionCell.swift in Sources */,
@@ -2005,17 +2152,22 @@
 				2CD4BC4525C4661200F2F4E5 /* LoginToUseTableViewCell.swift in Sources */,
 				2C6F6220251357D100179C2B /* ForgotPasswordViewController.swift in Sources */,
 				2C48E7AF25EA9CC1001A5702 /* HomeAPI.swift in Sources */,
+				2C70827625F0100700345147 /* EditPasswordRouter.swift in Sources */,
 				2CB19B5725653B4700C19550 /* ReviewCell.swift in Sources */,
+				2C70827925F0100700345147 /* EditPasswordInteractor.swift in Sources */,
 				2C2BC7DA25EAF9220038882B /* ShowProductRouter.swift in Sources */,
 				2CA11F4725EEB92E0054AE19 /* StoreAPI.swift in Sources */,
 				2C9C1B7A24CCD07F001ACA35 /* ProductCollectionViewCell.swift in Sources */,
+				2C70829F25F013A700345147 /* EditNameModels.swift in Sources */,
 				2C1476BF25E7ADAC000E8F66 /* UserAuthWorker.swift in Sources */,
 				2CA11F7825EF8E5C0054AE19 /* ParentCategoriesModels.swift in Sources */,
 				2CB2CFB325EAA68200A00F7F /* HomeData.swift in Sources */,
 				2CB2CFB725EAA6C500A00F7F /* HomeModel.swift in Sources */,
+				2C70827725F0100700345147 /* EditPasswordModels.swift in Sources */,
 				2C0D448A253602810046E2B0 /* 1UserModel.swift in Sources */,
 				2C2BC83F25EBC0680038882B /* ShowIngredientsModels.swift in Sources */,
 				2CB3EDA325040E92000E7C7A /* ListItemViewController.swift in Sources */,
+				2C70828825F0108500345147 /* SettingsWorker.swift in Sources */,
 				2C362F90253B0777000846C0 /* ItemModel.swift in Sources */,
 				2C2BC84D25EBC2460038882B /* ReviewAPI.swift in Sources */,
 				2C70822E25F009BE00345147 /* VerifyCodeModels.swift in Sources */,
@@ -2063,13 +2215,17 @@
 				2CA11EEC25EE84620054AE19 /* ShowRefineRouter.swift in Sources */,
 				2CAB6A3E251F958500774B89 /* 1UserData.swift in Sources */,
 				2C5B5C6C24D084FD0095C920 /* SearchResultsViewController.swift in Sources */,
+				2C7082AC25F013B200345147 /* EditEmailRouter.swift in Sources */,
 				2C55FA2425EE4C7C007BBFA8 /* ShowStoreResultsRouter.swift in Sources */,
 				2CAC05EC252B83FF00561509 /* OffersCell.swift in Sources */,
+				2C7082AE25F013B200345147 /* EditEmailViewController.swift in Sources */,
+				2C70828C25F0108500345147 /* SettingsInteractor.swift in Sources */,
 				2CA11EEE25EE84620054AE19 /* ShowRefineViewController.swift in Sources */,
 				2C21C3B224FA7C2500D90B4B /* 1ChildCategoriesViewController.swift in Sources */,
+				2C7082AA25F013B200345147 /* EditEmailPresenter.swift in Sources */,
 				2C70822A25F009BE00345147 /* VerifyCodeWorker.swift in Sources */,
 				2CAB6A3B251F932D00774B89 /* 1ErrorData.swift in Sources */,
-				2C70825325F00B2200345147 /* User.swift in Sources */,
+				2C70825325F00B2200345147 /* UserObject.swift in Sources */,
 				2C266DF124D5A6C900C66EA5 /* 1ProductModel.swift in Sources */,
 				2C72945425EBE77900D280B3 /* PromotionAPI.swift in Sources */,
 				2C2BC84025EBC0680038882B /* ShowIngredientsViewController.swift in Sources */,

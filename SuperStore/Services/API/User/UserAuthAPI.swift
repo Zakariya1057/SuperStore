@@ -14,7 +14,7 @@ struct UserAuthAPI: UserAuthProtocol {
     let jsonDecoder = JSONDecoder()
     let requestWorker: RequestProtocol = RequestWorker()
 
-    func login(email: String, password: String, notificationToken: String?, completionHandler: @escaping (UserLoginModel?, String?) -> Void) {
+    func login(email: String, password: String, notificationToken: String?, completionHandler: @escaping (UserModel?, String?) -> Void) {
         
         let registerData: Parameters = [
             "email": email,
@@ -40,7 +40,7 @@ struct UserAuthAPI: UserAuthProtocol {
         }
     }
     
-    func register(name: String, email: String, password: String, passwordConfirmation: String, notificationToken: String? = "",  identifier: String? = nil, userToken: String? = nil, completionHandler: @escaping (UserLoginModel?, String?) -> Void) {
+    func register(name: String, email: String, password: String, passwordConfirmation: String, notificationToken: String? = "",  identifier: String? = nil, userToken: String? = nil, completionHandler: @escaping (UserModel?, String?) -> Void) {
         
         let registerData: Parameters = [
             "name": name,
@@ -72,15 +72,15 @@ struct UserAuthAPI: UserAuthProtocol {
 }
 
 extension UserAuthAPI {
-    private func createUserLogin(userDataResponse: UserDataResponse) -> UserLoginModel? {
+    private func createUserLogin(userDataResponse: UserDataResponse) -> UserModel? {
         let userData = userDataResponse.data
         
-        return UserLoginModel(
+        return UserModel(
             id: userData.id,
             name: userData.name,
             token: userData.token,
             email: userData.email,
-            send_notifications: userData.send_notifications
+            sendNotifications: userData.send_notifications
         )
     }
 }

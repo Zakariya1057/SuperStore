@@ -16,7 +16,7 @@ import AuthenticationServices
 
 class LoginWorker {
     
-    public func appleLogin(appleIDCredential: ASAuthorizationAppleIDCredential) -> User? {
+    public func appleLogin(appleIDCredential: ASAuthorizationAppleIDCredential) -> UserHistoryModel? {
         
         let userIdentifier = appleIDCredential.user
         let userFullName = appleIDCredential.fullName
@@ -24,9 +24,9 @@ class LoginWorker {
         
         print("User id is \(userIdentifier) \n Full Name is \(String(describing: userFullName)) \n Email id is \(String(describing: userEmail))")
         
-        let user = User()
+        let user = UserHistoryModel()
         
-        user.password = generatePassword()
+//        user.password = generatePassword()
         user.userToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)!
         user.identifier = userIdentifier
         
@@ -47,7 +47,7 @@ class LoginWorker {
                 if let userInfo = userInfo {
                     user.email = userInfo.email
                     user.name = userInfo.name
-                    user.password = userInfo.password
+//                    user.password = userInfo.password
                 } else {
                     print("Error: No User Found Saved In History.")
                     return nil
@@ -65,18 +65,18 @@ class LoginWorker {
         
     }
     
-    private func generatePassword() -> String {
+    func generatePassword() -> String {
         let length = 30
         let passwordCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
         return String((0..<length).compactMap{ _ in passwordCharacters.randomElement() })
     }
     
-    private func storeUserInKeyChain(user: User){
+    private func storeUserInKeyChain(user: UserHistoryModel){
         KeychainWrapper.standard.set(try! PropertyListEncoder().encode(user), forKey: "appleUserAccounts")
     }
     
-    private func retrieveUserFromKeyChain(userSettings: Data) -> User? {
-        return try? PropertyListDecoder().decode(User.self, from: userSettings)
+    private func retrieveUserFromKeyChain(userSettings: Data) -> UserHistoryModel? {
+        return try? PropertyListDecoder().decode(UserHistoryModel.self, from: userSettings)
     }
     
 }

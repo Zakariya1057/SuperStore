@@ -9,13 +9,14 @@
 import Foundation
 import RealmSwift
 
-class User: Object, Codable {
+class UserObject: Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
     @objc dynamic var token: String = ""
     @objc dynamic var email: String = ""
-    @objc dynamic var identifier: String = ""
-    @objc dynamic var userToken: String = ""
-    @objc dynamic var password: String = ""
     @objc dynamic var sendNotifications: Bool = true
+    
+    func getUserModel() -> UserModel {
+        return UserModel(id: id, name: name, token: token, email: email, sendNotifications: sendNotifications)
+    }
 }

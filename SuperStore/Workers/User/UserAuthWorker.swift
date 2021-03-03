@@ -19,11 +19,11 @@ class UserAuthWorker {
     
     func login(
         email: String, password: String,
-        completionHandler: @escaping (_ user: UserLoginModel?, _ error: String?) -> Void ){
+        completionHandler: @escaping (_ user: UserModel?, _ error: String?) -> Void ){
         
         let notificationToken = userSession.getUserNotificationToken()
         
-        userAuth.login(email: email, password: password, notificationToken: notificationToken) { (user: UserLoginModel?, error: String?) in
+        userAuth.login(email: email, password: password, notificationToken: notificationToken) { (user: UserModel?, error: String?) in
             if user != nil {
                 self.userSession.logInUser(user: user!)
             }
@@ -36,11 +36,11 @@ class UserAuthWorker {
         name: String, email: String, password: String,
         passwordConfirmation: String,
         identifier: String?, userToken: String?,
-        completionHandler: @escaping (_ user: UserLoginModel?, _ error: String?) -> Void ){
+        completionHandler: @escaping (_ user: UserModel?, _ error: String?) -> Void ){
         
         let notificationToken = userSession.getUserNotificationToken()
         
-        userAuth.register(name: name, email: email, password: password, passwordConfirmation: passwordConfirmation, notificationToken: notificationToken, identifier: identifier, userToken: userToken) {  (user: UserLoginModel?, error: String?) in
+        userAuth.register(name: name, email: email, password: password, passwordConfirmation: passwordConfirmation, notificationToken: notificationToken, identifier: identifier, userToken: userToken) {  (user: UserModel?, error: String?) in
             
             if user != nil {
                 self.userSession.logInUser(user: user!)
@@ -55,13 +55,13 @@ class UserAuthWorker {
 protocol UserAuthProtocol {
     func login(
         email: String, password: String, notificationToken: String?,
-        completionHandler: @escaping (UserLoginModel?, String?) -> Void
+        completionHandler: @escaping (UserModel?, String?) -> Void
     )
     
     func register(
         name: String, email: String, password: String, passwordConfirmation: String,
         notificationToken: String?, identifier: String?, userToken: String?,
-        completionHandler: @escaping (UserLoginModel?, String?) -> Void
+        completionHandler: @escaping (UserModel?, String?) -> Void
     )
 }
 

@@ -955,7 +955,7 @@
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vou-Fe-23S">
                                                                                 <rect key="frame" x="215" y="9.5" width="51" height="31"/>
                                                                                 <connections>
-                                                                                    <action selector="notificationSwitchPressed:" destination="sIM-J9-Ju3" eventType="valueChanged" id="r03-E3-h2T"/>
+                                                                                    <action selector="notificationSwitchPressed:" destination="sIM-J9-Ju3" eventType="valueChanged" id="w2s-ZK-Aiv"/>
                                                                                 </connections>
                                                                             </switch>
                                                                         </subviews>
@@ -1019,7 +1019,7 @@
                                                     <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="logoutPressed:" destination="sIM-J9-Ju3" eventType="touchUpInside" id="gsN-R9-9MH"/>
+                                                    <action selector="logoutButtonPressed:" destination="sIM-J9-Ju3" eventType="touchUpInside" id="QoC-gd-wQ5"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1056,19 +1056,20 @@
                         <barButtonItem key="rightBarButtonItem" title="Delete" id="mEp-bl-jOr">
                             <color key="tintColor" red="0.61682485080000005" green="0.22140261450000001" blue="0.033802555550000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
-                                <action selector="deletePressed:" destination="sIM-J9-Ju3" id="5fn-E1-UxP"/>
+                                <action selector="deleteButtonPressed:" destination="sIM-J9-Ju3" id="KaH-gm-3w8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="emailLabel" destination="NRR-ms-spy" id="JA5-vE-RXx"/>
-                        <outlet property="emailStackView" destination="I7d-Py-p7N" id="XQ4-sA-l38"/>
-                        <outlet property="nameLabel" destination="wSK-P4-bfQ" id="c1c-AO-dH4"/>
-                        <outlet property="notificationSwitch" destination="vou-Fe-23S" id="Ww8-z7-929"/>
-                        <outlet property="passwordStackView" destination="cZt-jF-u3P" id="8zZ-fd-FZJ"/>
-                        <outlet property="usernameStackView" destination="zmZ-tT-3zA" id="gbq-xd-ccv"/>
-                        <segue destination="SzX-4m-Fpe" kind="show" identifier="settingsToSettingChange" id="3Gf-6m-dcV"/>
+                        <outlet property="emailLabel" destination="NRR-ms-spy" id="2KD-9q-Afm"/>
+                        <outlet property="emailStackView" destination="I7d-Py-p7N" id="qM6-Oh-Jyr"/>
+                        <outlet property="nameLabel" destination="wSK-P4-bfQ" id="K87-Ip-6RE"/>
+                        <outlet property="notificationSwitch" destination="vou-Fe-23S" id="KkC-wy-MPV"/>
+                        <outlet property="passwordStackView" destination="cZt-jF-u3P" id="ufb-WD-LIy"/>
+                        <outlet property="usernameStackView" destination="zmZ-tT-3zA" id="riO-Uf-jKy"/>
                         <segue destination="EIN-HB-Uy4" kind="show" identifier="settingsToChangePassword" id="06b-UV-g00"/>
+                        <segue destination="SzX-4m-Fpe" kind="show" id="C7z-JW-Rzr"/>
+                        <segue destination="nph-2y-VSK" kind="show" id="xk2-3c-8X5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G22-dA-1Vk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1078,7 +1079,7 @@
         <!--Change Password-->
         <scene sceneID="9ag-jM-lsp">
             <objects>
-                <viewController id="EIN-HB-Uy4" customClass="ChangePasswordViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditPasswordViewController" id="EIN-HB-Uy4" customClass="EditPasswordViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7QT-QL-IQ7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1152,6 +1153,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                                <connections>
+                                                    <action selector="newPasswordTextField:" destination="EIN-HB-Uy4" eventType="editingDidEnd" id="dtV-G5-6d4"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -1166,7 +1170,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIk-nr-pPt">
                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeat Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3T6-IO-ONe">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3T6-IO-ONe">
                                                         <rect key="frame" x="0.0" y="11" width="384" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" red="0.45500968990000001" green="0.44913556189999998" blue="0.47121355339999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1209,27 +1213,22 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Change Password" id="Kd0-dV-X3p">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="JI4-QN-Cu7">
-                            <connections>
-                                <action selector="savePressed:" destination="EIN-HB-Uy4" id="4yY-bR-THn"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="JI4-QN-Cu7"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="currentPasswordField" destination="jsB-BX-GH0" id="kAz-OS-gY8"/>
-                        <outlet property="newPasswordField" destination="9Vb-y8-r7f" id="f97-e4-jWC"/>
-                        <outlet property="repeatPasswordField" destination="OCF-Uq-4mc" id="cPW-P6-XOz"/>
-                        <outlet property="saveBarItem" destination="JI4-QN-Cu7" id="ad7-0i-u02"/>
+                        <outlet property="confirmPasswordTextField" destination="OCF-Uq-4mc" id="GSF-qX-6HF"/>
+                        <outlet property="currentPasswordTextField" destination="jsB-BX-GH0" id="ro5-VD-17t"/>
+                        <outlet property="newPasswordTextField" destination="9Vb-y8-r7f" id="Zru-U6-bwt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qIV-G4-FLT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3929" y="2750"/>
         </scene>
-        <!--Settings Change View Controller-->
+        <!--Edit Name View Controller-->
         <scene sceneID="D8Q-gF-Rxs">
             <objects>
-                <viewController id="SzX-4m-Fpe" customClass="SettingsChangeViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditNameViewController" id="SzX-4m-Fpe" customClass="EditNameViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KII-Uc-KNS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1243,7 +1242,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HrS-j9-Q8k">
                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PPD-6t-FXq">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PPD-6t-FXq">
                                                         <rect key="frame" x="0.0" y="11" width="384" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" red="0.45500968990000001" green="0.44913556189999998" blue="0.47121355339999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1288,14 +1287,12 @@
                     <navigationItem key="navigationItem" id="taT-BY-yr0">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Pgc-5L-fdV">
                             <connections>
-                                <action selector="donePressed:" destination="SzX-4m-Fpe" id="QE3-vt-7zg"/>
+                                <action selector="saveButtonPressed:" destination="SzX-4m-Fpe" id="5bp-d2-JEh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="headerLabel" destination="PPD-6t-FXq" id="jPO-xl-Lwm"/>
-                        <outlet property="inputField" destination="obJ-m0-w8s" id="AJA-Nu-C1U"/>
-                        <outlet property="saveBarItem" destination="Pgc-5L-fdV" id="uEb-ub-P91"/>
+                        <outlet property="nameTextField" destination="obJ-m0-w8s" id="ckR-vR-hB6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmj-Y5-7AU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2130,7 +2127,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zk9-e4-itb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
-                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
+                                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
                                                                                         <rect key="frame" x="87" y="2" width="210" height="26"/>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -2880,7 +2877,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz2-WX-h3t">
                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="64.5" y="7.5" width="255" height="35"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -4847,15 +4844,81 @@
             </objects>
             <point key="canvasLocation" x="15414" y="136"/>
         </scene>
+        <!--Edit Email View Controller-->
+        <scene sceneID="3ba-Of-BQX">
+            <objects>
+                <viewController storyboardIdentifier="EditEmailViewController" id="nph-2y-VSK" customClass="EditEmailViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ogk-DV-l1Y">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wT0-SW-wTv">
+                                <rect key="frame" x="15" y="88" width="384" height="80"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gHB-II-dEH">
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="80"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Nz-Ul-BMG">
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MD3-gM-ZRG">
+                                                        <rect key="frame" x="0.0" y="11" width="384" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" red="0.45500968990000001" green="0.44913556189999998" blue="0.47121355339999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="MD3-gM-ZRG" firstAttribute="leading" secondItem="3Nz-Ul-BMG" secondAttribute="leading" id="4up-W7-QU9"/>
+                                                    <constraint firstItem="MD3-gM-ZRG" firstAttribute="centerY" secondItem="3Nz-Ul-BMG" secondAttribute="centerY" id="MFG-VP-FJe"/>
+                                                    <constraint firstAttribute="trailing" secondItem="MD3-gM-ZRG" secondAttribute="trailing" id="aEF-J8-yoH"/>
+                                                    <constraint firstAttribute="height" constant="40" id="tK8-o2-eq4"/>
+                                                </constraints>
+                                            </view>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="epd-G5-gM8">
+                                                <rect key="frame" x="0.0" y="40" width="384" height="40"/>
+                                                <color key="backgroundColor" name="Grey.Blank"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="SaQ-Tn-Ewd"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="username"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="epd-G5-gM8" firstAttribute="leading" secondItem="gHB-II-dEH" secondAttribute="leading" id="9HS-8O-wDa"/>
+                                            <constraint firstAttribute="trailing" secondItem="epd-G5-gM8" secondAttribute="trailing" id="Eme-R0-Ppj"/>
+                                            <constraint firstItem="epd-G5-gM8" firstAttribute="top" secondItem="3Nz-Ul-BMG" secondAttribute="bottom" id="peq-er-4fu"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="j6s-jR-vH5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="j6s-jR-vH5" firstAttribute="trailing" secondItem="wT0-SW-wTv" secondAttribute="trailing" constant="15" id="Vdm-26-smS"/>
+                            <constraint firstItem="wT0-SW-wTv" firstAttribute="leading" secondItem="j6s-jR-vH5" secondAttribute="leading" constant="15" id="qKi-Rz-K3Z"/>
+                            <constraint firstItem="wT0-SW-wTv" firstAttribute="top" secondItem="j6s-jR-vH5" secondAttribute="top" id="y6Y-Wx-HH3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ku2-4v-u8C">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="veC-fU-gYg">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="nph-2y-VSK" id="4Ru-jS-CpJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="emailTextField" destination="epd-G5-gM8" id="BbV-Pr-aPD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O02-45-Z8d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5030" y="2750"/>
+        </scene>
     </scenes>
-    <designables>
-        <designable name="XU3-Nd-wUM">
-            <size key="intrinsicContentSize" width="255" height="35"/>
-        </designable>
-        <designable name="tFG-eX-umO">
-            <size key="intrinsicContentSize" width="209.849609375" height="26"/>
-        </designable>
-    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="YcT-k9-dml"/>
     </inferredMetricsTieBreakers>

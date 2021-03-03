@@ -41,7 +41,7 @@ class NewPasswordInteractor: NewPasswordBusinessLogic, NewPasswordDataStore
         let error = validateForm(password: password, passwordConfirm: passwordConfirm)
         
         if error == nil {
-            resetWorker.newPassword(email: email, code: code, password: password, passwordConfirmation: passwordConfirm) { (user: UserLoginModel?, error: String?) in
+            resetWorker.newPassword(email: email, code: code, password: password, passwordConfirmation: passwordConfirm) { (user: UserModel?, error: String?) in
                 let response = NewPassword.NewPassword.Response(error: error)
                 self.presenter?.presentNewPassword(response: response)
             }

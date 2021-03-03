@@ -139,8 +139,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
             if let product = viewModel.displayedProduct {
                 
                 self.product = product
-                
-                print(product)
+
                 updateFavouriteButton(favourite: product.favourite)
                 updateMonitorButton(monitor: product.monitoring)
                 

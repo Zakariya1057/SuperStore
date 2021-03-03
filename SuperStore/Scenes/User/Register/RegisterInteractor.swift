@@ -91,7 +91,7 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
         return nil
     }
     
-    private func registerCompletionHandler(user: UserLoginModel?, error: String?){
+    private func registerCompletionHandler(user: UserModel?, error: String?){
         let response = Register.Register.Response(error: error)
         presenter?.presentRegisteredUser(response: response)
     }

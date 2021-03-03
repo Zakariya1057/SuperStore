@@ -25,11 +25,11 @@ class ResetPasswordWorker {
         passwordReset.verifyCode(email: email, code: code, completionHandler: completionHandler)
     }
     
-    func newPassword(email: String, code: String, password: String, passwordConfirmation: String, completionHandler: @escaping (_ user: UserLoginModel?, _ error: String?) -> Void){
+    func newPassword(email: String, code: String, password: String, passwordConfirmation: String, completionHandler: @escaping (_ user: UserModel?, _ error: String?) -> Void){
         
         let notificationToken = userSession.getUserNotificationToken() ?? ""
         
-        passwordReset.newPassword(email: email, code: code, password: password, passwordConfirmation: passwordConfirmation, notificationToken: notificationToken) { (user: UserLoginModel?, error: String?) in
+        passwordReset.newPassword(email: email, code: code, password: password, passwordConfirmation: passwordConfirmation, notificationToken: notificationToken) { (user: UserModel?, error: String?) in
             if user != nil {
                 self.userSession.logInUser(user: user!)
             }
@@ -47,7 +47,7 @@ protocol ResetPasswordProtocol {
     func newPassword(
         email: String, code: String, password: String,
         passwordConfirmation: String,notificationToken: String,
-        completionHandler: @escaping ( UserLoginModel?, String?) -> Void
+        completionHandler: @escaping ( UserModel?, String?) -> Void
     )
 }
 

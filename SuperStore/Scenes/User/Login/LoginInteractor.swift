@@ -65,7 +65,7 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
         if let userHistory = user {
             let name = userHistory.name
             let email = userHistory.email
-            let password = userHistory.password
+            let password = loginWorker.generatePassword()
             let identifier = userHistory.identifier
             let userToken = userHistory.userToken
             
@@ -85,7 +85,7 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
         }
     }
     
-    private func loginCompletionHandler(user: UserLoginModel?, error: String?){
+    private func loginCompletionHandler(user: UserModel?, error: String?){
         self.presenter?.presentLogin(response: Login.Login.Response(error: error))
     }
 }
