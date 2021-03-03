@@ -1488,10 +1488,10 @@
 			isa = PBXGroup;
 			children = (
 				2CBF01FF25EFDE0C003AD5DF /* GroceryTableInteractor.swift */,
-				2CBF020025EFDE0C003AD5DF /* GroceryTableViewController.swift */,
 				2CBF020125EFDE0C003AD5DF /* GroceryTablePresenter.swift */,
 				2CBF020225EFDE0C003AD5DF /* GroceryTableWorker.swift */,
 				2CBF020325EFDE0C003AD5DF /* GroceryTableRouter.swift */,
+				2CBF020025EFDE0C003AD5DF /* GroceryTableViewController.swift */,
 				2CBF020425EFDE0C003AD5DF /* GroceryTableModels.swift */,
 			);
 			path = GroceryTable;

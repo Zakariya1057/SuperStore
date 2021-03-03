@@ -39,8 +39,8 @@ enum EditReview
         {
             struct DisplayedReview {
                 var id: Int
-                var image: String
-                var productName: String
+//                var image: String
+//                var productName: String
                 var text: String
                 var title: String
                 var rating: Double
@@ -49,6 +49,27 @@ enum EditReview
             
             var displayedReview: DisplayedReview?
             var error: String?
+        }
+    }
+    
+    enum GetProduct {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var product: ProductModel
+        }
+        
+        struct ViewModel
+        {
+            struct DisplayedProduct {
+                var name: String
+                var image: String
+            }
+            
+            var displayedProduct: DisplayedProduct?
         }
     }
     

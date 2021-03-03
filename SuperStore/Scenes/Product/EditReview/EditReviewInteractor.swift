@@ -16,6 +16,7 @@ protocol EditReviewBusinessLogic
 {
     var reviewToEdit: ReviewModel? { get set }
     
+    func getProduct(request: EditReview.GetProduct.Request)
     func getReview(request: EditReview.GetReview.Request)
     func createReview(request: EditReview.CreateReview.Request)
     func updateReview(request: EditReview.UpdateReview.Request)
@@ -34,6 +35,11 @@ class EditReviewInteractor: EditReviewBusinessLogic, EditReviewDataStore
     
     var product: ProductModel?
     var reviewToEdit: ReviewModel?
+    
+    func getProduct(request: EditReview.GetProduct.Request){
+        let response = EditReview.GetProduct.Response(product: product!)
+        self.presenter?.presentProduct(response: response)
+    }
     
     func getReview(request: EditReview.GetReview.Request)
     {
@@ -83,6 +89,9 @@ class EditReviewInteractor: EditReviewBusinessLogic, EditReviewDataStore
         }
     }
     
+}
+
+extension EditReviewInteractor {
     private func buildReviewFromReviewForm(_ reviewForm:EditReview.ReviewFormFields) -> ReviewModel {
         return ReviewModel(
             id: 1,

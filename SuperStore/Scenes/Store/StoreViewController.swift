@@ -100,15 +100,20 @@ class StoreViewController: UIViewController, StoreDisplayLogic
     
     func displayStore(viewModel: Store.GetStore.ViewModel)
     {
-        if let store = viewModel.displayedStore {
-            nameLabel.text = store.name
-            addressLabel.text = store.address
-            logoImageView.downloaded(from: store.logo)
-            
+        if let error = viewModel.error {
+            showError(title: "Store Error", error: error)
+        } else {
+            if let store = viewModel.displayedStore {
+                nameLabel.text = store.name
+                addressLabel.text = store.address
+                logoImageView.downloaded(from: store.logo)
+                
 
-            displayOpeningHours(openingHours: store.openingHours)
-            displayFacilities(facilities: store.facilites)
+                displayOpeningHours(openingHours: store.openingHours)
+                displayFacilities(facilities: store.facilites)
+            }
         }
+        
     }
     
     private func displayOpeningHours(openingHours: [Store.GetStore.ViewModel.DisplayOpeningHour]){

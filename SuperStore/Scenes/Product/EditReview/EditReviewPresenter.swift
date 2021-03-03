@@ -14,6 +14,7 @@ import UIKit
 
 protocol EditReviewPresentationLogic
 {
+    func presentProduct(response: EditReview.GetProduct.Response)
     func presentReview(response: EditReview.GetReview.Response)
     func presentReviewCreated(response: EditReview.CreateReview.Response)
     func presentReviewUpdated(response: EditReview.UpdateReview.Response)
@@ -25,14 +26,19 @@ class EditReviewPresenter: EditReviewPresentationLogic
     
     weak var viewController: EditReviewDisplayLogic?
     
+    func presentProduct(response: EditReview.GetProduct.Response){
+        let displayedProduct = EditReview.GetProduct.ViewModel.DisplayedProduct(name: response.product.name, image: response.product.largeImage)
+        let viewModel = EditReview.GetProduct.ViewModel(displayedProduct: displayedProduct)
+        viewController?.displayProduct(viewModel: viewModel)
+    }
+    
     func presentReview(response: EditReview.GetReview.Response)
     {
         var displayedReview: EditReview.GetReview.ViewModel.DisplayedReview?
         
-        if let review = response.review, let product = response.product {
+        if let review = response.review, let _ = response.product {
             displayedReview = EditReview.GetReview.ViewModel.DisplayedReview(
-                id: review.id, image: product.largeImage,
-                productName: product.name, text: review.text,
+                id: review.id, text: review.text,
                 title: review.title, rating: Double(review.rating), name: review.name
             )
         }

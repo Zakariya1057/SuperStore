@@ -125,7 +125,54 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     
     var selectedProductID: Int?
     
-    //MARK: - Display
+    func getProduct()
+    {
+        let request = ShowProduct.GetProduct.Request()
+        interactor?.getProduct(request: request)
+    }
+        
+    func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
+    {
+        if let error = viewModel.error {
+            showError(title: "Product Error", error: error)
+        } else {
+            if let product = viewModel.displayedProduct {
+                
+                self.product = product
+                
+                updateFavouriteButton(favourite: product.favourite)
+                updateMonitorButton(monitor: product.monitoring)
+                
+                imageView.downloaded(from: product.largeImage)
+                
+                nameLabel.text = product.name
+                priceLabel.text = product.price
+                weightLabel.text = product.weight
+                
+                if let review = product.review {
+                    reviews.append(review)
+                    reviewsTableView.reloadData()
+                }
+                
+                ratingView.rating = product.avgRating
+                ratingView.text = "(\(product.totalReviewsCount))"
+                
+                allReviewsButton.setTitle("All Reviews (\(product.totalReviewsCount))", for: .normal)
+                
+                if let promotion = product.promotion {
+                    promotionLabel.text = promotion.name
+                } else {
+                    promotionView.removeFromSuperview()
+                }
+                
+                allergenLabel.text = product.allergenInfo
+                lifeStyleLabel.text = product.dietaryInfo
+                
+                recommendedProducts = product.recommended
+                recommendedTableView.reloadData()
+            }
+        }
+    }
     
     func displayMonitoring(viewModel: ShowProduct.UpdateMonitoring.ViewModel) {
         if let error = viewModel.error {
@@ -138,52 +185,9 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
             showError(title: "Favourite Error", error: error)
         }
     }
-    
-    func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
-    {
-        if let product = viewModel.displayedProduct {
-            
-            self.product = product
-            
-            updateFavouriteButton(favourite: product.favourite)
-            updateMonitorButton(monitor: product.monitoring)
-            
-            imageView.downloaded(from: product.largeImage)
-            
-            nameLabel.text = product.name
-            priceLabel.text = product.price
-            weightLabel.text = product.weight
-            
-            if let review = product.review {
-                reviews.append(review)
-                reviewsTableView.reloadData()
-            }
-            
-            ratingView.rating = product.avgRating
-            ratingView.text = "(\(product.totalReviewsCount))"
-            
-            allReviewsButton.setTitle("All Reviews (\(product.totalReviewsCount))", for: .normal)
-            
-            if let promotion = product.promotion {
-                promotionLabel.text = promotion.name
-            } else {
-                promotionView.removeFromSuperview()
-            }
-            
-            allergenLabel.text = product.allergenInfo
-            lifeStyleLabel.text = product.dietaryInfo
-            
-            recommendedProducts = product.recommended
-            recommendedTableView.reloadData()
-        }
-    }
-    
-    func getProduct()
-    {
-        let request = ShowProduct.GetProduct.Request()
-        interactor?.getProduct(request: request)
-    }
-    
+}
+
+extension ShowProductViewController {
     func updateMonitorButton(monitor: Bool){
         if monitor {
             monitorButton.setTitle("Monitoring Price", for: .normal)
@@ -206,7 +210,6 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         barItem.tintColor = .systemYellow
         self.navigationItem.rightBarButtonItem = barItem
     }
-    
 }
 
 extension ShowProductViewController {

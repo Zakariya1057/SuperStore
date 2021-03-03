@@ -100,10 +100,13 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     func displayHome(viewModel: Home.GetHome.ViewModel)
     {
-        homeModel = viewModel.home
-        populateCells()
+        if let error = viewModel.error {
+            showError(title: "Home Error", error: error)
+        } else {
+            homeModel = viewModel.home
+            populateCells()
+        }
     }
-    
 }
 
 extension HomeViewController {

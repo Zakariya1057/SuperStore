@@ -87,8 +87,12 @@ class GrandParentCategoriesViewController: UIViewController, GrandParentCategori
     
     func displayCategories(viewModel: GrandParentCategories.GetCategories.ViewModel)
     {
-        categories =  viewModel.displayedCategories
-        categoriesTableView.reloadData()
+        if let error = viewModel.error {
+            showError(title: "Grocery Error", error: error)
+        } else {
+            categories =  viewModel.displayedCategories
+            categoriesTableView.reloadData()
+        }
     }
 }
 

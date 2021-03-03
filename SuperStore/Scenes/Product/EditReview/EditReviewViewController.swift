@@ -16,6 +16,7 @@ import Cosmos
 protocol EditReviewDisplayLogic: class
 {
     func displayReview(viewModel: EditReview.GetReview.ViewModel)
+    func displayProduct(viewModel: EditReview.GetProduct.ViewModel)
     func displayReviewCreated(viewModel: EditReview.CreateReview.ViewModel)
     func displayReviewUpdated(viewModel: EditReview.UpdateReview.ViewModel)
     func displayReviewDeleted(viewModel: EditReview.DeleteReview.ViewModel)
@@ -73,6 +74,7 @@ class EditReviewViewController: UIViewController, EditReviewDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        getProductDetails()
         getReview()
     }
     
@@ -93,17 +95,32 @@ class EditReviewViewController: UIViewController, EditReviewDisplayLogic
         interactor?.getReview(request: request)
     }
     
+    func getProductDetails(){
+        let request = EditReview.GetProduct.Request()
+        interactor?.getProduct(request: request)
+    }
+    
+    func displayProduct(viewModel: EditReview.GetProduct.ViewModel){
+        if let product = viewModel.displayedProduct {
+            productNameLabel.text = product.name
+            productImageView.downloaded(from: product.image)
+        }
+    }
+    
     func displayReview(viewModel: EditReview.GetReview.ViewModel)
     {
         stopLoading()
         
-        if let review = viewModel.displayedReview {
-            ratingView.rating = Double(review.rating)
-            titleTextField.text = review.title
-            contentTextView.text = review.text
-            productNameLabel.text = review.productName
-            productImageView.downloaded(from: review.image)
-            deleteButton.alpha = 1
+        if let error = viewModel.error {
+            showError(title: "Review Error", error: error)
+        } else {
+            if let review = viewModel.displayedReview {
+                ratingView.rating = Double(review.rating)
+                titleTextField.text = review.title
+                contentTextView.text = review.text
+
+                deleteButton.alpha = 1
+            }
         }
     }
     

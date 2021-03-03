@@ -83,6 +83,7 @@ class NewPasswordViewController: UIViewController, NewPasswordDisplayLogic
     func displayNewPassword(viewModel: NewPassword.NewPassword.ViewModel)
     {
         stopLoading()
+        
         if let error = viewModel.error {
             showError(title: "Change Password Error", error: error)
         } else {

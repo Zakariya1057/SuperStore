@@ -93,8 +93,12 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
     
     func displayFavourites(viewModel: Favourites.GetFavourites.ViewModel)
     {
-        products = viewModel.products
-        favouriteTableView.reloadData()
+        if let error = viewModel.error {
+            showError(title: "Home Error", error: error)
+        } else {
+            products = viewModel.products
+            favouriteTableView.reloadData()
+        }
         
         refreshControl.endRefreshing()
     }

@@ -93,9 +93,13 @@ class ShowPromotionViewController: UIViewController, ShowPromotionDisplayLogic
     
     func displayPromotion(viewModel: ShowPromotion.GetPromotion.ViewModel)
     {
-        promotion = viewModel.promotion
-        title = viewModel.promotion?.name
-        promotionTableView.reloadData()
+        if let error = viewModel.error {
+            showError(title: "Promotion Error", error: error)
+        } else {
+            promotion = viewModel.promotion
+            title = viewModel.promotion?.name
+            promotionTableView.reloadData()
+        }
     }
 }
 

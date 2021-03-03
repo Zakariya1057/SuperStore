@@ -95,10 +95,8 @@ class SendEmailViewController: UIViewController, SendEmailDisplayLogic
     func displayEmailSent(viewModel: SendEmail.SendEmail.ViewModel)
     {
         stopLoading()
-        
-        let error = viewModel.error
-        
-        if let error = error {
+
+        if let error = viewModel.error {
             showError(title: "Send Email Error", error: error)
         } else {
             router?.routeToVerifyCode(segue: nil)

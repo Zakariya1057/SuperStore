@@ -88,8 +88,12 @@ class ShowReviewsViewController: UIViewController, ShowReviewsDisplayLogic
     
     func displayReviews(viewModel: ShowReviews.GetReviews.ViewModel)
     {
-        reviews = viewModel.reviews
-        reviewsTableView.reloadData()
+        if let error = viewModel.error {
+            showError(title: "Review Error", error: error)
+        } else {
+            reviews = viewModel.reviews
+            reviewsTableView.reloadData()
+        }
     }
 }
 

@@ -83,8 +83,8 @@ class VerifyCodeViewController: UIViewController, VerifyCodeDisplayLogic
     func displayVerifiedCode(viewModel: VerifyCode.VerifyCode.ViewModel)
     {
         stopLoading()
-        let error = viewModel.error
-        if let error = error {
+        
+        if let error = viewModel.error {
             showError(title: "Verify Error", error: error)
         } else {
             router?.routeToNewPassword(segue: nil)
