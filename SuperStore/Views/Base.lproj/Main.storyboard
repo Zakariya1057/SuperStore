@@ -1951,7 +1951,7 @@
             </objects>
             <point key="canvasLocation" x="7347.826086956522" y="135.9375"/>
         </scene>
-        <!--Fruits-->
+        <!--Child Categories View Controller-->
         <scene sceneID="MbA-Ed-0LT">
             <objects>
                 <viewController storyboardIdentifier="ChildCategoriesViewController" id="lx3-SC-MKf" customClass="ChildCategoriesViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -1961,7 +1961,7 @@
                         <viewLayoutGuide key="safeArea" id="q30-JZ-fgK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Fruits" id="FQO-F6-rtZ">
+                    <navigationItem key="navigationItem" id="FQO-F6-rtZ">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="rQv-2t-6pb"/>
                     </navigationItem>
                     <connections>
@@ -2130,7 +2130,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zk9-e4-itb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
-                                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
+                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
                                                                                         <rect key="frame" x="87" y="2" width="210" height="26"/>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -2828,7 +2828,7 @@
             </objects>
             <point key="canvasLocation" x="11857.971014492754" y="135.9375"/>
         </scene>
-        <!--Review-->
+        <!--Edit Review View Controller-->
         <scene sceneID="EOY-pR-E4c">
             <objects>
                 <viewController storyboardIdentifier="EditReviewViewController" id="G9a-TG-ILp" customClass="EditReviewViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -2880,7 +2880,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz2-WX-h3t">
                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="64.5" y="7.5" width="255" height="35"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -3028,7 +3028,7 @@
                             <constraint firstItem="wHi-Jc-3hb" firstAttribute="leading" secondItem="o2E-rC-ZGt" secondAttribute="leading" id="ouC-jT-ZeQ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Review" id="4to-6k-YVa">
+                    <navigationItem key="navigationItem" id="4to-6k-YVa">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="eXP-qL-3iO">
                             <connections>
                                 <action selector="saveBarButtonPressed:" destination="G9a-TG-ILp" id="4ly-vT-Y5K"/>
@@ -3939,7 +3939,7 @@
             </objects>
             <point key="canvasLocation" x="7347.826086956522" y="-1649.3303571428571"/>
         </scene>
-        <!--Fresh Food & Bakery-->
+        <!--Parent Categories View Controller-->
         <scene sceneID="D82-F9-hHM">
             <objects>
                 <viewController storyboardIdentifier="ParentCategoriesViewController" id="DSq-uM-qe8" customClass="ParentCategoriesViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -3961,7 +3961,7 @@
                             <constraint firstItem="4zD-5I-3xM" firstAttribute="bottom" secondItem="Kd1-eR-HOx" secondAttribute="bottom" id="sTd-uU-HDe"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Fresh Food &amp; Bakery" id="4uj-m0-fM0">
+                    <navigationItem key="navigationItem" id="4uj-m0-fM0">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Kxa-DU-OWk">
                             <connections>
                                 <action selector="done_pressed:" destination="DSq-uM-qe8" id="vzB-Kj-QvZ"/>
@@ -4848,6 +4848,14 @@
             <point key="canvasLocation" x="15414" y="136"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="XU3-Nd-wUM">
+            <size key="intrinsicContentSize" width="255" height="35"/>
+        </designable>
+        <designable name="tFG-eX-umO">
+            <size key="intrinsicContentSize" width="209.849609375" height="26"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="YcT-k9-dml"/>
     </inferredMetricsTieBreakers>

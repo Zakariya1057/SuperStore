@@ -33,25 +33,6 @@
 		2C14773325E90246000E8F66 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14772D25E90246000E8F66 /* RegisterViewController.swift */; };
 		2C14773425E90246000E8F66 /* RegisterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14772E25E90246000E8F66 /* RegisterInteractor.swift */; };
 		2C14775E25E9070D000E8F66 /* UserSessionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14775D25E9070D000E8F66 /* UserSessionWorker.swift */; };
-		2C14776625E9087E000E8F66 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14776525E9087E000E8F66 /* User.swift */; };
-		2C14777B25E91737000E8F66 /* SendEmailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14777525E91737000E8F66 /* SendEmailPresenter.swift */; };
-		2C14777C25E91737000E8F66 /* SendEmailWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14777625E91737000E8F66 /* SendEmailWorker.swift */; };
-		2C14777D25E91737000E8F66 /* SendEmailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14777725E91737000E8F66 /* SendEmailRouter.swift */; };
-		2C14777E25E91737000E8F66 /* SendEmailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14777825E91737000E8F66 /* SendEmailModels.swift */; };
-		2C14777F25E91737000E8F66 /* SendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14777925E91737000E8F66 /* SendEmailViewController.swift */; };
-		2C14778025E91737000E8F66 /* SendEmailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14777A25E91737000E8F66 /* SendEmailInteractor.swift */; };
-		2C14778925E9174A000E8F66 /* VerifyCodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14778325E9174A000E8F66 /* VerifyCodePresenter.swift */; };
-		2C14778A25E9174A000E8F66 /* VerifyCodeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14778425E9174A000E8F66 /* VerifyCodeWorker.swift */; };
-		2C14778B25E9174A000E8F66 /* VerifyCodeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14778525E9174A000E8F66 /* VerifyCodeRouter.swift */; };
-		2C14778C25E9174A000E8F66 /* VerifyCodeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14778625E9174A000E8F66 /* VerifyCodeModels.swift */; };
-		2C14778D25E9174A000E8F66 /* VerifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14778725E9174A000E8F66 /* VerifyCodeViewController.swift */; };
-		2C14778E25E9174A000E8F66 /* VerifyCodeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14778825E9174A000E8F66 /* VerifyCodeInteractor.swift */; };
-		2C14779725E9175E000E8F66 /* NewPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779125E9175E000E8F66 /* NewPasswordPresenter.swift */; };
-		2C14779825E9175E000E8F66 /* NewPasswordWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779225E9175E000E8F66 /* NewPasswordWorker.swift */; };
-		2C14779925E9175E000E8F66 /* NewPasswordRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779325E9175E000E8F66 /* NewPasswordRouter.swift */; };
-		2C14779A25E9175E000E8F66 /* NewPasswordModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779425E9175E000E8F66 /* NewPasswordModels.swift */; };
-		2C14779B25E9175E000E8F66 /* NewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779525E9175E000E8F66 /* NewPasswordViewController.swift */; };
-		2C14779C25E9175E000E8F66 /* NewPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779625E9175E000E8F66 /* NewPasswordInteractor.swift */; };
 		2C1477A025E94CEE000E8F66 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14779F25E94CEE000E8F66 /* ErrorViewController.swift */; };
 		2C1477A425E96DD8000E8F66 /* ResetPasswordWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1477A325E96DD8000E8F66 /* ResetPasswordWorker.swift */; };
 		2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */; };
@@ -136,10 +117,6 @@
 		2C48E7A725EA99D4001A5702 /* StoresMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7A525EA99D4001A5702 /* StoresMapCell.swift */; };
 		2C48E7AF25EA9CC1001A5702 /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7AE25EA9CC1001A5702 /* HomeAPI.swift */; };
 		2C48E7B725EA9DCF001A5702 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7B625EA9DCF001A5702 /* ProductModel.swift */; };
-		2C48E7BD25EA9F57001A5702 /* Promotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7BC25EA9F57001A5702 /* Promotion.swift */; };
-		2C48E7C125EA9F68001A5702 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7C025EA9F68001A5702 /* Product.swift */; };
-		2C48E7C525EA9FB5001A5702 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7C425EA9FB5001A5702 /* List.swift */; };
-		2C48E7C925EAA02B001A5702 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7C825EAA02B001A5702 /* Store.swift */; };
 		2C48E7CD25EAA064001A5702 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7CC25EAA064001A5702 /* UserModel.swift */; };
 		2C48E7D125EAA06E001A5702 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7D025EAA06E001A5702 /* StoreModel.swift */; };
 		2C48E7D525EAA078001A5702 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7D425EAA078001A5702 /* ListModel.swift */; };
@@ -171,6 +148,26 @@
 		2C5B5C6C24D084FD0095C920 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5C6B24D084FD0095C920 /* SearchResultsViewController.swift */; };
 		2C6F621E25134F9B00179C2B /* 1RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6F621D25134F9B00179C2B /* 1RegisterViewController.swift */; };
 		2C6F6220251357D100179C2B /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6F621F251357D100179C2B /* ForgotPasswordViewController.swift */; };
+		2C70822A25F009BE00345147 /* VerifyCodeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70822425F009BD00345147 /* VerifyCodeWorker.swift */; };
+		2C70822B25F009BE00345147 /* VerifyCodeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70822525F009BD00345147 /* VerifyCodeRouter.swift */; };
+		2C70822C25F009BE00345147 /* VerifyCodeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70822625F009BD00345147 /* VerifyCodeInteractor.swift */; };
+		2C70822D25F009BE00345147 /* VerifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70822725F009BD00345147 /* VerifyCodeViewController.swift */; };
+		2C70822E25F009BE00345147 /* VerifyCodeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70822825F009BD00345147 /* VerifyCodeModels.swift */; };
+		2C70822F25F009BE00345147 /* VerifyCodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70822925F009BE00345147 /* VerifyCodePresenter.swift */; };
+		2C70823825F009D000345147 /* SendEmailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70823225F009D000345147 /* SendEmailInteractor.swift */; };
+		2C70823925F009D000345147 /* SendEmailWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70823325F009D000345147 /* SendEmailWorker.swift */; };
+		2C70823A25F009D000345147 /* SendEmailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70823425F009D000345147 /* SendEmailModels.swift */; };
+		2C70823B25F009D000345147 /* SendEmailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70823525F009D000345147 /* SendEmailRouter.swift */; };
+		2C70823C25F009D000345147 /* SendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70823625F009D000345147 /* SendEmailViewController.swift */; };
+		2C70823D25F009D000345147 /* ResetPasswordRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70823725F009D000345147 /* ResetPasswordRouter.swift */; };
+		2C70824625F009ED00345147 /* NewPasswordRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70824025F009EC00345147 /* NewPasswordRouter.swift */; };
+		2C70824725F009ED00345147 /* NewPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70824125F009EC00345147 /* NewPasswordInteractor.swift */; };
+		2C70824825F009ED00345147 /* NewPasswordWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70824225F009ED00345147 /* NewPasswordWorker.swift */; };
+		2C70824925F009ED00345147 /* NewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70824325F009ED00345147 /* NewPasswordViewController.swift */; };
+		2C70824A25F009ED00345147 /* NewPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70824425F009ED00345147 /* NewPasswordPresenter.swift */; };
+		2C70824B25F009ED00345147 /* NewPasswordModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70824525F009ED00345147 /* NewPasswordModels.swift */; };
+		2C70825325F00B2200345147 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70825225F00B2200345147 /* User.swift */; };
+		2C70825725F00B6A00345147 /* SendEmailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C70825625F00B6A00345147 /* SendEmailPresenter.swift */; };
 		2C72943925EBE75500D280B3 /* ResetPasswordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C72943825EBE75500D280B3 /* ResetPasswordAPI.swift */; };
 		2C72945425EBE77900D280B3 /* PromotionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C72945325EBE77900D280B3 /* PromotionAPI.swift */; };
 		2C72945A25EBE79C00D280B3 /* PromotionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C72945925EBE79C00D280B3 /* PromotionWorker.swift */; };
@@ -388,25 +385,6 @@
 		2C14772D25E90246000E8F66 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		2C14772E25E90246000E8F66 /* RegisterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInteractor.swift; sourceTree = "<group>"; };
 		2C14775D25E9070D000E8F66 /* UserSessionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionWorker.swift; sourceTree = "<group>"; };
-		2C14776525E9087E000E8F66 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		2C14777525E91737000E8F66 /* SendEmailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SendEmailPresenter.swift; path = SuperStore/Modells/Realm/SendEmailPresenter.swift; sourceTree = SOURCE_ROOT; };
-		2C14777625E91737000E8F66 /* SendEmailWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SendEmailWorker.swift; path = SuperStore/Modells/Realm/SendEmailWorker.swift; sourceTree = SOURCE_ROOT; };
-		2C14777725E91737000E8F66 /* SendEmailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SendEmailRouter.swift; path = SuperStore/Modells/Realm/SendEmailRouter.swift; sourceTree = SOURCE_ROOT; };
-		2C14777825E91737000E8F66 /* SendEmailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SendEmailModels.swift; path = SuperStore/Modells/Realm/SendEmailModels.swift; sourceTree = SOURCE_ROOT; };
-		2C14777925E91737000E8F66 /* SendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SendEmailViewController.swift; path = SuperStore/Modells/Realm/SendEmailViewController.swift; sourceTree = SOURCE_ROOT; };
-		2C14777A25E91737000E8F66 /* SendEmailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SendEmailInteractor.swift; path = SuperStore/Modells/Realm/SendEmailInteractor.swift; sourceTree = SOURCE_ROOT; };
-		2C14778325E9174A000E8F66 /* VerifyCodePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VerifyCodePresenter.swift; path = SuperStore/Modells/Realm/VerifyCodePresenter.swift; sourceTree = SOURCE_ROOT; };
-		2C14778425E9174A000E8F66 /* VerifyCodeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VerifyCodeWorker.swift; path = SuperStore/Modells/Realm/VerifyCodeWorker.swift; sourceTree = SOURCE_ROOT; };
-		2C14778525E9174A000E8F66 /* VerifyCodeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VerifyCodeRouter.swift; path = SuperStore/Modells/Realm/VerifyCodeRouter.swift; sourceTree = SOURCE_ROOT; };
-		2C14778625E9174A000E8F66 /* VerifyCodeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VerifyCodeModels.swift; path = SuperStore/Modells/Realm/VerifyCodeModels.swift; sourceTree = SOURCE_ROOT; };
-		2C14778725E9174A000E8F66 /* VerifyCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VerifyCodeViewController.swift; path = SuperStore/Modells/Realm/VerifyCodeViewController.swift; sourceTree = SOURCE_ROOT; };
-		2C14778825E9174A000E8F66 /* VerifyCodeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VerifyCodeInteractor.swift; path = SuperStore/Modells/Realm/VerifyCodeInteractor.swift; sourceTree = SOURCE_ROOT; };
-		2C14779125E9175E000E8F66 /* NewPasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewPasswordPresenter.swift; path = SuperStore/Modells/Realm/NewPasswordPresenter.swift; sourceTree = SOURCE_ROOT; };
-		2C14779225E9175E000E8F66 /* NewPasswordWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewPasswordWorker.swift; path = SuperStore/Modells/Realm/NewPasswordWorker.swift; sourceTree = SOURCE_ROOT; };
-		2C14779325E9175E000E8F66 /* NewPasswordRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewPasswordRouter.swift; path = SuperStore/Modells/Realm/NewPasswordRouter.swift; sourceTree = SOURCE_ROOT; };
-		2C14779425E9175E000E8F66 /* NewPasswordModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewPasswordModels.swift; path = SuperStore/Modells/Realm/NewPasswordModels.swift; sourceTree = SOURCE_ROOT; };
-		2C14779525E9175E000E8F66 /* NewPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewPasswordViewController.swift; path = SuperStore/Modells/Realm/NewPasswordViewController.swift; sourceTree = SOURCE_ROOT; };
-		2C14779625E9175E000E8F66 /* NewPasswordInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewPasswordInteractor.swift; path = SuperStore/Modells/Realm/NewPasswordInteractor.swift; sourceTree = SOURCE_ROOT; };
 		2C14779F25E94CEE000E8F66 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		2C1477A325E96DD8000E8F66 /* ResetPasswordWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordWorker.swift; sourceTree = "<group>"; };
 		2C1567B624C77FD800B8DCB5 /* SuperStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -494,10 +472,6 @@
 		2C48E7A525EA99D4001A5702 /* StoresMapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresMapCell.swift; sourceTree = "<group>"; };
 		2C48E7AE25EA9CC1001A5702 /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
 		2C48E7B625EA9DCF001A5702 /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
-		2C48E7BC25EA9F57001A5702 /* Promotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promotion.swift; sourceTree = "<group>"; };
-		2C48E7C025EA9F68001A5702 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
-		2C48E7C425EA9FB5001A5702 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
-		2C48E7C825EAA02B001A5702 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		2C48E7CC25EAA064001A5702 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2C48E7D025EAA06E001A5702 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		2C48E7D425EAA078001A5702 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
@@ -529,6 +503,26 @@
 		2C5B5C6B24D084FD0095C920 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		2C6F621D25134F9B00179C2B /* 1RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1RegisterViewController.swift; sourceTree = "<group>"; };
 		2C6F621F251357D100179C2B /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForgotPasswordViewController.swift; path = SuperStore/Views/ForgotPasswordViewController.swift; sourceTree = SOURCE_ROOT; };
+		2C70822425F009BD00345147 /* VerifyCodeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyCodeWorker.swift; sourceTree = "<group>"; };
+		2C70822525F009BD00345147 /* VerifyCodeRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyCodeRouter.swift; sourceTree = "<group>"; };
+		2C70822625F009BD00345147 /* VerifyCodeInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyCodeInteractor.swift; sourceTree = "<group>"; };
+		2C70822725F009BD00345147 /* VerifyCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyCodeViewController.swift; sourceTree = "<group>"; };
+		2C70822825F009BD00345147 /* VerifyCodeModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyCodeModels.swift; sourceTree = "<group>"; };
+		2C70822925F009BE00345147 /* VerifyCodePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyCodePresenter.swift; sourceTree = "<group>"; };
+		2C70823225F009D000345147 /* SendEmailInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendEmailInteractor.swift; sourceTree = "<group>"; };
+		2C70823325F009D000345147 /* SendEmailWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendEmailWorker.swift; sourceTree = "<group>"; };
+		2C70823425F009D000345147 /* SendEmailModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendEmailModels.swift; sourceTree = "<group>"; };
+		2C70823525F009D000345147 /* SendEmailRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendEmailRouter.swift; sourceTree = "<group>"; };
+		2C70823625F009D000345147 /* SendEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendEmailViewController.swift; sourceTree = "<group>"; };
+		2C70823725F009D000345147 /* ResetPasswordRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordRouter.swift; sourceTree = "<group>"; };
+		2C70824025F009EC00345147 /* NewPasswordRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPasswordRouter.swift; sourceTree = "<group>"; };
+		2C70824125F009EC00345147 /* NewPasswordInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPasswordInteractor.swift; sourceTree = "<group>"; };
+		2C70824225F009ED00345147 /* NewPasswordWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPasswordWorker.swift; sourceTree = "<group>"; };
+		2C70824325F009ED00345147 /* NewPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPasswordViewController.swift; sourceTree = "<group>"; };
+		2C70824425F009ED00345147 /* NewPasswordPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPasswordPresenter.swift; sourceTree = "<group>"; };
+		2C70824525F009ED00345147 /* NewPasswordModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPasswordModels.swift; sourceTree = "<group>"; };
+		2C70825225F00B2200345147 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2C70825625F00B6A00345147 /* SendEmailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendEmailPresenter.swift; sourceTree = "<group>"; };
 		2C72943825EBE75500D280B3 /* ResetPasswordAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordAPI.swift; sourceTree = "<group>"; };
 		2C72945325EBE77900D280B3 /* PromotionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionAPI.swift; sourceTree = "<group>"; };
 		2C72945925EBE79C00D280B3 /* PromotionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionWorker.swift; sourceTree = "<group>"; };
@@ -729,11 +723,7 @@
 		2C1476EB25E82BDC000E8F66 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				2C14776525E9087E000E8F66 /* User.swift */,
-				2C48E7C825EAA02B001A5702 /* Store.swift */,
-				2C48E7C425EA9FB5001A5702 /* List.swift */,
-				2C48E7BC25EA9F57001A5702 /* Promotion.swift */,
-				2C48E7C025EA9F68001A5702 /* Product.swift */,
+				2C70825225F00B2200345147 /* User.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -783,12 +773,13 @@
 		2C14773D25E904CA000E8F66 /* SendEmail */ = {
 			isa = PBXGroup;
 			children = (
-				2C14777525E91737000E8F66 /* SendEmailPresenter.swift */,
-				2C14777625E91737000E8F66 /* SendEmailWorker.swift */,
-				2C14777725E91737000E8F66 /* SendEmailRouter.swift */,
-				2C14777825E91737000E8F66 /* SendEmailModels.swift */,
-				2C14777925E91737000E8F66 /* SendEmailViewController.swift */,
-				2C14777A25E91737000E8F66 /* SendEmailInteractor.swift */,
+				2C70823725F009D000345147 /* ResetPasswordRouter.swift */,
+				2C70823225F009D000345147 /* SendEmailInteractor.swift */,
+				2C70825625F00B6A00345147 /* SendEmailPresenter.swift */,
+				2C70823425F009D000345147 /* SendEmailModels.swift */,
+				2C70823525F009D000345147 /* SendEmailRouter.swift */,
+				2C70823625F009D000345147 /* SendEmailViewController.swift */,
+				2C70823325F009D000345147 /* SendEmailWorker.swift */,
 			);
 			path = SendEmail;
 			sourceTree = "<group>";
@@ -806,12 +797,12 @@
 		2C14775725E905E1000E8F66 /* VerifyCode */ = {
 			isa = PBXGroup;
 			children = (
-				2C14778325E9174A000E8F66 /* VerifyCodePresenter.swift */,
-				2C14778425E9174A000E8F66 /* VerifyCodeWorker.swift */,
-				2C14778525E9174A000E8F66 /* VerifyCodeRouter.swift */,
-				2C14778625E9174A000E8F66 /* VerifyCodeModels.swift */,
-				2C14778725E9174A000E8F66 /* VerifyCodeViewController.swift */,
-				2C14778825E9174A000E8F66 /* VerifyCodeInteractor.swift */,
+				2C70822625F009BD00345147 /* VerifyCodeInteractor.swift */,
+				2C70822825F009BD00345147 /* VerifyCodeModels.swift */,
+				2C70822925F009BE00345147 /* VerifyCodePresenter.swift */,
+				2C70822525F009BD00345147 /* VerifyCodeRouter.swift */,
+				2C70822725F009BD00345147 /* VerifyCodeViewController.swift */,
+				2C70822425F009BD00345147 /* VerifyCodeWorker.swift */,
 			);
 			path = VerifyCode;
 			sourceTree = "<group>";
@@ -819,12 +810,12 @@
 		2C14775825E905EA000E8F66 /* NewPassword */ = {
 			isa = PBXGroup;
 			children = (
-				2C14779125E9175E000E8F66 /* NewPasswordPresenter.swift */,
-				2C14779225E9175E000E8F66 /* NewPasswordWorker.swift */,
-				2C14779325E9175E000E8F66 /* NewPasswordRouter.swift */,
-				2C14779425E9175E000E8F66 /* NewPasswordModels.swift */,
-				2C14779525E9175E000E8F66 /* NewPasswordViewController.swift */,
-				2C14779625E9175E000E8F66 /* NewPasswordInteractor.swift */,
+				2C70824125F009EC00345147 /* NewPasswordInteractor.swift */,
+				2C70824525F009ED00345147 /* NewPasswordModels.swift */,
+				2C70824425F009ED00345147 /* NewPasswordPresenter.swift */,
+				2C70824025F009EC00345147 /* NewPasswordRouter.swift */,
+				2C70824325F009ED00345147 /* NewPasswordViewController.swift */,
+				2C70824225F009ED00345147 /* NewPasswordWorker.swift */,
 			);
 			path = NewPassword;
 			sourceTree = "<group>";
@@ -1802,7 +1793,6 @@
 				2C266DF524D5DC1400C66EA5 /* NewListViewController.swift in Sources */,
 				2CA11F6A25EF8E490054AE19 /* GrandParentCategoriesModels.swift in Sources */,
 				2CA11FA225EF92690054AE19 /* CategoryData.swift in Sources */,
-				2C14778E25E9174A000E8F66 /* VerifyCodeInteractor.swift in Sources */,
 				2C21C3B424FA7C5F00D90B4B /* 1ParentCategoriesViewController.swift in Sources */,
 				2C1476C325E7AE15000E8F66 /* UserAuthAPI.swift in Sources */,
 				2C7294C525ECF19C00D280B3 /* FavouritesWorker.swift in Sources */,
@@ -1823,6 +1813,7 @@
 				2CDA613525ED159900FD3956 /* DownloadImage.swift in Sources */,
 				2C2BC82025EBBF2E0038882B /* ShowDescriptionViewController.swift in Sources */,
 				2C55FA2D25EE5637007BBFA8 /* ProductQueryModel.swift in Sources */,
+				2C70823D25F009D000345147 /* ResetPasswordRouter.swift in Sources */,
 				2C910B4225E7AABF00BCEACC /* LoginRouter.swift in Sources */,
 				2C2BC80125EBBF040038882B /* ShowReviewsWorker.swift in Sources */,
 				2CB3EDAB25054D3D000E7C7A /* PromotionViewController.swift in Sources */,
@@ -1864,6 +1855,7 @@
 				2CDFB60925EA5EDA002CE30D /* Config.swift in Sources */,
 				2C2BC82125EBBF2E0038882B /* ShowDescriptionInteractor.swift in Sources */,
 				2C55FA0E25EE4BF9007BBFA8 /* ShowProductResultsWorker.swift in Sources */,
+				2C70823825F009D000345147 /* SendEmailInteractor.swift in Sources */,
 				2C2BC81C25EBBF2E0038882B /* ShowDescriptionPresenter.swift in Sources */,
 				2CDA612B25ED0FC700FD3956 /* ReviewModel.swift in Sources */,
 				2CA11F6B25EF8E490054AE19 /* GrandParentCategoriesViewController.swift in Sources */,
@@ -1885,8 +1877,7 @@
 				2C6F621E25134F9B00179C2B /* 1RegisterViewController.swift in Sources */,
 				2C21C3A424F6F2A300D90B4B /* RequestHandler.swift in Sources */,
 				2C1567D324C8B34700B8DCB5 /* SearchViewController.swift in Sources */,
-				2C14779C25E9175E000E8F66 /* NewPasswordInteractor.swift in Sources */,
-				2C14777F25E91737000E8F66 /* SendEmailViewController.swift in Sources */,
+				2C70822B25F009BE00345147 /* VerifyCodeRouter.swift in Sources */,
 				2C7294C925ECF19C00D280B3 /* FavouritesInteractor.swift in Sources */,
 				2C9DD12F24FCFC6800544563 /* IngredientsModel.swift in Sources */,
 				2C2BC81225EBBF180038882B /* EditReviewViewController.swift in Sources */,
@@ -1894,31 +1885,31 @@
 				2C14773125E90246000E8F66 /* RegisterRouter.swift in Sources */,
 				2CA11F8425EF8E6D0054AE19 /* ChildCategoriesWorker.swift in Sources */,
 				2C2BC81E25EBBF2E0038882B /* ShowDescriptionRouter.swift in Sources */,
+				2C70824925F009ED00345147 /* NewPasswordViewController.swift in Sources */,
 				2C55F9C825EE3B62007BBFA8 /* ShowSuggestionsModels.swift in Sources */,
 				2CBF020825EFDE0C003AD5DF /* GroceryTableWorker.swift in Sources */,
 				2C14773025E90246000E8F66 /* RegisterWorker.swift in Sources */,
 				2C1567E724CAD62100B8DCB5 /* ReviewsViewController.swift in Sources */,
+				2C70824B25F009ED00345147 /* NewPasswordModels.swift in Sources */,
 				2CB3DCF52527AFB600FC5792 /* RefineOptionCell.swift in Sources */,
 				2CB51CA1255487D20090F558 /* CustomNotificationDelegate.swift in Sources */,
 				2C266DFF24D6FBC300C66EA5 /* SettingsChangeViewController.swift in Sources */,
 				2C14773325E90246000E8F66 /* RegisterViewController.swift in Sources */,
 				2CA11EED25EE84620054AE19 /* ShowRefineModels.swift in Sources */,
 				2CAC05FC252E314F00561509 /* FeaturedProductCollectionViewCell.swift in Sources */,
-				2C14778D25E9174A000E8F66 /* VerifyCodeViewController.swift in Sources */,
 				2CA11EEF25EE84620054AE19 /* ShowRefineInteractor.swift in Sources */,
 				2C2BC7D825EAF9220038882B /* ShowProductPresenter.swift in Sources */,
-				2C14779A25E9175E000E8F66 /* NewPasswordModels.swift in Sources */,
 				2CBF020625EFDE0C003AD5DF /* GroceryTableViewController.swift in Sources */,
 				2CC1EA1B24FA9550000A9BC4 /* GroceryProductsData.swift in Sources */,
+				2C70824825F009ED00345147 /* NewPasswordWorker.swift in Sources */,
 				2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */,
 				2CA11F0225EE860C0054AE19 /* RefineModel.swift in Sources */,
 				2C55F9C725EE3B62007BBFA8 /* ShowSuggestionsRouter.swift in Sources */,
-				2C48E7BD25EA9F57001A5702 /* Promotion.swift in Sources */,
 				2CDFB63925EA6359002CE30D /* HomeViewController.swift in Sources */,
+				2C70825725F00B6A00345147 /* SendEmailPresenter.swift in Sources */,
 				2C55FA2325EE4C7C007BBFA8 /* ShowStoreResultsWorker.swift in Sources */,
 				2CA11F8525EF8E6D0054AE19 /* ChildCategoriesRouter.swift in Sources */,
 				2CDFB63825EA6359002CE30D /* HomeModels.swift in Sources */,
-				2C14777C25E91737000E8F66 /* SendEmailWorker.swift in Sources */,
 				2CA11F6925EF8E490054AE19 /* GrandParentCategoriesRouter.swift in Sources */,
 				2C2BC80F25EBBF180038882B /* EditReviewWorker.swift in Sources */,
 				2C14775E25E9070D000E8F66 /* UserSessionWorker.swift in Sources */,
@@ -1931,7 +1922,7 @@
 				2C55F9D725EE4085007BBFA8 /* SearchWorker.swift in Sources */,
 				2CA11EEA25EE84620054AE19 /* ShowRefinePresenter.swift in Sources */,
 				2C2BC80E25EBBF180038882B /* EditReviewPresenter.swift in Sources */,
-				2C14779B25E9175E000E8F66 /* NewPasswordViewController.swift in Sources */,
+				2C70822D25F009BE00345147 /* VerifyCodeViewController.swift in Sources */,
 				2CAC05F2252CE24E00561509 /* OfferCollectionViewCell.swift in Sources */,
 				2C7294C825ECF19C00D280B3 /* FavouritesViewController.swift in Sources */,
 				2C1476C925E7AEEB000E8F66 /* UserValidationWorker.swift in Sources */,
@@ -1944,8 +1935,8 @@
 				2CDFB63725EA6359002CE30D /* HomeRouter.swift in Sources */,
 				2CA11F6825EF8E490054AE19 /* GrandParentCategoriesWorker.swift in Sources */,
 				2C2BC83225EBBFD40038882B /* ShowPromotionInteractor.swift in Sources */,
+				2C70823925F009D000345147 /* SendEmailWorker.swift in Sources */,
 				2CA11F4125EEB6A50054AE19 /* StoreInteractor.swift in Sources */,
-				2C48E7C925EAA02B001A5702 /* Store.swift in Sources */,
 				2CCE48D425177F9F00AE3BCA /* SearchHandler.swift in Sources */,
 				2C55FA0D25EE4BF9007BBFA8 /* ShowProductResultsPresenter.swift in Sources */,
 				2C2BC83E25EBC0680038882B /* ShowIngredientsRouter.swift in Sources */,
@@ -1955,37 +1946,39 @@
 				2C1476D825E7C402000E8F66 /* UserLoginModel.swift in Sources */,
 				2C1567D124C8B33700B8DCB5 /* 1HomeViewController.swift in Sources */,
 				2CA11EEB25EE84620054AE19 /* ShowRefineWorker.swift in Sources */,
+				2C70824625F009ED00345147 /* NewPasswordRouter.swift in Sources */,
 				2C1567DB24C8B3B200B8DCB5 /* K.swift in Sources */,
 				2CAC0601252E334F00561509 /* FeaturedProductCell.swift in Sources */,
 				2C14772F25E90246000E8F66 /* RegisterPresenter.swift in Sources */,
+				2C70823B25F009D000345147 /* SendEmailRouter.swift in Sources */,
 				2C1567F524CC845600B8DCB5 /* ProductDetailsViewController.swift in Sources */,
 				2C2BC83D25EBC0680038882B /* ShowIngredientsWorker.swift in Sources */,
-				2C14776625E9087E000E8F66 /* User.swift in Sources */,
 				2C2BC81125EBBF180038882B /* EditReviewModels.swift in Sources */,
 				2CA11F8325EF8E6D0054AE19 /* ChildCategoriesPresenter.swift in Sources */,
 				2CA11F3D25EEB6A50054AE19 /* StoreWorker.swift in Sources */,
 				2CB2CFC925EAA80200A00F7F /* StoreData.swift in Sources */,
+				2C70822C25F009BE00345147 /* VerifyCodeInteractor.swift in Sources */,
 				2C2BC83125EBBFD40038882B /* ShowPromotionViewController.swift in Sources */,
 				2C362F95253B0E3D000846C0 /* 1PromotionModel.swift in Sources */,
 				2CBF020A25EFDE0C003AD5DF /* GroceryTableModels.swift in Sources */,
 				2CB15C9424D2FB8900461AFE /* ListItemTableViewCell.swift in Sources */,
-				2C14777B25E91737000E8F66 /* SendEmailPresenter.swift in Sources */,
 				2C2BC7E825EAFCFB0038882B /* ProductAPI.swift in Sources */,
 				2C2BC7E225EAFCEA0038882B /* ProductWorker.swift in Sources */,
 				2CA7C779250E547B002FF1B6 /* ListEditViewController.swift in Sources */,
 				2C0D448D253768B30046E2B0 /* StoreHistory.swift in Sources */,
+				2C70824725F009ED00345147 /* NewPasswordInteractor.swift in Sources */,
 				2CD5E03325337BE000E4A01B /* ListHistory.swift in Sources */,
 				2C1476D125E7B388000E8F66 /* RequestWorker.swift in Sources */,
 				2C0E93CA250F987700378C97 /* FavouritesData.swift in Sources */,
 				2CDFB63625EA6359002CE30D /* HomeWorker.swift in Sources */,
 				2CB2CFE025EAB15A00A00F7F /* ReviewData.swift in Sources */,
 				2CAC06102530E26700561509 /* 1HomeData.swift in Sources */,
-				2C14778C25E9174A000E8F66 /* VerifyCodeModels.swift in Sources */,
 				2CA11F6725EF8E490054AE19 /* GrandParentCategoriesPresenter.swift in Sources */,
 				2CBF020925EFDE0C003AD5DF /* GroceryTableRouter.swift in Sources */,
 				2C2BC82D25EBBFD40038882B /* ShowPromotionPresenter.swift in Sources */,
 				2C21C3AE24F8187100D90B4B /* GroceryCategoriesModel.swift in Sources */,
 				2C2BC84125EBC0680038882B /* ShowIngredientsInteractor.swift in Sources */,
+				2C70824A25F009ED00345147 /* NewPasswordPresenter.swift in Sources */,
 				2C266DF924D5DEF300C66EA5 /* 1StoreModel.swift in Sources */,
 				2C2BC80325EBBF040038882B /* ShowReviewsModels.swift in Sources */,
 				2CA11F8825EF8E6D0054AE19 /* ChildCategoriesInteractor.swift in Sources */,
@@ -1996,7 +1989,6 @@
 				2CDFB63525EA6359002CE30D /* HomePresenter.swift in Sources */,
 				2CE7AB0224D077C700A31782 /* SettingsViewController.swift in Sources */,
 				2C14773425E90246000E8F66 /* RegisterInteractor.swift in Sources */,
-				2C14779925E9175E000E8F66 /* NewPasswordRouter.swift in Sources */,
 				2CC1EA1D24FAC003000A9BC4 /* ProductDetailsHandler.swift in Sources */,
 				2C3F537E24D184C80095C4B1 /* SearchSuggestionCell.swift in Sources */,
 				2C85FEAB251F9D5900CECBD5 /* UserValidation.swift in Sources */,
@@ -2006,7 +1998,7 @@
 				2CAB6A41251F962E00774B89 /* 1SpinnerViewController.swift in Sources */,
 				2C2BC82F25EBBFD40038882B /* ShowPromotionRouter.swift in Sources */,
 				2CB3DCEA2525B8A300FC5792 /* ResetPasswordViewController.swift in Sources */,
-				2C14779725E9175E000E8F66 /* NewPasswordPresenter.swift in Sources */,
+				2C70823A25F009D000345147 /* SendEmailModels.swift in Sources */,
 				2CB3EDA525041F31000E7C7A /* ListSectionHeader.swift in Sources */,
 				2CB15C9724D2FCD400461AFE /* ListViewController.swift in Sources */,
 				2CB1425125E434EF00EAF272 /* 1ReviewData.swift in Sources */,
@@ -2026,7 +2018,9 @@
 				2CB3EDA325040E92000E7C7A /* ListItemViewController.swift in Sources */,
 				2C362F90253B0777000846C0 /* ItemModel.swift in Sources */,
 				2C2BC84D25EBC2460038882B /* ReviewAPI.swift in Sources */,
+				2C70822E25F009BE00345147 /* VerifyCodeModels.swift in Sources */,
 				2C55FA2225EE4C7C007BBFA8 /* ShowStoreResultsPresenter.swift in Sources */,
+				2C70822F25F009BE00345147 /* VerifyCodePresenter.swift in Sources */,
 				2CA11F8725EF8E6D0054AE19 /* ChildCategoriesViewController.swift in Sources */,
 				2C21C3B624FA844400D90B4B /* GroceryProductsHandler.swift in Sources */,
 				2C72943925EBE75500D280B3 /* ResetPasswordAPI.swift in Sources */,
@@ -2043,14 +2037,10 @@
 				2CC1EA2324FAC4B9000A9BC4 /* ReviewsData.swift in Sources */,
 				2C2BC84925EBC1D70038882B /* ReviewWorker.swift in Sources */,
 				2C1477A025E94CEE000E8F66 /* ErrorViewController.swift in Sources */,
-				2C14778025E91737000E8F66 /* SendEmailInteractor.swift in Sources */,
 				2C55FA1225EE4BF9007BBFA8 /* ShowProductResultsInteractor.swift in Sources */,
-				2C14777D25E91737000E8F66 /* SendEmailRouter.swift in Sources */,
 				2C55F9E825EE478F007BBFA8 /* SearchData.swift in Sources */,
 				2CB51C68254C69ED0090F558 /* NetworkManager.swift in Sources */,
-				2C14778B25E9174A000E8F66 /* VerifyCodeRouter.swift in Sources */,
 				2CA11F9225EF90280054AE19 /* GroceryAPI.swift in Sources */,
-				2C14779825E9175E000E8F66 /* NewPasswordWorker.swift in Sources */,
 				2C9DD12D24FCFC3800544563 /* IngredientsData.swift in Sources */,
 				2C14773225E90246000E8F66 /* RegisterModels.swift in Sources */,
 				2C55F9DB25EE4121007BBFA8 /* ResultModel.swift in Sources */,
@@ -2062,7 +2052,6 @@
 				2CB15C7624D190E500461AFE /* StoresResultsTableViewCell.swift in Sources */,
 				2C2BC81325EBBF180038882B /* EditReviewInteractor.swift in Sources */,
 				2CC1EA1F24FAC0EB000A9BC4 /* 1ProductData.swift in Sources */,
-				2C14777E25E91737000E8F66 /* SendEmailModels.swift in Sources */,
 				2C9DD13124FD022800544563 /* ReviewsHandler.swift in Sources */,
 				2C2BC81025EBBF180038882B /* EditReviewRouter.swift in Sources */,
 				2C2BC80025EBBF040038882B /* ShowReviewsPresenter.swift in Sources */,
@@ -2078,20 +2067,19 @@
 				2CAC05EC252B83FF00561509 /* OffersCell.swift in Sources */,
 				2CA11EEE25EE84620054AE19 /* ShowRefineViewController.swift in Sources */,
 				2C21C3B224FA7C2500D90B4B /* 1ChildCategoriesViewController.swift in Sources */,
-				2C14778925E9174A000E8F66 /* VerifyCodePresenter.swift in Sources */,
+				2C70822A25F009BE00345147 /* VerifyCodeWorker.swift in Sources */,
 				2CAB6A3B251F932D00774B89 /* 1ErrorData.swift in Sources */,
+				2C70825325F00B2200345147 /* User.swift in Sources */,
 				2C266DF124D5A6C900C66EA5 /* 1ProductModel.swift in Sources */,
 				2C72945425EBE77900D280B3 /* PromotionAPI.swift in Sources */,
 				2C2BC84025EBC0680038882B /* ShowIngredientsViewController.swift in Sources */,
-				2C48E7C125EA9F68001A5702 /* Product.swift in Sources */,
 				2CDFB63A25EA6359002CE30D /* HomeInteractor.swift in Sources */,
 				2C910B4325E7AABF00BCEACC /* LoginModels.swift in Sources */,
-				2C14778A25E9174A000E8F66 /* VerifyCodeWorker.swift in Sources */,
-				2C48E7C525EA9FB5001A5702 /* List.swift in Sources */,
 				2CAC060C2530E25600561509 /* HomeHandler.swift in Sources */,
 				2C0D44792534DD090046E2B0 /* PromotionHistory.swift in Sources */,
 				2C48E7B725EA9DCF001A5702 /* ProductModel.swift in Sources */,
 				2CA11F8625EF8E6D0054AE19 /* ChildCategoriesModels.swift in Sources */,
+				2C70823C25F009D000345147 /* SendEmailViewController.swift in Sources */,
 				2C48E7D925EAA089001A5702 /* PromotionModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

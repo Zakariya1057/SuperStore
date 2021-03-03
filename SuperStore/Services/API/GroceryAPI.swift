@@ -27,7 +27,7 @@ class GroceryAPI: GroceryRequestProtocol {
                 completionHandler([], errorMessage)
             } catch {
                 print(error)
-                completionHandler([], "Failed to get product. Decoding error, please try again later.")
+                completionHandler([], "Failed to get categories. Decoding error, please try again later.")
             }
         }
     }
@@ -46,7 +46,7 @@ class GroceryAPI: GroceryRequestProtocol {
                 completionHandler([], errorMessage)
             } catch {
                 print(error)
-                completionHandler([], "Failed to get product. Decoding error, please try again later.")
+                completionHandler([], "Failed to get categories. Decoding error, please try again later.")
             }
         }
     }

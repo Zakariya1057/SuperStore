@@ -11,11 +11,10 @@ import IQKeyboardManagerSwift
 import UIKit
 import RealmSwift
 
-@UIApplicationMain
-    class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+@UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
-    var userSession = UserSession()
+//    var userSession = UserSession()
     let notificationDelegate = CustomNotificationDelegate()
     
     var navigationController: UINavigationController = UINavigationController()
