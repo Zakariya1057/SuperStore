@@ -32,8 +32,8 @@ class GroceryAPI: GroceryRequestProtocol {
         }
     }
     
-    func getChildCategories(grandParentCategoryID: Int, completionHandler: @escaping ([ChildCategoryModel], String?) -> Void){
-        let url: String = Config.Route.Grocery.ChildCategories + "/" + String(grandParentCategoryID)
+    func getChildCategories(parentCategoryID: Int, completionHandler: @escaping ([ChildCategoryModel], String?) -> Void){
+        let url: String = Config.Route.Grocery.ChildCategories + "/" + String(parentCategoryID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {

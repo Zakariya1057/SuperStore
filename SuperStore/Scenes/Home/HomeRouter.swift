@@ -16,6 +16,7 @@ import UIKit
 {
     func routeToShowPromotion(segue: UIStoryboardSegue?)
     func routeToShowProduct(segue: UIStoryboardSegue?)
+    func routeToStore(segue: UIStoryboardSegue?)
 }
 
 protocol HomeDataPassing
@@ -25,10 +26,25 @@ protocol HomeDataPassing
 
 class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
 {
+    
     weak var viewController: HomeViewController?
     var dataStore: HomeDataStore?
     
     // MARK: Routing
+    
+    func routeToStore(segue: UIStoryboardSegue?) {
+        if let segue = segue {
+            let destinationVC = segue.destination as! StoreViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToStore(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "StoreViewController") as! StoreViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToStore(source: dataStore!, destination: &destinationDS)
+            navigateToStore(source: viewController!, destination: destinationVC)
+        }
+    }
     
     func routeToShowProduct(segue: UIStoryboardSegue?)
     {
@@ -61,13 +77,18 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     }
     
 //    MARK: Navigation
+
+    func navigateToShowProduct(source: HomeViewController, destination: ShowProductViewController)
+    {
+        source.show(destination, sender: nil)
+    }
     
     func navigateToShowPromotion(source: HomeViewController, destination: ShowPromotionViewController)
     {
         source.show(destination, sender: nil)
     }
     
-    func navigateToShowProduct(source: HomeViewController, destination: ShowProductViewController)
+    func navigateToStore(source: HomeViewController, destination: StoreViewController)
     {
         source.show(destination, sender: nil)
     }
@@ -82,5 +103,10 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     func passDataToShowPromotion(source: HomeDataStore, destination: inout ShowPromotionDataStore)
     {
         destination.promotionID = viewController!.selectedPromotionID!
+    }
+    
+    func passDataToStore(source: HomeDataStore, destination: inout StoreDataStore)
+    {
+        destination.storeID = viewController!.selectedStoreID!
     }
 }

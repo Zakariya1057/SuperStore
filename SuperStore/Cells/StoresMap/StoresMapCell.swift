@@ -28,10 +28,10 @@ protocol UserLocationDeniedDelegate {
     func showError(_ error: String)
 }
 
-protocol StoreSelectedDelegate {
-    func storePressed(storeID: Int)
-    func storeSelected(storeID: Int)
-}
+//protocol StoreSelectedDelegate {
+//    func storePressed(storeID: Int)
+//    func storeSelected(storeID: Int)
+//}
 
 class StoresMapCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegate, MKMapViewDelegate {
     
@@ -40,7 +40,7 @@ class StoresMapCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegat
     
     var storePressed: ((Int) -> Void)? = nil
     
-    var selected_store_id: Int?
+    var selectedStoreID: Int?
     
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -151,16 +151,16 @@ class StoresMapCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegat
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let title = view.annotation?.title!
-        selected_store_id = store_details[title!]
         
-        if selected_store_id != nil {
-//            delegate?.storePressed(storeID: selected_store_id!)
+        if let selectedStoreID = store_details[title!] {
+            self.selectedStoreID = selectedStoreID
         }
-        
     }
     
     @objc func showStore(){
-//        self.delegate?.storeSelected(storeID: selected_store_id!)
+        if let selectedStoreID = selectedStoreID, let storePressed = storePressed {
+            storePressed(selectedStoreID)
+        }
     }
     
     override func awakeFromNib() {

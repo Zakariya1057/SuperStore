@@ -16,16 +16,20 @@ enum ChildCategories
 {
   // MARK: Use cases
   
-  enum Something
+  enum GetCategories
   {
     struct Request
     {
     }
     struct Response
     {
+        var categories: [ChildCategoryModel]
+        var error: String?
     }
     struct ViewModel
     {
+        var categories: [ChildCategoryModel]
+        var error: String?
     }
   }
 }

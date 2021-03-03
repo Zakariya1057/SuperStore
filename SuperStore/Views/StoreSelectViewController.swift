@@ -12,7 +12,7 @@ class StoreSelectViewController: UIViewController {
     
     var suggestionsElements: [UILabel] = []
     
-    var delegate: StoreSelectedDelegate?
+//    var delegate: StoreSelectedDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

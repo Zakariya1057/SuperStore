@@ -14,28 +14,28 @@ import UIKit
 
 protocol ChildCategoriesBusinessLogic
 {
-  func doSomething(request: ChildCategories.Something.Request)
+    func getCategories(request: ChildCategories.GetCategories.Request)
 }
 
 protocol ChildCategoriesDataStore
 {
-  //var name: String { get set }
+    var parentCategoryID: Int { get set }
 }
 
 class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDataStore
 {
-  var presenter: ChildCategoriesPresentationLogic?
-  var worker: ChildCategoriesWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: ChildCategories.Something.Request)
-  {
-    worker = ChildCategoriesWorker()
-    worker?.doSomeWork()
+    var presenter: ChildCategoriesPresentationLogic?
+
+    var parentCategoryID: Int = 1
+    var groceryWorker: GroceryWorker = GroceryWorker(groceryAPI: GroceryAPI())
     
-    let response = ChildCategories.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    // MARK: Do something
+    
+    func getCategories(request: ChildCategories.GetCategories.Request)
+    {
+        groceryWorker.getChildCategories(parentCategoryID: parentCategoryID) { (categories: [ChildCategoryModel], error: String?) in
+            let response = ChildCategories.GetCategories.Response(categories: categories, error: error)
+            self.presenter?.presentCategories(response: response)
+        }
+    }
 }

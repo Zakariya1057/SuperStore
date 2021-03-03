@@ -64,7 +64,7 @@
 		2C1567D924C8B36E00B8DCB5 /* 1FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567D824C8B36E00B8DCB5 /* 1FavouritesViewController.swift */; };
 		2C1567DB24C8B3B200B8DCB5 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567DA24C8B3B200B8DCB5 /* K.swift */; };
 		2C1567DD24C8B3F000B8DCB5 /* 1StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567DC24C8B3F000B8DCB5 /* 1StoreViewController.swift */; };
-		2C1567E124C9A0DF00B8DCB5 /* GroceryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567E024C9A0DF00B8DCB5 /* GroceryTableViewController.swift */; };
+		2C1567E124C9A0DF00B8DCB5 /* 1GroceryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567E024C9A0DF00B8DCB5 /* 1GroceryTableViewController.swift */; };
 		2C1567E524CAD08300B8DCB5 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567E424CAD08300B8DCB5 /* ReviewViewController.swift */; };
 		2C1567E724CAD62100B8DCB5 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567E624CAD62100B8DCB5 /* ReviewsViewController.swift */; };
 		2C1567F324CC830B00B8DCB5 /* 1ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1567F224CC830B00B8DCB5 /* 1ProductViewController.swift */; };
@@ -300,6 +300,12 @@
 		2CB51CA1255487D20090F558 /* CustomNotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB51CA0255487D20090F558 /* CustomNotificationDelegate.swift */; };
 		2CB51CAA255489800090F558 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB51CA9255489800090F558 /* NotificationService.swift */; };
 		2CB51CAE255489800090F558 /* PayloadModification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2CB51CA7255489800090F558 /* PayloadModification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2CBF020525EFDE0C003AD5DF /* GroceryTableInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF01FF25EFDE0C003AD5DF /* GroceryTableInteractor.swift */; };
+		2CBF020625EFDE0C003AD5DF /* GroceryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF020025EFDE0C003AD5DF /* GroceryTableViewController.swift */; };
+		2CBF020725EFDE0C003AD5DF /* GroceryTablePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF020125EFDE0C003AD5DF /* GroceryTablePresenter.swift */; };
+		2CBF020825EFDE0C003AD5DF /* GroceryTableWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF020225EFDE0C003AD5DF /* GroceryTableWorker.swift */; };
+		2CBF020925EFDE0C003AD5DF /* GroceryTableRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF020325EFDE0C003AD5DF /* GroceryTableRouter.swift */; };
+		2CBF020A25EFDE0C003AD5DF /* GroceryTableModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF020425EFDE0C003AD5DF /* GroceryTableModels.swift */; };
 		2CC1EA1B24FA9550000A9BC4 /* GroceryProductsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1A24FA9550000A9BC4 /* GroceryProductsData.swift */; };
 		2CC1EA1D24FAC003000A9BC4 /* ProductDetailsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1C24FAC003000A9BC4 /* ProductDetailsHandler.swift */; };
 		2CC1EA1F24FAC0EB000A9BC4 /* 1ProductData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1E24FAC0EB000A9BC4 /* 1ProductData.swift */; };
@@ -416,7 +422,7 @@
 		2C1567D824C8B36E00B8DCB5 /* 1FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1FavouritesViewController.swift; sourceTree = "<group>"; };
 		2C1567DA24C8B3B200B8DCB5 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		2C1567DC24C8B3F000B8DCB5 /* 1StoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1StoreViewController.swift; sourceTree = "<group>"; };
-		2C1567E024C9A0DF00B8DCB5 /* GroceryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryTableViewController.swift; sourceTree = "<group>"; };
+		2C1567E024C9A0DF00B8DCB5 /* 1GroceryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1GroceryTableViewController.swift; sourceTree = "<group>"; };
 		2C1567E424CAD08300B8DCB5 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		2C1567E624CAD62100B8DCB5 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		2C1567F224CC830B00B8DCB5 /* 1ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = 1ProductViewController.swift; path = SuperStore/Views/1ProductViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -660,6 +666,12 @@
 		2CB51CA7255489800090F558 /* PayloadModification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PayloadModification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB51CA9255489800090F558 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		2CB51CAB255489800090F558 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CBF01FF25EFDE0C003AD5DF /* GroceryTableInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTableInteractor.swift; sourceTree = "<group>"; };
+		2CBF020025EFDE0C003AD5DF /* GroceryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTableViewController.swift; sourceTree = "<group>"; };
+		2CBF020125EFDE0C003AD5DF /* GroceryTablePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTablePresenter.swift; sourceTree = "<group>"; };
+		2CBF020225EFDE0C003AD5DF /* GroceryTableWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTableWorker.swift; sourceTree = "<group>"; };
+		2CBF020325EFDE0C003AD5DF /* GroceryTableRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTableRouter.swift; sourceTree = "<group>"; };
+		2CBF020425EFDE0C003AD5DF /* GroceryTableModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTableModels.swift; sourceTree = "<group>"; };
 		2CC1EA1A24FA9550000A9BC4 /* GroceryProductsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryProductsData.swift; sourceTree = "<group>"; };
 		2CC1EA1C24FAC003000A9BC4 /* ProductDetailsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsHandler.swift; sourceTree = "<group>"; };
 		2CC1EA1E24FAC0EB000A9BC4 /* 1ProductData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1ProductData.swift; sourceTree = "<group>"; };
@@ -901,7 +913,7 @@
 				2C266DFA24D6E65A00C66EA5 /* 1GrandParentCategoriesViewController.swift */,
 				2C21C3B324FA7C5E00D90B4B /* 1ParentCategoriesViewController.swift */,
 				2C21C3B124FA7C2500D90B4B /* 1ChildCategoriesViewController.swift */,
-				2C1567E024C9A0DF00B8DCB5 /* GroceryTableViewController.swift */,
+				2C1567E024C9A0DF00B8DCB5 /* 1GroceryTableViewController.swift */,
 				2CE7AB0124D077C700A31782 /* SettingsViewController.swift */,
 				2C266DFE24D6FBC300C66EA5 /* SettingsChangeViewController.swift */,
 				2C266E0024D702BD00C66EA5 /* 1ChangePasswordViewController.swift */,
@@ -1109,8 +1121,8 @@
 				2C72943525EBE73100D280B3 /* User */,
 				2C72944B25EBE76600D280B3 /* Product */,
 				2C48E7AE25EA9CC1001A5702 /* HomeAPI.swift */,
-				2C55F9CD25EE3B9C007BBFA8 /* SearchAPI.swift */,
 				2CA11F4625EEB92E0054AE19 /* StoreAPI.swift */,
+				2C55F9CD25EE3B9C007BBFA8 /* SearchAPI.swift */,
 				2CA11F9125EF90280054AE19 /* GroceryAPI.swift */,
 				2C72949D25ECEAC300D280B3 /* FavouriteAPI.swift */,
 			);
@@ -1380,6 +1392,7 @@
 				2CA11F5E25EF8DF10054AE19 /* GrandParentCategories */,
 				2CA11F5F25EF8DFB0054AE19 /* ParentCategories */,
 				2CA11F6025EF8E010054AE19 /* ChildCategories */,
+				2CBF01FE25EFDE0C003AD5DF /* GroceryTable */,
 			);
 			path = Groceries;
 			sourceTree = "<group>";
@@ -1469,6 +1482,19 @@
 				2CB51CAB255489800090F558 /* Info.plist */,
 			);
 			path = PayloadModification;
+			sourceTree = "<group>";
+		};
+		2CBF01FE25EFDE0C003AD5DF /* GroceryTable */ = {
+			isa = PBXGroup;
+			children = (
+				2CBF01FF25EFDE0C003AD5DF /* GroceryTableInteractor.swift */,
+				2CBF020025EFDE0C003AD5DF /* GroceryTableViewController.swift */,
+				2CBF020125EFDE0C003AD5DF /* GroceryTablePresenter.swift */,
+				2CBF020225EFDE0C003AD5DF /* GroceryTableWorker.swift */,
+				2CBF020325EFDE0C003AD5DF /* GroceryTableRouter.swift */,
+				2CBF020425EFDE0C003AD5DF /* GroceryTableModels.swift */,
+			);
+			path = GroceryTable;
 			sourceTree = "<group>";
 		};
 		2CDA614625EE38E100FD3956 /* Search */ = {
@@ -1853,6 +1879,7 @@
 				2CB15C7124D18F4100461AFE /* SearchStoresTableViewController.swift in Sources */,
 				2CA11F7925EF8E5C0054AE19 /* ParentCategoriesViewController.swift in Sources */,
 				2C2BC80525EBBF040038882B /* ShowReviewsInteractor.swift in Sources */,
+				2CBF020525EFDE0C003AD5DF /* GroceryTableInteractor.swift in Sources */,
 				2CB51C332548BD2A0090F558 /* AppleUserSession.swift in Sources */,
 				2C266E0324D70C3900C66EA5 /* 1SearchModel.swift in Sources */,
 				2C6F621E25134F9B00179C2B /* 1RegisterViewController.swift in Sources */,
@@ -1868,6 +1895,7 @@
 				2CA11F8425EF8E6D0054AE19 /* ChildCategoriesWorker.swift in Sources */,
 				2C2BC81E25EBBF2E0038882B /* ShowDescriptionRouter.swift in Sources */,
 				2C55F9C825EE3B62007BBFA8 /* ShowSuggestionsModels.swift in Sources */,
+				2CBF020825EFDE0C003AD5DF /* GroceryTableWorker.swift in Sources */,
 				2C14773025E90246000E8F66 /* RegisterWorker.swift in Sources */,
 				2C1567E724CAD62100B8DCB5 /* ReviewsViewController.swift in Sources */,
 				2CB3DCF52527AFB600FC5792 /* RefineOptionCell.swift in Sources */,
@@ -1880,6 +1908,7 @@
 				2CA11EEF25EE84620054AE19 /* ShowRefineInteractor.swift in Sources */,
 				2C2BC7D825EAF9220038882B /* ShowProductPresenter.swift in Sources */,
 				2C14779A25E9175E000E8F66 /* NewPasswordModels.swift in Sources */,
+				2CBF020625EFDE0C003AD5DF /* GroceryTableViewController.swift in Sources */,
 				2CC1EA1B24FA9550000A9BC4 /* GroceryProductsData.swift in Sources */,
 				2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */,
 				2CA11F0225EE860C0054AE19 /* RefineModel.swift in Sources */,
@@ -1908,6 +1937,7 @@
 				2C1476C925E7AEEB000E8F66 /* UserValidationWorker.swift in Sources */,
 				2C266DFB24D6E65A00C66EA5 /* 1GrandParentCategoriesViewController.swift in Sources */,
 				2C55F9CE25EE3B9C007BBFA8 /* SearchAPI.swift in Sources */,
+				2CBF020725EFDE0C003AD5DF /* GroceryTablePresenter.swift in Sources */,
 				2CC1EA2124FAC46A000A9BC4 /* 1ReviewModel.swift in Sources */,
 				2C48E7D125EAA06E001A5702 /* StoreModel.swift in Sources */,
 				2C7294A225ECEAEB00D280B3 /* FavouriteWorker.swift in Sources */,
@@ -1919,7 +1949,7 @@
 				2CCE48D425177F9F00AE3BCA /* SearchHandler.swift in Sources */,
 				2C55FA0D25EE4BF9007BBFA8 /* ShowProductResultsPresenter.swift in Sources */,
 				2C2BC83E25EBC0680038882B /* ShowIngredientsRouter.swift in Sources */,
-				2C1567E124C9A0DF00B8DCB5 /* GroceryTableViewController.swift in Sources */,
+				2C1567E124C9A0DF00B8DCB5 /* 1GroceryTableViewController.swift in Sources */,
 				2CF239B725094A9000D4CE91 /* ListItemsHandler.swift in Sources */,
 				2C55F9C525EE3B62007BBFA8 /* ShowSuggestionsPresenter.swift in Sources */,
 				2C1476D825E7C402000E8F66 /* UserLoginModel.swift in Sources */,
@@ -1937,6 +1967,7 @@
 				2CB2CFC925EAA80200A00F7F /* StoreData.swift in Sources */,
 				2C2BC83125EBBFD40038882B /* ShowPromotionViewController.swift in Sources */,
 				2C362F95253B0E3D000846C0 /* 1PromotionModel.swift in Sources */,
+				2CBF020A25EFDE0C003AD5DF /* GroceryTableModels.swift in Sources */,
 				2CB15C9424D2FB8900461AFE /* ListItemTableViewCell.swift in Sources */,
 				2C14777B25E91737000E8F66 /* SendEmailPresenter.swift in Sources */,
 				2C2BC7E825EAFCFB0038882B /* ProductAPI.swift in Sources */,
@@ -1951,6 +1982,7 @@
 				2CAC06102530E26700561509 /* 1HomeData.swift in Sources */,
 				2C14778C25E9174A000E8F66 /* VerifyCodeModels.swift in Sources */,
 				2CA11F6725EF8E490054AE19 /* GrandParentCategoriesPresenter.swift in Sources */,
+				2CBF020925EFDE0C003AD5DF /* GroceryTableRouter.swift in Sources */,
 				2C2BC82D25EBBFD40038882B /* ShowPromotionPresenter.swift in Sources */,
 				2C21C3AE24F8187100D90B4B /* GroceryCategoriesModel.swift in Sources */,
 				2C2BC84125EBC0680038882B /* ShowIngredientsInteractor.swift in Sources */,

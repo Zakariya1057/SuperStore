@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rE7-hw-dyv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pZG-ZY-ksW">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1434,7 +1434,7 @@
                                                                             <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <segue destination="rE7-hw-dyv" kind="show" identifier="ShowGrandParentCategories" id="fPX-Ee-6yo"/>
+                                                                            <segue destination="rE7-hw-dyv" kind="show" id="eLb-bY-n09"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1962,14 +1962,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Fruits" id="FQO-F6-rtZ">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="rQv-2t-6pb">
-                            <connections>
-                                <action selector="barButtonPressed:" destination="lx3-SC-MKf" id="0oH-sA-puB"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="rQv-2t-6pb"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="rightBarButton" destination="rQv-2t-6pb" id="u7k-Rf-4C7"/>
                         <segue destination="blb-Wd-ZdE" kind="show" identifier="showGroceryItem" id="3yE-2U-5V3"/>
                     </connections>
                 </viewController>
@@ -2135,7 +2130,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zk9-e4-itb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
-                                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
+                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
                                                                                         <rect key="frame" x="87" y="2" width="210" height="26"/>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -2885,7 +2880,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz2-WX-h3t">
                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="64.5" y="7.5" width="255" height="35"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -3469,7 +3464,7 @@
         <!--Groceries-->
         <scene sceneID="86u-8a-1B9">
             <objects>
-                <viewController storyboardIdentifier="grandParentCategoriesViewController" id="rE7-hw-dyv" customClass="GrandParentCategoriesViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GrandParentCategoriesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rE7-hw-dyv" customClass="GrandParentCategoriesViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3W1-Zp-UtG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4853,6 +4848,14 @@
             <point key="canvasLocation" x="15414" y="136"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="XU3-Nd-wUM">
+            <size key="intrinsicContentSize" width="255" height="35"/>
+        </designable>
+        <designable name="tFG-eX-umO">
+            <size key="intrinsicContentSize" width="209.849609375" height="26"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="YcT-k9-dml"/>
     </inferredMetricsTieBreakers>

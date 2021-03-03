@@ -116,3 +116,11 @@ extension ParentCategoriesViewController: UITableViewDataSource, UITableViewDele
         categoriesTableView.dataSource = self
     }
 }
+
+extension ParentCategoriesViewController {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        router?.routeToChildCategories(segue: nil)
+    }
+}
+
+

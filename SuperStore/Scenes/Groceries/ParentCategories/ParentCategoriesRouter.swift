@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol ParentCategoriesRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToChildCategories(segue: UIStoryboardSegue?)
 }
 
 protocol ParentCategoriesDataPassing
@@ -29,32 +29,32 @@ class ParentCategoriesRouter: NSObject, ParentCategoriesRoutingLogic, ParentCate
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToChildCategories(segue: UIStoryboardSegue?)
+  {
+    if let segue = segue {
+      let destinationVC = segue.destination as! ChildCategoriesViewController
+      var destinationDS = destinationVC.router!.dataStore!
+      passDataToChildCategories(source: dataStore!, destination: &destinationDS)
+    } else {
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChildCategoriesViewController") as! ChildCategoriesViewController
+      var destinationDS = destinationVC.router!.dataStore!
+      passDataToChildCategories(source: dataStore!, destination: &destinationDS)
+      navigateToChildCategories(source: viewController!, destination: destinationVC)
+    }
+  }
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: ParentCategoriesViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToChildCategories(source: ParentCategoriesViewController, destination: ChildCategoriesViewController)
+  {
+    source.show(destination, sender: nil)
+  }
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: ParentCategoriesDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToChildCategories(source: ParentCategoriesDataStore, destination: inout ChildCategoriesDataStore)
+  {
+    destination.parentCategoryID = source.categories[ viewController!.categoriesTableView.indexPathForSelectedRow!.row ].id
+  }
 }

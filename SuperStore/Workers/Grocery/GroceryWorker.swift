@@ -19,12 +19,12 @@ class GroceryWorker {
         groceryAPI.getGrandParentCategories(storeTypeID: storeTypeID, completionHandler: completionHandler)
     }
     
-    func getChildCategories(grandParentCategoryID: Int, completionHandler: @escaping (_ categories: [ChildCategoryModel], _ error: String?) -> Void){
-        groceryAPI.getChildCategories(grandParentCategoryID: grandParentCategoryID, completionHandler: completionHandler)
+    func getChildCategories(parentCategoryID: Int, completionHandler: @escaping (_ categories: [ChildCategoryModel], _ error: String?) -> Void){
+        groceryAPI.getChildCategories(parentCategoryID: parentCategoryID, completionHandler: completionHandler)
     }
 }
 
 protocol GroceryRequestProtocol {
     func getGrandParentCategories(storeTypeID: Int, completionHandler: @escaping ( _ categories: [GrandParentCategoryModel], _ error: String?) -> Void)
-    func getChildCategories(grandParentCategoryID: Int, completionHandler: @escaping (_ categories: [ChildCategoryModel], _ error: String?) -> Void)
+    func getChildCategories(parentCategoryID: Int, completionHandler: @escaping (_ categories: [ChildCategoryModel], _ error: String?) -> Void)
 }

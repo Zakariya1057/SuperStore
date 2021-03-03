@@ -14,7 +14,7 @@ import UIKit
 
 protocol ChildCategoriesPresentationLogic
 {
-  func presentSomething(response: ChildCategories.Something.Response)
+  func presentCategories(response: ChildCategories.GetCategories.Response)
 }
 
 class ChildCategoriesPresenter: ChildCategoriesPresentationLogic
@@ -23,9 +23,9 @@ class ChildCategoriesPresenter: ChildCategoriesPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: ChildCategories.Something.Response)
+  func presentCategories(response: ChildCategories.GetCategories.Response)
   {
-    let viewModel = ChildCategories.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    let viewModel = ChildCategories.GetCategories.ViewModel(categories: response.categories, error: response.error)
+    viewController?.displayCategories(viewModel: viewModel)
   }
 }
