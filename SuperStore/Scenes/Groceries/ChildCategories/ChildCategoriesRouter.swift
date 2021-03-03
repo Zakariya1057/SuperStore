@@ -14,47 +14,48 @@ import UIKit
 
 @objc protocol ChildCategoriesRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToShowProduct(segue: UIStoryboardSegue?)
 }
 
 protocol ChildCategoriesDataPassing
 {
-  var dataStore: ChildCategoriesDataStore? { get }
+    var dataStore: ChildCategoriesDataStore? { get }
 }
 
 class ChildCategoriesRouter: NSObject, ChildCategoriesRoutingLogic, ChildCategoriesDataPassing
 {
-  weak var viewController: ChildCategoriesViewController?
-  var dataStore: ChildCategoriesDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: ChildCategoriesViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: ChildCategoriesDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    weak var viewController: ChildCategoriesViewController?
+    var dataStore: ChildCategoriesDataStore?
+    
+    // MARK: Routing
+    
+    
+    func routeToShowProduct(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowProductViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowProduct(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowProductViewController") as! ShowProductViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowProduct(source: dataStore!, destination: &destinationDS)
+            navigateToShowProduct(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    //    MARK: Navigation
+    
+    func navigateToShowProduct(source: ChildCategoriesViewController, destination: ShowProductViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    //    MARK: Passing data
+    
+    func passDataToShowProduct(source: ChildCategoriesDataStore, destination: inout ShowProductDataStore)
+    {
+        destination.productID = viewController!.selectedProductID!
+    }
 }

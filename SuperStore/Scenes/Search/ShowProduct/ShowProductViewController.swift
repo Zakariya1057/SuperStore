@@ -140,6 +140,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 
                 self.product = product
                 
+                print(product)
                 updateFavouriteButton(favourite: product.favourite)
                 updateMonitorButton(monitor: product.monitoring)
                 
@@ -152,6 +153,9 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 if let review = product.review {
                     reviews.append(review)
                     reviewsTableView.reloadData()
+                } else {
+                    reviewsStackView.removeFromSuperview()
+                    allReviewsButton.removeFromSuperview()
                 }
                 
                 ratingView.rating = product.avgRating
@@ -159,20 +163,41 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 
                 allReviewsButton.setTitle("All Reviews (\(product.totalReviewsCount))", for: .normal)
                 
+                if product.ingredients.count == 0 {
+                    ingredientsView.removeFromSuperview()
+                }
+                
                 if let promotion = product.promotion {
                     promotionLabel.text = promotion.name
                 } else {
                     promotionView.removeFromSuperview()
                 }
                 
-                allergenLabel.text = product.allergenInfo
-                lifeStyleLabel.text = product.dietaryInfo
+                displayAllergen(product: product)
+                displaydietary(product: product)
                 
                 recommendedProducts = product.recommended
                 recommendedTableView.reloadData()
             }
         }
     }
+
+    func displayAllergen(product: ShowProduct.DisplayedProduct) {
+        if product.allergenInfo == nil || product.allergenInfo == "" {
+            allergenView.removeFromSuperview()
+        } else {
+            allergenLabel.text = product.allergenInfo
+        }
+    }
+    
+    func displaydietary(product: ShowProduct.DisplayedProduct) {
+        if product.dietaryInfo == nil || product.dietaryInfo == "" {
+            dietaryView.removeFromSuperview()
+        } else {
+            lifeStyleLabel.text = product.dietaryInfo
+        }
+    }
+    
     
     func displayMonitoring(viewModel: ShowProduct.UpdateMonitoring.ViewModel) {
         if let error = viewModel.error {
@@ -286,7 +311,7 @@ extension ShowProductViewController {
 
 extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return tableView == reviewsTableView ? reviews.count : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

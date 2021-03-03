@@ -154,7 +154,9 @@ class EditReviewViewController: UIViewController, EditReviewDisplayLogic
         }
     }
     
-    
+}
+
+extension EditReviewViewController {
     func submitForm(){
         
         let text = contentTextView.text ?? ""
