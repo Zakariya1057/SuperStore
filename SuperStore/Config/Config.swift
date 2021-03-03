@@ -116,8 +116,21 @@ struct Config {
                     return SearchResultsRoute + "/store"
                 }
             }
-            
 
+        }
+        
+        public struct Grocery {
+            public static var GroceryRoute: String {
+                return Host + "/grocery"
+            }
+            
+            public static var GrandParentCategories: String {
+                return GroceryRoute + "/categories"
+            }
+            
+            public static var ChildCategories: String {
+                return GroceryRoute + "/products"
+            }
         }
         
         public static var Store: String {

@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct GroceryProductsResponseData: Decodable {
-    var data: [GroceryProductsData]
-}
-
-struct GroceryProductsData:Decodable {
-    var id: Int
-    var name:String
-    var parent_category_id: Int
-    var products: [ProductData]
-}
+//struct GroceryProductsResponseData: Decodable {
+//    var data: [GroceryProductsData]
+//}
+//
+//struct GroceryProductsData:Decodable {
+//    var id: Int
+//    var name:String
+//    var parent_category_id: Int
+//    var products: [ProductData]
+//}

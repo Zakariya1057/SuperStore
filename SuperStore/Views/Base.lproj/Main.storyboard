@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hXH-95-1lc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rE7-hw-dyv">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1434,7 +1434,7 @@
                                                                             <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <segue destination="rE7-hw-dyv" kind="show" id="fPX-Ee-6yo"/>
+                                                                            <segue destination="rE7-hw-dyv" kind="show" identifier="ShowGrandParentCategories" id="fPX-Ee-6yo"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1954,7 +1954,7 @@
         <!--Fruits-->
         <scene sceneID="MbA-Ed-0LT">
             <objects>
-                <viewController storyboardIdentifier="childCategoriesViewController" id="lx3-SC-MKf" customClass="ChildCategoriesViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChildCategoriesViewController" id="lx3-SC-MKf" customClass="ChildCategoriesViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xwO-xo-YL4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3489,14 +3489,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Groceries" id="66B-Md-eRn">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="clU-MY-Cti">
-                            <connections>
-                                <action selector="done_pressed:" destination="rE7-hw-dyv" id="I84-Ti-MX0"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="clU-MY-Cti"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="groupTableView" destination="9eT-mC-4Tt" id="Fff-NT-eWy"/>
+                        <outlet property="categoriesTableView" destination="9eT-mC-4Tt" id="851-sZ-6Kl"/>
                         <segue destination="DSq-uM-qe8" kind="show" identifier="grandParentToParentCategories" id="Nrc-5s-Awh"/>
                     </connections>
                 </viewController>
@@ -3951,7 +3947,7 @@
         <!--Fresh Food & Bakery-->
         <scene sceneID="D82-F9-hHM">
             <objects>
-                <viewController storyboardIdentifier="groceryGroupViewController" id="DSq-uM-qe8" customClass="ParentCategoriesViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ParentCategoriesViewController" id="DSq-uM-qe8" customClass="ParentCategoriesViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jDV-si-mdL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3978,7 +3974,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="groupTableView" destination="Kd1-eR-HOx" id="Cfp-sY-yic"/>
+                        <outlet property="categoriesTableView" destination="Kd1-eR-HOx" id="Rur-qD-LnL"/>
                         <segue destination="lx3-SC-MKf" kind="show" identifier="parentCategoriesToProducts" id="jem-t8-ZpR"/>
                     </connections>
                 </viewController>
