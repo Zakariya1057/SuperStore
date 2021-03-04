@@ -14,27 +14,79 @@ import UIKit
 
 enum Settings
 {
-  // MARK: Use cases
-  
-  enum GetUserDetails
-  {
-    struct Request
+    // MARK: Use cases
+    
+    enum GetUserDetails
     {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var user: UserModel?
+        }
+        struct ViewModel
+        {
+            struct DisplayedUser {
+                var email: String
+                var name: String
+                var sendNotifications: Bool
+            }
+            
+            var displayedUser: DisplayedUser?
+            var error: String?
+        }
     }
-    struct Response
+    
+    enum UpdateNotifications
     {
-        var user: UserModel?
-    }
-    struct ViewModel
-    {
-        struct DisplayedUser {
-            var email: String
-            var name: String
+        struct Request
+        {
             var sendNotifications: Bool
         }
         
-        var displayedUser: DisplayedUser?
-        var error: String?
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
+        }
     }
-  }
+    
+    enum Logout
+    {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
+    
+    enum Delete
+    {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
 }

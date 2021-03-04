@@ -20,6 +20,7 @@ struct Config {
                 Host + "/user"
             }
             
+            
             public static var Register: String {
                 return UserRoute + "/register"
             }
@@ -30,6 +31,14 @@ struct Config {
             
             public static var Update: String {
                 return UserRoute + "/update"
+            }
+            
+            public static var Logout: String {
+                return UserRoute + "/logout"
+            }
+            
+            public static var Delete: String {
+                return UserRoute + "/delete"
             }
             
             struct ResetPassword {
@@ -59,6 +68,7 @@ struct Config {
                 return Host + "/product"
             }
             
+            
             public static var Show: String {
                 return ProductRoute + "/"
             }
@@ -78,6 +88,7 @@ struct Config {
             public static var ReviewRoute: String {
                 return Host + "/review"
             }
+            
             
             public static var Show: String {
                 return "/show"
@@ -106,6 +117,7 @@ struct Config {
                 return Host + "/search"
             }
             
+            
             public static var Suggestions: String {
                 return SearchRoute + "/suggestions"
             }
@@ -115,6 +127,7 @@ struct Config {
                 public static var SearchResultsRoute: String {
                     return SearchRoute + "/results"
                 }
+                
                 
                 public static var Product: String {
                     return SearchResultsRoute + "/product"
@@ -131,6 +144,7 @@ struct Config {
             public static var GroceryRoute: String {
                 return Host + "/grocery"
             }
+            
             
             public static var GrandParentCategories: String {
                 return GroceryRoute + "/categories"

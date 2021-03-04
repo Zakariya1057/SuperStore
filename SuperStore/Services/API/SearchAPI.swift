@@ -29,7 +29,7 @@ class SearchAPI: SearchRequestProtocol {
                 completionHandler([], errorMessage)
             } catch {
                 print(error)
-                completionHandler([], "Failed to get product. Decoding error, please try again later.")
+                completionHandler([], "Failed to get suggestions. Decoding error, please try again later.")
             }
         }
     }
@@ -61,7 +61,7 @@ class SearchAPI: SearchRequestProtocol {
                 print(errorMessage)
                 completionHandler(nil, errorMessage)
             } catch {
-                completionHandler(nil, "Failed To Reset Password. Please try again later.")
+                completionHandler(nil, "Failed to get products. Please try again later.")
             }
         }
     }

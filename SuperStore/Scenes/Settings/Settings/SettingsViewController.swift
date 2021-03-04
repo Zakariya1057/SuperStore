@@ -15,10 +15,14 @@ import UIKit
 protocol SettingsDisplayLogic: class
 {
     func displayUserDetails(viewModel: Settings.GetUserDetails.ViewModel)
+    func displayUpdateNotifications(viewModel: Settings.UpdateNotifications.ViewModel)
+    func displayedLogout(viewModel: Settings.Logout.ViewModel)
+    func displayedDeleted(viewModel: Settings.Delete.ViewModel)
 }
 
 class SettingsViewController: UIViewController, SettingsDisplayLogic
 {
+
     var interactor: SettingsBusinessLogic?
     var router: (NSObjectProtocol & SettingsRoutingLogic & SettingsDataPassing)?
     
@@ -95,22 +99,46 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
             if let user = viewModel.displayedUser {
                 nameLabel.text = user.name
                 emailLabel.text = user.email
+                
+                notificationSwitch.isOn = user.sendNotifications
             }
+        }
+    }
+    
+    func displayedLogout(viewModel: Settings.Logout.ViewModel) {
+
+    }
+    
+    func displayedDeleted(viewModel: Settings.Delete.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "Delete Error", error: error)
+        } else {
+            
+        }
+    }
+    
+    func displayUpdateNotifications(viewModel: Settings.UpdateNotifications.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "Settings Error", error: error)
         }
     }
 }
 
 extension SettingsViewController {
     @IBAction func deleteButtonPressed(_ sender: Any) {
-        
+        let request = Settings.Delete.Request()
+        interactor?.delete(request: request)
     }
     
     @IBAction func notificationSwitchPressed(_ sender: Any) {
-        
+        let sendNotifications = notificationSwitch.isOn
+        let request = Settings.UpdateNotifications.Request(sendNotifications: sendNotifications)
+        interactor?.updateNotification(request: request)
     }
     
     @IBAction func logoutButtonPressed(_ sender: Any) {
-        
+        let request = Settings.Logout.Request()
+        interactor?.logout(request: request)
     }
 }
 

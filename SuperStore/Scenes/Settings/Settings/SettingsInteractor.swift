@@ -15,6 +15,10 @@ import UIKit
 protocol SettingsBusinessLogic
 {
     func getSettings(request: Settings.GetUserDetails.Request)
+    func updateNotification(request: Settings.UpdateNotifications.Request)
+    
+    func logout(request: Settings.Logout.Request)
+    func delete(request: Settings.Delete.Request)
 }
 
 protocol SettingsDataStore
@@ -25,6 +29,7 @@ protocol SettingsDataStore
 
 class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
 {
+    
     var presenter: SettingsPresentationLogic?
     var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     var user: UserModel?
@@ -36,5 +41,27 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
             let response = Settings.GetUserDetails.Response(user: user)
             self.presenter?.presentUserDetails(response: response)
         }
+    }
+    
+    func updateNotification(request: Settings.UpdateNotifications.Request){
+        userWorker.updateNotifications(sendNotifications: request.sendNotifications) { (error: String?) in
+            let response = Settings.UpdateNotifications.Response(error: error)
+            self.presenter?.presentUpdateNotifications(response: response)
+        }
+    }
+    
+    func logout(request: Settings.Logout.Request){
+        userWorker.logout { (error: String?) in
+            let response = Settings.Logout.Response(error: error)
+            self.presenter?.presentLogout(response: response)
+        }
+    }
+    
+    func delete(request: Settings.Delete.Request) {
+        userWorker.deleteUser { (error: String?) in
+            let response = Settings.Delete.Response(error: error)
+            self.presenter?.presentDeleted(response: response)
+        }
+
     }
 }

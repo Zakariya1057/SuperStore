@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 protocol RequestProtocol {
-    func post(url: String, data:Parameters, completionHandler: @escaping ( () throws -> Data) -> Void)
+    func post(url: String, data:Parameters?, completionHandler: @escaping ( () throws -> Data) -> Void)
     func get(url: String, completionHandler: @escaping ( () throws -> Data) -> Void)
     
     func responseHandler(response: AFDataResponse<Any>, completionHandler: @escaping ( () throws -> (Data)) -> Void)
@@ -41,15 +41,15 @@ struct RequestWorker: RequestProtocol {
         }
     }
     
-    func post(url: String, data:Parameters, completionHandler: @escaping ( () throws -> (Data)) -> Void) {
+    func post(url: String, data:Parameters?, completionHandler: @escaping ( () throws -> (Data)) -> Void) {
         let urlString = parseURL(urlString: url)
 
         let headers: HTTPHeaders = setHeaders()
         
         print("POST REQUEST: \(urlString)")
-        print(data)
+        print(data ?? [])
         
-        AF.request(urlString, method: .post, parameters: ["data": data] ,encoding: JSONEncoding.default, headers: headers,requestModifier: { $0.timeoutInterval = self.requestTimeout })
+        AF.request(urlString, method: .post, parameters: ["data": data ?? []] ,encoding: JSONEncoding.default, headers: headers,requestModifier: { $0.timeoutInterval = self.requestTimeout })
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in

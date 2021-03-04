@@ -21,43 +21,70 @@ class UserSettingsWorker {
         completionHandler(userStore.getUser())
     }
     
+    func updateNotifications(sendNotifications: Bool, completionHandler: @escaping (_ error: String?) -> Void){
+        userStore.updateNotifications(sendNotifications: sendNotifications)
+        userAPI.updateNotifications(sendNotifications: sendNotifications, completionHandler: completionHandler)
+    }
+    
     func updateName(name: String, completionHandler: @escaping (_ error: String?) -> Void){
         userStore.updateName(name: name)
-        userAPI.updateUser(data: ["name" : name], type: "name", completionHandler: completionHandler)
+        userAPI.updateName(name: name, completionHandler: completionHandler)
     }
     
     func updateEmail(email: String, completionHandler: @escaping (_ error: String?) -> Void){
         userStore.updateEmail(email: email)
-        userAPI.updateUser(data: ["email" : email], type: "email", completionHandler: completionHandler)
+        userAPI.updateEmail(email: email, completionHandler: completionHandler)
     }
     
     func updatePassword(currentPassword: String, newPassword: String, confirmPassword: String, completionHandler: @escaping (_ error: String?) -> Void){
-        let updateData = [
-            "current_password": currentPassword,
-            "password": newPassword,
-            "password_confirmation": confirmPassword
-        ]
-        
-        userAPI.updateUser(data: updateData, type: "password", completionHandler: completionHandler)
+        userAPI.updatePassword(
+            currentPassword: currentPassword, newPassword: newPassword,
+            confirmPassword: confirmPassword, completionHandler: completionHandler
+        )
     }
 }
 
-// When update done, do on both the local and remote.
-
-// Update details by API
-protocol UserRequestProtocol {
-    func updateUser(data: [String:String],type: String, completionHandler: @escaping (_ error: String?) -> Void)
+extension UserSettingsWorker {
+    func logout(completionHandler: @escaping (_ error: String?) -> Void){
+        userAPI.logout(completionHandler: completionHandler)
+        userStore.logoutUser()
+    }
+    
+    func deleteUser(completionHandler: @escaping (_ error: String?) -> Void){
+        // Only delete user if successfully deleted
+        userAPI.deleteUser(completionHandler: { (error: String?) in
+            if error == nil {
+                self.userStore.deleteUser()
+            }
+            
+            completionHandler(error)
+        })
+    }
 }
 
-// Update details by REALM
+// API
+protocol UserRequestProtocol {
+    func updatePassword(currentPassword: String, newPassword: String, confirmPassword: String, completionHandler: @escaping (_ error: String?) -> Void)
+    func updateName(name: String, completionHandler: @escaping (_ error: String?) -> Void)
+    func updateEmail(email: String, completionHandler: @escaping (_ error: String?) -> Void)
+    func updateNotifications(sendNotifications: Bool, completionHandler: @escaping (_ error: String?) -> Void)
+    
+    func logout(completionHandler: @escaping (_ error: String?) -> Void)
+    func deleteUser(completionHandler: @escaping (_ error: String?) -> Void)
+}
+
+// Realm
 protocol UserStoreProtocol {
     func createUser(user: UserModel) -> Void
     func getUser() -> UserModel?
     
-    func updateName(name: String)
-    func updateEmail(email: String)
+    func updateNotifications(sendNotifications: Bool)
     
-    func deleteUser(user: UserModel) -> Void
+    func updateName(name: String) -> Void
+    func updateEmail(email: String) -> Void
+    
+    func logoutUser() -> Void
+    func deleteUser() -> Void
     
     func getToken() -> String?
 }

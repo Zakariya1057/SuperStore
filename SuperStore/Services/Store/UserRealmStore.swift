@@ -49,7 +49,19 @@ class UserRealmStore: UserStoreProtocol {
         })
     }
     
-    func deleteUser(user: UserModel) {
+    func updateNotifications(sendNotifications: Bool){
+        try? realm?.write({
+            if let savedUser: UserObject = self.user {
+                savedUser.sendNotifications = sendNotifications
+            }
+        })
+    }
+    
+    func logoutUser(){
+        deleteUser()
+    }
+    
+    func deleteUser() {
         try? realm?.write({
             if let users = realm?.objects(UserObject.self) {
                 realm?.delete(users)

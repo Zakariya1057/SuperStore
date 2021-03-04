@@ -58,7 +58,7 @@ class ReviewAPI: ReviewRequestProtocol {
     func deleteReview(productID: Int, completionHandler: @escaping (String?) -> Void){
         let url = Config.Route.Review.ReviewRoute + "/" + String(productID) + Config.Route.Review.Delete
         
-        requestWorker.post(url: url, data: ["product_id": productID]) { (response: () throws -> Data) in
+        requestWorker.post(url: url, data: nil) { (response: () throws -> Data) in
             do {
                 _ = try response()
                 completionHandler(nil)

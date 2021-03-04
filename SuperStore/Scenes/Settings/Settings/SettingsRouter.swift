@@ -17,6 +17,7 @@ import UIKit
     func routeToEditName(segue: UIStoryboardSegue?)
     func routeToEditEmail(segue: UIStoryboardSegue?)
     func routeToEditPassword(segue: UIStoryboardSegue?)
+    func routeToHome(segue: UIStoryboardSegue?)
 }
 
 protocol SettingsDataPassing
@@ -30,6 +31,21 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
     var dataStore: SettingsDataStore?
     
     // MARK: Routing
+
+    func routeToHome(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! HomeViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToHome(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToHome(source: dataStore!, destination: &destinationDS)
+            navigateToHome(source: viewController!, destination: destinationVC)
+        }
+    }
     
     func routeToEditName(segue: UIStoryboardSegue?)
     {
@@ -77,6 +93,11 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
     }
     
     // MARK: Navigation
+
+    func navigateToHome(source: SettingsViewController, destination: HomeViewController)
+    {
+        source.navigationController?.popToRootViewController(animated: true)
+    }
     
     func navigateToEditName(source: SettingsViewController, destination: EditNameViewController)
     {
@@ -95,6 +116,11 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
     
     // MARK: Passing data
     
+    func passDataToHome(source: SettingsDataStore, destination: inout HomeDataStore)
+    {
+
+    }
+    
     func passDataToEditName(source: SettingsDataStore, destination: inout EditNameDataStore)
     {
         destination.name = source.user!.name
@@ -109,4 +135,5 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
     {
 
     }
+
 }

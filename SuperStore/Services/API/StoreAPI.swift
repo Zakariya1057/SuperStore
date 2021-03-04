@@ -27,7 +27,7 @@ class StoreAPI: StoreRequestProtocol {
                 completionHandler(nil, errorMessage)
             } catch {
                 print(error)
-                completionHandler(nil, "Failed to get product. Decoding error, please try again later.")
+                completionHandler(nil, "Failed to get store. Decoding error, please try again later.")
             }
         }
     }

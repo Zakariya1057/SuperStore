@@ -14,30 +14,48 @@ import UIKit
 
 protocol SettingsPresentationLogic
 {
-  func presentUserDetails(response: Settings.GetUserDetails.Response)
+    func presentUserDetails(response: Settings.GetUserDetails.Response)
+    func presentUpdateNotifications(response: Settings.UpdateNotifications.Response)
+    func presentLogout(response: Settings.Logout.Response)
+    func presentDeleted(response: Settings.Delete.Response)
 }
 
 class SettingsPresenter: SettingsPresentationLogic
 {
-  weak var viewController: SettingsDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentUserDetails(response: Settings.GetUserDetails.Response)
-  {
+    weak var viewController: SettingsDisplayLogic?
     
-    var displayedUser: Settings.GetUserDetails.ViewModel.DisplayedUser?
-    var error: String?
+    // MARK: Do something
     
-    if let user = response.user {
-        displayedUser = Settings.GetUserDetails.ViewModel.DisplayedUser(
-            email: user.email, name: user.name, sendNotifications: user.sendNotifications
-        )
-    } else {
-        error = "Failed to find saved user details"
+    func presentUserDetails(response: Settings.GetUserDetails.Response)
+    {
+        
+        var displayedUser: Settings.GetUserDetails.ViewModel.DisplayedUser?
+        var error: String?
+        
+        if let user = response.user {
+            displayedUser = Settings.GetUserDetails.ViewModel.DisplayedUser(
+                email: user.email, name: user.name, sendNotifications: user.sendNotifications
+            )
+        } else {
+            error = "Failed to find saved user details"
+        }
+        
+        let viewModel = Settings.GetUserDetails.ViewModel(displayedUser: displayedUser, error: error)
+        viewController?.displayUserDetails(viewModel: viewModel)
     }
     
-    let viewModel = Settings.GetUserDetails.ViewModel(displayedUser: displayedUser, error: error)
-    viewController?.displayUserDetails(viewModel: viewModel)
-  }
+    func presentUpdateNotifications(response: Settings.UpdateNotifications.Response) {
+        let viewModel = Settings.UpdateNotifications.ViewModel(error: response.error)
+        viewController?.displayUpdateNotifications(viewModel: viewModel)
+    }
+    
+    func presentLogout(response: Settings.Logout.Response) {
+        let viewModel = Settings.Logout.ViewModel(error: response.error)
+        viewController?.displayedLogout(viewModel: viewModel)
+    }
+    
+    func presentDeleted(response: Settings.Delete.Response) {
+        let viewModel = Settings.Delete.ViewModel(error: response.error)
+        viewController?.displayedDeleted(viewModel: viewModel)
+    }
 }
