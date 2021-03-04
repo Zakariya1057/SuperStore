@@ -15,6 +15,7 @@ import UIKit
 protocol EditNameDisplayLogic: class
 {
     func displayName(viewModel: EditName.GetName.ViewModel)
+    func displayNameUpdated(viewModel: EditName.UpdateName.ViewModel)
 }
 
 class EditNameViewController: UIViewController, EditNameDisplayLogic
@@ -73,6 +74,7 @@ class EditNameViewController: UIViewController, EditNameDisplayLogic
     }
     
     // MARK: Do something
+    let spinner: SpinnerViewController = SpinnerViewController()
     
     @IBOutlet weak var nameTextField: UITextField!
     
@@ -82,14 +84,46 @@ class EditNameViewController: UIViewController, EditNameDisplayLogic
         interactor?.getName(request: request)
     }
     
+    func saveName(){
+        startLoading()
+        
+        let request = EditName.UpdateName.Request(name: nameTextField.text ?? "")
+        interactor?.updateName(request: request)
+    }
     
     func displayName(viewModel: EditName.GetName.ViewModel)
     {
         nameTextField.text = viewModel.name
     }
+    
+    func displayNameUpdated(viewModel: EditName.UpdateName.ViewModel){
+        stopLoading()
+        
+        if let error = viewModel.error {
+            showError(title: "Update Error", error: error)
+        } else {
+            router?.routeToSettings(segue: nil)
+        }
+    }
 }
 
 extension EditNameViewController {
     @IBAction func saveButtonPressed(_ sender: Any) {
+        saveName()
+    }
+}
+
+extension EditNameViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
     }
 }

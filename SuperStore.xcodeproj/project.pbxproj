@@ -192,7 +192,7 @@
 		2C7082AD25F013B200345147 /* EditEmailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082A725F013B200345147 /* EditEmailModels.swift */; };
 		2C7082AE25F013B200345147 /* EditEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082A825F013B200345147 /* EditEmailViewController.swift */; };
 		2C7082AF25F013B200345147 /* EditEmailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082A925F013B200345147 /* EditEmailInteractor.swift */; };
-		2C7082B325F0146100345147 /* UserWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082B225F0146100345147 /* UserWorker.swift */; };
+		2C7082B325F0146100345147 /* UserSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082B225F0146100345147 /* UserSettingsWorker.swift */; };
 		2C7082B725F0155700345147 /* UserSettingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082B625F0155700345147 /* UserSettingAPI.swift */; };
 		2C7082D025F01C7500345147 /* UserHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082CF25F01C7500345147 /* UserHistoryModel.swift */; };
 		2C72943925EBE75500D280B3 /* ResetPasswordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C72943825EBE75500D280B3 /* ResetPasswordAPI.swift */; };
@@ -574,7 +574,7 @@
 		2C7082A725F013B200345147 /* EditEmailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailModels.swift; sourceTree = "<group>"; };
 		2C7082A825F013B200345147 /* EditEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailViewController.swift; sourceTree = "<group>"; };
 		2C7082A925F013B200345147 /* EditEmailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailInteractor.swift; sourceTree = "<group>"; };
-		2C7082B225F0146100345147 /* UserWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWorker.swift; sourceTree = "<group>"; };
+		2C7082B225F0146100345147 /* UserSettingsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsWorker.swift; sourceTree = "<group>"; };
 		2C7082B625F0155700345147 /* UserSettingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingAPI.swift; sourceTree = "<group>"; };
 		2C7082CF25F01C7500345147 /* UserHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistoryModel.swift; sourceTree = "<group>"; };
 		2C72943825EBE75500D280B3 /* ResetPasswordAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordAPI.swift; sourceTree = "<group>"; };
@@ -881,7 +881,7 @@
 				2C1477A325E96DD8000E8F66 /* ResetPasswordWorker.swift */,
 				2C14775D25E9070D000E8F66 /* UserSessionWorker.swift */,
 				2C1476C825E7AEEB000E8F66 /* UserValidationWorker.swift */,
-				2C7082B225F0146100345147 /* UserWorker.swift */,
+				2C7082B225F0146100345147 /* UserSettingsWorker.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -2044,7 +2044,7 @@
 				2CA11F0225EE860C0054AE19 /* RefineModel.swift in Sources */,
 				2C55F9C725EE3B62007BBFA8 /* ShowSuggestionsRouter.swift in Sources */,
 				2CDFB63925EA6359002CE30D /* HomeViewController.swift in Sources */,
-				2C7082B325F0146100345147 /* UserWorker.swift in Sources */,
+				2C7082B325F0146100345147 /* UserSettingsWorker.swift in Sources */,
 				2C70825725F00B6A00345147 /* SendEmailPresenter.swift in Sources */,
 				2C55FA2325EE4C7C007BBFA8 /* ShowStoreResultsWorker.swift in Sources */,
 				2CA11F8525EF8E6D0054AE19 /* ChildCategoriesRouter.swift in Sources */,

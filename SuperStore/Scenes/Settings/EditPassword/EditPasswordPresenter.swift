@@ -14,7 +14,7 @@ import UIKit
 
 protocol EditPasswordPresentationLogic
 {
-  func presentSomething(response: EditPassword.Something.Response)
+  func presentPasswordUpdated(response: EditPassword.UpdatePassword.Response)
 }
 
 class EditPasswordPresenter: EditPasswordPresentationLogic
@@ -23,9 +23,9 @@ class EditPasswordPresenter: EditPasswordPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: EditPassword.Something.Response)
+  func presentPasswordUpdated(response: EditPassword.UpdatePassword.Response)
   {
-    let viewModel = EditPassword.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    let viewModel = EditPassword.UpdatePassword.ViewModel(error: response.error)
+    viewController?.displayPasswordUpdated(viewModel: viewModel)
   }
 }

@@ -16,26 +16,34 @@ struct Config {
         
         public struct User {
             
+            public static var UserRoute: String {
+                Host + "/user"
+            }
+            
             public static var Register: String {
-                return Host + "/user/register"
+                return UserRoute + "/register"
             }
             
             public static var Login: String {
-                return Host + "/user/login"
+                return UserRoute + "/login"
+            }
+            
+            public static var Update: String {
+                return UserRoute + "/update"
             }
             
             struct ResetPassword {
                 
                 public static var SendEmail: String {
-                    return Host + "/user/reset/send-code"
+                    return UserRoute + "/reset/send-code"
                 }
                 
                 public static var VerifyCode: String {
-                    return Host + "/user/reset/validate-code"
+                    return UserRoute + "/reset/validate-code"
                 }
                 
                 public static var NewPassword: String {
-                    return Host + "/user/reset/password"
+                    return UserRoute + "/reset/password"
                 }
             }
             

@@ -7,7 +7,29 @@
 //
 
 import Foundation
+import Alamofire
 
-class UserSettingAPI {
+class UserSettingAPI: UserRequestProtocol {
+    
+    let jsonDecoder = JSONDecoder()
+    let requestWorker: RequestProtocol = RequestWorker()
+    
+    func updateUser(data: [String : String], type: String, completionHandler: @escaping (String?) -> Void) {
+        var updateData: Parameters = data
+        updateData["type"] = type.lowercased()
+
+        requestWorker.post(url: Config.Route.User.Update, data: updateData) { (response: () throws -> Data) in
+            do {
+                _ = try response()
+                completionHandler(nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(errorMessage)
+            } catch {
+                completionHandler("Update failed. Please try again later.")
+            }
+        }
+        
+    }
     
 }

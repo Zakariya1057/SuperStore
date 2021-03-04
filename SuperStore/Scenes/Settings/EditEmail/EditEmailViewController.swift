@@ -15,10 +15,12 @@ import UIKit
 protocol EditEmailDisplayLogic: class
 {
     func displayEmail(viewModel: EditEmail.GetEmail.ViewModel)
+    func displayEmailUpdated(viewModel: EditEmail.UpdateEmail.ViewModel)
 }
 
 class EditEmailViewController: UIViewController, EditEmailDisplayLogic
 {
+
     var interactor: EditEmailBusinessLogic?
     var router: (NSObjectProtocol & EditEmailRoutingLogic & EditEmailDataPassing)?
     
@@ -72,7 +74,7 @@ class EditEmailViewController: UIViewController, EditEmailDisplayLogic
         getEmail()
     }
     
-    // MARK: Do something
+    let spinner: SpinnerViewController = SpinnerViewController()
     
     @IBOutlet weak var emailTextField: UITextField!
     
@@ -82,14 +84,47 @@ class EditEmailViewController: UIViewController, EditEmailDisplayLogic
         interactor?.getEmail(request: request)
     }
     
-
+    func saveEmail(){
+        startLoading()
+        
+        let request = EditEmail.UpdateEmail.Request(email: emailTextField.text ?? "")
+        interactor?.updateEmail(request: request)
+    }
+    
+    
     func displayEmail(viewModel: EditEmail.GetEmail.ViewModel)
     {
         emailTextField.text = viewModel.email
+    }
+    
+    func displayEmailUpdated(viewModel: EditEmail.UpdateEmail.ViewModel) {
+        stopLoading()
+        
+        if let error = viewModel.error {
+            showError(title: "Update Error", error: error)
+        } else {
+            router?.routeToSettings(segue: nil)
+        }
     }
 }
 
 extension EditEmailViewController {
     @IBAction func saveButtonPressed(_ sender: Any) {
+        saveEmail()
+    }
+}
+
+extension EditEmailViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
     }
 }

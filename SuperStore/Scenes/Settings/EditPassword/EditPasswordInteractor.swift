@@ -14,28 +14,46 @@ import UIKit
 
 protocol EditPasswordBusinessLogic
 {
-  func doSomething(request: EditPassword.Something.Request)
+    func updatePassword(request: EditPassword.UpdatePassword.Request)
 }
 
 protocol EditPasswordDataStore
 {
-  //var name: String { get set }
+
 }
 
 class EditPasswordInteractor: EditPasswordBusinessLogic, EditPasswordDataStore
 {
-  var presenter: EditPasswordPresentationLogic?
-  var worker: EditPasswordWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: EditPassword.Something.Request)
-  {
-    worker = EditPasswordWorker()
-    worker?.doSomeWork()
+    var presenter: EditPasswordPresentationLogic?
+    var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
+    var validationWorker: UserValidationWorker = UserValidationWorker()
     
-    let response = EditPassword.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    // MARK: Do something
+    
+    func updatePassword(request: EditPassword.UpdatePassword.Request)
+    {
+        
+        let newPassword = request.newPassword
+        let confirmPassword = request.confirmPassword
+        let currentPassword = request.currentPassword
+        
+        let formFields: [UserFormField] = [
+            UserFormField(name: "Current Password", value: currentPassword, type: .password),
+            UserFormField(name: "New Password", value: newPassword, type: .password),
+            UserFormField(name: "Confirm Password", value: confirmPassword, type: .password),
+            UserPasswordMatch(name: "Password Match", value: newPassword, type: .confirm, repeatValue: confirmPassword)
+        ]
+        
+        let error = validationWorker.validateFields(formFields)
+        
+        if let error = error {
+            let response = EditPassword.UpdatePassword.Response(error: error)
+            self.presenter?.presentPasswordUpdated(response: response)
+        } else {
+            userWorker.updatePassword(currentPassword: currentPassword, newPassword: newPassword, confirmPassword: confirmPassword) { (error: String?) in
+                let response = EditPassword.UpdatePassword.Response(error: error)
+                self.presenter?.presentPasswordUpdated(response: response)
+            }
+        }
+    }
 }

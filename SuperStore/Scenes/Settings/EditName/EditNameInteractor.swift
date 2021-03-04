@@ -14,28 +14,50 @@ import UIKit
 
 protocol EditNameBusinessLogic
 {
-  func getName(request: EditName.GetName.Request)
+    func getName(request: EditName.GetName.Request)
+    func updateName(request: EditName.UpdateName.Request)
 }
 
 protocol EditNameDataStore
 {
-  var name: String { get set }
+    var name: String { get set }
 }
 
 class EditNameInteractor: EditNameBusinessLogic, EditNameDataStore
 {
-  var presenter: EditNamePresentationLogic?
-  var worker: EditNameWorker?
-  var name: String = ""
-  
-  // MARK: Do something
-  
-  func getName(request: EditName.GetName.Request)
-  {
-    worker = EditNameWorker()
-    worker?.doSomeWork()
+    var presenter: EditNamePresentationLogic?
+    var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     
-    let response = EditName.GetName.Response(name: name)
-    presenter?.presentName(response: response)
-  }
+    var validationWorker: UserValidationWorker = UserValidationWorker()
+    
+    var name: String = ""
+    
+    func getName(request: EditName.GetName.Request)
+    {
+        let response = EditName.GetName.Response(name: name)
+        presenter?.presentName(response: response)
+    }
+    
+    func updateName(request: EditName.UpdateName.Request){
+        
+        let formFields: [UserFormField] = [
+            UserFormField(name: "Name", value: request.name, type: .name)
+        ]
+        
+        let error = validationWorker.validateFields(formFields)
+
+        if let error = error {
+            let response = EditName.UpdateName.Response(error: error)
+            self.presenter?.presentNameUpdated(response: response)
+        } else {
+            
+            self.name = request.name
+            
+            userWorker.updateName(name: request.name) { (error: String?) in
+                let response = EditName.UpdateName.Response(error: error)
+                self.presenter?.presentNameUpdated(response: response)
+            }
+        }
+
+    }
 }

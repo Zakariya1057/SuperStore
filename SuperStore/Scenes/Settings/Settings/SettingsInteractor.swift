@@ -26,7 +26,7 @@ protocol SettingsDataStore
 class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
 {
     var presenter: SettingsPresentationLogic?
-    var userWorker: UserWorker = UserWorker(userStore: UserRealmStore())
+    var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     var user: UserModel?
     
     func getSettings(request: Settings.GetUserDetails.Request)

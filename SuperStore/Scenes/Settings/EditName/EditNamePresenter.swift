@@ -14,18 +14,25 @@ import UIKit
 
 protocol EditNamePresentationLogic
 {
-  func presentName(response: EditName.GetName.Response)
+    func presentName(response: EditName.GetName.Response)
+    func presentNameUpdated(response: EditName.UpdateName.Response)
 }
 
 class EditNamePresenter: EditNamePresentationLogic
 {
-  weak var viewController: EditNameDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentName(response: EditName.GetName.Response)
-  {
-    let viewModel = EditName.GetName.ViewModel(name: response.name)
-    viewController?.displayName(viewModel: viewModel)
-  }
+    weak var viewController: EditNameDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentName(response: EditName.GetName.Response)
+    {
+        let viewModel = EditName.GetName.ViewModel(name: response.name)
+        viewController?.displayName(viewModel: viewModel)
+    }
+    
+    func presentNameUpdated(response: EditName.UpdateName.Response)
+    {
+        let viewModel = EditName.UpdateName.ViewModel(error: response.error)
+        viewController?.displayNameUpdated(viewModel: viewModel)
+    }
 }

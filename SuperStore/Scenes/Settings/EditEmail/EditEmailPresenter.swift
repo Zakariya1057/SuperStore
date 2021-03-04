@@ -14,18 +14,25 @@ import UIKit
 
 protocol EditEmailPresentationLogic
 {
-  func presentEmail(response: EditEmail.GetEmail.Response)
+    func presentEmail(response: EditEmail.GetEmail.Response)
+    func presentEmailUpdated(response: EditEmail.UpdateEmail.Response)
 }
 
 class EditEmailPresenter: EditEmailPresentationLogic
 {
-  weak var viewController: EditEmailDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentEmail(response: EditEmail.GetEmail.Response)
-  {
-    let viewModel = EditEmail.GetEmail.ViewModel(email: response.email)
-    viewController?.displayEmail(viewModel: viewModel)
-  }
+    weak var viewController: EditEmailDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentEmail(response: EditEmail.GetEmail.Response)
+    {
+        let viewModel = EditEmail.GetEmail.ViewModel(email: response.email)
+        viewController?.displayEmail(viewModel: viewModel)
+    }
+    
+    func presentEmailUpdated(response: EditEmail.UpdateEmail.Response)
+    {
+        let viewModel = EditEmail.UpdateEmail.ViewModel(error: response.error)
+        viewController?.displayEmailUpdated(viewModel: viewModel)
+    }
 }

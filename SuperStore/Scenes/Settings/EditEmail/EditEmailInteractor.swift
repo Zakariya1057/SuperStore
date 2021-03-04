@@ -14,28 +14,47 @@ import UIKit
 
 protocol EditEmailBusinessLogic
 {
-  func getEmail(request: EditEmail.GetEmail.Request)
+    func getEmail(request: EditEmail.GetEmail.Request)
+    func updateEmail(request: EditEmail.UpdateEmail.Request)
 }
 
 protocol EditEmailDataStore
 {
-  var email: String { get set }
+    var email: String { get set }
 }
 
 class EditEmailInteractor: EditEmailBusinessLogic, EditEmailDataStore
 {
-  var presenter: EditEmailPresentationLogic?
-  var worker: EditEmailWorker?
-  var email: String = ""
-  
-  // MARK: Do something
-  
-  func getEmail(request: EditEmail.GetEmail.Request)
-  {
-    worker = EditEmailWorker()
-    worker?.doSomeWork()
+    var presenter: EditEmailPresentationLogic?
+
+    var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
+    var validationWorker: UserValidationWorker = UserValidationWorker()
     
-    let response = EditEmail.GetEmail.Response(email: email)
-    presenter?.presentEmail(response: response)
-  }
+    var email: String = ""
+    
+    func getEmail(request: EditEmail.GetEmail.Request)
+    {
+        let response = EditEmail.GetEmail.Response(email: email)
+        presenter?.presentEmail(response: response)
+    }
+    
+    func updateEmail(request: EditEmail.UpdateEmail.Request){
+        
+        let formFields: [UserFormField] = [
+            UserFormField(name: "Email", value: request.email, type: .email)
+        ]
+        
+        let error = validationWorker.validateFields(formFields)
+        
+        if let error = error {
+            let response = EditEmail.UpdateEmail.Response(error: error)
+            self.presenter?.presentEmailUpdated(response: response)
+        } else {
+            userWorker.updateEmail(email: request.email) { (error: String?) in
+                let response = EditEmail.UpdateEmail.Response(error: error)
+                self.presenter?.presentEmailUpdated(response: response)
+            }
+        }
+        
+    }
 }

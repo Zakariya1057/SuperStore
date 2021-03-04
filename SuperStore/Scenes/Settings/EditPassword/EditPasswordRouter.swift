@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol EditPasswordRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToSettings(segue: UIStoryboardSegue?)
 }
 
 protocol EditPasswordDataPassing
@@ -29,32 +29,32 @@ class EditPasswordRouter: NSObject, EditPasswordRoutingLogic, EditPasswordDataPa
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToSettings(segue: UIStoryboardSegue?)
+  {
+    if let segue = segue {
+      let destinationVC = segue.destination as! SettingsViewController
+      var destinationDS = destinationVC.router!.dataStore!
+      passDataToSettings(source: dataStore!, destination: &destinationDS)
+    } else {
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let destinationVC = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
+      var destinationDS = destinationVC.router!.dataStore!
+      passDataToSettings(source: dataStore!, destination: &destinationDS)
+      navigateToSettings(source: viewController!, destination: destinationVC)
+    }
+  }
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: EditPasswordViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToSettings(source: EditPasswordViewController, destination: SettingsViewController)
+  {
+    source.navigationController?.popViewController(animated: true)
+  }
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: EditPasswordDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToSettings(source: EditPasswordDataStore, destination: inout SettingsDataStore)
+  {
+
+  }
 }

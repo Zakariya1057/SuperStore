@@ -735,7 +735,7 @@
         <!--Settings-->
         <scene sceneID="wP0-tL-jXO">
             <objects>
-                <viewController id="sIM-J9-Ju3" customClass="SettingsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" id="sIM-J9-Ju3" customClass="SettingsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lz1-Am-aq5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1153,9 +1153,6 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
-                                                <connections>
-                                                    <action selector="newPasswordTextField:" destination="EIN-HB-Uy4" eventType="editingDidEnd" id="dtV-G5-6d4"/>
-                                                </connections>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -1213,10 +1210,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Change Password" id="Kd0-dV-X3p">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="JI4-QN-Cu7"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="JI4-QN-Cu7">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="EIN-HB-Uy4" id="Ozt-Ax-hNy"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="confirmPasswordTextField" destination="OCF-Uq-4mc" id="GSF-qX-6HF"/>
+                        <outlet property="confirmPasswordTextField" destination="OCF-Uq-4mc" id="mTA-DC-4W8"/>
                         <outlet property="currentPasswordTextField" destination="jsB-BX-GH0" id="ro5-VD-17t"/>
                         <outlet property="newPasswordTextField" destination="9Vb-y8-r7f" id="Zru-U6-bwt"/>
                     </connections>
@@ -2127,7 +2128,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zk9-e4-itb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
-                                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
+                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
                                                                                         <rect key="frame" x="87" y="2" width="210" height="26"/>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -2877,7 +2878,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz2-WX-h3t">
                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="64.5" y="7.5" width="255" height="35"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -4919,6 +4920,14 @@
             <point key="canvasLocation" x="5030" y="2750"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="XU3-Nd-wUM">
+            <size key="intrinsicContentSize" width="255" height="35"/>
+        </designable>
+        <designable name="tFG-eX-umO">
+            <size key="intrinsicContentSize" width="209.849609375" height="26"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="YcT-k9-dml"/>
     </inferredMetricsTieBreakers>

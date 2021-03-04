@@ -14,7 +14,7 @@ import UIKit
 
 protocol EditPasswordDisplayLogic: class
 {
-    func displaySomething(viewModel: EditPassword.Something.ViewModel)
+    func displayPasswordUpdated(viewModel: EditPassword.UpdatePassword.ViewModel)
 }
 
 class EditPasswordViewController: UIViewController, EditPasswordDisplayLogic
@@ -69,24 +69,59 @@ class EditPasswordViewController: UIViewController, EditPasswordDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomething()
     }
     
-    // MARK: Do something
+    let spinner: SpinnerViewController = SpinnerViewController()
     
-    //@IBOutlet weak var nameTextField: UITextField!
     @IBOutlet var currentPasswordTextField: UITextField!
     @IBOutlet var newPasswordTextField: UITextField!
     @IBOutlet var confirmPasswordTextField: UITextField!
     
-    func doSomething()
+    func updatePassword()
     {
-        let request = EditPassword.Something.Request()
-        interactor?.doSomething(request: request)
+        startLoading()
+        
+        let currentPassword = currentPasswordTextField.text ?? ""
+        let newPassword = newPasswordTextField.text ?? ""
+        let confirmPassword = confirmPasswordTextField.text ?? ""
+        
+        let request = EditPassword.UpdatePassword.Request(
+            currentPassword: currentPassword, newPassword: newPassword, confirmPassword: confirmPassword
+        )
+        
+        interactor?.updatePassword(request: request)
     }
     
-    func displaySomething(viewModel: EditPassword.Something.ViewModel)
+    func displayPasswordUpdated(viewModel: EditPassword.UpdatePassword.ViewModel)
     {
-        //nameTextField.text = viewModel.name
+        stopLoading()
+        
+        if let error = viewModel.error {
+            showError(title: "Update Error", error: error)
+        } else {
+            router?.routeToSettings(segue: nil)
+        }
+    }
+    
+}
+
+extension EditPasswordViewController {
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        updatePassword()
+    }
+}
+
+extension EditPasswordViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
     }
 }

@@ -66,9 +66,8 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     
     // MARK: View lifecycle
     
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupUserFieldGesture()
         getSettings()
     }

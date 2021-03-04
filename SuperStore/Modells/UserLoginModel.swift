@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct UserLoginModel {
-    var id: Int
-    var name: String
-    var token: String
-    var email: String
-    var send_notifications: Bool
-}
+//struct UserLoginModel {
+//    var id: Int
+//    var name: String
+//    var token: String
+//    var email: String
+//    var send_notifications: Bool
+//}
