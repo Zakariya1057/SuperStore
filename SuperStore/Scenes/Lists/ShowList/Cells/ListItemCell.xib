@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,7 +19,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReusableListItemTableViewCell" rowHeight="82" id="KGk-i7-Jjw" customClass="ListItemTableViewCell" customModule="SuperStore" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="82" id="KGk-i7-Jjw" customClass="ListItemCell" customModule="SuperStore" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="366" height="82"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -46,7 +46,7 @@
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25" scale="large"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="checkBoxPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nfZ-wK-ayh"/>
+                                                            <action selector="checkBoxButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="l3B-qz-CM3"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -127,10 +127,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="nameLabel" destination="FBc-lb-vig" id="Ujn-FR-Miw"/>
-                <outlet property="nameView" destination="lWb-DG-PD6" id="xR5-u0-zpZ"/>
-                <outlet property="tickBoxButton" destination="7uK-37-IZs" id="E8I-om-aZX"/>
-                <outlet property="totalLabel" destination="YHo-wP-Mpz" id="cKq-tB-BLX"/>
+                <outlet property="checkBoxButton" destination="7uK-37-IZs" id="4by-yJ-Q4Y"/>
+                <outlet property="nameLabel" destination="FBc-lb-vig" id="g5x-5P-vaL"/>
+                <outlet property="priceLabel" destination="YHo-wP-Mpz" id="Aou-8Z-xUo"/>
             </connections>
             <point key="canvasLocation" x="133.33333333333334" y="217.63392857142856"/>
         </tableViewCell>

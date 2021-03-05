@@ -185,6 +185,25 @@ struct Config {
             public static var Delete: String {
                 return ListRoute + "/delete"
             }
+            
+            public struct Item {
+                public static var ItemRoute: String {
+                    return Host + "/item"
+                }
+                
+                
+                public static var Create: String {
+                    return "/create"
+                }
+                
+                public static var Update: String {
+                    return "/update"
+                }
+                
+                public static var Delete: String {
+                    return "/delete"
+                }
+            }
         }
         
         public static var Store: String {

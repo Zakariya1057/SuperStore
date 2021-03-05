@@ -14,18 +14,68 @@ import UIKit
 
 protocol ShowListPresentationLogic
 {
-  func presentSomething(response: ShowList.Something.Response)
+    func presentList(response: ShowList.GetList.Response)
 }
 
 class ShowListPresenter: ShowListPresentationLogic
 {
-  weak var viewController: ShowListDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: ShowList.Something.Response)
-  {
-    let viewModel = ShowList.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+    weak var viewController: ShowListDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentList(response: ShowList.GetList.Response)
+    {
+        var displayedList: ShowList.DisplayedList?
+        
+        if let list = response.list {
+            
+            let currency: String = "£"
+            let categories = createDisplayedCategories(categories: list.categories, currency: currency)
+            
+            displayedList = ShowList.DisplayedList(
+                id: list.id,
+                name: list.name,
+                categories: categories,
+                oldTotalPrice: list.oldTotalPrice != nil ? formatPrice(price: list.oldTotalPrice!, currency: "£") : nil,
+                totalPrice: formatPrice(price: list.totalPrice, currency: currency)
+            )
+        }
+        
+        let viewModel = ShowList.GetList.ViewModel(displayedList: displayedList, error: response.error)
+        viewController?.displayList(viewModel: viewModel)
+    }
+}
+
+extension ShowListPresenter {
+
+    private func createDisplayedCategories(categories: [ListCategoryModel], currency: String) -> [ShowList.DisplayedListCategory] {
+        var displayCategories: [ShowList.DisplayedListCategory] = []
+        
+        for category in categories {
+            let items = createDisplayedItems(items: category.items, currency: currency)
+            displayCategories.append(
+                ShowList.DisplayedListCategory(name: category.name, items: items)
+            )
+        }
+        
+        return displayCategories
+    }
+    
+    private func createDisplayedItems(items: [ListItemModel], currency: String) -> [ShowList.DisplayedListItem] {
+        return items.map { (item: ListItemModel) in
+            return ShowList.DisplayedListItem(
+                name: item.name,
+                quantity: String(item.quantity),
+                totalPrice: formatPrice(price: item.price, currency: currency),
+                tickedOff: item.tickedOff
+            )
+        }
+    }
+
+}
+
+extension ShowListPresenter {
+    private func formatPrice(price: Double, currency: String) -> String {
+        return "\(currency)\(String(format: "%.2f", price))"
+    }
 }

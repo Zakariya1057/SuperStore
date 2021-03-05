@@ -113,13 +113,6 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
     }
 }
 
-extension ShowListsViewController {
-    @IBAction func addButtonPressed(_ sender: Any) {
-        
-    }
-}
-
-
 extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return lists.count
@@ -214,7 +207,6 @@ extension ShowListsViewController {
 
 extension ShowListsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        selectedProductID = products[indexPath.row].id
-        //        router?.routeToShowProduct(segue: nil)
+        router?.routeToShowList(segue: nil)
     }
 }

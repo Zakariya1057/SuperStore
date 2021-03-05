@@ -14,28 +14,26 @@ import UIKit
 
 protocol ShowListBusinessLogic
 {
-  func doSomething(request: ShowList.Something.Request)
+    func getList(request: ShowList.GetList.Request)
+    var list: ListModel! { get set }
 }
 
 protocol ShowListDataStore
 {
-  //var name: String { get set }
+    var list: ListModel! { get set }
 }
 
 class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
 {
-  var presenter: ShowListPresentationLogic?
-  var worker: ShowListWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: ShowList.Something.Request)
-  {
-    worker = ShowListWorker()
-    worker?.doSomeWork()
+    var presenter: ShowListPresentationLogic?
+    var listWorker: ListWorker = ListWorker(listAPI: ListAPI())
+    var list: ListModel!
     
-    let response = ShowList.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    func getList(request: ShowList.GetList.Request)
+    {
+        listWorker.getList(listID: list.id) { (list: ListModel?, error: String?) in
+            let response = ShowList.GetList.Response(list: list, error: error)
+            self.presenter?.presentList(response: response)
+        }
+    }
 }

@@ -659,7 +659,6 @@
                     <navigationItem key="navigationItem" title="Lists" id="R8r-GU-eMS">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Til-hC-UnH">
                             <connections>
-                                <action selector="addButtonPressed:" destination="uEy-Pu-MzC" id="Gkd-Qj-b4m"/>
                                 <segue destination="TZX-nf-fZJ" kind="show" id="X6X-D0-tAX"/>
                             </connections>
                         </barButtonItem>
@@ -3527,7 +3526,7 @@
         <!--Grocery List-->
         <scene sceneID="6fo-55-JJN">
             <objects>
-                <viewController storyboardIdentifier="listViewController" id="Lah-o7-jyx" customClass="ListViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowListViewController" id="Lah-o7-jyx" customClass="ShowListViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mkt-K7-Ghy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3657,15 +3656,15 @@
                     <navigationItem key="navigationItem" title="Grocery List" id="CRJ-F2-CZV">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="sAn-yr-l6q">
                             <connections>
-                                <action selector="addButtonPressed:" destination="Lah-o7-jyx" id="4F1-Lm-Zqm"/>
+                                <action selector="addButtonPressed:" destination="Lah-o7-jyx" id="bpv-ih-PWD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="listTableView" destination="6qD-EU-L83" id="J7q-Gv-hcD"/>
-                        <outlet property="oldPriceLabel" destination="fDU-jH-eI0" id="cTi-1M-zzi"/>
-                        <outlet property="oldPriceView" destination="RRF-rW-snD" id="eQX-5H-7bH"/>
-                        <outlet property="totalPriceLabel" destination="Edw-55-B6I" id="uuT-mm-fiX"/>
+                        <outlet property="itemsTableView" destination="6qD-EU-L83" id="QhG-UB-KGJ"/>
+                        <outlet property="oldPriceLabel" destination="fDU-jH-eI0" id="VqX-oN-5Qt"/>
+                        <outlet property="oldPriceView" destination="RRF-rW-snD" id="Hnd-eG-0MO"/>
+                        <outlet property="totalPriceLabel" destination="Edw-55-B6I" id="6n5-pT-vxZ"/>
                         <segue destination="drm-5h-vaN" kind="show" identifier="list_item_details" id="rLW-h4-Ioe"/>
                     </connections>
                 </viewController>

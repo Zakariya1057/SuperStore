@@ -31,6 +31,25 @@ class ListAPI: ListRequestProtocol {
         }
     }
     
+    func getList(listID: Int, completionHandler: @escaping ( _ list: ListModel?, _ error: String?) -> Void){
+        let url: String = Config.Route.List.Show + String(listID)
+        
+        requestWorker.get(url: url) { (response: () throws -> Data) in
+            do {
+                let data = try response()
+                let listDataResponse =  try self.jsonDecoder.decode(ListDataResponse.self, from: data)
+                let list = self.createListModel(listDataResponse: listDataResponse)
+                completionHandler(list, nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(nil, errorMessage)
+            } catch {
+                print(error)
+                completionHandler(nil, "Failed to get lists. Decoding error, please try again later.")
+            }
+        }
+    }
+    
     func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
         let createData:Parameters = ["name": name, "identifier": identifier, "store_type_id": storeTypeID]
         
@@ -103,5 +122,10 @@ extension ListAPI {
         return listData.map { (list: ListData) in
             return list.getListModel()
         }
+    }
+    
+    private func createListModel(listDataResponse: ListDataResponse) -> ListModel {
+        let listData = listDataResponse.data
+        return listData.getListModel()
     }
 }

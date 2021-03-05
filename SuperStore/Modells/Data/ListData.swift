@@ -12,6 +12,10 @@ struct ListsDataResponse: Decodable {
     var data: [ListData]
 }
 
+struct ListDataResponse: Decodable {
+    var data: ListData
+}
+
 struct ListData: Decodable {
     var id: Int
     var identifier: String
@@ -40,21 +44,15 @@ struct ListData: Decodable {
             listStatus = .notStarted
         }
         
-//        let dateFormat: DateFormatter = DateFormatter()
-//        dateFormat.dateFormat = "dd MMMM Y"
-//
-//        let createdDate: Date = dateFormat.date(from: created_at)!
-        
         return ListModel(
             id: id,
             name: name,
             status: listStatus,
             identifier: identifier,
             storeTypeID: store_type_id,
-            userID: user_id,
+            categories: (categories ?? []).map{ $0.getCategoryModel() },
             totalPrice: total_price,
             oldTotalPrice: old_total_price,
-            categories: [],
             totalItems: total_items,
             tickedOffItems: ticked_off_items,
             createdAt: created_at
@@ -65,8 +63,15 @@ struct ListData: Decodable {
 struct ListCategoryData:Decodable {
     var id: Int
     var name: String
-    var aisle_name: String?
     var items: [ListItemData]
+    
+    func getCategoryModel() -> ListCategoryModel {
+        return ListCategoryModel(
+            id: id,
+            name: name,
+            items: items.map{ $0.getListItemModel() }
+        )
+    }
 }
 
 struct ListItemData: Decodable {
@@ -81,7 +86,21 @@ struct ListItemData: Decodable {
     var ticked_off: Bool
     var weight: String?
     var promotion: PromotionData?
+    
+    func getListItemModel() -> ListItemModel {
+        return ListItemModel(
+            id: id,
+            name: name,
+            image: large_image,
+            price: price,
+            quantity: quantity,
+            weight: weight,
+            promotion: promotion?.getPromotionModel(),
+            tickedOff: ticked_off
+        )
+    }
 }
+
 
 struct ListProgressData: Decodable {
     var id: Int

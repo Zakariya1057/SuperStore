@@ -14,18 +14,45 @@ import UIKit
 
 enum ShowList
 {
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
-    {
+    struct DisplayedListCategory {
+        var name: String
+        var items: [DisplayedListItem]
     }
-    struct Response
-    {
+
+    struct DisplayedListItem {
+        var name: String
+        var quantity: String
+        var totalPrice: String
+        var tickedOff: Bool
     }
-    struct ViewModel
-    {
+
+    struct DisplayedList {
+        var id: Int
+        var name: String
+        var categories: [DisplayedListCategory]
+
+        var oldTotalPrice: String?
+        var totalPrice: String
     }
-  }
+    
+    enum GetList
+    {
+        struct Request
+        {
+            var listID: Int
+        }
+        
+        struct Response
+        {
+            var list: ListModel?
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+//            var list: ListModel?
+            var displayedList: DisplayedList?
+            var error: String?
+        }
+    }
 }

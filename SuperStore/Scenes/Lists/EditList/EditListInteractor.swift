@@ -18,12 +18,12 @@ protocol EditListBusinessLogic
     func updateList(request: EditList.UpdateList.Request)
     func restartList(request: EditList.RestartList.Request)
     
-    var list: ListModel? { get set }
+    var list: ListModel! { get set }
 }
 
 protocol EditListDataStore
 {
-    var list: ListModel? { get set }
+    var list: ListModel! { get set }
 }
 
 class EditListInteractor: EditListBusinessLogic, EditListDataStore
@@ -33,16 +33,14 @@ class EditListInteractor: EditListBusinessLogic, EditListDataStore
     var listWorker: ListWorker = ListWorker(listAPI: ListAPI())
     var validationWorker: ListValidationWorker = ListValidationWorker()
 
-    var list: ListModel? = nil
+    var list: ListModel!
     
     // MARK: Do something
     
     func getList(request: EditList.GetList.Request)
     {
-        if let list = list {
-            let response = EditList.GetList.Response(name: list.name, storeTypeID: list.storeTypeID)
-            presenter?.presentList(response: response)
-        }
+        let response = EditList.GetList.Response(name: list.name, storeTypeID: list.storeTypeID)
+        presenter?.presentList(response: response)
     }
     
     func updateList(request: EditList.UpdateList.Request){
@@ -56,11 +54,9 @@ class EditListInteractor: EditListBusinessLogic, EditListDataStore
             let response = EditList.UpdateList.Response(error: error)
             presenter?.presentListUpdated(response: response)
         } else {
-            if let list = list {
-                listWorker.updateList(listID: list.id, name: request.name, storeTypeID: list.storeTypeID) { (error: String?) in
-                    let response = EditList.UpdateList.Response(error: error)
-                    self.presenter?.presentListUpdated(response: response)
-                }
+            listWorker.updateList(listID: list.id, name: request.name, storeTypeID: list.storeTypeID) { (error: String?) in
+                let response = EditList.UpdateList.Response(error: error)
+                self.presenter?.presentListUpdated(response: response)
             }
         }
     }

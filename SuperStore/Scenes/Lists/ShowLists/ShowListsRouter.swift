@@ -15,6 +15,7 @@ import UIKit
 @objc protocol ShowListsRoutingLogic
 {
     func routeToEditList(segue: UIStoryboardSegue?)
+    func routeToShowList(segue: UIStoryboardSegue?)
 }
 
 protocol ShowListsDataPassing
@@ -44,9 +45,29 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
         }
     }
     
+    func routeToShowList(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowListViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowList(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowListViewController") as! ShowListViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowList(source: dataStore!, destination: &destinationDS)
+            navigateToShowList(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     // MARK: Navigation
     
     func navigateToEditList(source: ShowListsViewController, destination: EditListViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    func navigateToShowList(source: ShowListsViewController, destination: ShowListViewController)
     {
         source.show(destination, sender: nil)
     }
@@ -58,4 +79,11 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
         let list =  source.lists[ viewController!.editIndexPath!.row ]
         destination.list = list
     }
+    
+    func passDataToShowList(source: ShowListsDataStore, destination: inout ShowListDataStore)
+    {
+        let list =  source.lists[ viewController!.listsTableView.indexPathForSelectedRow!.row ]
+        destination.list = list
+    }
+    
 }

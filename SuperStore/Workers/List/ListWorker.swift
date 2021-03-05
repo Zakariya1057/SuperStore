@@ -18,6 +18,10 @@ class ListWorker {
     func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
         listAPI.createList(name: name, identifier: identifier, storeTypeID: storeTypeID, completionHandler: completionHandler)
     }
+
+    func getList(listID: Int, completionHandler: @escaping ( _ list: ListModel?, _ error: String?) -> Void){
+        listAPI.getList(listID: listID, completionHandler: completionHandler)
+    }
     
     func getLists(completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
         listAPI.getLists(completionHandler: completionHandler)
@@ -37,7 +41,9 @@ class ListWorker {
 }
 
 protocol ListRequestProtocol {
+    func getList(listID: Int, completionHandler: @escaping ( _ list: ListModel?, _ error: String?) -> Void)
     func getLists(completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void)
+    
     func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void)
     func updateList(listID: Int, name: String, storeTypeID: Int, completionHandler: @escaping (String?) -> Void)
     func restartList(listID: Int, completionHandler: @escaping (String?) -> Void)

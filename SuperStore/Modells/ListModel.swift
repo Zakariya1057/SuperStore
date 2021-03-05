@@ -14,12 +14,12 @@ struct ListModel {
     var status: ListStatus
     var identifier: String
     var storeTypeID: Int
-    var userID: Int
    
-    var totalPrice: Double
-    var oldTotalPrice: Double?
     var categories: [ListCategoryModel]
     
+    var totalPrice: Double
+    var oldTotalPrice: Double?
+
     var totalItems: Int
     var tickedOffItems: Int
     
@@ -30,15 +30,18 @@ struct ListModel {
 struct ListCategoryModel {
     var id: Int
     var name: String
-    var aisleName: String?
     var items: [ListItemModel]
-    var listID: Int
 }
 
 struct ListItemModel {
     var id: Int
+    var name: String
+    var image: String?
+    var price: Double
+    var quantity: Int
+    var weight: String?
+    var promotion: PromotionModel?
     var tickedOff: Bool
-    var listID: Int
 }
 
 enum ListStatus: String {
