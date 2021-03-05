@@ -36,6 +36,7 @@ struct ListCategoryModel {
 struct ListItemModel {
     var id: Int
     var name: String
+    var productID: Int
     var image: String?
     var price: Double
     var quantity: Int

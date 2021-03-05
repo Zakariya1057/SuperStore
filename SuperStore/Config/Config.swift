@@ -188,20 +188,20 @@ struct Config {
             
             public struct Item {
                 public static var ItemRoute: String {
-                    return Host + "/item"
+                    return "/item"
                 }
                 
                 
                 public static var Create: String {
-                    return "/create"
+                    return ItemRoute + "/create"
                 }
                 
                 public static var Update: String {
-                    return "/update"
+                    return ItemRoute + "/update"
                 }
                 
                 public static var Delete: String {
-                    return "/delete"
+                    return ItemRoute + "/delete"
                 }
             }
         }

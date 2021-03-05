@@ -158,12 +158,20 @@ extension ShowListViewController {
         
         if let item = displayedList?.categories[indexPath.section].items[indexPath.row] {
             cell.item = item
+            cell.itemCheckboxPressed = itemCheckboxPressed
             cell.configureUI()
         }
 
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         
         return cell
+    }
+}
+
+extension ShowListViewController {
+    func itemCheckboxPressed(item: ShowList.DisplayedListItem){
+        let request = ShowList.UpdateListItem.Request(productID: item.productID, quantity: item.quantity, tickedOff: item.tickedOff)
+        interactor?.updateListItem(request: request)
     }
 }
 
@@ -207,6 +215,10 @@ extension ShowListViewController {
     }
     
     func deleteListItemPressed(indexPath: IndexPath){
+
+        let item = displayedList!.categories[indexPath.section].items[indexPath.row]
+        deleteListItem(item: item)
+        
         if displayedList!.categories[indexPath.section].items.count == 1 {
             let indexSet = NSIndexSet(index: indexPath.section)
             displayedList!.categories.remove(at: indexPath.section)
@@ -215,6 +227,11 @@ extension ShowListViewController {
             displayedList!.categories[indexPath.section].items.remove(at: indexPath.row)
             itemsTableView.deleteRows(at: [indexPath], with: .left)
         }
+    }
+    
+    func deleteListItem(item: ShowList.DisplayedListItem){
+        let request = ShowList.DeleteListItem.Request(productID: item.productID)
+        interactor?.deleteListItem(request: request)
     }
 }
 

@@ -21,7 +21,8 @@ enum ShowList
 
     struct DisplayedListItem {
         var name: String
-        var quantity: String
+        var productID: Int
+        var quantity: Int
         var totalPrice: String
         var tickedOff: Bool
     }
@@ -50,9 +51,49 @@ enum ShowList
         
         struct ViewModel
         {
-//            var list: ListModel?
             var displayedList: DisplayedList?
             var error: String?
         }
     }
+    
+    enum UpdateListItem
+    {
+        struct Request
+        {
+            var productID: Int
+            var quantity: Int
+            var tickedOff: Bool
+        }
+        
+        struct Response
+        {
+            var list: ListModel?
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var displayedList: DisplayedList?
+            var error: String?
+        }
+    }
+
+    enum DeleteListItem
+    {
+        struct Request
+        {
+            var productID: Int
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
+
 }

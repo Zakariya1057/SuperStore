@@ -64,8 +64,8 @@ extension ShowListPresenter {
     private func createDisplayedItems(items: [ListItemModel], currency: String) -> [ShowList.DisplayedListItem] {
         return items.map { (item: ListItemModel) in
             return ShowList.DisplayedListItem(
-                name: item.name,
-                quantity: String(item.quantity),
+                name: item.name, productID: item.productID,
+                quantity: item.quantity,
                 totalPrice: formatPrice(price: item.price, currency: currency),
                 tickedOff: item.tickedOff
             )

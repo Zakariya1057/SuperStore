@@ -91,6 +91,7 @@ struct ListItemData: Decodable {
         return ListItemModel(
             id: id,
             name: name,
+            productID: product_id,
             image: large_image,
             price: price,
             quantity: quantity,

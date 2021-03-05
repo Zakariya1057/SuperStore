@@ -15,6 +15,9 @@ import UIKit
 protocol ShowListBusinessLogic
 {
     func getList(request: ShowList.GetList.Request)
+    func updateListItem(request: ShowList.UpdateListItem.Request)
+    func deleteListItem(request: ShowList.DeleteListItem.Request)
+    
     var list: ListModel! { get set }
 }
 
@@ -26,14 +29,42 @@ protocol ShowListDataStore
 class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
 {
     var presenter: ShowListPresentationLogic?
+    
     var listWorker: ListWorker = ListWorker(listAPI: ListAPI())
+    var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
+    
     var list: ListModel!
     
     func getList(request: ShowList.GetList.Request)
     {
         listWorker.getList(listID: list.id) { (list: ListModel?, error: String?) in
+            
+            if list != nil {
+                self.list = list
+            }
+            
             let response = ShowList.GetList.Response(list: list, error: error)
             self.presenter?.presentList(response: response)
+        }
+    }
+    
+    func updateListItem(request: ShowList.UpdateListItem.Request){
+        let listID: Int = list.id
+        let productID: Int = request.productID
+        let quantity: Int = request.quantity
+        let tickedOff = request.tickedOff
+        
+        listItemWorker.updateItem(listID: listID, productID: productID, quantity: quantity, tickedOff: tickedOff) { (error: String?) in
+            
+        }
+    }
+    
+    func deleteListItem(request: ShowList.DeleteListItem.Request){
+        let listID: Int = list.id
+        let productID: Int = request.productID
+        
+        listItemWorker.deleteItem(listID: listID, productID: productID) { (error: String?) in
+            
         }
     }
 }

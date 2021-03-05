@@ -10,75 +10,7 @@ import UIKit
 
 class ListItemCell: UITableViewCell {
     
-    //    var tickedOff:Bool = false
-    //
-    //    @IBOutlet weak var totalLabel: UILabel!
-    //    @IBOutlet weak var nameLabel: UILabel!
-    //    @IBOutlet var nameView: UIView!
-    //    @IBOutlet weak var tickBoxButton: UIButton!
-    //
-    ////    var listManager: ListManager = ListManager()
-    //
-    //    var loadingViews: [UIView] {
-    //        return [nameLabel,tickBoxButton,totalLabel]
-    //    }
-    //
-    //    var item: ListItemModel!
-    //
-    ////    var delegate: PriceChangeDelegate?
-    //
-    //    override func awakeFromNib() {
-    //        super.awakeFromNib()
-    //    }
-    //
-    //    func configureUI(){
-    //
-    //        stopLoading()
-    //
-    //        var name: String = item.name
-    //
-    //        if item.weight != nil {
-    //            name += " (\(item.weight!))"
-    //        }
-    //
-    //        nameLabel.attributedText =
-    //            NSMutableAttributedString()
-    //                .bold(String(item.quantity))
-    //                .normal(" x " + name)
-    //
-    //        tickedOff = item.tickedOff
-    //        showCheckBox()
-    //        showPriceTotal()
-    //
-    //    }
-    //
-    //    @IBAction func checkBoxPressed(_ sender: UIButton) {
-    //        tickedOff = !tickedOff
-    ////        product!.tickedOff = tickedOff
-    ////        delegate!.productChanged(product!)
-    //
-    //        showCheckBox()
-    //    }
-    //
-    //    func setQuantity(_ quantity:Int){
-    ////        product?.quantity = quantity
-    //        showPriceTotal()
-    //    }
-    //
-    //    func showPriceTotal(){
-    ////        let totalText = "£" + String(format: "%.2f", listManager.calculateProductPrice(product!))
-    ////        totalLabel.text = "\(totalText)"
-    //    }
-    //
-    //    func showCheckBox(){
-    //        if !tickedOff {
-    //            tickBoxButton.tintColor = .label
-    //            tickBoxButton.setImage(UIImage(systemName: "square"), for: .normal)
-    //        } else {
-    //            tickBoxButton.tintColor = UIColor(named: "LogoBlue")
-    //            tickBoxButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
-    //        }
-    //    }
+    var itemCheckboxPressed: ((ShowList.DisplayedListItem) -> Void)? = nil
     
     @IBOutlet var checkBoxButton: UIButton!
     
@@ -106,6 +38,11 @@ class ListItemCell: UITableViewCell {
     
     @IBAction func checkBoxButtonPressed(_ sender: UIButton) {
         item.tickedOff = !item.tickedOff
+        
+        if let itemCheckboxPressed = itemCheckboxPressed {
+            itemCheckboxPressed(item)
+        }
+        
         showCheckBox()
     }
     
