@@ -52,10 +52,8 @@ class EditListItemInteractor: EditListItemBusinessLogic, EditListItemDataStore
     }
     func updateQuantity(request: EditListItem.UpdateQuantity.Request){
         let quantity = request.quantity
-        let price = listItem.price
-        let promotion = listItem.promotion
         
-        let newPrice = listPriceWorker.calculateItemPrice(price: price, quantity: quantity, promotion: promotion)
+        let newPrice =  listPriceWorker.calculateItemPrice(listItem: listItem)
 
         listItem.quantity = quantity
         listItem.totalPrice = newPrice

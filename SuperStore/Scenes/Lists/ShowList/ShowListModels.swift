@@ -36,6 +36,11 @@ enum ShowList
         var totalPrice: String
     }
     
+    struct DisplayedListPrice {
+        var totalPrice: String
+        var oldTotalPrice: String?
+    }
+    
     enum GetList
     {
         struct Request
@@ -67,14 +72,30 @@ enum ShowList
         
         struct Response
         {
-            var list: ListModel?
             var error: String?
         }
         
         struct ViewModel
         {
-            var displayedList: DisplayedList?
             var error: String?
+        }
+    }
+    
+    enum UpdateListTotal
+    {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var totalPrice: Double
+            var oldTotalPrice: Double?
+        }
+        
+        struct ViewModel
+        {
+            var displayedPrice: DisplayedListPrice
         }
     }
 

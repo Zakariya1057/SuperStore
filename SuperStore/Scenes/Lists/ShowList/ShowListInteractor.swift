@@ -17,6 +17,7 @@ protocol ShowListBusinessLogic
     func getList(request: ShowList.GetList.Request)
     func updateListItem(request: ShowList.UpdateListItem.Request)
     func deleteListItem(request: ShowList.DeleteListItem.Request)
+    func updateListTotal(request: ShowList.UpdateListTotal.Request)
     
     var list: ListModel! { get set }
 }
@@ -32,6 +33,7 @@ class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
     
     var listWorker: ListWorker = ListWorker(listAPI: ListAPI())
     var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
+    var listPriceWorker: ListPriceWorker = ListPriceWorker()
     
     var list: ListModel!
     
@@ -55,7 +57,8 @@ class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
         let tickedOff = request.tickedOff
         
         listItemWorker.updateItem(listID: listID, productID: productID, quantity: quantity, tickedOff: tickedOff) { (error: String?) in
-            
+            let response = ShowList.UpdateListItem.Response(error: error)
+            self.presenter?.presentListUpdated(response: response)
         }
     }
     
@@ -64,7 +67,26 @@ class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
         let productID: Int = request.productID
         
         listItemWorker.deleteItem(listID: listID, productID: productID) { (error: String?) in
-            
+            let response = ShowList.DeleteListItem.Response(error: error)
+            self.presenter?.presentListDeleted(response: response)
         }
+    }
+    
+    func updateListTotal(request: ShowList.UpdateListTotal.Request){
+        let (totalPrice, oldTotalPrice) = self.calculateTotalListPrice()
+        let response = ShowList.UpdateListTotal.Response(totalPrice: totalPrice, oldTotalPrice: oldTotalPrice)
+        self.presenter?.presentListUpdateTotal(response: response)
+    }
+}
+
+extension ShowListInteractor {
+    private func calculateTotalListPrice() -> (Double, Double?){
+        var items: [ListItemModel] = []
+        
+        for category in list.categories {
+            items.append(contentsOf: category.items)
+        }
+        
+        return listPriceWorker.calculateListPrice(items: items)
     }
 }

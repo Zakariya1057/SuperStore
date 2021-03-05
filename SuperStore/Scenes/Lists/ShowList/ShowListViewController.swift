@@ -15,10 +15,14 @@ import UIKit
 protocol ShowListDisplayLogic: class
 {
     func displayList(viewModel: ShowList.GetList.ViewModel)
+    func displayListItemDeleted(viewModel: ShowList.DeleteListItem.ViewModel)
+    func displayListItemUpdated(viewModel: ShowList.UpdateListItem.ViewModel)
+    func displayListUpdateTotal(viewModel: ShowList.UpdateListTotal.ViewModel)
 }
 
 class ShowListViewController: UIViewController, ShowListDisplayLogic
 {
+
     var interactor: ShowListBusinessLogic?
     var router: (NSObjectProtocol & ShowListRoutingLogic & ShowListDataPassing)?
     
@@ -113,8 +117,39 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
         }
     }
 
+    func displayListItemDeleted(viewModel: ShowList.DeleteListItem.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "Delete Error", error: error)
+        }
+    }
+    
+    func displayListItemUpdated(viewModel: ShowList.UpdateListItem.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "Update Error", error: error)
+        }
+    }
+    
+    func displayListUpdateTotal(viewModel: ShowList.UpdateListTotal.ViewModel) {
+        let displayedListPrice = viewModel.displayedPrice
+        
+        displayedList!.totalPrice = displayedListPrice.totalPrice
+        displayedList!.oldTotalPrice = displayedListPrice.oldTotalPrice
+        
+        displayPrice()
+    }
+
+}
+
+extension ShowListViewController {
     func displayPrice(){
         totalPriceLabel.text = displayedList!.totalPrice
+        
+        if displayedList!.oldTotalPrice == nil {
+            oldPriceView.alpha = 0
+        } else {
+            oldPriceView.alpha = 1
+            oldPriceLabel.text = displayedList!.oldTotalPrice!
+        }
     }
     
     func displayListName(){
@@ -219,12 +254,19 @@ extension ShowListViewController {
         
         if displayedList!.categories[indexPath.section].items.count == 1 {
             let indexSet = NSIndexSet(index: indexPath.section)
+            
+            interactor!.list.categories.remove(at: indexPath.section)
             displayedList!.categories.remove(at: indexPath.section)
+            
             itemsTableView.deleteSections(indexSet as IndexSet, with: .left)
         } else {
+            interactor!.list.categories[indexPath.section].items.remove(at: indexPath.row)
             displayedList!.categories[indexPath.section].items.remove(at: indexPath.row)
+            
             itemsTableView.deleteRows(at: [indexPath], with: .left)
         }
+        
+        interactor?.updateListTotal(request: ShowList.UpdateListTotal.Request())
     }
     
     func deleteListItem(item: ShowList.DisplayedListItem){

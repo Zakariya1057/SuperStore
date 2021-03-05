@@ -15,11 +15,17 @@ import UIKit
 protocol ShowListPresentationLogic
 {
     func presentList(response: ShowList.GetList.Response)
+    func presentListUpdated(response: ShowList.UpdateListItem.Response)
+    func presentListDeleted(response: ShowList.DeleteListItem.Response)
+    func presentListUpdateTotal(response: ShowList.UpdateListTotal.Response)
 }
 
 class ShowListPresenter: ShowListPresentationLogic
 {
+
     weak var viewController: ShowListDisplayLogic?
+    
+    let currency: String = "£"
     
     // MARK: Do something
     
@@ -28,8 +34,7 @@ class ShowListPresenter: ShowListPresentationLogic
         var displayedList: ShowList.DisplayedList?
         
         if let list = response.list {
-            
-            let currency: String = "£"
+
             let categories = createDisplayedCategories(categories: list.categories, currency: currency)
             
             displayedList = ShowList.DisplayedList(
@@ -43,6 +48,32 @@ class ShowListPresenter: ShowListPresentationLogic
         
         let viewModel = ShowList.GetList.ViewModel(displayedList: displayedList, error: response.error)
         viewController?.displayList(viewModel: viewModel)
+    }
+    
+    
+    func presentListUpdated(response: ShowList.UpdateListItem.Response) {
+        let viewModel = ShowList.UpdateListItem.ViewModel(error: response.error)
+        viewController?.displayListItemUpdated(viewModel: viewModel)
+    }
+    
+    func presentListDeleted(response: ShowList.DeleteListItem.Response) {
+        let viewModel = ShowList.DeleteListItem.ViewModel(error: response.error)
+        viewController?.displayListItemDeleted(viewModel: viewModel)
+    }
+
+    func presentListUpdateTotal(response: ShowList.UpdateListTotal.Response) {
+        let displayedListPrice = createListPriceDisplay(totalPrice: response.totalPrice, oldTotalPrice: response.oldTotalPrice)
+        let viewModel = ShowList.UpdateListTotal.ViewModel(displayedPrice: displayedListPrice)
+        viewController?.displayListUpdateTotal(viewModel: viewModel)
+    }
+}
+
+extension ShowListPresenter {
+    func createListPriceDisplay(totalPrice: Double, oldTotalPrice: Double?) -> ShowList.DisplayedListPrice {
+        let totalPrice: String = formatPrice(price: totalPrice, currency: currency)
+        let oldTotalPrice: String? = oldTotalPrice == nil ? nil : formatPrice(price: oldTotalPrice!, currency: currency)
+        
+        return ShowList.DisplayedListPrice(totalPrice: totalPrice, oldTotalPrice: oldTotalPrice)
     }
 }
 
