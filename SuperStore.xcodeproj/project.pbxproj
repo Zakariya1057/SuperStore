@@ -17,6 +17,13 @@
 		2C0D44902537827D0046E2B0 /* GroceryHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D448F2537827D0046E2B0 /* GroceryHistory.swift */; };
 		2C0E93C8250F975D00378C97 /* FavouritesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E93C7250F975D00378C97 /* FavouritesHandler.swift */; };
 		2C0E93CA250F987700378C97 /* FavouritesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E93C9250F987700378C97 /* FavouritesData.swift */; };
+		2C14299725F2C282007D1EB7 /* EditListItemPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14299125F2C282007D1EB7 /* EditListItemPresenter.swift */; };
+		2C14299825F2C282007D1EB7 /* EditListItemWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14299225F2C282007D1EB7 /* EditListItemWorker.swift */; };
+		2C14299925F2C282007D1EB7 /* EditListItemRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14299325F2C282007D1EB7 /* EditListItemRouter.swift */; };
+		2C14299A25F2C282007D1EB7 /* EditListItemModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14299425F2C282007D1EB7 /* EditListItemModels.swift */; };
+		2C14299B25F2C282007D1EB7 /* EditListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14299525F2C282007D1EB7 /* EditListItemViewController.swift */; };
+		2C14299C25F2C282007D1EB7 /* EditListItemInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14299625F2C282007D1EB7 /* EditListItemInteractor.swift */; };
+		2C1429A025F2C7F1007D1EB7 /* ListPriceWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14299F25F2C7F1007D1EB7 /* ListPriceWorker.swift */; };
 		2C1476BF25E7ADAC000E8F66 /* UserAuthWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476BE25E7ADAC000E8F66 /* UserAuthWorker.swift */; };
 		2C1476C325E7AE15000E8F66 /* UserAuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476C225E7AE15000E8F66 /* UserAuthAPI.swift */; };
 		2C1476C925E7AEEB000E8F66 /* UserValidationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476C825E7AEEB000E8F66 /* UserValidationWorker.swift */; };
@@ -424,6 +431,13 @@
 		2C0D448F2537827D0046E2B0 /* GroceryHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryHistory.swift; sourceTree = "<group>"; };
 		2C0E93C7250F975D00378C97 /* FavouritesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesHandler.swift; sourceTree = "<group>"; };
 		2C0E93C9250F987700378C97 /* FavouritesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesData.swift; sourceTree = "<group>"; };
+		2C14299125F2C282007D1EB7 /* EditListItemPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListItemPresenter.swift; sourceTree = "<group>"; };
+		2C14299225F2C282007D1EB7 /* EditListItemWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListItemWorker.swift; sourceTree = "<group>"; };
+		2C14299325F2C282007D1EB7 /* EditListItemRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListItemRouter.swift; sourceTree = "<group>"; };
+		2C14299425F2C282007D1EB7 /* EditListItemModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListItemModels.swift; sourceTree = "<group>"; };
+		2C14299525F2C282007D1EB7 /* EditListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListItemViewController.swift; sourceTree = "<group>"; };
+		2C14299625F2C282007D1EB7 /* EditListItemInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListItemInteractor.swift; sourceTree = "<group>"; };
+		2C14299F25F2C7F1007D1EB7 /* ListPriceWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPriceWorker.swift; sourceTree = "<group>"; };
 		2C1476BE25E7ADAC000E8F66 /* UserAuthWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthWorker.swift; sourceTree = "<group>"; };
 		2C1476C225E7AE15000E8F66 /* UserAuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthAPI.swift; sourceTree = "<group>"; };
 		2C1476C825E7AEEB000E8F66 /* UserValidationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserValidationWorker.swift; sourceTree = "<group>"; };
@@ -831,6 +845,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C14298F25F2C262007D1EB7 /* EditListItem */ = {
+			isa = PBXGroup;
+			children = (
+				2C14299125F2C282007D1EB7 /* EditListItemPresenter.swift */,
+				2C14299225F2C282007D1EB7 /* EditListItemWorker.swift */,
+				2C14299325F2C282007D1EB7 /* EditListItemRouter.swift */,
+				2C14299425F2C282007D1EB7 /* EditListItemModels.swift */,
+				2C14299525F2C282007D1EB7 /* EditListItemViewController.swift */,
+				2C14299625F2C282007D1EB7 /* EditListItemInteractor.swift */,
+			);
+			path = EditListItem;
+			sourceTree = "<group>";
+		};
 		2C1476EB25E82BDC000E8F66 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
@@ -1685,6 +1712,7 @@
 				2CB911C025F11B7900A8FC66 /* CreateList */,
 				2CB9119325F11A6900A8FC66 /* EditList */,
 				2CB9119225F11A5800A8FC66 /* ShowList */,
+				2C14298F25F2C262007D1EB7 /* EditListItem */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -1748,6 +1776,7 @@
 				2CB911DA25F11D5000A8FC66 /* ListWorker.swift */,
 				2C6146A825F149FA00D92CB7 /* ListItemWorker.swift */,
 				2C6146B225F14D0500D92CB7 /* ListValidationWorker.swift */,
+				2C14299F25F2C7F1007D1EB7 /* ListPriceWorker.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -2126,6 +2155,7 @@
 				2C1476E625E82B91000E8F66 /* UserData.swift in Sources */,
 				2C7082B725F0155700345147 /* UserSettingAPI.swift in Sources */,
 				2CF239B525094A7F00D4CE91 /* ListsHandler.swift in Sources */,
+				2C14299825F2C282007D1EB7 /* EditListItemWorker.swift in Sources */,
 				2C55F9D225EE3C2E007BBFA8 /* SearchModel.swift in Sources */,
 				2CB9119B25F11B4500A8FC66 /* ShowListsWorker.swift in Sources */,
 				2C85FEB5251FB04700CECBD5 /* HomeSectionHeader.swift in Sources */,
@@ -2151,6 +2181,7 @@
 				2CB911E525F11DDD00A8FC66 /* ListAPI.swift in Sources */,
 				2C55FA0E25EE4BF9007BBFA8 /* ShowProductResultsWorker.swift in Sources */,
 				2C70823825F009D000345147 /* SendEmailInteractor.swift in Sources */,
+				2C14299725F2C282007D1EB7 /* EditListItemPresenter.swift in Sources */,
 				2C70827825F0100700345147 /* EditPasswordViewController.swift in Sources */,
 				2C2BC81C25EBBF2E0038882B /* ShowDescriptionPresenter.swift in Sources */,
 				2CDA612B25ED0FC700FD3956 /* ReviewModel.swift in Sources */,
@@ -2165,6 +2196,7 @@
 				2CDA613125ED157500FD3956 /* FontHighlight.swift in Sources */,
 				2C48E7CD25EAA064001A5702 /* UserModel.swift in Sources */,
 				2C55FA2625EE4C7C007BBFA8 /* ShowStoreResultsViewController.swift in Sources */,
+				2C1429A025F2C7F1007D1EB7 /* ListPriceWorker.swift in Sources */,
 				2CB15C7124D18F4100461AFE /* SearchStoresTableViewController.swift in Sources */,
 				2CA11F7925EF8E5C0054AE19 /* ParentCategoriesViewController.swift in Sources */,
 				2C2BC80525EBBF040038882B /* ShowReviewsInteractor.swift in Sources */,
@@ -2172,6 +2204,7 @@
 				2CB51C332548BD2A0090F558 /* AppleUserSession.swift in Sources */,
 				2C70829D25F013A700345147 /* EditNameWorker.swift in Sources */,
 				2C266E0324D70C3900C66EA5 /* 1SearchModel.swift in Sources */,
+				2C14299B25F2C282007D1EB7 /* EditListItemViewController.swift in Sources */,
 				2C6F621E25134F9B00179C2B /* 1RegisterViewController.swift in Sources */,
 				2C21C3A424F6F2A300D90B4B /* RequestHandler.swift in Sources */,
 				2C1567D324C8B34700B8DCB5 /* SearchViewController.swift in Sources */,
@@ -2210,6 +2243,7 @@
 				2C70828B25F0108500345147 /* SettingsViewController.swift in Sources */,
 				2CA11F0225EE860C0054AE19 /* RefineModel.swift in Sources */,
 				2C55F9C725EE3B62007BBFA8 /* ShowSuggestionsRouter.swift in Sources */,
+				2C14299C25F2C282007D1EB7 /* EditListItemInteractor.swift in Sources */,
 				2CDFB63925EA6359002CE30D /* HomeViewController.swift in Sources */,
 				2C7082B325F0146100345147 /* UserSettingsWorker.swift in Sources */,
 				2C70825725F00B6A00345147 /* SendEmailPresenter.swift in Sources */,
@@ -2296,6 +2330,7 @@
 				2CB2CFE025EAB15A00A00F7F /* ReviewData.swift in Sources */,
 				2CAC06102530E26700561509 /* 1HomeData.swift in Sources */,
 				2CA11F6725EF8E490054AE19 /* GrandParentCategoriesPresenter.swift in Sources */,
+				2C14299A25F2C282007D1EB7 /* EditListItemModels.swift in Sources */,
 				2CBF020925EFDE0C003AD5DF /* GroceryTableRouter.swift in Sources */,
 				2C2BC82D25EBBFD40038882B /* ShowPromotionPresenter.swift in Sources */,
 				2C21C3AE24F8187100D90B4B /* GroceryCategoriesModel.swift in Sources */,
@@ -2397,6 +2432,7 @@
 				2CCE48D825177FE700AE3BCA /* 1SearchData.swift in Sources */,
 				2C362F8C253A062D000846C0 /* ListManager.swift in Sources */,
 				2CA11EEC25EE84620054AE19 /* ShowRefineRouter.swift in Sources */,
+				2C14299925F2C282007D1EB7 /* EditListItemRouter.swift in Sources */,
 				2CAB6A3E251F958500774B89 /* 1UserData.swift in Sources */,
 				2C5B5C6C24D084FD0095C920 /* SearchResultsViewController.swift in Sources */,
 				2C7082AC25F013B200345147 /* EditEmailRouter.swift in Sources */,

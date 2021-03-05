@@ -66,8 +66,7 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
     
     // MARK: View lifecycle
     
-    override func viewDidLoad()
-    {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidLoad()
         
         setupListSectionView()
@@ -169,9 +168,8 @@ extension ShowListViewController {
 }
 
 extension ShowListViewController {
-    func itemCheckboxPressed(item: ShowList.DisplayedListItem){
-        let request = ShowList.UpdateListItem.Request(productID: item.productID, quantity: item.quantity, tickedOff: item.tickedOff)
-        interactor?.updateListItem(request: request)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        router?.routeToEditListItem(segue: nil)
     }
 }
 
@@ -234,6 +232,15 @@ extension ShowListViewController {
         interactor?.deleteListItem(request: request)
     }
 }
+
+
+extension ShowListViewController {
+    func itemCheckboxPressed(item: ShowList.DisplayedListItem){
+        let request = ShowList.UpdateListItem.Request(productID: item.productID, quantity: item.quantity, tickedOff: item.tickedOff)
+        interactor?.updateListItem(request: request)
+    }
+}
+
 
 extension ShowListViewController {
     @IBAction func addButtonPressed(_ sender: Any) {

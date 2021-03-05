@@ -27,6 +27,7 @@ class ListItemCell: UITableViewCell {
     func configureUI(){
         displayName()
         priceLabel.text = item.totalPrice
+        showCheckBox()
     }
     
     func displayName(){

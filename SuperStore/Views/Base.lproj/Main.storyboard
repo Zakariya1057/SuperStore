@@ -3665,7 +3665,7 @@
                         <outlet property="oldPriceLabel" destination="fDU-jH-eI0" id="VqX-oN-5Qt"/>
                         <outlet property="oldPriceView" destination="RRF-rW-snD" id="Hnd-eG-0MO"/>
                         <outlet property="totalPriceLabel" destination="Edw-55-B6I" id="6n5-pT-vxZ"/>
-                        <segue destination="drm-5h-vaN" kind="show" identifier="list_item_details" id="rLW-h4-Ioe"/>
+                        <segue destination="drm-5h-vaN" kind="show" id="u5y-cf-GhV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YwH-j3-aWg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3948,10 +3948,10 @@
             </objects>
             <point key="canvasLocation" x="9628.9855072463779" y="135.9375"/>
         </scene>
-        <!--List Item View Controller-->
+        <!--Edit List Item View Controller-->
         <scene sceneID="tVV-Ai-wGL">
             <objects>
-                <viewController id="drm-5h-vaN" customClass="ListItemViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditListItemViewController" id="drm-5h-vaN" customClass="EditListItemViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MKz-Vs-D7G">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3970,7 +3970,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="deleteButtonPressed:" destination="drm-5h-vaN" eventType="touchUpInside" id="40m-Po-jSy"/>
+                                            <action selector="deleteButtonPressed:" destination="drm-5h-vaN" eventType="touchUpInside" id="zgm-ex-Ph2"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -3996,7 +3996,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="promotionPressed:" destination="drm-5h-vaN" eventType="touchUpInside" id="0KZ-PT-GMP"/>
+                                            <action selector="promotionButtonPressed:" destination="drm-5h-vaN" eventType="touchUpInside" id="bKE-zf-pOJ"/>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="PiX-Ug-792">
@@ -4057,7 +4057,7 @@
                                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Cnn-1a-Ihb">
                                                                                 <rect key="frame" x="22" y="4" width="94" height="32"/>
                                                                                 <connections>
-                                                                                    <action selector="quantityChanged:" destination="drm-5h-vaN" eventType="valueChanged" id="ixp-0w-OoC"/>
+                                                                                    <action selector="quantityStepperPressed:" destination="drm-5h-vaN" eventType="valueChanged" id="Uor-dz-SnJ"/>
                                                                                 </connections>
                                                                             </stepper>
                                                                         </subviews>
@@ -4099,18 +4099,17 @@
                     <navigationItem key="navigationItem" id="oqH-Ah-cWR">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Hap-Ko-lHK">
                             <connections>
-                                <action selector="saveButtonPressed:" destination="drm-5h-vaN" id="ZaE-jk-5bW"/>
+                                <action selector="saveButtonPressed:" destination="drm-5h-vaN" id="DRE-5n-maG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="priceLabel" destination="t4T-6O-6ud" id="koh-Kl-dNp"/>
-                        <outlet property="productImageView" destination="GVp-Je-z66" id="K0a-Ek-yDK"/>
-                        <outlet property="productNameLabel" destination="gw2-31-h4B" id="rzv-2b-xPJ"/>
-                        <outlet property="productTotalLabel" destination="t4T-6O-6ud" id="hvv-Hu-ZBu"/>
-                        <outlet property="promotionButton" destination="7ne-tu-j5D" id="gSw-8L-6Zz"/>
-                        <outlet property="quantityLabel" destination="yvC-ay-TJ1" id="LuH-qf-swg"/>
-                        <outlet property="stepper" destination="Cnn-1a-Ihb" id="U9x-o0-hxj"/>
+                        <outlet property="itemImageView" destination="GVp-Je-z66" id="eNy-cE-ho9"/>
+                        <outlet property="nameLabel" destination="gw2-31-h4B" id="Fl8-ZL-aqd"/>
+                        <outlet property="priceLabel" destination="t4T-6O-6ud" id="7Zs-4M-gRy"/>
+                        <outlet property="promotionButton" destination="7ne-tu-j5D" id="L6x-8T-TNB"/>
+                        <outlet property="quantityLabel" destination="yvC-ay-TJ1" id="NNK-vt-2NP"/>
+                        <outlet property="quantityStepper" destination="Cnn-1a-Ihb" id="6zY-he-64f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u1f-BC-suW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -4893,6 +4892,14 @@
             <point key="canvasLocation" x="5030" y="2750"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="XU3-Nd-wUM">
+            <size key="intrinsicContentSize" width="255" height="35"/>
+        </designable>
+        <designable name="tFG-eX-umO">
+            <size key="intrinsicContentSize" width="209.849609375" height="26"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="YcT-k9-dml"/>
     </inferredMetricsTieBreakers>

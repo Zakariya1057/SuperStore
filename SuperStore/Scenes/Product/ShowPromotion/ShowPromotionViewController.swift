@@ -65,6 +65,16 @@ class ShowPromotionViewController: UIViewController, ShowPromotionDisplayLogic
     }
     
     // MARK: View lifecycle
+
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        setupTableView()
+        getPromotion()
+    }
+    
+    var refreshControl = UIRefreshControl()
+    
     @IBOutlet var promotionTableView: UITableView!
     
     @IBOutlet var promotionExpiryView: UIView!
@@ -72,13 +82,6 @@ class ShowPromotionViewController: UIViewController, ShowPromotionDisplayLogic
     
     @IBOutlet var promotionNameLabel: UILabel!
     @IBOutlet var promotionNameView: UIView!
-    
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        setupTableView()
-        getPromotion()
-    }
     
     var selectedProductID: Int?
     
@@ -93,6 +96,8 @@ class ShowPromotionViewController: UIViewController, ShowPromotionDisplayLogic
     
     func displayPromotion(viewModel: ShowPromotion.GetPromotion.ViewModel)
     {
+        refreshControl.endRefreshing()
+        
         if let error = viewModel.error {
             showError(title: "Promotion Error", error: error)
         } else {
@@ -109,6 +114,7 @@ extension ShowPromotionViewController: UITableViewDelegate, UITableViewDataSourc
         promotionTableView.dataSource = self
         
         registerReviewsTableView()
+        setupRefreshControl()
     }
     
     func registerReviewsTableView(){
@@ -147,5 +153,17 @@ extension ShowPromotionViewController {
             selectedProductID = promotion.products[indexPath.row].id
             router?.routeToShowProduct(segue: nil)
         }
+    }
+}
+
+extension ShowPromotionViewController {
+    func setupRefreshControl(){
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
+        refreshControl.addTarget(self, action: #selector(refreshPromotion), for: .valueChanged)
+        promotionTableView.addSubview(refreshControl)
+    }
+    
+    @objc func refreshPromotion(){
+        getPromotion()
     }
 }

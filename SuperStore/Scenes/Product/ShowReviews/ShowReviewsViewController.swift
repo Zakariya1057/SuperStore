@@ -73,7 +73,7 @@ class ShowReviewsViewController: UIViewController, ShowReviewsDisplayLogic
         getReviews()
     }
     
-    // MARK: Do something
+    var refreshControl = UIRefreshControl()
     
     var loading: Bool = false
     
@@ -88,6 +88,8 @@ class ShowReviewsViewController: UIViewController, ShowReviewsDisplayLogic
     
     func displayReviews(viewModel: ShowReviews.GetReviews.ViewModel)
     {
+        refreshControl.endRefreshing()
+        
         if let error = viewModel.error {
             showError(title: "Review Error", error: error)
         } else {
@@ -132,5 +134,19 @@ extension ShowReviewsViewController: UITableViewDataSource, UITableViewDelegate 
         
         reviewsTableView.delegate = self
         reviewsTableView.dataSource = self
+        
+        setupRefreshControl()
+    }
+}
+
+extension ShowReviewsViewController {
+    func setupRefreshControl(){
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
+        refreshControl.addTarget(self, action: #selector(refreshReviews), for: .valueChanged)
+        reviewsTableView.addSubview(refreshControl)
+    }
+    
+    @objc func refreshReviews(){
+        getReviews()
     }
 }

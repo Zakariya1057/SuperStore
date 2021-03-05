@@ -14,47 +14,49 @@ import UIKit
 
 @objc protocol ShowListRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToEditListItem(segue: UIStoryboardSegue?)
 }
 
 protocol ShowListDataPassing
 {
-  var dataStore: ShowListDataStore? { get }
+    var dataStore: ShowListDataStore? { get }
 }
 
 class ShowListRouter: NSObject, ShowListRoutingLogic, ShowListDataPassing
 {
-  weak var viewController: ShowListViewController?
-  var dataStore: ShowListDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: ShowListViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: ShowListDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    weak var viewController: ShowListViewController?
+    var dataStore: ShowListDataStore?
+    
+    // MARK: Routing
+    
+    func routeToEditListItem(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! EditListItemViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToEditListItem(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditListItemViewController") as! EditListItemViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToEditListItem(source: dataStore!, destination: &destinationDS)
+            navigateToEditListItem(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    // MARK: Navigation
+    
+    func navigateToEditListItem(source: ShowListViewController, destination: EditListItemViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    // MARK: Passing data
+    
+    func passDataToEditListItem(source: ShowListDataStore, destination: inout EditListItemDataStore)
+    {
+        let selectedIndex = viewController!.itemsTableView.indexPathForSelectedRow!
+        destination.listItem = source.list.categories[selectedIndex.section].items[selectedIndex.row]
+        destination.listID = source.list.id
+    }
 }

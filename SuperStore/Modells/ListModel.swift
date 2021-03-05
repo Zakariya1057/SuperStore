@@ -39,6 +39,7 @@ struct ListItemModel {
     var productID: Int
     var image: String?
     var price: Double
+    var totalPrice: Double
     var quantity: Int
     var weight: String?
     var promotion: PromotionModel?
