@@ -41,22 +41,15 @@ class EditListItemInteractor: EditListItemBusinessLogic, EditListItemDataStore
     
     func getListItem(request: EditListItem.GetListItem.Request)
     {
-        listItem.promotion = PromotionModel(id: 1, name: "Promotion Name", quantity: 1, price: 1, forQuantity: 1)
-        
         let response = EditListItem.GetListItem.Response(listItem: listItem)
         presenter?.presentListItem(response: response)
     }
     
-    func saveListItem(){
-        
-    }
     func updateQuantity(request: EditListItem.UpdateQuantity.Request){
         let quantity = request.quantity
-        
-        let newPrice =  listPriceWorker.calculateItemPrice(listItem: listItem)
 
         listItem.quantity = quantity
-        listItem.totalPrice = newPrice
+        listItem.totalPrice = listPriceWorker.calculateItemPrice(listItem: listItem)
         
         let response = EditListItem.GetListItem.Response(listItem: listItem)
         presenter?.presentListItem(response: response)
