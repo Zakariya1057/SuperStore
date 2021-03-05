@@ -40,15 +40,14 @@ struct ListData: Decodable {
             listStatus = .notStarted
         }
         
-        let dateFormat: DateFormatter = DateFormatter()
-        dateFormat.dateFormat = "dd MMMM Y"
-        
-        let createdDate: Date = dateFormat.date(from: created_at)!
+//        let dateFormat: DateFormatter = DateFormatter()
+//        dateFormat.dateFormat = "dd MMMM Y"
+//
+//        let createdDate: Date = dateFormat.date(from: created_at)!
         
         return ListModel(
             id: id,
             name: name,
-            createdAt: createdDate,
             status: listStatus,
             identifier: identifier,
             storeTypeID: store_type_id,
@@ -57,7 +56,8 @@ struct ListData: Decodable {
             oldTotalPrice: old_total_price,
             categories: [],
             totalItems: total_items,
-            tickedOffItems: ticked_off_items
+            tickedOffItems: ticked_off_items,
+            createdAt: created_at
         )
     }
 }

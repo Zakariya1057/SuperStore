@@ -84,7 +84,6 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
     
     var refreshControl = UIRefreshControl()
     
-    
     func getFavourites()
     {
         let request = Favourites.GetFavourites.Request()

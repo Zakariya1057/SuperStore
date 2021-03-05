@@ -148,6 +148,7 @@ class EditReviewViewController: UIViewController, EditReviewDisplayLogic
         stopLoading()
         
         if let error = viewModel.error {
+            navigationItem.rightBarButtonItem?.isEnabled = true
             showError(title: "Review Error", error: error)
         } else {
             router?.routeToProduct(segue: nil)
@@ -184,6 +185,7 @@ extension EditReviewViewController {
 extension EditReviewViewController {
     @IBAction func saveBarButtonPressed(_ sender: Any) {
         startLoading()
+        navigationItem.rightBarButtonItem?.isEnabled = false
         submitForm()
     }
     

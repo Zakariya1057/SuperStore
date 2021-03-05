@@ -11,16 +11,21 @@ import Foundation
 struct ListModel {
     var id: Int
     var name: String
-    var createdAt: Date
     var status: ListStatus
     var identifier: String
-    var storeTypeID: Int?
+    var storeTypeID: Int
     var userID: Int
+   
     var totalPrice: Double
     var oldTotalPrice: Double?
     var categories: [ListCategoryModel]
+    
     var totalItems: Int
-    var tickedOffItems: Int}
+    var tickedOffItems: Int
+    
+    var createdAt: String
+}
+
 
 struct ListCategoryModel {
     var id: Int

@@ -479,7 +479,7 @@
         <!--Edit List-->
         <scene sceneID="9Sj-Wc-0oL">
             <objects>
-                <viewController id="ZAM-DR-R8x" customClass="ListEditViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditListViewController" id="ZAM-DR-R8x" customClass="EditListViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MEJ-hv-M2u">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -521,8 +521,7 @@
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="addListPressed:" destination="TZX-nf-fZJ" eventType="touchUpInside" id="f4X-Vn-5RA"/>
-                                                                    <action selector="restart_list_pressed:" destination="ZAM-DR-R8x" eventType="touchUpInside" id="V0y-Yj-GAX"/>
+                                                                    <action selector="restartButtonPressed:" destination="ZAM-DR-R8x" eventType="touchUpInside" id="10g-f2-q0o"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -532,29 +531,6 @@
                                                             <constraint firstItem="52b-ql-kaz" firstAttribute="leading" secondItem="8RL-a5-6KC" secondAttribute="leading" id="CcJ-By-RMw"/>
                                                             <constraint firstItem="52b-ql-kaz" firstAttribute="centerY" secondItem="8RL-a5-6KC" secondAttribute="centerY" id="q3w-pI-PVn"/>
                                                             <constraint firstAttribute="height" constant="60" id="v6X-61-nIU"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <view hidden="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0e0-4M-Tmh">
-                                                        <rect key="frame" x="0.0" y="0.0" width="384" height="60"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P5L-PH-ABY">
-                                                                <rect key="frame" x="0.0" y="10" width="384" height="40"/>
-                                                                <color key="backgroundColor" red="0.16964994903478398" green="0.35245279810770064" blue="0.6030914622213227" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="16T-Qu-uQL"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                                <state key="normal" title="Change Store">
-                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                            </button>
-                                                        </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                        <constraints>
-                                                            <constraint firstItem="P5L-PH-ABY" firstAttribute="leading" secondItem="0e0-4M-Tmh" secondAttribute="leading" id="J3G-8f-bq7"/>
-                                                            <constraint firstAttribute="trailing" secondItem="P5L-PH-ABY" secondAttribute="trailing" id="Nek-9A-D5f"/>
-                                                            <constraint firstAttribute="height" constant="60" id="hzl-en-Jww"/>
-                                                            <constraint firstItem="P5L-PH-ABY" firstAttribute="centerY" secondItem="0e0-4M-Tmh" secondAttribute="centerY" id="o9B-pk-Hwk"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -578,25 +554,24 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Edit List" id="Gac-k6-Msq">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Osd-jI-vZ6">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="Ic2-pf-J86">
                             <connections>
-                                <action selector="save_pressed:" destination="ZAM-DR-R8x" id="Tja-Vt-Xi9"/>
+                                <action selector="saveButtonPressed:" destination="ZAM-DR-R8x" id="H1h-jC-Nac"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="createBarItem" destination="Osd-jI-vZ6" id="0ap-HG-BJV"/>
-                        <outlet property="nameField" destination="tbg-yR-nei" id="jy8-Rq-hff"/>
+                        <outlet property="nameTextField" destination="tbg-yR-nei" id="lmV-qY-ths"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fmE-0K-zpS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3019" y="-2507"/>
         </scene>
-        <!--New List-->
+        <!--Create List-->
         <scene sceneID="aWZ-HL-IXk">
             <objects>
-                <viewController storyboardIdentifier="newListViewController" id="TZX-nf-fZJ" customClass="NewListViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateListViewController" id="TZX-nf-fZJ" customClass="CreateListViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="whq-1M-e28">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -634,16 +609,15 @@
                             <constraint firstItem="nci-1y-Ttl" firstAttribute="leading" secondItem="BRF-Dj-GYY" secondAttribute="leading" constant="15" id="ukf-4l-o0H"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="New List" id="ExA-MU-gG2">
+                    <navigationItem key="navigationItem" title="Create List" id="ExA-MU-gG2">
                         <barButtonItem key="rightBarButtonItem" title="Create" id="9Me-CJ-xhh">
                             <connections>
-                                <action selector="created_pressed:" destination="TZX-nf-fZJ" id="kXn-xt-Vsh"/>
+                                <action selector="createButtonPressed:" destination="TZX-nf-fZJ" id="NC2-3s-v5a"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="createBarItem" destination="9Me-CJ-xhh" id="eHn-Gg-9ef"/>
-                        <outlet property="nameField" destination="pNe-cx-ynG" id="MVg-2X-6fV"/>
+                        <outlet property="nameTextField" destination="pNe-cx-ynG" id="468-LH-9S9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d5I-Ue-WUj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -653,7 +627,7 @@
         <!--Lists-->
         <scene sceneID="Qgd-t1-vzd">
             <objects>
-                <viewController storyboardIdentifier="listsViewController" id="uEy-Pu-MzC" customClass="ListsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowListsViewController" id="uEy-Pu-MzC" customClass="ShowListsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mbc-2D-gdr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -685,16 +659,16 @@
                     <navigationItem key="navigationItem" title="Lists" id="R8r-GU-eMS">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Til-hC-UnH">
                             <connections>
-                                <action selector="addPressed:" destination="uEy-Pu-MzC" id="QRo-60-CbA"/>
+                                <action selector="addButtonPressed:" destination="uEy-Pu-MzC" id="Gkd-Qj-b4m"/>
+                                <segue destination="TZX-nf-fZJ" kind="show" id="X6X-D0-tAX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="listsTableView" destination="4f9-RG-A9C" id="lX2-jB-f2i"/>
-                        <outlet property="searchBar" destination="CVn-Hd-pPy" id="9EF-nW-7ee"/>
+                        <outlet property="listsTableView" destination="4f9-RG-A9C" id="tMJ-k6-jnA"/>
+                        <outlet property="searchBar" destination="CVn-Hd-pPy" id="tst-Z1-y9s"/>
                         <segue destination="Lah-o7-jyx" kind="show" identifier="list_to_items" id="IsU-Le-ax2"/>
-                        <segue destination="TZX-nf-fZJ" kind="show" identifier="list_to_new_list" id="wxq-Om-BOo"/>
-                        <segue destination="ZAM-DR-R8x" kind="show" identifier="list_to_edit" id="inP-hw-UvE"/>
+                        <segue destination="ZAM-DR-R8x" kind="show" identifier="EditList" id="xPQ-AN-X0l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dia-K3-Vy1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

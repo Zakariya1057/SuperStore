@@ -155,6 +155,38 @@ struct Config {
             }
         }
         
+        public struct List {
+            public static var ListRoute: String {
+                return Host + "/list"
+            }
+            
+            
+            
+            public static var Create: String {
+                return ListRoute + "/create"
+            }
+            
+            public static var All: String {
+                return ListRoute + "/"
+            }
+            
+            public static var Show: String {
+                return ListRoute + "/"
+            }
+
+            public static var Restart: String {
+                return ListRoute + "/restart"
+            }
+
+            public static var Update: String {
+                return ListRoute + "/update"
+            }
+            
+            public static var Delete: String {
+                return ListRoute + "/delete"
+            }
+        }
+        
         public static var Store: String {
             return Host + "/store"
         }
