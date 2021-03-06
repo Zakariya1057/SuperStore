@@ -3466,10 +3466,10 @@
             </objects>
             <point key="canvasLocation" x="8392.753623188406" y="133.92857142857142"/>
         </scene>
-        <!--Search Stores View Controller-->
+        <!--Show Store Results View Controller-->
         <scene sceneID="fhA-Mo-adI">
             <objects>
-                <viewController id="WbC-sT-OPu" customClass="SearchStoresViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowStoreResultsViewController" id="WbC-sT-OPu" customClass="ShowStoreResultsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gnW-yJ-Xl9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3514,8 +3514,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="sOu-GF-B3k"/>
                     <connections>
-                        <outlet property="mapTableView" destination="rZi-NX-NXS" id="XV0-Xa-wAC"/>
-                        <outlet property="storesTableView" destination="Gyf-aM-zrZ" id="5nS-Bs-Gne"/>
+                        <outlet property="mapTableView" destination="rZi-NX-NXS" id="ovn-hU-5ZR"/>
+                        <outlet property="storesTableView" destination="Gyf-aM-zrZ" id="scg-0v-G1a"/>
                         <segue destination="hXH-95-1lc" kind="show" identifier="storeResultsToStore" id="OlX-E6-gV2"/>
                     </connections>
                 </viewController>

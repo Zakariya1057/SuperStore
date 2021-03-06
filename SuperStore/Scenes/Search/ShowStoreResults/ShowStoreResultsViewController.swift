@@ -14,76 +14,147 @@ import UIKit
 
 protocol ShowStoreResultsDisplayLogic: class
 {
-  func displaySomething(viewModel: ShowStoreResults.Something.ViewModel)
+    func displayStores(viewModel: ShowStoreResults.GetStores.ViewModel)
 }
 
 class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayLogic
 {
-  var interactor: ShowStoreResultsBusinessLogic?
-  var router: (NSObjectProtocol & ShowStoreResultsRoutingLogic & ShowStoreResultsDataPassing)?
-
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = ShowStoreResultsInteractor()
-    let presenter = ShowStoreResultsPresenter()
-    let router = ShowStoreResultsRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    var interactor: ShowStoreResultsBusinessLogic?
+    var router: (NSObjectProtocol & ShowStoreResultsRoutingLogic & ShowStoreResultsDataPassing)?
+    
+    // MARK: Object lifecycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-  }
-  
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = ShowStoreResults.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: ShowStoreResults.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup()
+    {
+        let viewController = self
+        let interactor = ShowStoreResultsInteractor()
+        let presenter = ShowStoreResultsPresenter()
+        let router = ShowStoreResultsRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        setupStoresTableView()
+        getStores()
+    }
+    
+    var selectedStoreID: Int = 1
+    var stores: [StoreModel] = []
+    
+    @IBOutlet var mapTableView: UITableView!
+    @IBOutlet var storesTableView: UITableView!
+    
+    func getStores()
+    {
+        let request = ShowStoreResults.GetStores.Request()
+        interactor?.getStores(request: request)
+    }
+    
+    func displayStores(viewModel: ShowStoreResults.GetStores.ViewModel)
+    {
+        if let error = viewModel.error {
+            showError(title: "Store Errors", error: error)
+        } else {
+            stores = viewModel.stores
+            
+            mapTableView.reloadData()
+            storesTableView.reloadData()
+        }
+    }
+}
+
+extension ShowStoreResultsViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableView == mapTableView ? 1 : stores.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return tableView == storesTableView ? configureStoreResultsCell(indexPath: indexPath) : configureStoreMapCell(indexPath: indexPath)
+    }
+    
+    func configureStoreMapCell(indexPath: IndexPath) -> StoresMapCell {
+        let cell = mapTableView.dequeueReusableCell(withIdentifier: "StoresMapCell", for: indexPath) as! StoresMapCell
+        
+        cell.storePressed = storePressed
+        cell.stores = stores
+        cell.configureUI()
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        
+        return cell
+    }
+    
+    func configureStoreResultsCell(indexPath: IndexPath) -> StoreResultCell {
+        let cell = storesTableView.dequeueReusableCell(withIdentifier: "StoreResultCell", for: indexPath) as! StoreResultCell
+        
+        cell.store = stores[indexPath.row]
+        cell.configureUI()
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        
+        return cell
+    }
+    
+    func setupStoresTableView(){
+        let storeResultCellNib = UINib(nibName: "StoreResultCell", bundle: nil)
+        storesTableView.register(storeResultCellNib, forCellReuseIdentifier: "StoreResultCell")
+        
+        let storesMapcellNib = UINib(nibName: "StoresMapCell", bundle: nil)
+        mapTableView.register(storesMapcellNib, forCellReuseIdentifier: "StoresMapCell")
+        
+        storesTableView.delegate = self
+        storesTableView.dataSource = self
+        
+        mapTableView.delegate = self
+        mapTableView.dataSource = self
+    }
+}
+
+extension ShowStoreResultsViewController {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == storesTableView {
+            let store = stores[indexPath.row]
+            storePressed(storeID: store.id)
+        }
+    }
+    
+    func storePressed(storeID: Int){
+        selectedStoreID = storeID
+        router?.routeToStore(segue: nil)
+    }
 }

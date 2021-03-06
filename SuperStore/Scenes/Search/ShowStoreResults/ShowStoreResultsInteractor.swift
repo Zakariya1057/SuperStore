@@ -14,28 +14,30 @@ import UIKit
 
 protocol ShowStoreResultsBusinessLogic
 {
-  func doSomething(request: ShowStoreResults.Something.Request)
+    func getStores(request: ShowStoreResults.GetStores.Request)
 }
 
 protocol ShowStoreResultsDataStore
 {
-  //var name: String { get set }
+    var stores: [StoreModel] { get set }
+    var storeTypeID: Int { get set }
 }
 
 class ShowStoreResultsInteractor: ShowStoreResultsBusinessLogic, ShowStoreResultsDataStore
 {
-  var presenter: ShowStoreResultsPresentationLogic?
-  var worker: ShowStoreResultsWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: ShowStoreResults.Something.Request)
-  {
-    worker = ShowStoreResultsWorker()
-    worker?.doSomeWork()
+    var presenter: ShowStoreResultsPresentationLogic?
+    var storeWorker: StoreWorker = StoreWorker(storeAPI: StoreAPI())
     
-    let response = ShowStoreResults.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var storeTypeID: Int = 1
+    var stores: [StoreModel] = []
+    
+    // MARK: Do something
+    
+    func getStores(request: ShowStoreResults.GetStores.Request)
+    {
+        storeWorker.getStores(storeTypeID: storeTypeID) { (stores: [StoreModel], error: String?) in
+            let response = ShowStoreResults.GetStores.Response(stores: stores, error: error)
+            self.presenter?.presentStores(response: response)
+        }
+    }
 }

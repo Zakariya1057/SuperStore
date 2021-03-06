@@ -28,12 +28,7 @@ protocol UserLocationDeniedDelegate {
     func showError(_ error: String)
 }
 
-//protocol StoreSelectedDelegate {
-//    func storePressed(storeID: Int)
-//    func storeSelected(storeID: Int)
-//}
-
-class StoresMapCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegate, MKMapViewDelegate {
+class StoresMapCell: UITableViewCell, CustomElementCell, CLLocationManagerDelegate, MKMapViewDelegate {
     
     var model: StoresMapElement!
     var stores: [StoreModel] = []
@@ -49,7 +44,7 @@ class StoresMapCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegat
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
     
-    var store_details: [String: Int] = [:]
+    var storesDetails: [String: Int] = [:]
     
     func configure(withModel elementModel: CustomElementModel) {
         guard let model = elementModel as? StoresMapElement else {
@@ -108,7 +103,7 @@ class StoresMapCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegat
             
             self.mapView.addAnnotation(annotation)
             
-            store_details[store.name] = store.id
+            storesDetails[store.name] = store.id
         }
         
     }
@@ -152,7 +147,7 @@ class StoresMapCell: UITableViewCell,CustomElementCell, CLLocationManagerDelegat
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let title = view.annotation?.title!
         
-        if let selectedStoreID = store_details[title!] {
+        if let selectedStoreID = storesDetails[title!] {
             self.selectedStoreID = selectedStoreID
         }
     }

@@ -13,6 +13,25 @@ class StoreAPI: StoreRequestProtocol {
     let jsonDecoder = JSONDecoder()
     let requestWorker: RequestProtocol = RequestWorker()
     
+    func getStores(storeTypeID: Int, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void){
+        let url: String = Config.Route.Search.Results.Store + "/" + String(storeTypeID)
+        
+        requestWorker.get(url: url) { (response: () throws -> Data) in
+            do {
+                let data = try response()
+                let storesDataResponse =  try self.jsonDecoder.decode(StoresDataResponse.self, from: data)
+                let stores = self.createStoreModels(storesDataResponse: storesDataResponse)
+                completionHandler(stores, nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler([], errorMessage)
+            } catch {
+                print(error)
+                completionHandler([], "Failed to get store. Decoding error, please try again later.")
+            }
+        }
+    }
+    
     func getStore(storeID: Int, completionHandler: @escaping (StoreModel?, String?) -> Void) {
         let url: String = Config.Route.Store + "/" + String(storeID)
         
@@ -37,5 +56,12 @@ extension StoreAPI {
     private func createStoreModel(storeDataResponse: StoreDataResponse) -> StoreModel {
         let storeData = storeDataResponse.data
         return storeData.getStoreModel()
+    }
+    
+    private func createStoreModels(storesDataResponse: StoresDataResponse) -> [StoreModel] {
+        let storesData: [StoreData] = storesDataResponse.data
+        return storesData.map { (store: StoreData) in
+            return store.getStoreModel()
+        }
     }
 }

@@ -16,16 +16,20 @@ enum ShowStoreResults
 {
   // MARK: Use cases
   
-  enum Something
+  enum GetStores
   {
     struct Request
     {
     }
     struct Response
     {
+        var stores: [StoreModel]
+        var error: String?
     }
     struct ViewModel
     {
+        var stores: [StoreModel]
+        var error: String?
     }
   }
 }

@@ -15,6 +15,7 @@ import UIKit
 @objc protocol ShowSuggestionsRoutingLogic
 {
     func routeToShowProductResults(segue: UIStoryboardSegue?)
+    func routeToShowStoreResults(segue: UIStoryboardSegue?)
 }
 
 protocol ShowSuggestionsDataPassing
@@ -28,6 +29,21 @@ class ShowSuggestionsRouter: NSObject, ShowSuggestionsRoutingLogic, ShowSuggesti
     var dataStore: ShowSuggestionsDataStore?
     
     // MARK: Routing
+    
+    func routeToShowStoreResults(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowStoreResultsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowStoreResults(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowStoreResultsViewController") as! ShowStoreResultsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowStoreResults(source: dataStore!, destination: &destinationDS)
+            navigateToShowStoreResults(source: viewController!, destination: destinationVC)
+        }
+    }
     
     func routeToShowProductResults(segue: UIStoryboardSegue?)
     {
@@ -46,15 +62,28 @@ class ShowSuggestionsRouter: NSObject, ShowSuggestionsRoutingLogic, ShowSuggesti
     
     // MARK: Navigation
     
+    func navigateToShowStoreResults(source: ShowSuggestionsViewController, destination: ShowStoreResultsViewController)
+    {
+      source.show(destination, sender: nil)
+    }
+    
     func navigateToShowProductResults(source: ShowSuggestionsViewController, destination: ShowProductResultsViewController)
     {
       source.show(destination, sender: nil)
     }
     
+    
     // MARK: Passing data
+    
+    func passDataToShowStoreResults(source: ShowSuggestionsDataStore, destination: inout ShowStoreResultsDataStore)
+    {
+        destination.storeTypeID = viewController!.selectedStoreTypeID!
+    }
     
     func passDataToShowProductResults(source: ShowSuggestionsDataStore, destination: inout ShowProductResultsDataStore)
     {
         destination.productQueryModel = source.productQueryModel!
     }
+    
+
 }

@@ -14,47 +14,47 @@ import UIKit
 
 @objc protocol ShowStoreResultsRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToStore(segue: UIStoryboardSegue?)
 }
 
 protocol ShowStoreResultsDataPassing
 {
-  var dataStore: ShowStoreResultsDataStore? { get }
+    var dataStore: ShowStoreResultsDataStore? { get }
 }
 
 class ShowStoreResultsRouter: NSObject, ShowStoreResultsRoutingLogic, ShowStoreResultsDataPassing
 {
-  weak var viewController: ShowStoreResultsViewController?
-  var dataStore: ShowStoreResultsDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: ShowStoreResultsViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: ShowStoreResultsDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    weak var viewController: ShowStoreResultsViewController?
+    var dataStore: ShowStoreResultsDataStore?
+    
+    // MARK: Routing
+    
+    func routeToStore(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! StoreViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToStore(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "StoreViewController") as! StoreViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToStore(source: dataStore!, destination: &destinationDS)
+            navigateToStore(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    // MARK: Navigation
+    
+    func navigateToStore(source: ShowStoreResultsViewController, destination: StoreViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    // MARK: Passing data
+    
+    func passDataToStore(source: ShowStoreResultsDataStore, destination: inout StoreDataStore)
+    {
+        destination.storeID = viewController!.selectedStoreID
+    }
 }

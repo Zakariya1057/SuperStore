@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct StoresDataResponse: Decodable {
+    var data: [StoreData]
+}
+
 struct StoreDataResponse: Decodable {
     var data: StoreData
 }

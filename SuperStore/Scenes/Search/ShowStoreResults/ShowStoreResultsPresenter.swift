@@ -14,7 +14,7 @@ import UIKit
 
 protocol ShowStoreResultsPresentationLogic
 {
-  func presentSomething(response: ShowStoreResults.Something.Response)
+  func presentStores(response: ShowStoreResults.GetStores.Response)
 }
 
 class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
@@ -23,9 +23,9 @@ class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: ShowStoreResults.Something.Response)
+  func presentStores(response: ShowStoreResults.GetStores.Response)
   {
-    let viewModel = ShowStoreResults.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    let viewModel = ShowStoreResults.GetStores.ViewModel(stores: response.stores, error: response.error)
+    viewController?.displayStores(viewModel: viewModel)
   }
 }

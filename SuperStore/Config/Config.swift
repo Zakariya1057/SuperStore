@@ -134,7 +134,7 @@ struct Config {
                 }
                 
                 public static var Store: String {
-                    return SearchResultsRoute + "/store"
+                    return SearchResultsRoute + "/stores"
                 }
             }
 

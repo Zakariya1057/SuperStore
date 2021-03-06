@@ -75,9 +75,12 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
         
         setupListSectionView()
         setupListItemTableView()
-        
-        displayListName()
         getList()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        displayListName()
     }
     
     var refreshControl = UIRefreshControl()
