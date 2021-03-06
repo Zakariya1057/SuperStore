@@ -67,13 +67,11 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
     
     // MARK: View lifecycle
     
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupFavouriteTableView()
         getFavourites()
     }
-    
     
     // MARK: IB Outlets
     @IBOutlet var favouriteTableView: UITableView!

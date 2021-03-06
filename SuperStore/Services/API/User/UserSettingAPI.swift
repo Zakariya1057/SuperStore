@@ -26,7 +26,7 @@ class UserSettingAPI: UserRequestProtocol {
     
     func updateName(name: String, completionHandler: @escaping (String?) -> Void) {
         let updateData: Parameters = ["name": name]
-        requestUpdateUser(data: updateData, type: "password", completionHandler: completionHandler)
+        requestUpdateUser(data: updateData, type: "name", completionHandler: completionHandler)
     }
     
     func updateEmail(email: String, completionHandler: @escaping (String?) -> Void) {

@@ -22,18 +22,31 @@ class UserSettingsWorker {
     }
     
     func updateNotifications(sendNotifications: Bool, completionHandler: @escaping (_ error: String?) -> Void){
-        userStore.updateNotifications(sendNotifications: sendNotifications)
-        userAPI.updateNotifications(sendNotifications: sendNotifications, completionHandler: completionHandler)
+        userAPI.updateNotifications(sendNotifications: sendNotifications, completionHandler: { (error: String?) in
+            if error == nil {
+                self.userStore.updateNotifications(sendNotifications: sendNotifications)
+            }
+            completionHandler(error)
+        })
     }
     
     func updateName(name: String, completionHandler: @escaping (_ error: String?) -> Void){
-        userStore.updateName(name: name)
-        userAPI.updateName(name: name, completionHandler: completionHandler)
+        userAPI.updateName(name: name, completionHandler: { (error: String?) in
+            if error == nil {
+                self.userStore.updateName(name: name)
+            }
+            completionHandler(error)
+        })
     }
     
     func updateEmail(email: String, completionHandler: @escaping (_ error: String?) -> Void){
-        userStore.updateEmail(email: email)
-        userAPI.updateEmail(email: email, completionHandler: completionHandler)
+        userAPI.updateEmail(email: email, completionHandler: { (error: String?) in
+            if error == nil {
+                self.userStore.updateEmail(email: email)
+            }
+            
+            completionHandler(error)
+        })
     }
     
     func updatePassword(currentPassword: String, newPassword: String, confirmPassword: String, completionHandler: @escaping (_ error: String?) -> Void){
