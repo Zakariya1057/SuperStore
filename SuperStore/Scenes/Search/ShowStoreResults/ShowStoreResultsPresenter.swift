@@ -14,18 +14,38 @@ import UIKit
 
 protocol ShowStoreResultsPresentationLogic
 {
-  func presentStores(response: ShowStoreResults.GetStores.Response)
+    func presentStores(response: ShowStoreResults.GetStores.Response)
 }
 
 class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
 {
-  weak var viewController: ShowStoreResultsDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentStores(response: ShowStoreResults.GetStores.Response)
-  {
-    let viewModel = ShowStoreResults.GetStores.ViewModel(stores: response.stores, error: response.error)
-    viewController?.displayStores(viewModel: viewModel)
-  }
+    weak var viewController: ShowStoreResultsDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentStores(response: ShowStoreResults.GetStores.Response)
+    {
+        var displayedStores: [ShowStoreResults.DisplayedStore] = []
+        
+        for store in response.stores {
+            var openingHour: String = "Closed"
+            
+            if let storeHour = store.openingHours.first, storeHour.opensAt != nil {
+                openingHour = "\(storeHour.opensAt!.lowercased()) - \(storeHour.closesAt!.lowercased())"
+            }
+            
+            displayedStores.append(
+                ShowStoreResults.DisplayedStore(
+                    name: store.name,
+                    logo: store.logo,
+                    address: store.address,
+                    openingHour: openingHour
+                )
+            )
+        }
+        
+        
+        let viewModel = ShowStoreResults.GetStores.ViewModel(displayedStore: displayedStores, stores: response.stores, error: response.error)
+        viewController?.displayStores(viewModel: viewModel)
+    }
 }

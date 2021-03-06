@@ -32,14 +32,6 @@ class ProductElement: CustomElementModel {
 class GroceryProductElement: ProductElement { }
 class MonitoringProductElement: ProductElement { }
 
-protocol ScrollCollectionDelegate {
-    func didScroll(to position: CGFloat, title: String)
-}
-
-protocol ProductDelegate {
-    func showProduct(productID:Int)
-}
-
 class ProductsCell: UITableViewCell,CustomElementCell {
     
     @IBOutlet weak var productCollection: UICollectionView!
@@ -74,17 +66,12 @@ class ProductsCell: UITableViewCell,CustomElementCell {
             productCollection.contentOffset.x = CGFloat(0)
         }
 
-        configureUI()
-    }
-    
-    func configureUI() {
-//        titleLabel.text = self.model.title
     }
     
     override func awakeFromNib() {
         
         super.awakeFromNib()
-        productCollection.register(UINib(nibName: K.Collections.ProductCollectionCell.CellNibName, bundle: nil), forCellWithReuseIdentifier: K.Collections.ProductCollectionCell.CellIdentifier)
+        productCollection.register(UINib(nibName: "ProductCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ProductCollectionViewCell")
         
         productCollection.delegate = self
         productCollection.dataSource = self
@@ -108,7 +95,7 @@ extension ProductsCell: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = productCollection.dequeueReusableCell(withReuseIdentifier: K.Collections.ProductCollectionCell.CellIdentifier, for: indexPath) as! ProductCollectionViewCell
+        let cell = productCollection.dequeueReusableCell(withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
         
         cell.loading = loading
         

@@ -12,6 +12,7 @@ struct StoreModel {
     var id: Int
     var name: String
     var logo: String
+    var address: String
     var openingHours: [OpeningHoursModel]
     var location: LocationModel
     var facilities: [String]

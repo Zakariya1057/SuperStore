@@ -27,10 +27,15 @@ struct StoreData: Decodable {
     var facilities: [FacilityData]?
     
     func getStoreModel() -> StoreModel {
+
+        let addressItems = [location.address_line1, location.address_line2, location.address_line3, location.city ]
+        let address = addressItems.compactMap { $0 }.joined(separator: ", ")
+        
         return StoreModel(
             id: id,
             name: name,
             logo: small_logo,
+            address: address,
             openingHours: opening_hours?.map({ (hour: OpeningHoursData) in
                 return hour.getOpeningHourModel(storeID: id)
             }) ?? [],

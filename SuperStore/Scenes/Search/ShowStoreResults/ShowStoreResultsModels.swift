@@ -14,22 +14,30 @@ import UIKit
 
 enum ShowStoreResults
 {
-  // MARK: Use cases
-  
-  enum GetStores
-  {
-    struct Request
-    {
+    // MARK: Use cases
+    
+    struct DisplayedStore {
+        var name: String
+        var logo: String
+        var address: String
+        var openingHour: String
     }
-    struct Response
+    
+    enum GetStores
     {
-        var stores: [StoreModel]
-        var error: String?
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var stores: [StoreModel]
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var displayedStore: [DisplayedStore]
+            var stores: [StoreModel]
+            var error: String?
+        }
     }
-    struct ViewModel
-    {
-        var stores: [StoreModel]
-        var error: String?
-    }
-  }
 }

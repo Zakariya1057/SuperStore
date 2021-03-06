@@ -74,6 +74,8 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
     }
     
     var selectedStoreID: Int = 1
+    
+    var displayedStores: [ShowStoreResults.DisplayedStore] = []
     var stores: [StoreModel] = []
     
     @IBOutlet var mapTableView: UITableView!
@@ -91,6 +93,7 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
             showError(title: "Store Errors", error: error)
         } else {
             stores = viewModel.stores
+            displayedStores = viewModel.displayedStore
             
             mapTableView.reloadData()
             storesTableView.reloadData()
@@ -110,6 +113,7 @@ extension ShowStoreResultsViewController: UITableViewDataSource, UITableViewDele
     func configureStoreMapCell(indexPath: IndexPath) -> StoresMapCell {
         let cell = mapTableView.dequeueReusableCell(withIdentifier: "StoresMapCell", for: indexPath) as! StoresMapCell
         
+        cell.storeHighlighted = storeMapHighlighted
         cell.storePressed = storePressed
         cell.stores = stores
         cell.configureUI()
@@ -122,7 +126,7 @@ extension ShowStoreResultsViewController: UITableViewDataSource, UITableViewDele
     func configureStoreResultsCell(indexPath: IndexPath) -> StoreResultCell {
         let cell = storesTableView.dequeueReusableCell(withIdentifier: "StoreResultCell", for: indexPath) as! StoreResultCell
         
-        cell.store = stores[indexPath.row]
+        cell.store = displayedStores[indexPath.row]
         cell.configureUI()
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -142,6 +146,19 @@ extension ShowStoreResultsViewController: UITableViewDataSource, UITableViewDele
         
         mapTableView.delegate = self
         mapTableView.dataSource = self
+    }
+}
+
+extension ShowStoreResultsViewController {
+    func storeMapHighlighted(storeID: Int){
+        // Find the row with the selected store.
+        // Scroll To that Row
+        for (index, store) in stores.enumerated() {
+            if store.id == storeID {
+                storesTableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .top, animated: true)
+                break
+            }
+        }
     }
 }
 

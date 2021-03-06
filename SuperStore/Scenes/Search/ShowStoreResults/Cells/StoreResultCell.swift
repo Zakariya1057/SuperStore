@@ -76,7 +76,7 @@ class StoreResultCell: UITableViewCell {
 //        }
 //    }
     
-    var store: StoreModel!
+    var store: ShowStoreResults.DisplayedStore!
     
     @IBOutlet var logoImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
@@ -86,6 +86,8 @@ class StoreResultCell: UITableViewCell {
     func configureUI(){
         nameLabel.text = store.name
         logoImageView.downloaded(from: store.logo)
+        addressLabel.text = store.address
+        openingHoursLabel.text = store.openingHour
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -36,6 +36,8 @@ struct ListData: Decodable {
     func getListModel() -> ListModel {
         var listStatus: ListStatus = .notStarted
         
+        let status = self.status.lowercased()
+        
         if status.contains("completed"){
             listStatus = .completed
         } else if status.contains("in progress"){

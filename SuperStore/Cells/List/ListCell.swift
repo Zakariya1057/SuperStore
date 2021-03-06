@@ -38,11 +38,6 @@ class ListCell: UITableViewCell {
             listNameLabel.text = list!.name
             totalLabel.text = "£\( String(format:"%.2f", list!.totalPrice))"
 
-
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "dd MMMM Y"
-//            let date = dateFormatter.string(from: list!.createdAt)
-
             createdLabel.text = list!.createdAt
 
             if status == .notStarted {

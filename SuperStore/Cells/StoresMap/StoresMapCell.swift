@@ -34,6 +34,7 @@ class StoresMapCell: UITableViewCell, CustomElementCell, CLLocationManagerDelega
     var stores: [StoreModel] = []
     
     var storePressed: ((Int) -> Void)? = nil
+    var storeHighlighted: ((Int) -> Void)? = nil
     
     var selectedStoreID: Int?
     
@@ -149,7 +150,12 @@ class StoresMapCell: UITableViewCell, CustomElementCell, CLLocationManagerDelega
         
         if let selectedStoreID = storesDetails[title!] {
             self.selectedStoreID = selectedStoreID
+            
+            if let storeHighlighted = storeHighlighted {
+                storeHighlighted(selectedStoreID)
+            }
         }
+
     }
     
     @objc func showStore(){

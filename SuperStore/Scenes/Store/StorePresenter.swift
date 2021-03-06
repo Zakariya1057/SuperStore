@@ -29,12 +29,16 @@ class StorePresenter: StorePresentationLogic
         var displayedStore: Store.GetStore.ViewModel.DisplayedStore?
         
         if let store = response.store {
-            let address = createAddress(location: store.location)
             let openingHours = createOpeningHours(openingHour: store.openingHours)
             let facilities = createFacilites(facilites: store.facilities)
             
-            
-            displayedStore = Store.GetStore.ViewModel.DisplayedStore(name: store.name, logo: store.logo, address: address, openingHours: openingHours, facilites: facilities)
+            displayedStore = Store.GetStore.ViewModel.DisplayedStore(
+                name: store.name,
+                logo: store.logo,
+                address: store.address,
+                openingHours: openingHours,
+                facilites: facilities
+            )
         }
         
         let viewModel = Store.GetStore.ViewModel(displayedStore: displayedStore, error: response.error)
@@ -46,19 +50,6 @@ extension StorePresenter {
     private func createFacilites(facilites: [String]) -> Store.GetStore.ViewModel.DisplayFacilites {
         let displayFacilities = Store.GetStore.ViewModel.DisplayFacilites()
         
-        //        let facilityData: [String: String] = [
-        //            "baby changing": "carPark",
-        //            "car park": "carPark",
-        //            "cash machine": "carPark",
-        //            "customer wc": "carPark",
-        //            "disabled facilities": "carPark",
-        //            "electric vehicle charging point": "carPark",
-        //            "helium balloons": "carPark",
-        //            "paypoint": "carPark",
-        //            "petrol filling station": "carPark",
-        //            "photo cake machines": "carPark",
-        //        ]
-        //
         for facility in facilites {
             switch facility.lowercased() {
             
@@ -97,18 +88,18 @@ extension StorePresenter {
         return displayFacilities
     }
     
-    private func createAddress(location: LocationModel) -> String {
-        let addressItems = [location.addressLine1, location.addressLine2, location.addressLine3, location.city ]
-        return addressItems.compactMap { $0 }.joined(separator: ", ")
-    }
-    
     private func createOpeningHours(openingHour: [OpeningHoursModel]) -> [Store.GetStore.ViewModel.DisplayOpeningHour]{
         var displayOpeningHours: [Store.GetStore.ViewModel.DisplayOpeningHour] = []
         
         let dayOfWeek = getDayOfWeek()
         
         for hour in openingHour {
-            let openTimes: String = "\(hour.opensAt!) - \(hour.closesAt!)".lowercased()
+            var openTimes: String = "Closed"
+            
+            if hour.opensAt != nil {
+                openTimes = "\(hour.opensAt!) - \(hour.closesAt!)".lowercased()
+            }
+            
             let today = dayOfWeek == hour.dayOfWeek
             
             let displayOpeningHour = Store.GetStore.ViewModel.DisplayOpeningHour(today: today, hours: openTimes, closedToday: hour.closedToday)

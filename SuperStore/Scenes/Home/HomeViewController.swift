@@ -140,6 +140,9 @@ extension HomeViewController {
                 case is FeaturedProductElement:
                     let featuredElement = element as! FeaturedProductElement
                     featuredElement.products = homeModel.featured
+                case is ListsProgressElement:
+                    let listProgressElement = element as! ListsProgressElement
+                    listProgressElement.lists = homeModel.lists
                     break
                 default:
                     print("Unknown Type Encountered: \(element.type)")

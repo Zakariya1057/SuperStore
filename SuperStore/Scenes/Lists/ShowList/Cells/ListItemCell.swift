@@ -51,7 +51,7 @@ class ListItemCell: UITableViewCell {
 
 extension ListItemCell {
     func showCheckBox(){
-        if item.tickedOff {
+        if !item.tickedOff {
             checkBoxButton.tintColor = .label
             checkBoxButton.setImage(UIImage(systemName: "square"), for: .normal)
         } else {
