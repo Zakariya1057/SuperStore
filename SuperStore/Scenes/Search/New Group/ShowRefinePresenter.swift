@@ -14,18 +14,27 @@ import UIKit
 
 protocol ShowRefinePresentationLogic
 {
-  func presentSomething(response: ShowRefine.Something.Response)
+    func presentSelectedOptions(response: ShowRefine.GetSelectedOptions.Response)
+    func presentSearchRefine(response: ShowRefine.GetSearchRefine.Response)
 }
 
 class ShowRefinePresenter: ShowRefinePresentationLogic
 {
-  weak var viewController: ShowRefineDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: ShowRefine.Something.Response)
-  {
-    let viewModel = ShowRefine.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+    weak var viewController: ShowRefineDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentSelectedOptions(response: ShowRefine.GetSelectedOptions.Response)
+    {
+        let viewModel = ShowRefine.GetSelectedOptions.ViewModel(selectedRefineOptions: response.selectedRefineOptions)
+        viewController?.displaySelectedOptions(viewModel: viewModel)
+    }
+    
+    func presentSearchRefine(response: ShowRefine.GetSearchRefine.Response) {
+        let refineBrands: [RefineBrandOptionModel] = response.searchRefine.brands.compactMap({RefineBrandOptionModel(name: $0, checked: false)})
+        let refineCategories: [RefineCategoryOptionModel] = response.searchRefine.categories.compactMap({RefineCategoryOptionModel(name: $0, checked: false)})
+        
+        let viewModel = ShowRefine.GetSearchRefine.ViewModel(brands: refineBrands, categories: refineCategories)
+        viewController?.displaySearchRefine(viewModel: viewModel)
+    }
 }

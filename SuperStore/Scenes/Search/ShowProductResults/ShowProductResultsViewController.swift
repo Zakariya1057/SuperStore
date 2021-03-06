@@ -74,7 +74,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         getResults()
     }
     
-    // MARK: Do something
+    var refreshControl = UIRefreshControl()
     
     @IBOutlet var totalProductsLabel: UILabel!
     @IBOutlet var productsTableView: UITableView!
@@ -94,8 +94,16 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         interactor?.getResults(request: request)
     }
     
+    func refineResults(){
+        let request = ShowProductResults.GetResults.Request()
+        totalProductsLabel.text = "Refining Search Results"
+        interactor?.getResults(request: request)
+    }
+    
     func displayResults(viewModel: ShowProductResults.GetResults.ViewModel)
     {
+        refreshControl.endRefreshing()
+        
         if let error = viewModel.error {
             showError(title: "Search Error", error: error)
         } else {
@@ -138,14 +146,25 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
         
         productsTableView.delegate = self
         productsTableView.dataSource = self
+        
+        setupRefreshControl()
     }
+    
+    private func setupRefreshControl(){
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
+        refreshControl.addTarget(self, action: #selector(refreshResults), for: .valueChanged)
+        productsTableView.addSubview(refreshControl)
+    }
+    
+    @objc func refreshResults(){
+        getResults()
+    }
+    
 }
 
 
 extension ShowProductResultsViewController {
     @IBAction func doneButtonPressed(_ sender: Any) {
-    }
-    
-    @IBAction func refineButtonPressed(_ sender: Any) {
+        
     }
 }

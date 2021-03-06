@@ -27,6 +27,11 @@ struct PromotionResultsModel {
     var promotion: [PromotionModel]
 }
 
+struct SearchRefine {
+    var brands: [String]
+    var categories: [String]
+}
+
 enum SearchType: String {
     case store
     case product
@@ -34,3 +39,4 @@ enum SearchType: String {
     case childCategory
     case parentCategory
 }
+

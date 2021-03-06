@@ -8,6 +8,6 @@
 
 import UIKit
 
-class HomeSectionHeader: UITableViewHeaderFooterView {
+class SectionHeader: UITableViewHeaderFooterView {
     @IBOutlet weak var headingLabel: UILabel!
 }

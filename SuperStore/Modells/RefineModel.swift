@@ -8,19 +8,60 @@
 
 import Foundation
 
-class RefineGroupModel {
-    var name: String
-    var options: [RefineOptionModel]
+class SelectedRefineOptions {
+    var sort: [RefineSortOptionModel] = []
+    var brand: [RefineBrandOptionModel] = []
+    var category: [RefineCategoryOptionModel] = []
+    var dietary: [RefineDietaryOptionModel] = []
+}
+
+class RefineSearchModel {
+    var sort: RefineSortGroupModel
+    var brand: RefineBrandGroupModel
+    var category: RefineCategoryGroupModel
+    var dietary: RefineDietaryGroupModel
     
-    init(name: String, options: [RefineOptionModel]) {
-        self.name = name
-        self.options = options
+    init(sort: RefineSortGroupModel, brand: RefineBrandGroupModel, category: RefineCategoryGroupModel, dietary: RefineDietaryGroupModel) {
+        self.sort = sort
+        self.brand = brand
+        self.category = category
+        self.dietary = dietary
     }
 }
 
-class RefineSortByModel: RefineGroupModel { }
+class RefineGroupModel {
+    var name: String
+    var selectionType: RefineSelctionType
+    var options: [RefineOptionModel]
+    
+    init(name: String, selectionType: RefineSelctionType, options: [RefineOptionModel]) {
+        self.name = name
+        self.options = options
+        self.selectionType = selectionType
+    }
+}
 
-class RefineOptionModel {
+
+// Sort Model
+class RefineSortGroupModel: RefineGroupModel { }
+
+// Brand Model
+class RefineBrandGroupModel: RefineGroupModel { }
+
+// Category Model
+class RefineCategoryGroupModel: RefineGroupModel { }
+
+// Dietary Model
+class RefineDietaryGroupModel: RefineGroupModel { }
+
+// Selection Type. Multiple Option In Groups
+enum RefineSelctionType {
+    case single
+    case multiple
+}
+
+// Options Within Group
+class RefineOptionModel: Equatable {
     var name: String
     var checked: Bool
     
@@ -28,10 +69,15 @@ class RefineOptionModel {
         self.name = name
         self.checked = checked
     }
+    
+    static func == (lhs: RefineOptionModel, rhs: RefineOptionModel) -> Bool {
+        return
+            lhs.name == rhs.name
+    }
 }
 
-// Sort Model
-class RefineSortModel: RefineOptionModel {
+//MARK: - Sort Option Model
+class RefineSortOptionModel: RefineOptionModel {
     var order: RefineOrderType
     var type: RefineSortType
     
@@ -40,23 +86,67 @@ class RefineSortModel: RefineOptionModel {
         self.type = type
         super.init(name: name, checked: checked)
     }
+    
+    static func == (lhs: RefineSortOptionModel, rhs: RefineSortOptionModel) -> Bool {
+        return
+            lhs.order == rhs.order &&
+            lhs.type == rhs.type &&
+            lhs.name == rhs.name
+    }
 }
 
-enum RefineOrderType {
-    case asc
-    case desc
+enum RefineOrderType: String {
+    case asc = "asc"
+    case desc = "desc"
 }
 
-enum RefineSortType {
-    case price
-    case rating
+enum RefineSortType: String {
+    case price = "price"
+    case rating = "rating"
 }
 
-// Brand Model
-class RefineBrandModel: RefineOptionModel { }
 
-// Category Model
-class RefineCategoryModel: RefineOptionModel { }
+//MARK: - Dietary Option Model
+class RefineDietaryOptionModel: RefineOptionModel {
+    var type: RefinDieteryType
+    
+    init(name: String, checked: Bool, type: RefinDieteryType) {
+        self.type = type
+        super.init(name: name, checked: checked)
+    }
+    
+    static func == (lhs: RefineDietaryOptionModel, rhs: RefineDietaryOptionModel) -> Bool {
+        return
+            lhs.type == rhs.type &&
+            lhs.name == rhs.name
+    }
+}
 
-// Dietary Model
-class RefineDietaryModel: RefineOptionModel { }
+enum RefinDieteryType {
+    case halal
+    case vegan
+    case vegetarian
+    case kosher
+    case noPeanuts
+    case noShellfish
+    case noGluten
+    case noMilk
+    case noLactose
+    case noEgg
+    case lowSalt
+    case lowFat
+    case alcoholFree
+    case organic
+    case noAddedSugar
+    case noCaffeine
+}
+
+//MARK: - Brand Option Model
+
+class RefineBrandOptionModel: RefineOptionModel { }
+
+//MARK: - Category Option Model
+
+class RefineCategoryOptionModel: RefineOptionModel { }
+
+

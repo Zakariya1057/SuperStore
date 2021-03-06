@@ -14,7 +14,8 @@ import UIKit
 
 protocol ShowRefineDisplayLogic: class
 {
-    func displaySomething(viewModel: ShowRefine.Something.ViewModel)
+    func displaySelectedOptions(viewModel: ShowRefine.GetSelectedOptions.ViewModel)
+    func displaySearchRefine(viewModel: ShowRefine.GetSearchRefine.ViewModel)
 }
 
 class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
@@ -69,52 +70,151 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        setRefineDetails()
+        
+        getSearchRefine()
         setupRefineTableView()
+        getSelectedOptions()
     }
     
-    // MARK: Do something
+    var refineData: [Int: RefineGroupModel] = [:]
     
-    var selectedOptions: [RefineOptionModel] = []
-    
-    var refineGroups: [RefineGroupModel] = [
-        RefineSortByModel(name: "Sort By", options: [RefineSortModel(name: "Rating - High To Low", checked: false, order: .desc, type: .rating)])
-    ]
+    var refineGroups: RefineSearchModel = RefineSearchModel(
+        sort: RefineSortGroupModel(
+            name: "Sort By", selectionType: .single,
+            options: [
+                RefineSortOptionModel(name: "Rating - High To Low", checked: false, order: .desc, type: .rating),
+                RefineSortOptionModel(name: "Rating - Low To High", checked: false, order: .asc, type: .rating),
+                
+                RefineSortOptionModel(name: "Price - High To Low", checked: false, order: .desc, type: .price),
+                RefineSortOptionModel(name: "Price - Low To High", checked: false, order: .asc, type: .price)
+            ]
+        ),
+        
+        brand: RefineBrandGroupModel(name: "Brands", selectionType: .single, options: []),
+        
+        category: RefineCategoryGroupModel(name: "Categories", selectionType: .single, options: []),
+        
+        dietary: RefineDietaryGroupModel(
+            name: "Dietary & Lifestyle", selectionType: .multiple,
+            options: [
+                RefineDietaryOptionModel(name: "Halal", checked: false, type: .halal),
+                RefineDietaryOptionModel(name: "Vegetarian", checked: false, type: .vegetarian),
+                RefineDietaryOptionModel(name: "Vegan", checked: false, type: .vegan),
+                RefineDietaryOptionModel(name: "Kosher", checked: false, type: .kosher),
+                
+                RefineDietaryOptionModel(name: "No Peanuts", checked: false, type: .noPeanuts),
+                RefineDietaryOptionModel(name: "No Shellfish", checked: false, type: .noShellfish),
+                RefineDietaryOptionModel(name: "No Gluten", checked: false, type: .noGluten),
+                RefineDietaryOptionModel(name: "No Milk", checked: false, type: .noMilk),
+                RefineDietaryOptionModel(name: "No Lactose", checked: false, type: .noLactose),
+                RefineDietaryOptionModel(name: "No Egg", checked: false, type: .noLactose),
+                
+                RefineDietaryOptionModel(name: "Low Salt", checked: false, type: .lowSalt),
+                RefineDietaryOptionModel(name: "Low Fat", checked: false, type: .lowFat),
+                
+                RefineDietaryOptionModel(name: "Alcohol Free", checked: false, type: .organic),
+                RefineDietaryOptionModel(name: "Organic", checked: false, type: .organic),
+                RefineDietaryOptionModel(name: "No Added Sugar", checked: false, type: .noAddedSugar),
+                RefineDietaryOptionModel(name: "No Milk", checked: false, type: .noCaffeine),
+            ]
+        )
+        
+    )
     
     @IBOutlet var refineTableView: UITableView!
-    //@IBOutlet weak var nameTextField: UITextField!
-
-    func displaySomething(viewModel: ShowRefine.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
+    
+    func setRefineDetails(){
+        refineData[0] = refineGroups.sort
+        refineData[1] = refineGroups.brand
+        refineData[2] = refineGroups.category
+        refineData[3] = refineGroups.dietary
     }
+    
+    func getSearchRefine(){
+        let request = ShowRefine.GetSearchRefine.Request()
+        interactor?.getSearchRefine(request: request)
+    }
+    
+    func getSelectedOptions(){
+        let request = ShowRefine.GetSelectedOptions.Request()
+        interactor?.getSelectedOptions(request: request)
+    }
+    
+    func displaySearchRefine(viewModel: ShowRefine.GetSearchRefine.ViewModel){
+        // Add To Categories + Brands.
+        let brands = viewModel.brands
+        let categories = viewModel.categories
+        
+        refineGroups.brand.options = brands
+        refineGroups.category.options = categories
+    }
+    
+    func displaySelectedOptions(viewModel: ShowRefine.GetSelectedOptions.ViewModel) {
+        let selectedRefineOptions = viewModel.selectedRefineOptions
+
+        setRefineCheckedOptions(selectedOptions: selectedRefineOptions.sort, options: refineGroups.sort.options)
+        setRefineCheckedOptions(selectedOptions: selectedRefineOptions.brand, options: refineGroups.brand.options)
+        setRefineCheckedOptions(selectedOptions: selectedRefineOptions.category, options: refineGroups.category.options)
+        setRefineCheckedOptions(selectedOptions: selectedRefineOptions.dietary, options: refineGroups.dietary.options)
+        
+        refineTableView.reloadData()
+    }
+    
+    func setRefineCheckedOptions(selectedOptions: [RefineOptionModel], options: [RefineOptionModel]){
+        for option in options {
+            for selectedOption in selectedOptions {
+                if selectedOption == option {
+                    option.checked = true
+                }
+            }
+        }
+    }
+    
 }
 
+extension ShowRefineViewController {
+    @IBAction func applyButtonPressed(_ sender: Any) {
+        router?.routeToShowProductResults(segue: nil)
+    }
+    
+    @IBAction func clearButtonPressed(_ sender: Any) {
+        interactor?.selectedRefineOptions = SelectedRefineOptions()
+        router?.routeToShowProductResults(segue: nil)
+    }
+}
 extension ShowRefineViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return refineData.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return refineGroups.count
+        return  refineData[section]!.options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return configureRefineCell(indexPath: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let row = refineTableView.cellForRow(at: indexPath) as! RefineOptionCell
-        let checked: Bool = !row.refineOption!.checked
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        if(checked){
-            
-        }
+        let header = refineTableView.dequeueReusableHeaderFooterView(withIdentifier:  "SectionHeader") as! SectionHeader
         
-        row.refineOption!.checked = checked
-        row.showCheckBox()
+        let groupName = refineData[section]!.name
+        header.headingLabel.text = groupName
+        
+        return header
     }
+}
+
+extension ShowRefineViewController {
     
     func configureRefineCell(indexPath: IndexPath) -> RefineOptionCell {
         let cell = refineTableView.dequeueReusableCell(withIdentifier: "RefineOptionCell", for: indexPath) as! RefineOptionCell
         
-        cell.refineOption = refineGroups[indexPath.section].options[indexPath.row]
-        print(cell.refineOption )
+        let group: RefineGroupModel = refineData[indexPath.section]!
+        
+        cell.refineOption = group.options[indexPath.row]
         cell.configureUI()
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -126,12 +226,39 @@ extension ShowRefineViewController: UITableViewDataSource, UITableViewDelegate {
         let suggestionCellNib = UINib(nibName: "RefineOptionCell", bundle: nil)
         refineTableView.register(suggestionCellNib, forCellReuseIdentifier: "RefineOptionCell")
         
+        let headerNib = UINib(nibName: "SectionHeader", bundle: nil)
+        refineTableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "SectionHeader")
+        
         refineTableView.delegate = self
         refineTableView.dataSource = self
     }
 }
 
 extension ShowRefineViewController {
-    // When checkbox selected. Update our local database. At the end pass data back
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        let selectedGroup = refineData[indexPath.section]!
+        let selectedOption = selectedGroup.options[row]
+        let checked = !selectedOption.checked
+        
+        if selectedGroup.selectionType == .single {
+            selectedGroup.options.forEach { (option: RefineOptionModel) in
+                option.checked = false
+            }
+        }
+        
+        selectedOption.checked = checked
+        updateSelectedOptions(option: selectedOption)
+        
+        refineData[section]!.options[row].checked = checked
+        
+        refineTableView.reloadData()
+    }
     
+    func updateSelectedOptions(option: RefineOptionModel){
+        let request = ShowRefine.UpdatedSelectedOptions.Request(option: option)
+        interactor?.updateSelectedOptions(request: request)
+    }
 }

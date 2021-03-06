@@ -14,22 +14,22 @@ import UIKit
 
 enum ShowProductResults
 {
-  // MARK: Use cases
-  
-  enum GetResults
-  {
-    struct Request
+    // MARK: Use cases
+    
+    enum GetResults
     {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var products: [ProductModel]
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var products: [ProductModel]
+            var error: String?
+        }
     }
-    struct Response
-    {
-        var products: [ProductModel]
-        var error: String?
-    }
-    struct ViewModel
-    {
-        var products: [ProductModel]
-        var error: String?
-    }
-  }
 }

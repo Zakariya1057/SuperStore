@@ -14,47 +14,58 @@ import UIKit
 
 @objc protocol ShowRefineRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToShowProductResults(segue: UIStoryboardSegue?)
 }
 
 protocol ShowRefineDataPassing
 {
-  var dataStore: ShowRefineDataStore? { get }
+    var dataStore: ShowRefineDataStore? { get }
 }
 
 class ShowRefineRouter: NSObject, ShowRefineRoutingLogic, ShowRefineDataPassing
 {
-  weak var viewController: ShowRefineViewController?
-  var dataStore: ShowRefineDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: ShowRefineViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: ShowRefineDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    weak var viewController: ShowRefineViewController?
+    var dataStore: ShowRefineDataStore?
+    
+    // MARK: Routing
+    
+    func routeToShowProductResults(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let navigationViewController = segue.destination as! UINavigationController
+            let destinationVC = navigationViewController.topViewController as! ShowProductResultsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowProductResults(source: dataStore!, destination: &destinationDS)
+            callRefineOnShowProductResults(source: viewController!, destination: destinationVC)
+        } else {
+            let navigationViewController = viewController!.presentingViewController as! UINavigationController
+            let destinationVC = navigationViewController.topViewController as! ShowProductResultsViewController
+            
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowProductResults(source: dataStore!, destination: &destinationDS)
+            navigateToShowProductResults(source: viewController!, destination: destinationVC)
+            callRefineOnShowProductResults(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    // MARK: Navigation
+    
+    func navigateToShowProductResults(source: ShowRefineViewController, destination: ShowProductResultsViewController)
+    {
+        source.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: Passing data
+    
+    func passDataToShowProductResults(source: ShowRefineDataStore, destination: inout ShowProductResultsDataStore)
+    {
+        destination.selectedRefineOptions = source.selectedRefineOptions
+    }
+    
+    // MARK: CallBack Function
+    
+    func callRefineOnShowProductResults(source: ShowRefineViewController, destination: ShowProductResultsViewController)
+    {
+        destination.refineResults()
+    }
 }

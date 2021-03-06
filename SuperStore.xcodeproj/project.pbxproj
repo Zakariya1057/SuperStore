@@ -226,9 +226,9 @@
 		2C7294C925ECF19C00D280B3 /* FavouritesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7294C325ECF19C00D280B3 /* FavouritesInteractor.swift */; };
 		2C7294CF25ECF4A000D280B3 /* FavouriteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7294CE25ECF4A000D280B3 /* FavouriteData.swift */; };
 		2C85FEAB251F9D5900CECBD5 /* UserValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85FEAA251F9D5900CECBD5 /* UserValidation.swift */; };
-		2C85FEB5251FB04700CECBD5 /* HomeSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85FEB4251FB04700CECBD5 /* HomeSectionHeader.swift */; };
+		2C85FEB5251FB04700CECBD5 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85FEB4251FB04700CECBD5 /* SectionHeader.swift */; };
 		2C85FEC3251FB49C00CECBD5 /* ListSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB3EDA825041FDD000E7C7A /* ListSectionHeader.xib */; };
-		2C85FECA251FB50800CECBD5 /* HomeSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C85FEC9251FB50800CECBD5 /* HomeSectionHeader.xib */; };
+		2C85FECA251FB50800CECBD5 /* SectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C85FEC9251FB50800CECBD5 /* SectionHeader.xib */; };
 		2C85FECF2520FC6D00CECBD5 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85FECE2520FC6D00CECBD5 /* UserSession.swift */; };
 		2C910B4025E7AABF00BCEACC /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C910B3A25E7AABF00BCEACC /* LoginPresenter.swift */; };
 		2C910B4125E7AABF00BCEACC /* LoginWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C910B3B25E7AABF00BCEACC /* LoginWorker.swift */; };
@@ -644,8 +644,8 @@
 		2C7294C325ECF19C00D280B3 /* FavouritesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesInteractor.swift; sourceTree = "<group>"; };
 		2C7294CE25ECF4A000D280B3 /* FavouriteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteData.swift; sourceTree = "<group>"; };
 		2C85FEAA251F9D5900CECBD5 /* UserValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserValidation.swift; path = SuperStore/Controllers/UserValidation.swift; sourceTree = SOURCE_ROOT; };
-		2C85FEB4251FB04700CECBD5 /* HomeSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionHeader.swift; sourceTree = "<group>"; };
-		2C85FEC9251FB50800CECBD5 /* HomeSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeSectionHeader.xib; sourceTree = "<group>"; };
+		2C85FEB4251FB04700CECBD5 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
+		2C85FEC9251FB50800CECBD5 /* SectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionHeader.xib; sourceTree = "<group>"; };
 		2C85FECE2520FC6D00CECBD5 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		2C910B3A25E7AABF00BCEACC /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		2C910B3B25E7AABF00BCEACC /* LoginWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWorker.swift; sourceTree = "<group>"; };
@@ -1637,8 +1637,8 @@
 		2CA11F5D25EF8CE20054AE19 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
-				2C85FEB4251FB04700CECBD5 /* HomeSectionHeader.swift */,
-				2C85FEC9251FB50800CECBD5 /* HomeSectionHeader.xib */,
+				2C85FEB4251FB04700CECBD5 /* SectionHeader.swift */,
+				2C85FEC9251FB50800CECBD5 /* SectionHeader.xib */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -2049,7 +2049,7 @@
 				2CB15C8324D2D7FE00461AFE /* ListCell.xib in Resources */,
 				2C85FEC3251FB49C00CECBD5 /* ListSectionHeader.xib in Resources */,
 				2CAC0602252E334F00561509 /* FeaturedProductCell.xib in Resources */,
-				2C85FECA251FB50800CECBD5 /* HomeSectionHeader.xib in Resources */,
+				2C85FECA251FB50800CECBD5 /* SectionHeader.xib in Resources */,
 				2C1567C624C77FDB00B8DCB5 /* LaunchScreen.storyboard in Resources */,
 				2CB19B2D25653A5600C19550 /* ReviewCell.xib in Resources */,
 				2C1567C324C77FDB00B8DCB5 /* Assets.xcassets in Resources */,
@@ -2174,7 +2174,7 @@
 				2C14299825F2C282007D1EB7 /* EditListItemWorker.swift in Sources */,
 				2C55F9D225EE3C2E007BBFA8 /* SearchModel.swift in Sources */,
 				2CB9119B25F11B4500A8FC66 /* ShowListsWorker.swift in Sources */,
-				2C85FEB5251FB04700CECBD5 /* HomeSectionHeader.swift in Sources */,
+				2C85FEB5251FB04700CECBD5 /* SectionHeader.swift in Sources */,
 				2C266DF724D5DEDA00C66EA5 /* 1ListModel.swift in Sources */,
 				2C1567D924C8B36E00B8DCB5 /* 1FavouritesViewController.swift in Sources */,
 				2CF239BB25094C8700D4CE91 /* ListsData.swift in Sources */,

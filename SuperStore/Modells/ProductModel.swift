@@ -15,7 +15,6 @@ class ProductModel {
     var price: Double
     var promotion: PromotionModel?
     
-    
     var smallImage: String
     var largeImage: String
     
@@ -33,7 +32,7 @@ class ProductModel {
 
     var storage: String?
     var weight: String? = nil
-    var brand: String?
+    var brand: String
 
     var dietaryInfo: String?
     var allergenInfo: String?

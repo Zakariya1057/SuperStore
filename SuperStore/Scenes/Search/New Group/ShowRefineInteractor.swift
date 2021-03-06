@@ -14,28 +14,75 @@ import UIKit
 
 protocol ShowRefineBusinessLogic
 {
-  func doSomething(request: ShowRefine.Something.Request)
+    func getSelectedOptions(request: ShowRefine.GetSelectedOptions.Request)
+    func updateSelectedOptions(request: ShowRefine.UpdatedSelectedOptions.Request)
+    func getSearchRefine(request: ShowRefine.GetSearchRefine.Request)
+    
+    var selectedRefineOptions: SelectedRefineOptions { get set }
+    var searchRefine: SearchRefine { get set }
 }
 
 protocol ShowRefineDataStore
 {
-  //var name: String { get set }
+    var selectedRefineOptions: SelectedRefineOptions { get set }
+    var searchRefine: SearchRefine { get set }
 }
 
 class ShowRefineInteractor: ShowRefineBusinessLogic, ShowRefineDataStore
 {
-  var presenter: ShowRefinePresentationLogic?
-  var worker: ShowRefineWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: ShowRefine.Something.Request)
-  {
-    worker = ShowRefineWorker()
-    worker?.doSomeWork()
+    var presenter: ShowRefinePresentationLogic?
+    var worker: ShowRefineWorker?
+    var selectedRefineOptions: SelectedRefineOptions = SelectedRefineOptions()
     
-    let response = ShowRefine.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [])
+    
+    func getSelectedOptions(request: ShowRefine.GetSelectedOptions.Request)
+    {
+        let response = ShowRefine.GetSelectedOptions.Response(selectedRefineOptions: selectedRefineOptions)
+        presenter?.presentSelectedOptions(response: response)
+    }
+    
+    func getSearchRefine(request: ShowRefine.GetSearchRefine.Request) {
+        let response = ShowRefine.GetSearchRefine.Response(searchRefine: searchRefine)
+        presenter?.presentSearchRefine(response: response)
+    }
+    
+    func updateSelectedOptions(request: ShowRefine.UpdatedSelectedOptions.Request){
+        // Update selected options.
+        let option = request.option
+        let checked: Bool = option.checked
+        
+        switch option {
+        
+        case is RefineSortOptionModel:
+            selectedRefineOptions.sort = checked ? [option as! RefineSortOptionModel] : []
+            
+        case is RefineCategoryOptionModel:
+            selectedRefineOptions.category = checked ? [option as! RefineCategoryOptionModel] : []
+            
+        case is RefineDietaryOptionModel:
+            // Multiple Dietary Options
+            
+            if option.checked {
+                selectedRefineOptions.dietary.append(option as! RefineDietaryOptionModel)
+            } else {
+                // Remove from selected list
+                for (index, refineOption) in selectedRefineOptions.dietary.enumerated() {
+                    if refineOption == option {
+                        selectedRefineOptions.dietary.remove(at: index)
+                        break
+                    }
+                }
+            }
+            
+            
+        case is RefineBrandOptionModel:
+            selectedRefineOptions.brand = checked ? [option as! RefineBrandOptionModel] : []
+            
+        default:
+            break
+            
+        }
+        
+    }
 }

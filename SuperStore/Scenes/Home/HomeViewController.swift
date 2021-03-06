@@ -76,7 +76,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         getHome()
     }
     
-    //MARK: - IB Outlets
+    var refreshControl = UIRefreshControl()
     
     @IBOutlet var tableView: UITableView!
     
@@ -100,6 +100,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     func displayHome(viewModel: Home.GetHome.ViewModel)
     {
+        refreshControl.endRefreshing()
+        
         if let error = viewModel.error {
             showError(title: "Home Error", error: error)
         } else {
@@ -161,8 +163,8 @@ extension HomeViewController {
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     private func registerTableViewCells(){
-        let nib = UINib(nibName: K.Sections.HomeHeader.SectionNibName, bundle: nil)
-        tableView.register(nib, forHeaderFooterViewReuseIdentifier: K.Sections.HomeHeader.SectionIdentifier)
+        let headerNib = UINib(nibName: "SectionHeader", bundle: nil)
+        tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "SectionHeader")
         
         let productsCellNib = UINib(nibName: "ProductsCell", bundle: nil)
         tableView.register(productsCellNib, forCellReuseIdentifier: "ProductsCell")
@@ -180,6 +182,17 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.register(listsProgressCell, forCellReuseIdentifier: "ListsProgressCell")
         
         setUpTableView()
+        setupRefreshControl()
+    }
+    
+    private func setupRefreshControl(){
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
+        refreshControl.addTarget(self, action: #selector(refreshHome), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+    }
+    
+    @objc func refreshHome(){
+        getHome()
     }
     
     private func setUpTableView(){
@@ -207,7 +220,7 @@ extension HomeViewController {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let title = homeCells[section].title
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier:  K.Sections.HomeHeader.SectionIdentifier) as! HomeSectionHeader
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SectionHeader") as! SectionHeader
         header.headingLabel.text = title
         return header
     }

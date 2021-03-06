@@ -130,16 +130,16 @@ extension ShowPromotionViewController: UITableViewDelegate, UITableViewDataSourc
         
         let cell = promotionTableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
 
-        if loading == false {
+//        if loading == false {
             
             if let promotion = promotion {
                 cell.product = promotion.products[indexPath.row]
             }
 
             cell.configureUI()
-        } else {
-            cell.startLoading()
-        }
+//        } else {
+//            cell.startLoading()
+//        }
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell

@@ -15,12 +15,17 @@ import UIKit
 protocol ShowProductResultsBusinessLogic
 {
     func getResults(request: ShowProductResults.GetResults.Request)
+    
     var productQueryModel: ProductQueryModel { get set }
+    var selectedRefineOptions: SelectedRefineOptions { get set }
+    var searchRefine: SearchRefine { get set }
 }
 
 protocol ShowProductResultsDataStore
 {
     var productQueryModel: ProductQueryModel { get set }
+    var selectedRefineOptions: SelectedRefineOptions { get set }
+    var searchRefine: SearchRefine { get set }
 }
 
 class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProductResultsDataStore
@@ -29,11 +34,65 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     var searchWorker: SearchWorker = SearchWorker(searchAPI: SearchAPI())
     var productQueryModel: ProductQueryModel = ProductQueryModel(query: "", type: "")
     
+    var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [])
+    
+    var selectedRefineOptions: SelectedRefineOptions = SelectedRefineOptions() {
+        didSet {
+            refineResults()
+        }
+    }
+    
     func getResults(request: ShowProductResults.GetResults.Request)
     {
+        
+        // Unique Brands. Unique Categories
+        var uniqueBrands: [String: Int] = [:]
+        var uniqueCategories: [String: Int] = [:]
+        
         searchWorker.getProductResults(data: productQueryModel) { (results: ProductResultsModel?, error: String?) in
+            
+            if let results = results {
+                for product in results.products {
+                    uniqueBrands[product.brand] = 1
+                    uniqueCategories[product.childCategoryName!] = 1
+                }
+                
+                self.searchRefine.brands = uniqueBrands.compactMap{$0.key}
+                self.searchRefine.categories = uniqueCategories.compactMap{$0.key}
+            }
+            
             let response = ShowProductResults.GetResults.Response(products: results?.products ?? [], error: error)
             self.presenter?.presentResults(response: response)
         }
+    
+    }
+    
+
+    func refineResults(){
+        
+        resetRefineResults()
+        
+        if let selectedSort = selectedRefineOptions.sort.first {
+            productQueryModel.order = selectedSort.order.rawValue
+            productQueryModel.sort = selectedSort.type.rawValue
+        }
+        
+        if let selectedCategory = selectedRefineOptions.category.first {
+            productQueryModel.childCategory = selectedCategory.name
+        }
+        
+        if let selectedBrand = selectedRefineOptions.brand.first {
+            productQueryModel.brand = selectedBrand.name
+        }
+
+        productQueryModel.dietary = selectedRefineOptions.dietary.compactMap({ $0.name }).joined(separator: ",")
+    }
+    
+    func resetRefineResults(){
+        productQueryModel.sort = ""
+        productQueryModel.order = ""
+        productQueryModel.dietary = ""
+        productQueryModel.brand = ""
+        productQueryModel.childCategory = ""
     }
 }

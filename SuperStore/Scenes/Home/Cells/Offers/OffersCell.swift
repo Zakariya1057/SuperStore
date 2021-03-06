@@ -27,7 +27,7 @@ class OffersCell: UITableViewCell,CustomElementCell, UICollectionViewDelegate, U
 
     var model: OffersElement!
     
-    var offerPressedCallBack: ((Int) -> Void)? = nil
+    var offerPressed: ((Int) -> Void)? = nil
     
     @IBOutlet var offersCollectionView: UICollectionView!
     
@@ -42,7 +42,7 @@ class OffersCell: UITableViewCell,CustomElementCell, UICollectionViewDelegate, U
         }
         
         self.model = model
-        self.offerPressedCallBack = model.offerPressedCallBack
+        self.offerPressed = model.offerPressedCallBack
         self.promotions = model.promotions ?? []
         self.loading = model.loading
         
@@ -91,8 +91,8 @@ extension OffersCell {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !loading {
             // Offer Selected, Navigate
-            if let offerPressedCallBack = offerPressedCallBack {
-                offerPressedCallBack(promotions[indexPath.row].id)
+            if let offerPressed = offerPressed {
+                offerPressed(promotions[indexPath.row].id)
             }
         }
     }

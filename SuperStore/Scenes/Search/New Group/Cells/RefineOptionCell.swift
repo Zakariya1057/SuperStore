@@ -13,15 +13,14 @@ class RefineOptionCell: UITableViewCell {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var tickBoxImage: UIImageView!
 
-    var refineOption: RefineOptionModel?
+    var refineOption: RefineOptionModel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        configureUI()
     }
     
     func configureUI(){
-        nameLabel.text = refineOption?.name
+        nameLabel.text = refineOption.name
         showCheckBox()
     }
 
@@ -31,7 +30,7 @@ class RefineOptionCell: UITableViewCell {
     }
     
     func showCheckBox(){
-        if ((refineOption?.checked) != nil) {
+        if !refineOption.checked {
             tickBoxImage.tintColor = .label
             tickBoxImage.image = UIImage(systemName: "circle")
         } else {

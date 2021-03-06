@@ -150,9 +150,6 @@
                                                                         <subviews>
                                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" value="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Dkq-5d-Un9">
                                                                                 <rect key="frame" x="83" y="1.5" width="94" height="32"/>
-                                                                                <connections>
-                                                                                    <action selector="stepper_pressed:" destination="KGk-i7-Jjw" eventType="valueChanged" id="UA6-Po-cXz"/>
-                                                                                </connections>
                                                                             </stepper>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7Y-Cq-Kh8">
                                                                                 <rect key="frame" x="23" y="8" width="50" height="19"/>
@@ -193,9 +190,6 @@
                                                                         <state key="normal" title="Add">
                                                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </state>
-                                                                        <connections>
-                                                                            <action selector="groceryAddClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="AWw-is-6oT"/>
-                                                                        </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Morrisons" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="toO-pS-rzN">
                                                                         <rect key="frame" x="77" y="2.5" width="100" height="30"/>
@@ -269,17 +263,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="addButton" destination="dk3-Sy-9OV" id="UO7-jb-HIW"/>
-                <outlet property="bottomStackView" destination="f0j-5Z-GdY" id="a2J-Of-v5k"/>
-                <outlet property="left_info_view" destination="J6Z-Ao-uRh" id="5WW-7K-trr"/>
-                <outlet property="priceLabel" destination="AUG-jC-3H6" id="rW5-Lb-q3g"/>
-                <outlet property="productImage" destination="iOy-rr-SuH" id="4au-o9-DLh"/>
-                <outlet property="productNameLabel" destination="Xct-SO-9fz" id="7ga-tz-Imr"/>
-                <outlet property="quantityStepper" destination="Dkq-5d-Un9" id="n4I-Rm-LgM"/>
-                <outlet property="reviewView" destination="YYA-oO-zY4" id="DyJ-2r-Q6v"/>
-                <outlet property="stepper_label" destination="Q7Y-Cq-Kh8" id="dAl-tk-vy8"/>
-                <outlet property="stepper_stack_view" destination="qRZ-ss-3x7" id="mUg-di-cZ5"/>
-                <outlet property="storeNameLabel" destination="toO-pS-rzN" id="cFS-fE-yA1"/>
+                <outlet property="nameLabel" destination="Xct-SO-9fz" id="Vib-qX-k0y"/>
+                <outlet property="priceLabel" destination="AUG-jC-3H6" id="KU5-fb-M0V"/>
+                <outlet property="productImageView" destination="iOy-rr-SuH" id="sKw-ue-YjV"/>
+                <outlet property="ratingView" destination="YYA-oO-zY4" id="YIz-in-qRN"/>
             </connections>
             <point key="canvasLocation" x="148.55072463768118" y="125.55803571428571"/>
         </tableViewCell>

@@ -14,18 +14,51 @@ import UIKit
 
 enum ShowRefine
 {
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
+    // MARK: Use cases
+    
+    enum GetSearchRefine
     {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var searchRefine: SearchRefine
+        }
+        struct ViewModel
+        {
+            var brands: [RefineBrandOptionModel]
+            var categories: [RefineCategoryOptionModel]
+        }
     }
-    struct Response
+    
+    
+    enum GetSelectedOptions
     {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var selectedRefineOptions: SelectedRefineOptions
+        }
+        struct ViewModel
+        {
+            var selectedRefineOptions: SelectedRefineOptions
+        }
     }
-    struct ViewModel
+    
+    enum UpdatedSelectedOptions
     {
+        struct Request
+        {
+            var option: RefineOptionModel
+        }
+        struct Response
+        {
+        }
+        struct ViewModel
+        {
+        }
     }
-  }
 }

@@ -14,21 +14,37 @@ import UIKit
 
 @objc protocol ShowProductResultsRoutingLogic
 {
-  func routeToShowProduct(segue: UIStoryboardSegue?)
+    func routeToShowProduct(segue: UIStoryboardSegue?)
+    func routeToShowRefine(segue: UIStoryboardSegue?)
 }
 
 protocol ShowProductResultsDataPassing
 {
-  var dataStore: ShowProductResultsDataStore? { get }
+    var dataStore: ShowProductResultsDataStore? { get }
 }
 
 class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowProductResultsDataPassing
 {
-  weak var viewController: ShowProductResultsViewController?
-  var dataStore: ShowProductResultsDataStore?
-  
-  // MARK: Routing
-  
+    weak var viewController: ShowProductResultsViewController?
+    var dataStore: ShowProductResultsDataStore?
+    
+    // MARK: Routing
+    
+    func routeToShowRefine(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowRefineViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowRefine(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowRefineViewController") as! ShowRefineViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowRefine(source: dataStore!, destination: &destinationDS)
+            navigateToShowRefine(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     func routeToShowProduct(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
@@ -46,6 +62,11 @@ class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowPr
     
     //    MARK: Navigation
     
+    func navigateToShowRefine(source: ShowProductResultsViewController, destination: ShowRefineViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
     func navigateToShowProduct(source: ShowProductResultsViewController, destination: ShowProductViewController)
     {
         source.show(destination, sender: nil)
@@ -57,4 +78,11 @@ class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowPr
     {
         destination.productID = viewController!.selectedProductID!
     }
+    
+    func passDataToShowRefine(source: ShowProductResultsDataStore, destination: inout ShowRefineDataStore)
+    {
+        destination.selectedRefineOptions = source.selectedRefineOptions
+        destination.searchRefine = source.searchRefine
+    }
+    
 }

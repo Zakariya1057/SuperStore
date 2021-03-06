@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pZG-ZY-ksW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NEU-X3-9HG">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -3248,7 +3248,7 @@
                                                                     <color key="titleColor" name="LogoBlue.Light"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="refineButtonPressed:" destination="KFj-5f-9Wu" eventType="touchUpInside" id="8S6-Bi-c7N"/>
+                                                                    <segue destination="HXj-j2-Hvf" kind="presentation" identifier="ShowRefine" id="Uew-lh-GwD"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -3305,7 +3305,6 @@
                     <connections>
                         <outlet property="productsTableView" destination="aSa-81-33v" id="cEA-Zn-cJp"/>
                         <outlet property="totalProductsLabel" destination="yIu-L1-2uc" id="UrZ-Iy-kpc"/>
-                        <segue destination="HXj-j2-Hvf" kind="presentation" identifier="resultsOption" id="nTw-Hq-Edo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="552-YW-BCZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3339,7 +3338,7 @@
                                                                     <color key="titleColor" name="LogoBlue.Light"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="clearAllPressed:" destination="HXj-j2-Hvf" eventType="touchUpInside" id="nsn-ma-Pg3"/>
+                                                                    <action selector="clearButtonPressed:" destination="HXj-j2-Hvf" eventType="touchUpInside" id="cs6-nR-gVx"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -3375,7 +3374,7 @@
                                                                     <color key="titleColor" name="LogoBlue.Light"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="donePressed:" destination="HXj-j2-Hvf" eventType="touchUpInside" id="gtg-Em-vpy"/>
+                                                                    <action selector="applyButtonPressed:" destination="HXj-j2-Hvf" eventType="touchUpInside" id="Avp-oa-FRl"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
