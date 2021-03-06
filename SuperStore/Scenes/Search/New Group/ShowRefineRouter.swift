@@ -38,8 +38,14 @@ class ShowRefineRouter: NSObject, ShowRefineRoutingLogic, ShowRefineDataPassing
             passDataToShowProductResults(source: dataStore!, destination: &destinationDS)
             callRefineOnShowProductResults(source: viewController!, destination: destinationVC)
         } else {
-            let navigationViewController = viewController!.presentingViewController as! UINavigationController
-            let destinationVC = navigationViewController.topViewController as! ShowProductResultsViewController
+            
+            //    let navigationViewController = viewController!.presentingViewController as! UINavigationController
+            //    let destinationVC = navigationViewController.topViewController as! ShowProductResultsViewController
+            
+            let tabViewController = viewController!.presentingViewController as! UITabBarController
+            let navigationViewController = tabViewController.viewControllers![2] as! UINavigationController
+            
+            let destinationVC = navigationViewController.viewControllers.last as! ShowProductResultsViewController
             
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowProductResults(source: dataStore!, destination: &destinationDS)
