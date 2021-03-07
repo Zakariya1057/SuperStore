@@ -16,6 +16,7 @@ import UIKit
 {
     func routeToRegister(segue: UIStoryboardSegue?)
     func routeToSendEmail(segue: UIStoryboardSegue?)
+    func routeToLoggedIn(segue: UIStoryboardSegue?)
 }
 
 protocol LoginDataPassing
@@ -23,15 +24,16 @@ protocol LoginDataPassing
     var dataStore: LoginDataStore? { get }
 }
 
-class LoginRouter: NSObject, LoginRoutingLogic, LoginDataPassing
+class LoginRouter: UserLoggedInRouter, LoginRoutingLogic, LoginDataPassing
 {
-    weak var viewController: LoginViewController?
     var dataStore: LoginDataStore?
     
     // MARK: Routing
     
     func routeToRegister(segue: UIStoryboardSegue?)
     {
+        let viewController = self.viewController as! LoginViewController
+        
         if let segue = segue {
             let destinationVC = segue.destination as! RegisterViewController
             var destinationDS = destinationVC.router!.dataStore!
@@ -41,45 +43,47 @@ class LoginRouter: NSObject, LoginRoutingLogic, LoginDataPassing
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
             var destinationDS = destinationVC.router!.dataStore!
             passDataToRegister(source: dataStore!, destination: &destinationDS)
-            navigateToRegister(source: viewController!, destination: destinationVC)
+            navigateToRegister(source: viewController, destination: destinationVC)
         }
     }
     
     func routeToSendEmail(segue: UIStoryboardSegue?)
     {
+        let viewController = self.viewController as! LoginViewController
+        
         if let segue = segue {
             let destinationVC = segue.destination as! SendEmailViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToRegister(source: dataStore!, destination: &destinationDS)
+            passDataToSendEmail(source: dataStore!, destination: &destinationDS)
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "SendEmailViewController") as! SendEmailViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToRegister(source: dataStore!, destination: &destinationDS)
-            navigateToRegister(source: viewController!, destination: destinationVC)
+            passDataToSendEmail(source: dataStore!, destination: &destinationDS)
+            navigateToSendEmail(source: viewController, destination: destinationVC)
         }
     }
     
-    // MARK: Register
-    
+    // MARK: Navigation
+
     func navigateToRegister(source: LoginViewController, destination: RegisterViewController)
     {
         source.show(destination, sender: nil)
     }
     
-    func passDataToRegister(source: LoginDataStore, destination: inout RegisterDataStore)
-    {
-        destination.email = source.email
-    }
-    
-    // MARK: Reset Password
-    
-    func navigateToRegister(source: LoginViewController, destination: SendEmailViewController)
+    func navigateToSendEmail(source: LoginViewController, destination: SendEmailViewController)
     {
         source.show(destination, sender: nil)
     }
     
-    func passDataToRegister(source: LoginDataStore, destination: inout SendEmailDataStore)
+    // MARK: Passing Data
+    
+    func passDataToRegister(source: LoginDataStore, destination: inout RegisterDataStore)
+    {
+        destination.email = source.email
+    }
+
+    func passDataToSendEmail(source: LoginDataStore, destination: inout SendEmailDataStore)
     {
         destination.email = source.email
     }

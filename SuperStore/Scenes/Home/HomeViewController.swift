@@ -66,7 +66,6 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     }
     
     // MARK: View lifecycle
-    
     override func viewDidLoad()
     {
         super.viewDidLoad()

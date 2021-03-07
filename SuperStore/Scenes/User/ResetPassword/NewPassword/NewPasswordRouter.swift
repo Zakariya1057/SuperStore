@@ -15,6 +15,7 @@ import UIKit
 @objc protocol NewPasswordRoutingLogic
 {
   //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToLoggedIn(segue: UIStoryboardSegue?)
 }
 
 protocol NewPasswordDataPassing
@@ -22,9 +23,10 @@ protocol NewPasswordDataPassing
   var dataStore: NewPasswordDataStore? { get }
 }
 
-class NewPasswordRouter: NSObject, NewPasswordRoutingLogic, NewPasswordDataPassing
+class NewPasswordRouter: UserLoggedInRouter, NewPasswordRoutingLogic, NewPasswordDataPassing
 {
-  weak var viewController: NewPasswordViewController?
+    
+//  weak var viewController: NewPasswordViewController?
   var dataStore: NewPasswordDataStore?
   
   // MARK: Routing

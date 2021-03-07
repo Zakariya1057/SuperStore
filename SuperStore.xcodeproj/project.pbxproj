@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1C1BE4AD8045223682632323 /* Pods_SuperStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6527B7848ED54283EE5DD9 /* Pods_SuperStore.framework */; };
+		2C058FE225F5098300B4A16B /* UserLoggedInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FE125F5098300B4A16B /* UserLoggedInRouter.swift */; };
+		2C058FE825F50CB000B4A16B /* UserLoggedInProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FE725F50CB000B4A16B /* UserLoggedInProtocol.swift */; };
 		2C0D44792534DD090046E2B0 /* PromotionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D44782534DD090046E2B0 /* PromotionHistory.swift */; };
 		2C0D447F2535B2390046E2B0 /* ProductHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D447E2535B2390046E2B0 /* ProductHistory.swift */; };
 		2C0D44842535B33A0046E2B0 /* ReviewHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */; };
@@ -422,6 +424,8 @@
 
 /* Begin PBXFileReference section */
 		2A6527B7848ED54283EE5DD9 /* Pods_SuperStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuperStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C058FE125F5098300B4A16B /* UserLoggedInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoggedInRouter.swift; sourceTree = "<group>"; };
+		2C058FE725F50CB000B4A16B /* UserLoggedInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoggedInProtocol.swift; sourceTree = "<group>"; };
 		2C0D44782534DD090046E2B0 /* PromotionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionHistory.swift; sourceTree = "<group>"; };
 		2C0D447E2535B2390046E2B0 /* ProductHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHistory.swift; sourceTree = "<group>"; };
 		2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHistory.swift; sourceTree = "<group>"; };
@@ -845,6 +849,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C058FE025F5097100B4A16B /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				2C058FE125F5098300B4A16B /* UserLoggedInRouter.swift */,
+				2C058FE725F50CB000B4A16B /* UserLoggedInProtocol.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		2C14298F25F2C262007D1EB7 /* EditListItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -1247,6 +1260,7 @@
 		2C2BC86025EBE0760038882B /* User */ = {
 			isa = PBXGroup;
 			children = (
+				2C058FE025F5097100B4A16B /* Shared */,
 				2C910B3925E7AAA600BCEACC /* Login */,
 				2C14772825E9020E000E8F66 /* Register */,
 				2C14775425E905C9000E8F66 /* ResetPassword */,
@@ -2205,6 +2219,7 @@
 				2CA11F6B25EF8E490054AE19 /* GrandParentCategoriesViewController.swift in Sources */,
 				2C910B4425E7AABF00BCEACC /* LoginViewController.swift in Sources */,
 				2C1567D724C8B36200B8DCB5 /* 1ListsViewController.swift in Sources */,
+				2C058FE825F50CB000B4A16B /* UserLoggedInProtocol.swift in Sources */,
 				2C70828925F0108500345147 /* SettingsRouter.swift in Sources */,
 				2CAC06132530E41700561509 /* 1HomeModel.swift in Sources */,
 				2C1567F324CC830B00B8DCB5 /* 1ProductViewController.swift in Sources */,
@@ -2426,6 +2441,7 @@
 				2CB51C68254C69ED0090F558 /* NetworkManager.swift in Sources */,
 				2C6146A425F1266400D92CB7 /* CreateListInteractor.swift in Sources */,
 				2CA11F9225EF90280054AE19 /* GroceryAPI.swift in Sources */,
+				2C058FE225F5098300B4A16B /* UserLoggedInRouter.swift in Sources */,
 				2C9DD12D24FCFC3800544563 /* IngredientsData.swift in Sources */,
 				2C14773225E90246000E8F66 /* RegisterModels.swift in Sources */,
 				2C55F9DB25EE4121007BBFA8 /* ResultModel.swift in Sources */,

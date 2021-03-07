@@ -20,6 +20,8 @@ import UIKit
     func routeToShowDescription(segue: UIStoryboardSegue?)
     func routeToShowIngredients(segue: UIStoryboardSegue?)
     func routeToEditReview(segue: UIStoryboardSegue?)
+    
+    func routeToLogin(segue: UIStoryboardSegue?)
 }
 
 protocol ShowProductDataPassing
@@ -33,6 +35,21 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     var dataStore: ShowProductDataStore?
     
     // MARK: Routing
+    
+    func routeToLogin(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! LoginViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToLogin(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToLogin(source: dataStore!, destination: &destinationDS)
+            navigateToLogin(source: viewController!, destination: destinationVC)
+        }
+    }
     
     func routeToEditReview(segue: UIStoryboardSegue?)
     {
@@ -127,6 +144,12 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     
     // MARK: Navigation
     
+    func navigateToLogin(source: ShowProductViewController, destination: LoginViewController)
+    {
+        source.present(destination, animated: true, completion: nil)
+    }
+    
+    
     func navigateToEditReview(source: ShowProductViewController, destination: EditReviewViewController)
     {
         source.show(destination, sender: nil)
@@ -159,6 +182,12 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     
     
     // MARK: - Passing Data
+    
+    func passDataToLogin(source: ShowProductDataStore, destination: inout LoginDataStore)
+    {
+
+    }
+    
     func passDataToShowReviews(source: ShowProductDataStore, destination: inout ShowReviewsDataStore)
     {
         destination.productID = source.productID

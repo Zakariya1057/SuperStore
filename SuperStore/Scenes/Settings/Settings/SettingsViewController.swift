@@ -76,6 +76,11 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
         getSettings()
     }
     
+    let spinner: SpinnerViewController = SpinnerViewController()
+    
+    @IBOutlet var loggedInView: UIView!
+    @IBOutlet var loggedOutView: UIView!
+    
     @IBOutlet weak var usernameStackView: UIStackView!
     @IBOutlet weak var emailStackView: UIStackView!
     @IBOutlet weak var passwordStackView: UIStackView!
@@ -85,6 +90,8 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     
     @IBOutlet var notificationSwitch: UISwitch!
     
+    @IBOutlet var logoutButton: UIButton!
+    
     func getSettings()
     {
         let request = Settings.GetUserDetails.Request()
@@ -93,10 +100,14 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     
     func displayUserDetails(viewModel: Settings.GetUserDetails.ViewModel)
     {
-        if let error = viewModel.error {
-            showError(title: "Settings Error", error: error)
+        if viewModel.error != nil {
+            // User not logged in.
+            displayUserLoggedIn(loggedIn: false)
         } else {
             if let user = viewModel.displayedUser {
+                
+                displayUserLoggedIn(loggedIn: true)
+                
                 nameLabel.text = user.name
                 emailLabel.text = user.email
                 
@@ -106,14 +117,22 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     }
     
     func displayedLogout(viewModel: Settings.Logout.ViewModel) {
-
+        stopLoading()
+        
+        if let error = viewModel.error {
+            showError(title: "Logout Error", error: error)
+        } else {
+            getSettings()
+        }
     }
     
     func displayedDeleted(viewModel: Settings.Delete.ViewModel) {
+        stopLoading()
+        
         if let error = viewModel.error {
             showError(title: "Delete Error", error: error)
         } else {
-            
+            getSettings()
         }
     }
     
@@ -125,7 +144,25 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
 }
 
 extension SettingsViewController {
+    func displayUserLoggedIn(loggedIn: Bool){
+        if loggedIn {
+            loggedInView.isHidden = false
+            logoutButton.isHidden = false
+            
+            loggedOutView.isHidden = true
+        } else {
+            loggedInView.isHidden = true
+            logoutButton.isHidden = true
+            
+            loggedOutView.isHidden = false
+        }
+    }
+}
+
+extension SettingsViewController {
     @IBAction func deleteButtonPressed(_ sender: Any) {
+        startLoading()
+        
         let request = Settings.Delete.Request()
         interactor?.delete(request: request)
     }
@@ -137,6 +174,8 @@ extension SettingsViewController {
     }
     
     @IBAction func logoutButtonPressed(_ sender: Any) {
+        startLoading()
+        
         let request = Settings.Logout.Request()
         interactor?.logout(request: request)
     }
@@ -156,6 +195,21 @@ extension SettingsViewController {
 }
 
 extension SettingsViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+    }
+}
+
+extension SettingsViewController {
     @objc func namePressed(){
         router?.routeToEditName(segue: nil)
     }
@@ -166,5 +220,15 @@ extension SettingsViewController {
     
     @objc func passwordPressed(){
         router?.routeToEditPassword(segue: nil)
+    }
+}
+
+extension SettingsViewController: UserLoggedInProtocol {
+    @IBAction func loginButtonPressed(_ sender: UIButton) {
+        router?.routeToLogin(segue: nil)
+    }
+    
+    func userLoggedInSuccessfully(){
+        getSettings()
     }
 }

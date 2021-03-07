@@ -110,6 +110,7 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         } else {
             // Navigate To Home
             print("Success")
+            router?.routeToLoggedIn(segue: nil)
         }
     }
     
@@ -126,8 +127,10 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         let passwordConfirm = passwordConfirmField.text ?? ""
         
         let request = Register.Register.Request(
-            name: name, email: email,
-            password: password, passwordConfirm: passwordConfirm
+            name: name,
+            email: email,
+            password: password,
+            passwordConfirm: passwordConfirm
         )
         
         interactor?.register(request: request)

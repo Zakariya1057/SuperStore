@@ -125,6 +125,11 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     
     var selectedProductID: Int?
     
+    var userSession: UserSessionWorker = UserSessionWorker()
+    var loggedIn: Bool {
+        return userSession.isLoggedIn()
+    }
+    
     func getProduct()
     {
         let request = ShowProduct.GetProduct.Request()
@@ -153,8 +158,8 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                     reviews.append(review)
                     reviewsTableView.reloadData()
                 } else {
-                    reviewsStackView.removeFromSuperview()
-                    allReviewsButton.removeFromSuperview()
+                    reviewsStackView.isHidden = true
+                    allReviewsButton.isHidden = true
                 }
                 
                 ratingView.rating = product.avgRating
@@ -163,13 +168,13 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 allReviewsButton.setTitle("All Reviews (\(product.totalReviewsCount))", for: .normal)
                 
                 if product.ingredients.count == 0 {
-                    ingredientsView.removeFromSuperview()
+                    ingredientsView.isHidden = true
                 }
                 
                 if let promotion = product.promotion {
                     promotionLabel.text = promotion.name
                 } else {
-                    promotionView.removeFromSuperview()
+                    promotionView.isHidden = true
                 }
                 
                 displayAllergen(product: product)
@@ -183,7 +188,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
 
     func displayAllergen(product: ShowProduct.DisplayedProduct) {
         if product.allergenInfo == nil || product.allergenInfo == "" {
-            allergenView.removeFromSuperview()
+            allergenView.isHidden = true
         } else {
             allergenLabel.text = product.allergenInfo
         }
@@ -191,7 +196,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     
     func displaydietary(product: ShowProduct.DisplayedProduct) {
         if product.dietaryInfo == nil || product.dietaryInfo == "" {
-            dietaryView.removeFromSuperview()
+            dietaryView.isHidden = true
         } else {
             lifeStyleLabel.text = product.dietaryInfo
         }
@@ -239,28 +244,37 @@ extension ShowProductViewController {
 extension ShowProductViewController {
     @IBAction func monitorButtonPressed(_ sender: Any) {
         
-        if let product = product {
-            let monitoring: Bool = !product.monitoring
-            self.product!.monitoring = monitoring
-            
-            updateMonitorButton(monitor: monitoring)
-            
-            let request = ShowProduct.UpdateMonitoring.Request(monitor: monitoring)
-            interactor?.updateMonitoring(request: request)
+        if !loggedIn {
+            router?.routeToLogin(segue: nil)
+        } else {
+            if let product = product {
+                let monitoring: Bool = !product.monitoring
+                self.product!.monitoring = monitoring
+                
+                updateMonitorButton(monitor: monitoring)
+                
+                let request = ShowProduct.UpdateMonitoring.Request(monitor: monitoring)
+                interactor?.updateMonitoring(request: request)
+            }
         }
+
     }
     
     @IBAction func favouriteButtonPressed(_ sender: Any) {
         
-        if let product = product {
-            let favourite: Bool = !product.favourite
-            
-            updateFavouriteButton(favourite: favourite)
-            
-            let request = ShowProduct.UpdateFavourite.Request(favourite: favourite)
-            interactor?.updateFavourite(request: request)
-            
-            self.product!.favourite = favourite
+        if !loggedIn {
+            router?.routeToLogin(segue: nil)
+        } else {
+            if let product = product {
+                let favourite: Bool = !product.favourite
+                
+                updateFavouriteButton(favourite: favourite)
+                
+                let request = ShowProduct.UpdateFavourite.Request(favourite: favourite)
+                interactor?.updateFavourite(request: request)
+                
+                self.product!.favourite = favourite
+            }
         }
     }
     
@@ -269,7 +283,7 @@ extension ShowProductViewController {
     }
     
     @IBAction func reviewButtonPressed(_ sender: Any) {
-        router?.routeToEditReview(segue: nil)
+        loggedIn ? router?.routeToEditReview(segue: nil) : router?.routeToLogin(segue: nil)
     }
     
     @IBAction func allReviewButtonPressed(_ sender: Any) {
@@ -368,5 +382,11 @@ extension ShowProductViewController {
     
     private func cellScroll(position: CGFloat, title: String){
         scrollPosition = position
+    }
+}
+
+extension ShowProductViewController: UserLoggedInProtocol {
+    func userLoggedInSuccessfully(){
+        getProduct()
     }
 }

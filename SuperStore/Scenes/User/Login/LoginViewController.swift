@@ -74,7 +74,6 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         setupTextFieldDelegates()
     }
     
-    // MARK: Do something
     let spinner: SpinnerViewController = SpinnerViewController()
     
     @IBOutlet weak var emailField: UITextField!
@@ -92,6 +91,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         
         if viewModel.error == nil {
             print("Login Success")
+            router?.routeToLoggedIn(segue: nil)
         } else {
             let error = viewModel.error!
             showError(title: "Login Failed", error: error)

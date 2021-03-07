@@ -88,6 +88,7 @@ class NewPasswordViewController: UIViewController, NewPasswordDisplayLogic
             showError(title: "Change Password Error", error: error)
         } else {
             print("Success")
+            router?.routeToLoggedIn(segue: nil)
         }
     }
     
