@@ -34,10 +34,10 @@ class SettingsPresenter: SettingsPresentationLogic
         
         if let user = response.user {
             displayedUser = Settings.GetUserDetails.ViewModel.DisplayedUser(
-                email: user.email, name: user.name, sendNotifications: user.sendNotifications
+                name: user.name, email: user.email, storeTypeID: user.storeTypeID, sendNotifications: user.sendNotifications
             )
         } else {
-            error = "Failed to find saved user details"
+            error = "Failed to find saved user details."
         }
         
         let viewModel = Settings.GetUserDetails.ViewModel(displayedUser: displayedUser, error: error)

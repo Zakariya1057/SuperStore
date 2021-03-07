@@ -17,5 +17,6 @@ struct UserData: Decodable {
     var name: String
     var token: String
     var email: String
+    var store_type_id: Int
     var send_notifications: Bool
 }

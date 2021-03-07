@@ -17,8 +17,9 @@ import UIKit
     func routeToEditName(segue: UIStoryboardSegue?)
     func routeToEditEmail(segue: UIStoryboardSegue?)
     func routeToEditPassword(segue: UIStoryboardSegue?)
+    func routeToEditStore(segue: UIStoryboardSegue?)
+    
     func routeToLogin(segue: UIStoryboardSegue?)
-    func routeToHome(segue: UIStoryboardSegue?)
 }
 
 protocol SettingsDataPassing
@@ -33,6 +34,21 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
     
     // MARK: Routing
 
+    func routeToEditStore(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! EditStoreViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToEditStore(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditStoreViewController") as! EditStoreViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToEditStore(source: dataStore!, destination: &destinationDS)
+            navigateToEditStore(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     func routeToLogin(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
@@ -45,21 +61,6 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
             var destinationDS = destinationVC.router!.dataStore!
             passDataToLogin(source: dataStore!, destination: &destinationDS)
             navigateToLogin(source: viewController!, destination: destinationVC)
-        }
-    }
-    
-    func routeToHome(segue: UIStoryboardSegue?)
-    {
-        if let segue = segue {
-            let destinationVC = segue.destination as! HomeViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToHome(source: dataStore!, destination: &destinationDS)
-        } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToHome(source: dataStore!, destination: &destinationDS)
-            navigateToHome(source: viewController!, destination: destinationVC)
         }
     }
     
@@ -110,14 +111,14 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
     
     // MARK: Navigation
     
+    func navigateToEditStore(source: SettingsViewController, destination: EditStoreViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
     func navigateToLogin(source: SettingsViewController, destination: LoginViewController)
     {
         source.present(destination, animated: true, completion: nil)
-    }
-    
-    func navigateToHome(source: SettingsViewController, destination: HomeViewController)
-    {
-        source.navigationController?.popToRootViewController(animated: true)
     }
     
     func navigateToEditName(source: SettingsViewController, destination: EditNameViewController)
@@ -137,12 +138,12 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
     
     // MARK: Passing data
     
-    func passDataToLogin(source: SettingsDataStore, destination: inout LoginDataStore)
+    func passDataToEditStore(source: SettingsDataStore, destination: inout EditStoreDataStore)
     {
 
     }
     
-    func passDataToHome(source: SettingsDataStore, destination: inout HomeDataStore)
+    func passDataToLogin(source: SettingsDataStore, destination: inout LoginDataStore)
     {
 
     }

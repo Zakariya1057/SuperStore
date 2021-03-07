@@ -28,8 +28,9 @@ enum Settings
         struct ViewModel
         {
             struct DisplayedUser {
-                var email: String
                 var name: String
+                var email: String
+                var storeTypeID: Int
                 var sendNotifications: Bool
             }
             

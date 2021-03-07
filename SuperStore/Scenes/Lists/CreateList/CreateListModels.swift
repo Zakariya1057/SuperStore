@@ -21,7 +21,6 @@ enum CreateList
         struct Request
         {
             var name: String
-            var storeTypeID: Int
         }
         
         struct Response

@@ -72,6 +72,7 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
             authWorker.register(
                 name: name,
                 email: email,
+                storeTypeID: 2,
                 password: password,
                 passwordConfirmation: password,
                 identifier: identifier,

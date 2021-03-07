@@ -49,6 +49,16 @@ class UserSettingsWorker {
         })
     }
     
+    func updateStore(storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
+        userAPI.updateStore(storeTypeID: storeTypeID, completionHandler: { (error: String?) in
+            if error == nil {
+                self.userStore.updateStore(storeTypeID: storeTypeID)
+            }
+            
+            completionHandler(error)
+        })
+    }
+    
     func updatePassword(currentPassword: String, newPassword: String, confirmPassword: String, completionHandler: @escaping (_ error: String?) -> Void){
         userAPI.updatePassword(
             currentPassword: currentPassword, newPassword: newPassword,
@@ -77,9 +87,10 @@ extension UserSettingsWorker {
 
 // API
 protocol UserRequestProtocol {
-    func updatePassword(currentPassword: String, newPassword: String, confirmPassword: String, completionHandler: @escaping (_ error: String?) -> Void)
     func updateName(name: String, completionHandler: @escaping (_ error: String?) -> Void)
     func updateEmail(email: String, completionHandler: @escaping (_ error: String?) -> Void)
+    func updateStore(storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void)
+    func updatePassword(currentPassword: String, newPassword: String, confirmPassword: String, completionHandler: @escaping (_ error: String?) -> Void)
     func updateNotifications(sendNotifications: Bool, completionHandler: @escaping (_ error: String?) -> Void)
     
     func logout(completionHandler: @escaping (_ error: String?) -> Void)
@@ -95,9 +106,11 @@ protocol UserStoreProtocol {
     
     func updateName(name: String) -> Void
     func updateEmail(email: String) -> Void
+    func updateStore(storeTypeID: Int) -> Void
     
     func logoutUser() -> Void
     func deleteUser() -> Void
     
     func getToken() -> String?
+    func getStore() -> Int?
 }

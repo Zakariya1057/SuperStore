@@ -37,35 +37,20 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
         let email = request.email
         let password = request.password
         let passwordConfirm = request.passwordConfirm
-        
-//        let formFields: [UserFormField] = [
-//            UserFormField(name: "Name", value: name, type: .name),
-//            UserFormField(name: "Email", value: email, type: .email),
-//            UserFormField(name: "Password", value: password, type: .password),
-//            UserFormField(name: "Confirm Password", value: passwordConfirm, type: .password),
-//            UserPasswordMatch(name: "Password Match", value: password, type: .confirm, repeatValue: passwordConfirm)
-//        ]
-//
-//        let error = validationWorker.validateFields(formFields)
-//
-//        if let error = error {
-//            let response = Register.Register.Response(error: error)
-//            presenter?.presentRegisteredUser(response: response)
-//        } else {
-//            authWorker.register(
-//                name: name, email: email, password: password,
-//                passwordConfirmation: passwordConfirm, identifier: nil,
-//                userToken: nil, completionHandler: registerCompletionHandler
-//            )
-//        }
+        let storeTypeID = request.storeTypeID
         
         let error = validateForm(name: name, email: email, password: password, passwordConfirm: passwordConfirm)
         
         if error == nil {
             authWorker.register(
-                name: name, email: email, password: password,
-                passwordConfirmation: passwordConfirm, identifier: nil,
-                userToken: nil, completionHandler: registerCompletionHandler
+                name: name,
+                email: email,
+                storeTypeID: storeTypeID,
+                password: password,
+                passwordConfirmation: passwordConfirm,
+                identifier: nil,
+                userToken: nil,
+                completionHandler: registerCompletionHandler
             )
         }
     }

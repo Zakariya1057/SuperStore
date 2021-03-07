@@ -33,14 +33,26 @@ class UserAuthWorker {
     }
     
     func register(
-        name: String, email: String, password: String,
+        name: String,
+        email: String,
+        storeTypeID: Int,
+        password: String,
         passwordConfirmation: String,
         identifier: String?, userToken: String?,
         completionHandler: @escaping (_ user: UserModel?, _ error: String?) -> Void ){
         
         let notificationToken = userSession.getUserNotificationToken()
         
-        userAuth.register(name: name, email: email, password: password, passwordConfirmation: passwordConfirmation, notificationToken: notificationToken, identifier: identifier, userToken: userToken) {  (user: UserModel?, error: String?) in
+        userAuth.register(
+            name: name,
+            email: email,
+            storeTypeID: storeTypeID,
+            password: password,
+            passwordConfirmation: passwordConfirmation,
+            notificationToken: notificationToken,
+            identifier: identifier,
+            userToken: userToken
+        ) {  (user: UserModel?, error: String?) in
             
             if user != nil {
                 self.userSession.logInUser(user: user!)
@@ -59,8 +71,8 @@ protocol UserAuthProtocol {
     )
     
     func register(
-        name: String, email: String, password: String, passwordConfirmation: String,
-        notificationToken: String?, identifier: String?, userToken: String?,
+        name: String, email: String, storeTypeID: Int, password: String, passwordConfirmation: String,
+        notificationToken: String?, identifier: String?, userToken: String?, 
         completionHandler: @escaping (UserModel?, String?) -> Void
     )
 }

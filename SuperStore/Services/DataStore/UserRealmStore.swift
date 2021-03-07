@@ -23,6 +23,7 @@ class UserRealmStore: UserStoreProtocol {
             savedUser.name = user.name
             savedUser.email = user.email
             savedUser.token = user.token
+            savedUser.storeTypeID = user.storeTypeID
             savedUser.id = user.id
             savedUser.sendNotifications = user.sendNotifications
             realm?.add(savedUser)
@@ -48,6 +49,15 @@ class UserRealmStore: UserStoreProtocol {
             }
         })
     }
+    
+    func updateStore(storeTypeID: Int){
+        try? realm?.write({
+            if let savedUser: UserObject = self.user {
+                savedUser.storeTypeID = storeTypeID
+            }
+        })
+    }
+    
     
     func updateNotifications(sendNotifications: Bool){
         try? realm?.write({
@@ -82,5 +92,9 @@ extension UserRealmStore {
 extension UserRealmStore {
     func getToken() -> String? {
         return user?.token
+    }
+    
+    func getStore() -> Int? {
+        return user?.storeTypeID
     }
 }

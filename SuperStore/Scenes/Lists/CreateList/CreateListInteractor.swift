@@ -27,11 +27,12 @@ class CreateListInteractor: CreateListBusinessLogic, CreateListDataStore
     var presenter: CreateListPresentationLogic?
     var listWorker: ListWorker = ListWorker(listAPI: ListAPI())
     var validationWorker: ListValidationWorker = ListValidationWorker()
+    var userSessions = UserSessionWorker()
     
     func createList(request: CreateList.CreateList.Request)
     {
         let name = request.name
-        let storeTypeID = request.storeTypeID
+        let storeTypeID = userSessions.getStore()!
         let identifier = UUID().uuidString
         
         let formFields: [ListFormField] = [

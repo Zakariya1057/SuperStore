@@ -18,6 +18,10 @@ class UserSessionWorker {
         return userStore.getToken()
     }
     
+    func getStore() -> Int? {
+        return userStore.getStore()
+    }
+    
     func getUserNotificationToken() -> String? {
         return type(of: self).notificationToken
     }

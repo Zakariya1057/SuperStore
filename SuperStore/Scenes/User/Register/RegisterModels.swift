@@ -22,6 +22,7 @@ enum Register
         {
             var name: String
             var email: String
+            var storeTypeID: Int
             var password: String
             var passwordConfirm: String
         }

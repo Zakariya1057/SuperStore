@@ -70,11 +70,21 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        configureStorePicker()
         getEmail()
         setupTextFieldDelegates()
     }
     
     // MARK: Outlets
+    
+    var selectedStoreType: StoreTypeModel = StoreTypeModel(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore)
+    
+    let storeTypes: [StoreTypeModel] = [
+        StoreTypeModel(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore),
+        StoreTypeModel(id: 1, name: "Asda", type: .asda),
+    ]
+    
+    var storeTypePicker: UIPickerView = UIPickerView()
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
@@ -82,6 +92,7 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var passwordConfirmField: UITextField!
+    @IBOutlet var storeField: UITextField!
     
     @IBOutlet var textFields: [UITextField]!
     
@@ -91,6 +102,13 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         startLoading()
         dismissKeyboard()
         submitForm()
+    }
+    
+    func configureStorePicker(){
+        storeField.inputView = storeTypePicker
+        storeTypePicker.delegate = self
+        storeTypePicker.dataSource = self
+        storeField.text = selectedStoreType.name
     }
     
     //MARK: - Display
@@ -108,8 +126,6 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         if let error = error {
             showError(title: "Register Error", error: error)
         } else {
-            // Navigate To Home
-            print("Success")
             router?.routeToLoggedIn(segue: nil)
         }
     }
@@ -129,6 +145,7 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         let request = Register.Register.Request(
             name: name,
             email: email,
+            storeTypeID: selectedStoreType.id,
             password: password,
             passwordConfirm: passwordConfirm
         )
@@ -181,4 +198,27 @@ extension RegisterViewController: UITextFieldDelegate {
         }
         return true
     }
+}
+
+extension RegisterViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+    {
+        return storeTypes.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
+        return storeTypes[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        selectedStoreType = storeTypes[row]
+        storeField.text = selectedStoreType.name
+    }
+    
 }

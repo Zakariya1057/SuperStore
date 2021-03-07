@@ -85,6 +85,7 @@ extension ResetPasswordAPI {
             name: userData.name,
             token: userData.token,
             email: userData.email,
+            storeTypeID: userData.store_type_id,
             sendNotifications: userData.send_notifications
         )
     }

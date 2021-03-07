@@ -83,10 +83,22 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var listsTableView: UITableView!
     
+    var userSession: UserSessionWorker = UserSessionWorker()
+    var loggedIn: Bool {
+        return userSession.isLoggedIn()
+    }
+
     func getLists()
     {
-        let request = ShowLists.GetLists.Request()
-        interactor?.getLists(request: request)
+        if loggedIn {
+            let request = ShowLists.GetLists.Request()
+            interactor?.getLists(request: request)
+        } else {
+            refreshControl.endRefreshing()
+            navigationItem.rightBarButtonItem!.isEnabled = false
+            lists = []
+            listsTableView.reloadData()
+        }
     }
     
     func displayLists(viewModel: ShowLists.GetLists.ViewModel)

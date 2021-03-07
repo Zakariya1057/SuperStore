@@ -14,7 +14,12 @@ struct UserAuthAPI: UserAuthProtocol {
     let jsonDecoder = JSONDecoder()
     let requestWorker: RequestProtocol = RequestWorker()
 
-    func login(email: String, password: String, notificationToken: String?, completionHandler: @escaping (UserModel?, String?) -> Void) {
+    func login(
+        email: String,
+        password: String,
+        notificationToken: String?,
+        completionHandler: @escaping (UserModel?, String?) -> Void
+    ) {
         
         let registerData: Parameters = [
             "email": email,
@@ -40,11 +45,22 @@ struct UserAuthAPI: UserAuthProtocol {
         }
     }
     
-    func register(name: String, email: String, password: String, passwordConfirmation: String, notificationToken: String? = "",  identifier: String? = nil, userToken: String? = nil, completionHandler: @escaping (UserModel?, String?) -> Void) {
+    func register(
+        name: String,
+        email: String,
+        storeTypeID: Int,
+        password: String,
+        passwordConfirmation: String,
+        notificationToken: String? = "",
+        identifier: String? = nil,
+        userToken: String? = nil,
+        completionHandler: @escaping (UserModel?, String?) -> Void
+    ) {
         
         let registerData: Parameters = [
             "name": name,
             "email": email,
+            "store_type_id": storeTypeID,
             "password": password,
             "password_confirmation": passwordConfirmation,
             "notification_token": notificationToken ?? "",
@@ -64,7 +80,7 @@ struct UserAuthAPI: UserAuthProtocol {
                 print(errorMessage)
                 completionHandler(nil, errorMessage)
             } catch {
-                completionHandler(nil, "Login Failed. Please try again later.")
+                completionHandler(nil, "Registration Failed. Please try again later.")
             }
         }
     }
@@ -80,6 +96,7 @@ extension UserAuthAPI {
             name: userData.name,
             token: userData.token,
             email: userData.email,
+            storeTypeID: userData.store_type_id,
             sendNotifications: userData.send_notifications
         )
     }

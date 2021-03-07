@@ -10,6 +10,12 @@
 		1C1BE4AD8045223682632323 /* Pods_SuperStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6527B7848ED54283EE5DD9 /* Pods_SuperStore.framework */; };
 		2C058FE225F5098300B4A16B /* UserLoggedInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FE125F5098300B4A16B /* UserLoggedInRouter.swift */; };
 		2C058FE825F50CB000B4A16B /* UserLoggedInProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FE725F50CB000B4A16B /* UserLoggedInProtocol.swift */; };
+		2C058FF425F52AE100B4A16B /* EditStorePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FEE25F52AE100B4A16B /* EditStorePresenter.swift */; };
+		2C058FF525F52AE100B4A16B /* EditStoreWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FEF25F52AE100B4A16B /* EditStoreWorker.swift */; };
+		2C058FF625F52AE100B4A16B /* EditStoreRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FF025F52AE100B4A16B /* EditStoreRouter.swift */; };
+		2C058FF725F52AE100B4A16B /* EditStoreModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FF125F52AE100B4A16B /* EditStoreModels.swift */; };
+		2C058FF825F52AE100B4A16B /* EditStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FF225F52AE100B4A16B /* EditStoreViewController.swift */; };
+		2C058FF925F52AE100B4A16B /* EditStoreInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FF325F52AE100B4A16B /* EditStoreInteractor.swift */; };
 		2C0D44792534DD090046E2B0 /* PromotionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D44782534DD090046E2B0 /* PromotionHistory.swift */; };
 		2C0D447F2535B2390046E2B0 /* ProductHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D447E2535B2390046E2B0 /* ProductHistory.swift */; };
 		2C0D44842535B33A0046E2B0 /* ReviewHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */; };
@@ -426,6 +432,12 @@
 		2A6527B7848ED54283EE5DD9 /* Pods_SuperStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuperStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C058FE125F5098300B4A16B /* UserLoggedInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoggedInRouter.swift; sourceTree = "<group>"; };
 		2C058FE725F50CB000B4A16B /* UserLoggedInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoggedInProtocol.swift; sourceTree = "<group>"; };
+		2C058FEE25F52AE100B4A16B /* EditStorePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStorePresenter.swift; sourceTree = "<group>"; };
+		2C058FEF25F52AE100B4A16B /* EditStoreWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStoreWorker.swift; sourceTree = "<group>"; };
+		2C058FF025F52AE100B4A16B /* EditStoreRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStoreRouter.swift; sourceTree = "<group>"; };
+		2C058FF125F52AE100B4A16B /* EditStoreModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStoreModels.swift; sourceTree = "<group>"; };
+		2C058FF225F52AE100B4A16B /* EditStoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStoreViewController.swift; sourceTree = "<group>"; };
+		2C058FF325F52AE100B4A16B /* EditStoreInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStoreInteractor.swift; sourceTree = "<group>"; };
 		2C0D44782534DD090046E2B0 /* PromotionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionHistory.swift; sourceTree = "<group>"; };
 		2C0D447E2535B2390046E2B0 /* ProductHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHistory.swift; sourceTree = "<group>"; };
 		2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHistory.swift; sourceTree = "<group>"; };
@@ -856,6 +868,19 @@
 				2C058FE725F50CB000B4A16B /* UserLoggedInProtocol.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		2C058FED25F52ACA00B4A16B /* EditStore */ = {
+			isa = PBXGroup;
+			children = (
+				2C058FEE25F52AE100B4A16B /* EditStorePresenter.swift */,
+				2C058FEF25F52AE100B4A16B /* EditStoreWorker.swift */,
+				2C058FF025F52AE100B4A16B /* EditStoreRouter.swift */,
+				2C058FF125F52AE100B4A16B /* EditStoreModels.swift */,
+				2C058FF225F52AE100B4A16B /* EditStoreViewController.swift */,
+				2C058FF325F52AE100B4A16B /* EditStoreInteractor.swift */,
+			);
+			path = EditStore;
 			sourceTree = "<group>";
 		};
 		2C14298F25F2C262007D1EB7 /* EditListItem */ = {
@@ -1391,6 +1416,7 @@
 				2C70825D25F00F9400345147 /* EditName */,
 				2C70829525F0137A00345147 /* EditEmail */,
 				2C70825C25F00E3A00345147 /* EditPassword */,
+				2C058FED25F52ACA00B4A16B /* EditStore */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2205,7 +2231,9 @@
 				2C910B4525E7AABF00BCEACC /* LoginInteractor.swift in Sources */,
 				2C48E7D525EAA078001A5702 /* ListModel.swift in Sources */,
 				2CA11F9C25EF90F00054AE19 /* CategoryModel.swift in Sources */,
+				2C058FF425F52AE100B4A16B /* EditStorePresenter.swift in Sources */,
 				2C70827525F0100700345147 /* EditPasswordWorker.swift in Sources */,
+				2C058FF925F52AE100B4A16B /* EditStoreInteractor.swift in Sources */,
 				2C9C1B8124CDD794001ACA35 /* ProductsCell.swift in Sources */,
 				2CDFB60925EA5EDA002CE30D /* Config.swift in Sources */,
 				2C2BC82125EBBF2E0038882B /* ShowDescriptionInteractor.swift in Sources */,
@@ -2214,6 +2242,7 @@
 				2C70823825F009D000345147 /* SendEmailInteractor.swift in Sources */,
 				2C14299725F2C282007D1EB7 /* EditListItemPresenter.swift in Sources */,
 				2C70827825F0100700345147 /* EditPasswordViewController.swift in Sources */,
+				2C058FF625F52AE100B4A16B /* EditStoreRouter.swift in Sources */,
 				2C2BC81C25EBBF2E0038882B /* ShowDescriptionPresenter.swift in Sources */,
 				2CDA612B25ED0FC700FD3956 /* ReviewModel.swift in Sources */,
 				2CA11F6B25EF8E490054AE19 /* GrandParentCategoriesViewController.swift in Sources */,
@@ -2284,6 +2313,7 @@
 				2CDFB63825EA6359002CE30D /* HomeModels.swift in Sources */,
 				2C70829C25F013A700345147 /* EditNamePresenter.swift in Sources */,
 				2CA11F6925EF8E490054AE19 /* GrandParentCategoriesRouter.swift in Sources */,
+				2C058FF725F52AE100B4A16B /* EditStoreModels.swift in Sources */,
 				2C2BC80F25EBBF180038882B /* EditReviewWorker.swift in Sources */,
 				2C14775E25E9070D000E8F66 /* UserSessionWorker.swift in Sources */,
 				2CA11F9725EF90560054AE19 /* GroceryWorker.swift in Sources */,
@@ -2293,6 +2323,7 @@
 				2C21C3A624F6F36B00D90B4B /* StoreHandler.swift in Sources */,
 				2C48E7A725EA99D4001A5702 /* StoresMapCell.swift in Sources */,
 				2CD5E02F25324AB000E4A01B /* SearchHistory.swift in Sources */,
+				2C058FF825F52AE100B4A16B /* EditStoreViewController.swift in Sources */,
 				2C55F9D725EE4085007BBFA8 /* SearchWorker.swift in Sources */,
 				2CA11EEA25EE84620054AE19 /* ShowRefinePresenter.swift in Sources */,
 				2C2BC80E25EBBF180038882B /* EditReviewPresenter.swift in Sources */,
@@ -2321,6 +2352,7 @@
 				2CB9119A25F11B4500A8FC66 /* ShowListsPresenter.swift in Sources */,
 				2C1567E124C9A0DF00B8DCB5 /* 1GroceryTableViewController.swift in Sources */,
 				2C7082AB25F013B200345147 /* EditEmailWorker.swift in Sources */,
+				2C058FF525F52AE100B4A16B /* EditStoreWorker.swift in Sources */,
 				2CF239B725094A9000D4CE91 /* ListItemsHandler.swift in Sources */,
 				2C55F9C525EE3B62007BBFA8 /* ShowSuggestionsPresenter.swift in Sources */,
 				2C1476D825E7C402000E8F66 /* UserLoginModel.swift in Sources */,

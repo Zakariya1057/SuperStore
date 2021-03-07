@@ -73,6 +73,7 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
         getFavourites()
     }
     
+    
     // MARK: IB Outlets
     @IBOutlet var favouriteTableView: UITableView!
     
@@ -82,10 +83,21 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
     
     var refreshControl = UIRefreshControl()
     
+    var userSession: UserSessionWorker = UserSessionWorker()
+    var loggedIn: Bool {
+        return userSession.isLoggedIn()
+    }
+    
     func getFavourites()
     {
-        let request = Favourites.GetFavourites.Request()
-        interactor?.getFavourites(request: request)
+        if loggedIn {
+            let request = Favourites.GetFavourites.Request()
+            interactor?.getFavourites(request: request)
+        } else {
+            products = []
+            favouriteTableView.reloadData()
+        }
+
     }
     
     func displayFavourites(viewModel: Favourites.GetFavourites.ViewModel)

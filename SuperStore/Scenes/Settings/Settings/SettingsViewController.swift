@@ -85,12 +85,23 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     @IBOutlet weak var emailStackView: UIStackView!
     @IBOutlet weak var passwordStackView: UIStackView!
     
+    @IBOutlet var storeLoggedInStackView: UIStackView!
+    @IBOutlet var storeLoggedOutStackView: UIStackView!
+    
+    @IBOutlet var storeLoggedInNameLabel: UILabel!
+    @IBOutlet var storeLoggedOutNameLabel: UILabel!
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     
     @IBOutlet var notificationSwitch: UISwitch!
     
     @IBOutlet var logoutButton: UIButton!
+    
+    var storeDetails: [Int: String] = [
+        1: "Asda",
+        2: "Real Canadian Superstore"
+    ]
     
     func getSettings()
     {
@@ -110,6 +121,12 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
                 
                 nameLabel.text = user.name
                 emailLabel.text = user.email
+                
+                let storeName: String = storeDetails[user.storeTypeID]!
+                
+                for storeLabel in [storeLoggedInNameLabel, storeLoggedOutNameLabel] {
+                    storeLabel!.text = storeName
+                }
                 
                 notificationSwitch.isOn = user.sendNotifications
             }
@@ -191,6 +208,12 @@ extension SettingsViewController {
         
         let passwordGesture = UITapGestureRecognizer(target: self, action: #selector(passwordPressed))
         passwordStackView.addGestureRecognizer(passwordGesture)
+        
+        let storeGestureLoggedIn = UITapGestureRecognizer(target: self, action: #selector(storePressed))
+        let storeGestureLoggedOut = UITapGestureRecognizer(target: self, action: #selector(storePressed))
+        
+        storeLoggedOutStackView.addGestureRecognizer(storeGestureLoggedOut)
+        storeLoggedInStackView.addGestureRecognizer(storeGestureLoggedIn)
     }
 }
 
@@ -220,6 +243,11 @@ extension SettingsViewController {
     
     @objc func passwordPressed(){
         router?.routeToEditPassword(segue: nil)
+    }
+    
+    @objc func storePressed(){
+        print("Store Pressed")
+        router?.routeToEditStore(segue: nil)
     }
 }
 
