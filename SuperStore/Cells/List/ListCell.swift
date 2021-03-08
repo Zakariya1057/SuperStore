@@ -19,6 +19,12 @@ class ListCell: UITableViewCell {
 
     var list: ListModel?
 
+    var dateFormatter: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM Y"
+        return dateFormatter
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -38,7 +44,7 @@ class ListCell: UITableViewCell {
             listNameLabel.text = list!.name
             totalLabel.text = "£\( String(format:"%.2f", list!.totalPrice))"
 
-            createdLabel.text = list!.createdAt
+            createdLabel.text = formatDate(date: list!.createdAt)
 
             if status == .notStarted {
                 statusLabel.textColor =  UIColor(red: 0.44, green: 0.44, blue: 0.47, alpha: 1.00)
@@ -52,6 +58,10 @@ class ListCell: UITableViewCell {
             }
 
         }
+    }
+    
+    func formatDate(date: Date) -> String {
+        return dateFormatter.string(from: list!.createdAt)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

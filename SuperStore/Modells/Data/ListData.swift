@@ -30,6 +30,7 @@ struct ListData: Decodable {
     
     var old_total_price: Double?
     var categories: [ListCategoryData]?
+    
     var updated_at: String
     var created_at: String
     
@@ -57,8 +58,15 @@ struct ListData: Decodable {
             oldTotalPrice: old_total_price,
             totalItems: total_items,
             tickedOffItems: ticked_off_items,
-            createdAt: created_at
+            createdAt: formatDate(date: created_at),
+            updatedAt: formatDate(date: updated_at)
         )
+    }
+    
+    private func formatDate(date: String) -> Date {
+        let dateFormat: DateFormatter = DateFormatter()
+        dateFormat.dateFormat = "dd MMMM Y"
+        return dateFormat.date(from: date)!
     }
 }
 

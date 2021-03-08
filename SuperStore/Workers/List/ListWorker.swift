@@ -10,9 +10,11 @@ import Foundation
 
 class ListWorker {
     var listAPI: ListRequestProtocol
+    var listStore: ListStoreProtocol
     
     init(listAPI: ListRequestProtocol) {
         self.listAPI = listAPI
+        self.listStore = ListRealmStore()
     }
     
     func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
@@ -24,7 +26,14 @@ class ListWorker {
     }
     
     func getLists(completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
-        listAPI.getLists(completionHandler: completionHandler)
+        listAPI.getLists { (lists: [ListModel], error: String?) in
+            // Save lists
+            for list in lists {
+                self.listStore.createList(list: list)
+            }
+            
+            completionHandler(lists, error)
+        }
     }
 
     func updateList(listID: Int, name: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
@@ -36,7 +45,13 @@ class ListWorker {
     }
     
     func deleteList(listID: Int, completionHandler: @escaping (String?) -> Void){
-        listAPI.deleteList(listID: listID, completionHandler: completionHandler)
+        listAPI.deleteList(listID: listID) { (error: String?) in
+            if error == nil {
+                self.listStore.deleteList(listID: listID)
+            }
+            
+            completionHandler(error)
+        }
     }
 }
 
@@ -48,4 +63,10 @@ protocol ListRequestProtocol {
     func updateList(listID: Int, name: String, storeTypeID: Int, completionHandler: @escaping (String?) -> Void)
     func restartList(listID: Int, completionHandler: @escaping (String?) -> Void)
     func deleteList(listID: Int, completionHandler: @escaping (String?) -> Void)
+}
+
+protocol ListStoreProtocol {
+    func getList(listID: Int) -> ListModel?
+    func createList(list: ListModel)
+    func deleteList(listID: Int)
 }

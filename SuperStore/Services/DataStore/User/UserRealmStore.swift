@@ -9,9 +9,7 @@
 import Foundation
 import RealmSwift
 
-class UserRealmStore: UserStoreProtocol {
-    
-    private let realm = try? Realm()
+class UserRealmStore: DataStore, UserStoreProtocol {
     
     private var user: UserObject? {
         return realm?.objects(UserObject.self).first

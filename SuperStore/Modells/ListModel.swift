@@ -23,7 +23,8 @@ struct ListModel {
     var totalItems: Int
     var tickedOffItems: Int
     
-    var createdAt: String
+    var createdAt: Date
+    var updatedAt: Date
 }
 
 
