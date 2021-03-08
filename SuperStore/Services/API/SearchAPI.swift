@@ -83,11 +83,11 @@ extension SearchAPI {
         let suggestionData = suggestionDataResponse.data
         var suggestions: [SuggestionModel] = []
         
+        suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.stores, type: .store))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.child_categories, type: .childCategory))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.parent_categories, type: .parentCategory))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.products, type: .product))
-        suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.stores, type: .store))
-        
+ 
         return suggestions
     }
     

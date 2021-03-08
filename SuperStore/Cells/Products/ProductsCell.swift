@@ -12,8 +12,8 @@ class ProductElement: CustomElementModel {
     var title: String
     var type: CustomElementType { return .products }
     
-    var productPressedCallBack: (Int) -> Void
-    var scrollCallBack: (CGFloat, String) -> Void
+    var productPressed: (Int) -> Void
+    var scrolled: (CGFloat, String) -> Void
     
     var products: [ProductModel]
     var position: CGFloat?
@@ -22,8 +22,8 @@ class ProductElement: CustomElementModel {
     init(title: String, productPressedCallBack: @escaping (Int) -> Void, scrollCallBack: @escaping (CGFloat, String) -> Void ,products: [ProductModel]) {
         self.title = title
         
-        self.productPressedCallBack = productPressedCallBack
-        self.scrollCallBack = scrollCallBack
+        self.productPressed = productPressedCallBack
+        self.scrolled = scrollCallBack
         
         self.products = products
     }
@@ -53,8 +53,8 @@ class ProductsCell: UITableViewCell,CustomElementCell {
         }
         
         self.model = model
-        self.productPressedCallBack = model.productPressedCallBack
-        self.scrollCallBack = model.scrollCallBack
+        self.productPressedCallBack = model.productPressed
+        self.scrollCallBack = model.scrolled
         self.loading = model.loading
         
         self.products = model.products

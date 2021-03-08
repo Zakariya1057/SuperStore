@@ -93,6 +93,7 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
         if loggedIn {
             let request = ShowLists.GetLists.Request()
             interactor?.getLists(request: request)
+            navigationItem.rightBarButtonItem!.isEnabled = true
         } else {
             refreshControl.endRefreshing()
             navigationItem.rightBarButtonItem!.isEnabled = false
@@ -127,11 +128,23 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
 
 extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lists.count
+        return loggedIn ? lists.count : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return configureProductCell(indexPath: indexPath)
+        return loggedIn ? configureProductCell(indexPath: indexPath) : configureRequestLoginCell(indexPath: indexPath)
+    }
+    
+    func configureRequestLoginCell(indexPath: IndexPath) -> RequestLoginCell {
+        let cell = listsTableView.dequeueReusableCell(withIdentifier: "RequestLoginCell", for: indexPath) as! RequestLoginCell
+        
+        cell.titleLabel.text = "Create List"
+        cell.descriptionLabel.text = "Login to create a shopping list, tick items of your list and get notified when product prices change."
+        
+        cell.loginButtonPressed = loginButtonPressed
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        return cell
     }
     
     func configureProductCell(indexPath: IndexPath) -> ListCell {
@@ -148,6 +161,9 @@ extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
     func setupListsTableView(){
         let listCellNib = UINib(nibName: "ListCell", bundle: nil)
         listsTableView.register(listCellNib, forCellReuseIdentifier: "ListCell")
+        
+        let requestLoginCellNib = UINib(nibName: "RequestLoginCell", bundle: nil)
+        listsTableView.register(requestLoginCellNib, forCellReuseIdentifier: "RequestLoginCell")
         
         listsTableView.delegate = self
         listsTableView.dataSource = self
@@ -220,5 +236,15 @@ extension ShowListsViewController {
 extension ShowListsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         router?.routeToShowList(segue: nil)
+    }
+}
+
+extension ShowListsViewController: UserLoggedInProtocol {
+    func loginButtonPressed(){
+        router?.routeToLogin(segue: nil)
+    }
+    
+    func userLoggedInSuccessfully(){
+        getLists()
     }
 }

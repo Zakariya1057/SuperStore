@@ -34,7 +34,7 @@ class FeaturedProductCell: UITableViewCell,CustomElementCell {
         
         self.model = model
         self.loading = model.loading
-        self.productPressedCallBack = model.productPressedCallBack
+        self.productPressedCallBack = model.productPressed
         
         self.products = model.products
         self.productCollection.reloadData()

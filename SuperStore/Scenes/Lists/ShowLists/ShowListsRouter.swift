@@ -16,6 +16,7 @@ import UIKit
 {
     func routeToEditList(segue: UIStoryboardSegue?)
     func routeToShowList(segue: UIStoryboardSegue?)
+    func routeToLogin(segue: UIStoryboardSegue?)
 }
 
 protocol ShowListsDataPassing
@@ -60,6 +61,21 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
         }
     }
     
+    func routeToLogin(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! LoginViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToLogin(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToLogin(source: dataStore!, destination: &destinationDS)
+            navigateToLogin(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     // MARK: Navigation
     
     func navigateToEditList(source: ShowListsViewController, destination: EditListViewController)
@@ -70,6 +86,11 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
     func navigateToShowList(source: ShowListsViewController, destination: ShowListViewController)
     {
         source.show(destination, sender: nil)
+    }
+    
+    func navigateToLogin(source: ShowListsViewController, destination: LoginViewController)
+    {
+        source.present(destination, animated: true, completion: nil)
     }
     
     // MARK: Passing data
@@ -84,6 +105,11 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
     {
         let list =  source.lists[ viewController!.listsTableView.indexPathForSelectedRow!.row ]
         destination.list = list
+    }
+    
+    func passDataToLogin(source: ShowListsDataStore, destination: inout LoginDataStore)
+    {
+
     }
     
 }

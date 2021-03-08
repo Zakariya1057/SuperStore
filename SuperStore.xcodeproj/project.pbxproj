@@ -16,6 +16,8 @@
 		2C058FF725F52AE100B4A16B /* EditStoreModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FF125F52AE100B4A16B /* EditStoreModels.swift */; };
 		2C058FF825F52AE100B4A16B /* EditStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FF225F52AE100B4A16B /* EditStoreViewController.swift */; };
 		2C058FF925F52AE100B4A16B /* EditStoreInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FF325F52AE100B4A16B /* EditStoreInteractor.swift */; };
+		2C05901125F6265F00B4A16B /* RequestLoginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05900F25F6265F00B4A16B /* RequestLoginCell.swift */; };
+		2C05901225F6265F00B4A16B /* RequestLoginCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C05901025F6265F00B4A16B /* RequestLoginCell.xib */; };
 		2C0D44792534DD090046E2B0 /* PromotionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D44782534DD090046E2B0 /* PromotionHistory.swift */; };
 		2C0D447F2535B2390046E2B0 /* ProductHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D447E2535B2390046E2B0 /* ProductHistory.swift */; };
 		2C0D44842535B33A0046E2B0 /* ReviewHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */; };
@@ -438,6 +440,8 @@
 		2C058FF125F52AE100B4A16B /* EditStoreModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStoreModels.swift; sourceTree = "<group>"; };
 		2C058FF225F52AE100B4A16B /* EditStoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStoreViewController.swift; sourceTree = "<group>"; };
 		2C058FF325F52AE100B4A16B /* EditStoreInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStoreInteractor.swift; sourceTree = "<group>"; };
+		2C05900F25F6265F00B4A16B /* RequestLoginCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLoginCell.swift; sourceTree = "<group>"; };
+		2C05901025F6265F00B4A16B /* RequestLoginCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestLoginCell.xib; sourceTree = "<group>"; };
 		2C0D44782534DD090046E2B0 /* PromotionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionHistory.swift; sourceTree = "<group>"; };
 		2C0D447E2535B2390046E2B0 /* ProductHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHistory.swift; sourceTree = "<group>"; };
 		2C0D44832535B33A0046E2B0 /* ReviewHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewHistory.swift; sourceTree = "<group>"; };
@@ -881,6 +885,15 @@
 				2C058FF325F52AE100B4A16B /* EditStoreInteractor.swift */,
 			);
 			path = EditStore;
+			sourceTree = "<group>";
+		};
+		2C05900E25F6262800B4A16B /* RequestLogin */ = {
+			isa = PBXGroup;
+			children = (
+				2C05900F25F6265F00B4A16B /* RequestLoginCell.swift */,
+				2C05901025F6265F00B4A16B /* RequestLoginCell.xib */,
+			);
+			path = RequestLogin;
 			sourceTree = "<group>";
 		};
 		2C14298F25F2C262007D1EB7 /* EditListItem */ = {
@@ -1911,6 +1924,7 @@
 				2CDFB66425EA6F45002CE30D /* StoresMap */,
 				2CA11FA525EF96A90054AE19 /* Category */,
 				2CB911E825F120AF00A8FC66 /* List */,
+				2C05900E25F6262800B4A16B /* RequestLogin */,
 				2CDFB68025EA722D002CE30D /* Collections */,
 				2CA11F5D25EF8CE20054AE19 /* Sections */,
 			);
@@ -2084,6 +2098,7 @@
 				2CB3DCFD252A180900FC5792 /* ListsProgressCell.xib in Resources */,
 				2CB3DCF62527AFB600FC5792 /* RefineOptionCell.xib in Resources */,
 				2CAC05F3252CE24E00561509 /* OfferCollectionViewCell.xib in Resources */,
+				2C05901225F6265F00B4A16B /* RequestLoginCell.xib in Resources */,
 				2C9C1B8724CDDDCE001ACA35 /* OpenSans-Bold.ttf in Resources */,
 				2C9C1B8824CDDDCE001ACA35 /* OpenSans-SemiBold.ttf in Resources */,
 				2CB15C8324D2D7FE00461AFE /* ListCell.xib in Resources */,
@@ -2374,6 +2389,7 @@
 				2C7082A125F013A700345147 /* EditNameInteractor.swift in Sources */,
 				2C7082A025F013A700345147 /* EditNameViewController.swift in Sources */,
 				2C2BC83125EBBFD40038882B /* ShowPromotionViewController.swift in Sources */,
+				2C05901125F6265F00B4A16B /* RequestLoginCell.swift in Sources */,
 				2C362F95253B0E3D000846C0 /* 1PromotionModel.swift in Sources */,
 				2CBF020A25EFDE0C003AD5DF /* GroceryTableModels.swift in Sources */,
 				2CB15C9424D2FB8900461AFE /* ListItemCell.swift in Sources */,

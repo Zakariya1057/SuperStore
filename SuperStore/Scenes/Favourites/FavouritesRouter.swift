@@ -15,6 +15,7 @@ import UIKit
 @objc protocol FavouritesRoutingLogic
 {
     func routeToShowProduct(segue: UIStoryboardSegue?)
+    func routeToLogin(segue: UIStoryboardSegue?)
 }
 
 protocol FavouritesDataPassing
@@ -44,6 +45,21 @@ class FavouritesRouter: NSObject, FavouritesRoutingLogic, FavouritesDataPassing
         }
     }
     
+    func routeToLogin(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! LoginViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToLogin(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToLogin(source: dataStore!, destination: &destinationDS)
+            navigateToLogin(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     //    MARK: Navigation
     
     func navigateToShowProduct(source: FavouritesViewController, destination: ShowProductViewController)
@@ -51,10 +67,20 @@ class FavouritesRouter: NSObject, FavouritesRoutingLogic, FavouritesDataPassing
         source.show(destination, sender: nil)
     }
     
+    func navigateToLogin(source: FavouritesViewController, destination: LoginViewController)
+    {
+        source.present(destination, animated: true, completion: nil)
+    }
+    
     //    MARK: Passing data
     
     func passDataToShowProduct(source: FavouritesDataStore, destination: inout ShowProductDataStore)
     {
         destination.productID = viewController!.selectedProductID!
+    }
+    
+    func passDataToLogin(source: FavouritesDataStore, destination: inout LoginDataStore)
+    {
+
     }
 }

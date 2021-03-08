@@ -97,7 +97,6 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
             products = []
             favouriteTableView.reloadData()
         }
-
     }
     
     func displayFavourites(viewModel: Favourites.GetFavourites.ViewModel)
@@ -113,7 +112,9 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
     }
     
     func displayDeleteFavourite(viewModel: Favourites.DeleteFavourite.ViewModel){
-        
+        if let error = viewModel.error {
+            showError(title: "Favourite Error", error: error)
+        }
     }
     
     @objc func refreshFavourites(){
@@ -124,11 +125,23 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
 
 extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count
+        return loggedIn ? products.count : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return configureProductCell(indexPath: indexPath)
+        return loggedIn ? configureProductCell(indexPath: indexPath) : configureRequestLoginCell(indexPath: indexPath)
+    }
+    
+    func configureRequestLoginCell(indexPath: IndexPath) -> RequestLoginCell {
+        let cell = favouriteTableView.dequeueReusableCell(withIdentifier: "RequestLoginCell", for: indexPath) as! RequestLoginCell
+        
+        cell.titleLabel.text = "Add to your favourites"
+        cell.descriptionLabel.text = "Login to keep track of all your favourite products, get notified when the product prices change."
+        
+        cell.loginButtonPressed = loginButtonPressed
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        return cell
     }
     
     func configureProductCell(indexPath: IndexPath) -> ProductCell {
@@ -145,6 +158,9 @@ extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
     func setupFavouriteTableView(){
         let productCellNib = UINib(nibName: "ProductCell", bundle: nil)
         favouriteTableView.register(productCellNib, forCellReuseIdentifier: "ProductCell")
+
+        let requestLoginCellNib = UINib(nibName: "RequestLoginCell", bundle: nil)
+        favouriteTableView.register(requestLoginCellNib, forCellReuseIdentifier: "RequestLoginCell")
         
         favouriteTableView.delegate = self
         favouriteTableView.dataSource = self
@@ -168,7 +184,7 @@ extension FavouritesViewController {
 
 //MARK: - Editing Table
 
-extension FavouritesViewController{
+extension FavouritesViewController {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
@@ -185,5 +201,15 @@ extension FavouritesViewController{
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
+    }
+}
+
+extension FavouritesViewController: UserLoggedInProtocol {
+    func loginButtonPressed(){
+        router?.routeToLogin(segue: nil)
+    }
+    
+    func userLoggedInSuccessfully(){
+        getFavourites()
     }
 }
