@@ -22,10 +22,25 @@ class ListWorker {
     }
 
     func getList(listID: Int, completionHandler: @escaping ( _ list: ListModel?, _ error: String?) -> Void){
-        listAPI.getList(listID: listID, completionHandler: completionHandler)
+        // Preload List
+        if let list = listStore.getList(listID: listID) {
+            completionHandler(list, nil)
+        }
+        
+        listAPI.getList(listID: listID) { (list: ListModel?, error: String?) in
+            if let list = list {
+                self.listStore.createList(list: list)
+            }
+            
+            completionHandler(list, error)
+        }
     }
     
-    func getLists(completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
+    func getLists(storeTypeID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
+        // Preload Lists
+        let lists = listStore.getLists(storeTypeID: storeTypeID)
+        completionHandler(lists, nil)
+        
         listAPI.getLists { (lists: [ListModel], error: String?) in
             // Save lists
             for list in lists {
@@ -67,6 +82,7 @@ protocol ListRequestProtocol {
 
 protocol ListStoreProtocol {
     func getList(listID: Int) -> ListModel?
+    func getLists(storeTypeID: Int) -> [ListModel]
     func createList(list: ListModel)
     func deleteList(listID: Int)
 }

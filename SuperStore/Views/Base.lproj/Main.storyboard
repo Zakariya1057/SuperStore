@@ -3838,7 +3838,7 @@
                                                         <rect key="frame" x="192" y="0.0" width="192" height="40"/>
                                                         <subviews>
                                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RRF-rW-snD">
-                                                                <rect key="frame" x="57" y="0.0" width="70" height="40"/>
+                                                                <rect key="frame" x="67.5" y="0.0" width="70" height="40"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQf-Ca-Yef" userLabel="Red Line">
                                                                         <rect key="frame" x="10.5" y="19.5" width="49" height="1.5"/>
@@ -3863,8 +3863,8 @@
                                                                     <constraint firstItem="uQf-Ca-Yef" firstAttribute="centerY" secondItem="RRF-rW-snD" secondAttribute="centerY" id="wgR-X3-Upg"/>
                                                                 </constraints>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£35.30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Edw-55-B6I">
-                                                                <rect key="frame" x="137" y="0.0" width="55" height="40"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Edw-55-B6I">
+                                                                <rect key="frame" x="147.5" y="0.0" width="44.5" height="40"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="LogoBlue.Light"/>
                                                                 <nil key="highlightedColor"/>

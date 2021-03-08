@@ -15,7 +15,7 @@ class ListAPI: ListRequestProtocol {
     let requestWorker: RequestProtocol = RequestWorker()
 
     func getLists(completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
-        requestWorker.get(url:  Config.Route.List.All) { (response: () throws -> Data) in
+        requestWorker.get(url: Config.Route.List.All) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let listsDataResponse =  try self.jsonDecoder.decode(ListsDataResponse.self, from: data)

@@ -29,16 +29,19 @@ protocol ShowListsDataStore
 class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
 {
     var presenter: ShowListsPresentationLogic?
+    
     var listWorker: ListWorker = ListWorker(listAPI: ListAPI())
+    var userSession = UserSessionWorker()
     
-    var lists: [ListModel] = []
     var addToList: Bool = false
+    var lists: [ListModel] = []
     
-    // MARK: Do something
     
     func getLists(request: ShowLists.GetLists.Request)
     {
-        listWorker.getLists { (lists: [ListModel], error: String?) in
+        let storeTypeID = userSession.getStore()
+        
+        listWorker.getLists(storeTypeID: storeTypeID) { (lists: [ListModel], error: String?) in
             self.lists = lists
             
             let response = ShowLists.GetLists.Response(lists: lists, error: error)
