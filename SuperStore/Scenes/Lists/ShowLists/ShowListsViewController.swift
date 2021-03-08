@@ -73,15 +73,15 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
         getLists()
     }
     
+    @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var listsTableView: UITableView!
+    
     var lists: [ListModel] = []
     
     var editIndexPath: IndexPath?
     
     let spinner: SpinnerViewController = SpinnerViewController()
     var refreshControl = UIRefreshControl()
-    
-    @IBOutlet var searchBar: UISearchBar!
-    @IBOutlet var listsTableView: UITableView!
     
     var userSession: UserSessionWorker = UserSessionWorker()
     var loggedIn: Bool {
@@ -237,7 +237,8 @@ extension ShowListsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // If add to list, let parent know
         // Otherwise, route to show list
-        router?.routeToShowList(segue: nil)
+        router?.listSelectedID = lists[indexPath.row].id
+        interactor!.addToList ? router?.routeToShowProductResults(segue: nil) : router?.routeToShowList(segue: nil)
     }
 }
 

@@ -15,6 +15,8 @@ import UIKit
 protocol ShowProductResultsDisplayLogic: class
 {
     func displayResults(viewModel: ShowProductResults.GetResults.ViewModel)
+    func displayListItemCreated(viewModel: ShowProductResults.CreateListItem.ViewModel)
+    func displayListItemUpdated(viewModel: ShowProductResults.UpdateListItem.ViewModel)
 }
 
 class ShowProductResultsViewController: UIViewController, ShowProductResultsDisplayLogic
@@ -81,6 +83,9 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     var products: [ProductModel] = []
     
+    var selectedListID: Int?
+    var selectedProduct: ProductModel?
+    
     func updateTitle(){
         title = interactor!.productQueryModel.query
     }
@@ -108,6 +113,18 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             products = viewModel.products
             totalProductsLabel.text = "\(products.count) Products"
             productsTableView.reloadData()
+        }
+    }
+    
+    func displayListItemCreated(viewModel: ShowProductResults.CreateListItem.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "List Error", error: error)
+        }
+    }
+    
+    func displayListItemUpdated(viewModel: ShowProductResults.UpdateListItem.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "List Error", error: error)
         }
     }
     
@@ -163,14 +180,50 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
     
 }
 
+extension ShowProductResultsViewController: SelectListProtocol {
+    func listSelected(listID: Int) {
+        // Update Cell Quantity Button
+        productsTableView.reloadData()
+        selectedListID = listID
+        
+        let request = ShowProductResults.CreateListItem.Request(
+            listID: listID,
+            productID: selectedProduct!.id,
+            parentCategoryID: selectedProduct!.parentCategoryId!
+        )
+        
+        interactor?.createListItem(request: request)
+    }
+}
+
 extension ShowProductResultsViewController {
     func addToListPressed(product: ProductModel){
         // Show lists, select one.
+        selectedProduct = product
+        updateProductQuantity(product: product)
         router?.routeToShowLists(segue: nil)
     }
     
     func updateQuantityPressed(product: ProductModel){
         // Update API/Realm Request
+        selectedProduct = product
+        updateProductQuantity(product: product)
+        
+        let request = ShowProductResults.UpdateListItem.Request(
+            listID: selectedListID!,
+            productID: product.id,
+            quantity: product.quantity
+        )
+        
+        interactor?.updateListItem(request: request)
+    }
+    
+    func updateProductQuantity(product: ProductModel){
+        for searchProduct in products {
+            if searchProduct == product {
+                searchProduct.quantity = product.quantity
+            }
+        }
     }
 }
 
@@ -179,3 +232,5 @@ extension ShowProductResultsViewController {
         
     }
 }
+
+

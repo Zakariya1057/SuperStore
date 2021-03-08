@@ -25,6 +25,10 @@ protocol ShowProductResultsDataPassing
     var selectedProductID: Int? { get set }
 }
 
+protocol SelectListProtocol {
+    func listSelected(listID: Int)
+}
+
 class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowProductResultsDataPassing
 {
     weak var viewController: ShowProductResultsViewController?
@@ -111,7 +115,7 @@ class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowPr
     
     func passDataToShowLists(source: ShowProductResultsDataStore, destination: inout ShowListsDataStore)
     {
-        
+        destination.addToList = true
     }
     
 }

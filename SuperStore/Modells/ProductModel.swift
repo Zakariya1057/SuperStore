@@ -9,7 +9,6 @@
 import Foundation
 
 class ProductModel {
-
     var id: Int
     var name: String
     var price: Double
@@ -78,4 +77,10 @@ class ProductModel {
         self.promotion = promotion
     }
 
+}
+
+extension ProductModel: Equatable  {
+    static func == (lhs: ProductModel, rhs: ProductModel) -> Bool {
+        return lhs.id == rhs.id
+    }
 }

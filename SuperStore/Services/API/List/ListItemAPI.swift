@@ -55,7 +55,7 @@ class ListItemAPI: ListItemRequestProtocol {
     }
     
     func createItem(listID: Int, productID: Int, parentCategoryID: Int, completionHandler: @escaping (String?) -> Void) {
-        let url: String = Config.Route.List.ListRoute + String(listID) + Config.Route.List.Item.Create
+        let url: String = Config.Route.List.ListRoute + "/" + String(listID) + Config.Route.List.Item.Create
         
         let itemData: Parameters = [
             "list_id": listID,

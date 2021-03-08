@@ -42,6 +42,7 @@ class ProductCell: UITableViewCell {
     func displayButtons(){
         if addToList {
             if product.quantity > 0 {
+                updateQuanity(quantity: product.quantity)
                 quantityView.isHidden = false
                 addView.isHidden = true
             } else {
@@ -73,10 +74,7 @@ extension ProductCell {
     }
     
     @IBAction func addButtonPressed(_ button: UIButton) {
-//        addView.isHidden = true
-//        quantityView.isHidden = false
-//        updateQuanity(quantity: 1)
-        
+        updateQuanity(quantity: 1)
         if let addToListPressed = addToListPressed {
             addToListPressed(product)
         }

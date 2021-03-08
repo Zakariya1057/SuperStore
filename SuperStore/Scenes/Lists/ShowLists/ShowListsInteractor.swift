@@ -16,18 +16,23 @@ protocol ShowListsBusinessLogic
 {
     func getLists(request: ShowLists.GetLists.Request)
     func deleteList(request: ShowLists.DeleteList.Request)
+    
+    var addToList: Bool { get set }
 }
 
 protocol ShowListsDataStore
 {
-    var lists: [ListModel]  { get set }
+    var lists: [ListModel] { get set }
+    var addToList: Bool { get set }
 }
 
 class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
 {
     var presenter: ShowListsPresentationLogic?
     var listWorker: ListWorker = ListWorker(listAPI: ListAPI())
+    
     var lists: [ListModel] = []
+    var addToList: Bool = false
     
     // MARK: Do something
     
@@ -49,4 +54,5 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
             self.presenter?.presentListDeleted(response: response)
         }
     }
+    
 }

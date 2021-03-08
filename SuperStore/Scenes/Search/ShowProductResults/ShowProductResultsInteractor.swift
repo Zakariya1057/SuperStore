@@ -19,6 +19,9 @@ protocol ShowProductResultsBusinessLogic
     var productQueryModel: ProductQueryModel { get set }
     var selectedRefineOptions: SelectedRefineOptions { get set }
     var searchRefine: SearchRefine { get set }
+    
+    func createListItem(request: ShowProductResults.CreateListItem.Request)
+    func updateListItem(request: ShowProductResults.UpdateListItem.Request)
 }
 
 protocol ShowProductResultsDataStore
@@ -34,6 +37,8 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     var searchWorker: SearchWorker = SearchWorker(searchAPI: SearchAPI())
     var productQueryModel: ProductQueryModel = ProductQueryModel(query: "", type: "")
     
+    var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
+    
     var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [])
     
     var selectedRefineOptions: SelectedRefineOptions = SelectedRefineOptions() {
@@ -44,7 +49,6 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     
     func getResults(request: ShowProductResults.GetResults.Request)
     {
-        
         // Unique Brands. Unique Categories
         var uniqueBrands: [String: Int] = [:]
         var uniqueCategories: [String: Int] = [:]
@@ -87,12 +91,39 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
 
         productQueryModel.dietary = selectedRefineOptions.dietary.compactMap({ $0.name }).joined(separator: ",")
     }
-    
+
+}
+
+extension ShowProductResultsInteractor {
     func resetRefineResults(){
         productQueryModel.sort = ""
         productQueryModel.order = ""
         productQueryModel.dietary = ""
         productQueryModel.brand = ""
         productQueryModel.childCategory = ""
+    }
+}
+
+extension ShowProductResultsInteractor {
+    func createListItem(request: ShowProductResults.CreateListItem.Request){
+        let listID: Int = request.listID
+        let productID: Int = request.productID
+        let parentCategoryID: Int = request.parentCategoryID
+        
+        listItemWorker.createItem(listID: listID, productID: productID, parentCategoryID: parentCategoryID) { (error: String?) in
+            let response = ShowProductResults.CreateListItem.Response(error: error)
+            self.presenter?.presentListItemCreated(response: response)
+        }
+    }
+    
+    func updateListItem(request: ShowProductResults.UpdateListItem.Request){
+        let listID: Int = request.listID
+        let productID: Int = request.productID
+        let quantity: Int = request.quantity
+        
+        listItemWorker.updateItem(listID: listID, productID: productID, quantity: quantity, tickedOff: false) { (error: String?) in
+            let response = ShowProductResults.UpdateListItem.Response(error: error)
+            self.presenter?.presentListItemUpdated(response: response)
+        }
     }
 }

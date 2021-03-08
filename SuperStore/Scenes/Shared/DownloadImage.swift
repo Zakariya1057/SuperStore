@@ -6,7 +6,6 @@
 //  Copyright © 2021 Zakariya Mohummed. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Kingfisher
 

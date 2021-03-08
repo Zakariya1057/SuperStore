@@ -32,4 +32,39 @@ enum ShowProductResults
             var error: String?
         }
     }
+    
+    enum CreateListItem {
+        struct Request
+        {
+            // List ID, Quantity, Product, Parent Category ID
+            var listID: Int
+            var productID: Int
+            var parentCategoryID: Int
+        }
+        struct Response
+        {
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
+    
+    enum UpdateListItem {
+        struct Request
+        {
+            var listID: Int
+            var productID: Int
+            var quantity: Int
+        }
+        struct Response
+        {
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
 }

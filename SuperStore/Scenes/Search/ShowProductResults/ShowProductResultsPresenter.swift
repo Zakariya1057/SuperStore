@@ -14,18 +14,30 @@ import UIKit
 
 protocol ShowProductResultsPresentationLogic
 {
-  func presentResults(response: ShowProductResults.GetResults.Response)
+    func presentResults(response: ShowProductResults.GetResults.Response)
+    func presentListItemCreated(response: ShowProductResults.CreateListItem.Response)
+    func presentListItemUpdated(response: ShowProductResults.UpdateListItem.Response)
 }
 
 class ShowProductResultsPresenter: ShowProductResultsPresentationLogic
 {
-  weak var viewController: ShowProductResultsDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentResults(response: ShowProductResults.GetResults.Response)
-  {
-    let viewModel = ShowProductResults.GetResults.ViewModel(products: response.products, error: response.error)
-    viewController?.displayResults(viewModel: viewModel)
-  }
+    weak var viewController: ShowProductResultsDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentResults(response: ShowProductResults.GetResults.Response)
+    {
+        let viewModel = ShowProductResults.GetResults.ViewModel(products: response.products, error: response.error)
+        viewController?.displayResults(viewModel: viewModel)
+    }
+    
+    func presentListItemCreated(response: ShowProductResults.CreateListItem.Response) {
+        let viewModel = ShowProductResults.CreateListItem.ViewModel(error: response.error)
+        viewController?.displayListItemCreated(viewModel: viewModel)
+    }
+    
+    func presentListItemUpdated(response: ShowProductResults.UpdateListItem.Response) {
+        let viewModel = ShowProductResults.UpdateListItem.ViewModel(error: response.error)
+        viewController?.displayListItemUpdated(viewModel: viewModel)
+    }
 }
