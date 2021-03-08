@@ -15,8 +15,8 @@ class SearchWorker {
         self.searchAPI = searchAPI
     }
     
-    func getSuggestions(query: String, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void){
-        searchAPI.getSuggestions(query: query, completionHandler: completionHandler)
+    func getSuggestions(storeTypeID: Int, query: String, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void){
+        searchAPI.getSuggestions(storeTypeID: storeTypeID, query: query, completionHandler: completionHandler)
     }
     
     func getProductResults(data: ProductQueryModel, completionHandler: @escaping (_ ResultsModel: ProductResultsModel?, _ error: String?) -> Void){
@@ -26,6 +26,6 @@ class SearchWorker {
 }
 
 protocol SearchRequestProtocol {
-    func getSuggestions(query: String, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void)
+    func getSuggestions(storeTypeID: Int, query: String, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void)
     func getProductResults(data: ProductQueryModel, completionHandler: @escaping ( _ ResultsModel: ProductResultsModel?, _ error: String?) -> Void)
 }

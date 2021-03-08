@@ -29,9 +29,13 @@ class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDa
     var searchWorker: SearchWorker = SearchWorker(searchAPI: SearchAPI())
     var productQueryModel: ProductQueryModel? = nil
     
+    var userSessions = UserSessionWorker()
+    
     func getSuggestions(request: ShowSuggestions.GetSuggestions.Request)
     {
-        searchWorker.getSuggestions(query: request.query) { (suggestions: [SuggestionModel], error: String?) in
+        let storeTypeID = userSessions.getStore()
+        
+        searchWorker.getSuggestions(storeTypeID: storeTypeID, query: request.query) { (suggestions: [SuggestionModel], error: String?) in
             let response = ShowSuggestions.GetSuggestions.Response(suggestions: suggestions, error: error)
             self.presenter?.presentSuggestions(response: response)
         }

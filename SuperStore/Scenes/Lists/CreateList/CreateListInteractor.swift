@@ -32,7 +32,7 @@ class CreateListInteractor: CreateListBusinessLogic, CreateListDataStore
     func createList(request: CreateList.CreateList.Request)
     {
         let name = request.name
-        let storeTypeID = userSessions.getStore()!
+        let storeTypeID = userSessions.getStore()
         let identifier = UUID().uuidString
         
         let formFields: [ListFormField] = [

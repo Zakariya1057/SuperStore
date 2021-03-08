@@ -15,6 +15,7 @@ import UIKit
 protocol SettingsPresentationLogic
 {
     func presentUserDetails(response: Settings.GetUserDetails.Response)
+    func presentUserStore(response: Settings.GetStore.Response)
     func presentUpdateNotifications(response: Settings.UpdateNotifications.Response)
     func presentLogout(response: Settings.Logout.Response)
     func presentDeleted(response: Settings.Delete.Response)
@@ -24,17 +25,21 @@ class SettingsPresenter: SettingsPresentationLogic
 {
     weak var viewController: SettingsDisplayLogic?
     
-    // MARK: Do something
+    var storeDetails: [Int: String] = [
+        1: "Asda",
+        2: "Real Canadian Superstore"
+    ]
     
     func presentUserDetails(response: Settings.GetUserDetails.Response)
     {
-        
         var displayedUser: Settings.GetUserDetails.ViewModel.DisplayedUser?
         var error: String?
         
         if let user = response.user {
+            let storeName: String = storeDetails[user.storeTypeID]!
+            
             displayedUser = Settings.GetUserDetails.ViewModel.DisplayedUser(
-                name: user.name, email: user.email, storeTypeID: user.storeTypeID, sendNotifications: user.sendNotifications
+                name: user.name, email: user.email, storeName: storeName, sendNotifications: user.sendNotifications
             )
         } else {
             error = "Failed to find saved user details."
@@ -42,6 +47,12 @@ class SettingsPresenter: SettingsPresentationLogic
         
         let viewModel = Settings.GetUserDetails.ViewModel(displayedUser: displayedUser, error: error)
         viewController?.displayUserDetails(viewModel: viewModel)
+    }
+    
+    func presentUserStore(response: Settings.GetStore.Response) {
+        let storeName: String = storeDetails[response.storeTypeID]!
+        let viewModel = Settings.GetStore.ViewModel(storeName: storeName)
+        viewController?.displayUserStore(viewModel: viewModel)
     }
     
     func presentUpdateNotifications(response: Settings.UpdateNotifications.Response) {

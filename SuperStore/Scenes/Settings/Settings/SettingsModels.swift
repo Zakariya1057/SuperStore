@@ -30,12 +30,27 @@ enum Settings
             struct DisplayedUser {
                 var name: String
                 var email: String
-                var storeTypeID: Int
+                var storeName: String
                 var sendNotifications: Bool
             }
             
             var displayedUser: DisplayedUser?
             var error: String?
+        }
+    }
+    
+    enum GetStore
+    {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var storeTypeID: Int
+        }
+        struct ViewModel
+        {
+            var storeName: String
         }
     }
     

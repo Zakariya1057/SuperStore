@@ -55,7 +55,7 @@ struct UserSession {
     
     func getUserToken() -> String? {
         let details = getUserDetails()
-        return details?.token
+        return details?.token == "" ? nil : details?.token
     }
     
     func getUserDetails() -> UserObject? {

@@ -14,6 +14,7 @@ import UIKit
 
 protocol SettingsDisplayLogic: class
 {
+    func displayUserStore(viewModel: Settings.GetStore.ViewModel)
     func displayUserDetails(viewModel: Settings.GetUserDetails.ViewModel)
     func displayUpdateNotifications(viewModel: Settings.UpdateNotifications.ViewModel)
     func displayedLogout(viewModel: Settings.Logout.ViewModel)
@@ -97,40 +98,51 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     @IBOutlet var notificationSwitch: UISwitch!
     
     @IBOutlet var logoutButton: UIButton!
-    
-    var storeDetails: [Int: String] = [
-        1: "Asda",
-        2: "Real Canadian Superstore"
-    ]
+
+    var userSession: UserSessionWorker = UserSessionWorker()
+    var loggedIn: Bool {
+        return userSession.isLoggedIn()
+    }
     
     func getSettings()
     {
-        let request = Settings.GetUserDetails.Request()
-        interactor?.getSettings(request: request)
+        if loggedIn {
+            let request = Settings.GetUserDetails.Request()
+            interactor?.getSettings(request: request)
+        } else {
+            // Get User Store. Show Store
+            displayUserViews(loggedIn: false)
+            getUserStore()
+        }
     }
     
     func displayUserDetails(viewModel: Settings.GetUserDetails.ViewModel)
     {
         if viewModel.error != nil {
             // User not logged in.
-            displayUserLoggedIn(loggedIn: false)
+            displayUserViews(loggedIn: false)
+            getUserStore()
         } else {
             if let user = viewModel.displayedUser {
                 
-                displayUserLoggedIn(loggedIn: true)
+                displayUserViews(loggedIn: true)
                 
                 nameLabel.text = user.name
                 emailLabel.text = user.email
-                
-                let storeName: String = storeDetails[user.storeTypeID]!
-                
-                for storeLabel in [storeLoggedInNameLabel, storeLoggedOutNameLabel] {
-                    storeLabel!.text = storeName
-                }
+                storeLoggedInNameLabel!.text = user.storeName
                 
                 notificationSwitch.isOn = user.sendNotifications
             }
         }
+    }
+    
+    func getUserStore(){
+        let request = Settings.GetStore.Request()
+        interactor?.getUserStore(request: request)
+    }
+    
+    func displayUserStore(viewModel: Settings.GetStore.ViewModel) {
+        storeLoggedOutNameLabel!.text = viewModel.storeName
     }
     
     func displayedLogout(viewModel: Settings.Logout.ViewModel) {
@@ -161,7 +173,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
 }
 
 extension SettingsViewController {
-    func displayUserLoggedIn(loggedIn: Bool){
+    func displayUserViews(loggedIn: Bool){
         if loggedIn {
             loggedInView.isHidden = false
             logoutButton.isHidden = false

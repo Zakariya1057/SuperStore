@@ -18,6 +18,8 @@ class UserRealmStore: UserStoreProtocol {
     }
     
     func createUser(user: UserModel) {
+        deleteUser()
+        
         try? realm?.write({
             let savedUser = UserObject()
             savedUser.name = user.name
@@ -54,6 +56,11 @@ class UserRealmStore: UserStoreProtocol {
         try? realm?.write({
             if let savedUser: UserObject = self.user {
                 savedUser.storeTypeID = storeTypeID
+            } else {
+                // User not logged in. Create empty user with store type id
+                let savedUser = UserObject()
+                savedUser.storeTypeID = storeTypeID
+                realm?.add(savedUser)
             }
         })
     }
@@ -91,7 +98,7 @@ extension UserRealmStore {
 
 extension UserRealmStore {
     func getToken() -> String? {
-        return user?.token
+        return user?.token == "" ? nil : user?.token
     }
     
     func getStore() -> Int? {

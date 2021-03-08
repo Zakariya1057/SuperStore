@@ -15,6 +15,7 @@ import UIKit
 protocol SettingsBusinessLogic
 {
     func getSettings(request: Settings.GetUserDetails.Request)
+    func getUserStore(request: Settings.GetStore.Request)
     func updateNotification(request: Settings.UpdateNotifications.Request)
     
     func logout(request: Settings.Logout.Request)
@@ -23,15 +24,15 @@ protocol SettingsBusinessLogic
 
 protocol SettingsDataStore
 {
-    //var name: String { get set }
     var user: UserModel? { get set }
 }
 
 class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
 {
-    
     var presenter: SettingsPresentationLogic?
     var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
+    var userSession: UserSessionWorker = UserSessionWorker()
+    
     var user: UserModel?
     
     func getSettings(request: Settings.GetUserDetails.Request)
@@ -41,6 +42,12 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
             let response = Settings.GetUserDetails.Response(user: user)
             self.presenter?.presentUserDetails(response: response)
         }
+    }
+    
+    func getUserStore(request: Settings.GetStore.Request) {
+        let storeTypeID: Int = userSession.getStore()
+        let response = Settings.GetStore.Response(storeTypeID: storeTypeID)
+        self.presenter?.presentUserStore(response: response)
     }
     
     func updateNotification(request: Settings.UpdateNotifications.Request){
@@ -62,6 +69,6 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
             let response = Settings.Delete.Response(error: error)
             self.presenter?.presentDeleted(response: response)
         }
-
+        
     }
 }

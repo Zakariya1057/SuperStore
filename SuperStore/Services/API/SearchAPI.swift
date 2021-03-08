@@ -15,10 +15,10 @@ class SearchAPI: SearchRequestProtocol {
     
     let requestWorker: RequestProtocol = RequestWorker()
     
-    func getSuggestions(query: String, completionHandler: @escaping ([SuggestionModel], String?) -> Void) {
-        let url = Config.Route.Search.Suggestions + "/" + query
+    func getSuggestions(storeTypeID: Int, query: String, completionHandler: @escaping ([SuggestionModel], String?) -> Void) {
+        let url = Config.Route.Search.Suggestions
         
-        requestWorker.get(url: url) { (response: () throws -> Data) in
+        requestWorker.post(url: url, data: ["query": query, "store_type_id": storeTypeID]) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let suggestionDataResponse =  try self.jsonDecoder.decode(SearchSuggestionsDataResponse.self, from: data)

@@ -73,9 +73,14 @@ class EditStoreViewController: UIViewController, EditStoreDisplayLogic
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
+    var userSession: UserSessionWorker = UserSessionWorker()
+    var loggedIn: Bool {
+        return userSession.isLoggedIn()
+    }
+    
     func displayUpdatedStore(viewModel: EditStore.UpdateStore.ViewModel)
     {
-        if let error = viewModel.error {
+        if loggedIn, let error = viewModel.error {
             showError(title: "Update Error", error: error)
         } else {
             router?.routeToSettings(segue: nil)

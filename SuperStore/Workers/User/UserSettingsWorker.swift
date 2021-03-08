@@ -51,10 +51,7 @@ class UserSettingsWorker {
     
     func updateStore(storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
         userAPI.updateStore(storeTypeID: storeTypeID, completionHandler: { (error: String?) in
-            if error == nil {
-                self.userStore.updateStore(storeTypeID: storeTypeID)
-            }
-            
+            self.userStore.updateStore(storeTypeID: storeTypeID)
             completionHandler(error)
         })
     }
