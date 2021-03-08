@@ -27,12 +27,15 @@ import UIKit
 protocol ShowProductDataPassing
 {
     var dataStore: ShowProductDataStore? { get }
+    var selectedProductID: Int? { get set }
 }
 
 class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassing
 {
     weak var viewController: ShowProductViewController?
+    
     var dataStore: ShowProductDataStore?
+    var selectedProductID: Int?
     
     // MARK: Routing
     
@@ -210,7 +213,7 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     
     func passDataToShowProduct(source: ShowProductDataStore, destination: inout ShowProductDataStore)
     {
-        destination.productID = viewController!.selectedProductID!
+        destination.productID = selectedProductID!
     }
     
     func passDataToEditReview(source: ShowProductDataStore, destination: inout EditReviewDataStore)

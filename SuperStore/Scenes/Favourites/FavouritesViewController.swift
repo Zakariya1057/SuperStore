@@ -79,8 +79,6 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
     
     var products: [ProductModel] = []
     
-    var selectedProductID: Int?
-    
     var refreshControl = UIRefreshControl()
     
     var userSession: UserSessionWorker = UserSessionWorker()
@@ -177,7 +175,7 @@ extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension FavouritesViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedProductID = products[indexPath.row].id
+        router?.selectedProductID = products[indexPath.row].id
         router?.routeToShowProduct(segue: nil)
     }
 }

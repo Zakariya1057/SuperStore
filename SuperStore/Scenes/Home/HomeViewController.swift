@@ -83,11 +83,6 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     var homeCells: [CustomElementModel] = []
     
     var homeModel: HomeModel?
-    var loading: Bool = false
-    
-    var selectedProductID: Int?
-    var selectedPromotionID: Int?
-    var selectedStoreID: Int?
     
     func getHome()
     {
@@ -238,7 +233,6 @@ extension HomeViewController {
         let customCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CustomElementCell
         
         cellModel.position = scrollPositions[ cellModel.title ]
-        cellModel.loading = self.loading
         customCell.configure(withModel: cellModel)
         
         let cell = customCell as! UITableViewCell
@@ -251,12 +245,12 @@ extension HomeViewController {
 
 extension HomeViewController {
     private func promotionPressed(promotionID: Int){
-        selectedPromotionID = promotionID
+        router?.selectedPromotionID = promotionID
         router?.routeToShowPromotion(segue: nil)
     }
     
     private func storePressed(storeID: Int){
-        selectedStoreID = storeID
+        router?.selectedStoreID = storeID
         router?.routeToStore(segue: nil)
         print("Store Pressed")
     }
@@ -266,7 +260,7 @@ extension HomeViewController {
     }
     
     private func productPressed(productID: Int){
-        self.selectedProductID = productID
+        router?.selectedProductID = productID
         router?.routeToShowProduct(segue: nil)
     }
     

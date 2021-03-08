@@ -21,12 +21,15 @@ import UIKit
 protocol FavouritesDataPassing
 {
     var dataStore: FavouritesDataStore? { get }
+    var selectedProductID: Int? { get set }
 }
 
 class FavouritesRouter: NSObject, FavouritesRoutingLogic, FavouritesDataPassing
 {
     weak var viewController: FavouritesViewController?
+    
     var dataStore: FavouritesDataStore?
+    var selectedProductID: Int?
     
     // MARK: Routing
     
@@ -76,11 +79,11 @@ class FavouritesRouter: NSObject, FavouritesRoutingLogic, FavouritesDataPassing
     
     func passDataToShowProduct(source: FavouritesDataStore, destination: inout ShowProductDataStore)
     {
-        destination.productID = viewController!.selectedProductID!
+        destination.productID = selectedProductID!
     }
     
     func passDataToLogin(source: FavouritesDataStore, destination: inout LoginDataStore)
     {
-
+        
     }
 }

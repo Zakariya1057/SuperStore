@@ -23,6 +23,7 @@ class ProductModel {
     var favourite: Bool
     var monitoring: Bool
 
+    var quantity: Int = 0
     var avgRating: Double = 0
     var totalReviewsCount: Int = 0
 
@@ -56,6 +57,8 @@ class ProductModel {
         self.parentCategoryName = parentCategoryName
         self.childCategoryName = childCategoryName
 
+        self.quantity = quantity
+        
         self.storage = storage
         self.avgRating = avgRating ?? 0
         self.totalReviewsCount = totalReviewsCount ?? 0

@@ -20,12 +20,15 @@ import UIKit
 protocol ShowStoreResultsDataPassing
 {
     var dataStore: ShowStoreResultsDataStore? { get }
+    var selectedStoreID: Int? { get set }
 }
 
 class ShowStoreResultsRouter: NSObject, ShowStoreResultsRoutingLogic, ShowStoreResultsDataPassing
 {
     weak var viewController: ShowStoreResultsViewController?
+    
     var dataStore: ShowStoreResultsDataStore?
+    var selectedStoreID: Int?
     
     // MARK: Routing
     
@@ -55,6 +58,6 @@ class ShowStoreResultsRouter: NSObject, ShowStoreResultsRoutingLogic, ShowStoreR
     
     func passDataToStore(source: ShowStoreResultsDataStore, destination: inout StoreDataStore)
     {
-        destination.storeID = viewController!.selectedStoreID
+        destination.storeID = selectedStoreID!
     }
 }

@@ -73,7 +73,6 @@ class EditNameViewController: UIViewController, EditNameDisplayLogic
         getName()
     }
     
-    // MARK: Do something
     let spinner: SpinnerViewController = SpinnerViewController()
     
     @IBOutlet weak var nameTextField: UITextField!

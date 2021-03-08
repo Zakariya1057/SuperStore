@@ -123,8 +123,6 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     var reviews: [ReviewModel] = []
     var recommendedProducts: [ProductModel] = []
     
-    var selectedProductID: Int?
-    
     var userSession: UserSessionWorker = UserSessionWorker()
     var loggedIn: Bool {
         return userSession.isLoggedIn()
@@ -376,7 +374,7 @@ extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate 
 
 extension ShowProductViewController {
     private func productPressed(productID: Int){
-        selectedProductID = productID
+        router?.selectedProductID = productID
         router?.routeToShowProduct(segue: nil)
     }
     

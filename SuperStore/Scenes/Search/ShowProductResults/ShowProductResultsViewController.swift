@@ -81,8 +81,6 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     var products: [ProductModel] = []
     
-    var selectedProductID: Int?
-    
     func updateTitle(){
         title = interactor!.productQueryModel.query
     }
@@ -125,7 +123,7 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedProductID = products[indexPath.row].id
+        router?.selectedProductID = products[indexPath.row].id
         router?.routeToShowProduct(segue: nil)
     }
     
@@ -133,6 +131,9 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
         let cell = productsTableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
         
         cell.product = products[indexPath.row]
+        cell.addToList = true
+        cell.addToListPressed = addToListPressed
+        cell.updateQuantityPressed = updateQuantityPressed
         cell.configureUI()
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -162,6 +163,16 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
     
 }
 
+extension ShowProductResultsViewController {
+    func addToListPressed(product: ProductModel){
+        // Show lists, select one.
+        router?.routeToShowLists(segue: nil)
+    }
+    
+    func updateQuantityPressed(product: ProductModel){
+        // Update API/Realm Request
+    }
+}
 
 extension ShowProductResultsViewController {
     @IBAction func doneButtonPressed(_ sender: Any) {

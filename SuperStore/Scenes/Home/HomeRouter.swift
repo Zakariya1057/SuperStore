@@ -22,13 +22,19 @@ import UIKit
 protocol HomeDataPassing
 {
     var dataStore: HomeDataStore? { get }
+    var selectedProductID: Int? { get set }
+    var selectedPromotionID: Int? { get set }
+    var selectedStoreID: Int? { get set }
 }
 
 class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
 {
-    
     weak var viewController: HomeViewController?
     var dataStore: HomeDataStore?
+    
+    var selectedProductID: Int?
+    var selectedPromotionID: Int?
+    var selectedStoreID: Int?
     
     // MARK: Routing
     
@@ -76,8 +82,8 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
         }
     }
     
-//    MARK: Navigation
-
+    //    MARK: Navigation
+    
     func navigateToShowProduct(source: HomeViewController, destination: ShowProductViewController)
     {
         source.show(destination, sender: nil)
@@ -93,20 +99,20 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
         source.show(destination, sender: nil)
     }
     
-//    MARK: Passing data
+    //    MARK: Passing data
     
     func passDataToShowProduct(source: HomeDataStore, destination: inout ShowProductDataStore)
     {
-        destination.productID = viewController!.selectedProductID!
+        destination.productID = selectedProductID!
     }
     
     func passDataToShowPromotion(source: HomeDataStore, destination: inout ShowPromotionDataStore)
     {
-        destination.promotionID = viewController!.selectedPromotionID!
+        destination.promotionID = selectedPromotionID!
     }
     
     func passDataToStore(source: HomeDataStore, destination: inout StoreDataStore)
     {
-        destination.storeID = viewController!.selectedStoreID!
+        destination.storeID = selectedStoreID!
     }
 }

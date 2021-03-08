@@ -88,7 +88,6 @@ class ShowDescriptionViewController: UIViewController, ShowDescriptionDisplayLog
     {
         productDescription = viewModel.description
         descriptionTableView.reloadData()
-        //nameTextField.text = viewModel.name
     }
 }
 

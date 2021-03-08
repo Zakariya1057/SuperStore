@@ -73,7 +73,7 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
         getStores()
     }
     
-    var selectedStoreID: Int = 1
+//    var selectedStoreID: Int = 1
     
     var displayedStores: [ShowStoreResults.DisplayedStore] = []
     var stores: [StoreModel] = []
@@ -171,7 +171,7 @@ extension ShowStoreResultsViewController {
     }
     
     func storePressed(storeID: Int){
-        selectedStoreID = storeID
+        router?.selectedStoreID = storeID
         router?.routeToStore(segue: nil)
     }
 }

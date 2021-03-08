@@ -235,6 +235,8 @@ extension ShowListsViewController {
 
 extension ShowListsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // If add to list, let parent know
+        // Otherwise, route to show list
         router?.routeToShowList(segue: nil)
     }
 }

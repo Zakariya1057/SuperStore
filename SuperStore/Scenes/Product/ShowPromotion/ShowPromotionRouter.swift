@@ -14,21 +14,24 @@ import UIKit
 
 @objc protocol ShowPromotionRoutingLogic
 {
-  func routeToShowProduct(segue: UIStoryboardSegue?)
+    func routeToShowProduct(segue: UIStoryboardSegue?)
 }
 
 protocol ShowPromotionDataPassing
 {
-  var dataStore: ShowPromotionDataStore? { get }
+    var dataStore: ShowPromotionDataStore? { get }
+    var selectedProductID: Int? { get set }
 }
 
 class ShowPromotionRouter: NSObject, ShowPromotionRoutingLogic, ShowPromotionDataPassing
 {
-  weak var viewController: ShowPromotionViewController?
-  var dataStore: ShowPromotionDataStore?
-  
-  // MARK: Routing
-  
+    weak var viewController: ShowPromotionViewController?
+    
+    var dataStore: ShowPromotionDataStore?
+    var selectedProductID: Int?
+    
+    // MARK: Routing
+    
     func routeToShowProduct(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
@@ -55,6 +58,6 @@ class ShowPromotionRouter: NSObject, ShowPromotionRoutingLogic, ShowPromotionDat
     
     func passDataToShowProduct(source: ShowPromotionDataStore, destination: inout ShowProductDataStore)
     {
-        destination.productID = viewController!.selectedProductID!
+        destination.productID = selectedProductID!
     }
 }

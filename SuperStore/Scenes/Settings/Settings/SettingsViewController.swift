@@ -258,7 +258,6 @@ extension SettingsViewController {
     }
     
     @objc func storePressed(){
-        print("Store Pressed")
         router?.routeToEditStore(segue: nil)
     }
 }

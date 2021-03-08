@@ -78,8 +78,6 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     @IBOutlet var suggestionsTableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     
-    var selectedStoreTypeID: Int?
-    
     var suggestions: [SuggestionModel] = [
         SuggestionModel(id: 1, name: "Asda", type: .store),
         SuggestionModel(id: 1, name: "Fruit", type: .parentCategory),
@@ -146,7 +144,7 @@ extension ShowSuggestionsViewController {
         var type: String
         
         if suggestion.type == .store {
-            selectedStoreTypeID = suggestion.id
+            router?.selectedStoreTypeID = suggestion.id
             router?.routeToShowStoreResults(segue: nil)
         } else {
             if suggestion.type == .product {

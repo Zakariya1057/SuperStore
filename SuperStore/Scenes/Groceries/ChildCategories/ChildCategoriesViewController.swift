@@ -76,8 +76,6 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
         getCategories()
     }
     
-    var selectedProductID: Int?
-    
     var viewcontrollers:[GroceryTableViewController] = []
     var categories: [ChildCategoryModel] = []
     
@@ -157,7 +155,7 @@ extension ChildCategoriesViewController:  TMBarDataSource, PageboyViewController
 
 extension ChildCategoriesViewController {
     private func productPressed(productID: Int){
-        self.selectedProductID = productID
+        router?.selectedProductID = productID
         router?.routeToShowProduct(segue: nil)
     }
 }

@@ -20,15 +20,17 @@ import UIKit
 protocol ChildCategoriesDataPassing
 {
     var dataStore: ChildCategoriesDataStore? { get }
+    var selectedProductID: Int? { get set }
 }
 
 class ChildCategoriesRouter: NSObject, ChildCategoriesRoutingLogic, ChildCategoriesDataPassing
 {
     weak var viewController: ChildCategoriesViewController?
+    
     var dataStore: ChildCategoriesDataStore?
+    var selectedProductID: Int?
     
     // MARK: Routing
-    
     
     func routeToShowProduct(segue: UIStoryboardSegue?)
     {
@@ -56,6 +58,6 @@ class ChildCategoriesRouter: NSObject, ChildCategoriesRoutingLogic, ChildCategor
     
     func passDataToShowProduct(source: ChildCategoriesDataStore, destination: inout ShowProductDataStore)
     {
-        destination.productID = viewController!.selectedProductID!
+        destination.productID = selectedProductID!
     }
 }

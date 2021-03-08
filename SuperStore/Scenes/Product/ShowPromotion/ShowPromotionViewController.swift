@@ -83,8 +83,6 @@ class ShowPromotionViewController: UIViewController, ShowPromotionDisplayLogic
     @IBOutlet var promotionNameLabel: UILabel!
     @IBOutlet var promotionNameView: UIView!
     
-    var selectedProductID: Int?
-    
     var loading: Bool = false
     var promotion: PromotionModel? = nil
     
@@ -150,7 +148,7 @@ extension ShowPromotionViewController: UITableViewDelegate, UITableViewDataSourc
 extension ShowPromotionViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let promotion = promotion {
-            selectedProductID = promotion.products[indexPath.row].id
+            router?.selectedProductID = promotion.products[indexPath.row].id
             router?.routeToShowProduct(segue: nil)
         }
     }

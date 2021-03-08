@@ -16,17 +16,21 @@ import UIKit
 {
     func routeToShowProduct(segue: UIStoryboardSegue?)
     func routeToShowRefine(segue: UIStoryboardSegue?)
+    func routeToShowLists(segue: UIStoryboardSegue?)
 }
 
 protocol ShowProductResultsDataPassing
 {
     var dataStore: ShowProductResultsDataStore? { get }
+    var selectedProductID: Int? { get set }
 }
 
 class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowProductResultsDataPassing
 {
     weak var viewController: ShowProductResultsViewController?
+    
     var dataStore: ShowProductResultsDataStore?
+    var selectedProductID: Int?
     
     // MARK: Routing
     
@@ -60,7 +64,22 @@ class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowPr
         }
     }
     
-    //    MARK: Navigation
+    func routeToShowLists(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowListsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowLists(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowListsViewController") as! ShowListsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowLists(source: dataStore!, destination: &destinationDS)
+            navigateToShowLists(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    //  MARK: Navigation
     
     func navigateToShowRefine(source: ShowProductResultsViewController, destination: ShowRefineViewController)
     {
@@ -72,17 +91,27 @@ class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowPr
         source.show(destination, sender: nil)
     }
     
-    //    MARK: Passing data
+    func navigateToShowLists(source: ShowProductResultsViewController, destination: ShowListsViewController)
+    {
+        source.present(destination, animated: true, completion: nil)
+    }
+    
+    //  MARK: Passing data
     
     func passDataToShowProduct(source: ShowProductResultsDataStore, destination: inout ShowProductDataStore)
     {
-        destination.productID = viewController!.selectedProductID!
+        destination.productID = selectedProductID!
     }
     
     func passDataToShowRefine(source: ShowProductResultsDataStore, destination: inout ShowRefineDataStore)
     {
         destination.selectedRefineOptions = source.selectedRefineOptions
         destination.searchRefine = source.searchRefine
+    }
+    
+    func passDataToShowLists(source: ShowProductResultsDataStore, destination: inout ShowListsDataStore)
+    {
+        
     }
     
 }
