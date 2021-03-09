@@ -69,7 +69,7 @@ class ListRealmStore: DataStore, ListStoreProtocol {
             
             savedList.categories.removeAll()
             
-            for category in createCategoryObjects(categories: list.categories) {
+            for category in createCategoryObjects(list: list) {
                 savedList.categories.append(category)
             }
             
@@ -88,9 +88,15 @@ class ListRealmStore: DataStore, ListStoreProtocol {
             savedList.tickedOffItems = list.tickedOffItems
             savedList.updatedAt = list.updatedAt
             
-            savedList.categories.removeAll()
+            if let items = realm?.objects(ListItemObject.self).filter("listID = %@", list.id) {
+                realm?.delete(items)
+            }
             
-            for category in createCategoryObjects(categories: list.categories) {
+            if let categories = realm?.objects(ListCategoryObject.self).filter("listID = %@", list.id) {
+                realm?.delete(categories)
+            }
+            
+            for category in createCategoryObjects(list: list) {
                 savedList.categories.append(category)
             }
             
@@ -108,15 +114,16 @@ class ListRealmStore: DataStore, ListStoreProtocol {
 }
 
 extension ListRealmStore {
-    func createCategoryObjects(categories: [ListCategoryModel]) -> List<ListCategoryObject> {
+    func createCategoryObjects(list: ListModel) -> List<ListCategoryObject> {
         let savedCategories = List<ListCategoryObject>()
         
-        for category in categories {
+        for category in list.categories {
             
             let savedCategory = ListCategoryObject()
             
             savedCategory.id = category.id
             savedCategory.name = category.name
+            savedCategory.listID = list.id
             
             for item in category.items {
                 let savedItem = ListItemObject()
@@ -125,6 +132,7 @@ extension ListRealmStore {
                 savedItem.name = item.name
                 savedItem.image = item.image
                 savedItem.price = item.price
+                savedItem.listID = list.id
                 savedItem.quantity = item.quantity
                 savedItem.productID = item.productID
                 savedItem.totalPrice = item.totalPrice

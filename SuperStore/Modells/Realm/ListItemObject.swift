@@ -15,6 +15,7 @@ class ListItemObject: Object {
     var image: String? = nil
     
     @objc dynamic var productID: Int = 1
+    @objc dynamic var listID: Int = 1
     
     @objc dynamic var price: Double = 0
     @objc dynamic var totalPrice: Double = 0
