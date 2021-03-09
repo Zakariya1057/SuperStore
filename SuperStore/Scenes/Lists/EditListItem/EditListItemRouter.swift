@@ -37,10 +37,12 @@ class EditListItemRouter: NSObject, EditListItemRoutingLogic, EditListItemDataPa
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowList(source: dataStore!, destination: &destinationDS)
         } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowListViewController") as! ShowListViewController
+            let navigationViewController = viewController!.navigationController!
+            let destinationVC = navigationViewController.viewControllers[navigationViewController.viewControllers.count - 2] as! ShowListViewController
+            
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowList(source: dataStore!, destination: &destinationDS)
+            callRefreshTableView(source: viewController!, destination: destinationVC)
             navigateToShowList(source: viewController!, destination: destinationVC)
         }
     }
@@ -83,5 +85,12 @@ class EditListItemRouter: NSObject, EditListItemRoutingLogic, EditListItemDataPa
     {
         destination.promotionID = source.listItem.promotion!.id
     }
-
+    
+    // MARK: CallBack Function
+    
+    func callRefreshTableView(source: EditListItemViewController, destination: ShowListViewController)
+    {
+        destination.reflectListChanged()
+    }
+    
 }

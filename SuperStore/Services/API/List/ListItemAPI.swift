@@ -54,7 +54,7 @@ class ListItemAPI: ListItemRequestProtocol {
         }
     }
     
-    func createItem(listID: Int, productID: Int, parentCategoryID: Int, completionHandler: @escaping (String?) -> Void) {
+    func createItem(listID: Int, productID: Int, parentCategoryID: Int, completionHandler: @escaping (ListItemModel?, String?) -> Void) {
         let url: String = Config.Route.List.ListRoute + "/" + String(listID) + Config.Route.List.Item.Create
         
         let itemData: Parameters = [
@@ -65,15 +65,24 @@ class ListItemAPI: ListItemRequestProtocol {
         
         requestWorker.post(url: url, data: itemData) { (response: () throws -> Data) in
             do {
-                _ = try response()
-                completionHandler(nil)
+                let data = try response()
+                let listItemDataResponse =  try self.jsonDecoder.decode(ListItemDataResponse.self, from: data)
+                let list = self.createListItemModel(listItemDataResponse: listItemDataResponse)
+                completionHandler(list, nil)
+                
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
-                completionHandler(errorMessage)
+                completionHandler(nil, errorMessage)
             } catch {
                 print(error)
-                completionHandler("Failed to update list item. Decoding error, please try again later.")
+                completionHandler(nil, "Failed to update list item. Decoding error, please try again later.")
             }
         }
+    }
+}
+
+extension ListItemAPI {
+    private func createListItemModel(listItemDataResponse: ListItemDataResponse) -> ListItemModel {
+        return listItemDataResponse.data.getListItemModel()
     }
 }

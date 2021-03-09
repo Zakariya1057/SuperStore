@@ -73,12 +73,11 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
         setupSearchDelegate()
     }
     
-    // MARK: Do something
-    
     @IBOutlet var suggestionsTableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     
     var suggestions: [SuggestionModel] = [
+        // Load Later.
         SuggestionModel(id: 1, name: "Asda", type: .store),
         SuggestionModel(id: 1, name: "Fruit", type: .parentCategory),
         SuggestionModel(id: 1, name: "Apples", type: .childCategory),

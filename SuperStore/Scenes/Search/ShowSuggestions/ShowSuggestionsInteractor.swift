@@ -16,18 +16,23 @@ protocol ShowSuggestionsBusinessLogic
 {
     func getSuggestions(request: ShowSuggestions.GetSuggestions.Request)
     var productQueryModel: ProductQueryModel? { get set }
+    var selectedListID: Int? { get set }
 }
 
 protocol ShowSuggestionsDataStore
 {
     var productQueryModel: ProductQueryModel? { get set }
+    var selectedListID: Int? { get set }
 }
 
 class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDataStore
 {
     var presenter: ShowSuggestionsPresentationLogic?
     var searchWorker: SearchWorker = SearchWorker(searchAPI: SearchAPI())
+    
     var productQueryModel: ProductQueryModel? = nil
+    
+    var selectedListID: Int?
     
     var userSession = UserSessionWorker()
     

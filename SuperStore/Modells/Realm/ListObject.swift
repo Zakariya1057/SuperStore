@@ -35,7 +35,7 @@ class ListObject: Object {
             status: ListStatus.init(rawValue: status)!,
             identifier: identifier,
             storeTypeID: storeTypeID,
-            categories: [],
+            categories: categories.map{ $0.getListCategoryModel() },
             totalPrice: totalPrice,
             oldTotalPrice: oldTotalPrice,
             totalItems: totalItems,

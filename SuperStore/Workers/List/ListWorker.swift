@@ -9,8 +9,8 @@
 import Foundation
 
 class ListWorker {
-    var listAPI: ListRequestProtocol
-    var listStore: ListStoreProtocol
+    private var listAPI: ListRequestProtocol
+    private var listStore: ListStoreProtocol
     
     init(listAPI: ListRequestProtocol) {
         self.listAPI = listAPI
@@ -18,7 +18,13 @@ class ListWorker {
     }
     
     func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
-        listAPI.createList(name: name, identifier: identifier, storeTypeID: storeTypeID, completionHandler: completionHandler)
+        listAPI.createList(name: name, identifier: identifier, storeTypeID: storeTypeID) { (list: ListModel?, error: String?) in
+            if let list = list {
+                self.listStore.createList(list: list, ignoreCategories: true)
+            }
+            
+            completionHandler(error)
+        }
     }
 
     func getList(listID: Int, completionHandler: @escaping ( _ list: ListModel?, _ error: String?) -> Void){
@@ -29,7 +35,7 @@ class ListWorker {
         
         listAPI.getList(listID: listID) { (list: ListModel?, error: String?) in
             if let list = list {
-                self.listStore.createList(list: list)
+                self.listStore.createList(list: list, ignoreCategories: false)
             }
             
             completionHandler(list, error)
@@ -44,7 +50,7 @@ class ListWorker {
         listAPI.getLists { (lists: [ListModel], error: String?) in
             // Save lists
             for list in lists {
-                self.listStore.createList(list: list)
+                self.listStore.createList(list: list, ignoreCategories: true)
             }
             
             completionHandler(lists, error)
@@ -56,7 +62,13 @@ class ListWorker {
     }
     
     func restartList(listID: Int, completionHandler: @escaping (String?) -> Void){
-        listAPI.restartList(listID: listID, completionHandler: completionHandler)
+        listAPI.restartList(listID: listID) { (error: String?) in
+            if error == nil {
+                self.listStore.restartList(listID: listID)
+            }
+            
+            completionHandler(error)
+        }
     }
     
     func deleteList(listID: Int, completionHandler: @escaping (String?) -> Void){
@@ -70,11 +82,17 @@ class ListWorker {
     }
 }
 
+extension ListWorker {
+    func updateListTotalPrice(listID: Int, totalPrice: Double, oldTotalPrice: Double?){
+        listStore.updateListTotalPrice(listID: listID, totalPrice: totalPrice, oldTotalPrice: oldTotalPrice)
+    }
+}
+
 protocol ListRequestProtocol {
     func getList(listID: Int, completionHandler: @escaping ( _ list: ListModel?, _ error: String?) -> Void)
     func getLists(completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void)
     
-    func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void)
+    func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ list: ListModel?, _ error: String?) -> Void)
     func updateList(listID: Int, name: String, storeTypeID: Int, completionHandler: @escaping (String?) -> Void)
     func restartList(listID: Int, completionHandler: @escaping (String?) -> Void)
     func deleteList(listID: Int, completionHandler: @escaping (String?) -> Void)
@@ -83,6 +101,9 @@ protocol ListRequestProtocol {
 protocol ListStoreProtocol {
     func getList(listID: Int) -> ListModel?
     func getLists(storeTypeID: Int) -> [ListModel]
-    func createList(list: ListModel)
+    func createList(list: ListModel, ignoreCategories: Bool)
     func deleteList(listID: Int)
+    
+    func updateListTotalPrice(listID: Int, totalPrice: Double, oldTotalPrice: Double?)
+    func restartList(listID: Int)
 }

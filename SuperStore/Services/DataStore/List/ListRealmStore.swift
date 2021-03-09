@@ -38,13 +38,13 @@ class ListRealmStore: DataStore, ListStoreProtocol {
         return lists
     }
     
-    func createList(list: ListModel){
+    func createList(list: ListModel, ignoreCategories: Bool = false){
         
         let duplicateList = getListObject(listID: list.id)
         
         if let duplicateList = duplicateList {
             print("List already created. Updating instead.")
-            updateList(list: list, savedList: duplicateList)
+            updateList(list: list, savedList: duplicateList, ignoreCategories: ignoreCategories)
             return
         }
 
@@ -67,18 +67,20 @@ class ListRealmStore: DataStore, ListStoreProtocol {
             savedList.createdAt = list.createdAt
             savedList.updatedAt = list.updatedAt
             
-            savedList.categories.removeAll()
-            
-            for category in createCategoryObjects(list: list) {
-                savedList.categories.append(category)
+            if !ignoreCategories {
+                savedList.categories.removeAll()
+                
+                for category in createCategoryObjects(list: list) {
+                    savedList.categories.append(category)
+                }
             }
-            
+
             realm?.add(savedList)
 
         })
     }
     
-    func updateList(list: ListModel, savedList: ListObject){
+    func updateList(list: ListModel, savedList: ListObject, ignoreCategories: Bool){
         try? realm?.write({
             savedList.name = list.name
             savedList.status = list.status.rawValue
@@ -88,16 +90,14 @@ class ListRealmStore: DataStore, ListStoreProtocol {
             savedList.tickedOffItems = list.tickedOffItems
             savedList.updatedAt = list.updatedAt
             
-            if let items = realm?.objects(ListItemObject.self).filter("listID = %@", list.id) {
-                realm?.delete(items)
-            }
-            
-            if let categories = realm?.objects(ListCategoryObject.self).filter("listID = %@", list.id) {
-                realm?.delete(categories)
-            }
-            
-            for category in createCategoryObjects(list: list) {
-                savedList.categories.append(category)
+            if !ignoreCategories {
+
+                deleteListItems(listID: list.id)
+                deleteListCategories(listID: list.id)
+                
+                for category in createCategoryObjects(list: list) {
+                    savedList.categories.append(category)
+                }
             }
             
         })
@@ -107,14 +107,54 @@ class ListRealmStore: DataStore, ListStoreProtocol {
         try? realm?.write({
             let results = realm?.objects(ListObject.self).filter("id = %@", listID)
             if let results = results {
+                deleteListItems(listID: listID)
+                deleteListCategories(listID: listID)
+                
                 realm?.delete(results)
+            }
+        })
+    }
+
+}
+
+extension ListRealmStore {
+    func updateListTotalPrice(listID: Int, totalPrice: Double, oldTotalPrice: Double?) {
+        if let savedList = getListObject(listID: listID) {
+            try? realm?.write({
+                savedList.totalPrice = totalPrice
+                savedList.oldTotalPrice = oldTotalPrice
+            })
+        }
+    }
+    
+    func restartList(listID: Int) {
+        try? realm?.write({
+            let items = realm?.objects(ListItemObject.self).filter("listID = %@", listID)
+            
+            if let items = items {
+                for item in items {
+                    item.tickedOff = false
+                }
             }
         })
     }
 }
 
+
 extension ListRealmStore {
-    func createCategoryObjects(list: ListModel) -> List<ListCategoryObject> {
+    private func deleteListItems(listID: Int){
+        if let items = realm?.objects(ListItemObject.self).filter("listID = %@", listID) {
+            realm?.delete(items)
+        }
+    }
+    
+    private func deleteListCategories(listID: Int){
+        if let categories = realm?.objects(ListCategoryObject.self).filter("listID = %@", listID) {
+            realm?.delete(categories)
+        }
+    }
+    
+    private func createCategoryObjects(list: ListModel) -> List<ListCategoryObject> {
         let savedCategories = List<ListCategoryObject>()
         
         for category in list.categories {
@@ -127,12 +167,13 @@ extension ListRealmStore {
             
             for item in category.items {
                 let savedItem = ListItemObject()
-
+                
                 savedItem.id = item.id
                 savedItem.name = item.name
                 savedItem.image = item.image
                 savedItem.price = item.price
                 savedItem.listID = list.id
+                savedItem.price = item.price
                 savedItem.quantity = item.quantity
                 savedItem.productID = item.productID
                 savedItem.totalPrice = item.totalPrice

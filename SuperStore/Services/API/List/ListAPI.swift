@@ -50,19 +50,21 @@ class ListAPI: ListRequestProtocol {
         }
     }
     
-    func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
+    func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ list: ListModel?, _ error: String?) -> Void){
         let createData:Parameters = ["name": name, "identifier": identifier, "store_type_id": storeTypeID]
         
         requestWorker.post(url:  Config.Route.List.Create, data: createData) { (response: () throws -> Data) in
             do {
-                _ = try response()
-                completionHandler(nil)
+                let data = try response()
+                let listDataResponse =  try self.jsonDecoder.decode(ListDataResponse.self, from: data)
+                let list = self.createListModel(listDataResponse: listDataResponse)
+                completionHandler(list, nil)
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
-                completionHandler(errorMessage)
+                completionHandler(nil, errorMessage)
             } catch {
                 print(error)
-                completionHandler("Failed to create list. Decoding error, please try again later.")
+                completionHandler(nil, "Failed to create list. Decoding error, please try again later.")
             }
         }
     }

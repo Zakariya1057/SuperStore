@@ -70,9 +70,10 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
     
     // MARK: View lifecycle
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        
+        displayListName()
         setupListSectionView()
         setupListItemTableView()
         getList()
@@ -80,7 +81,7 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        displayListName()
+        getList()
     }
     
     var refreshControl = UIRefreshControl()
@@ -106,6 +107,8 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
     
     func displayList(viewModel: ShowList.GetList.ViewModel)
     {
+        print(viewModel)
+        
         refreshControl.endRefreshing()
         
         if let error = viewModel.error {
@@ -288,7 +291,12 @@ extension ShowListViewController {
 
 
 extension ShowListViewController {
+    func reflectListChanged(){
+        interactor?.updateListTotal(request: ShowList.UpdateListTotal.Request())
+        getList()
+    }
+    
     @IBAction func addButtonPressed(_ sender: Any) {
-        
+        router?.routeToShowSuggestions(segue: nil)
     }
 }

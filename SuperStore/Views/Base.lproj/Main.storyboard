@@ -1545,7 +1545,7 @@
         <!--Search-->
         <scene sceneID="WTz-jE-ek7">
             <objects>
-                <viewController storyboardIdentifier="searchViewController" id="9j8-KF-TXp" customClass="ShowSuggestionsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowSuggestionsViewController" id="9j8-KF-TXp" customClass="ShowSuggestionsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ra0-vs-CTa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3565,11 +3565,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bPE-zb-jXG">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Done" id="dqX-qc-VNu">
-                            <connections>
-                                <action selector="doneButtonPressed:" destination="KFj-5f-9Wu" id="3tP-yw-83O"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="Xla-1V-ZR7"/>
                     </navigationItem>
                     <connections>
                         <outlet property="productsTableView" destination="aSa-81-33v" id="cEA-Zn-cJp"/>

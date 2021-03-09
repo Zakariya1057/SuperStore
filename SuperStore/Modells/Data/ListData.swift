@@ -16,6 +16,10 @@ struct ListDataResponse: Decodable {
     var data: ListData
 }
 
+struct ListItemDataResponse: Decodable {
+    var data: ListItemData
+}
+
 struct ListData: Decodable {
     var id: Int
     var identifier: String

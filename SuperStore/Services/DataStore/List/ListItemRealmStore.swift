@@ -28,6 +28,7 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
         if getListItemObject(itemID: listItem.id) != nil {
             updateListItem(listID: listID, productID: listItem.productID, quantity: listItem.quantity, tickedOff: listItem.tickedOff)
         } else {
+            
             try? realm?.write({
                 let savedListItem = ListItemObject()
 
@@ -35,6 +36,8 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
                 savedListItem.name = listItem.name
                 savedListItem.image = listItem.image
                 savedListItem.listID = listID
+                savedListItem.price = listItem.price
+                savedListItem.totalPrice = listItem.totalPrice
                 savedListItem.productID = listItem.productID
                 savedListItem.quantity = listItem.quantity
 

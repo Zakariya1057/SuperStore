@@ -66,10 +66,14 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
     }
     
     // MARK: View lifecycle
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        setupFavouriteTableView()
+        getFavourites()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupFavouriteTableView()
         getFavourites()
     }
     

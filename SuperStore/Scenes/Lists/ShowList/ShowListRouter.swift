@@ -15,6 +15,7 @@ import UIKit
 @objc protocol ShowListRoutingLogic
 {
     func routeToEditListItem(segue: UIStoryboardSegue?)
+    func routeToShowSuggestions(segue: UIStoryboardSegue?)
 }
 
 protocol ShowListDataPassing
@@ -28,6 +29,21 @@ class ShowListRouter: NSObject, ShowListRoutingLogic, ShowListDataPassing
     var dataStore: ShowListDataStore?
     
     // MARK: Routing
+    
+    func routeToShowSuggestions(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowSuggestionsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowSuggestions(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowSuggestionsViewController") as! ShowSuggestionsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowSuggestions(source: dataStore!, destination: &destinationDS)
+            navigateToShowSuggestions(source: viewController!, destination: destinationVC)
+        }
+    }
     
     func routeToEditListItem(segue: UIStoryboardSegue?)
     {
@@ -46,6 +62,11 @@ class ShowListRouter: NSObject, ShowListRoutingLogic, ShowListDataPassing
     
     // MARK: Navigation
     
+    func navigateToShowSuggestions(source: ShowListViewController, destination: ShowSuggestionsViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
     func navigateToEditListItem(source: ShowListViewController, destination: EditListItemViewController)
     {
         source.show(destination, sender: nil)
@@ -58,5 +79,10 @@ class ShowListRouter: NSObject, ShowListRoutingLogic, ShowListDataPassing
         let selectedIndex = viewController!.itemsTableView.indexPathForSelectedRow!
         destination.listItem = source.list.categories[selectedIndex.section].items[selectedIndex.row]
         destination.listID = source.list.id
+    }
+    
+    func passDataToShowSuggestions(source: ShowListDataStore, destination: inout ShowSuggestionsDataStore)
+    {
+        destination.selectedListID = source.list.id
     }
 }

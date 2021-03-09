@@ -30,6 +30,7 @@ class ShowSuggestionsRouter: NSObject, ShowSuggestionsRoutingLogic, ShowSuggesti
     
     var dataStore: ShowSuggestionsDataStore?
     var selectedStoreTypeID: Int?
+    var selectedListID: Int?
     
     // MARK: Routing
     
@@ -86,6 +87,7 @@ class ShowSuggestionsRouter: NSObject, ShowSuggestionsRoutingLogic, ShowSuggesti
     func passDataToShowProductResults(source: ShowSuggestionsDataStore, destination: inout ShowProductResultsDataStore)
     {
         destination.productQueryModel = source.productQueryModel!
+        destination.selectedListID = source.selectedListID
     }
     
 

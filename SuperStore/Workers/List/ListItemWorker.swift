@@ -27,7 +27,13 @@ class ListItemWorker {
     }
 
     func createItem(listID: Int, productID: Int, parentCategoryID: Int, completionHandler: @escaping (_ error: String?) -> Void){
-        listItemAPI.createItem(listID: listID, productID: productID, parentCategoryID: parentCategoryID, completionHandler: completionHandler)
+        listItemAPI.createItem(listID: listID, productID: productID, parentCategoryID: parentCategoryID) { (listItem: ListItemModel?, error: String?) in
+            if let listItem = listItem {
+                self.listItemStore.createListItem(listID: listID, listItem: listItem)
+            }
+            
+            completionHandler(error)
+        }
     }
     
     func updateItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool, completionHandler: @escaping (_ error: String?) -> Void){
@@ -48,7 +54,7 @@ class ListItemWorker {
 
 protocol ListItemRequestProtocol {
     func deleteItem(listID: Int, productID: Int, completionHandler: @escaping ( _ error: String?) -> Void)
-    func createItem(listID: Int, productID: Int, parentCategoryID: Int, completionHandler: @escaping ( _ error: String?) -> Void)
+    func createItem(listID: Int, productID: Int, parentCategoryID: Int, completionHandler: @escaping ( ListItemModel?, _ error: String?) -> Void)
     func updateItem(listID: Int, productID: Int, quanity: Int, tickedOff: Bool, completionHandler: @escaping ( _ error: String?) -> Void)
 }
 

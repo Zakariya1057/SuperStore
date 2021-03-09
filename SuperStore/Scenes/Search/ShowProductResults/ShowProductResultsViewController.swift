@@ -71,6 +71,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        displayRightBarButton()
         setupProductsTableView()
         updateTitle()
         getResults()
@@ -103,6 +104,8 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         interactor?.getResults(request: request)
     }
     
+    
+    
     func displayResults(viewModel: ShowProductResults.GetResults.ViewModel)
     {
         refreshControl.endRefreshing()
@@ -128,6 +131,11 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         }
     }
     
+    func displayRightBarButton(){
+        if interactor?.selectedListID == nil {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
 }
 
 extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -183,9 +191,22 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
 extension ShowProductResultsViewController: SelectListProtocol {
     func listSelected(listID: Int) {
         // Update Cell Quantity Button
-        productsTableView.reloadData()
-        selectedListID = listID
+        createListItem(listID: listID)
+    }
+    
+    func addToListPressed(product: ProductModel){
+        // Show lists, select one.
+        selectedProduct = product
+        updateProductQuantity(product: product)
         
+        if let listID = interactor?.selectedListID {
+            createListItem(listID: listID)
+        } else {
+            router?.routeToShowLists(segue: nil)
+        }
+    }
+    
+    func createListItem(listID: Int){
         let request = ShowProductResults.CreateListItem.Request(
             listID: listID,
             productID: selectedProduct!.id,
@@ -193,15 +214,9 @@ extension ShowProductResultsViewController: SelectListProtocol {
         )
         
         interactor?.createListItem(request: request)
-    }
-}
-
-extension ShowProductResultsViewController {
-    func addToListPressed(product: ProductModel){
-        // Show lists, select one.
-        selectedProduct = product
-        updateProductQuantity(product: product)
-        router?.routeToShowLists(segue: nil)
+        
+        selectedListID = listID
+        productsTableView.reloadData()
     }
     
     func updateQuantityPressed(product: ProductModel){

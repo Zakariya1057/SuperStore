@@ -20,6 +20,8 @@ protocol ShowProductResultsBusinessLogic
     var selectedRefineOptions: SelectedRefineOptions { get set }
     var searchRefine: SearchRefine { get set }
     
+    var selectedListID: Int? { get set }
+    
     func createListItem(request: ShowProductResults.CreateListItem.Request)
     func updateListItem(request: ShowProductResults.UpdateListItem.Request)
 }
@@ -29,17 +31,21 @@ protocol ShowProductResultsDataStore
     var productQueryModel: ProductQueryModel { get set }
     var selectedRefineOptions: SelectedRefineOptions { get set }
     var searchRefine: SearchRefine { get set }
+    
+    var selectedListID: Int? { get set }
 }
 
 class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProductResultsDataStore
 {
     var presenter: ShowProductResultsPresentationLogic?
-    var searchWorker: SearchWorker = SearchWorker(searchAPI: SearchAPI())
-    var productQueryModel: ProductQueryModel = ProductQueryModel(query: "", type: "")
     
+    var searchWorker: SearchWorker = SearchWorker(searchAPI: SearchAPI())
     var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
     
     var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [])
+    var productQueryModel: ProductQueryModel = ProductQueryModel(query: "", type: "")
+    
+    var selectedListID: Int?
     
     var selectedRefineOptions: SelectedRefineOptions = SelectedRefineOptions() {
         didSet {

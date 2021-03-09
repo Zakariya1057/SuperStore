@@ -43,7 +43,9 @@ class ShowRefineRouter: NSObject, ShowRefineRoutingLogic, ShowRefineDataPassing
             //    let destinationVC = navigationViewController.topViewController as! ShowProductResultsViewController
             
             let tabViewController = viewController!.presentingViewController as! UITabBarController
-            let navigationViewController = tabViewController.viewControllers![2] as! UINavigationController
+            let tabIndex: Int = tabViewController.selectedIndex
+            
+            let navigationViewController = tabViewController.viewControllers![tabIndex] as! UINavigationController
             
             let destinationVC = navigationViewController.viewControllers.last as! ShowProductResultsViewController
             
