@@ -18,6 +18,7 @@ enum EditListItem
     struct DisplayedListItem {
         var name: String
         var image: String?
+        var weight: String?
         var quantity: Int
         var price: String
         

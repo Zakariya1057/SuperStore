@@ -15,18 +15,22 @@ import UIKit
 protocol GrandParentCategoriesBusinessLogic
 {
     func getCategories(request: GrandParentCategories.GetCategories.Request)
+    var selectedListID: Int? { get set }
 }
 
 protocol GrandParentCategoriesDataStore
 {
     var storeTypeID: Int { get set }
     var categories: [GrandParentCategoryModel] { get set }
+    var selectedListID: Int? { get set }
 }
 
 class GrandParentCategoriesInteractor: GrandParentCategoriesBusinessLogic, GrandParentCategoriesDataStore
 {
     var presenter: GrandParentCategoriesPresentationLogic?
     var groceryWorker: GroceryWorker = GroceryWorker(groceryAPI: GroceryAPI())
+    
+    var selectedListID: Int?
     
     var storeTypeID: Int = 1
     var categories: [GrandParentCategoryModel] = []

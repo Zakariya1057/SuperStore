@@ -69,6 +69,7 @@ class StoreViewController: UIViewController, StoreDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        displayRightBarButton()
         getStore()
     }
     
@@ -116,6 +117,12 @@ class StoreViewController: UIViewController, StoreDisplayLogic
         
     }
     
+    func displayRightBarButton(){
+        if interactor?.selectedListID == nil {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
+    
     private func displayOpeningHours(openingHours: [Store.GetStore.ViewModel.DisplayOpeningHour]){
         for (index, opening) in openingHours.enumerated() {
             // Set Hours
@@ -158,5 +165,11 @@ class StoreViewController: UIViewController, StoreDisplayLogic
             }
         }
     }
+}
 
+
+extension StoreViewController {
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
+        router?.routeToShowList(segue: nil)
+    }
 }

@@ -15,6 +15,7 @@ import UIKit
 @objc protocol ChildCategoriesRoutingLogic
 {
     func routeToShowProduct(segue: UIStoryboardSegue?)
+    func routeToShowList(segue: UIStoryboardSegue?)
 }
 
 protocol ChildCategoriesDataPassing
@@ -23,9 +24,11 @@ protocol ChildCategoriesDataPassing
     var selectedProductID: Int? { get set }
 }
 
-class ChildCategoriesRouter: NSObject, ChildCategoriesRoutingLogic, ChildCategoriesDataPassing
+class ChildCategoriesRouter: BackToShowListRouter, ChildCategoriesRoutingLogic, ChildCategoriesDataPassing
 {
-    weak var viewController: ChildCategoriesViewController?
+    var childCategoriesViewController: ChildCategoriesViewController {
+        return viewController as! ChildCategoriesViewController
+    }
     
     var dataStore: ChildCategoriesDataStore?
     var selectedProductID: Int?
@@ -43,7 +46,7 @@ class ChildCategoriesRouter: NSObject, ChildCategoriesRoutingLogic, ChildCategor
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowProductViewController") as! ShowProductViewController
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowProduct(source: dataStore!, destination: &destinationDS)
-            navigateToShowProduct(source: viewController!, destination: destinationVC)
+            navigateToShowProduct(source: childCategoriesViewController, destination: destinationVC)
         }
     }
     
@@ -59,5 +62,6 @@ class ChildCategoriesRouter: NSObject, ChildCategoriesRoutingLogic, ChildCategor
     func passDataToShowProduct(source: ChildCategoriesDataStore, destination: inout ShowProductDataStore)
     {
         destination.productID = selectedProductID!
+        destination.selectedListID = source.selectedListID
     }
 }

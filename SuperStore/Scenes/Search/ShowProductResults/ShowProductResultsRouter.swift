@@ -17,6 +17,7 @@ import UIKit
     func routeToShowProduct(segue: UIStoryboardSegue?)
     func routeToShowRefine(segue: UIStoryboardSegue?)
     func routeToShowLists(segue: UIStoryboardSegue?)
+    func routeToShowList(segue: UIStoryboardSegue?)
 }
 
 protocol ShowProductResultsDataPassing
@@ -25,13 +26,11 @@ protocol ShowProductResultsDataPassing
     var selectedProductID: Int? { get set }
 }
 
-protocol SelectListProtocol {
-    func listSelected(listID: Int)
-}
-
-class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowProductResultsDataPassing
+class ShowProductResultsRouter: BackToShowListRouter, ShowProductResultsRoutingLogic, ShowProductResultsDataPassing
 {
-    weak var viewController: ShowProductResultsViewController?
+    var showProductResultsViewController: ShowProductResultsViewController {
+        return viewController as! ShowProductResultsViewController
+    }
     
     var dataStore: ShowProductResultsDataStore?
     var selectedProductID: Int?
@@ -49,7 +48,7 @@ class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowPr
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowRefineViewController") as! ShowRefineViewController
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowRefine(source: dataStore!, destination: &destinationDS)
-            navigateToShowRefine(source: viewController!, destination: destinationVC)
+            navigateToShowRefine(source: showProductResultsViewController, destination: destinationVC)
         }
     }
     
@@ -64,7 +63,7 @@ class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowPr
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowProductViewController") as! ShowProductViewController
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowProduct(source: dataStore!, destination: &destinationDS)
-            navigateToShowProduct(source: viewController!, destination: destinationVC)
+            navigateToShowProduct(source: showProductResultsViewController, destination: destinationVC)
         }
     }
     
@@ -79,7 +78,7 @@ class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowPr
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowListsViewController") as! ShowListsViewController
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowLists(source: dataStore!, destination: &destinationDS)
-            navigateToShowLists(source: viewController!, destination: destinationVC)
+            navigateToShowLists(source: showProductResultsViewController, destination: destinationVC)
         }
     }
     
@@ -101,6 +100,10 @@ class ShowProductResultsRouter: NSObject, ShowProductResultsRoutingLogic, ShowPr
     }
     
     //  MARK: Passing data
+    
+    func passDataToShowList(source: ShowProductResultsDataStore, destination: inout ShowListDataStore)
+    {
+    }
     
     func passDataToShowProduct(source: ShowProductResultsDataStore, destination: inout ShowProductDataStore)
     {

@@ -84,7 +84,6 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     var products: [ProductModel] = []
     
-    var selectedListID: Int?
     var selectedProduct: ProductModel?
     
     func updateTitle(){
@@ -104,7 +103,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         interactor?.getResults(request: request)
     }
     
-    
+    //MARK: - Display
     
     func displayResults(viewModel: ShowProductResults.GetResults.ViewModel)
     {
@@ -122,6 +121,11 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     func displayListItemCreated(viewModel: ShowProductResults.CreateListItem.ViewModel) {
         if let error = viewModel.error {
             showError(title: "List Error", error: error)
+        } else {
+            // If list item exists locally,
+            if let listItem = viewModel.listItem {
+                updateProductQuantity(productID: listItem.productID, quantity: listItem.quantity)
+            }
         }
     }
     
@@ -192,12 +196,13 @@ extension ShowProductResultsViewController: SelectListProtocol {
     func listSelected(listID: Int) {
         // Update Cell Quantity Button
         createListItem(listID: listID)
+        updateProductQuantity(productID: selectedProduct!.id, quantity: selectedProduct!.quantity, listID: listID)
     }
     
     func addToListPressed(product: ProductModel){
         // Show lists, select one.
         selectedProduct = product
-        updateProductQuantity(product: product)
+        updateProductQuantity(productID: product.id, quantity: product.quantity)
         
         if let listID = interactor?.selectedListID {
             createListItem(listID: listID)
@@ -214,18 +219,16 @@ extension ShowProductResultsViewController: SelectListProtocol {
         )
         
         interactor?.createListItem(request: request)
-        
-        selectedListID = listID
         productsTableView.reloadData()
     }
     
     func updateQuantityPressed(product: ProductModel){
         // Update API/Realm Request
         selectedProduct = product
-        updateProductQuantity(product: product)
+        updateProductQuantity(productID: product.id, quantity: product.quantity)
         
         let request = ShowProductResults.UpdateListItem.Request(
-            listID: selectedListID!,
+            listID: product.listID!,
             productID: product.id,
             quantity: product.quantity
         )
@@ -233,18 +236,22 @@ extension ShowProductResultsViewController: SelectListProtocol {
         interactor?.updateListItem(request: request)
     }
     
-    func updateProductQuantity(product: ProductModel){
+    func updateProductQuantity(productID: Int, quantity: Int, listID: Int? = nil){
         for searchProduct in products {
-            if searchProduct == product {
-                searchProduct.quantity = product.quantity
+            if searchProduct.id == productID {
+                searchProduct.quantity = quantity
+                
+                if listID != nil {
+                    searchProduct.listID = listID!
+                }
             }
         }
     }
 }
 
 extension ShowProductResultsViewController {
-    @IBAction func doneButtonPressed(_ sender: Any) {
-        
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
+        router?.routeToShowList(segue: nil)
     }
 }
 

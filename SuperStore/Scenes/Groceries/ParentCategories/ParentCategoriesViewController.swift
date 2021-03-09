@@ -69,6 +69,7 @@ class ParentCategoriesViewController: UIViewController, ParentCategoriesDisplayL
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        displayRightBarButton()
         setupCategoriesTableView()
         getCategories()
     }
@@ -90,6 +91,13 @@ class ParentCategoriesViewController: UIViewController, ParentCategoriesDisplayL
         categories =  viewModel.displayedCategories
         categoriesTableView.reloadData()
     }
+    
+    func displayRightBarButton(){
+        if interactor?.selectedListID == nil {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
+
 }
 
 extension ParentCategoriesViewController: UITableViewDataSource, UITableViewDelegate {
@@ -123,4 +131,8 @@ extension ParentCategoriesViewController {
     }
 }
 
-
+extension ParentCategoriesViewController {
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
+        router?.routeToShowList(segue: nil)
+    }
+}

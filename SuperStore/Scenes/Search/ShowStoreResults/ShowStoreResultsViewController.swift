@@ -69,11 +69,10 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        displayRightBarButton()
         setupStoresTableView()
         getStores()
     }
-    
-//    var selectedStoreID: Int = 1
     
     var displayedStores: [ShowStoreResults.DisplayedStore] = []
     var stores: [StoreModel] = []
@@ -85,6 +84,14 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
     {
         let request = ShowStoreResults.GetStores.Request()
         interactor?.getStores(request: request)
+    }
+    
+    //MARK: - Display
+    
+    func displayRightBarButton(){
+        if interactor?.selectedListID == nil {
+            self.navigationItem.rightBarButtonItem = nil
+        }
     }
     
     func displayStores(viewModel: ShowStoreResults.GetStores.ViewModel)
@@ -173,5 +180,11 @@ extension ShowStoreResultsViewController {
     func storePressed(storeID: Int){
         router?.selectedStoreID = storeID
         router?.routeToStore(segue: nil)
+    }
+}
+
+extension ShowStoreResultsViewController {
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
+        router?.routeToShowList(segue: nil)
     }
 }

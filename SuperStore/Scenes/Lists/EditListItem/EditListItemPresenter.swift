@@ -40,6 +40,7 @@ class EditListItemPresenter: EditListItemPresentationLogic
         let displayedListItem = EditListItem.DisplayedListItem(
             name: listItem.name,
             image: listItem.image,
+            weight: listItem.weight,
             quantity: listItem.quantity,
             price: formatPrice(price: listItem.totalPrice, currency: currency),
             promotion: displayPromotion

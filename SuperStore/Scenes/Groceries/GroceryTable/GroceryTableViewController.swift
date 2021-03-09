@@ -70,19 +70,12 @@ class GroceryTableViewController: UITableViewController, GroceryTableDisplayLogi
     {
         super.viewDidLoad()
         setupProductsTableView()
-        doSomething()
     }
     
     var productPressedCallBack: ((Int) -> Void?)? = nil
     
     var products: [ProductModel] = []
-    
-    func doSomething()
-    {
-        let request = GroceryTable.Something.Request()
-        interactor?.doSomething(request: request)
-    }
-    
+
     func displaySomething(viewModel: GroceryTable.Something.ViewModel)
     {
         //nameTextField.text = viewModel.name

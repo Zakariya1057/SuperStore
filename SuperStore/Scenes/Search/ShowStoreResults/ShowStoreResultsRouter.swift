@@ -15,6 +15,7 @@ import UIKit
 @objc protocol ShowStoreResultsRoutingLogic
 {
     func routeToStore(segue: UIStoryboardSegue?)
+    func routeToShowList(segue: UIStoryboardSegue?)
 }
 
 protocol ShowStoreResultsDataPassing
@@ -23,9 +24,11 @@ protocol ShowStoreResultsDataPassing
     var selectedStoreID: Int? { get set }
 }
 
-class ShowStoreResultsRouter: NSObject, ShowStoreResultsRoutingLogic, ShowStoreResultsDataPassing
+class ShowStoreResultsRouter: BackToShowListRouter, ShowStoreResultsRoutingLogic, ShowStoreResultsDataPassing
 {
-    weak var viewController: ShowStoreResultsViewController?
+    var showStoreResultsViewController: ShowStoreResultsViewController {
+        return viewController as! ShowStoreResultsViewController
+    }
     
     var dataStore: ShowStoreResultsDataStore?
     var selectedStoreID: Int?
@@ -43,7 +46,7 @@ class ShowStoreResultsRouter: NSObject, ShowStoreResultsRoutingLogic, ShowStoreR
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "StoreViewController") as! StoreViewController
             var destinationDS = destinationVC.router!.dataStore!
             passDataToStore(source: dataStore!, destination: &destinationDS)
-            navigateToStore(source: viewController!, destination: destinationVC)
+            navigateToStore(source: showStoreResultsViewController, destination: destinationVC)
         }
     }
     
@@ -59,5 +62,6 @@ class ShowStoreResultsRouter: NSObject, ShowStoreResultsRoutingLogic, ShowStoreR
     func passDataToStore(source: ShowStoreResultsDataStore, destination: inout StoreDataStore)
     {
         destination.storeID = selectedStoreID!
+        destination.selectedListID = source.selectedListID
     }
 }

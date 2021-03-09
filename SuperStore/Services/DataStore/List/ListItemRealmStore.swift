@@ -15,20 +15,20 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
         return realm?.objects(ListItemObject.self).filter("id = %@", itemID).first
     }
     
-    func getListItem(itemID: Int) -> ListItemModel? {
-        if let savedList = getListItemObject(itemID: itemID) {
+    func getListItemObject(listID: Int, productID: Int) -> ListItemObject? {
+        return realm?.objects(ListItemObject.self).filter("listID = %@ AND productID = %@", listID, productID).first
+    }
+    
+    func getListItem(listID: Int, productID: Int) -> ListItemModel? {
+        if let savedList = getListItemObject(listID: listID, productID: productID) {
             return savedList.getListItemModel()
         }
         
         return nil
     }
-
     
     func createListItem(listID: Int, listItem: ListItemModel) {
-        if getListItemObject(itemID: listItem.id) != nil {
-            updateListItem(listID: listID, productID: listItem.productID, quantity: listItem.quantity, tickedOff: listItem.tickedOff)
-        } else {
-            
+        if getListItemObject(itemID: listItem.id) == nil {
             try? realm?.write({
                 let savedListItem = ListItemObject()
 

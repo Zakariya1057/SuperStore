@@ -26,13 +26,18 @@ class ListItemWorker {
         }
     }
 
-    func createItem(listID: Int, productID: Int, parentCategoryID: Int, completionHandler: @escaping (_ error: String?) -> Void){
+    func createItem(listID: Int, productID: Int, parentCategoryID: Int, completionHandler: @escaping (_ listItem: ListItemModel?, _ error: String?) -> Void){
+        
+        let savedListItem = listItemStore.getListItem(listID: listID, productID: productID)
+        completionHandler(savedListItem, nil)
+        
         listItemAPI.createItem(listID: listID, productID: productID, parentCategoryID: parentCategoryID) { (listItem: ListItemModel?, error: String?) in
             if let listItem = listItem {
                 self.listItemStore.createListItem(listID: listID, listItem: listItem)
             }
             
-            completionHandler(error)
+            // Only show reflected quantity, if not found locally saved
+            completionHandler(savedListItem == nil ? listItem : nil, error)
         }
     }
     
@@ -59,6 +64,7 @@ protocol ListItemRequestProtocol {
 }
 
 protocol ListItemStoreProtocol {
+    func getListItem(listID: Int, productID: Int) -> ListItemModel?
     func updateListItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool)
     func createListItem(listID: Int, listItem: ListItemModel)
     func deleteListItem(listID: Int, productID: Int)

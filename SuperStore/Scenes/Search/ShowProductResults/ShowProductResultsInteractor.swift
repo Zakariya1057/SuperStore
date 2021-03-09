@@ -116,8 +116,8 @@ extension ShowProductResultsInteractor {
         let productID: Int = request.productID
         let parentCategoryID: Int = request.parentCategoryID
         
-        listItemWorker.createItem(listID: listID, productID: productID, parentCategoryID: parentCategoryID) { (error: String?) in
-            let response = ShowProductResults.CreateListItem.Response(error: error)
+        listItemWorker.createItem(listID: listID, productID: productID, parentCategoryID: parentCategoryID) { (listItem: ListItemModel?, error: String?) in
+            let response = ShowProductResults.CreateListItem.Response(listItem: listItem, error: error)
             self.presenter?.presentListItemCreated(response: response)
         }
     }

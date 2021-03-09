@@ -255,7 +255,8 @@ extension HomeViewController {
         print("Store Pressed")
     }
     
-    private func listPressed(listID: Int){
+    private func listPressed(list: ListModel){
+//        router?.sele
         print("List Pressed")
     }
     

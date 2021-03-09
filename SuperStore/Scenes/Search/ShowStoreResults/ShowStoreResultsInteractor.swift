@@ -15,18 +15,22 @@ import UIKit
 protocol ShowStoreResultsBusinessLogic
 {
     func getStores(request: ShowStoreResults.GetStores.Request)
+    var selectedListID: Int? { get set }
 }
 
 protocol ShowStoreResultsDataStore
 {
     var stores: [StoreModel] { get set }
     var storeTypeID: Int { get set }
+    var selectedListID: Int? { get set }
 }
 
 class ShowStoreResultsInteractor: ShowStoreResultsBusinessLogic, ShowStoreResultsDataStore
 {
     var presenter: ShowStoreResultsPresentationLogic?
     var storeWorker: StoreWorker = StoreWorker(storeAPI: StoreAPI())
+    
+    var selectedListID: Int?
     
     var storeTypeID: Int = 1
     var stores: [StoreModel] = []

@@ -17,12 +17,15 @@ protocol ShowProductBusinessLogic
     func getProduct(request: ShowProduct.GetProduct.Request)
     func updateFavourite(request: ShowProduct.UpdateFavourite.Request)
     func updateMonitoring(request: ShowProduct.UpdateMonitoring.Request)
+    
+    var selectedListID: Int? { get set }
 }
 
 protocol ShowProductDataStore
 {
     var productID: Int { get set }
     var product: ProductModel? { get set }
+    var selectedListID: Int? { get set }
 }
 
 class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
@@ -31,7 +34,9 @@ class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
     var productWorker: ProductWorker = ProductWorker(productAPI: ProductAPI())
     var favouriteWorker: FavouriteWorker = FavouriteWorker(favouriteAPI: FavouriteAPI())
     
-    var productID: Int = 416
+    var selectedListID: Int?
+    
+    var productID: Int = 1
     var product: ProductModel?
     
     func getProduct(request: ShowProduct.GetProduct.Request)

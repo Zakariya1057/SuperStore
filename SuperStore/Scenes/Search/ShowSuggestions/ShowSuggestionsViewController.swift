@@ -69,6 +69,7 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        displayRightBarButton()
         setupFavouriteTableView()
         setupSearchDelegate()
     }
@@ -83,17 +84,6 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
         SuggestionModel(id: 1, name: "Apples", type: .childCategory),
     ]
     
-    func displaySuggestions(viewModel: ShowSuggestions.GetSuggestions.ViewModel)
-    {
-        if let error = viewModel.error {
-            showError(title: "Search Error", error: error)
-        } else {
-            self.suggestions = viewModel.suggestions
-            
-            suggestionsTableView.reloadData()
-        }
-    }
-    
     private func search(){
         let searchText = searchBar.text ?? ""
         
@@ -105,7 +95,23 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
             interactor?.getSuggestions(request: request)
         }
     }
-
+    
+    func displaySuggestions(viewModel: ShowSuggestions.GetSuggestions.ViewModel)
+    {
+        if let error = viewModel.error {
+            showError(title: "Search Error", error: error)
+        } else {
+            self.suggestions = viewModel.suggestions
+            
+            suggestionsTableView.reloadData()
+        }
+    }
+    
+    func displayRightBarButton(){
+        if interactor?.selectedListID == nil {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
 }
 
 extension ShowSuggestionsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -173,5 +179,11 @@ extension ShowSuggestionsViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         search()
+    }
+}
+
+extension ShowSuggestionsViewController {
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
+        router?.routeToShowList(segue: nil)
     }
 }

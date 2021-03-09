@@ -15,11 +15,13 @@ import UIKit
 protocol StoreBusinessLogic
 {
     func getStore(request: Store.GetStore.Request)
+    var selectedListID: Int? { get set }
 }
 
 protocol StoreDataStore
 {
     var storeID: Int { get set }
+    var selectedListID: Int? { get set }
 }
 
 class StoreInteractor: StoreBusinessLogic, StoreDataStore
@@ -28,6 +30,7 @@ class StoreInteractor: StoreBusinessLogic, StoreDataStore
     var storeWorker: StoreWorker = StoreWorker(storeAPI: StoreAPI())
     
     var storeID: Int = 10
+    var selectedListID: Int?
     
     func getStore(request: Store.GetStore.Request)
     {

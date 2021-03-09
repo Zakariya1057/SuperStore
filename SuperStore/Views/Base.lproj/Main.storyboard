@@ -1578,7 +1578,13 @@
                             <constraint firstItem="3E9-Ge-Vmx" firstAttribute="trailing" secondItem="qBQ-nM-rQS" secondAttribute="trailing" id="kRI-6Q-3px"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Search" id="YZc-ls-dbO"/>
+                    <navigationItem key="navigationItem" title="Search" id="YZc-ls-dbO">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="Ire-DQ-r5n">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="9j8-KF-TXp" id="n2q-8p-6cv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="rj1-QC-1jG" id="87Q-6y-W1S"/>
                         <outlet property="suggestionsTableView" destination="qBQ-nM-rQS" id="LPy-k2-3lL"/>
@@ -1674,7 +1680,7 @@
                                                                             <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <segue destination="rE7-hw-dyv" kind="show" id="eLb-bY-n09"/>
+                                                                            <segue destination="rE7-hw-dyv" kind="show" identifier="GrandParentCategories" id="eLb-bY-n09"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -2157,7 +2163,13 @@
                             <constraint firstItem="tMe-bd-qXj" firstAttribute="leading" secondItem="5ke-YC-8rp" secondAttribute="leading" id="tfM-9q-LIU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="orb-X8-5EM"/>
+                    <navigationItem key="navigationItem" id="orb-X8-5EM">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="f5s-ag-qjg">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="hXH-95-1lc" id="PPD-bU-ZHj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addressLabel" destination="Tr2-4b-aIQ" id="VB0-HN-26u"/>
                         <outlet property="atmView" destination="Ixz-j3-ihJ" id="MJl-WM-Ftc"/>
@@ -2202,7 +2214,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="FQO-F6-rtZ">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="rQv-2t-6pb"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="rQv-2t-6pb">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="lx3-SC-MKf" id="5ke-61-jiE"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="blb-Wd-ZdE" kind="show" identifier="showGroceryItem" id="3yE-2U-5V3"/>
@@ -3565,7 +3581,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bPE-zb-jXG">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="Xla-1V-ZR7"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="U3r-1r-pKq">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="KFj-5f-9Wu" id="Cky-TB-aiQ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="productsTableView" destination="aSa-81-33v" id="cEA-Zn-cJp"/>
@@ -3719,7 +3739,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Groceries" id="66B-Md-eRn">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="clU-MY-Cti"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="clU-MY-Cti">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="rE7-hw-dyv" id="rSB-2R-T3y"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="categoriesTableView" destination="9eT-mC-4Tt" id="851-sZ-6Kl"/>
@@ -3776,7 +3800,13 @@
                             <constraint firstItem="Hvl-iC-jmT" firstAttribute="leading" secondItem="gnW-yJ-Xl9" secondAttribute="leading" id="xCP-6y-fNg"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="sOu-GF-B3k"/>
+                    <navigationItem key="navigationItem" id="sOu-GF-B3k">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="Xla-1V-ZR7">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="WbC-sT-OPu" id="Hrw-FM-gv5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapTableView" destination="rZi-NX-NXS" id="ovn-hU-5ZR"/>
                         <outlet property="storesTableView" destination="Gyf-aM-zrZ" id="scg-0v-G1a"/>
@@ -4199,7 +4229,7 @@
                     <navigationItem key="navigationItem" id="4uj-m0-fM0">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Kxa-DU-OWk">
                             <connections>
-                                <action selector="done_pressed:" destination="DSq-uM-qe8" id="vzB-Kj-QvZ"/>
+                                <action selector="doneButtonPressed:" destination="DSq-uM-qe8" id="3cG-ON-NvD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -4247,7 +4277,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2d2-af-2Cu">
-                                <rect key="frame" x="0.0" y="88" width="414" height="360"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="384"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ne-tu-j5D">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
@@ -4264,12 +4294,12 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="PiX-Ug-792">
-                                        <rect key="frame" x="0.0" y="40" width="414" height="320"/>
+                                        <rect key="frame" x="0.0" y="40" width="414" height="344"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mVh-vT-QS3">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ice Cream" translatesAutoresizingMaskIntoConstraints="NO" id="GVp-Je-z66">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ben And Jerry's" translatesAutoresizingMaskIntoConstraints="NO" id="GVp-Je-z66">
                                                         <rect key="frame" x="0.0" y="30" width="414" height="150"/>
                                                     </imageView>
                                                 </subviews>
@@ -4282,29 +4312,52 @@
                                                     <constraint firstAttribute="bottom" secondItem="GVp-Je-z66" secondAttribute="bottom" constant="20" id="lm5-1l-Uyv"/>
                                                 </constraints>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="RYh-2R-aMF">
-                                                <rect key="frame" x="0.0" y="220" width="414" height="100"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="RYh-2R-aMF">
+                                                <rect key="frame" x="0.0" y="220" width="414" height="124"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sDq-UP-xmZ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="xiR-zY-82R">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="54"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mcvities Milk Chocolate Hobnobs" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gw2-31-h4B">
-                                                                <rect key="frame" x="10" y="7.5" width="394" height="25.5"/>
-                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="21"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sDq-UP-xmZ">
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mcvities Milk Chocolate Hobnobs" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gw2-31-h4B">
+                                                                        <rect key="frame" x="10" y="-2.5" width="394" height="25.5"/>
+                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="21"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="gw2-31-h4B" firstAttribute="leading" secondItem="sDq-UP-xmZ" secondAttribute="leading" constant="10" id="E96-wW-agG"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="gw2-31-h4B" secondAttribute="trailing" constant="10" id="MVo-nz-NRX"/>
+                                                                    <constraint firstAttribute="height" constant="20" id="RJC-Ms-s9f"/>
+                                                                    <constraint firstItem="gw2-31-h4B" firstAttribute="centerY" secondItem="sDq-UP-xmZ" secondAttribute="centerY" id="xJO-ND-iDj"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fv8-z9-wcj">
+                                                                <rect key="frame" x="0.0" y="34" width="414" height="20"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500g" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4E-DP-JbC">
+                                                                        <rect key="frame" x="10" y="-0.5" width="394" height="21.5"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="p4E-DP-JbC" firstAttribute="centerY" secondItem="fv8-z9-wcj" secondAttribute="centerY" id="DJq-qM-hPd"/>
+                                                                    <constraint firstAttribute="height" constant="20" id="LEc-or-S6j"/>
+                                                                    <constraint firstItem="p4E-DP-JbC" firstAttribute="leading" secondItem="fv8-z9-wcj" secondAttribute="leading" constant="10" id="V4x-jq-3o6"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="p4E-DP-JbC" secondAttribute="trailing" constant="10" id="cdY-MW-yDv"/>
+                                                                </constraints>
+                                                            </view>
                                                         </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                        <constraints>
-                                                            <constraint firstItem="gw2-31-h4B" firstAttribute="leading" secondItem="sDq-UP-xmZ" secondAttribute="leading" constant="10" id="E96-wW-agG"/>
-                                                            <constraint firstAttribute="trailing" secondItem="gw2-31-h4B" secondAttribute="trailing" constant="10" id="MVo-nz-NRX"/>
-                                                            <constraint firstAttribute="height" constant="40" id="RJC-Ms-s9f"/>
-                                                            <constraint firstItem="gw2-31-h4B" firstAttribute="centerY" secondItem="sDq-UP-xmZ" secondAttribute="centerY" id="xJO-ND-iDj"/>
-                                                        </constraints>
-                                                    </view>
+                                                    </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="7xf-l3-Rk7">
-                                                        <rect key="frame" x="0.0" y="60" width="414" height="40"/>
+                                                        <rect key="frame" x="0.0" y="84" width="414" height="40"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="3VL-nX-gTV">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
@@ -4374,6 +4427,8 @@
                         <outlet property="promotionButton" destination="7ne-tu-j5D" id="L6x-8T-TNB"/>
                         <outlet property="quantityLabel" destination="yvC-ay-TJ1" id="NNK-vt-2NP"/>
                         <outlet property="quantityStepper" destination="Cnn-1a-Ihb" id="6zY-he-64f"/>
+                        <outlet property="weightLabel" destination="p4E-DP-JbC" id="SYd-CH-ZOX"/>
+                        <outlet property="weightView" destination="fv8-z9-wcj" id="hxl-Ye-U9r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u1f-BC-suW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -5310,13 +5365,13 @@
         <image name="ATM" width="50" height="50"/>
         <image name="Asda2" width="133" height="133"/>
         <image name="Balloon" width="170.5" height="170.5"/>
+        <image name="Ben And Jerry's" width="213" height="213"/>
         <image name="Car" width="170.5" height="170.5"/>
         <image name="ClearLogo" width="256" height="256"/>
         <image name="Diaper" width="50" height="50"/>
         <image name="Digestives" width="180" height="180"/>
         <image name="Disabled" width="170.5" height="170.5"/>
         <image name="ElectricCharging" width="50" height="50"/>
-        <image name="Ice Cream" width="96" height="96"/>
         <image name="PayPoint" width="50" height="50"/>
         <image name="Person" width="50" height="50"/>
         <image name="PetrolStation" width="50" height="50"/>

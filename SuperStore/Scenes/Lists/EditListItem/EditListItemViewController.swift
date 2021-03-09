@@ -85,7 +85,9 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var quantityStepper: UIStepper!
     
+    @IBOutlet var weightLabel: UILabel!
     @IBOutlet var promotionButton: UIButton!
+    @IBOutlet var weightView: UIView!
     
     var displayedListItem: EditListItem.DisplayedListItem!
     
@@ -101,6 +103,7 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
         displayQuantity()
         displayPrice()
     }
+
     
     func displayListItem(viewModel: EditListItem.GetListItem.ViewModel)
     {
@@ -112,11 +115,10 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
             itemImageView.downloaded(from: image)
         }
         
-        if let promotion = displayedListItem.promotion {
-            promotionButton.setTitle(promotion.name, for: .normal)
-        } else {
-            promotionButton.removeFromSuperview()
-        }
+
+        
+        displayWeight()
+        displayPromotion()
         
         displayPrice()
         displayQuantity()
@@ -145,6 +147,23 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
 }
 
 extension EditListItemViewController {
+    
+    func displayWeight(){
+        if let weight = displayedListItem.weight {
+            weightLabel.text = weight
+        } else {
+            weightView.removeFromSuperview()
+        }
+    }
+    
+    func displayPromotion(){
+        if let promotion = displayedListItem.promotion {
+            promotionButton.setTitle(promotion.name, for: .normal)
+        } else {
+            promotionButton.removeFromSuperview()
+        }
+    }
+    
     func displayPrice(){
         priceLabel.text = displayedListItem.price
     }

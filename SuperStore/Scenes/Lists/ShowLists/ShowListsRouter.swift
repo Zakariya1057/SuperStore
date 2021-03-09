@@ -26,6 +26,10 @@ protocol ShowListsDataPassing
     var listSelectedID: Int? { get set }
 }
 
+protocol SelectListProtocol {
+    func listSelected(listID: Int)
+}
+
 class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
 {
     weak var viewController: ShowListsViewController?

@@ -14,47 +14,51 @@ import UIKit
 
 @objc protocol StoreRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToShowList(segue: UIStoryboardSegue?)
+    func routeToGrandParentCategories(segue: UIStoryboardSegue?)
 }
 
 protocol StoreDataPassing
 {
-  var dataStore: StoreDataStore? { get }
+    var dataStore: StoreDataStore? { get }
 }
 
-class StoreRouter: NSObject, StoreRoutingLogic, StoreDataPassing
+class StoreRouter: BackToShowListRouter, StoreRoutingLogic, StoreDataPassing
 {
-  weak var viewController: StoreViewController?
-  var dataStore: StoreDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: StoreViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: StoreDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    var storeViewController: StoreViewController {
+        return viewController as! StoreViewController
+    }
+    
+    var dataStore: StoreDataStore?
+    
+    // MARK: Routing
+    
+    func routeToGrandParentCategories(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! GrandParentCategoriesViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToGrandParentCategories(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "GrandParentCategoriesViewController") as! GrandParentCategoriesViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToGrandParentCategories(source: dataStore!, destination: &destinationDS)
+            navigateToGrandParentCategories(source: storeViewController, destination: destinationVC)
+        }
+    }
+    
+    // MARK: Navigation
+    
+    func navigateToGrandParentCategories(source: StoreViewController, destination: GrandParentCategoriesViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    // MARK: Passing data
+    
+    func passDataToGrandParentCategories(source: StoreDataStore, destination: inout GrandParentCategoriesDataStore)
+    {
+        destination.selectedListID = source.selectedListID
+    }
 }

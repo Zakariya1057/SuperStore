@@ -36,17 +36,18 @@ enum ShowProductResults
     enum CreateListItem {
         struct Request
         {
-            // List ID, Quantity, Product, Parent Category ID
             var listID: Int
             var productID: Int
             var parentCategoryID: Int
         }
         struct Response
         {
+            var listItem: ListItemModel?
             var error: String?
         }
         struct ViewModel
         {
+            var listItem: ListItemModel?
             var error: String?
         }
     }

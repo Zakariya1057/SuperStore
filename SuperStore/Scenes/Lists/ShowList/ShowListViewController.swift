@@ -107,8 +107,6 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
     
     func displayList(viewModel: ShowList.GetList.ViewModel)
     {
-        print(viewModel)
-        
         refreshControl.endRefreshing()
         
         if let error = viewModel.error {

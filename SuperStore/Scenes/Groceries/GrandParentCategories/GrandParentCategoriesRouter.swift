@@ -15,6 +15,7 @@ import UIKit
 @objc protocol GrandParentCategoriesRoutingLogic
 {
     func routeToParentCatgories(segue: UIStoryboardSegue?)
+    func routeToShowList(segue: UIStoryboardSegue?)
 }
 
 protocol GrandParentCategoriesDataPassing
@@ -22,9 +23,12 @@ protocol GrandParentCategoriesDataPassing
     var dataStore: GrandParentCategoriesDataStore? { get }
 }
 
-class GrandParentCategoriesRouter: NSObject, GrandParentCategoriesRoutingLogic, GrandParentCategoriesDataPassing
+class GrandParentCategoriesRouter: BackToShowListRouter, GrandParentCategoriesRoutingLogic, GrandParentCategoriesDataPassing
 {
-    weak var viewController: GrandParentCategoriesViewController?
+    var grandParentCategoriesViewController: GrandParentCategoriesViewController {
+        return viewController as! GrandParentCategoriesViewController
+    }
+    
     var dataStore: GrandParentCategoriesDataStore?
     
     // MARK: Routing
@@ -40,7 +44,7 @@ class GrandParentCategoriesRouter: NSObject, GrandParentCategoriesRoutingLogic, 
             let destinationVC = storyboard.instantiateViewController(withIdentifier: "ParentCategoriesViewController") as! ParentCategoriesViewController
             var destinationDS = destinationVC.router!.dataStore!
             passDataToParentCatgories(source: dataStore!, destination: &destinationDS)
-            navigateToParentCatgories(source: viewController!, destination: destinationVC)
+            navigateToParentCatgories(source: grandParentCategoriesViewController, destination: destinationVC)
         }
     }
     
@@ -55,6 +59,9 @@ class GrandParentCategoriesRouter: NSObject, GrandParentCategoriesRoutingLogic, 
     
     func passDataToParentCatgories(source: GrandParentCategoriesDataStore, destination: inout ParentCategoriesDataStore)
     {
-        destination.categories = source.categories[viewController!.categoriesTableView.indexPathForSelectedRow!.row].parentCategories
+        let row = grandParentCategoriesViewController.categoriesTableView.indexPathForSelectedRow!.row
+        destination.categories = source.categories[row].parentCategories
+        
+        destination.selectedListID = source.selectedListID
     }
 }

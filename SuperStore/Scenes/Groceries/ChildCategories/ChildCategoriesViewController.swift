@@ -72,6 +72,7 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        displayRightBarButton()
         setupBar()
         getCategories()
     }
@@ -97,6 +98,13 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
             self.reloadData()
         }
     }
+    
+    func displayRightBarButton(){
+        if interactor?.selectedListID == nil {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
+
 }
 
 extension ChildCategoriesViewController {
@@ -157,5 +165,11 @@ extension ChildCategoriesViewController {
     private func productPressed(productID: Int){
         router?.selectedProductID = productID
         router?.routeToShowProduct(segue: nil)
+    }
+}
+
+extension ChildCategoriesViewController {
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
+        router?.routeToShowList(segue: nil)
     }
 }

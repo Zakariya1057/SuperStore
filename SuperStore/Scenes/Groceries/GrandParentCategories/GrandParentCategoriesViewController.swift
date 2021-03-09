@@ -69,6 +69,7 @@ class GrandParentCategoriesViewController: UIViewController, GrandParentCategori
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        displayRightBarButton()
         setupCategoriesTableView()
         getCategories()
     }
@@ -94,6 +95,13 @@ class GrandParentCategoriesViewController: UIViewController, GrandParentCategori
             categoriesTableView.reloadData()
         }
     }
+    
+    func displayRightBarButton(){
+        if interactor?.selectedListID == nil {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
+
 }
 
 extension GrandParentCategoriesViewController: UITableViewDataSource, UITableViewDelegate {
@@ -125,5 +133,11 @@ extension GrandParentCategoriesViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Navigate To Parent Category
         router?.routeToParentCatgories(segue: nil)
+    }
+}
+
+extension GrandParentCategoriesViewController {
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
+        router?.routeToShowList(segue: nil)
     }
 }

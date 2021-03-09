@@ -39,14 +39,8 @@ class FeaturedProductCell: UITableViewCell,CustomElementCell {
         self.products = model.products
         self.productCollection.reloadData()
         self.productCollection.layoutIfNeeded()
+    }
 
-        configureUI()
-    }
-    
-    
-    func configureUI() {
-//        titleLabel.text = self.model.title
-    }
     
     override func awakeFromNib() {
         

@@ -32,7 +32,7 @@ class ShowProductResultsPresenter: ShowProductResultsPresentationLogic
     }
     
     func presentListItemCreated(response: ShowProductResults.CreateListItem.Response) {
-        let viewModel = ShowProductResults.CreateListItem.ViewModel(error: response.error)
+        let viewModel = ShowProductResults.CreateListItem.ViewModel(listItem: response.listItem, error: response.error)
         viewController?.displayListItemCreated(viewModel: viewModel)
     }
     

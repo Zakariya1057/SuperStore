@@ -15,17 +15,21 @@ import UIKit
 protocol ChildCategoriesBusinessLogic
 {
     func getCategories(request: ChildCategories.GetCategories.Request)
+    var selectedListID: Int? { get set }
 }
 
 protocol ChildCategoriesDataStore
 {
     var parentCategoryID: Int { get set }
+    var selectedListID: Int? { get set }
 }
 
 class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDataStore
 {
     var presenter: ChildCategoriesPresentationLogic?
 
+    var selectedListID: Int?
+    
     var parentCategoryID: Int = 1
     var groceryWorker: GroceryWorker = GroceryWorker(groceryAPI: GroceryAPI())
     
