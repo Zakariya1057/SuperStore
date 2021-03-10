@@ -80,7 +80,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     @IBOutlet var tableView: UITableView!
     
     var scrollPositions: [String: CGFloat] = [:]
-    var homeCells: [CustomElementModel] = []
+    
+    var homeCells: [HomeElementGroupModel] = []
     
     var homeModel: HomeModel?
     
@@ -115,28 +116,35 @@ extension HomeViewController {
                 
                 switch element {
                 
-                case is StoresMapElement:
-                    let storeElement = element as! StoresMapElement
-                    storeElement.stores = homeModel.stores
+                case is StoreMapGroupElement:
+                    let storeElement = element as! StoreMapGroupElement
+                    storeElement.items = [ StoresMapElementModel(stores: homeModel.stores) ]
+                    storeElement.configurePressed()
                     break
-                case is GroceryProductElement:
-                    let productElement = element as! GroceryProductElement
-                    productElement.products = homeModel.groceries
+                case is GroceryProductGroupElement:
+                    let productElement = element as! GroceryProductGroupElement
+                    productElement.items = [ ProductsElementModel(products: homeModel.groceries) ]
+                    productElement.configurePressed()
                     break
-                case is MonitoringProductElement:
-                    let productElement = element as! MonitoringProductElement
-                    productElement.products = homeModel.monitoring.reversed()
+                case is MonitoringProductGroupElement:
+                    let productElement = element as! MonitoringProductGroupElement
+                    productElement.items =  [ ProductsElementModel(products: homeModel.monitoring.reversed()) ]
+                    productElement.configurePressed()
                     break
-                case is OffersElement:
-                    let offerElement = element as! OffersElement
-                    offerElement.promotions = homeModel.promotions
+                case is PromotionGroupElement:
+                    let offerElement = element as! PromotionGroupElement
+                    offerElement.items = [ PromotionsElementModel(promotions: homeModel.promotions) ]
+                    offerElement.configurePressed()
                     break
-                case is FeaturedProductElement:
-                    let featuredElement = element as! FeaturedProductElement
-                    featuredElement.products = homeModel.featured
-                case is ListsProgressElement:
-                    let listProgressElement = element as! ListsProgressElement
-                    listProgressElement.lists = homeModel.lists
+                case is FeaturedProductGroupElement:
+                    let featuredElement = element as! FeaturedProductGroupElement
+                    featuredElement.items = [ FeaturedProductsElementModel(products: homeModel.featured) ]
+                    featuredElement.configurePressed()
+                    break
+                case is ListGroupProgressElement:
+                    let listProgressElement = element as! ListGroupProgressElement
+                    listProgressElement.items = homeModel.lists.map { ListProgressElement(list: $0) }
+                    listProgressElement.configurePressed()
                     break
                 default:
                     print("Unknown Type Encountered: \(element.type)")
@@ -147,8 +155,12 @@ extension HomeViewController {
             for category in homeModel.categories {
                 let name = category.key
                 let products = category.value
-                let element = ProductElement(title: name, productPressedCallBack: productPressed, scrollCallBack: cellScroll, products: products)
-                homeCells.append(element)
+
+                let categoryCell = CategoryProductGroupElement(title: name, products: [
+                    ProductsElementModel(products: products)
+                ], productPressed: productPressed)
+                
+                homeCells.append(categoryCell)
             }
             
             tableView.reloadData()
@@ -175,8 +187,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let featuredProductsCell = UINib(nibName: "FeaturedProductCell", bundle: nil)
         tableView.register(featuredProductsCell, forCellReuseIdentifier: "FeaturedProductCell")
         
-        let listsProgressCell = UINib(nibName: "ListsProgressCell", bundle: nil)
-        tableView.register(listsProgressCell, forCellReuseIdentifier: "ListsProgressCell")
+        let listsProgressCell = UINib(nibName: "ListProgressCell", bundle: nil)
+        tableView.register(listsProgressCell, forCellReuseIdentifier: "ListProgressCell")
         
         setUpTableView()
         setupRefreshControl()
@@ -199,12 +211,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     private func setupHomeCells(){
         homeCells = [
-            ListsProgressElement(title: "List Progress", listPressedCallBack: listPressed, lists: []),
-            StoresMapElement(title: "Stores", storePressed: storePressed, stores: []),
-            GroceryProductElement(title: "Grocery Items", productPressedCallBack: productPressed, scrollCallBack: cellScroll, products: []),
-            MonitoringProductElement(title: "Monitoring", productPressedCallBack: productPressed, scrollCallBack: cellScroll, products: []),
-            OffersElement(title: "Offers", offerPressedCallBack: promotionPressed, promotions: []),
-            FeaturedProductElement(title: "Featured", productPressedCallBack: productPressed, scrollCallBack: {_,_ in }, products: [])
+            ListGroupProgressElement(title: "List Progress", lists: [], listPressed: listPressed),
+            StoreMapGroupElement(title: "Stores", stores: [], storePressed: storePressed),
+            GroceryProductGroupElement(title: "Grocery Items", products: [], productPressed: productPressed),
+            MonitoringProductGroupElement(title: "Monitoring", products: [], productPressed: productPressed),
+            PromotionGroupElement(title: "Promotions", promotions: [], promotionPressed: promotionPressed),
+            FeaturedProductGroupElement(title: "Featured", products: [], productPressed: productPressed)
         ]
     }
 }
@@ -223,23 +235,33 @@ extension HomeViewController {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return homeCells[section].items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellModel = homeCells[indexPath.section]
-        print(cellModel.type)
-        let cellIdentifier = cellModel.type.rawValue
-        let customCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CustomElementCell
+        let group = homeCells[indexPath.section]
+        let cellModel = group.items[indexPath.row]
+
+        let cellIdentifier = group.type.rawValue
+        let customCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! HomeElementCell
         
-        cellModel.position = scrollPositions[ cellModel.title ]
-        customCell.configure(withModel: cellModel)
+//        cellModel.position = scrollPositions[ cellModel.title ]
+        customCell.configure(model: cellModel)
         
         let cell = customCell as! UITableViewCell
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         
         return cell
+    }
+}
+
+extension HomeViewController {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let group = homeCells[indexPath.section] as? ListGroupProgressElement {
+            let list = group.items[indexPath.row] as! ListProgressElement
+            listPressed(list: list.list)
+        }
     }
 }
 
@@ -252,12 +274,11 @@ extension HomeViewController {
     private func storePressed(storeID: Int){
         router?.selectedStoreID = storeID
         router?.routeToStore(segue: nil)
-        print("Store Pressed")
     }
     
     private func listPressed(list: ListModel){
-//        router?.sele
-        print("List Pressed")
+        router?.selectedList = list
+        router?.routeToShowList(segue: nil)
     }
     
     private func productPressed(productID: Int){
@@ -270,23 +291,27 @@ extension HomeViewController {
     }
 }
 
-enum CustomElementType: String {
+
+
+protocol HomeElementGroupModel: class {
+    var title: String { get }
+    var type: HomeElementType { get }
+    var items: [HomeElementItemModel] { get }
+}
+
+protocol HomeElementItemModel: class {
+   
+}
+
+protocol HomeElementCell: class {
+    func configure(model: HomeElementItemModel)
+}
+
+enum HomeElementType: String {
     case products         = "ProductsCell"
     case storesMap        = "StoresMapCell"
-    case listsProgress    = "ListsProgressCell"
+    case listsProgress    = "ListProgressCell"
     case offers           = "OffersCell"
     case featuredProducts = "FeaturedProductCell"
     case listPriceUpdate  = "ListPriceUpdate"
-}
-
-// Each custom element model must have a defined type which is a custom element type.
-protocol CustomElementModel: class {
-    var title: String { get }
-    var type: CustomElementType { get }
-    var position: CGFloat? { get set }
-    var loading: Bool { get set }
-}
-
-protocol CustomElementCell: class {
-    func configure(withModel: CustomElementModel)
 }

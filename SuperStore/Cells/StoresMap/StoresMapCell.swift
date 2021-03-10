@@ -9,28 +9,40 @@
 import UIKit
 import MapKit
 
-class StoresMapElement: CustomElementModel {
+class StoreMapGroupElement: HomeElementGroupModel {
     var title: String
-    var type: CustomElementType { return .storesMap }
-    var position: CGFloat?
-    var stores: [StoreModel]?
-    var loading: Bool = false
-    var storePressed: (Int) -> Void
+    var type: HomeElementType = .storesMap
+    var items: [HomeElementItemModel]
+    var storePressed: ((Int) -> Void)? = nil
     
-    init(title: String, storePressed: @escaping (Int) -> Void, stores:[StoreModel]) {
+    init(title: String, stores: [StoresMapElementModel], storePressed: ((Int) -> Void)? ) {
         self.title = title
-        self.stores = stores
+        self.items = stores
         self.storePressed = storePressed
+        
+        configurePressed()
+    }
+    
+    func configurePressed(){
+        let stores = items as! [StoresMapElementModel]
+        for store in stores {
+            store.storePressed = storePressed
+        }
     }
 }
 
-protocol UserLocationDeniedDelegate {
-    func showError(_ error: String)
+class StoresMapElementModel: HomeElementItemModel {
+    var stores: [StoreModel] = []
+    var storePressed: ((Int) -> Void)? = nil
+    
+    init(stores: [StoreModel]) {
+        self.stores = stores
+    }
 }
 
-class StoresMapCell: UITableViewCell, CustomElementCell, CLLocationManagerDelegate, MKMapViewDelegate {
+class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate, MKMapViewDelegate {
     
-    var model: StoresMapElement!
+    var model: StoresMapElementModel!
     var stores: [StoreModel] = []
     
     var storePressed: ((Int) -> Void)? = nil
@@ -47,14 +59,14 @@ class StoresMapCell: UITableViewCell, CustomElementCell, CLLocationManagerDelega
     
     var storesDetails: [String: Int] = [:]
     
-    func configure(withModel elementModel: CustomElementModel) {
-        guard let model = elementModel as? StoresMapElement else {
-            print("Unable to cast model as ProfileElement: \(elementModel)")
+    func configure(model elementModel: HomeElementItemModel) {
+        guard let model = elementModel as? StoresMapElementModel else {
+            print("Unable to cast model as StoresMapElementModel: \(elementModel)")
             return
         }
         
         self.model = model
-        self.stores = model.stores ?? []
+        self.stores = model.stores
         self.storePressed = model.storePressed
         
         configureUI()

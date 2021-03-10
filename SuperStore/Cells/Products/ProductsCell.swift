@@ -8,63 +8,82 @@
 
 import UIKit
 
-class ProductElement: CustomElementModel {
+class ProductGroupElement: HomeElementGroupModel {
     var title: String
-    var type: CustomElementType { return .products }
+    var type: HomeElementType = .products
+    var items: [HomeElementItemModel]
+    var productPressed: ((Int) -> Void)? = nil
     
-    var productPressed: (Int) -> Void
-    var scrolled: (CGFloat, String) -> Void
-    
-    var products: [ProductModel]
-    var position: CGFloat?
-    var loading: Bool = false
-    
-    init(title: String, productPressedCallBack: @escaping (Int) -> Void, scrollCallBack: @escaping (CGFloat, String) -> Void ,products: [ProductModel]) {
+    init(title: String, products: [ProductsElementModel], productPressed: @escaping (Int) -> Void) {
         self.title = title
+        self.items = products
+        self.productPressed = productPressed
         
-        self.productPressed = productPressedCallBack
-        self.scrolled = scrollCallBack
+        configurePressed()
+    }
+    
+    func configurePressed(){
+        let products = items as! [ProductsElementModel]
         
+        for (index, product) in products.enumerated() {
+            product.index = index
+            product.productPressed = productPressed
+            product.scrolled = scrolled
+        }
+    }
+    
+    func scrolled(index: Int, position: CGFloat){
+        let product = items[index] as! ProductsElementModel
+        product.scrollPosition = position
+    }
+}
+
+class ProductsElementModel: HomeElementItemModel {
+    var products: [ProductModel] = []
+    
+    var index: Int = 0
+    
+    var scrollPosition: CGFloat = 0
+    var productPressed: ((Int) -> Void)? = nil
+    var scrolled: ((Int, CGFloat) -> Void)? = nil
+    
+    init(products: [ProductModel]) {
         self.products = products
     }
 }
 
-class GroceryProductElement: ProductElement { }
-class MonitoringProductElement: ProductElement { }
+class GroceryProductGroupElement: ProductGroupElement { }
+class MonitoringProductGroupElement: ProductGroupElement { }
+class CategoryProductGroupElement: ProductGroupElement { }
 
-class ProductsCell: UITableViewCell,CustomElementCell {
+class ProductsCell: UITableViewCell, HomeElementCell {
     
     @IBOutlet weak var productCollection: UICollectionView!
     
-    var model: ProductElement!
+    var model: ProductsElementModel!
     var products: [ProductModel] = []
     
-    var productPressedCallBack: ((Int) -> Void?)? = nil
-    var scrollCallBack: ((CGFloat, String) -> Void)? = nil
+    var productPressed: ((Int) -> Void?)? = nil
+    var scrolled: ((Int, CGFloat) -> Void)?
     
-    var loading: Bool = true
+    var loading: Bool = false
     
     @IBOutlet weak var titleLabel: UILabel!
-    
-    func configure(withModel elementModel: CustomElementModel) {
-        guard let model = elementModel as? ProductElement else {
+
+    func configure(model elementModel: HomeElementItemModel) {
+        guard let model = elementModel as? ProductsElementModel else {
             print("Unable to cast model as ProductElement: \(elementModel)")
             return
         }
         
         self.model = model
-        self.productPressedCallBack = model.productPressed
-        self.scrollCallBack = model.scrolled
-        self.loading = model.loading
+        self.productPressed = model.productPressed
+        self.scrolled = model.scrolled
         
         self.products = model.products
         self.productCollection.reloadData()
         
-        if model.position != nil {
-            productCollection.contentOffset.x = model.position!
-        } else {
-            productCollection.contentOffset.x = CGFloat(0)
-        }
+        productCollection.contentOffset.x = model.scrollPosition
 
     }
     
@@ -110,8 +129,8 @@ extension ProductsCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !loading {
-            if let productPressedCallBack = productPressedCallBack {
-                productPressedCallBack(products[indexPath.row].id)
+            if let productPressed = productPressed {
+                productPressed(products[indexPath.row].id)
             }
         }
     }
@@ -121,8 +140,8 @@ extension ProductsCell: UICollectionViewDelegate, UICollectionViewDataSource {
 extension ProductsCell: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if let scrollCallBack = scrollCallBack {
-            scrollCallBack(scrollView.contentOffset.x,model.title)
+        if let scrolled = scrolled {
+            scrolled(model.index, scrollView.contentOffset.x)
         }
     }
 }

@@ -23,6 +23,8 @@ import UIKit
 protocol HomeDataPassing
 {
     var dataStore: HomeDataStore? { get }
+    
+    var selectedList: ListModel? { get set }
     var selectedProductID: Int? { get set }
     var selectedPromotionID: Int? { get set }
     var selectedStoreID: Int? { get set }
@@ -43,15 +45,15 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     
     func routeToShowList(segue: UIStoryboardSegue?) {
         if let segue = segue {
-            let destinationVC = segue.destination as! StoreViewController
+            let destinationVC = segue.destination as! ShowListViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToStore(source: dataStore!, destination: &destinationDS)
+            passDataToShowList(source: dataStore!, destination: &destinationDS)
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "StoreViewController") as! StoreViewController
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowListViewController") as! ShowListViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToStore(source: dataStore!, destination: &destinationDS)
-            navigateToStore(source: viewController!, destination: destinationVC)
+            passDataToShowList(source: dataStore!, destination: &destinationDS)
+            navigateToShowList(source: viewController!, destination: destinationVC)
         }
     }
     

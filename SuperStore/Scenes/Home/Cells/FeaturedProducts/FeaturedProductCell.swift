@@ -8,33 +8,65 @@
 
 import UIKit
 
-class FeaturedProductElement: ProductElement {
-    override var type: CustomElementType { return .featuredProducts }
+class FeaturedProductGroupElement: HomeElementGroupModel {
+    var title: String
+    var type: HomeElementType = .featuredProducts
+    var items: [HomeElementItemModel]
+    var productPressed: (Int) -> Void
+    
+    init(title: String, products: [FeaturedProductsElementModel], productPressed: @escaping (Int) -> Void) {
+        self.title = title
+        self.items = products
+        self.productPressed = productPressed
+        
+        configurePressed()
+    }
+    
+    func configurePressed(){
+        let products = items as! [FeaturedProductsElementModel]
+        
+        for product in products {
+            product.productPressed = productPressed
+        }
+    }
 }
 
-class FeaturedProductCell: UITableViewCell,CustomElementCell {
+class FeaturedProductsElementModel: HomeElementItemModel {
+    var products: [ProductModel] = []
+    var scrollPosition: Float = 0
+    var productPressed: ((Int) -> Void)? = nil
+    
+    init(products: [ProductModel]) {
+        self.products = products
+    }
+}
+
+
+class FeaturedProductCell: UITableViewCell, HomeElementCell {
     
     @IBOutlet weak var productCollection: UICollectionView!
     
-    var model: FeaturedProductElement!
+    var model: FeaturedProductsElementModel!
     var products: [ProductModel] = []
     
-    var productPressedCallBack: ((Int) -> Void?)? = nil
+    var productPressed: ((Int) -> Void?)? = nil
     var scrollCallBack: ((CGFloat, String) -> Void)? = nil
     
-    var loading: Bool = true
+    var loading: Bool = false
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    func configure(withModel elementModel: CustomElementModel) {
-        guard let model = elementModel as? FeaturedProductElement else {
+    func configure(model elementModel: HomeElementItemModel) {
+
+        guard let model = elementModel as? FeaturedProductsElementModel else {
             print("Unable to cast model as FeaturedProductElement: \(elementModel)")
             return
         }
         
         self.model = model
-        self.loading = model.loading
-        self.productPressedCallBack = model.productPressed
+        self.productPressed = model.productPressed
+//        self.loading = model.loading
+//        self.productPressedCallBack = model.productPressed
         
         self.products = model.products
         self.productCollection.reloadData()
@@ -85,8 +117,8 @@ extension FeaturedProductCell: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !loading {
             // Product Selected, Navigate
-            if let productPressedCallBack = productPressedCallBack {
-                productPressedCallBack(products[indexPath.row].id)
+            if let productPressed = productPressed {
+                productPressed(products[indexPath.row].id)
             }
         }
     }

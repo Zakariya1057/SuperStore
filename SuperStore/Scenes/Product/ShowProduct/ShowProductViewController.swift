@@ -117,7 +117,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet weak var addToListButton: UIButton!
     
     var product: ShowProduct.DisplayedProduct?
-    var scrollPosition: CGFloat = CGFloat(0)
+
     var loading: Bool = false
     
     var reviews: [ReviewModel] = []
@@ -353,7 +353,12 @@ extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate 
         let cell = recommendedTableView.dequeueReusableCell(withIdentifier: "ProductsCell", for: indexPath) as! ProductsCell
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         cell.loading = self.loading
-        cell.configure(withModel: ProductElement(title: "Recommended", productPressedCallBack: productPressed, scrollCallBack: cellScroll, products: recommendedProducts))
+        
+        let productElement = ProductsElementModel(products: recommendedProducts)
+        productElement.productPressed = productPressed
+        
+        cell.configure(model: productElement)
+        
         return cell
     }
     
@@ -376,10 +381,6 @@ extension ShowProductViewController {
     private func productPressed(productID: Int){
         router?.selectedProductID = productID
         router?.routeToShowProduct(segue: nil)
-    }
-    
-    private func cellScroll(position: CGFloat, title: String){
-        scrollPosition = position
     }
 }
 

@@ -43,6 +43,8 @@ class ProductModel {
 
     var recommended: [ProductModel] = []
 
+    var listID: Int? = nil
+    
     init(id: Int, name: String, smallImage: String, largeImage: String,description: String?, quantity: Int,price:Double, avgRating: Double?, totalReviewsCount: Int?, promotion: PromotionModel?, storage: String?, weight: String?,parentCategoryId: Int?, parentCategoryName: String?, childCategoryName: String?, dietaryInfo: String?, allergenInfo: String?, brand: String, reviews: [ReviewModel], favourite: Bool, monitoring: Bool, ingredients: [String], recommended: [ProductModel]) {
 
         self.id = id

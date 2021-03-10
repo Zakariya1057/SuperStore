@@ -8,43 +8,60 @@
 
 import UIKit
 
-class OffersElement: CustomElementModel {
+class PromotionGroupElement: HomeElementGroupModel {
     var title: String
-    var type: CustomElementType { return .offers }
-    var offerPressedCallBack: (Int) -> Void
-    var position: CGFloat?
-    var promotions: [PromotionModel]?
-    var loading: Bool = false
+    var type: HomeElementType = .offers
+    var items: [HomeElementItemModel]
+    var promotionPressed: (Int) -> Void
     
-    init(title: String, offerPressedCallBack: @escaping (Int) -> Void, promotions: [PromotionModel]) {
+    init(title: String, promotions: [PromotionsElementModel], promotionPressed: @escaping (Int) -> Void) {
         self.title = title
-        self.offerPressedCallBack = offerPressedCallBack
+        self.items = promotions
+        self.promotionPressed = promotionPressed
+        
+        configurePressed()
+    }
+    
+    func configurePressed(){
+        let promotions = items as! [PromotionsElementModel]
+        for promotion in promotions {
+            promotion.promotionPressed = self.promotionPressed
+        }
+    }
+}
+
+class PromotionsElementModel: HomeElementItemModel {
+    var promotions: [PromotionModel] = []
+    var scrollPosition: Float = 0
+    var promotionPressed: ((Int) -> Void)? = nil
+    
+    init(promotions: [PromotionModel]) {
         self.promotions = promotions
     }
 }
 
-class OffersCell: UITableViewCell,CustomElementCell, UICollectionViewDelegate, UICollectionViewDataSource {
+class OffersCell: UITableViewCell, HomeElementCell, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    var model: OffersElement!
+    var model: PromotionsElementModel!
     
-    var offerPressed: ((Int) -> Void)? = nil
+    var promotionPressed: ((Int) -> Void)? = nil
     
     @IBOutlet var offersCollectionView: UICollectionView!
     
     var promotions: [PromotionModel] = []
     
-    var loading: Bool = true
+    var loading: Bool = false
     
-    func configure(withModel elementModel: CustomElementModel) {
-        guard let model = elementModel as? OffersElement else {
+    func configure(model elementModel: HomeElementItemModel) {
+        guard let model = elementModel as? PromotionsElementModel else {
             print("Unable to cast model as ListsProgressElement: \(elementModel)")
             return
         }
         
         self.model = model
-        self.offerPressed = model.offerPressedCallBack
-        self.promotions = model.promotions ?? []
-        self.loading = model.loading
+        self.promotionPressed = model.promotionPressed
+        self.promotions = model.promotions
+//        self.loading = model.loading
         
         configureUI()
         offersCollectionView.reloadData()
@@ -91,8 +108,8 @@ extension OffersCell {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !loading {
             // Offer Selected, Navigate
-            if let offerPressed = offerPressed {
-                offerPressed(promotions[indexPath.row].id)
+            if let promotionPressed = promotionPressed {
+                promotionPressed(promotions[indexPath.row].id)
             }
         }
     }

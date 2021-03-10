@@ -351,8 +351,8 @@
 		2CB3DCEA2525B8A300FC5792 /* 1ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCE92525B8A300FC5792 /* 1ResetPasswordViewController.swift */; };
 		2CB3DCF52527AFB600FC5792 /* RefineOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCF32527AFB600FC5792 /* RefineOptionCell.swift */; };
 		2CB3DCF62527AFB600FC5792 /* RefineOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB3DCF42527AFB600FC5792 /* RefineOptionCell.xib */; };
-		2CB3DCFC252A180900FC5792 /* ListsProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCFA252A180900FC5792 /* ListsProgressCell.swift */; };
-		2CB3DCFD252A180900FC5792 /* ListsProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB3DCFB252A180900FC5792 /* ListsProgressCell.xib */; };
+		2CB3DCFC252A180900FC5792 /* ListProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3DCFA252A180900FC5792 /* ListProgressCell.swift */; };
+		2CB3DCFD252A180900FC5792 /* ListProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB3DCFB252A180900FC5792 /* ListProgressCell.xib */; };
 		2CB3EDA325040E92000E7C7A /* 1ListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3EDA225040E92000E7C7A /* 1ListItemViewController.swift */; };
 		2CB3EDA525041F31000E7C7A /* ListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3EDA425041F31000E7C7A /* ListSectionHeader.swift */; };
 		2CB3EDAB25054D3D000E7C7A /* 1PromotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3EDAA25054D3D000E7C7A /* 1PromotionViewController.swift */; };
@@ -797,8 +797,8 @@
 		2CB3DCE92525B8A300FC5792 /* 1ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		2CB3DCF32527AFB600FC5792 /* RefineOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefineOptionCell.swift; sourceTree = "<group>"; };
 		2CB3DCF42527AFB600FC5792 /* RefineOptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefineOptionCell.xib; sourceTree = "<group>"; };
-		2CB3DCFA252A180900FC5792 /* ListsProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsProgressCell.swift; sourceTree = "<group>"; };
-		2CB3DCFB252A180900FC5792 /* ListsProgressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListsProgressCell.xib; sourceTree = "<group>"; };
+		2CB3DCFA252A180900FC5792 /* ListProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProgressCell.swift; sourceTree = "<group>"; };
+		2CB3DCFB252A180900FC5792 /* ListProgressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListProgressCell.xib; sourceTree = "<group>"; };
 		2CB3EDA225040E92000E7C7A /* 1ListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1ListItemViewController.swift; sourceTree = "<group>"; };
 		2CB3EDA425041F31000E7C7A /* ListSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSectionHeader.swift; sourceTree = "<group>"; };
 		2CB3EDA825041FDD000E7C7A /* ListSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListSectionHeader.xib; sourceTree = "<group>"; };
@@ -2005,7 +2005,7 @@
 			children = (
 				2CDFB66D25EA6F79002CE30D /* Offers */,
 				2CDFB67225EA6F88002CE30D /* FeaturedProducts */,
-				2CDFB67525EA6F92002CE30D /* ListsProgress */,
+				2CDFB67525EA6F92002CE30D /* ListProgress */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2062,13 +2062,13 @@
 			path = FeaturedProducts;
 			sourceTree = "<group>";
 		};
-		2CDFB67525EA6F92002CE30D /* ListsProgress */ = {
+		2CDFB67525EA6F92002CE30D /* ListProgress */ = {
 			isa = PBXGroup;
 			children = (
-				2CB3DCFA252A180900FC5792 /* ListsProgressCell.swift */,
-				2CB3DCFB252A180900FC5792 /* ListsProgressCell.xib */,
+				2CB3DCFA252A180900FC5792 /* ListProgressCell.swift */,
+				2CB3DCFB252A180900FC5792 /* ListProgressCell.xib */,
 			);
-			path = ListsProgress;
+			path = ListProgress;
 			sourceTree = "<group>";
 		};
 		2CDFB68025EA722D002CE30D /* Collections */ = {
@@ -2190,7 +2190,7 @@
 				2C9C1B9224CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib in Resources */,
 				2CD4BC4625C4661200F2F4E5 /* LoginToUseTableViewCell.xib in Resources */,
 				2CB19B832565A8C900C19550 /* ProductCell.xib in Resources */,
-				2CB3DCFD252A180900FC5792 /* ListsProgressCell.xib in Resources */,
+				2CB3DCFD252A180900FC5792 /* ListProgressCell.xib in Resources */,
 				2CB3DCF62527AFB600FC5792 /* RefineOptionCell.xib in Resources */,
 				2CAC05F3252CE24E00561509 /* OfferCollectionViewCell.xib in Resources */,
 				2C05901225F6265F00B4A16B /* RequestLoginCell.xib in Resources */,
@@ -2536,7 +2536,7 @@
 				2C85FEAB251F9D5900CECBD5 /* UserValidation.swift in Sources */,
 				2C55FA2725EE4C7C007BBFA8 /* ShowStoreResultsInteractor.swift in Sources */,
 				2CF239B925094BAC00D4CE91 /* 1LoginViewController.swift in Sources */,
-				2CB3DCFC252A180900FC5792 /* ListsProgressCell.swift in Sources */,
+				2CB3DCFC252A180900FC5792 /* ListProgressCell.swift in Sources */,
 				2CB911AC25F11B5500A8FC66 /* EditListViewController.swift in Sources */,
 				2CAB6A41251F962E00774B89 /* 1SpinnerViewController.swift in Sources */,
 				2C2BC82F25EBBFD40038882B /* ShowPromotionRouter.swift in Sources */,

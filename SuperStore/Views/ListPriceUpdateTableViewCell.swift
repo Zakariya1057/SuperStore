@@ -8,27 +8,38 @@
 
 import UIKit
 
-class ListPriceUpdateElement: CustomElementModel {
-    
+//class ListPriceUpdateElement: CustomElementModel {
+//
+//    var title: String
+//    var type: CustomElementType { return .listPriceUpdate }
+//    var delegate: ShowListDelegate
+//    var position: CGFloat?
+//    var loading: Bool = false
+//
+//    init(title: String,delegate: ShowListDelegate) {
+//        self.title = title
+//        self.delegate = delegate
+//    }
+//}
+
+class ListPriceUpdateGroupElement: HomeElementGroupModel {
     var title: String
-    var type: CustomElementType { return .listPriceUpdate }
-    var delegate: ShowListDelegate
-    var position: CGFloat?
-    var loading: Bool = false
+    var type: HomeElementType = .products
+    var items: [HomeElementItemModel]
     
-    init(title: String,delegate: ShowListDelegate) {
+    init(title: String, stores: [ListPriceUpdateElementModel]) {
         self.title = title
-        self.delegate = delegate
+        self.items = stores
     }
 }
 
-protocol ShowListDelegate {
-    func showListPage()
+class ListPriceUpdateElementModel: HomeElementItemModel {
+
 }
 
-class ListPriceUpdateTableViewCell: UITableViewCell,CustomElementCell {
+class ListPriceUpdateTableViewCell: UITableViewCell, HomeElementCell {
 
-    var model: ListPriceUpdateElement!
+    var model: ListPriceUpdateElementModel!
     
     @IBOutlet weak var listViewButton: UIView!
     
@@ -36,13 +47,13 @@ class ListPriceUpdateTableViewCell: UITableViewCell,CustomElementCell {
     
     var loading: Bool = true
     
-    func configure(withModel elementModel: CustomElementModel) {
-        guard let model = elementModel as? ListPriceUpdateElement else {
+    func configure(model elementModel: HomeElementItemModel) {
+        guard let model = elementModel as? ListPriceUpdateElementModel else {
             print("Unable to cast model as ProfileElement: \(elementModel)")
             return
         }
         
-        self.loading = model.loading
+//        self.loading = model.loading
         self.model = model
         
         configureUI()
@@ -54,7 +65,7 @@ class ListPriceUpdateTableViewCell: UITableViewCell,CustomElementCell {
     }
     
     @objc func showListsPage(){
-        self.model.delegate.showListPage()
+//        self.model.delegate.showListPage()
     }
     
     override func awakeFromNib() {
