@@ -110,6 +110,7 @@ class EditReviewViewController: UIViewController, EditReviewDisplayLogic
     func displayReview(viewModel: EditReview.GetReview.ViewModel)
     {
         stopLoading()
+        navigationItem.rightBarButtonItem?.isEnabled = true
         
         if let error = viewModel.error {
             showError(title: "Review Error", error: error)

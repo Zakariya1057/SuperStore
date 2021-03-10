@@ -461,6 +461,12 @@ extension ShowProductViewController: UserLoggedInProtocol {
 extension ShowProductViewController: SelectListProtocol {
 
     @IBAction func addToListButtonPressed(_ sender: Any) {
+        
+        if !loggedIn {
+            router?.routeToLogin(segue: nil)
+            return
+        }
+        
         if interactor?.selectedListID != nil {
             displayStepper()
             
@@ -472,10 +478,6 @@ extension ShowProductViewController: SelectListProtocol {
     }
     
     @IBAction func quantityStepperPressed(_ sender: UIStepper) {
-        if !loggedIn {
-            router?.routeToLogin(segue: nil)
-            return
-        }
         
         let quantity = Int(sender.value)
         

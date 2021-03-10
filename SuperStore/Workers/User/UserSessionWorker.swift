@@ -18,6 +18,10 @@ class UserSessionWorker {
         return userStore.getToken()
     }
     
+    func getUserID() -> Int? {
+        return userStore.getUserID()
+    }
+    
     func getStore() -> Int {
         return userStore.getStore() ?? 2
     }

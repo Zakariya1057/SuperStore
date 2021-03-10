@@ -102,4 +102,8 @@ extension UserRealmStore {
     func getStore() -> Int? {
         return user?.storeTypeID
     }
+    
+    func getUserID() -> Int? {
+        return user?.id
+    }
 }

@@ -389,6 +389,7 @@
 		2CBF020925EFDE0C003AD5DF /* GroceryTableRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF020325EFDE0C003AD5DF /* GroceryTableRouter.swift */; };
 		2CBF020A25EFDE0C003AD5DF /* GroceryTableModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF020425EFDE0C003AD5DF /* GroceryTableModels.swift */; };
 		2CBFFBD825F7D14800F27917 /* BackToShowListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFFBD725F7D14800F27917 /* BackToShowListRouter.swift */; };
+		2CC0ADDC25F9243500373AC4 /* ReviewRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADDB25F9243500373AC4 /* ReviewRealmStore.swift */; };
 		2CC1EA1B24FA9550000A9BC4 /* GroceryProductsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1A24FA9550000A9BC4 /* GroceryProductsData.swift */; };
 		2CC1EA1D24FAC003000A9BC4 /* ProductDetailsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1C24FAC003000A9BC4 /* ProductDetailsHandler.swift */; };
 		2CC1EA1F24FAC0EB000A9BC4 /* 1ProductData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1E24FAC0EB000A9BC4 /* 1ProductData.swift */; };
@@ -837,6 +838,7 @@
 		2CBF020325EFDE0C003AD5DF /* GroceryTableRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTableRouter.swift; sourceTree = "<group>"; };
 		2CBF020425EFDE0C003AD5DF /* GroceryTableModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTableModels.swift; sourceTree = "<group>"; };
 		2CBFFBD725F7D14800F27917 /* BackToShowListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackToShowListRouter.swift; sourceTree = "<group>"; };
+		2CC0ADDB25F9243500373AC4 /* ReviewRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRealmStore.swift; sourceTree = "<group>"; };
 		2CC1EA1A24FA9550000A9BC4 /* GroceryProductsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryProductsData.swift; sourceTree = "<group>"; };
 		2CC1EA1C24FAC003000A9BC4 /* ProductDetailsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsHandler.swift; sourceTree = "<group>"; };
 		2CC1EA1E24FAC0EB000A9BC4 /* 1ProductData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1ProductData.swift; sourceTree = "<group>"; };
@@ -1461,6 +1463,7 @@
 			isa = PBXGroup;
 			children = (
 				2C5C985C25F69AF100DF8B6D /* ProductRealmStore.swift */,
+				2CC0ADDB25F9243500373AC4 /* ReviewRealmStore.swift */,
 			);
 			path = Product;
 			sourceTree = "<group>";
@@ -2521,6 +2524,7 @@
 				2C21C3AE24F8187100D90B4B /* GroceryCategoriesModel.swift in Sources */,
 				2C2BC84125EBC0680038882B /* ShowIngredientsInteractor.swift in Sources */,
 				2C70824A25F009ED00345147 /* NewPasswordPresenter.swift in Sources */,
+				2CC0ADDC25F9243500373AC4 /* ReviewRealmStore.swift in Sources */,
 				2C266DF924D5DEF300C66EA5 /* 1StoreModel.swift in Sources */,
 				2C2BC80325EBBF040038882B /* ShowReviewsModels.swift in Sources */,
 				2CA11F8825EF8E6D0054AE19 /* ChildCategoriesInteractor.swift in Sources */,

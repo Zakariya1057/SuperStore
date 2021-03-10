@@ -32,6 +32,7 @@ class EditReviewInteractor: EditReviewBusinessLogic, EditReviewDataStore
 {
     var presenter: EditReviewPresentationLogic?
     var reviewWorker: ReviewWorker = ReviewWorker(reviewAPI: ReviewAPI())
+    var userSessionWorker: UserSessionWorker = UserSessionWorker()
     
     var product: ProductModel?
     var reviewToEdit: ReviewModel?
@@ -44,7 +45,9 @@ class EditReviewInteractor: EditReviewBusinessLogic, EditReviewDataStore
     func getReview(request: EditReview.GetReview.Request)
     {
         if let product = product {
-            reviewWorker.getReview(productID: product.id) { (review: ReviewModel?, error: String?) in
+            let userID: Int = userSessionWorker.getUserID()!
+            
+            reviewWorker.getReview(productID: product.id, userID: userID) { (review: ReviewModel?, error: String?) in
                 self.reviewToEdit = review
                 let response = EditReview.GetReview.Response(review: review, product: self.product, error: error)
                 self.presenter?.presentReview(response: response)
@@ -60,6 +63,7 @@ class EditReviewInteractor: EditReviewBusinessLogic, EditReviewDataStore
             self.presenter?.presentReviewCreated(response: response)
         } else {
             let review = buildReviewFromReviewForm(request.reviewFormField)
+            
             reviewWorker.createReview(review: review) { (error: String?) in
                 let response = EditReview.CreateReview.Response(error: error)
                 self.presenter?.presentReviewCreated(response: response)
@@ -83,7 +87,7 @@ class EditReviewInteractor: EditReviewBusinessLogic, EditReviewDataStore
     }
     
     func deleteReview(request: EditReview.DeleteReview.Request){
-        reviewWorker.deleteReview(productID: product!.id){ (error: String?) in
+        reviewWorker.deleteReview(reviewID: reviewToEdit!.id, productID: reviewToEdit!.productID){ (error: String?) in
             let response = EditReview.CreateReview.Response(error: error)
             self.presenter?.presentReviewCreated(response: response)
         }
@@ -94,15 +98,15 @@ class EditReviewInteractor: EditReviewBusinessLogic, EditReviewDataStore
 extension EditReviewInteractor {
     private func buildReviewFromReviewForm(_ reviewForm:EditReview.ReviewFormFields) -> ReviewModel {
         return ReviewModel(
-            id: 1,
+            id: reviewToEdit?.id ?? 0,
             text: reviewForm.text,
             title: reviewForm.title,
             rating: Int(reviewForm.rating),
-            name: "",
+            name: reviewToEdit?.name ?? "",
             productID: product!.id,
-            userID: 0,
+            userID: reviewToEdit?.userID ?? 0,
             updatedAt: Date(),
-            createdAt: Date()
+            createdAt: reviewToEdit?.createdAt ?? Date()
         )
     }
     

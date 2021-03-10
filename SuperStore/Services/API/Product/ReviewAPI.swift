@@ -21,8 +21,8 @@ class ReviewAPI: ReviewRequestProtocol {
             do {
                 let data = try response()
                 let reviewDataResponse =  try self.jsonDecoder.decode(ReviewDataResponse.self, from: data)
-                let reviews = self.createReviewModel(reviewDataResponse: reviewDataResponse)
-                completionHandler(reviews, nil)
+                let review = self.createReviewModel(reviewDataResponse: reviewDataResponse)
+                completionHandler(review, nil)
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
                 completionHandler(nil, errorMessage)
@@ -72,7 +72,7 @@ class ReviewAPI: ReviewRequestProtocol {
         }
     }
 
-    func createReview(review: ReviewModel, completionHandler: @escaping (String?) -> Void){
+    func createReview(review: ReviewModel, completionHandler: @escaping (ReviewModel?, String?) -> Void){
         let url = Config.Route.Review.ReviewRoute + "/" + String(review.productID) + Config.Route.Review.Create
         
         let reviewData: Parameters = [
@@ -83,14 +83,16 @@ class ReviewAPI: ReviewRequestProtocol {
         
         requestWorker.post(url: url, data: reviewData) { (response: () throws -> Data) in
             do {
-                _ = try response()
-                completionHandler(nil)
+                let data = try response()
+                let reviewDataResponse =  try self.jsonDecoder.decode(ReviewDataResponse.self, from: data)
+                let review = self.createReviewModel(reviewDataResponse: reviewDataResponse)
+                completionHandler(review, nil)
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
-                completionHandler(errorMessage)
+                completionHandler(nil, errorMessage)
             } catch {
                 print(error)
-                completionHandler("Failed to create review. Decoding error, please try again later.")
+                completionHandler(nil, "Failed to create review. Decoding error, please try again later.")
             }
         }
     }

@@ -110,4 +110,5 @@ protocol UserStoreProtocol {
     
     func getToken() -> String?
     func getStore() -> Int?
+    func getUserID() -> Int?
 }

@@ -35,7 +35,6 @@ class EditListInteractor: EditListBusinessLogic, EditListDataStore
 
     var list: ListModel!
     
-    // MARK: Do something
     
     func getList(request: EditList.GetList.Request)
     {
