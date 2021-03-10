@@ -17,6 +17,10 @@ class ListItemWorker {
         self.listItemStore = ListItemRealmStore()
     }
     
+    func getItems(listID: Int, completionHandler: @escaping (_ listItem: [ListItemModel]) -> Void ){
+        completionHandler( listItemStore.getListItems(listID: listID) )
+    }
+    
     func deleteItem(listID: Int, productID: Int, completionHandler: @escaping (_ error: String?) -> Void){
         listItemAPI.deleteItem(listID: listID, productID: productID) { (error: String?) in
             if error == nil {
@@ -58,12 +62,13 @@ class ListItemWorker {
 }
 
 protocol ListItemRequestProtocol {
-    func deleteItem(listID: Int, productID: Int, completionHandler: @escaping ( _ error: String?) -> Void)
     func createItem(listID: Int, productID: Int, parentCategoryID: Int, completionHandler: @escaping ( ListItemModel?, _ error: String?) -> Void)
     func updateItem(listID: Int, productID: Int, quanity: Int, tickedOff: Bool, completionHandler: @escaping ( _ error: String?) -> Void)
+    func deleteItem(listID: Int, productID: Int, completionHandler: @escaping ( _ error: String?) -> Void)
 }
 
 protocol ListItemStoreProtocol {
+    func getListItems(listID: Int) -> [ListItemModel]
     func getListItem(listID: Int, productID: Int) -> ListItemModel?
     func updateListItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool)
     func createListItem(listID: Int, listItem: ListItemModel)

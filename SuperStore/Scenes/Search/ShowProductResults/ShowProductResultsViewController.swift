@@ -15,12 +15,14 @@ import UIKit
 protocol ShowProductResultsDisplayLogic: class
 {
     func displayResults(viewModel: ShowProductResults.GetResults.ViewModel)
+    func displayListItems(viewModel: ShowProductResults.GetListItems.ViewModel)
     func displayListItemCreated(viewModel: ShowProductResults.CreateListItem.ViewModel)
     func displayListItemUpdated(viewModel: ShowProductResults.UpdateListItem.ViewModel)
 }
 
 class ShowProductResultsViewController: UIViewController, ShowProductResultsDisplayLogic
 {
+    
     var interactor: ShowProductResultsBusinessLogic?
     var router: (NSObjectProtocol & ShowProductResultsRoutingLogic & ShowProductResultsDataPassing)?
     
@@ -71,7 +73,10 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
         displayRightBarButton()
+        getListItems()
+        
         setupProductsTableView()
         updateTitle()
         getResults()
@@ -83,6 +88,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     @IBOutlet var productsTableView: UITableView!
     
     var products: [ProductModel] = []
+    var listItems: [Int: ListItemModel] = [:]
     
     var selectedProduct: ProductModel?
     
@@ -97,6 +103,11 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         interactor?.getResults(request: request)
     }
     
+    func getListItems(){
+        let request = ShowProductResults.GetListItems.Request()
+        interactor?.getListItems(request: request)
+    }
+    
     func refineResults(){
         let request = ShowProductResults.GetResults.Request()
         totalProductsLabel.text = "Refining Search Results"
@@ -104,6 +115,10 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     }
     
     //MARK: - Display
+    
+    func displayListItems(viewModel: ShowProductResults.GetListItems.ViewModel) {
+        self.listItems = viewModel.listItems
+    }
     
     func displayResults(viewModel: ShowProductResults.GetResults.ViewModel)
     {
@@ -159,7 +174,15 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
     func configureProductCell(indexPath: IndexPath) -> ProductCell {
         let cell = productsTableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
         
-        cell.product = products[indexPath.row]
+        let product = products[indexPath.row]
+        
+        // check if found in locally saved list items. If found, update quantity, otherwise ignore
+        if let listItem = listItems[product.id] {
+            product.quantity = listItem.quantity
+            product.listID = interactor?.selectedListID!
+        }
+        
+        cell.product = product
         cell.addToList = true
         cell.addToListPressed = addToListPressed
         cell.updateQuantityPressed = updateQuantityPressed

@@ -22,6 +22,7 @@ protocol ShowProductResultsBusinessLogic
     
     var selectedListID: Int? { get set }
     
+    func getListItems(request: ShowProductResults.GetListItems.Request)
     func createListItem(request: ShowProductResults.CreateListItem.Request)
     func updateListItem(request: ShowProductResults.UpdateListItem.Request)
 }
@@ -111,6 +112,15 @@ extension ShowProductResultsInteractor {
 }
 
 extension ShowProductResultsInteractor {
+    func getListItems(request: ShowProductResults.GetListItems.Request){
+        if let selectedListID = selectedListID {
+            listItemWorker.getItems(listID: selectedListID) { (listItems: [ListItemModel]) in
+                let response = ShowProductResults.GetListItems.Response(listItems: listItems)
+                self.presenter?.presentListItems(response: response)
+            }
+        }
+    }
+    
     func createListItem(request: ShowProductResults.CreateListItem.Request){
         let listID: Int = request.listID
         let productID: Int = request.productID

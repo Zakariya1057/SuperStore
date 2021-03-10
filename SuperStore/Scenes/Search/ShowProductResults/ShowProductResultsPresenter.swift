@@ -15,15 +15,26 @@ import UIKit
 protocol ShowProductResultsPresentationLogic
 {
     func presentResults(response: ShowProductResults.GetResults.Response)
+    func presentListItems(response: ShowProductResults.GetListItems.Response)
     func presentListItemCreated(response: ShowProductResults.CreateListItem.Response)
     func presentListItemUpdated(response: ShowProductResults.UpdateListItem.Response)
 }
 
 class ShowProductResultsPresenter: ShowProductResultsPresentationLogic
 {
+    
     weak var viewController: ShowProductResultsDisplayLogic?
     
-    // MARK: Do something
+    func presentListItems(response: ShowProductResults.GetListItems.Response) {
+        var listItems: [Int : ListItemModel] = [:]
+        
+        response.listItems.forEach { (listItem: ListItemModel) in
+            listItems[listItem.productID] = listItem
+        }
+        
+        let viewModel = ShowProductResults.GetListItems.ViewModel(listItems: listItems)
+        viewController?.displayListItems(viewModel: viewModel)
+    }
     
     func presentResults(response: ShowProductResults.GetResults.Response)
     {

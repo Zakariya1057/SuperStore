@@ -19,6 +19,15 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
         return realm?.objects(ListItemObject.self).filter("listID = %@ AND productID = %@", listID, productID).first
     }
     
+    
+    func getListItems(listID: Int) -> [ListItemModel]{
+        if let savedItems = realm?.objects(ListItemObject.self).filter("listID = %@", listID) {
+            return savedItems.map{ $0.getListItemModel() }
+        }
+        
+        return []
+    }
+    
     func getListItem(listID: Int, productID: Int) -> ListItemModel? {
         if let savedList = getListItemObject(listID: listID, productID: productID) {
             return savedList.getListItemModel()

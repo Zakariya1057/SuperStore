@@ -33,6 +33,22 @@ enum ShowProductResults
         }
     }
     
+    
+    enum GetListItems
+    {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var listItems: [ListItemModel]
+        }
+        struct ViewModel
+        {
+            var listItems: [Int: ListItemModel]
+        }
+    }
+    
     enum CreateListItem {
         struct Request
         {
