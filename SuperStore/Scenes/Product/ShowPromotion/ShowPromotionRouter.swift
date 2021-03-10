@@ -59,5 +59,6 @@ class ShowPromotionRouter: NSObject, ShowPromotionRoutingLogic, ShowPromotionDat
     func passDataToShowProduct(source: ShowPromotionDataStore, destination: inout ShowProductDataStore)
     {
         destination.productID = selectedProductID!
+        destination.selectedListID = source.selectedListID
     }
 }

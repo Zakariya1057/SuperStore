@@ -108,7 +108,7 @@ struct ListItemData: Decodable {
             productID: product_id,
             image: large_image,
             price: price,
-            totalPrice: price,
+            totalPrice: total_price,
             quantity: quantity,
             weight: weight,
             promotion: promotion?.getPromotionModel(),

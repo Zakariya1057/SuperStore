@@ -115,8 +115,6 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
             itemImageView.downloaded(from: image)
         }
         
-
-        
         displayWeight()
         displayPromotion()
         

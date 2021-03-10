@@ -84,6 +84,7 @@ class EditListItemRouter: NSObject, EditListItemRoutingLogic, EditListItemDataPa
     func passDataToShowPromotion(source: EditListItemDataStore, destination: inout ShowPromotionDataStore)
     {
         destination.promotionID = source.listItem.promotion!.id
+        destination.selectedListID = source.listID
     }
     
     // MARK: CallBack Function
