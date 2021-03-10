@@ -124,10 +124,6 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     //MARK: - Display
     
-    func displayListItems(viewModel: ShowProductResults.GetListItems.ViewModel) {
-        self.listItems = viewModel.listItems
-    }
-    
     func displayResults(viewModel: ShowProductResults.GetResults.ViewModel)
     {
         refreshControl.endRefreshing()
@@ -139,6 +135,10 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             totalProductsLabel.text = "\(products.count) Products"
             productsTableView.reloadData()
         }
+    }
+    
+    func displayListItems(viewModel: ShowProductResults.GetListItems.ViewModel) {
+        self.listItems = viewModel.listItems
     }
     
     func displayListItemCreated(viewModel: ShowProductResults.CreateListItem.ViewModel) {

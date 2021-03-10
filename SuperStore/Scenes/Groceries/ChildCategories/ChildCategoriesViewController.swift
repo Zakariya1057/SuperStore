@@ -17,11 +17,14 @@ import Pageboy
 protocol ChildCategoriesDisplayLogic: class
 {
     func displayCategories(viewModel: ChildCategories.GetCategories.ViewModel)
+    func displayListItems(viewModel: ChildCategories.GetListItems.ViewModel)
+    func displayListItemCreated(viewModel: ChildCategories.CreateListItem.ViewModel)
+    func displayListItemUpdated(viewModel: ChildCategories.UpdateListItem.ViewModel)
 }
 
 class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDisplayLogic
 {
-    
+
     var interactor: ChildCategoriesBusinessLogic?
     var router: (NSObjectProtocol & ChildCategoriesRoutingLogic & ChildCategoriesDataPassing)?
     
@@ -74,11 +77,18 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
         super.viewDidLoad()
         displayRightBarButton()
         setupBar()
+        
+        getListItems()
         getCategories()
     }
     
+    var selectedProduct: ProductModel?
+    var selectedSection: Int?
+    
     var viewcontrollers:[GroceryTableViewController] = []
     var categories: [ChildCategoryModel] = []
+    
+    var listItems: [Int: ListItemModel] = [:]
     
     let bar = TMBar.ButtonBar()
     
@@ -86,6 +96,11 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
     {
         let request = ChildCategories.GetCategories.Request()
         interactor?.getCategories(request: request)
+    }
+    
+    func getListItems(){
+        let request = ChildCategories.GetListItems.Request()
+        interactor?.getListItems(request: request)
     }
     
     func displayCategories(viewModel: ChildCategories.GetCategories.ViewModel)
@@ -99,12 +114,36 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
         }
     }
     
+    func displayListItems(viewModel: ChildCategories.GetListItems.ViewModel) {
+        self.listItems = viewModel.listItems
+    }
+    
+    func displayListItemCreated(viewModel: ChildCategories.CreateListItem.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "List Error", error: error)
+        } else {
+            // If list item exists locally,
+            if let listItem = viewModel.listItem {
+                updateProductQuantity(section: viewModel.section, productID: listItem.productID, quantity: listItem.quantity)
+                reloadTableView()
+            }
+        }
+    }
+    
+    func displayListItemUpdated(viewModel: ChildCategories.UpdateListItem.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "List Error", error: error)
+        }
+    }
+
+}
+
+extension ChildCategoriesViewController {
     func displayRightBarButton(){
         if interactor?.selectedListID == nil {
             self.navigationItem.rightBarButtonItem = nil
         }
     }
-
 }
 
 extension ChildCategoriesViewController {
@@ -115,22 +154,22 @@ extension ChildCategoriesViewController {
     
     func configureBar(){
         bar.tintColor = UIColor(named: "Label Color")
-
+        
         bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 1.0, right: 16.0)
         bar.layout.interButtonSpacing = 30.0
-
+        
         bar.layout.showSeparators = true
         bar.layout.separatorColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 1.00)
         bar.layout.separatorWidth = 0.5
-
+        
         bar.backgroundView.style = .flat(color:  UIColor(named: "LightGrey")!)
         bar.backgroundColor = UIColor(named: "LightGrey")
-
+        
         bar.indicator.weight = .medium
         bar.indicator.cornerStyle = .square
         bar.fadesContentEdges = true
         bar.spacing = 30.0
-
+        
         // Add to view
         addBar(bar, dataSource: self, at: .top)
     }
@@ -147,12 +186,19 @@ extension ChildCategoriesViewController:  TMBarDataSource, PageboyViewController
     
     func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
         let viewController: GroceryTableViewController = viewcontrollers[index]
-
+        
         if categories.indices.contains(index) {
+            viewController.section = index
+            viewController.selectedListID = interactor?.selectedListID
+            viewController.listItems = listItems
+            
             viewController.products = categories[index].products
-            viewController.productPressedCallBack = productPressed
+            
+            viewController.productPressed = productPressed
+            viewController.addToListPressedCallBack = addToListPressed
+            viewController.updateQuantityPressedCallback = updateQuantityPressed
         }
-
+        
         return viewController
     }
     
@@ -165,6 +211,71 @@ extension ChildCategoriesViewController {
     private func productPressed(productID: Int){
         router?.selectedProductID = productID
         router?.routeToShowProduct(segue: nil)
+    }
+}
+
+extension ChildCategoriesViewController: SelectListProtocol {
+    func addToListPressed(section: Int, product: ProductModel){
+        // Show lists, select one.
+        selectedProduct = product
+        selectedSection = section
+
+        if let listID = interactor?.selectedListID {
+            updateProductQuantity(section: selectedSection!, productID: product.id, quantity: product.quantity)
+            createListItem(listID: listID)
+        } else {
+            router?.routeToShowLists(segue: nil)
+        }
+    }
+    
+    func listSelected(listID: Int) {
+        // Update Cell Quantity Button
+        createListItem(listID: listID)
+        updateProductQuantity(section: selectedSection!, productID: selectedProduct!.id, quantity: selectedProduct!.quantity, listID: listID)
+    }
+    
+    func createListItem(listID: Int){
+        let request = ChildCategories.CreateListItem.Request(
+            listID: listID,
+            productID: selectedProduct!.id,
+            parentCategoryID: selectedProduct!.parentCategoryID!,
+            section: selectedSection!
+        )
+
+        interactor?.createListItem(request: request)
+        reloadTableView()
+    }
+    
+    func updateQuantityPressed(section: Int, product: ProductModel){
+        // Update API/Realm Request
+        selectedProduct = product
+        updateProductQuantity(section: section, productID: product.id, quantity: product.quantity)
+
+        let request = ChildCategories.UpdateListItem.Request(
+            listID: product.listID!,
+            productID: product.id,
+            quantity: product.quantity
+        )
+
+        interactor?.updateListItem(request: request)
+    }
+
+    func updateProductQuantity(section: Int, productID: Int, quantity: Int, listID: Int? = nil){
+        for searchProduct in categories[section].products {
+            if searchProduct.id == productID {
+                searchProduct.quantity = quantity
+
+                if listID != nil {
+                    searchProduct.listID = listID!
+                }
+            }
+        }
+    }
+    
+    func reloadTableView(){
+        for viewController in viewcontrollers {
+            viewController.tableView.reloadData()
+        }
     }
 }
 

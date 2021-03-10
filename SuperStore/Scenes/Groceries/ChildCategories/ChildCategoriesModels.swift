@@ -14,22 +14,76 @@ import UIKit
 
 enum ChildCategories
 {
-  // MARK: Use cases
-  
-  enum GetCategories
-  {
-    struct Request
+    // MARK: Use cases
+    
+    enum GetCategories
     {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var categories: [ChildCategoryModel]
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var categories: [ChildCategoryModel]
+            var error: String?
+        }
     }
-    struct Response
+    
+    enum GetListItems
     {
-        var categories: [ChildCategoryModel]
-        var error: String?
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var listItems: [ListItemModel]
+        }
+        struct ViewModel
+        {
+            var listItems: [Int: ListItemModel]
+        }
     }
-    struct ViewModel
-    {
-        var categories: [ChildCategoryModel]
-        var error: String?
+    
+    enum CreateListItem {
+        struct Request
+        {
+            var listID: Int
+            var productID: Int
+            var parentCategoryID: Int
+            var section: Int
+        }
+        struct Response
+        {
+            var section: Int
+            var listItem: ListItemModel?
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var section: Int
+            var listItem: ListItemModel?
+            var error: String?
+        }
     }
-  }
+    
+    enum UpdateListItem {
+        struct Request
+        {
+            var listID: Int
+            var productID: Int
+            var quantity: Int
+        }
+        struct Response
+        {
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
 }

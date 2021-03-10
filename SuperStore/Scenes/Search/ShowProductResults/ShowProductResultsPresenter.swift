@@ -25,6 +25,12 @@ class ShowProductResultsPresenter: ShowProductResultsPresentationLogic
     
     weak var viewController: ShowProductResultsDisplayLogic?
     
+    func presentResults(response: ShowProductResults.GetResults.Response)
+    {
+        let viewModel = ShowProductResults.GetResults.ViewModel(products: response.products, error: response.error)
+        viewController?.displayResults(viewModel: viewModel)
+    }
+    
     func presentListItems(response: ShowProductResults.GetListItems.Response) {
         var listItems: [Int : ListItemModel] = [:]
         
@@ -34,12 +40,6 @@ class ShowProductResultsPresenter: ShowProductResultsPresentationLogic
         
         let viewModel = ShowProductResults.GetListItems.ViewModel(listItems: listItems)
         viewController?.displayListItems(viewModel: viewModel)
-    }
-    
-    func presentResults(response: ShowProductResults.GetResults.Response)
-    {
-        let viewModel = ShowProductResults.GetResults.ViewModel(products: response.products, error: response.error)
-        viewController?.displayResults(viewModel: viewModel)
     }
     
     func presentListItemCreated(response: ShowProductResults.CreateListItem.Response) {

@@ -15,6 +15,11 @@ import UIKit
 protocol ChildCategoriesBusinessLogic
 {
     func getCategories(request: ChildCategories.GetCategories.Request)
+    
+    func getListItems(request: ChildCategories.GetListItems.Request)
+    func createListItem(request: ChildCategories.CreateListItem.Request)
+    func updateListItem(request: ChildCategories.UpdateListItem.Request)
+    
     var selectedListID: Int? { get set }
 }
 
@@ -28,18 +33,53 @@ class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDa
 {
     var presenter: ChildCategoriesPresentationLogic?
 
+    var groceryWorker: GroceryWorker = GroceryWorker(groceryAPI: GroceryAPI())
+    var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
+    
     var selectedListID: Int?
     
     var parentCategoryID: Int = 1
-    var groceryWorker: GroceryWorker = GroceryWorker(groceryAPI: GroceryAPI())
-    
-    // MARK: Do something
+
     
     func getCategories(request: ChildCategories.GetCategories.Request)
     {
         groceryWorker.getChildCategories(parentCategoryID: parentCategoryID) { (categories: [ChildCategoryModel], error: String?) in
             let response = ChildCategories.GetCategories.Response(categories: categories, error: error)
             self.presenter?.presentCategories(response: response)
+        }
+    }
+}
+
+extension ChildCategoriesInteractor {
+    func getListItems(request: ChildCategories.GetListItems.Request){
+        if let selectedListID = selectedListID {
+            listItemWorker.getItems(listID: selectedListID) { (listItems: [ListItemModel]) in
+                let response = ChildCategories.GetListItems.Response(listItems: listItems)
+                self.presenter?.presentListItems(response: response)
+            }
+        }
+    }
+    
+    func createListItem(request: ChildCategories.CreateListItem.Request){
+        let listID: Int = request.listID
+        let productID: Int = request.productID
+        let parentCategoryID: Int = request.parentCategoryID
+        let section: Int = request.section
+        
+        listItemWorker.createItem(listID: listID, productID: productID, parentCategoryID: parentCategoryID) { (listItem: ListItemModel?, error: String?) in
+            let response = ChildCategories.CreateListItem.Response(section: section, listItem: listItem, error: error)
+            self.presenter?.presentListItemCreated(response: response)
+        }
+    }
+    
+    func updateListItem(request: ChildCategories.UpdateListItem.Request){
+        let listID: Int = request.listID
+        let productID: Int = request.productID
+        let quantity: Int = request.quantity
+        
+        listItemWorker.updateItem(listID: listID, productID: productID, quantity: quantity, tickedOff: false) { (error: String?) in
+            let response = ChildCategories.UpdateListItem.Response(error: error)
+            self.presenter?.presentListItemUpdated(response: response)
         }
     }
 }

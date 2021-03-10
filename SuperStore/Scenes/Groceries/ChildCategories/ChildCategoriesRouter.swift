@@ -16,6 +16,7 @@ import UIKit
 {
     func routeToShowProduct(segue: UIStoryboardSegue?)
     func routeToShowList(segue: UIStoryboardSegue?)
+    func routeToShowLists(segue: UIStoryboardSegue?)
 }
 
 protocol ChildCategoriesDataPassing
@@ -35,6 +36,22 @@ class ChildCategoriesRouter: BackToShowListRouter, ChildCategoriesRoutingLogic, 
     
     // MARK: Routing
     
+    
+    func routeToShowLists(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowListsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowLists(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowListsViewController") as! ShowListsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowLists(source: dataStore!, destination: &destinationDS)
+            navigateToShowLists(source: childCategoriesViewController, destination: destinationVC)
+        }
+    }
+    
     func routeToShowProduct(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
@@ -52,12 +69,22 @@ class ChildCategoriesRouter: BackToShowListRouter, ChildCategoriesRoutingLogic, 
     
     //    MARK: Navigation
     
+    func navigateToShowLists(source: ChildCategoriesViewController, destination: ShowListsViewController)
+    {
+        source.present(destination, animated: true, completion: nil)
+    }
+    
     func navigateToShowProduct(source: ChildCategoriesViewController, destination: ShowProductViewController)
     {
         source.show(destination, sender: nil)
     }
     
     //    MARK: Passing data
+    
+    func passDataToShowLists(source: ChildCategoriesDataStore, destination: inout ShowListsDataStore)
+    {
+        destination.addToList = true
+    }
     
     func passDataToShowProduct(source: ChildCategoriesDataStore, destination: inout ShowProductDataStore)
     {

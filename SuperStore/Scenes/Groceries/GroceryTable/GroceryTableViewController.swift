@@ -72,10 +72,18 @@ class GroceryTableViewController: UITableViewController, GroceryTableDisplayLogi
         setupProductsTableView()
     }
     
-    var productPressedCallBack: ((Int) -> Void?)? = nil
+    var section: Int = 0
+    
+    var listItems: [Int: ListItemModel] = [:]
+    var selectedListID: Int?
+    
+    var addToListPressedCallBack:((Int, ProductModel) -> Void)? = nil
+    var updateQuantityPressedCallback: ((Int, ProductModel) -> Void)? = nil
+    
+    var productPressed: ((Int) -> Void?)? = nil
     
     var products: [ProductModel] = []
-
+    
     func displaySomething(viewModel: GroceryTable.Something.ViewModel)
     {
         //nameTextField.text = viewModel.name
@@ -93,7 +101,21 @@ extension GroceryTableViewController {
     
     func configureProductCell(indexPath: IndexPath) -> ProductCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
-        cell.product = products[indexPath.row]
+        
+        let product = products[indexPath.row]
+        
+        cell.product = product
+        cell.addToList = true
+        
+        // check if found in locally saved list items. If found, update quantity, otherwise ignore
+        if let listItem = listItems[product.id] {
+            product.quantity = listItem.quantity
+            product.listID = selectedListID!
+        }
+        
+        cell.addToListPressed = addToListPressed
+        cell.updateQuantityPressed = updateQuantityPressed
+        
         cell.configureUI()
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
@@ -107,8 +129,22 @@ extension GroceryTableViewController {
 
 extension GroceryTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let productPressedCallBack = productPressedCallBack {
-            productPressedCallBack(products[indexPath.row].id)
+        if let productPressed = productPressed {
+            productPressed(products[indexPath.row].id)
+        }
+    }
+}
+
+extension GroceryTableViewController {
+    func addToListPressed(product: ProductModel){
+        if let addToListPressedCallBack = addToListPressedCallBack {
+            addToListPressedCallBack(section, product)
+        }
+    }
+    
+    func updateQuantityPressed(product: ProductModel){
+        if let updateQuantityPressedCallback = updateQuantityPressedCallback {
+            updateQuantityPressedCallback(section, product)
         }
     }
 }

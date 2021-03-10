@@ -14,18 +14,46 @@ import UIKit
 
 protocol ChildCategoriesPresentationLogic
 {
-  func presentCategories(response: ChildCategories.GetCategories.Response)
+    func presentCategories(response: ChildCategories.GetCategories.Response)
+    
+    func presentListItems(response: ChildCategories.GetListItems.Response)
+    func presentListItemCreated(response: ChildCategories.CreateListItem.Response)
+    func presentListItemUpdated(response: ChildCategories.UpdateListItem.Response)
 }
 
 class ChildCategoriesPresenter: ChildCategoriesPresentationLogic
 {
-  weak var viewController: ChildCategoriesDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentCategories(response: ChildCategories.GetCategories.Response)
-  {
-    let viewModel = ChildCategories.GetCategories.ViewModel(categories: response.categories, error: response.error)
-    viewController?.displayCategories(viewModel: viewModel)
-  }
+    weak var viewController: ChildCategoriesDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentCategories(response: ChildCategories.GetCategories.Response)
+    {
+        let viewModel = ChildCategories.GetCategories.ViewModel(categories: response.categories, error: response.error)
+        viewController?.displayCategories(viewModel: viewModel)
+    }
+    
+}
+
+extension ChildCategoriesPresenter {
+    func presentListItems(response: ChildCategories.GetListItems.Response) {
+        var listItems: [Int : ListItemModel] = [:]
+        
+        response.listItems.forEach { (listItem: ListItemModel) in
+            listItems[listItem.productID] = listItem
+        }
+        
+        let viewModel = ChildCategories.GetListItems.ViewModel(listItems: listItems)
+        viewController?.displayListItems(viewModel: viewModel)
+    }
+    
+    func presentListItemCreated(response: ChildCategories.CreateListItem.Response) {
+        let viewModel = ChildCategories.CreateListItem.ViewModel(section: response.section, listItem: response.listItem, error: response.error)
+        viewController?.displayListItemCreated(viewModel: viewModel)
+    }
+    
+    func presentListItemUpdated(response: ChildCategories.UpdateListItem.Response) {
+        let viewModel = ChildCategories.UpdateListItem.ViewModel(error: response.error)
+        viewController?.displayListItemUpdated(viewModel: viewModel)
+    }
 }
