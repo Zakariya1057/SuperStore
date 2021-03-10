@@ -137,8 +137,8 @@ extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
     func configureRequestLoginCell(indexPath: IndexPath) -> RequestLoginCell {
         let cell = favouriteTableView.dequeueReusableCell(withIdentifier: "RequestLoginCell", for: indexPath) as! RequestLoginCell
         
-        cell.titleLabel.text = "Add to your favourites"
-        cell.descriptionLabel.text = "Login to keep track of all your favourite products, get notified when the product prices change."
+        cell.titleLabel.text = "Favourites"
+        cell.descriptionLabel.text = "Login to view your favourites."
         
         cell.loginButtonPressed = loginButtonPressed
         
@@ -168,6 +168,11 @@ extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
         favouriteTableView.dataSource = self
         
         setupRefreshControl()
+        displayTableViewSeperator()
+    }
+    
+    func displayTableViewSeperator(){
+        favouriteTableView.separatorStyle = loggedIn ? .singleLine : .none
     }
     
     func setupRefreshControl(){

@@ -84,8 +84,10 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getResults()
-        getListItems()
+        if interactor?.selectedListID != nil {
+            getResults()
+            getListItems()
+        }
     }
     
     var refreshControl = UIRefreshControl()
@@ -105,7 +107,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     func getResults()
     {
         let request = ShowProductResults.GetResults.Request()
-        totalProductsLabel.text = "Loading Products"
+        totalProductsLabel.text = "Fetching Products"
         interactor?.getResults(request: request)
     }
     

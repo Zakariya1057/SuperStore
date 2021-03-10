@@ -472,6 +472,11 @@ extension ShowProductViewController: SelectListProtocol {
     }
     
     @IBAction func quantityStepperPressed(_ sender: UIStepper) {
+        if !loggedIn {
+            router?.routeToLogin(segue: nil)
+            return
+        }
+        
         let quantity = Int(sender.value)
         
         if quantity == 0 {

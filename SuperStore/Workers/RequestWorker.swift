@@ -67,9 +67,20 @@ struct RequestWorker: RequestProtocol {
                 break
             case .failure(let errorResponse):
                 print(errorResponse)
-                completionHandler({
-                    throw handlerResponseError(response: response, errorResponse: errorResponse)
-                })
+                
+                if errorResponse.responseCode! == 401 {
+                    print("User Unauthenticated")
+                    
+                    completionHandler({
+                        throw RequestError.Error("User Unauthenticated. Logging out user.")
+                    })
+                    
+                    userSession.logOut()
+                } else {
+                    completionHandler({
+                        throw handlerResponseError(response: response, errorResponse: errorResponse)
+                    })
+                }
                 break
         }
         

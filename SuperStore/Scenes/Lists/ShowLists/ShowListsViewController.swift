@@ -138,8 +138,9 @@ extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
     func configureRequestLoginCell(indexPath: IndexPath) -> RequestLoginCell {
         let cell = listsTableView.dequeueReusableCell(withIdentifier: "RequestLoginCell", for: indexPath) as! RequestLoginCell
         
-        cell.titleLabel.text = "Create List"
-        cell.descriptionLabel.text = "Login to create a shopping list, tick items of your list and get notified when product prices change."
+        cell.titleLabel.text = "Lists"
+        cell.descriptionLabel.text = "Login to view your lists"
+        cell.iconImageView.image = UIImage(systemName: "list.dash")
         
         cell.loginButtonPressed = loginButtonPressed
         
@@ -168,7 +169,12 @@ extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
         listsTableView.delegate = self
         listsTableView.dataSource = self
         
+        displayTableViewSeperator()
         setupRefreshControl()
+    }
+    
+    func displayTableViewSeperator(){
+        listsTableView.separatorStyle = loggedIn ? .singleLine : .none
     }
     
     func setupRefreshControl(){

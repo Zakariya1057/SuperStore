@@ -12,6 +12,7 @@ class RequestLoginCell: UITableViewCell {
 
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var iconImageView: UIImageView!
     
     var loginButtonPressed: (() -> Void?)? = nil
     
