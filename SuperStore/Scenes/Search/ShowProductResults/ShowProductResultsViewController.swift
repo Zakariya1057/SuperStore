@@ -82,6 +82,12 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         getResults()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getResults()
+        getListItems()
+    }
+    
     var refreshControl = UIRefreshControl()
     
     @IBOutlet var totalProductsLabel: UILabel!
@@ -211,16 +217,12 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
     
     @objc func refreshResults(){
         getResults()
+        getListItems()
     }
     
 }
 
 extension ShowProductResultsViewController: SelectListProtocol {
-    func listSelected(listID: Int) {
-        // Update Cell Quantity Button
-        createListItem(listID: listID)
-        updateProductQuantity(productID: selectedProduct!.id, quantity: selectedProduct!.quantity, listID: listID)
-    }
     
     func addToListPressed(product: ProductModel){
         // Show lists, select one.
@@ -234,11 +236,17 @@ extension ShowProductResultsViewController: SelectListProtocol {
         }
     }
     
+    func listSelected(listID: Int) {
+        // Update Cell Quantity Button
+        createListItem(listID: listID)
+        updateProductQuantity(productID: selectedProduct!.id, quantity: selectedProduct!.quantity, listID: listID)
+    }
+    
     func createListItem(listID: Int){
         let request = ShowProductResults.CreateListItem.Request(
             listID: listID,
             productID: selectedProduct!.id,
-            parentCategoryID: selectedProduct!.parentCategoryId!
+            parentCategoryID: selectedProduct!.parentCategoryID!
         )
         
         interactor?.createListItem(request: request)

@@ -18,6 +18,10 @@ protocol ShowProductBusinessLogic
     func updateFavourite(request: ShowProduct.UpdateFavourite.Request)
     func updateMonitoring(request: ShowProduct.UpdateMonitoring.Request)
     
+    func getListItem(request: ShowProduct.GetListItem.Request)
+    func createListItem(request: ShowProduct.CreateListItem.Request)
+    func updateListItem(request: ShowProduct.UpdateListItem.Request)
+    
     var selectedListID: Int? { get set }
 }
 
@@ -33,6 +37,8 @@ class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
     var presenter: ShowProductPresentationLogic?
     var productWorker: ProductWorker = ProductWorker(productAPI: ProductAPI())
     var favouriteWorker: FavouriteWorker = FavouriteWorker(favouriteAPI: FavouriteAPI())
+    
+    var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
     
     var selectedListID: Int?
     
@@ -59,6 +65,29 @@ class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
         productWorker.updateMonitor(productID: product!.id, monitor: request.monitor) { (error: String?) in
             let response = ShowProduct.UpdateMonitoring.Response(error: error)
             self.presenter?.presentMonitoring(response: response)
+        }
+    }
+}
+
+extension ShowProductInteractor {
+    func getListItem(request: ShowProduct.GetListItem.Request){
+        listItemWorker.getListItem(listID: request.listID, productID: request.productID) { (listItem: ListItemModel?) in
+            let response = ShowProduct.GetListItem.Response(listItem: listItem)
+            self.presenter?.presentListItem(response: response)
+        }
+    }
+    
+    func createListItem(request: ShowProduct.CreateListItem.Request){
+        listItemWorker.createItem(listID: request.listID, productID: product!.id, parentCategoryID: product!.parentCategoryID!) { (listItem: ListItemModel?, error: String?) in
+            let response = ShowProduct.CreateListItem.Response(listItem: listItem, error: error)
+            self.presenter?.presentListItemCreated(response: response)
+        }
+    }
+    
+    func updateListItem(request: ShowProduct.UpdateListItem.Request){
+        listItemWorker.updateItem(listID: request.listID, productID: request.productID, quantity: request.quantity, tickedOff: false) { (error: String?) in
+            let response = ShowProduct.UpdateListItem.Response(error: error)
+            self.presenter?.presentListItemUpdated(response: response)
         }
     }
 }

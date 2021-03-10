@@ -2386,7 +2386,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zk9-e4-itb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
-                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
+                                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
                                                                                         <rect key="frame" x="87" y="2" width="210" height="26"/>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -3065,12 +3065,12 @@
                         <outlet property="priceLabel" destination="qrR-D0-Pcl" id="Db1-U0-kNR"/>
                         <outlet property="promotionLabel" destination="Svs-Ab-oYP" id="N8G-VJ-T5k"/>
                         <outlet property="promotionView" destination="gLh-tu-iik" id="dsb-XZ-mmM"/>
+                        <outlet property="quantityLabel" destination="gOo-cE-qNu" id="Oel-aB-9vB"/>
                         <outlet property="quantityStepper" destination="yHd-qI-sl4" id="TAI-W2-OeM"/>
                         <outlet property="ratingView" destination="tFG-eX-umO" id="hcu-eX-wkL"/>
                         <outlet property="recommendedTableView" destination="iWE-UD-bYf" id="s5j-yr-rW0"/>
                         <outlet property="reviewsStackView" destination="yEq-bc-8oK" id="47f-lp-adR"/>
                         <outlet property="reviewsTableView" destination="lXz-GS-7sY" id="hAj-Y0-aSz"/>
-                        <outlet property="stepperLabel" destination="gOo-cE-qNu" id="bTY-ux-H76"/>
                         <outlet property="stepperStackView" destination="VrZ-vP-b1p" id="X0L-mO-tOZ"/>
                         <outlet property="weightLabel" destination="EXx-ON-gGI" id="1IQ-fj-I9c"/>
                         <segue destination="GlI-wz-KoF" kind="show" identifier="showProductDetails" id="k0H-Uq-sqx"/>
@@ -5353,9 +5353,6 @@
     <designables>
         <designable name="XU3-Nd-wUM">
             <size key="intrinsicContentSize" width="255" height="35"/>
-        </designable>
-        <designable name="tFG-eX-umO">
-            <size key="intrinsicContentSize" width="209.849609375" height="26"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>

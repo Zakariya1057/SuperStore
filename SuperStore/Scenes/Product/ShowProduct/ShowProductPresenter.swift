@@ -17,10 +17,15 @@ protocol ShowProductPresentationLogic
     func presentProduct(response: ShowProduct.GetProduct.Response)
     func presentFavourite(response: ShowProduct.UpdateFavourite.Response)
     func presentMonitoring(response: ShowProduct.UpdateMonitoring.Response)
+    
+    func presentListItem(response: ShowProduct.GetListItem.Response)
+    func presentListItemCreated(response: ShowProduct.CreateListItem.Response)
+    func presentListItemUpdated(response: ShowProduct.UpdateListItem.Response)
 }
 
 class ShowProductPresenter: ShowProductPresentationLogic
 {
+    
     weak var viewController: ShowProductDisplayLogic?
     
     // MARK: Do something
@@ -52,7 +57,7 @@ class ShowProductPresenter: ShowProductPresentationLogic
         }
         
         
-        let viewModel = ShowProduct.GetProduct.ViewModel(displayedProduct: displayedProduct, error: response.error)
+        let viewModel = ShowProduct.GetProduct.ViewModel(product: response.product, displayedProduct: displayedProduct, error: response.error)
         viewController?.displayProduct(viewModel: viewModel)
         
     }
@@ -65,5 +70,22 @@ class ShowProductPresenter: ShowProductPresentationLogic
     func presentMonitoring(response: ShowProduct.UpdateMonitoring.Response){
         let viewModel = ShowProduct.UpdateMonitoring.ViewModel(error: response.error)
         viewController?.displayMonitoring(viewModel: viewModel)
+    }
+}
+
+extension ShowProductPresenter {
+    func presentListItem(response: ShowProduct.GetListItem.Response) {
+        let viewModel = ShowProduct.GetListItem.ViewModel(listItem: response.listItem)
+        viewController?.displayListItem(viewModel: viewModel)
+    }
+    
+    func presentListItemCreated(response: ShowProduct.CreateListItem.Response){
+        let viewModel = ShowProduct.CreateListItem.ViewModel(listItem: response.listItem, error: response.error)
+        viewController?.displayCreatedListItem(viewModel: viewModel)
+    }
+    
+    func presentListItemUpdated(response: ShowProduct.UpdateListItem.Response){
+        let viewModel = ShowProduct.UpdateListItem.ViewModel(error: response.error)
+        viewController?.displayUpdatedListItem(viewModel: viewModel)
     }
 }

@@ -17,7 +17,8 @@ import UIKit
     func routeToEditList(segue: UIStoryboardSegue?)
     func routeToShowList(segue: UIStoryboardSegue?)
     func routeToLogin(segue: UIStoryboardSegue?)
-    func routeToShowProductResults(segue: UIStoryboardSegue?)
+    
+    func routeToBackListSelected(segue: UIStoryboardSegue?)
 }
 
 protocol ShowListsDataPassing
@@ -39,12 +40,10 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
     
     // MARK: Routing
     
-    func routeToShowProductResults(segue: UIStoryboardSegue?)
+    func routeToBackListSelected(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
-            let destinationVC = segue.destination as! ShowProductResultsViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToShowProductResults(source: dataStore!, destination: &destinationDS)
+            let destinationVC = segue.destination as! SelectListProtocol
             callListSelected(source: viewController!, destination: destinationVC)
         } else {
 
@@ -53,11 +52,10 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
             
             let navigationViewController = tabViewController.viewControllers![tabIndex] as! UINavigationController
             
-            let destinationVC = navigationViewController.viewControllers.last as! ShowProductResultsViewController
+            let destinationVC = navigationViewController.viewControllers.last as! SelectListProtocol
 
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToShowProductResults(source: dataStore!, destination: &destinationDS)
-            navigateToShowProductResults(source: viewController!, destination: destinationVC)
+            navigateToBackListSelected(source: viewController!, destination: destinationVC)
+            callListSelected(source: viewController!, destination: destinationVC)
         }
     }
     
@@ -108,11 +106,9 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
     
     // MARK: Navigation
     
-    func navigateToShowProductResults(source: ShowListsViewController, destination: ShowProductResultsViewController)
+    func navigateToBackListSelected(source: ShowListsViewController, destination: SelectListProtocol)
     {
-        source.dismiss(animated: true, completion: {
-            self.callListSelected(source: source, destination: destination)
-        })
+        source.dismiss(animated: true, completion: nil)
     }
     
     func navigateToEditList(source: ShowListsViewController, destination: EditListViewController)
@@ -131,10 +127,6 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
     }
     
     // MARK: Passing data
-    
-    func passDataToShowProductResults(source: ShowListsDataStore, destination: inout ShowProductResultsDataStore)
-    {
-    }
     
     func passDataToEditList(source: ShowListsDataStore, destination: inout EditListDataStore)
     {

@@ -108,6 +108,7 @@ class ShowProductResultsRouter: BackToShowListRouter, ShowProductResultsRoutingL
     func passDataToShowProduct(source: ShowProductResultsDataStore, destination: inout ShowProductDataStore)
     {
         destination.productID = selectedProductID!
+        destination.selectedListID = source.selectedListID
     }
     
     func passDataToShowRefine(source: ShowProductResultsDataStore, destination: inout ShowRefineDataStore)

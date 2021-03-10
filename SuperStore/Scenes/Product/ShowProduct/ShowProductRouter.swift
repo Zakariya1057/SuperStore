@@ -21,6 +21,7 @@ import UIKit
     func routeToShowIngredients(segue: UIStoryboardSegue?)
     func routeToEditReview(segue: UIStoryboardSegue?)
     
+    func routeToShowLists(segue: UIStoryboardSegue?)
     func routeToLogin(segue: UIStoryboardSegue?)
 }
 
@@ -38,6 +39,21 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     var selectedProductID: Int?
     
     // MARK: Routing
+    
+    func routeToShowLists(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowListsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowLists(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowListsViewController") as! ShowListsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowLists(source: dataStore!, destination: &destinationDS)
+            navigateToShowLists(source: viewController!, destination: destinationVC)
+        }
+    }
     
     func routeToLogin(segue: UIStoryboardSegue?)
     {
@@ -152,6 +168,10 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
         source.present(destination, animated: true, completion: nil)
     }
     
+    func navigateToShowLists(source: ShowProductViewController, destination: ShowListsViewController)
+    {
+        source.present(destination, animated: true, completion: nil)
+    }
     
     func navigateToEditReview(source: ShowProductViewController, destination: EditReviewViewController)
     {
@@ -219,5 +239,10 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     func passDataToEditReview(source: ShowProductDataStore, destination: inout EditReviewDataStore)
     {
         destination.product = source.product!
+    }
+    
+    func passDataToShowLists(source: ShowProductDataStore, destination: inout ShowListsDataStore)
+    {
+        destination.addToList = true
     }
 }

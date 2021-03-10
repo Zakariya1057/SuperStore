@@ -26,7 +26,7 @@ class ProductModel {
     var avgRating: Double = 0
     var totalReviewsCount: Int = 0
 
-    var parentCategoryId: Int?
+    var parentCategoryID: Int?
     var parentCategoryName: String?
     var childCategoryName: String?
 
@@ -54,7 +54,7 @@ class ProductModel {
         self.totalReviewsCount = totalReviewsCount ?? 0
         self.monitoring = monitoring
 
-        self.parentCategoryId = parentCategoryId
+        self.parentCategoryID = parentCategoryId
         self.parentCategoryName = parentCategoryName
         self.childCategoryName = childCategoryName
 

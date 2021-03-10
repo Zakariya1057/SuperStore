@@ -17,7 +17,7 @@ class ListItemWorker {
         self.listItemStore = ListItemRealmStore()
     }
     
-    func getItems(listID: Int, completionHandler: @escaping (_ listItem: [ListItemModel]) -> Void ){
+    func getItems(listID: Int, completionHandler: @escaping (_ listItems: [ListItemModel]) -> Void ){
         completionHandler( listItemStore.getListItems(listID: listID) )
     }
     
@@ -43,6 +43,11 @@ class ListItemWorker {
             // Only show reflected quantity, if not found locally saved
             completionHandler(savedListItem == nil ? listItem : nil, error)
         }
+    }
+    
+    func getListItem(listID: Int, productID: Int, completionHandler: @escaping (_ listItem: ListItemModel?) -> Void) {
+        let item = listItemStore.getListItem(listID: listID, productID: productID)
+        completionHandler(item)
     }
     
     func updateItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool, completionHandler: @escaping (_ error: String?) -> Void){

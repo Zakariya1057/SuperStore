@@ -238,7 +238,7 @@ extension ShowListsViewController {
         // If add to list, let parent know
         // Otherwise, route to show list
         router?.listSelectedID = lists[indexPath.row].id
-        interactor!.addToList ? router?.routeToShowProductResults(segue: nil) : router?.routeToShowList(segue: nil)
+        interactor!.addToList ? router?.routeToBackListSelected(segue: nil) : router?.routeToShowList(segue: nil)
     }
 }
 

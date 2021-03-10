@@ -57,6 +57,7 @@ enum ShowProduct
         }
         struct ViewModel
         {
+            var product: ProductModel?
             var displayedProduct: DisplayedProduct?
             var error: String?
         }
@@ -84,6 +85,60 @@ enum ShowProduct
         struct Request
         {
             var monitor: Bool
+        }
+        struct Response
+        {
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
+    
+    enum GetListItem
+    {
+        struct Request
+        {
+            var listID: Int
+            var productID: Int
+        }
+        struct Response
+        {
+            var listItem: ListItemModel?
+        }
+        struct ViewModel
+        {
+            var listItem: ListItemModel?
+        }
+    }
+    
+    enum CreateListItem
+    {
+        struct Request
+        {
+            var listID: Int
+            var productID: Int
+            var parentCategoryID: Int
+        }
+        struct Response
+        {
+            var listItem: ListItemModel?
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var listItem: ListItemModel?
+            var error: String?
+        }
+    }
+    
+    enum UpdateListItem {
+        struct Request
+        {
+            var listID: Int
+            var productID: Int
+            var quantity: Int
         }
         struct Response
         {

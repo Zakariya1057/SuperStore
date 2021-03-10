@@ -18,6 +18,10 @@ protocol ShowProductDisplayLogic: class
     func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
     func displayFavourite(viewModel: ShowProduct.UpdateFavourite.ViewModel)
     func displayMonitoring(viewModel: ShowProduct.UpdateMonitoring.ViewModel)
+    
+    func displayListItem(viewModel: ShowProduct.GetListItem.ViewModel)
+    func displayCreatedListItem(viewModel: ShowProduct.CreateListItem.ViewModel)
+    func displayUpdatedListItem(viewModel: ShowProduct.UpdateListItem.ViewModel)
 }
 
 class ShowProductViewController: UIViewController, ShowProductDisplayLogic
@@ -75,8 +79,13 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         super.viewDidLoad()
         registerReviewsTableView()
         setupGestureRecognizer()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getProduct()
     }
+    
     
     // MARK: IB Outlets
     
@@ -84,7 +93,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet var stepperStackView: UIStackView!
     
     @IBOutlet var quantityStepper: UIStepper!
-    @IBOutlet var stepperLabel: UILabel!
+    @IBOutlet var quantityLabel: UILabel!
     
     @IBOutlet weak var reviewsStackView: UIStackView!
     @IBOutlet weak var ingredientsView: UIView!
@@ -116,9 +125,12 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet weak var recommendedTableView: UITableView!
     @IBOutlet weak var addToListButton: UIButton!
     
-    var product: ShowProduct.DisplayedProduct?
+    var product: ProductModel!
+    var displayedProduct: ShowProduct.DisplayedProduct?
 
     var loading: Bool = false
+    
+    var scrollPosition: CGFloat = 0
     
     var reviews: [ReviewModel] = []
     var recommendedProducts: [ProductModel] = []
@@ -134,25 +146,35 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         interactor?.getProduct(request: request)
     }
         
+    func getListItem(){
+        if let listID = interactor?.selectedListID {
+            let request = ShowProduct.GetListItem.Request(listID: listID, productID: product.id)
+            interactor?.getListItem(request: request)
+        }
+    }
+    
     func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
     {
         if let error = viewModel.error {
             showError(title: "Product Error", error: error)
         } else {
-            if let product = viewModel.displayedProduct {
+            if let displayedProduct = viewModel.displayedProduct {
                 
-                self.product = product
+                self.product = viewModel.product
+                self.displayedProduct = displayedProduct
 
-                updateFavouriteButton(favourite: product.favourite)
-                updateMonitorButton(monitor: product.monitoring)
+                getListItem()
                 
-                imageView.downloaded(from: product.largeImage)
+                updateFavouriteButton(favourite: displayedProduct.favourite)
+                updateMonitorButton(monitor: displayedProduct.monitoring)
                 
-                nameLabel.text = product.name
-                priceLabel.text = product.price
-                weightLabel.text = product.weight
+                imageView.downloaded(from: displayedProduct.largeImage)
                 
-                if let review = product.review {
+                nameLabel.text = displayedProduct.name
+                priceLabel.text = displayedProduct.price
+                weightLabel.text = displayedProduct.weight
+                
+                if let review = displayedProduct.review {
                     reviews.append(review)
                     reviewsTableView.reloadData()
                 } else {
@@ -160,25 +182,25 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                     allReviewsButton.isHidden = true
                 }
                 
-                ratingView.rating = product.avgRating
-                ratingView.text = "(\(product.totalReviewsCount))"
+                ratingView.rating = displayedProduct.avgRating
+                ratingView.text = "(\(displayedProduct.totalReviewsCount))"
                 
-                allReviewsButton.setTitle("All Reviews (\(product.totalReviewsCount))", for: .normal)
+                allReviewsButton.setTitle("All Reviews (\(displayedProduct.totalReviewsCount))", for: .normal)
                 
-                if product.ingredients.count == 0 {
+                if displayedProduct.ingredients.count == 0 {
                     ingredientsView.isHidden = true
                 }
                 
-                if let promotion = product.promotion {
+                if let promotion = displayedProduct.promotion {
                     promotionLabel.text = promotion.name
                 } else {
                     promotionView.isHidden = true
                 }
                 
-                displayAllergen(product: product)
-                displaydietary(product: product)
+                displayAllergen(product: displayedProduct)
+                displaydietary(product: displayedProduct)
                 
-                recommendedProducts = product.recommended
+                recommendedProducts = displayedProduct.recommended
                 recommendedTableView.reloadData()
             }
         }
@@ -211,6 +233,49 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         if let error = viewModel.error {
             showError(title: "Favourite Error", error: error)
         }
+    }
+    
+    func displayListItem(viewModel: ShowProduct.GetListItem.ViewModel) {
+        if let listItem = viewModel.listItem {
+            displayStepper()
+            displayQuantity(quantity: listItem.quantity)
+        }
+    }
+    
+    func displayCreatedListItem(viewModel: ShowProduct.CreateListItem.ViewModel) {
+        // Update quantity, hide add button if success
+        if let error = viewModel.error {
+            showError(title: "List Error", error: error)
+        } else {
+            if let listItem = viewModel.listItem {
+                displayStepper()
+                displayQuantity(quantity: listItem.quantity)
+            }
+        }
+
+    }
+    
+    func displayUpdatedListItem(viewModel: ShowProduct.UpdateListItem.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "List Error", error: error)
+        }
+    }
+}
+
+extension ShowProductViewController {
+    func displayQuantity(quantity: Int){
+        quantityStepper.value = Double(quantity)
+        quantityLabel.text = String(quantity)
+    }
+    
+    func displayStepper(){
+        addButton.isHidden = true
+        stepperStackView.isHidden = false
+    }
+    
+    func displayAddButton(){
+        addButton.isHidden = false
+        stepperStackView.isHidden = true
     }
 }
 
@@ -245,9 +310,9 @@ extension ShowProductViewController {
         if !loggedIn {
             router?.routeToLogin(segue: nil)
         } else {
-            if let product = product {
-                let monitoring: Bool = !product.monitoring
-                self.product!.monitoring = monitoring
+            if let displayedProduct = displayedProduct {
+                let monitoring: Bool = !displayedProduct.monitoring
+                self.displayedProduct!.monitoring = monitoring
                 
                 updateMonitorButton(monitor: monitoring)
                 
@@ -263,21 +328,17 @@ extension ShowProductViewController {
         if !loggedIn {
             router?.routeToLogin(segue: nil)
         } else {
-            if let product = product {
-                let favourite: Bool = !product.favourite
+            if let displayedProduct = displayedProduct {
+                let favourite: Bool = !displayedProduct.favourite
                 
                 updateFavouriteButton(favourite: favourite)
                 
                 let request = ShowProduct.UpdateFavourite.Request(favourite: favourite)
                 interactor?.updateFavourite(request: request)
                 
-                self.product!.favourite = favourite
+                self.displayedProduct!.favourite = favourite
             }
         }
-    }
-    
-    @IBAction func addToListButtonPressed(_ sender: Any) {
-        
     }
     
     @IBAction func reviewButtonPressed(_ sender: Any) {
@@ -287,12 +348,10 @@ extension ShowProductViewController {
     @IBAction func allReviewButtonPressed(_ sender: Any) {
         router?.routeToShowReviews(segue: nil)
     }
-    
-    @IBAction func quantityStepperPressed(_ sender: Any) {
-        
-    }
+
 }
 
+//MARK: - Setup View Gestures
 extension ShowProductViewController {
     
     func setupGestureRecognizer(){
@@ -320,6 +379,7 @@ extension ShowProductViewController {
     
 }
 
+//MARK: - Setup TableView
 extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableView == reviewsTableView ? reviews.count : 1
@@ -356,6 +416,8 @@ extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate 
         
         let productElement = ProductsElementModel(products: recommendedProducts)
         productElement.productPressed = productPressed
+        productElement.scrolled = scrolled
+        productElement.scrollPosition = scrollPosition
         
         cell.configure(model: productElement)
         
@@ -377,7 +439,12 @@ extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate 
     }
 }
 
+//MARK: - CallBacks
 extension ShowProductViewController {
+    func scrolled(_: Int, position: CGFloat){
+        scrollPosition = position
+    }
+    
     private func productPressed(productID: Int){
         router?.selectedProductID = productID
         router?.routeToShowProduct(segue: nil)
@@ -389,3 +456,48 @@ extension ShowProductViewController: UserLoggedInProtocol {
         getProduct()
     }
 }
+
+//MARK: - List Handling
+extension ShowProductViewController: SelectListProtocol {
+
+    @IBAction func addToListButtonPressed(_ sender: Any) {
+        if interactor?.selectedListID != nil {
+            displayStepper()
+            
+            let listID: Int = interactor!.selectedListID!
+            createListItem(listID: listID)
+        } else {
+            router?.routeToShowLists(segue: nil)
+        }
+    }
+    
+    @IBAction func quantityStepperPressed(_ sender: UIStepper) {
+        let quantity = Int(sender.value)
+        
+        if quantity == 0 {
+            interactor?.selectedListID = nil
+            displayAddButton()
+        } else {
+            displayQuantity(quantity: quantity)
+            
+            let listID: Int = interactor!.selectedListID!
+            updateListItem(listID: listID, quantity: quantity)
+        }
+    }
+    
+    func updateListItem(listID: Int, quantity: Int){
+        let request = ShowProduct.UpdateListItem.Request(listID: listID, productID: product.id, quantity: quantity)
+        interactor?.updateListItem(request: request)
+    }
+    
+    func createListItem(listID: Int){
+        let request = ShowProduct.CreateListItem.Request(listID: listID, productID: product.id, parentCategoryID: product.parentCategoryID!)
+        interactor?.createListItem(request: request)
+    }
+    
+    func listSelected(listID: Int) {
+        interactor?.selectedListID = listID
+        createListItem(listID: listID)
+    }
+}
+
