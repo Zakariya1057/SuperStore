@@ -61,6 +61,7 @@ class GrandParentCategoriesRouter: BackToShowListRouter, GrandParentCategoriesRo
     {
         let row = grandParentCategoriesViewController.categoriesTableView.indexPathForSelectedRow!.row
         destination.categories = source.categories[row].parentCategories
+        destination.storeTypeID = source.storeTypeID
         
         destination.selectedListID = source.selectedListID
     }

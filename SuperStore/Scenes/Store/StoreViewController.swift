@@ -109,7 +109,6 @@ class StoreViewController: UIViewController, StoreDisplayLogic
                 addressLabel.text = store.address
                 logoImageView.downloaded(from: store.logo)
                 
-
                 displayOpeningHours(openingHours: store.openingHours)
                 displayFacilities(facilities: store.facilites)
             }
@@ -124,15 +123,19 @@ class StoreViewController: UIViewController, StoreDisplayLogic
     }
     
     private func displayOpeningHours(openingHours: [Store.DisplayOpeningHour]){
-        for (index, opening) in openingHours.enumerated() {
+        
+        for opening in openingHours {
+            
+            let dayOfWeek = opening.dayOfWeek
+            
             // Set Hours
-            let hourLabel: UILabel = openingHoursTimeLabels[index]
-            let dayLabel: UILabel = openingHoursDayLabels[index]
+            let hourLabel: UILabel = openingHoursTimeLabels[dayOfWeek]
+            let dayLabel: UILabel = openingHoursDayLabels[dayOfWeek]
             
             hourLabel.text = opening.hours
             
             if opening.today {
-                
+
                 if opening.closedToday {
                     dayLabel.textColor = .systemRed
                     hourLabel.textColor = .systemRed
@@ -140,8 +143,12 @@ class StoreViewController: UIViewController, StoreDisplayLogic
                     dayLabel.textColor = .systemBlue
                     hourLabel.textColor = .systemBlue
                 }
-                
+
+            } else {
+                dayLabel.textColor = .label
+                hourLabel.textColor = .label
             }
+            
         }
     }
     

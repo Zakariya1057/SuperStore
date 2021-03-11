@@ -101,13 +101,13 @@ extension StorePresenter {
         for hour in openingHour {
             var openTimes: String = "Closed"
             
-            if hour.opensAt != nil {
+            if hour.opensAt != nil && hour.closesAt != nil{
                 openTimes = "\(hour.opensAt!) - \(hour.closesAt!)".lowercased()
             }
             
             let today = dayOfWeek == hour.dayOfWeek
             
-            let displayOpeningHour = Store.DisplayOpeningHour(today: today, hours: openTimes, closedToday: hour.closedToday)
+            let displayOpeningHour = Store.DisplayOpeningHour(today: today, hours: openTimes, dayOfWeek: hour.dayOfWeek, closedToday: hour.closedToday)
             displayOpeningHours.append(displayOpeningHour)
         }
         

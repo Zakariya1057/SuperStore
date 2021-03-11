@@ -27,6 +27,7 @@ enum Store
     struct DisplayOpeningHour {
         var today: Bool
         var hours: String
+        var dayOfWeek: Int
         var closedToday: Bool
     }
 

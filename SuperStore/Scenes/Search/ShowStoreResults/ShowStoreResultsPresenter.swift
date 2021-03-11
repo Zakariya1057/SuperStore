@@ -43,7 +43,7 @@ class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
                     hour.dayOfWeek == dayOfWeek
                 }
                 
-                if let storeHour = storeHour {
+                if let storeHour = storeHour, storeHour.opensAt != nil, storeHour.closesAt != nil {
                     openingHour = "\(storeHour.opensAt!.lowercased()) - \(storeHour.closesAt!.lowercased())"
                 }
             }

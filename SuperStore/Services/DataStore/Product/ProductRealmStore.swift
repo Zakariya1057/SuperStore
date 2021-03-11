@@ -81,7 +81,6 @@ extension ProductRealmStore {
     func createProductObject(product: ProductModel) -> ProductObject {
         
         if let savedProduct = getProductObject(productID: product.id) {
-            print("Duplicate Found. Returning Instead")
             return savedProduct
         }
         

@@ -422,6 +422,7 @@
 		2CF239B925094BAC00D4CE91 /* 1LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239B825094BAC00D4CE91 /* 1LoginViewController.swift */; };
 		2CF239BB25094C8700D4CE91 /* ListsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239BA25094C8600D4CE91 /* ListsData.swift */; };
 		2CF239BD2509549100D4CE91 /* ListItemsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF239BC2509549100D4CE91 /* ListItemsData.swift */; };
+		2CF7A59525FA88C700172839 /* CategoryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7A59425FA88C700172839 /* CategoryObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -877,6 +878,7 @@
 		2CF239B825094BAC00D4CE91 /* 1LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1LoginViewController.swift; sourceTree = "<group>"; };
 		2CF239BA25094C8600D4CE91 /* ListsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsData.swift; sourceTree = "<group>"; };
 		2CF239BC2509549100D4CE91 /* ListItemsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemsData.swift; sourceTree = "<group>"; };
+		2CF7A59425FA88C700172839 /* CategoryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryObject.swift; sourceTree = "<group>"; };
 		78A3D23A2EFDF10530DC6D40 /* Pods-SuperStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuperStore.debug.xcconfig"; path = "Target Support Files/Pods-SuperStore/Pods-SuperStore.debug.xcconfig"; sourceTree = "<group>"; };
 		81D954E4C76C0EAE824B9E7D /* Pods-SuperStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuperStore.release.xcconfig"; path = "Target Support Files/Pods-SuperStore/Pods-SuperStore.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -971,6 +973,7 @@
 				2C5C986E25F69BB200DF8B6D /* SearchObject.swift */,
 				2CC0ADEA25FA1E2D00373AC4 /* StoreObject.swift */,
 				2C5C987C25F6AA4000DF8B6D /* PromotionObject.swift */,
+				2CF7A59425FA88C700172839 /* CategoryObject.swift */,
 				2C5C987225F69BC200DF8B6D /* ListObject.swift */,
 				2C5C987625F69BD300DF8B6D /* ListItemObject.swift */,
 			);
@@ -2296,6 +2299,7 @@
 				2C1567DD24C8B3F000B8DCB5 /* 1StoreViewController.swift in Sources */,
 				2C266DF524D5DC1400C66EA5 /* 1NewListViewController.swift in Sources */,
 				2CA11F6A25EF8E490054AE19 /* GrandParentCategoriesModels.swift in Sources */,
+				2CF7A59525FA88C700172839 /* CategoryObject.swift in Sources */,
 				2CA11FA225EF92690054AE19 /* CategoryData.swift in Sources */,
 				2C21C3B424FA7C5F00D90B4B /* 1ParentCategoriesViewController.swift in Sources */,
 				2C1476C325E7AE15000E8F66 /* UserAuthAPI.swift in Sources */,

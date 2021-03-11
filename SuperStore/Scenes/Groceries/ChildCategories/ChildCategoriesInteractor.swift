@@ -26,6 +26,7 @@ protocol ChildCategoriesBusinessLogic
 protocol ChildCategoriesDataStore
 {
     var parentCategoryID: Int { get set }
+    var storeTypeID: Int { get set }
     var selectedListID: Int? { get set }
 }
 
@@ -39,11 +40,11 @@ class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDa
     var selectedListID: Int?
     
     var parentCategoryID: Int = 1
+    var storeTypeID: Int = 1
 
-    
     func getCategories(request: ChildCategories.GetCategories.Request)
     {
-        groceryWorker.getChildCategories(parentCategoryID: parentCategoryID) { (categories: [ChildCategoryModel], error: String?) in
+        groceryWorker.getChildCategories(storeTypeID: storeTypeID, parentCategoryID: parentCategoryID) { (categories: [ChildCategoryModel], error: String?) in
             let response = ChildCategories.GetCategories.Response(categories: categories, error: error)
             self.presenter?.presentCategories(response: response)
         }
