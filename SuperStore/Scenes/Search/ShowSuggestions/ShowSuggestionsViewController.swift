@@ -88,7 +88,11 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
         let searchText = searchBar.text ?? ""
         
         if searchText.replacingOccurrences(of: " ", with: "") == "" {
-            suggestions = []
+            suggestions = [
+                SuggestionModel(id: 1, name: "Asda", type: .store),
+                SuggestionModel(id: 1, name: "Fruit", type: .parentCategory),
+                SuggestionModel(id: 1, name: "Apples", type: .childCategory),
+            ]
             suggestionsTableView.reloadData()
         } else {
             let request = ShowSuggestions.GetSuggestions.Request(query: searchText)
