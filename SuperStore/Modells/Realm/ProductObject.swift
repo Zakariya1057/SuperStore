@@ -29,16 +29,17 @@ class ProductObject: Object {
     @objc dynamic var avgRating: Double = 0
     @objc dynamic var totalReviewsCount: Int = 0
 
-    var parentCategoryId: Int? = nil
-    var parentCategoryName: String? = nil
-    var childCategoryName: String? = nil
+    var parentCategoryID = RealmOptional<Int>()
+    
+    @objc dynamic var parentCategoryName: String? = nil
+    @objc dynamic var childCategoryName: String? = nil
 
     var storage: String? = nil
     var weight: String? = nil
     @objc dynamic var brand: String = ""
 
-    var dietaryInfo: String? = nil
-    var allergenInfo: String? = nil
+    @objc dynamic var dietaryInfo: String? = nil
+    @objc dynamic var allergenInfo: String? = nil
 
     var reviews = List<ReviewObject>()
 
@@ -60,7 +61,7 @@ class ProductObject: Object {
             promotion: promotion?.getPromotionModel(),
             storage: storage,
             weight: weight,
-            parentCategoryId: parentCategoryId,
+            parentCategoryID: parentCategoryID.value,
             parentCategoryName: parentCategoryName,
             childCategoryName: childCategoryName,
             dietaryInfo: dietaryInfo,

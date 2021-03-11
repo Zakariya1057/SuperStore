@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class SuggestionRealmStore: DataStore, SearchStoreProtocol {
+class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
     
     private func getSuggestionObject(name: String, type: String, textSearch: Bool) -> SuggestionObject? {
         return realm?.objects(SuggestionObject.self).filter("textSearch = %@ AND type = %@ AND name = %@", textSearch, type, name).first

@@ -10,11 +10,14 @@ import Foundation
 
 class SearchWorker {
     var searchAPI: SearchRequestProtocol
-    var searchSuggestionStore: SearchStoreProtocol
+    var searchSuggestionStore: SuggestionStoreProtocol
+    var searchResultsStore: ProductResultsStoreProtocol
     
     init(searchAPI: SearchRequestProtocol) {
         self.searchAPI = searchAPI
+        
         self.searchSuggestionStore = SuggestionRealmStore()
+        self.searchResultsStore = ProductResultsRealmStore()
     }
     
     func getSuggestions(storeTypeID: Int, query: String, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void){
@@ -33,7 +36,19 @@ class SearchWorker {
     }
     
     func getProductResults(data: ProductQueryModel, completionHandler: @escaping (_ ResultsModel: ProductResultsModel?, _ error: String?) -> Void){
-        searchAPI.getProductResults(data: data, completionHandler: completionHandler)
+        
+        let results = searchResultsStore.searchResults(query: data)
+        if results.products.count > 0 {
+            completionHandler(results, nil)
+        }
+        
+        searchAPI.getProductResults(data: data) { (results: ProductResultsModel?, error: String?) in
+            if let results = results {
+                self.searchResultsStore.createResults(results: results)
+            }
+            
+            completionHandler(results, error)
+        }
     }
     
 }
@@ -43,9 +58,14 @@ protocol SearchRequestProtocol {
     func getProductResults(data: ProductQueryModel, completionHandler: @escaping ( _ ResultsModel: ProductResultsModel?, _ error: String?) -> Void)
 }
 
-protocol SearchStoreProtocol {
+protocol SuggestionStoreProtocol {
     func createSuggestions(suggestions: [SuggestionModel], storeTypeID: Int)
     func createSuggestion(suggestion: SuggestionModel, storeTypeID: Int)
     
     func searchSuggestion(storeTypeID: Int, query: String) -> [SuggestionModel]
+}
+
+protocol ProductResultsStoreProtocol {
+    func createResults(results: ProductResultsModel)
+    func searchResults(query: ProductQueryModel) -> ProductResultsModel
 }

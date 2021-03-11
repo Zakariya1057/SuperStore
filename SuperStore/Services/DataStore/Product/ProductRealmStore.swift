@@ -53,15 +53,6 @@ class ProductRealmStore: DataStore, ProductStoreProtocol {
 }
 
 extension ProductRealmStore {
-    func updateSavedProduct(product: ProductModel, savedProduct: ProductObject){
-        try? realm?.write({
-            realm?.delete(savedProduct)
-            realm?.add(createProductObject(product: product))
-        })
-    }
-}
-
-extension ProductRealmStore {
     func clearFavourites(){
         let savedFavourites = realm?.objects(ProductObject.self).filter("favourite = %@", true)
         
@@ -122,7 +113,10 @@ extension ProductRealmStore {
         savedProduct.avgRating = product.avgRating
         savedProduct.totalReviewsCount = product.totalReviewsCount
         
-        savedProduct.parentCategoryId = product.parentCategoryID
+        let parentCategoryID = RealmOptional<Int>()
+        parentCategoryID.value = 1
+        
+        savedProduct.parentCategoryID = parentCategoryID
         savedProduct.parentCategoryName = product.parentCategoryName
         savedProduct.childCategoryName = product.childCategoryName
         
@@ -149,5 +143,120 @@ extension ProductRealmStore {
         savedProduct.ingredients = ingredients
         
         return savedProduct
+    }
+    
+}
+
+extension ProductRealmStore {
+    func updateSavedProduct(product: ProductModel, savedProduct: ProductObject){
+        try? realm?.write({
+            savedProduct.id = product.id
+            savedProduct.name = product.name
+            savedProduct.price = product.price
+            
+            updatePromotion(product: product, savedProduct: savedProduct)
+            
+            updateRecommended(product: product, savedProduct: savedProduct)
+            
+            updateImage(product: product, savedProduct: savedProduct)
+            
+            savedProduct.productDescription = product.description
+            
+            savedProduct.favourite = product.favourite
+            savedProduct.monitoring = product.monitoring
+            
+            updateRatings(product: product, savedProduct: savedProduct)
+            
+            updateParentCategory(product: product, savedProduct: savedProduct)
+
+            if product.childCategoryName != nil {
+                savedProduct.childCategoryName = product.childCategoryName
+            }
+            
+            savedProduct.storage = product.storage
+            savedProduct.weight = product.weight
+            savedProduct.brand = product.brand
+            
+            savedProduct.dietaryInfo = product.dietaryInfo
+            savedProduct.allergenInfo = product.allergenInfo
+            
+            updateReviews(product: product, savedProduct: savedProduct)
+
+            updateIngredients(product: product, savedProduct: savedProduct)
+
+        })
+    }
+
+}
+
+extension ProductRealmStore {
+    
+    func updateRatings(product: ProductModel, savedProduct: ProductObject){
+        savedProduct.avgRating = product.avgRating
+        savedProduct.totalReviewsCount = product.totalReviewsCount
+    }
+    
+    func updateImage(product: ProductModel, savedProduct: ProductObject){
+        savedProduct.smallImage = product.smallImage
+        savedProduct.largeImage = product.largeImage
+    }
+    
+    func updatePromotion(product: ProductModel, savedProduct: ProductObject){
+        if let promotion = product.promotion {
+            savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
+        }
+    }
+    
+    func updateParentCategory(product: ProductModel, savedProduct: ProductObject){
+        
+        if product.parentCategoryName != nil {
+            savedProduct.parentCategoryName = product.parentCategoryName
+        }
+        
+        if product.parentCategoryID != nil {
+            let parentCategoryID = RealmOptional<Int>()
+            parentCategoryID.value = 1
+            
+            savedProduct.parentCategoryID = parentCategoryID
+        }
+    }
+    
+    func updateRecommended(product: ProductModel, savedProduct: ProductObject){
+        if product.recommended.count > 0 {
+            let recommended = List<ProductObject>()
+            
+            for product in product.recommended {
+                recommended.append( createProductObject(product: product) )
+            }
+            
+            savedProduct.recommended.removeAll()
+            savedProduct.recommended = recommended
+        }
+    }
+    
+    func updateIngredients(product: ProductModel, savedProduct: ProductObject){
+        if product.ingredients.count > 0 {
+            let ingredients = List<String>()
+            
+            product.ingredients.forEach { (ingredient: String) in
+                ingredients.append(ingredient)
+            }
+            
+            savedProduct.ingredients.removeAll()
+            savedProduct.ingredients = ingredients
+        }
+    }
+    
+    func updateReviews(product: ProductModel, savedProduct: ProductObject){
+        if product.reviews.count > 0 {
+            let reviews = List<ReviewObject>()
+            
+            for review in product.reviews {
+                reviews.append( reviewStore.createReviewObject(review: review) )
+            }
+            
+            savedProduct.reviews.removeAll()
+            savedProduct.reviews = reviews
+        }
     }
 }

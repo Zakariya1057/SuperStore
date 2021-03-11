@@ -393,6 +393,7 @@
 		2CC0ADE025F969BD00373AC4 /* PromotionRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADDF25F969BD00373AC4 /* PromotionRealmStore.swift */; };
 		2CC0ADE525FA1D6500373AC4 /* StoreRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADE425FA1D6500373AC4 /* StoreRealmStore.swift */; };
 		2CC0ADEB25FA1E2D00373AC4 /* StoreObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADEA25FA1E2D00373AC4 /* StoreObject.swift */; };
+		2CC0ADEF25FA3DC300373AC4 /* ResultsRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADEE25FA3DC300373AC4 /* ResultsRealmStore.swift */; };
 		2CC1EA1B24FA9550000A9BC4 /* GroceryProductsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1A24FA9550000A9BC4 /* GroceryProductsData.swift */; };
 		2CC1EA1D24FAC003000A9BC4 /* ProductDetailsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1C24FAC003000A9BC4 /* ProductDetailsHandler.swift */; };
 		2CC1EA1F24FAC0EB000A9BC4 /* 1ProductData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1E24FAC0EB000A9BC4 /* 1ProductData.swift */; };
@@ -845,6 +846,7 @@
 		2CC0ADDF25F969BD00373AC4 /* PromotionRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionRealmStore.swift; sourceTree = "<group>"; };
 		2CC0ADE425FA1D6500373AC4 /* StoreRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRealmStore.swift; sourceTree = "<group>"; };
 		2CC0ADEA25FA1E2D00373AC4 /* StoreObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObject.swift; sourceTree = "<group>"; };
+		2CC0ADEE25FA3DC300373AC4 /* ResultsRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsRealmStore.swift; sourceTree = "<group>"; };
 		2CC1EA1A24FA9550000A9BC4 /* GroceryProductsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryProductsData.swift; sourceTree = "<group>"; };
 		2CC1EA1C24FAC003000A9BC4 /* ProductDetailsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsHandler.swift; sourceTree = "<group>"; };
 		2CC1EA1E24FAC0EB000A9BC4 /* 1ProductData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1ProductData.swift; sourceTree = "<group>"; };
@@ -1463,6 +1465,7 @@
 			isa = PBXGroup;
 			children = (
 				2C5C985325F69AB500DF8B6D /* SuggestionRealmStore.swift */,
+				2CC0ADEE25FA3DC300373AC4 /* ResultsRealmStore.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -2569,6 +2572,7 @@
 				2CB15C9724D2FCD400461AFE /* 1ListViewController.swift in Sources */,
 				2CB1425125E434EF00EAF272 /* 1ReviewData.swift in Sources */,
 				2CD4BC4525C4661200F2F4E5 /* LoginToUseTableViewCell.swift in Sources */,
+				2CC0ADEF25FA3DC300373AC4 /* ResultsRealmStore.swift in Sources */,
 				2C6F6220251357D100179C2B /* 1ForgotPasswordViewController.swift in Sources */,
 				2C48E7AF25EA9CC1001A5702 /* HomeAPI.swift in Sources */,
 				2C70827625F0100700345147 /* EditPasswordRouter.swift in Sources */,

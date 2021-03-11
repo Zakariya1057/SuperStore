@@ -45,7 +45,7 @@ class ProductModel {
 
     var listID: Int? = nil
     
-    init(id: Int, name: String, smallImage: String, largeImage: String,description: String?, quantity: Int,price:Double, avgRating: Double?, totalReviewsCount: Int?, promotion: PromotionModel?, storage: String?, weight: String?,parentCategoryId: Int?, parentCategoryName: String?, childCategoryName: String?, dietaryInfo: String?, allergenInfo: String?, brand: String, reviews: [ReviewModel], favourite: Bool, monitoring: Bool, ingredients: [String], recommended: [ProductModel]) {
+    init(id: Int, name: String, smallImage: String, largeImage: String,description: String?, quantity: Int,price:Double, avgRating: Double?, totalReviewsCount: Int?, promotion: PromotionModel?, storage: String?, weight: String?,parentCategoryID: Int?, parentCategoryName: String?, childCategoryName: String?, dietaryInfo: String?, allergenInfo: String?, brand: String, reviews: [ReviewModel], favourite: Bool, monitoring: Bool, ingredients: [String], recommended: [ProductModel]) {
 
         self.id = id
         self.description = description
@@ -54,7 +54,7 @@ class ProductModel {
         self.totalReviewsCount = totalReviewsCount ?? 0
         self.monitoring = monitoring
 
-        self.parentCategoryID = parentCategoryId
+        self.parentCategoryID = parentCategoryID
         self.parentCategoryName = parentCategoryName
         self.childCategoryName = childCategoryName
 
