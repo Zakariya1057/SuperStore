@@ -153,8 +153,8 @@ extension HomeViewController {
             }
             
             for category in homeModel.categories {
-                let name = category.key
-                let products = category.value
+                let name = category.name
+                let products = category.products
 
                 let categoryCell = CategoryProductGroupElement(title: name, products: [
                     ProductsElementModel(products: products)

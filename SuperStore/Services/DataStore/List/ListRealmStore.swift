@@ -49,34 +49,8 @@ class ListRealmStore: DataStore, ListStoreProtocol {
         }
 
         try? realm?.write({
-
-            let savedList = ListObject()
-            savedList.id = list.id
-            savedList.name = list.name
-            savedList.status = list.status.rawValue
-
-            savedList.identifier = list.identifier
-            savedList.storeTypeID = list.storeTypeID
-
-            savedList.totalPrice = list.totalPrice
-            savedList.oldTotalPrice = list.oldTotalPrice
-
-            savedList.totalItems = list.totalItems
-            savedList.tickedOffItems = list.tickedOffItems
-
-            savedList.createdAt = list.createdAt
-            savedList.updatedAt = list.updatedAt
-            
-            if !ignoreCategories {
-                savedList.categories.removeAll()
-                
-                for category in createCategoryObjects(list: list) {
-                    savedList.categories.append(category)
-                }
-            }
-
+            let savedList = createListObject(list: list)
             realm?.add(savedList)
-
         })
     }
     
@@ -115,6 +89,42 @@ class ListRealmStore: DataStore, ListStoreProtocol {
         })
     }
 
+}
+
+extension ListRealmStore {
+    func createListObject(list: ListModel, ignoreCategories: Bool = false) -> ListObject {
+        
+        if let savedList = getListObject(listID: list.id){
+            return savedList
+        }
+        
+        let savedList = ListObject()
+        savedList.id = list.id
+        savedList.name = list.name
+        savedList.status = list.status.rawValue
+
+        savedList.identifier = list.identifier
+        savedList.storeTypeID = list.storeTypeID
+
+        savedList.totalPrice = list.totalPrice
+        savedList.oldTotalPrice = list.oldTotalPrice
+
+        savedList.totalItems = list.totalItems
+        savedList.tickedOffItems = list.tickedOffItems
+
+        savedList.createdAt = list.createdAt
+        savedList.updatedAt = list.updatedAt
+        
+        if !ignoreCategories {
+            savedList.categories.removeAll()
+            
+            for category in createCategoryObjects(list: list) {
+                savedList.categories.append(category)
+            }
+        }
+        
+        return savedList
+    }
 }
 
 extension ListRealmStore {

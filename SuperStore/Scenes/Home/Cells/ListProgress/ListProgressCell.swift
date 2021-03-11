@@ -69,10 +69,10 @@ class ListProgressCell: UITableViewCell, HomeElementCell {
         let totalItems: Int = list.totalItems
         
         nameLabel.text = list.name
-        progressBar.progress = Float( tickedOffItems / totalItems)
+        progressBar.progress = (tickedOffItems > 0 && totalItems > 0) ? Float( tickedOffItems / totalItems) : 0
         tickedOffLabel.text = "\(list.tickedOffItems)/\(list.totalItems)"
         
-        if tickedOffItems == totalItems {
+        if totalItems > 0 && tickedOffItems == totalItems {
             progressBar.backgroundColor = UIColor(named: "LogoBlue")
             checkMarkImage.image = UIImage(systemName: "checkmark.circle")
             checkMarkImage.tintColor = UIColor(named: "LogoBlue")

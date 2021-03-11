@@ -11,7 +11,7 @@ import Foundation
 class StoreWorker
 {
     var storeAPI: StoreRequestProtocol
-    var storeStore: StoreDataProtocol
+    var storeStore: StoreStoreProtocol
     
     init(storeAPI: StoreRequestProtocol) {
         self.storeAPI = storeAPI
@@ -55,9 +55,11 @@ protocol StoreRequestProtocol {
     func getStores(storeTypeID: Int, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void)
 }
 
-protocol StoreDataProtocol {
+protocol StoreStoreProtocol {
     func createStore(store: StoreModel)
     func createStores(stores: [StoreModel])
     func getStore(storeID: Int) -> StoreModel?
     func getStores(storeTypeID: Int) -> [StoreModel]
+    
+    func createStoreObject(store: StoreModel) -> StoreObject
 }

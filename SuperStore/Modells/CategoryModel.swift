@@ -22,6 +22,7 @@ struct ParentCategoryModel {
 
 struct ChildCategoryModel {
     var id: Int
-    var name:String
+    var name: String
+    var parentCategoryID: Int
     var products: [ProductModel]
 }

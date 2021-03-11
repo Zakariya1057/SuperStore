@@ -106,4 +106,6 @@ protocol ListStoreProtocol {
     
     func updateListTotalPrice(listID: Int, totalPrice: Double, oldTotalPrice: Double?)
     func restartList(listID: Int)
+    
+    func createListObject(list: ListModel, ignoreCategories: Bool) -> ListObject
 }

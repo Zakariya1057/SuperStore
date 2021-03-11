@@ -14,24 +14,28 @@ import UIKit
 
 protocol HomeBusinessLogic
 {
-  func getHome(request: Home.GetHome.Request)
+    func getHome(request: Home.GetHome.Request)
 }
 
 protocol HomeDataStore
 {
-  //var name: String { get set }
+
 }
 
 class HomeInteractor: HomeBusinessLogic, HomeDataStore
 {
-  var presenter: HomePresentationLogic?
-  var worker: HomeWorker? = HomeWorker(homeAPI: HomeAPI())
-  
-  func getHome(request: Home.GetHome.Request)
-  {
-    worker?.getHome(completionHandler: { (home: HomeModel?, error: String?) in
-        let response = Home.GetHome.Response(home: home, error: error)
-        self.presenter?.presentHome(response: response)
-    })
-  }
+    var presenter: HomePresentationLogic?
+    
+    var worker: HomeWorker? = HomeWorker(homeAPI: HomeAPI())
+    var userWorker: UserSessionWorker = UserSessionWorker()
+    
+    func getHome(request: Home.GetHome.Request)
+    {
+        let storeTypeID: Int = userWorker.getStore()
+        
+        worker?.getHome(storeTypeID: storeTypeID, completionHandler: { (home: HomeModel?, error: String?) in
+            let response = Home.GetHome.Response(home: home, error: error)
+            self.presenter?.presentHome(response: response)
+        })
+    }
 }

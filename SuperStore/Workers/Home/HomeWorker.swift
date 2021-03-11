@@ -15,16 +15,28 @@ import UIKit
 class HomeWorker
 {
     var homeAPI: HomeRequestProtocol
+    var homeStore: HomeStoreProtocol
     
     init(homeAPI: HomeRequestProtocol) {
         self.homeAPI = homeAPI
+        self.homeStore = HomeRealmStore()
     }
     
-    func getHome(completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void){
-        homeAPI.getHome(completionHandler: completionHandler)
+    func getHome(storeTypeID: Int, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void){
+        homeAPI.getHome { (home: HomeModel?, error: String?) in
+            if let home = home {
+                self.homeStore.createHome(storeTypeID: storeTypeID, home: home)
+            }
+            
+            completionHandler(home, error)
+        }
     }
 }
 
 protocol HomeRequestProtocol {
     func getHome(completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void)
+}
+
+protocol HomeStoreProtocol {
+    func createHome(storeTypeID: Int, home: HomeModel)
 }

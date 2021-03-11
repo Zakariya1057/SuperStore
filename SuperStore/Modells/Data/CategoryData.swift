@@ -39,32 +39,16 @@ struct ParentCategoryData:Decodable {
 struct ChildCategoryData:Decodable {
     var id: Int
     var name: String
+    var parent_category_id: Int
     var products: [ProductData]
     
     func getChildCategoryModel() -> ChildCategoryModel {
-        return ChildCategoryModel(id: id, name: name, products: products.map{ $0.getProductModel() })
+        return ChildCategoryModel(
+            id: id,
+            name: name,
+            parentCategoryID: parent_category_id,
+            products: products.map{ $0.getProductModel() }
+        )
     }
     
 }
-
-//struct ChildCategoryData:Decodable {
-//    var id: Int
-//    var name:String
-//    var products: [ProductData]
-//
-//    func getChildCategoryModel() -> ChildCategoryModel {
-////        return ChildCategoryModel(id: id, name: name, parentCategoryId: <#T##Int#>, products: <#T##[ProductModel]#>)
-////    }
-//}
-
-
-//struct GroceryProductsResponseData: Decodable {
-//    var data: [GroceryProductsData]
-//}
-//
-//struct GrandParentCategory:Decodable {
-//    var id: Int
-//    var name:String
-//    var parent_category_id: Int
-//    var products: [ProductData]
-//}

@@ -25,6 +25,9 @@ class PromotionObject: Object {
     
     @objc dynamic var expires: Bool = false
     
+    @objc dynamic var createdAt: Date = Date()
+    @objc dynamic var updatedAt: Date = Date()
+    
     func getPromotionModel() -> PromotionModel {
         return PromotionModel(
             id: id,

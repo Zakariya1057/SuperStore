@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class StoreRealmStore: DataStore, StoreDataProtocol {
+class StoreRealmStore: DataStore, StoreStoreProtocol {
     
     private func getStoreObject(storeID: Int) -> StoreObject? {
         return realm?.objects(StoreObject.self).filter("id = %@", storeID).first
@@ -82,6 +82,11 @@ class StoreRealmStore: DataStore, StoreDataProtocol {
 extension StoreRealmStore {
     
     func createStoreObject(store: StoreModel) -> StoreObject {
+        
+        if let savedStore = getStoreObject(storeID: store.id){
+            return savedStore
+        }
+        
         let savedStore = StoreObject()
         
         savedStore.id = store.id

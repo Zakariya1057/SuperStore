@@ -61,4 +61,8 @@ protocol GroceryStoreProtocol {
     
     func getGrandParentCategories(storeTypeID: Int) -> [GrandParentCategoryModel]
     func getChildCategories(parentCategoryID: Int) -> [ChildCategoryModel]
+    
+    func createCategoryObject(category: ChildCategoryModel, storeTypeID: Int, parentCategoryID: Int) -> ChildCategoryObject
+    func createCategoryObject(category: ParentCategoryModel, storeTypeID: Int) -> ParentCategoryObject
+    func createCategoryObject(category: GrandParentCategoryModel, storeTypeID: Int) -> GrandParentCategoryObject
 }

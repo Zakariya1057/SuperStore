@@ -45,22 +45,26 @@ extension HomeAPI {
                 groceries: createProductModel(productData: homeData.groceries ?? []),
                 monitoring: createProductModel(productData: homeData.monitoring ?? []),
                 promotions: createPromotionModel(promotionData: homeData.promotions ?? []),
-                categories: createCategoriesModel(categoryData: homeData.categories ?? [:])
+                categories: createCategoriesModel(categoryData: homeData.categories)
             )
         }
         
         return nil
     }
     
-    private func createCategoriesModel(categoryData: [String : [ProductData]]) -> [String: [ProductModel]]{
+    private func createCategoriesModel(categoryData: [ChildCategoryData]) -> [ChildCategoryModel]{
         
-        var categories: [String: [ProductModel]] = [:]
+        var categories: [ChildCategoryModel] = []
         
         for category in categoryData {
-            let categoryName:String = category.key
-            let products:[ProductModel] = createProductModel(productData: category.value)
-
-            categories[categoryName] = products
+            let childCategory = ChildCategoryModel(
+                id: category.id,
+                name: category.name,
+                parentCategoryID: category.parent_category_id,
+                products: category.products.map{ $0.getProductModel() }
+            )
+            
+            categories.append(childCategory)
         }
         
         return categories

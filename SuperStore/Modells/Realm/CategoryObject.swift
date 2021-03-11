@@ -55,6 +55,7 @@ class ChildCategoryObject: Object {
         return ChildCategoryModel(
             id: id,
             name: name,
+            parentCategoryID: parentCategoryID,
             products: products.map{ $0.getProductModel() }
         )
     }

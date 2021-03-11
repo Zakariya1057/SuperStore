@@ -49,6 +49,9 @@ protocol ProductRequestProtocol {
 }
 
 protocol ProductStoreProtocol {
+    
+    func createProductObject(product: ProductModel) -> ProductObject
+    
     func getProduct(productID: Int) -> ProductModel?
     func getFavouriteProducts() -> [ProductModel]
     
