@@ -68,7 +68,7 @@ struct RequestWorker: RequestProtocol {
             case .failure(let errorResponse):
                 print(errorResponse)
                 
-                if errorResponse.responseCode! == 401 {
+                if let responseCode = errorResponse.responseCode, responseCode == 401 {
                     print("User Unauthenticated")
                     
                     completionHandler({
