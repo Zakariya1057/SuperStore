@@ -14,23 +14,40 @@ import UIKit
 
 enum ShowSuggestions
 {
-  // MARK: Use cases
-  
-  enum GetSuggestions
-  {
-    struct Request
+    // MARK: Use cases
+    
+    enum GetSuggestions
     {
-        var query: String
+        struct Request
+        {
+            var query: String
+        }
+        struct Response
+        {
+            var suggestions: [SuggestionModel]
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var suggestions: [SuggestionModel]
+            var error: String?
+        }
     }
-    struct Response
-    {
-        var suggestions: [SuggestionModel]
-        var error: String?
+    
+    enum GetRecentSuggestions {
+        struct Request
+        {
+            var limit: Int
+        }
+        struct Response
+        {
+            var suggestions: [SuggestionModel]
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var suggestions: [SuggestionModel]
+            var error: String?
+        }
     }
-    struct ViewModel
-    {
-        var suggestions: [SuggestionModel]
-        var error: String?
-    }
-  }
 }

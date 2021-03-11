@@ -15,6 +15,7 @@ import UIKit
 protocol ShowSuggestionsDisplayLogic: class
 {
     func displaySuggestions(viewModel: ShowSuggestions.GetSuggestions.ViewModel)
+    func displayRecentSuggestions(viewModel: ShowSuggestions.GetRecentSuggestions.ViewModel)
 }
 
 class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLogic
@@ -70,30 +71,28 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     {
         super.viewDidLoad()
         displayRightBarButton()
+        getRecentSuggestions()
         setupFavouriteTableView()
         setupSearchDelegate()
     }
     
+    var recentSuggestionsLimit: Int = 5
+    
     @IBOutlet var suggestionsTableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     
-    var suggestions: [SuggestionModel] = [
-        // Load Later.
-        SuggestionModel(id: 1, name: "Asda", type: .store),
-        SuggestionModel(id: 1, name: "Fruit", type: .parentCategory),
-        SuggestionModel(id: 1, name: "Apples", type: .childCategory),
-    ]
+    var suggestions: [SuggestionModel] = []
     
-    private func search(){
+    func getRecentSuggestions(){
+        let request = ShowSuggestions.GetRecentSuggestions.Request(limit: recentSuggestionsLimit)
+        interactor?.getRecentSuggestions(request: request)
+    }
+    
+    func search(){
         let searchText = searchBar.text ?? ""
         
         if searchText.replacingOccurrences(of: " ", with: "") == "" {
-            suggestions = [
-                SuggestionModel(id: 1, name: "Asda", type: .store),
-                SuggestionModel(id: 1, name: "Fruit", type: .parentCategory),
-                SuggestionModel(id: 1, name: "Apples", type: .childCategory),
-            ]
-            suggestionsTableView.reloadData()
+            getRecentSuggestions()
         } else {
             let request = ShowSuggestions.GetSuggestions.Request(query: searchText)
             interactor?.getSuggestions(request: request)
@@ -106,7 +105,15 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
             showError(title: "Search Error", error: error)
         } else {
             self.suggestions = viewModel.suggestions
-            
+            suggestionsTableView.reloadData()
+        }
+    }
+    
+    func displayRecentSuggestions(viewModel: ShowSuggestions.GetRecentSuggestions.ViewModel){
+        if let error = viewModel.error {
+            showError(title: "Suggestion Error", error: error)
+        } else {
+            self.suggestions = viewModel.suggestions
             suggestionsTableView.reloadData()
         }
     }
@@ -150,21 +157,12 @@ extension ShowSuggestionsViewController: UITableViewDataSource, UITableViewDeleg
 extension ShowSuggestionsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let suggestion: SuggestionModel = suggestions[indexPath.row]
-        var type: String
         
         if suggestion.type == .store {
             router?.selectedStoreTypeID = suggestion.id
             router?.routeToShowStoreResults(segue: nil)
         } else {
-            if suggestion.type == .product {
-                type = "products"
-            } else if suggestion.type == .childCategory {
-                type = "child_categories"
-            } else {
-                type = "parent_categories"
-            }
-            
-            interactor?.productQueryModel = ProductQueryModel(query: suggestion.name, type: type)
+            interactor?.suggestionSelected(suggestion: suggestion)
             router?.routeToShowProductResults(segue: nil)
         }
 

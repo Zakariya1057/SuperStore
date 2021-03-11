@@ -17,6 +17,10 @@ class SuggestionObject: Object {
     
     @objc dynamic var storeTypeID: Int = 1
     
+    @objc dynamic var visited: Bool = false
+    
+    @objc dynamic var visitedAt: Date? = nil
+    
     func getSuggestionModel() -> SuggestionModel {
         let searchType: SearchType = SearchType.init(rawValue: type)!
         return SuggestionModel(id: id, name: name, type: searchType, textSearch: textSearch)

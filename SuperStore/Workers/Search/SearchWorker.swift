@@ -51,6 +51,15 @@ class SearchWorker {
         }
     }
     
+    func getRecentSuggestions(storeTypeID: Int, limit: Int, completionHandler: @escaping (_ suggestions: [SuggestionModel], _ error: String?) -> Void){
+        let savedSuggestion = searchSuggestionStore.getRecentSuggestions(storeTypeID: storeTypeID, limit: limit)
+        completionHandler(savedSuggestion, nil)
+    }
+    
+    func suggestionSelected(suggestion: SuggestionModel){
+        searchSuggestionStore.suggestionSelected(suggestion: suggestion)
+    }
+    
 }
 
 protocol SearchRequestProtocol {
@@ -63,6 +72,9 @@ protocol SuggestionStoreProtocol {
     func createSuggestion(suggestion: SuggestionModel, storeTypeID: Int)
     
     func searchSuggestion(storeTypeID: Int, query: String) -> [SuggestionModel]
+    func getRecentSuggestions(storeTypeID: Int, limit count: Int) -> [SuggestionModel]
+    
+    func suggestionSelected(suggestion: SuggestionModel)
 }
 
 protocol ProductResultsStoreProtocol {

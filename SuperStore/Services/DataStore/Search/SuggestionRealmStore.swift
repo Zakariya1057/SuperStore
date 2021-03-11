@@ -53,4 +53,58 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
         
         return []
     }
+    
+    func suggestionSelected(suggestion: SuggestionModel){
+        // Find realm suggestion mark as pressed.
+        
+        let id: Int = suggestion.id
+        let name: String = suggestion.name
+        let type: String = suggestion.type.rawValue
+        let textSearch: Bool = suggestion.textSearch
+        
+        let savedSuggestion = realm?.objects(SuggestionObject.self)
+            .filter("id  = %@ AND name = %@ AND type = %@ AND textSearch = %@", id, name, type, textSearch).first
+        
+        if let savedSuggestion = savedSuggestion {
+            try? realm?.write({
+                savedSuggestion.visited = true
+                savedSuggestion.visitedAt = Date()
+            })
+        }
+    }
+}
+
+extension SuggestionRealmStore {
+    func getRecentSuggestions(storeTypeID: Int, limit count: Int) -> [SuggestionModel] {
+        // Get last X suggestions
+        var limit: Int = count
+        
+        var recentSuggestions: [SuggestionModel] = []
+        
+        let savedSuggestions = realm?.objects(SuggestionObject.self).filter("visited = %@", true).sorted(byKeyPath: "visitedAt", ascending: false)
+        
+        if let savedSuggestions = savedSuggestions {
+            
+            if savedSuggestions.count == 0 {
+                recentSuggestions = [
+                    SuggestionModel(id: 1, name: "Asda", type: .store),
+                    SuggestionModel(id: 1, name: "Fruit", type: .parentCategory),
+                    SuggestionModel(id: 1, name: "Apples", type: .childCategory),
+                ]
+                
+                createSuggestions(suggestions: recentSuggestions, storeTypeID: storeTypeID)
+            } else {
+                if savedSuggestions.count < count {
+                    limit = savedSuggestions.count
+                }
+                
+                for index in 0 ..< limit {
+                    recentSuggestions.append(savedSuggestions[index].getSuggestionModel())
+                }
+            }
+
+        }
+        
+        return recentSuggestions
+    }
 }

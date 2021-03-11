@@ -42,6 +42,7 @@ class ProductResultsRealmStore: DataStore, ProductResultsStoreProtocol {
 
         return ProductResultsModel(products: products)
     }
+    
 }
 
 extension ProductResultsRealmStore {

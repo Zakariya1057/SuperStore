@@ -14,18 +14,24 @@ import UIKit
 
 protocol ShowSuggestionsPresentationLogic
 {
-  func presentSuggestions(response: ShowSuggestions.GetSuggestions.Response)
+    func presentSuggestions(response: ShowSuggestions.GetSuggestions.Response)
+    func presentRecentSuggestions(response: ShowSuggestions.GetRecentSuggestions.Response)
 }
 
 class ShowSuggestionsPresenter: ShowSuggestionsPresentationLogic
 {
-  weak var viewController: ShowSuggestionsDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSuggestions(response: ShowSuggestions.GetSuggestions.Response)
-  {
-    let viewModel = ShowSuggestions.GetSuggestions.ViewModel(suggestions: response.suggestions, error: response.error)
-    viewController?.displaySuggestions(viewModel: viewModel)
-  }
+    weak var viewController: ShowSuggestionsDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentSuggestions(response: ShowSuggestions.GetSuggestions.Response)
+    {
+        let viewModel = ShowSuggestions.GetSuggestions.ViewModel(suggestions: response.suggestions, error: response.error)
+        viewController?.displaySuggestions(viewModel: viewModel)
+    }
+    
+    func presentRecentSuggestions(response: ShowSuggestions.GetRecentSuggestions.Response) {
+        let viewModel = ShowSuggestions.GetRecentSuggestions.ViewModel(suggestions: response.suggestions, error: response.error)
+        viewController?.displayRecentSuggestions(viewModel: viewModel)
+    }
 }

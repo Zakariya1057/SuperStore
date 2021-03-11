@@ -15,6 +15,10 @@ import UIKit
 protocol ShowSuggestionsBusinessLogic
 {
     func getSuggestions(request: ShowSuggestions.GetSuggestions.Request)
+    func getRecentSuggestions(request: ShowSuggestions.GetRecentSuggestions.Request)
+    
+    func suggestionSelected(suggestion: SuggestionModel)
+    
     var productQueryModel: ProductQueryModel? { get set }
     var selectedListID: Int? { get set }
 }
@@ -35,14 +39,41 @@ class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDa
     var selectedListID: Int?
     
     var userSession = UserSessionWorker()
+    var storeTypeID: Int {
+        return userSession.getStore()
+    }
+   
     
     func getSuggestions(request: ShowSuggestions.GetSuggestions.Request)
     {
-        let storeTypeID = userSession.getStore()
-        
         searchWorker.getSuggestions(storeTypeID: storeTypeID, query: request.query) { (suggestions: [SuggestionModel], error: String?) in
             let response = ShowSuggestions.GetSuggestions.Response(suggestions: suggestions, error: error)
             self.presenter?.presentSuggestions(response: response)
         }
+    }
+    
+    func getRecentSuggestions(request: ShowSuggestions.GetRecentSuggestions.Request){
+        searchWorker.getRecentSuggestions(storeTypeID: storeTypeID, limit: request.limit) { (suggestions: [SuggestionModel], error: String?) in
+            let response = ShowSuggestions.GetRecentSuggestions.Response(suggestions: suggestions, error: error)
+            self.presenter?.presentRecentSuggestions(response: response)
+        }
+    }
+}
+
+extension ShowSuggestionsInteractor {
+    func suggestionSelected(suggestion: SuggestionModel){
+        var type: String = ""
+        
+        if suggestion.type == .product {
+            type = "products"
+        } else if suggestion.type == .childCategory {
+            type = "child_categories"
+        } else {
+            type = "parent_categories"
+        }
+        
+        productQueryModel = ProductQueryModel(query: suggestion.name, type: type)
+        
+        searchWorker.suggestionSelected(suggestion: suggestion)
     }
 }
