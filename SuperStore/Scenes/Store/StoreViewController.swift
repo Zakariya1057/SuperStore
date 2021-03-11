@@ -123,7 +123,7 @@ class StoreViewController: UIViewController, StoreDisplayLogic
         }
     }
     
-    private func displayOpeningHours(openingHours: [Store.GetStore.ViewModel.DisplayOpeningHour]){
+    private func displayOpeningHours(openingHours: [Store.DisplayOpeningHour]){
         for (index, opening) in openingHours.enumerated() {
             // Set Hours
             let hourLabel: UILabel = openingHoursTimeLabels[index]
@@ -145,23 +145,24 @@ class StoreViewController: UIViewController, StoreDisplayLogic
         }
     }
     
-    private func displayFacilities(facilities: Store.GetStore.ViewModel.DisplayFacilites){
+    private func displayFacilities(facilities:Store.DisplayFacilites?){
         let facilitySettings: [UIView: Bool] = [
-            carParkView: facilities.carPark,
-            atmView: facilities.ATM,
-            babyChangingView: facilities.babyChanging,
-            customerWCView: facilities.customerWC,
-            heliumBalloonsView: facilities.heliumBaloons,
-            disabledView: facilities.disabledAccess,
-            chargingView: facilities.electricVehicleChargingPoint,
-            paypointView: facilities.paypoint,
-            petrolFillingStationView: facilities.petrolFillingStation
-            
+            carParkView: facilities?.carPark ?? false,
+            atmView: facilities?.ATM ?? false,
+            babyChangingView: facilities?.babyChanging ?? false,
+            customerWCView: facilities?.customerWC ?? false,
+            heliumBalloonsView: facilities?.heliumBaloons ?? false,
+            disabledView: facilities?.disabledAccess ?? false,
+            chargingView: facilities?.electricVehicleChargingPoint ?? false,
+            paypointView: facilities?.paypoint ?? false,
+            petrolFillingStationView: facilities?.petrolFillingStation ?? false
         ]
         
         for (facilityView, facilityEnabled) in facilitySettings {
             if !facilityEnabled {
-                facilityView.removeFromSuperview()
+                facilityView.isHidden = true
+            } else {
+                facilityView.isHidden = false
             }
         }
     }

@@ -391,6 +391,8 @@
 		2CBFFBD825F7D14800F27917 /* BackToShowListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFFBD725F7D14800F27917 /* BackToShowListRouter.swift */; };
 		2CC0ADDC25F9243500373AC4 /* ReviewRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADDB25F9243500373AC4 /* ReviewRealmStore.swift */; };
 		2CC0ADE025F969BD00373AC4 /* PromotionRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADDF25F969BD00373AC4 /* PromotionRealmStore.swift */; };
+		2CC0ADE525FA1D6500373AC4 /* StoreRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADE425FA1D6500373AC4 /* StoreRealmStore.swift */; };
+		2CC0ADEB25FA1E2D00373AC4 /* StoreObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADEA25FA1E2D00373AC4 /* StoreObject.swift */; };
 		2CC1EA1B24FA9550000A9BC4 /* GroceryProductsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1A24FA9550000A9BC4 /* GroceryProductsData.swift */; };
 		2CC1EA1D24FAC003000A9BC4 /* ProductDetailsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1C24FAC003000A9BC4 /* ProductDetailsHandler.swift */; };
 		2CC1EA1F24FAC0EB000A9BC4 /* 1ProductData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1EA1E24FAC0EB000A9BC4 /* 1ProductData.swift */; };
@@ -841,6 +843,8 @@
 		2CBFFBD725F7D14800F27917 /* BackToShowListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackToShowListRouter.swift; sourceTree = "<group>"; };
 		2CC0ADDB25F9243500373AC4 /* ReviewRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRealmStore.swift; sourceTree = "<group>"; };
 		2CC0ADDF25F969BD00373AC4 /* PromotionRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionRealmStore.swift; sourceTree = "<group>"; };
+		2CC0ADE425FA1D6500373AC4 /* StoreRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRealmStore.swift; sourceTree = "<group>"; };
+		2CC0ADEA25FA1E2D00373AC4 /* StoreObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObject.swift; sourceTree = "<group>"; };
 		2CC1EA1A24FA9550000A9BC4 /* GroceryProductsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryProductsData.swift; sourceTree = "<group>"; };
 		2CC1EA1C24FAC003000A9BC4 /* ProductDetailsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsHandler.swift; sourceTree = "<group>"; };
 		2CC1EA1E24FAC0EB000A9BC4 /* 1ProductData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1ProductData.swift; sourceTree = "<group>"; };
@@ -963,6 +967,7 @@
 				2C5C986A25F69B9200DF8B6D /* ProductObject.swift */,
 				2C5C988625F6B14000DF8B6D /* ReviewObject.swift */,
 				2C5C986E25F69BB200DF8B6D /* SearchObject.swift */,
+				2CC0ADEA25FA1E2D00373AC4 /* StoreObject.swift */,
 				2C5C987C25F6AA4000DF8B6D /* PromotionObject.swift */,
 				2C5C987225F69BC200DF8B6D /* ListObject.swift */,
 				2C5C987625F69BD300DF8B6D /* ListItemObject.swift */,
@@ -1361,6 +1366,7 @@
 		2C48E7B325EA9CD7001A5702 /* DataStore */ = {
 			isa = PBXGroup;
 			children = (
+				2CC0ADE325FA1D4F00373AC4 /* Store */,
 				2C5C985B25F69AE400DF8B6D /* Product */,
 				2C5C986525F69B0C00DF8B6D /* Grocery */,
 				2C5C985225F69A9E00DF8B6D /* Search */,
@@ -1971,6 +1977,14 @@
 				2CBFFBD725F7D14800F27917 /* BackToShowListRouter.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		2CC0ADE325FA1D4F00373AC4 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				2CC0ADE425FA1D6500373AC4 /* StoreRealmStore.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 		2CDA614625EE38E100FD3956 /* Search */ = {
@@ -2614,6 +2628,7 @@
 				2C7294C425ECF19C00D280B3 /* FavouritesPresenter.swift in Sources */,
 				2C72945A25EBE79C00D280B3 /* PromotionWorker.swift in Sources */,
 				2CF239BD2509549100D4CE91 /* ListItemsData.swift in Sources */,
+				2CC0ADE525FA1D6500373AC4 /* StoreRealmStore.swift in Sources */,
 				2C55FA1025EE4BF9007BBFA8 /* ShowProductResultsModels.swift in Sources */,
 				2CB15C7624D190E500461AFE /* StoreResultCell.swift in Sources */,
 				2C2BC81325EBBF180038882B /* EditReviewInteractor.swift in Sources */,
@@ -2630,6 +2645,7 @@
 				2CA11EEC25EE84620054AE19 /* ShowRefineRouter.swift in Sources */,
 				2C14299925F2C282007D1EB7 /* EditListItemRouter.swift in Sources */,
 				2CAB6A3E251F958500774B89 /* 1UserData.swift in Sources */,
+				2CC0ADEB25FA1E2D00373AC4 /* StoreObject.swift in Sources */,
 				2C5B5C6C24D084FD0095C920 /* SearchResultsViewController.swift in Sources */,
 				2C7082AC25F013B200345147 /* EditEmailRouter.swift in Sources */,
 				2C55FA2425EE4C7C007BBFA8 /* ShowStoreResultsRouter.swift in Sources */,

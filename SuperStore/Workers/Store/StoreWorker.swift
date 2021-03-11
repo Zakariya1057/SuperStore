@@ -11,21 +11,53 @@ import Foundation
 class StoreWorker
 {
     var storeAPI: StoreRequestProtocol
+    var storeStore: StoreDataProtocol
     
     init(storeAPI: StoreRequestProtocol) {
         self.storeAPI = storeAPI
+        self.storeStore = StoreRealmStore()
     }
     
     func getStores(storeTypeID: Int, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void){
-        storeAPI.getStores(storeTypeID: storeTypeID, completionHandler: completionHandler)
+        
+        let stores = storeStore.getStores(storeTypeID: storeTypeID)
+        if stores.count > 0 {
+            completionHandler(stores, nil)
+        }
+        
+        storeAPI.getStores(storeTypeID: storeTypeID) { (stores: [StoreModel], error: String?) in
+            if stores.count > 0 {
+                self.storeStore.createStores(stores: stores)
+            }
+            
+            completionHandler(stores, error)
+        }
     }
     
     func getStore(storeID: Int, completionHandler: @escaping (_ store: StoreModel?, _ error: String?) -> Void){
-        storeAPI.getStore(storeID: storeID, completionHandler: completionHandler)
+        
+        if let store = storeStore.getStore(storeID: storeID){
+            completionHandler(store, nil)
+        }
+        
+        storeAPI.getStore(storeID: storeID) { (store: StoreModel?, error: String?) in
+            if let store = store {
+                self.storeStore.createStore(store: store)
+            }
+            
+            completionHandler(store, error)
+        }
     }
 }
 
 protocol StoreRequestProtocol {
     func getStore(storeID: Int, completionHandler: @escaping (_ product: StoreModel?, _ error: String?) -> Void)
     func getStores(storeTypeID: Int, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void)
+}
+
+protocol StoreDataProtocol {
+    func createStore(store: StoreModel)
+    func createStores(stores: [StoreModel])
+    func getStore(storeID: Int) -> StoreModel?
+    func getStores(storeTypeID: Int) -> [StoreModel]
 }

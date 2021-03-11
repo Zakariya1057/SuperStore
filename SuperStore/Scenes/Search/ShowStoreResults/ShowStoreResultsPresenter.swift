@@ -27,11 +27,25 @@ class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
     {
         var displayedStores: [ShowStoreResults.DisplayedStore] = []
         
+        let dayOfWeek: Int = getDayOfWeek()
+        
         for store in response.stores {
             var openingHour: String = "Closed"
             
-            if let storeHour = store.openingHours.first, storeHour.opensAt != nil {
-                openingHour = "\(storeHour.opensAt!.lowercased()) - \(storeHour.closesAt!.lowercased())"
+            // If single hour given for API loaded results, show first. If all given from locally. Then choose for the given day
+            if store.openingHours.count == 1 {
+                if let storeHour = store.openingHours.first, storeHour.opensAt != nil {
+                    openingHour = "\(storeHour.opensAt!.lowercased()) - \(storeHour.closesAt!.lowercased())"
+                }
+            } else if store.openingHours.count > 1 {
+            
+                let storeHour = store.openingHours.first { (hour: OpeningHourModel) -> Bool in
+                    hour.dayOfWeek == dayOfWeek
+                }
+                
+                if let storeHour = storeHour {
+                    openingHour = "\(storeHour.opensAt!.lowercased()) - \(storeHour.closesAt!.lowercased())"
+                }
             }
             
             displayedStores.append(
@@ -47,5 +61,16 @@ class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
         
         let viewModel = ShowStoreResults.GetStores.ViewModel(displayedStore: displayedStores, stores: response.stores, error: response.error)
         viewController?.displayStores(viewModel: viewModel)
+    }
+}
+
+extension ShowStoreResultsPresenter {
+    private func getDayOfWeek() -> Int {
+        var dayOfWeek = Calendar.current.component(.weekday, from: Date()) - 2
+        if dayOfWeek == -1 {
+            dayOfWeek = 6
+        }
+        
+        return dayOfWeek
     }
 }

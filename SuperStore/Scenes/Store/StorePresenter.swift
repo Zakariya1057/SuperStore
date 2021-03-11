@@ -26,13 +26,13 @@ class StorePresenter: StorePresentationLogic
     func presentStore(response: Store.GetStore.Response)
     {
         
-        var displayedStore: Store.GetStore.ViewModel.DisplayedStore?
+        var displayedStore: Store.DisplayedStore?
         
         if let store = response.store {
             let openingHours = createOpeningHours(openingHour: store.openingHours)
             let facilities = createFacilites(facilites: store.facilities)
             
-            displayedStore = Store.GetStore.ViewModel.DisplayedStore(
+            displayedStore = Store.DisplayedStore(
                 name: store.name,
                 logo: store.logo,
                 address: store.address,
@@ -47,49 +47,54 @@ class StorePresenter: StorePresentationLogic
 }
 
 extension StorePresenter {
-    private func createFacilites(facilites: [String]) -> Store.GetStore.ViewModel.DisplayFacilites {
-        let displayFacilities = Store.GetStore.ViewModel.DisplayFacilites()
+    private func createFacilites(facilites: [String]) -> Store.DisplayFacilites? {
         
-        for facility in facilites {
-            switch facility.lowercased() {
-            
-            case "baby changing":
-                displayFacilities.babyChanging = true
-                break
-            case "car park":
-                displayFacilities.carPark = true
-                break
-            case "cash machine":
-                displayFacilities.ATM = true
-                break
-            case "customer wc":
-                displayFacilities.customerWC = true
-                break
-            case "disabled facilities":
-                displayFacilities.disabledAccess = true
-                break
-            case "helium balloons":
-                displayFacilities.heliumBaloons = true
-                break
-            case "paypoint":
-                displayFacilities.paypoint = true
-                break
-            case "petrol filling station":
-                displayFacilities.petrolFillingStation = true
-                break
-            case "photo cake machines":
-                displayFacilities.photoCakeMachines = true
-                break
-            default:
-                break
+        let displayFacilities: Store.DisplayFacilites = Store.DisplayFacilites()
+        
+        if facilites.count == 0 {
+            return nil
+        } else {
+            for facility in facilites {
+                switch facility.lowercased() {
+                
+                case "baby changing":
+                    displayFacilities.babyChanging = true
+                    break
+                case "car park":
+                    displayFacilities.carPark = true
+                    break
+                case "cash machine":
+                    displayFacilities.ATM = true
+                    break
+                case "customer wc":
+                    displayFacilities.customerWC = true
+                    break
+                case "disabled facilities":
+                    displayFacilities.disabledAccess = true
+                    break
+                case "helium balloons":
+                    displayFacilities.heliumBaloons = true
+                    break
+                case "paypoint":
+                    displayFacilities.paypoint = true
+                    break
+                case "petrol filling station":
+                    displayFacilities.petrolFillingStation = true
+                    break
+                case "photo cake machines":
+                    displayFacilities.photoCakeMachines = true
+                    break
+                default:
+                    break
+                }
             }
         }
         
         return displayFacilities
     }
     
-    private func createOpeningHours(openingHour: [OpeningHoursModel]) -> [Store.GetStore.ViewModel.DisplayOpeningHour]{
-        var displayOpeningHours: [Store.GetStore.ViewModel.DisplayOpeningHour] = []
+    private func createOpeningHours(openingHour: [OpeningHourModel]) -> [Store.DisplayOpeningHour]{
+        var displayOpeningHours: [Store.DisplayOpeningHour] = []
         
         let dayOfWeek = getDayOfWeek()
         
@@ -102,7 +107,7 @@ extension StorePresenter {
             
             let today = dayOfWeek == hour.dayOfWeek
             
-            let displayOpeningHour = Store.GetStore.ViewModel.DisplayOpeningHour(today: today, hours: openTimes, closedToday: hour.closedToday)
+            let displayOpeningHour = Store.DisplayOpeningHour(today: today, hours: openTimes, closedToday: hour.closedToday)
             displayOpeningHours.append(displayOpeningHour)
         }
         

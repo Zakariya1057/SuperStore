@@ -54,8 +54,8 @@ struct OpeningHoursData: Decodable {
     let closed_today:Bool?
     let day_of_week:Int
     
-    func getOpeningHourModel(storeID: Int) -> OpeningHoursModel {
-        return OpeningHoursModel(
+    func getOpeningHourModel(storeID: Int) -> OpeningHourModel {
+        return OpeningHourModel(
             storeID: storeID,
             opensAt: opens_at,
             closesAt: closes_at,

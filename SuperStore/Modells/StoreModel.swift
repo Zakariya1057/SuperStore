@@ -13,13 +13,13 @@ struct StoreModel {
     var name: String
     var logo: String
     var address: String
-    var openingHours: [OpeningHoursModel]
+    var openingHours: [OpeningHourModel]
     var location: LocationModel
     var facilities: [String]
     var storeTypeID: Int
 }
 
-struct OpeningHoursModel {
+struct OpeningHourModel {
     let storeID: Int
 
     let opensAt:String?
