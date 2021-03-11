@@ -44,7 +44,7 @@ class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDa
 
     func getCategories(request: ChildCategories.GetCategories.Request)
     {
-        groceryWorker.getChildCategories(storeTypeID: storeTypeID, parentCategoryID: parentCategoryID) { (categories: [ChildCategoryModel], error: String?) in
+        groceryWorker.getChildCategories(parentCategoryID: parentCategoryID) { (categories: [ChildCategoryModel], error: String?) in
             let response = ChildCategories.GetCategories.Response(categories: categories, error: error)
             self.presenter?.presentCategories(response: response)
         }

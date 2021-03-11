@@ -48,7 +48,7 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
             }
             
             savedHome.categories.removeAll()
-            let savedCagegories = home.categories.map({ categoryStore.createCategoryObject(category: $0, storeTypeID: storeTypeID, parentCategoryID: 1)})
+            let savedCagegories = home.categories.map({ categoryStore.createCategoryObject(category: $0) })
             
             for savedCategory in savedCagegories {
                 savedHome.categories.append(savedCategory)

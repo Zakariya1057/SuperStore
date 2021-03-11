@@ -13,15 +13,15 @@ class GroceryRealmStore: DataStore, GroceryStoreProtocol {
 
     var productStore: ProductRealmStore = ProductRealmStore()
 
-    func createCategories(categories: [GrandParentCategoryModel], storeTypeID: Int) {
+    func createCategories(categories: [GrandParentCategoryModel]) {
         for category in categories {
-            createCategory(category: category, storeTypeID: storeTypeID)
+            createCategory(category: category)
         }
     }
     
-    func createCategories(categories: [ChildCategoryModel], storeTypeID: Int, parentCategoryID: Int) {
+    func createCategories(categories: [ChildCategoryModel]) {
         for category in categories {
-            createCategory(category: category, storeTypeID: storeTypeID, parentCategoryID: parentCategoryID)
+            createCategory(category: category)
         }
     }
     
@@ -73,34 +73,34 @@ extension GroceryRealmStore {
 }
 
 extension GroceryRealmStore {
-    func createCategory(category: GrandParentCategoryModel, storeTypeID: Int){
+    func createCategory(category: GrandParentCategoryModel){
         if let savedCategory = getCategoryObject(category: category) {
             updateGrandParentCategory(category: category, savedCategory: savedCategory)
         } else {
             try? realm?.write({
-                let savedCategory = createCategoryObject(category: category, storeTypeID: storeTypeID)
+                let savedCategory = createCategoryObject(category: category)
                 realm?.add(savedCategory)
             })
         }
     }
     
-    func createCategory(category: ParentCategoryModel, storeTypeID: Int){
+    func createCategory(category: ParentCategoryModel){
         if let savedCategory = getCategoryObject(category: category) {
             updateParentCategory(category: category, savedCategory: savedCategory)
         } else {
             try? realm?.write({
-                let savedCategory = createCategoryObject(category: category, storeTypeID: storeTypeID)
+                let savedCategory = createCategoryObject(category: category)
                 realm?.add(savedCategory)
             })
         }
     }
     
-    func createCategory(category: ChildCategoryModel, storeTypeID: Int, parentCategoryID: Int){
+    func createCategory(category: ChildCategoryModel){
         if let savedCategory = getCategoryObject(category: category) {
             updateChildCategory(category: category, savedCategory: savedCategory)
         } else {
             try? realm?.write({
-                let savedCategory = createCategoryObject(category: category, storeTypeID: storeTypeID, parentCategoryID: parentCategoryID)
+                let savedCategory = createCategoryObject(category: category)
                 realm?.add(savedCategory)
             })
         }
@@ -108,7 +108,7 @@ extension GroceryRealmStore {
 }
 
 extension GroceryRealmStore {
-    func createCategoryObject(category: ChildCategoryModel, storeTypeID: Int, parentCategoryID: Int) -> ChildCategoryObject {
+    func createCategoryObject(category: ChildCategoryModel) -> ChildCategoryObject {
         
         if let savedCategory = getCategoryObject(category: category){
             return savedCategory
@@ -118,8 +118,8 @@ extension GroceryRealmStore {
         
         savedCategory.id = category.id
         savedCategory.name = category.name
-        savedCategory.storeTypeID = storeTypeID
-        savedCategory.parentCategoryID = parentCategoryID
+        savedCategory.storeTypeID = category.storeTypeID
+        savedCategory.parentCategoryID = category.parentCategoryID
 
         for product in category.products {
             let savedProduct = productStore.createProductObject(product: product)
@@ -129,7 +129,7 @@ extension GroceryRealmStore {
         return savedCategory
     }
     
-    func createCategoryObject(category: ParentCategoryModel, storeTypeID: Int) -> ParentCategoryObject {
+    func createCategoryObject(category: ParentCategoryModel) -> ParentCategoryObject {
         
         if let savedCategory = getCategoryObject(category: category){
             return savedCategory
@@ -139,17 +139,17 @@ extension GroceryRealmStore {
         
         savedCategory.id = category.id
         savedCategory.name = category.name
-        savedCategory.storeTypeID = storeTypeID
+        savedCategory.storeTypeID = category.storeTypeID
         
         for categoryItem in category.childCategories {
-            let savedChildCategory = createCategoryObject(category: categoryItem, storeTypeID: storeTypeID, parentCategoryID: category.id)
+            let savedChildCategory = createCategoryObject(category: categoryItem)
             savedCategory.childCategories.append(savedChildCategory)
         }
         
         return savedCategory
     }
     
-    func createCategoryObject(category: GrandParentCategoryModel, storeTypeID: Int) -> GrandParentCategoryObject {
+    func createCategoryObject(category: GrandParentCategoryModel) -> GrandParentCategoryObject {
         
         if let savedCategory = getCategoryObject(category: category){
             return savedCategory
@@ -159,10 +159,10 @@ extension GroceryRealmStore {
         
         savedCategory.id = category.id
         savedCategory.name = category.name
-        savedCategory.storeTypeID = storeTypeID
+        savedCategory.storeTypeID = category.storeTypeID
         
         for category in category.parentCategories {
-            let savedChildCategory = createCategoryObject(category: category, storeTypeID: storeTypeID)
+            let savedChildCategory = createCategoryObject(category: category)
             savedCategory.parentCategories.append(savedChildCategory)
         }
         
@@ -174,12 +174,11 @@ extension GroceryRealmStore {
     func updateGrandParentCategory(category: GrandParentCategoryModel, savedCategory: GrandParentCategoryObject){
         try? realm?.write({
             savedCategory.name = category.name
-            let storeTypeID: Int = savedCategory.storeTypeID
             
             savedCategory.parentCategories.removeAll()
             
             for category in category.parentCategories {
-                savedCategory.parentCategories.append( createCategoryObject(category: category, storeTypeID: storeTypeID) )
+                savedCategory.parentCategories.append( createCategoryObject(category: category) )
             }
         })
     }
@@ -187,12 +186,11 @@ extension GroceryRealmStore {
     func updateParentCategory(category: ParentCategoryModel, savedCategory: ParentCategoryObject){
         try? realm?.write({
             savedCategory.name = category.name
-            let storeTypeID: Int = savedCategory.storeTypeID
             
             savedCategory.childCategories.removeAll()
             
             for categoryItem in category.childCategories {
-                savedCategory.childCategories.append( createCategoryObject(category: categoryItem, storeTypeID: storeTypeID, parentCategoryID: category.id) )
+                savedCategory.childCategories.append( createCategoryObject(category: categoryItem) )
             }
         })
     }

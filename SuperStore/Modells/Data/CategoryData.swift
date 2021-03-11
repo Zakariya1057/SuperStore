@@ -19,20 +19,38 @@ struct ChildCategoriesDataResponse: Decodable {
 struct GrandParentCategoryData:Decodable {
     var id: Int
     var name: String
+    
+    var store_type_id: Int
+    
     var parent_categories: [ParentCategoryData]
     
     func getParentCategoryModel() -> GrandParentCategoryModel {
-        return GrandParentCategoryModel(id: id, name: name, parentCategories: parent_categories.map { $0.getParentCategoryModel() })
+        return GrandParentCategoryModel(
+            id: id,
+            name: name,
+            storeTypeID: store_type_id,
+            parentCategories: parent_categories.map { $0.getParentCategoryModel() }
+        )
     }
 }
 
 struct ParentCategoryData:Decodable {
     var id: Int
     var name: String
+    var parent_category_id: Int
+    
+    var store_type_id: Int
+    
     var child_categories: [ChildCategoryData]?
     
     func getParentCategoryModel() -> ParentCategoryModel {
-        return ParentCategoryModel(id: id, name: name, childCategories: (child_categories ?? []).map { $0.getChildCategoryModel() })
+        return ParentCategoryModel(
+            id: id,
+            name: name,
+            grandParentCategoryID: parent_category_id,
+            storeTypeID: store_type_id,
+            childCategories: (child_categories ?? []).map { $0.getChildCategoryModel() }
+        )
     }
 }
 
@@ -40,6 +58,9 @@ struct ChildCategoryData:Decodable {
     var id: Int
     var name: String
     var parent_category_id: Int
+    
+    var store_type_id: Int
+    
     var products: [ProductData]
     
     func getChildCategoryModel() -> ChildCategoryModel {
@@ -47,6 +68,7 @@ struct ChildCategoryData:Decodable {
             id: id,
             name: name,
             parentCategoryID: parent_category_id,
+            storeTypeID: store_type_id,
             products: products.map{ $0.getProductModel() }
         )
     }

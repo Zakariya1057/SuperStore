@@ -61,6 +61,7 @@ extension HomeAPI {
                 id: category.id,
                 name: category.name,
                 parentCategoryID: category.parent_category_id,
+                storeTypeID: category.store_type_id,
                 products: category.products.map{ $0.getProductModel() }
             )
             

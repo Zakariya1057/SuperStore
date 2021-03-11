@@ -20,6 +20,7 @@ class GrandParentCategoryObject: Object {
         return GrandParentCategoryModel(
             id: id,
             name: name,
+            storeTypeID: storeTypeID,
             parentCategories: parentCategories.map{ $0.getParentCategoryModel() })
     }
 }
@@ -37,6 +38,8 @@ class ParentCategoryObject: Object {
         return ParentCategoryModel(
             id: id,
             name: name,
+            grandParentCategoryID: grandParentCategoryID,
+            storeTypeID: storeTypeID,
             childCategories: childCategories.map{ $0.getChildCategoryModel() }
         )
     }
@@ -56,6 +59,7 @@ class ChildCategoryObject: Object {
             id: id,
             name: name,
             parentCategoryID: parentCategoryID,
+            storeTypeID: storeTypeID,
             products: products.map{ $0.getProductModel() }
         )
     }

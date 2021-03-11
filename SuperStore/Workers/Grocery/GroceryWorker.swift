@@ -26,14 +26,14 @@ class GroceryWorker {
         
         groceryAPI.getGrandParentCategories(storeTypeID: storeTypeID) { (categories: [GrandParentCategoryModel], error: String?) in
             if error == nil {
-                self.groceryStore.createCategories(categories: categories, storeTypeID: storeTypeID)
+                self.groceryStore.createCategories(categories: categories)
             }
             
             completionHandler(categories, error)
         }
     }
     
-    func getChildCategories(storeTypeID: Int, parentCategoryID: Int, completionHandler: @escaping (_ categories: [ChildCategoryModel], _ error: String?) -> Void){
+    func getChildCategories(parentCategoryID: Int, completionHandler: @escaping (_ categories: [ChildCategoryModel], _ error: String?) -> Void){
         
         let categories = groceryStore.getChildCategories(parentCategoryID: parentCategoryID)
         if categories.count > 0 {
@@ -42,7 +42,7 @@ class GroceryWorker {
         
         groceryAPI.getChildCategories(parentCategoryID: parentCategoryID) { (categories: [ChildCategoryModel], error: String?) in
             if error == nil {
-                self.groceryStore.createCategories(categories: categories, storeTypeID: storeTypeID, parentCategoryID: parentCategoryID)
+                self.groceryStore.createCategories(categories: categories)
             }
             
             completionHandler(categories, error)
@@ -56,13 +56,13 @@ protocol GroceryRequestProtocol {
 }
 
 protocol GroceryStoreProtocol {
-    func createCategories(categories: [GrandParentCategoryModel], storeTypeID: Int)
-    func createCategories(categories: [ChildCategoryModel], storeTypeID: Int, parentCategoryID: Int)
+    func createCategories(categories: [GrandParentCategoryModel])
+    func createCategories(categories: [ChildCategoryModel])
     
     func getGrandParentCategories(storeTypeID: Int) -> [GrandParentCategoryModel]
     func getChildCategories(parentCategoryID: Int) -> [ChildCategoryModel]
     
-    func createCategoryObject(category: ChildCategoryModel, storeTypeID: Int, parentCategoryID: Int) -> ChildCategoryObject
-    func createCategoryObject(category: ParentCategoryModel, storeTypeID: Int) -> ParentCategoryObject
-    func createCategoryObject(category: GrandParentCategoryModel, storeTypeID: Int) -> GrandParentCategoryObject
+    func createCategoryObject(category: ChildCategoryModel) -> ChildCategoryObject
+    func createCategoryObject(category: ParentCategoryModel) -> ParentCategoryObject
+    func createCategoryObject(category: GrandParentCategoryModel) -> GrandParentCategoryObject
 }
