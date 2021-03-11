@@ -10,21 +10,49 @@ import Foundation
 
 class ProductWorker {
     var productAPI: ProductRequestProtocol
+    var productStore: ProductStoreProtocol
     
     init(productAPI: ProductRequestProtocol) {
         self.productAPI = productAPI
+        self.productStore = ProductRealmStore()
     }
     
     func getProduct(productID: Int, completionHandler: @escaping (_ product: ProductModel?, _ error: String?) -> Void){
-        productAPI.getProduct(productID: productID, completionHandler: completionHandler)
+        
+        if let product = productStore.getProduct(productID: productID){
+            completionHandler(product, nil)
+        }
+        
+        productAPI.getProduct(productID: productID) { (product: ProductModel?, error: String?) in
+            if let product = product {
+                self.productStore.createProduct(product: product)
+            }
+            
+            completionHandler(product, error)
+        }
     }
     
     func updateMonitor(productID: Int, monitor: Bool, completionHandler: @escaping (String?) -> Void){
-        productAPI.updateMonitor(productID: productID, monitor: monitor, completionHandler: completionHandler)
+        productAPI.updateMonitor(productID: productID, monitor: monitor) { (error: String?) in
+            if error == nil {
+                self.productStore.updateProductMonitor(productID: productID, monitor: monitor)
+            }
+            
+            completionHandler(error)
+        }
     }
 }
 
 protocol ProductRequestProtocol {
     func getProduct(productID: Int, completionHandler: @escaping (_ product: ProductModel?, _ error: String?) -> Void)
     func updateMonitor(productID: Int, monitor: Bool, completionHandler: @escaping (String?) -> Void)
+}
+
+protocol ProductStoreProtocol {
+    func getProduct(productID: Int) -> ProductModel?
+    func createProduct(product: ProductModel)
+    func createProducts(products: [ProductModel])
+    
+    func updateProductFavourite(productID: Int, favourite: Bool)
+    func updateProductMonitor(productID: Int, monitor: Bool)
 }

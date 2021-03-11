@@ -77,15 +77,10 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        getProduct()
         registerReviewsTableView()
         setupGestureRecognizer()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        getProduct()
-    }
-    
     
     // MARK: IB Outlets
     
@@ -176,6 +171,8 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 
                 if let review = displayedProduct.review {
                     reviews.append(review)
+                    reviewsStackView.isHidden = false
+                    allReviewsButton.isHidden = false
                     reviewsTableView.reloadData()
                 } else {
                     reviewsStackView.isHidden = true
@@ -187,14 +184,12 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 
                 allReviewsButton.setTitle("All Reviews (\(displayedProduct.totalReviewsCount))", for: .normal)
                 
-                if displayedProduct.ingredients.count == 0 {
-                    ingredientsView.isHidden = true
-                }
+                ingredientsView.isHidden = displayedProduct.ingredients.count == 0
+
+                promotionView.isHidden = displayedProduct.promotion == nil
                 
                 if let promotion = displayedProduct.promotion {
                     promotionLabel.text = promotion.name
-                } else {
-                    promotionView.isHidden = true
                 }
                 
                 displayAllergen(product: displayedProduct)

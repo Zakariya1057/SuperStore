@@ -10,17 +10,31 @@ import Foundation
 
 class FavouriteWorker {
     var favouriteAPI: FavouriteRequestProtocol
+    var productStore: ProductStoreProtocol
     
     init(favouriteAPI: FavouriteRequestProtocol) {
         self.favouriteAPI = favouriteAPI
+        self.productStore = ProductRealmStore()
     }
     
     func updateFavourite(productID: Int, favourite: Bool, completionHandler: @escaping (_ error: String?) -> Void){
-        favouriteAPI.updateFavourite(productID: productID, favourite: favourite, completionHandler: completionHandler)
+        favouriteAPI.updateFavourite(productID: productID, favourite: favourite) { (error: String?) in
+            if error == nil {
+                self.productStore.updateProductFavourite(productID: productID, favourite: favourite)
+            }
+            
+            completionHandler(error)
+        }
     }
     
     func getFavourites(completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void){
-        favouriteAPI.getFavourites(completionHandler: completionHandler)
+        favouriteAPI.getFavourites { (products: [ProductModel], error: String?) in
+            if error == nil {
+                self.productStore.createProducts(products: products)
+            }
+            
+            completionHandler(products, error)
+        }
     }
     
     func deleteFavourite(productID: Int, completionHandler: @escaping (_ error: String?) -> Void){

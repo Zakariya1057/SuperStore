@@ -42,23 +42,12 @@ class ReviewRealmStore: DataStore, ReviewSaveProtocol {
     func createReview(review: ReviewModel){
         
         if let savedReview = getReviewObject(reviewID: review.id) {
-            print("Review found. Updating")
             updateSavedReview(review: review, savedReview: savedReview)
             return
         }
         
         try? realm?.write({
-            let savedReview = ReviewObject()
-            
-            savedReview.id = review.id
-            savedReview.userID = review.userID
-            savedReview.name = review.name
-            savedReview.productID = review.productID
-            
-            savedReview.rating = review.rating
-            savedReview.title = review.title
-            savedReview.text = review.text
-            
+            let savedReview = createReviewObject(review: review)
             realm?.add(savedReview)
         })
     }
@@ -83,6 +72,21 @@ class ReviewRealmStore: DataStore, ReviewSaveProtocol {
 }
 
 extension ReviewRealmStore {
+    func createReviewObject(review: ReviewModel) -> ReviewObject {
+        let savedReview = ReviewObject()
+        
+        savedReview.id = review.id
+        savedReview.userID = review.userID
+        savedReview.name = review.name
+        savedReview.productID = review.productID
+        
+        savedReview.rating = review.rating
+        savedReview.title = review.title
+        savedReview.text = review.text
+        
+        return savedReview
+    }
+    
     func updateSavedReview(review: ReviewModel, savedReview: ReviewObject){
         try? realm?.write({
             savedReview.id = review.id
