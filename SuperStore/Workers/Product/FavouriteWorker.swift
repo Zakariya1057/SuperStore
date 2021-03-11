@@ -36,6 +36,7 @@ class FavouriteWorker {
         
         favouriteAPI.getFavourites { (products: [ProductModel], error: String?) in
             if error == nil {
+                self.productStore.clearFavourites()
                 self.productStore.createProducts(products: products)
             }
             

@@ -57,4 +57,5 @@ protocol ProductStoreProtocol {
     
     func updateProductFavourite(productID: Int, favourite: Bool)
     func updateProductMonitor(productID: Int, monitor: Bool)
+    func clearFavourites()
 }

@@ -62,6 +62,17 @@ extension ProductRealmStore {
 }
 
 extension ProductRealmStore {
+    func clearFavourites(){
+        let savedFavourites = realm?.objects(ProductObject.self).filter("favourite = %@", true)
+        
+        try? realm?.write({
+            if let savedFavourites = savedFavourites {
+                for product in savedFavourites {
+                    product.favourite = false
+                }
+            }
+        })
+    }
     func updateProductFavourite(productID: Int, favourite: Bool) {
         if let savedProduct = getProductObject(productID: productID) {
             try? realm?.write({
