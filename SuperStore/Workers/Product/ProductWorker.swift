@@ -50,6 +50,8 @@ protocol ProductRequestProtocol {
 
 protocol ProductStoreProtocol {
     func getProduct(productID: Int) -> ProductModel?
+    func getFavouriteProducts() -> [ProductModel]
+    
     func createProduct(product: ProductModel)
     func createProducts(products: [ProductModel])
     

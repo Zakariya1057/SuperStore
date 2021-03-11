@@ -28,6 +28,12 @@ class FavouriteWorker {
     }
     
     func getFavourites(completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void){
+        
+        let favourites = productStore.getFavouriteProducts()
+        if favourites.count > 0 {
+            completionHandler(favourites, nil)
+        }
+        
         favouriteAPI.getFavourites { (products: [ProductModel], error: String?) in
             if error == nil {
                 self.productStore.createProducts(products: products)
@@ -38,7 +44,13 @@ class FavouriteWorker {
     }
     
     func deleteFavourite(productID: Int, completionHandler: @escaping (_ error: String?) -> Void){
-        favouriteAPI.deleteFavourite(productID: productID, completionHandler: completionHandler)
+        favouriteAPI.deleteFavourite(productID: productID) { (error: String?) in
+            if error == nil {
+                self.productStore.updateProductFavourite(productID: productID, favourite: false)
+            }
+            
+            completionHandler(error)
+        }
     }
     
 }

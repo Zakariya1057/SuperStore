@@ -14,7 +14,75 @@ class ProductRealmStore: DataStore, ProductStoreProtocol {
     private var reviewStore: ReviewRealmStore = ReviewRealmStore()
     private var promotionStore: PromotionRealmStore = PromotionRealmStore()
     
+    private func getProductObject(productID: Int) -> ProductObject? {
+        return realm?.objects(ProductObject.self).filter("id = %@", productID).first
+    }
+    
+    
+    func getProduct(productID: Int) -> ProductModel? {
+        return getProductObject(productID: productID)?.getProductModel()
+    }
+    
+    func createProducts(products: [ProductModel]){
+        for product in products {
+            createProduct(product: product)
+        }
+    }
+    
+    func createProduct(product: ProductModel) {
+        
+        if let savedProduct = getProductObject(productID: product.id) {
+            updateSavedProduct(product: product, savedProduct: savedProduct)
+            return
+        }
+        
+        try? realm?.write({
+            let savedProduct = createProductObject(product: product)
+            realm?.add(savedProduct)
+        })
+    }
+    
+    func updateProductMonitor(productID: Int, monitor: Bool) {
+        if let savedProduct = getProductObject(productID: productID) {
+            try? realm?.write({
+                savedProduct.monitoring = monitor
+            })
+        }
+    }
+    
+}
+
+extension ProductRealmStore {
+    func updateSavedProduct(product: ProductModel, savedProduct: ProductObject){
+        try? realm?.write({
+            realm?.delete(savedProduct)
+            realm?.add(createProductObject(product: product))
+        })
+    }
+}
+
+extension ProductRealmStore {
+    func updateProductFavourite(productID: Int, favourite: Bool) {
+        if let savedProduct = getProductObject(productID: productID) {
+            try? realm?.write({
+                savedProduct.favourite = favourite
+            })
+        }
+    }
+    
+    func getFavouriteProducts() -> [ProductModel] {
+        return realm?.objects(ProductObject.self).filter("favourite = %@", true).map{ $0.getProductModel() } ?? []
+    }
+}
+
+extension ProductRealmStore {
     func createProductObject(product: ProductModel) -> ProductObject {
+        
+        if let savedProduct = getProductObject(productID: product.id) {
+            print("Duplicate Found. Returning Instead")
+            return savedProduct
+        }
+        
         let savedProduct = ProductObject()
         
         savedProduct.id = product.id
@@ -70,56 +138,5 @@ class ProductRealmStore: DataStore, ProductStoreProtocol {
         savedProduct.ingredients = ingredients
         
         return savedProduct
-    }
-    
-    private func getProductObject(productID: Int) -> ProductObject? {
-        return realm?.objects(ProductObject.self).filter("id = %@", productID).first
-    }
-    
-    
-    func getProduct(productID: Int) -> ProductModel? {
-        return getProductObject(productID: productID)?.getProductModel()
-    }
-    
-    func createProducts(products: [ProductModel]){
-        for product in products {
-            createProduct(product: product)
-        }
-    }
-    
-    func createProduct(product: ProductModel) {
-        
-        if let savedProduct = getProductObject(productID: product.id) {
-            updateSavedProduct(product: product, savedProduct: savedProduct)
-            return
-        }
-        
-        try? realm?.write({
-            let savedProduct = createProductObject(product: product)
-            realm?.add(savedProduct)
-        })
-    }
-    
-    func updateProductFavourite(productID: Int, favourite: Bool) {
-        if let savedProduct = getProductObject(productID: productID) {
-            try? realm?.write({
-                savedProduct.favourite = favourite
-            })
-        }
-    }
-    
-    func updateProductMonitor(productID: Int, monitor: Bool) {
-        if let savedProduct = getProductObject(productID: productID) {
-            try? realm?.write({
-                savedProduct.monitoring = monitor
-            })
-        }
-    }
-    
-}
-
-extension ProductRealmStore {
-    func updateSavedProduct(product: ProductModel, savedProduct: ProductObject){
-        
     }
 }
