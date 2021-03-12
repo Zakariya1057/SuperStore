@@ -70,6 +70,7 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupListsTableView()
+        setupSearchDelegate()
         getLists()
     }
     
@@ -251,6 +252,35 @@ extension ShowListsViewController {
         }
     }
 }
+
+extension ShowListsViewController: UISearchBarDelegate {
+    
+    private func setupSearchDelegate(){
+        searchBar.delegate = self
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        listSearch()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        listSearch()
+    }
+    
+    func listSearch(){
+        let searchText = searchBar.text ?? ""
+        
+        if searchText.replacingOccurrences(of: " ", with: "") == "" {
+            // Show all Lists
+            getLists()
+        } else {
+            // Show filtered lists
+            let request = ShowLists.SearchList.Request(query: searchText)
+            interactor?.searchList(request: request)
+        }
+    }
+}
+
 
 extension ShowListsViewController: UserLoggedInProtocol {
     func loginButtonPressed(){

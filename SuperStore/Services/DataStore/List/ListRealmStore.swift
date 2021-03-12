@@ -88,6 +88,14 @@ class ListRealmStore: DataStore, ListStoreProtocol {
             }
         })
     }
+    
+    func searchLists(query: String) -> [ListModel] {
+        if let savedLists = realm?.objects(ListObject.self).filter("name contains[c] %@", query){
+            return savedLists.map{ $0.getListModel() }
+        }
+        
+        return []
+    }
 
 }
 

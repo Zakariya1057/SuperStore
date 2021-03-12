@@ -59,6 +59,11 @@ class ListWorker {
             completionHandler(lists, error)
         }
     }
+    
+    func searchLists(query: String, completionHandler: @escaping ( _ lists: [ListModel]) -> Void){
+        let lists = listStore.searchLists(query: query)
+        completionHandler(lists)
+    }
 
     func updateList(listID: Int, name: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
         listAPI.updateList(listID: listID, name: name, storeTypeID: storeTypeID, completionHandler: completionHandler)
@@ -106,6 +111,8 @@ protocol ListStoreProtocol {
     func getLists(storeTypeID: Int) -> [ListModel]
     func createList(list: ListModel, ignoreCategories: Bool)
     func deleteList(listID: Int)
+    
+    func searchLists(query: String) -> [ListModel]
     
     func updateListTotalPrice(listID: Int, totalPrice: Double, oldTotalPrice: Double?)
     func restartList(listID: Int)

@@ -55,4 +55,22 @@ enum ShowLists
             var error: String?
         }
     }
+    
+    enum SearchList
+    {
+        struct Request
+        {
+            var query: String
+        }
+        
+        struct Response
+        {
+            var lists: [ListModel]
+        }
+        
+        struct ViewModel
+        {
+            var lists: [ListModel]
+        }
+    }
 }
