@@ -76,7 +76,7 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
         setupSearchDelegate()
     }
     
-    var recentSuggestionsLimit: Int = 5
+    var recentSuggestionsLimit: Int = 7
     
     @IBOutlet var suggestionsTableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
@@ -158,14 +158,14 @@ extension ShowSuggestionsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let suggestion: SuggestionModel = suggestions[indexPath.row]
         
+        interactor?.suggestionSelected(suggestion: suggestion)
+        
         if suggestion.type == .store {
             router?.selectedStoreTypeID = suggestion.id
             router?.routeToShowStoreResults(segue: nil)
         } else {
-            interactor?.suggestionSelected(suggestion: suggestion)
             router?.routeToShowProductResults(segue: nil)
         }
-
     }
 }
 

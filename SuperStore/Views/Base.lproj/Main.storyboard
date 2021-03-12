@@ -2197,6 +2197,26 @@
                         <outletCollection property="openingHoursDayLabels" destination="hne-eZ-WoP" collectionClass="NSMutableArray" id="Vg6-e9-iu8"/>
                         <outletCollection property="openingHoursDayLabels" destination="4gq-39-wBs" collectionClass="NSMutableArray" id="yQ1-Yo-0og"/>
                         <outletCollection property="openingHoursDayLabels" destination="abN-Eq-FSI" collectionClass="NSMutableArray" id="Tsp-kA-rwh"/>
+                        <outletCollection property="loadingViews" destination="vha-7q-B5X" collectionClass="NSMutableArray" id="X7x-ve-C2R"/>
+                        <outletCollection property="loadingViews" destination="c0v-T1-E97" collectionClass="NSMutableArray" id="s4U-4h-wWn"/>
+                        <outletCollection property="loadingViews" destination="gRt-Qc-tJG" collectionClass="NSMutableArray" id="9BY-Cd-GWE"/>
+                        <outletCollection property="loadingViews" destination="mnl-39-Mil" collectionClass="NSMutableArray" id="lkG-qd-hkJ"/>
+                        <outletCollection property="loadingViews" destination="Njd-1j-I8c" collectionClass="NSMutableArray" id="f49-fr-M7d"/>
+                        <outletCollection property="loadingViews" destination="zZH-Ki-IWo" collectionClass="NSMutableArray" id="O64-Qr-GNJ"/>
+                        <outletCollection property="loadingViews" destination="G7M-qb-6TJ" collectionClass="NSMutableArray" id="n3u-Ik-lrS"/>
+                        <outletCollection property="loadingViews" destination="mz8-S9-3ZL" collectionClass="NSMutableArray" id="K1d-ZD-Pte"/>
+                        <outletCollection property="loadingViews" destination="lpr-ch-Yqv" collectionClass="NSMutableArray" id="AhE-ag-5Ru"/>
+                        <outletCollection property="loadingViews" destination="pgA-Be-xOh" collectionClass="NSMutableArray" id="AXJ-zc-yQs"/>
+                        <outletCollection property="loadingViews" destination="Nds-nm-fhw" collectionClass="NSMutableArray" id="L6C-LO-o0S"/>
+                        <outletCollection property="loadingViews" destination="eQT-tz-WbY" collectionClass="NSMutableArray" id="iMD-gX-mFD"/>
+                        <outletCollection property="loadingViews" destination="GMR-xt-sgc" collectionClass="NSMutableArray" id="ysQ-f4-puB"/>
+                        <outletCollection property="loadingViews" destination="VZX-7U-aAb" collectionClass="NSMutableArray" id="Lwe-OU-6Rg"/>
+                        <outletCollection property="loadingViews" destination="fQm-3x-TAm" collectionClass="NSMutableArray" id="f4O-Te-45K"/>
+                        <outletCollection property="loadingViews" destination="E0b-4b-8Gm" collectionClass="NSMutableArray" id="wuS-e0-Djf"/>
+                        <outletCollection property="loadingViews" destination="Ixz-j3-ihJ" collectionClass="NSMutableArray" id="ufq-gf-h8f"/>
+                        <outletCollection property="loadingViews" destination="ycT-Ln-G8E" collectionClass="NSMutableArray" id="zce-qb-Obh"/>
+                        <outletCollection property="loadingViews" destination="jT1-Do-o69" collectionClass="NSMutableArray" id="VX3-Ey-cBf"/>
+                        <outletCollection property="loadingViews" destination="LGH-ER-yIr" collectionClass="NSMutableArray" id="1Hf-pq-2Pg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dNH-Jp-K3l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2386,7 +2406,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zk9-e4-itb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
                                                                                 <subviews>
-                                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
+                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
                                                                                         <rect key="frame" x="87" y="2" width="210" height="26"/>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -3136,7 +3156,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz2-WX-h3t">
                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XU3-Nd-wUM" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="64.5" y="7.5" width="255" height="35"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -5350,6 +5370,14 @@
             <point key="canvasLocation" x="6188" y="2573"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="XU3-Nd-wUM">
+            <size key="intrinsicContentSize" width="255" height="35"/>
+        </designable>
+        <designable name="tFG-eX-umO">
+            <size key="intrinsicContentSize" width="209.849609375" height="26"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="LCl-dZ-pvm"/>
     </inferredMetricsTieBreakers>

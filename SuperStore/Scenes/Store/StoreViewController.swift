@@ -70,6 +70,7 @@ class StoreViewController: UIViewController, StoreDisplayLogic
     {
         super.viewDidLoad()
         displayRightBarButton()
+        startLoading()
         getStore()
     }
     
@@ -93,6 +94,14 @@ class StoreViewController: UIViewController, StoreDisplayLogic
     @IBOutlet weak var petrolFillingStationView: UIStackView!
     // Facilities Labels END
     
+    @IBOutlet var loadingViews: [UIView]!
+    
+    var loading: Bool = true {
+        didSet {
+            loading ? startLoading() : stopLoading()
+        }
+    }
+    
     func getStore()
     {
         let request = Store.GetStore.Request()
@@ -105,6 +114,9 @@ class StoreViewController: UIViewController, StoreDisplayLogic
             showError(title: "Store Error", error: error)
         } else {
             if let store = viewModel.displayedStore {
+                
+                loading = false
+                
                 nameLabel.text = store.name
                 addressLabel.text = store.address
                 logoImageView.downloaded(from: store.logo)
@@ -179,5 +191,20 @@ class StoreViewController: UIViewController, StoreDisplayLogic
 extension StoreViewController {
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
         router?.routeToShowList(segue: nil)
+    }
+}
+
+extension StoreViewController {
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
     }
 }
