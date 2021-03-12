@@ -105,8 +105,10 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         title = interactor!.productQueryModel.query
     }
     
-    func getResults()
-    {
+    func getResults(){
+        loading = true
+        productsTableView.reloadData()
+        
         let request = ShowProductResults.GetResults.Request()
         totalProductsLabel.text = "Fetching Products"
         interactor?.getResults(request: request)
@@ -118,6 +120,9 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     }
     
     func refineResults(){
+        loading = true
+        productsTableView.reloadData()
+        
         let request = ShowProductResults.GetResults.Request()
         totalProductsLabel.text = "Refining Search Results"
         interactor?.getResults(request: request)
@@ -169,7 +174,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
 
 extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count
+        return loading ? 5 : products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -184,10 +189,10 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
     func configureProductCell(indexPath: IndexPath) -> ProductCell {
         let cell = productsTableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
         
-        let product = products[indexPath.row]
+        let product: ProductModel? = loading ? nil : products[indexPath.row]
         
         // check if found in locally saved list items. If found, update quantity, otherwise ignore
-        if let listItem = listItems[product.id] {
+        if !loading, let product = product, let listItem = listItems[product.id]{
             product.quantity = listItem.quantity
             product.listID = interactor?.selectedListID!
         }
