@@ -1,54 +1,41 @@
 //
-//  SimilarCollectionViewCell.swift
+//  ProductCollectionViewCell.swift
 //  SuperStore
 //
-//  Created by Zakariya Mohummed on 25/07/2020.
-//  Copyright © 2020 Zakariya Mohummed. All rights reserved.
+//  Created by Zakariya Mohummed on 12/03/2021.
+//  Copyright © 2021 Zakariya Mohummed. All rights reserved.
 //
 
 import UIKit
 
 class ProductCollectionViewCell: UICollectionViewCell {
-    
+
     var product: ProductModel?
     
-    var loading: Bool = true
-    
-    @IBOutlet weak var foodImage: UIImageView!
-    @IBOutlet weak var productLabel: UILabel!
-    @IBOutlet var nameView: UIView!
-    @IBOutlet weak var foodPriceLabel: UILabel!
-    
-    var loadingViews:[UIView] {
-        return [
-            foodImage,
-            productLabel,
-            foodPriceLabel
-        ]
+    var loading: Bool = true {
+        didSet {
+            loading ? startLoading() : stopLoading()
+        }
     }
     
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet var priceLabel: UILabel!
+    
+    @IBOutlet var loadingViews: [UIView]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
     func configureUI(){
-               
-        if loading {
-            startLoading()
-        } else {
-            stopLoading()
-        }
-        
         if product != nil {
-            foodImage.downloaded(from: product!.smallImage)
-            productLabel.text = product!.name
+            imageView.downloaded(from: product!.smallImage)
+            nameLabel.text = product!.name
             
             let price = String(format: "%.2f",product!.price )
-            foodPriceLabel.text = "£\(price)"
+            priceLabel.text = "£\(price)"
         }
-        
-        
     }
     
     func startLoading(){

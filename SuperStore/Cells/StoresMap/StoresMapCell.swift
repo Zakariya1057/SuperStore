@@ -14,6 +14,7 @@ class StoreMapGroupElement: HomeElementGroupModel {
     var type: HomeElementType = .storesMap
     var items: [HomeElementItemModel]
     var storePressed: ((Int) -> Void)? = nil
+    var loading: Bool = true
     
     init(title: String, stores: [StoresMapElementModel], storePressed: ((Int) -> Void)? ) {
         self.title = title
@@ -34,6 +35,7 @@ class StoreMapGroupElement: HomeElementGroupModel {
 class StoresMapElementModel: HomeElementItemModel {
     var stores: [StoreModel] = []
     var storePressed: ((Int) -> Void)? = nil
+    var loading: Bool = true
     
     init(stores: [StoreModel]) {
         self.stores = stores
@@ -73,6 +75,7 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
     }
     
     func configureUI() {
+        
         // Initiallising Map. Required. Or MapView()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest

@@ -12,16 +12,16 @@ import SkeletonView
 class OfferCollectionViewCell: UICollectionViewCell {
 
     var promotion: PromotionModel?
-    var loading: Bool = true
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
-    @IBOutlet var parentView: UIView!
     
-    var loadingViews:[UIView] {
-        return [
-            parentView,
-        ]
+    @IBOutlet var loadingViews: [UIView]!
+    
+    var loading: Bool = true {
+        didSet {
+            loading ? startLoading() : stopLoading()
+        }
     }
     
     override func awakeFromNib() {
@@ -29,13 +29,6 @@ class OfferCollectionViewCell: UICollectionViewCell {
     }
 
     func configureUI() {
-        
-        if loading {
-            startLoading()
-        } else {
-            stopLoading()
-        }
-        
         if promotion != nil {
             let details = promotion!.name.components(separatedBy: " - ")
             
@@ -47,6 +40,9 @@ class OfferCollectionViewCell: UICollectionViewCell {
         }
     }
     
+}
+
+extension OfferCollectionViewCell {
     func startLoading(){
         for item in loadingViews {
             item.isSkeletonable = true

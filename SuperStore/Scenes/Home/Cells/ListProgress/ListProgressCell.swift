@@ -13,6 +13,7 @@ class ListGroupProgressElement: HomeElementGroupModel {
     var type: HomeElementType = .listsProgress
     var items: [HomeElementItemModel]
     var listPressed: ((ListModel) -> Void)?
+    var loading: Bool = true
     
     init(title: String, lists: [ListProgressElement], listPressed: @escaping (ListModel) -> Void) {
         self.title = title
@@ -20,6 +21,14 @@ class ListGroupProgressElement: HomeElementGroupModel {
         self.items = lists
         
         configurePressed()
+    }
+    
+    func setLoading(loading: Bool){
+        self.loading = loading
+        
+        for item in items {
+            item.loading = loading
+        }
     }
     
     func configurePressed(){
@@ -31,10 +40,11 @@ class ListGroupProgressElement: HomeElementGroupModel {
 }
 
 class ListProgressElement: HomeElementItemModel {
-    var list: ListModel
+    var list: ListModel?
     var listPressed: ((ListModel) -> Void)?
+    var loading: Bool = true
     
-    init(list: ListModel) {
+    init(list: ListModel?) {
         self.list = list
     }
 }
@@ -43,9 +53,17 @@ class ListProgressCell: UITableViewCell, HomeElementCell {
     
     var model: ListProgressElement!
     
-    var list: ListModel!
+    var list: ListModel?
     
     var listPressed: ((ListModel) -> Void)?
+    
+    @IBOutlet var loadingViews: [UIView]!
+    
+    var loading: Bool = true {
+        didSet {
+            loading ? startLoading() : stopLoading()
+        }
+    }
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var checkMarkImage: UIImageView!
@@ -60,27 +78,47 @@ class ListProgressCell: UITableViewCell, HomeElementCell {
         
         self.model = model
         self.list = model.list
+        self.loading = model.loading
         
         displayList()
     }
     
     func displayList(){
-        let tickedOffItems: Int = list.tickedOffItems
-        let totalItems: Int = list.totalItems
         
-        nameLabel.text = list.name
-        progressBar.progress = (tickedOffItems > 0 && totalItems > 0) ? Float( tickedOffItems / totalItems) : 0
-        tickedOffLabel.text = "\(list.tickedOffItems)/\(list.totalItems)"
-        
-        if totalItems > 0 && tickedOffItems == totalItems {
-            progressBar.backgroundColor = UIColor(named: "LogoBlue")
-            checkMarkImage.image = UIImage(systemName: "checkmark.circle")
-            checkMarkImage.tintColor = UIColor(named: "LogoBlue")
-        } else {
-            progressBar.backgroundColor = UIColor(named: "LightGrey")
-            checkMarkImage.image = UIImage(systemName: "circle")
-            checkMarkImage.tintColor = .gray
+        if let list = list {
+            let tickedOffItems: Int = list.tickedOffItems
+            let totalItems: Int = list.totalItems
+            
+            nameLabel.text = list.name
+            progressBar.progress = (tickedOffItems > 0 && totalItems > 0) ? Float( tickedOffItems / totalItems) : 0
+            tickedOffLabel.text = "\(list.tickedOffItems)/\(list.totalItems)"
+            
+            if totalItems > 0 && tickedOffItems == totalItems {
+                progressBar.backgroundColor = UIColor(named: "LogoBlue")
+                checkMarkImage.image = UIImage(systemName: "checkmark.circle")
+                checkMarkImage.tintColor = UIColor(named: "LogoBlue")
+            } else {
+                progressBar.backgroundColor = UIColor(named: "LightGrey")
+                checkMarkImage.image = UIImage(systemName: "circle")
+                checkMarkImage.tintColor = .gray
+            }
+        }
+
+    }
+    
+}
+
+extension ListProgressCell {
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
         }
     }
     
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
+    }
 }

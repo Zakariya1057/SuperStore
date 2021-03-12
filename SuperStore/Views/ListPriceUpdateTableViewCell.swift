@@ -8,24 +8,11 @@
 
 import UIKit
 
-//class ListPriceUpdateElement: CustomElementModel {
-//
-//    var title: String
-//    var type: CustomElementType { return .listPriceUpdate }
-//    var delegate: ShowListDelegate
-//    var position: CGFloat?
-//    var loading: Bool = false
-//
-//    init(title: String,delegate: ShowListDelegate) {
-//        self.title = title
-//        self.delegate = delegate
-//    }
-//}
-
 class ListPriceUpdateGroupElement: HomeElementGroupModel {
     var title: String
     var type: HomeElementType = .products
     var items: [HomeElementItemModel]
+    var loading: Bool = true
     
     init(title: String, stores: [ListPriceUpdateElementModel]) {
         self.title = title
@@ -34,7 +21,7 @@ class ListPriceUpdateGroupElement: HomeElementGroupModel {
 }
 
 class ListPriceUpdateElementModel: HomeElementItemModel {
-
+    var loading: Bool = true
 }
 
 class ListPriceUpdateTableViewCell: UITableViewCell, HomeElementCell {

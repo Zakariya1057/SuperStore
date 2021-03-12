@@ -12,22 +12,18 @@ import Cosmos
 class FeaturedProductCollectionViewCell: UICollectionViewCell {
     var product: ProductModel?
     
-    var loading: Bool = true
-    
-    @IBOutlet weak var foodImage: UIImageView!
-    @IBOutlet weak var productLabel: UILabel!
-    @IBOutlet weak var foodPriceLabel: UILabel!
-    @IBOutlet var ratingView: CosmosView!
-    @IBOutlet var parentRatingView: UIView!
-    
-    var loadingViews:[UIView] {
-        return [
-            foodImage,
-            productLabel,
-            foodPriceLabel,
-            parentRatingView
-        ]
+    var loading: Bool = true {
+        didSet {
+            loading ? startLoading() : stopLoading()
+        }
     }
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet var ratingView: CosmosView!
+    
+    @IBOutlet var loadingViews: [UIView]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,11 +38,11 @@ class FeaturedProductCollectionViewCell: UICollectionViewCell {
         }
         
         if product != nil {
-            foodImage.downloaded(from: product!.smallImage)
-            productLabel.text = product!.name
+            imageView.downloaded(from: product!.smallImage)
+            nameLabel.text = product!.name
             
             let price = String(format: "%.2f",product!.price )
-            foodPriceLabel.text = "£\(price)"
+            priceLabel.text = "£\(price)"
             
             ratingView.rating = Double(product!.avgRating)
             ratingView.text = "\(product!.totalReviewsCount)"

@@ -122,6 +122,9 @@
                 <outlet property="nameLabel" destination="T1I-Tc-Htq" id="3a5-Gz-suS"/>
                 <outlet property="progressBar" destination="Upe-9I-Ewd" id="ofF-xW-gSH"/>
                 <outlet property="tickedOffLabel" destination="lhS-7O-R5s" id="fsv-d2-dNO"/>
+                <outletCollection property="loadingViews" destination="ywq-kw-yyy" collectionClass="NSMutableArray" id="tX2-Q7-JI8"/>
+                <outletCollection property="loadingViews" destination="Upe-9I-Ewd" collectionClass="NSMutableArray" id="o2l-ov-Ms1"/>
+                <outletCollection property="loadingViews" destination="Xjn-sq-RBo" collectionClass="NSMutableArray" id="axQ-Fw-dFi"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="66.964285714285708"/>
         </tableViewCell>

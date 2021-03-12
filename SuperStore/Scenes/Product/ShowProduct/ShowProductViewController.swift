@@ -407,12 +407,12 @@ extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate 
     func configureProductsCell(indexPath: IndexPath) -> ProductsCell {
         let cell = recommendedTableView.dequeueReusableCell(withIdentifier: "ProductsCell", for: indexPath) as! ProductsCell
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
-        cell.loading = self.loading
         
         let productElement = ProductsElementModel(products: recommendedProducts)
         productElement.productPressed = productPressed
         productElement.scrolled = scrolled
         productElement.scrollPosition = scrollPosition
+        productElement.loading = loading
         
         cell.configure(model: productElement)
         

@@ -19,6 +19,7 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
     var storeStore: StoreStoreProtocol = StoreRealmStore()
     var listStore: ListStoreProtocol = ListRealmStore()
     var categoryStore: GroceryStoreProtocol = GroceryRealmStore()
+    var promotionStore: PromotionStoreProtocol = PromotionRealmStore()
     
     func createHome(storeTypeID: Int, home: HomeModel){
         
@@ -55,6 +56,11 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
                 savedHome.lists.append(savedList)
             }
             
+            savedHome.promotions.removeAll()
+            for savedPromotion in home.promotions.map({ promotionStore.createPromotionObject(promotion: $0)}){
+                savedHome.promotions.append(savedPromotion)
+            }
+            
             savedHome.categories.removeAll()
             let savedCagegories = home.categories.map({ categoryStore.createCategoryObject(category: $0) })
             
@@ -66,7 +72,11 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
         })
     }
     
-    func getHome() -> HomeModel {
+    func getHome() -> HomeModel? {
+        
+        if homeObject == nil {
+            return nil
+        }
         
         let listLimit: Int = 4
         let storeLimit: Int = 10
@@ -98,8 +108,11 @@ extension HomeRealmStore {
         let savedLists = realm?.objects(ListObject.self).sorted(byKeyPath: "updatedAt", ascending: true)
         var lists: [ListModel] = []
         
-        if let savedLists = savedLists {
-            for index in 0...limit {
+        if let savedLists = savedLists, savedLists.count > 0 {
+            let savedCount = savedLists.count
+            let maxItems = savedCount < limit ? savedCount - 1 : limit
+            
+            for index in 0...maxItems - 1 {
                 lists.append( savedLists[index].getListModel() )
             }
         }
@@ -111,8 +124,11 @@ extension HomeRealmStore {
         let savedStores = realm?.objects(StoreObject.self).sorted(byKeyPath: "updatedAt", ascending: true)
         var stores: [StoreModel] = []
         
-        if let savedStores = savedStores {
-            for index in 0...limit {
+        if let savedStores = savedStores, savedStores.count > 0 {
+            let savedCount = savedStores.count
+            let maxItems = savedCount < limit ? savedCount - 1 : limit
+            
+            for index in 0...maxItems-1 {
                 stores.append( savedStores[index].getStoreModel() )
             }
         }
@@ -123,7 +139,7 @@ extension HomeRealmStore {
     func getProducts(savedProducts: List<ProductObject>?) -> [ProductModel]{
         var products: [ProductModel] = []
         
-        if let savedProducts = savedProducts {
+        if let savedProducts = savedProducts, savedProducts.count > 0 {
             savedProducts.forEach { (product: ProductObject) in
                 products.append( product.getProductModel() )
             }

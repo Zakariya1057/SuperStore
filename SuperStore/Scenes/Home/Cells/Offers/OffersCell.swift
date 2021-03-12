@@ -13,6 +13,7 @@ class PromotionGroupElement: HomeElementGroupModel {
     var type: HomeElementType = .offers
     var items: [HomeElementItemModel]
     var promotionPressed: (Int) -> Void
+    var loading: Bool = true
     
     init(title: String, promotions: [PromotionsElementModel], promotionPressed: @escaping (Int) -> Void) {
         self.title = title
@@ -20,6 +21,14 @@ class PromotionGroupElement: HomeElementGroupModel {
         self.promotionPressed = promotionPressed
         
         configurePressed()
+    }
+    
+    func setLoading(loading: Bool){
+        self.loading = loading
+        
+        for item in items {
+            item.loading = loading
+        }
     }
     
     func configurePressed(){
@@ -34,6 +43,7 @@ class PromotionsElementModel: HomeElementItemModel {
     var promotions: [PromotionModel] = []
     var scrollPosition: Float = 0
     var promotionPressed: ((Int) -> Void)? = nil
+    var loading: Bool = true
     
     init(promotions: [PromotionModel]) {
         self.promotions = promotions
@@ -61,7 +71,7 @@ class OffersCell: UITableViewCell, HomeElementCell, UICollectionViewDelegate, UI
         self.model = model
         self.promotionPressed = model.promotionPressed
         self.promotions = model.promotions
-//        self.loading = model.loading
+        self.loading = model.loading
         
         configureUI()
         offersCollectionView.reloadData()
@@ -96,10 +106,8 @@ extension OffersCell {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = offersCollectionView.dequeueReusableCell(withReuseIdentifier: K.Collections.OfferCollectionCell.CellIdentifier, for: indexPath) as! OfferCollectionViewCell
         
-        if !loading {
-            cell.promotion = promotions[indexPath.row]
-        }
-        
+        cell.promotion = loading ? nil : promotions[indexPath.row]
+
         cell.loading = loading
         cell.configureUI()
         return cell

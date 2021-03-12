@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,14 +23,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HeC-xt-5j2">
                                 <rect key="frame" x="5" y="8" width="205" height="46"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ixr-DL-CAF">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="ixr-DL-CAF">
                                         <rect key="frame" x="0.0" y="0.0" width="205" height="46"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="llk-b4-gVL">
-                                                <rect key="frame" x="0.0" y="0.0" width="205" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="205" height="18.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Pizzas, 1 Side, 1 Drink" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hf1-sK-GsW" userLabel="Food Title">
-                                                        <rect key="frame" x="14" y="0.5" width="177.5" height="19.5"/>
+                                                        <rect key="frame" x="14" y="-0.5" width="177.5" height="19.5"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -42,10 +42,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzo-q3-I9z">
-                                                <rect key="frame" x="0.0" y="25.5" width="205" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="27.5" width="205" height="18.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£7 Meal Deal" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lU6-Oq-FSe" userLabel="Food Title">
-                                                        <rect key="frame" x="54.5" y="0.5" width="96" height="19.5"/>
+                                                        <rect key="frame" x="54.5" y="-0.5" width="96" height="19.5"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -81,8 +81,8 @@
             <size key="customSize" width="215" height="62"/>
             <connections>
                 <outlet property="nameLabel" destination="hf1-sK-GsW" id="SLY-EK-WeF"/>
-                <outlet property="parentView" destination="juh-bb-L7i" id="QFq-Qz-IFT"/>
                 <outlet property="priceLabel" destination="lU6-Oq-FSe" id="ibf-UJ-aBG"/>
+                <outletCollection property="loadingViews" destination="juh-bb-L7i" collectionClass="NSMutableArray" id="AZ8-NC-wG2"/>
             </connections>
             <point key="canvasLocation" x="244.20289855072465" y="97.098214285714278"/>
         </collectionViewCell>

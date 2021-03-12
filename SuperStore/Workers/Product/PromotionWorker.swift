@@ -41,4 +41,6 @@ protocol PromotionRequestProtocol {
 protocol PromotionStoreProtocol {
     func createPromotion(promotion: PromotionModel)
     func getPromotion(promotionID: Int) -> PromotionModel?
+    
+    func createPromotionObject(promotion: PromotionModel) -> PromotionObject
 }

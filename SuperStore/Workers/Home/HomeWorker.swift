@@ -23,6 +23,11 @@ class HomeWorker
     }
     
     func getHome(storeTypeID: Int, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void){
+        
+        if let home = homeStore.getHome() {
+            completionHandler(home, nil)
+        }
+        
         homeAPI.getHome { (home: HomeModel?, error: String?) in
             if let home = home {
                 self.homeStore.createHome(storeTypeID: storeTypeID, home: home)
@@ -39,4 +44,5 @@ protocol HomeRequestProtocol {
 
 protocol HomeStoreProtocol {
     func createHome(storeTypeID: Int, home: HomeModel)
+    func getHome() -> HomeModel?
 }

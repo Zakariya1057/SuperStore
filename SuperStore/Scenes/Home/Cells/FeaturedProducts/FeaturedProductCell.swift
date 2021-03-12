@@ -14,6 +14,8 @@ class FeaturedProductGroupElement: HomeElementGroupModel {
     var items: [HomeElementItemModel]
     var productPressed: (Int) -> Void
     
+    var loading: Bool = true
+    
     init(title: String, products: [FeaturedProductsElementModel], productPressed: @escaping (Int) -> Void) {
         self.title = title
         self.items = products
@@ -29,12 +31,21 @@ class FeaturedProductGroupElement: HomeElementGroupModel {
             product.productPressed = productPressed
         }
     }
+    
+    func setLoading(loading: Bool){
+        self.loading = loading
+        
+        for item in items {
+            item.loading = loading
+        }
+    }
 }
 
 class FeaturedProductsElementModel: HomeElementItemModel {
     var products: [ProductModel] = []
     var scrollPosition: Float = 0
     var productPressed: ((Int) -> Void)? = nil
+    var loading: Bool = true
     
     init(products: [ProductModel]) {
         self.products = products
@@ -65,8 +76,7 @@ class FeaturedProductCell: UITableViewCell, HomeElementCell {
         
         self.model = model
         self.productPressed = model.productPressed
-//        self.loading = model.loading
-//        self.productPressedCallBack = model.productPressed
+        self.loading = model.loading
         
         self.products = model.products
         self.productCollection.reloadData()
@@ -104,11 +114,7 @@ extension FeaturedProductCell: UICollectionViewDelegate, UICollectionViewDataSou
         let cell = productCollection.dequeueReusableCell(withReuseIdentifier: K.Collections.FeaturedProductsCollecionCell.CellIdentifier, for: indexPath) as! FeaturedProductCollectionViewCell
         
         cell.loading = loading
-        
-        if !loading {
-            cell.product = products[indexPath.row]
-        }
-        
+        cell.product = loading ? nil : products[indexPath.row]
         cell.configureUI()
         
         return cell

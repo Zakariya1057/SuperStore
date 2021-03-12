@@ -59,6 +59,11 @@ extension PromotionRealmStore {
 
 extension PromotionRealmStore {
     func createPromotionObject(promotion: PromotionModel) -> PromotionObject {
+        
+        if let savedPromotion = getPromotionObject(promotionID: promotion.id){
+            return savedPromotion
+        }
+        
         let savedPromotion = PromotionObject()
         
         savedPromotion.id = promotion.id
