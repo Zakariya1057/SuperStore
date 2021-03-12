@@ -47,6 +47,9 @@ class ProductObject: Object {
 
     var recommended = List<ProductObject>()
     
+    @objc dynamic var updatedAt: Date = Date()
+    @objc dynamic var createdAt: Date = Date()
+    
     func getProductModel() -> ProductModel {
         return ProductModel(
             id: id,

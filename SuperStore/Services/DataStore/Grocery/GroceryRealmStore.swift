@@ -174,6 +174,7 @@ extension GroceryRealmStore {
     func updateGrandParentCategory(category: GrandParentCategoryModel, savedCategory: GrandParentCategoryObject){
         try? realm?.write({
             savedCategory.name = category.name
+            savedCategory.updatedAt = Date()
             
             savedCategory.parentCategories.removeAll()
             
@@ -186,6 +187,7 @@ extension GroceryRealmStore {
     func updateParentCategory(category: ParentCategoryModel, savedCategory: ParentCategoryObject){
         try? realm?.write({
             savedCategory.name = category.name
+            savedCategory.updatedAt = Date()
             
             savedCategory.childCategories.removeAll()
             
@@ -198,6 +200,7 @@ extension GroceryRealmStore {
     func updateChildCategory(category: ChildCategoryModel, savedCategory: ChildCategoryObject){
         try? realm?.write({
             savedCategory.name = category.name
+            savedCategory.updatedAt = Date()
             
             savedCategory.products.removeAll()
             

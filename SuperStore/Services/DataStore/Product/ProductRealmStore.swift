@@ -12,7 +12,7 @@ import RealmSwift
 class ProductRealmStore: DataStore, ProductStoreProtocol {
     
     private var reviewStore: ReviewRealmStore = ReviewRealmStore()
-    private var promotionStore: PromotionRealmStore = PromotionRealmStore()
+    private lazy var promotionStore: PromotionRealmStore = PromotionRealmStore()
     
     private func getProductObject(productID: Int) -> ProductObject? {
         return realm?.objects(ProductObject.self).filter("id = %@", productID).first
@@ -140,6 +140,7 @@ extension ProductRealmStore {
         }
         
         savedProduct.ingredients = ingredients
+        savedProduct.updatedAt = Date()
         
         return savedProduct
     }

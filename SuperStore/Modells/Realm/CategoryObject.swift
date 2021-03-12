@@ -16,6 +16,9 @@ class GrandParentCategoryObject: Object {
     
     var parentCategories = List<ParentCategoryObject>()
     
+    @objc dynamic var updatedAt: Date = Date()
+    @objc dynamic var createdAt: Date = Date()
+    
     func getGrandParentCategoryModel() -> GrandParentCategoryModel {
         return GrandParentCategoryModel(
             id: id,
@@ -33,6 +36,9 @@ class ParentCategoryObject: Object {
     @objc dynamic var grandParentCategoryID: Int = 1
     
     var childCategories = List<ChildCategoryObject>()
+    
+    @objc dynamic var updatedAt: Date = Date()
+    @objc dynamic var createdAt: Date = Date()
     
     func getParentCategoryModel() -> ParentCategoryModel {
         return ParentCategoryModel(
@@ -53,6 +59,9 @@ class ChildCategoryObject: Object {
     @objc dynamic var parentCategoryID: Int = 1
     
     var products = List<ProductObject>()
+    
+    @objc dynamic var updatedAt: Date = Date()
+    @objc dynamic var createdAt: Date = Date()
     
     func getChildCategoryModel() -> ChildCategoryModel {
         return ChildCategoryModel(

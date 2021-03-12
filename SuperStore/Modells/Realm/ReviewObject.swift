@@ -17,6 +17,7 @@ class ReviewObject: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var productID: Int = 1
     @objc dynamic var userID: Int = 1
+    
     @objc dynamic var updatedAt: Date = Date()
     @objc dynamic var createdAt: Date = Date()
     

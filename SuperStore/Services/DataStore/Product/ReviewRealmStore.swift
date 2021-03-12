@@ -97,6 +97,8 @@ extension ReviewRealmStore {
             savedReview.rating = review.rating
             savedReview.title = review.title
             savedReview.text = review.text
+            
+            savedReview.updatedAt = Date()
         })
     }
 }
