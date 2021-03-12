@@ -10,7 +10,15 @@ import UIKit
 
 class StoreResultCell: UITableViewCell {
     
-    var store: ShowStoreResults.DisplayedStore!
+    var store: ShowStoreResults.DisplayedStore?
+    
+    @IBOutlet var loadingViews: [UIView]!
+    
+    var loading: Bool = true {
+        didSet {
+            loading ? startLoading() : stopLoading()
+        }
+    }
     
     @IBOutlet var logoImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
@@ -18,27 +26,31 @@ class StoreResultCell: UITableViewCell {
     @IBOutlet var openingHoursLabel: UILabel!
     
     func configureUI(){
-        nameLabel.text = store.name
-        logoImageView.downloaded(from: store.logo)
-        addressLabel.text = store.address
-        openingHoursLabel.text = store.openingHour
+        if let store = store {
+            nameLabel.text = store.name
+            logoImageView.downloaded(from: store.logo)
+            addressLabel.text = store.address
+            openingHoursLabel.text = store.openingHour
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-//    func startLoading(){
-//        for item in loadingViews {
-//            item.isSkeletonable = true
-//            item.showAnimatedGradientSkeleton()
-//        }
-//    }
-//
-//    func stopLoading(){
-//        for item in loadingViews {
-//            item.hideSkeleton()
-//        }
-//    }
-    
+}
+
+extension StoreResultCell {
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
+    }
 }

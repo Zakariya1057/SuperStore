@@ -74,6 +74,8 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
         getStores()
     }
     
+    var loading: Bool = true
+    
     var displayedStores: [ShowStoreResults.DisplayedStore] = []
     var stores: [StoreModel] = []
     
@@ -96,6 +98,8 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
     
     func displayStores(viewModel: ShowStoreResults.GetStores.ViewModel)
     {
+        loading = false
+        
         if let error = viewModel.error {
             showError(title: "Store Errors", error: error)
         } else {
@@ -110,7 +114,7 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
 
 extension ShowStoreResultsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableView == mapTableView ? 1 : stores.count
+        return loading ? 5 : ( tableView == mapTableView ? 1 : stores.count)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -133,7 +137,8 @@ extension ShowStoreResultsViewController: UITableViewDataSource, UITableViewDele
     func configureStoreResultsCell(indexPath: IndexPath) -> StoreResultCell {
         let cell = storesTableView.dequeueReusableCell(withIdentifier: "StoreResultCell", for: indexPath) as! StoreResultCell
         
-        cell.store = displayedStores[indexPath.row]
+        cell.loading = loading
+        cell.store = loading ? nil : displayedStores[indexPath.row]
         cell.configureUI()
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -171,9 +176,11 @@ extension ShowStoreResultsViewController {
 
 extension ShowStoreResultsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == storesTableView {
-            let store = stores[indexPath.row]
-            storePressed(storeID: store.id)
+        if !loading {
+            if tableView == storesTableView {
+                let store = stores[indexPath.row]
+                storePressed(storeID: store.id)
+            }
         }
     }
     
