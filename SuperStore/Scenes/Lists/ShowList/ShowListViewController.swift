@@ -84,6 +84,8 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
         getList()
     }
     
+    var loading: Bool = true
+    
     var refreshControl = UIRefreshControl()
     
     @IBOutlet var itemsTableView: UITableView!
@@ -108,6 +110,7 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
     func displayList(viewModel: ShowList.GetList.ViewModel)
     {
         refreshControl.endRefreshing()
+        loading = false
         
         if let error = viewModel.error {
             showError(title: "List Error", error: error)
@@ -180,11 +183,11 @@ extension ShowListViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ShowListViewController {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return displayedList?.categories.count ?? 0
+        return loading ? 1 : displayedList?.categories.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return displayedList?.categories[section].items.count ?? 0
+        return loading ? 5 : displayedList?.categories[section].items.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -194,10 +197,14 @@ extension ShowListViewController {
     func configureListItemCell(indexPath: IndexPath) -> ListItemCell {
         let cell = itemsTableView.dequeueReusableCell(withIdentifier: "ListItemCell", for: indexPath) as! ListItemCell
         
-        if let item = displayedList?.categories[indexPath.section].items[indexPath.row] {
-            cell.item = item
-            cell.itemCheckboxPressed = itemCheckboxPressed
-            cell.configureUI()
+        cell.loading = loading
+        
+        if !loading {
+            if let item = displayedList?.categories[indexPath.section].items[indexPath.row] {
+                cell.item = item
+                cell.itemCheckboxPressed = itemCheckboxPressed
+                cell.configureUI()
+            }
         }
 
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -208,7 +215,9 @@ extension ShowListViewController {
 
 extension ShowListViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        router?.routeToEditListItem(segue: nil)
+        if !loading {
+            router?.routeToEditListItem(segue: nil)
+        }
     }
 }
 
@@ -220,7 +229,11 @@ extension ShowListViewController {
     }
     
     @objc func refreshItems(){
-        getList()
+        if !loading {
+            getList()
+        } else {
+            refreshControl.endRefreshing()
+        }
     }
 }
 
@@ -230,7 +243,7 @@ extension ShowListViewController {
 
         let header = itemsTableView.dequeueReusableHeaderFooterView(withIdentifier:  "ListSectionHeader") as! ListSectionHeader
 
-        let categoryName = displayedList!.categories[section].name
+        let categoryName = loading ? "" : displayedList!.categories[section].name
         header.headingLabel.text = categoryName
         
         return header

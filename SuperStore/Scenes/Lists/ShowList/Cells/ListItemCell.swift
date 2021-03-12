@@ -10,6 +10,14 @@ import UIKit
 
 class ListItemCell: UITableViewCell {
     
+    @IBOutlet var loadingViews: [UIView]!
+    
+    var loading: Bool = true {
+        didSet {
+            loading ? startLoading() : stopLoading()
+        }
+    }
+
     var itemCheckboxPressed: ((ShowList.DisplayedListItem) -> Void)? = nil
     
     @IBOutlet var checkBoxButton: UIButton!
@@ -62,16 +70,16 @@ extension ListItemCell {
 }
 
 extension ListItemCell {
-    //    func startLoading(){
-    //        for item in loadingViews {
-    //            item.isSkeletonable = true
-    //            item.showAnimatedGradientSkeleton()
-    //        }
-    //    }
-    //
-    //    func stopLoading(){
-    //        for item in loadingViews {
-    //            item.hideSkeleton()
-    //        }
-    //    }
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
+    }
 }
