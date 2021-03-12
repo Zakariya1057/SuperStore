@@ -74,6 +74,7 @@ class GrandParentCategoriesViewController: UIViewController, GrandParentCategori
         getCategories()
     }
     
+    var loading: Bool = true
     
     @IBOutlet var categoriesTableView: UITableView!
     
@@ -91,6 +92,7 @@ class GrandParentCategoriesViewController: UIViewController, GrandParentCategori
         if let error = viewModel.error {
             showError(title: "Grocery Error", error: error)
         } else {
+            loading = false
             categories =  viewModel.displayedCategories
             categoriesTableView.reloadData()
         }
@@ -106,7 +108,7 @@ class GrandParentCategoriesViewController: UIViewController, GrandParentCategori
 
 extension GrandParentCategoriesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return loading ? 7 : categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,7 +117,10 @@ extension GrandParentCategoriesViewController: UITableViewDataSource, UITableVie
     
     func configureCategoryCell(indexPath: IndexPath) -> CategoryTableViewCell {
         let cell = categoriesTableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath) as! CategoryTableViewCell
-        cell.nameLabel.text = categories[indexPath.row].name
+        
+        cell.nameLabel.text = loading ? nil : categories[indexPath.row].name
+        cell.loading = loading
+        
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
@@ -131,8 +136,10 @@ extension GrandParentCategoriesViewController: UITableViewDataSource, UITableVie
 
 extension GrandParentCategoriesViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Navigate To Parent Category
-        router?.routeToParentCatgories(segue: nil)
+        if !loading {
+            // Navigate To Parent Category
+            router?.routeToParentCatgories(segue: nil)
+        }
     }
 }
 

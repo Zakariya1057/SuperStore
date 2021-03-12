@@ -82,6 +82,8 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
         getCategories()
     }
     
+    var loading: Bool = true
+    
     var selectedProduct: ProductModel?
     var selectedSection: Int?
     
@@ -108,6 +110,8 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
         if let error = viewModel.error {
             showError(title: "Grocery Error", error: error)
         } else {
+            loading = false
+            
             self.categories = viewModel.categories
             viewcontrollers = categories.map { _ in GroceryTableViewController(nibName: nil, bundle: nil) }
             self.reloadData()
@@ -177,17 +181,20 @@ extension ChildCategoriesViewController {
 
 extension ChildCategoriesViewController:  TMBarDataSource, PageboyViewControllerDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        return TMBarItem(title: categories[index].name)
+        let title: String = loading ? "" : categories[index].name
+        return TMBarItem(title: title)
     }
     
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        return viewcontrollers.count
+        return loading ? 1 : viewcontrollers.count
     }
     
     func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
-        let viewController: GroceryTableViewController = viewcontrollers[index]
+        let viewController: GroceryTableViewController = loading ? GroceryTableViewController(nibName: nil, bundle: nil) : viewcontrollers[index]
         
-        if categories.indices.contains(index) {
+        viewController.loading = loading
+        
+        if !loading && categories.indices.contains(index) {
             viewController.section = index
             viewController.selectedListID = interactor?.selectedListID
             viewController.listItems = listItems

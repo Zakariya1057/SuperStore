@@ -72,6 +72,8 @@ class GroceryTableViewController: UITableViewController, GroceryTableDisplayLogi
         setupProductsTableView()
     }
     
+    var loading: Bool = true
+    
     var section: Int = 0
     
     var listItems: [Int: ListItemModel] = [:]
@@ -92,7 +94,7 @@ class GroceryTableViewController: UITableViewController, GroceryTableDisplayLogi
 
 extension GroceryTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count
+        return loading ? 5 : products.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -102,17 +104,18 @@ extension GroceryTableViewController {
     func configureProductCell(indexPath: IndexPath) -> ProductCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
         
-        let product = products[indexPath.row]
+        let product: ProductModel? = loading ? nil : products[indexPath.row]
         
         cell.product = product
         cell.addToList = true
         
         // check if found in locally saved list items. If found, update quantity, otherwise ignore
-        if let listItem = listItems[product.id] {
+        if let product = product, let listItem = listItems[product.id] {
             product.quantity = listItem.quantity
             product.listID = selectedListID!
         }
         
+        cell.loading = loading
         cell.addToListPressed = addToListPressed
         cell.updateQuantityPressed = updateQuantityPressed
         
@@ -129,8 +132,10 @@ extension GroceryTableViewController {
 
 extension GroceryTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let productPressed = productPressed {
-            productPressed(products[indexPath.row].id)
+        if !loading {
+            if let productPressed = productPressed {
+                productPressed(products[indexPath.row].id)
+            }
         }
     }
 }

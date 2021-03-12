@@ -4,33 +4,92 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="8sL-Rp-mHd" style="IBUITableViewCellStyleDefault" id="KGk-i7-Jjw" customClass="CategoryTableViewCell" customModule="SuperStore" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="CategoryTableViewCell" customModule="SuperStore" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="293" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8sL-Rp-mHd">
-                        <rect key="frame" x="16" y="0.0" width="269" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bwL-Ji-6O4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YEe-fS-Lvp">
+                                <rect key="frame" x="0.0" y="0.0" width="290" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ryi-Xo-fsj">
+                                        <rect key="frame" x="20" y="12" width="41.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="Ryi-Xo-fsj" firstAttribute="centerY" secondItem="YEe-fS-Lvp" secondAttribute="centerY" id="N5v-2O-ACk"/>
+                                    <constraint firstItem="Ryi-Xo-fsj" firstAttribute="leading" secondItem="YEe-fS-Lvp" secondAttribute="leading" constant="20" id="Vwh-aD-Mpg"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xcW-3b-bVd">
+                                <rect key="frame" x="290" y="0.0" width="30" height="44"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0Sb-Qh-LEW">
+                                        <rect key="frame" x="-2.5" y="14" width="12.5" height="16.5"/>
+                                        <color key="tintColor" name="LightBlack"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="j1V-16-wYf"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="MRJ-al-Qnw"/>
+                                    <constraint firstItem="0Sb-Qh-LEW" firstAttribute="centerY" secondItem="xcW-3b-bVd" secondAttribute="centerY" id="RO5-Lo-WvA"/>
+                                    <constraint firstAttribute="trailing" secondItem="0Sb-Qh-LEW" secondAttribute="trailing" constant="20" id="dyX-k1-F4y"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="xcW-3b-bVd" firstAttribute="top" secondItem="bwL-Ji-6O4" secondAttribute="top" id="461-3e-1JK"/>
+                            <constraint firstAttribute="bottom" secondItem="xcW-3b-bVd" secondAttribute="bottom" id="FE9-3n-jJK"/>
+                            <constraint firstAttribute="trailing" secondItem="xcW-3b-bVd" secondAttribute="trailing" id="clS-IR-Tfi"/>
+                            <constraint firstItem="YEe-fS-Lvp" firstAttribute="leading" secondItem="bwL-Ji-6O4" secondAttribute="leading" id="j3M-sA-gyt"/>
+                            <constraint firstItem="YEe-fS-Lvp" firstAttribute="top" secondItem="bwL-Ji-6O4" secondAttribute="top" id="kYr-YF-YDG"/>
+                            <constraint firstItem="xcW-3b-bVd" firstAttribute="leading" secondItem="YEe-fS-Lvp" secondAttribute="trailing" id="nTk-8D-hwT"/>
+                            <constraint firstAttribute="bottom" secondItem="YEe-fS-Lvp" secondAttribute="bottom" id="y2n-zE-74L"/>
+                        </constraints>
+                    </stackView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="bwL-Ji-6O4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="9am-ut-bJt"/>
+                    <constraint firstAttribute="bottom" secondItem="bwL-Ji-6O4" secondAttribute="bottom" id="Iov-Hv-C1k"/>
+                    <constraint firstAttribute="trailing" secondItem="bwL-Ji-6O4" secondAttribute="trailing" id="MbX-Dc-bfz"/>
+                    <constraint firstItem="bwL-Ji-6O4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="VuT-Bs-VSA"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="nameLabel" destination="8sL-Rp-mHd" id="SKY-vp-dzU"/>
+                <outlet property="nameLabel" destination="Ryi-Xo-fsj" id="xMk-en-LBC"/>
+                <outletCollection property="loadingViews" destination="bwL-Ji-6O4" collectionClass="NSMutableArray" id="Ncr-3G-XhL"/>
             </connections>
             <point key="canvasLocation" x="139" y="74"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <namedColor name="LightBlack">
+            <color red="0.48899999260902405" green="0.48899999260902405" blue="0.48899999260902405" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
