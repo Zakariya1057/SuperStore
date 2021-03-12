@@ -93,13 +93,23 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     var loading: Bool = true
     var refreshControl = UIRefreshControl()
     
+    var currentPage: Int = 1
+    
     @IBOutlet var totalProductsLabel: UILabel!
     @IBOutlet var productsTableView: UITableView!
+    
+    var paginate: PaginateResultsModel?
     
     var products: [ProductModel] = []
     var listItems: [Int: ListItemModel] = [:]
     
     var selectedProduct: ProductModel?
+    
+    var userSession: UserSessionWorker = UserSessionWorker()
+    var loggedIn: Bool {
+        return userSession.isLoggedIn()
+    }
+    
     
     func updateTitle(){
         title = interactor!.productQueryModel.query
@@ -108,9 +118,9 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     func getResults(){
         loading = true
         productsTableView.reloadData()
-        
-        let request = ShowProductResults.GetResults.Request()
         totalProductsLabel.text = "Fetching Products"
+        
+        let request = ShowProductResults.GetResults.Request(page: currentPage)
         interactor?.getResults(request: request)
     }
     
@@ -121,6 +131,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     func refineResults(){
         loading = true
+        currentPage = 1
         productsTableView.reloadData()
         
         let request = ShowProductResults.GetResults.Request()
@@ -138,7 +149,16 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             showError(title: "Search Error", error: error)
         } else {
             loading = false
-            products = viewModel.products
+            paginate = viewModel.paginate
+            
+            if let paginate = paginate, paginate.current == 1 {
+                print("Overwrite")
+                products = viewModel.products
+            } else {
+                print("Append")
+                products.append(contentsOf: viewModel.products)
+            }
+            
             totalProductsLabel.text = "\(products.count) Products"
             productsTableView.reloadData()
         }
@@ -197,9 +217,11 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
             product.listID = interactor?.selectedListID!
         }
         
+        loadMoreProducts(indexPath: indexPath)
+        
         cell.loading = loading
         cell.product = product
-        cell.addToList = true
+        cell.addToList = loggedIn
         cell.addToListPressed = addToListPressed
         cell.updateQuantityPressed = updateQuantityPressed
         cell.configureUI()
@@ -217,6 +239,15 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
         productsTableView.dataSource = self
         
         setupRefreshControl()
+    }
+    
+    private func loadMoreProducts(indexPath: IndexPath){
+        // If last row, not loading and more products avaialable. Then load more products.
+        if !loading, let paginate = paginate, paginate.moreAvailable, indexPath.row == (products.count - 1) {
+            loading = true
+            currentPage = currentPage + 1
+            getResults()
+        }
     }
     
     private func setupRefreshControl(){

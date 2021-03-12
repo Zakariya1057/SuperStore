@@ -60,7 +60,9 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         var uniqueBrands: [String: Int] = [:]
         var uniqueCategories: [String: Int] = [:]
         
-        searchWorker.getProductResults(data: productQueryModel) { (results: ProductResultsModel?, error: String?) in
+        let page: Int = request.page
+        
+        searchWorker.getProductResults(query: productQueryModel, page: page) { (results: ProductResultsModel?, error: String?) in
             
             if let results = results {
                 for product in results.products {
@@ -71,8 +73,8 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
                 self.searchRefine.brands = uniqueBrands.compactMap{$0.key}
                 self.searchRefine.categories = uniqueCategories.compactMap{$0.key}
             }
-            
-            let response = ShowProductResults.GetResults.Response(products: results?.products ?? [], error: error)
+
+            let response = ShowProductResults.GetResults.Response(products: results?.products ?? [], paginate: results?.paginate, error: error)
             self.presenter?.presentResults(response: response)
         }
     

@@ -27,7 +27,7 @@ class ShowProductResultsPresenter: ShowProductResultsPresentationLogic
     
     func presentResults(response: ShowProductResults.GetResults.Response)
     {
-        let viewModel = ShowProductResults.GetResults.ViewModel(products: response.products, error: response.error)
+        let viewModel = ShowProductResults.GetResults.ViewModel(products: response.products, paginate: response.paginate, error: response.error)
         viewController?.displayResults(viewModel: viewModel)
     }
     

@@ -34,9 +34,9 @@ class SearchAPI: SearchRequestProtocol {
         }
     }
     
-    func getProductResults(data: ProductQueryModel, completionHandler: @escaping (ProductResultsModel?, String?) -> Void) {
+    func getProductResults(data: ProductQueryModel, page: Int, completionHandler: @escaping (ProductResultsModel?, String?) -> Void) {
         
-        let url = Config.Route.Search.Results.Product
+        let url = Config.Route.Search.Results.Product + "?page=\(page)"
         
         let queryData: Parameters = [
             "query": data.query,
@@ -61,6 +61,7 @@ class SearchAPI: SearchRequestProtocol {
                 print(errorMessage)
                 completionHandler(nil, errorMessage)
             } catch {
+                print(error)
                 completionHandler(nil, "Failed to get products. Please try again later.")
             }
         }
@@ -74,7 +75,9 @@ extension SearchAPI {
             return product.getProductModel()
         }
         
-        return ProductResultsModel(products: products)
+        let paginate = productResultsData.paginate.getPaginateResultsModel()
+        
+        return ProductResultsModel(products: products, paginate: paginate)
     }
 }
 

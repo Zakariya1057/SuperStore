@@ -33,7 +33,7 @@ struct ProductResultsDataResponse: Decodable {
 
 struct ProductResultsData: Decodable {
     var products: [ProductData]
-    let paginate: PaginateResultsData?
+    let paginate: PaginateResultsData
 }
 
 // Store
@@ -45,31 +45,22 @@ struct StoreResultsData: Decodable {
     var stores: [StoreData]
 }
 
-// Promotion
-
-//struct SearchResultsDataResponse: Decodable {
-//    let data: SearchResultsData
-//}
-//
-//struct SearchResultsData: Decodable {
-//    let stores:[StoreData]
-//    let products:[ProductData]
-//    let paginate: PaginateResultsData?
-//}
-//
-//struct FilterResultsData: Decodable {
-//    let brands:[String: Int]?
-//    let categories:[String: Int]?
-//}
-//
-
 struct PaginateResultsData: Decodable {
     var from: Int
     var current: Int
     var to: Int
+    
     var per_page: Int
-    var next_page_url: String?
-    var current_page_url: String
-    var prev_page_url:String?
+
     var more_available: Bool
+    
+    func getPaginateResultsModel() -> PaginateResultsModel {
+        return PaginateResultsModel(
+            from: from,
+            current: current,
+            to: to,
+            perPage: per_page,
+            moreAvailable: more_available
+        )
+    }
 }

@@ -20,15 +20,20 @@ enum ShowProductResults
     {
         struct Request
         {
+            var page: Int = 1
         }
         struct Response
         {
             var products: [ProductModel]
+            var paginate: PaginateResultsModel?
+            
             var error: String?
         }
         struct ViewModel
         {
             var products: [ProductModel]
+            var paginate: PaginateResultsModel?
+            
             var error: String?
         }
     }

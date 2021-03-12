@@ -35,14 +35,16 @@ class SearchWorker {
         }
     }
     
-    func getProductResults(data: ProductQueryModel, completionHandler: @escaping (_ ResultsModel: ProductResultsModel?, _ error: String?) -> Void){
+    func getProductResults(query: ProductQueryModel, page: Int, completionHandler: @escaping (_ ResultsModel: ProductResultsModel?, _ error: String?) -> Void){
         
-        let results = searchResultsStore.searchResults(query: data)
-        if results.products.count > 0 {
-            completionHandler(results, nil)
+        if page == 1 {
+            let results = searchResultsStore.searchResults(query: query)
+            if results.products.count > 0 {
+                completionHandler(results, nil)
+            }
         }
-        
-        searchAPI.getProductResults(data: data) { (results: ProductResultsModel?, error: String?) in
+
+        searchAPI.getProductResults(data: query, page: page) { (results: ProductResultsModel?, error: String?) in
             if let results = results {
                 self.searchResultsStore.createResults(results: results)
             }
@@ -64,7 +66,7 @@ class SearchWorker {
 
 protocol SearchRequestProtocol {
     func getSuggestions(storeTypeID: Int, query: String, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void)
-    func getProductResults(data: ProductQueryModel, completionHandler: @escaping ( _ ResultsModel: ProductResultsModel?, _ error: String?) -> Void)
+    func getProductResults(data: ProductQueryModel, page: Int, completionHandler: @escaping ( _ ResultsModel: ProductResultsModel?, _ error: String?) -> Void)
 }
 
 protocol SuggestionStoreProtocol {

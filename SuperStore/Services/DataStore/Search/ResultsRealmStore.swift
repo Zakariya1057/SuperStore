@@ -40,7 +40,7 @@ class ProductResultsRealmStore: DataStore, ProductResultsStoreProtocol {
             products = parentCategorySearch(query: query)
         }
 
-        return ProductResultsModel(products: products)
+        return ProductResultsModel(products: products, paginate: nil)
     }
     
 }

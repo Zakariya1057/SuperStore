@@ -17,6 +17,7 @@ struct SuggestionModel {
 
 struct ProductResultsModel {
     var products: [ProductModel]
+    var paginate: PaginateResultsModel?
 }
 
 struct StoreResultsModel {
@@ -25,6 +26,16 @@ struct StoreResultsModel {
 
 struct PromotionResultsModel {
     var promotion: [PromotionModel]
+}
+
+struct PaginateResultsModel {
+    var from: Int
+    var current: Int
+    var to: Int
+    
+    var perPage: Int
+
+    var moreAvailable: Bool
 }
 
 struct SearchRefine {
