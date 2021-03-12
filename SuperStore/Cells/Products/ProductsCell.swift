@@ -42,10 +42,13 @@ class ProductsElementModel: HomeElementItemModel {
     var products: [ProductModel] = []
     
     var index: Int = 0
+    var title: String = ""
     
     var scrollPosition: CGFloat = 0
     var productPressed: ((Int) -> Void)? = nil
+    
     var scrolled: ((Int, CGFloat) -> Void)? = nil
+    var parentScrolled: ((String, CGFloat) -> Void)? = nil
     
     init(products: [ProductModel]) {
         self.products = products
@@ -54,6 +57,7 @@ class ProductsElementModel: HomeElementItemModel {
 
 class GroceryProductGroupElement: ProductGroupElement { }
 class MonitoringProductGroupElement: ProductGroupElement { }
+
 class CategoryProductGroupElement: ProductGroupElement { }
 
 class ProductsCell: UITableViewCell, HomeElementCell {
@@ -63,7 +67,9 @@ class ProductsCell: UITableViewCell, HomeElementCell {
     var model: ProductsElementModel!
     var products: [ProductModel] = []
     
+    var parentScrolled: ((String, CGFloat) -> Void)? = nil
     var productPressed: ((Int) -> Void?)? = nil
+    
     var scrolled: ((Int, CGFloat) -> Void)?
     
     var loading: Bool = false
@@ -78,7 +84,9 @@ class ProductsCell: UITableViewCell, HomeElementCell {
         
         self.model = model
         self.productPressed = model.productPressed
+        
         self.scrolled = model.scrolled
+        self.parentScrolled = model.parentScrolled
         
         self.products = model.products
         self.productCollection.reloadData()
@@ -142,6 +150,10 @@ extension ProductsCell: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if let scrolled = scrolled {
             scrolled(model.index, scrollView.contentOffset.x)
+        }
+        
+        if let parentScrolled = parentScrolled {
+            parentScrolled(model.title, scrollView.contentOffset.x)
         }
     }
 }

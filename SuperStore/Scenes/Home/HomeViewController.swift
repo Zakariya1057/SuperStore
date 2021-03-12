@@ -75,6 +75,10 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         getHome()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        getHome()
+    }
+    
     var refreshControl = UIRefreshControl()
     
     @IBOutlet var tableView: UITableView!
@@ -167,9 +171,17 @@ extension HomeViewController {
                 let name = category.name
                 let products = category.products
 
-                let categoryCell = CategoryProductGroupElement(title: name, products: [
-                    ProductsElementModel(products: products)
-                ], productPressed: productPressed)
+                let productCell = ProductsElementModel(products: products)
+                
+                productCell.title = name
+                
+                let categoryCell = CategoryProductGroupElement(title: name, products: [productCell], productPressed: productPressed)
+            
+                productCell.parentScrolled = cellScroll
+                
+                if let position = scrollPositions[name] {
+                    productCell.scrollPosition = position
+                }
                 
                 homeCells.append(categoryCell)
             }
@@ -177,6 +189,7 @@ extension HomeViewController {
             tableView.reloadData()
             
         }
+        
     }
 
 }
@@ -277,7 +290,6 @@ extension HomeViewController {
         let cellIdentifier = group.type.rawValue
         let customCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! HomeElementCell
         
-//        cellModel.position = scrollPositions[ cellModel.title ]
         customCell.configure(model: cellModel)
         
         let cell = customCell as! UITableViewCell
@@ -318,7 +330,8 @@ extension HomeViewController {
         router?.routeToShowProduct(segue: nil)
     }
     
-    private func cellScroll(position: CGFloat, title: String){
+    private func cellScroll(title: String, position: CGFloat){
+        print(title)
         scrollPositions[title] = position
     }
 }
