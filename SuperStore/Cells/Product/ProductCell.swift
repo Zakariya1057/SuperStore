@@ -4,6 +4,14 @@ import Cosmos
 class ProductCell: UITableViewCell {
     var product: ProductModel!
     
+    @IBOutlet var loadingViews: [UIView]!
+    
+    var loading: Bool = true {
+        didSet {
+            loading ? startLoading() : stopLoading()
+        }
+    }
+    
     var addToList: Bool = false
     
     var addToListPressed:((ProductModel) -> Void)? = nil
@@ -30,13 +38,15 @@ class ProductCell: UITableViewCell {
     }
     
     func configureUI(){
-        nameLabel.text = product.name
-        productImageView.downloaded(from: product.smallImage)
-        ratingView.rating = product.avgRating
-        ratingView.text = "(\(product.totalReviewsCount))"
-        priceLabel.text = "£" + String(format: "%.2f", product.price)
-        
-        displayButtons()
+        if !loading {
+            nameLabel.text = product.name
+            productImageView.downloaded(from: product.smallImage)
+            ratingView.rating = product.avgRating
+            ratingView.text = "(\(product.totalReviewsCount))"
+            priceLabel.text = "£" + String(format: "%.2f", product.price)
+            
+            displayButtons()
+        }
     }
     
     func displayButtons(){
@@ -84,5 +94,20 @@ extension ProductCell {
         product.quantity = quantity
         quantityStepper.value = Double(quantity)
         quanityLabel.text = "\(quantity)"
+    }
+}
+
+extension ProductCell {
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
     }
 }

@@ -62,7 +62,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AwN-09-Y6N">
                                                         <rect key="frame" x="0.0" y="0.0" width="354" height="27"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ben &amp; Jerry's Non-Dairy &amp; Vegan Chocolate Fudge Brownie Ice Cream" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xct-SO-9fz">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ben &amp; Jerry's Non-Dairy" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xct-SO-9fz">
                                                                 <rect key="frame" x="0.0" y="0.0" width="354" height="27"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <nil key="textColor"/>
@@ -253,6 +253,10 @@
                 <outlet property="quantityStepper" destination="Dkq-5d-Un9" id="TuV-6r-9vw"/>
                 <outlet property="quantityView" destination="vmu-VH-iGd" id="Y6g-tx-AuK"/>
                 <outlet property="ratingView" destination="YYA-oO-zY4" id="YIz-in-qRN"/>
+                <outletCollection property="loadingViews" destination="ZzR-dX-ufc" collectionClass="NSMutableArray" id="BUz-af-Lyn"/>
+                <outletCollection property="loadingViews" destination="AwN-09-Y6N" collectionClass="NSMutableArray" id="cPT-ms-NpG"/>
+                <outletCollection property="loadingViews" destination="lEm-0J-r9z" collectionClass="NSMutableArray" id="Q6y-OL-MU3"/>
+                <outletCollection property="loadingViews" destination="f0j-5Z-GdY" collectionClass="NSMutableArray" id="Xwe-yS-gdP"/>
             </connections>
             <point key="canvasLocation" x="148.55072463768118" y="125.55803571428571"/>
         </tableViewCell>

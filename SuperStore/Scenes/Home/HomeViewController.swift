@@ -324,10 +324,12 @@ extension HomeViewController {
 
 extension HomeViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let group = homeCells[indexPath.section] as? ListGroupProgressElement {
-            let list = group.items[indexPath.row] as! ListProgressElement
-            if list.list != nil {
-                listPressed(list: list.list!)
+        if !loading {
+            if let group = homeCells[indexPath.section] as? ListGroupProgressElement {
+                let list = group.items[indexPath.row] as! ListProgressElement
+                if list.list != nil {
+                    listPressed(list: list.list!)
+                }
             }
         }
     }

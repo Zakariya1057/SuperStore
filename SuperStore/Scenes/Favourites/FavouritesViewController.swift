@@ -81,6 +81,8 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
     // MARK: IB Outlets
     @IBOutlet var favouriteTableView: UITableView!
     
+    var loading: Bool = true
+    
     var products: [ProductModel] = []
     
     var refreshControl = UIRefreshControl()
@@ -106,6 +108,7 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
         if let error = viewModel.error {
             showError(title: "Home Error", error: error)
         } else {
+            loading = false
             products = viewModel.products
             favouriteTableView.reloadData()
         }
@@ -120,14 +123,18 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
     }
     
     @objc func refreshFavourites(){
-        getFavourites()
+        if loggedIn {
+            getFavourites()
+        } else {
+            refreshControl.endRefreshing()
+        }
     }
     
 }
 
 extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loggedIn ? products.count : 1
+        return loading ? (loggedIn ? 5 : 1) : products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -149,7 +156,8 @@ extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
     func configureProductCell(indexPath: IndexPath) -> ProductCell {
         let cell = favouriteTableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
         
-        cell.product = products[indexPath.row]
+        cell.product = loading ? nil : products[indexPath.row]
+        cell.loading = loading
         cell.configureUI()
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -184,8 +192,10 @@ extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension FavouritesViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        router?.selectedProductID = products[indexPath.row].id
-        router?.routeToShowProduct(segue: nil)
+        if !loading {
+            router?.selectedProductID = products[indexPath.row].id
+            router?.routeToShowProduct(segue: nil)
+        }
     }
 }
 
