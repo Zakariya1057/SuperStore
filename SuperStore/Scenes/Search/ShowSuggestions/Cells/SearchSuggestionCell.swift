@@ -10,23 +10,23 @@ import UIKit
 
 class SearchSuggestionCell: UITableViewCell {
 
-    @IBOutlet weak var nameLabel: UILabel!
-    
     var suggestion: SuggestionModel?
     
-    @IBOutlet var nameView: UIView!
+    @IBOutlet var loadingViews: [UIView]!
     
-    var loadingViews: [UIView] {
-        return [nameView]
+    var loading: Bool = true {
+        didSet {
+            loading ? startLoading() : stopLoading()
+        }
     }
+    
+    @IBOutlet weak var nameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
     func configureUI(){
-        stopLoading()
-        
         if let suggestion = suggestion {
             nameLabel.text = suggestion.name
         }
@@ -36,7 +36,9 @@ class SearchSuggestionCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-    
+}
+
+extension SearchSuggestionCell {
     func startLoading(){
         for item in loadingViews {
             item.isSkeletonable = true
@@ -49,5 +51,4 @@ class SearchSuggestionCell: UITableViewCell {
             item.hideSkeleton()
         }
     }
-    
 }

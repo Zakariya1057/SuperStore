@@ -29,7 +29,9 @@ class ListWorker {
 
     func getList(listID: Int, completionHandler: @escaping ( _ list: ListModel?, _ error: String?) -> Void){
         // Preload List
-        if let list = listStore.getList(listID: listID) {
+        
+        // Unless offline, dont show empty list items
+        if let list = listStore.getList(listID: listID), list.categories.count > 0{
             completionHandler(list, nil)
         }
         

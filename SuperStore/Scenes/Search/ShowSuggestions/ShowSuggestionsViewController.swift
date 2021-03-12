@@ -76,6 +76,8 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
         setupSearchDelegate()
     }
     
+    var loading: Bool = true
+    
     var recentSuggestionsLimit: Int = 7
     
     @IBOutlet var suggestionsTableView: UITableView!
@@ -91,6 +93,9 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     func search(){
         let searchText = searchBar.text ?? ""
         
+        loading = true
+        suggestionsTableView.reloadData()
+        
         if searchText.replacingOccurrences(of: " ", with: "") == "" {
             getRecentSuggestions()
         } else {
@@ -101,6 +106,8 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     
     func displaySuggestions(viewModel: ShowSuggestions.GetSuggestions.ViewModel)
     {
+        loading = false
+        
         if let error = viewModel.error {
             showError(title: "Search Error", error: error)
         } else {
@@ -110,6 +117,9 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     }
     
     func displayRecentSuggestions(viewModel: ShowSuggestions.GetRecentSuggestions.ViewModel){
+        
+        loading = false
+        
         if let error = viewModel.error {
             showError(title: "Suggestion Error", error: error)
         } else {
@@ -127,7 +137,7 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
 
 extension ShowSuggestionsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return suggestions.count
+        return loading ? 3 : suggestions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -137,7 +147,10 @@ extension ShowSuggestionsViewController: UITableViewDataSource, UITableViewDeleg
     func configureSuggestionCell(indexPath: IndexPath) -> SearchSuggestionCell {
         let cell = suggestionsTableView.dequeueReusableCell(withIdentifier: "SearchSuggestionCell", for: indexPath) as! SearchSuggestionCell
         
-        cell.suggestion = suggestions[indexPath.row]
+        print("Loading: \(loading)")
+        
+        cell.loading = loading
+        cell.suggestion = loading ? nil : suggestions[indexPath.row]
         cell.configureUI()
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none

@@ -90,6 +90,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         }
     }
     
+    var loading: Bool = true
     var refreshControl = UIRefreshControl()
     
     @IBOutlet var totalProductsLabel: UILabel!
@@ -127,6 +128,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     func displayResults(viewModel: ShowProductResults.GetResults.ViewModel)
     {
         refreshControl.endRefreshing()
+        loading = false
         
         if let error = viewModel.error {
             showError(title: "Search Error", error: error)
@@ -190,6 +192,7 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
             product.listID = interactor?.selectedListID!
         }
         
+        cell.loading = loading
         cell.product = product
         cell.addToList = true
         cell.addToListPressed = addToListPressed
