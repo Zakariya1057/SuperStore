@@ -78,6 +78,8 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
     
     var lists: [ListModel] = []
     
+    var loading: Bool = true
+    
     var editIndexPath: IndexPath?
     
     let spinner: SpinnerViewController = SpinnerViewController()
@@ -109,6 +111,7 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
         if let error = viewModel.error {
             showError(title: "Lists Error", error: error)
         } else {
+            loading = false
             lists = viewModel.lists
             listsTableView.reloadData()
         }
@@ -128,7 +131,7 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
 
 extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loggedIn ? lists.count : 1
+        return loading ? (loggedIn ? 5 : 1) : lists.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -151,7 +154,8 @@ extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
     func configureProductCell(indexPath: IndexPath) -> ListCell {
         let cell = listsTableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as! ListCell
         
-        cell.list = lists[indexPath.row]
+        cell.list = loading ? nil : lists[indexPath.row]
+        cell.loading = loading
         cell.configureUI()
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -241,10 +245,10 @@ extension ShowListsViewController {
 
 extension ShowListsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // If add to list, let parent know
-        // Otherwise, route to show list
-        router?.listSelectedID = lists[indexPath.row].id
-        interactor!.addToList ? router?.routeToBackListSelected(segue: nil) : router?.routeToShowList(segue: nil)
+        if !loading {
+            router?.listSelectedID = lists[indexPath.row].id
+            interactor!.addToList ? router?.routeToBackListSelected(segue: nil) : router?.routeToShowList(segue: nil)
+        }
     }
 }
 

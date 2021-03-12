@@ -15,13 +15,19 @@ class ListCell: UITableViewCell {
     @IBOutlet weak var createdLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
 
-    var loading: Bool = false
+    @IBOutlet var loadingViews: [UIView]!
+    
+    var loading: Bool = true {
+        didSet {
+            loading ? startLoading() : stopLoading()
+        }
+    }
 
     var list: ListModel?
 
     var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM Y"
+        dateFormatter.dateFormat = "d MMM y"
         return dateFormatter
     }
     
@@ -29,13 +35,7 @@ class ListCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    var loadingViews: [UIView] {
-        return [listNameLabel, totalLabel,createdLabel,statusLabel]
-    }
-
     func configureUI(){
-
-        loading ? startLoading() : stopLoading()
 
         if list != nil {
 
@@ -56,7 +56,6 @@ class ListCell: UITableViewCell {
                 statusLabel.textColor =  UIColor(named: "Green.Light")
                 statusLabel.text = "Completed"
             }
-
         }
     }
     
@@ -68,7 +67,10 @@ class ListCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
+    
+}
 
+extension ListCell {
     func startLoading(){
         for item in loadingViews {
             item.isSkeletonable = true
@@ -81,6 +83,4 @@ class ListCell: UITableViewCell {
             item.hideSkeleton()
         }
     }
-
-    
 }

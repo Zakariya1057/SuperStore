@@ -139,6 +139,10 @@
                 <outlet property="listNameLabel" destination="tf9-Ow-iag" id="dGT-qs-UMS"/>
                 <outlet property="statusLabel" destination="GpH-fp-I2y" id="7HR-q9-ft7"/>
                 <outlet property="totalLabel" destination="Op0-Tg-qvJ" id="VHK-k7-HC5"/>
+                <outletCollection property="loadingViews" destination="tf9-Ow-iag" collectionClass="NSMutableArray" id="67X-tr-6ea"/>
+                <outletCollection property="loadingViews" destination="Op0-Tg-qvJ" collectionClass="NSMutableArray" id="vFl-NX-34p"/>
+                <outletCollection property="loadingViews" destination="1bh-XE-Kfc" collectionClass="NSMutableArray" id="ODc-hg-7pU"/>
+                <outletCollection property="loadingViews" destination="GpH-fp-I2y" collectionClass="NSMutableArray" id="puP-SX-ViY"/>
             </connections>
             <point key="canvasLocation" x="163.04347826086959" y="127.90178571428571"/>
         </tableViewCell>

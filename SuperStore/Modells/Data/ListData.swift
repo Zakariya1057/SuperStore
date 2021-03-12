@@ -69,7 +69,7 @@ struct ListData: Decodable {
     
     private func formatDate(date: String) -> Date {
         let dateFormat: DateFormatter = DateFormatter()
-        dateFormat.dateFormat = "dd MMMM Y"
+        dateFormat.dateFormat = "d MMM y"
         return dateFormat.date(from: date)!
     }
 }

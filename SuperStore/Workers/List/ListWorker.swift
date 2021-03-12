@@ -43,9 +43,10 @@ class ListWorker {
     }
     
     func getLists(storeTypeID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
-        // Preload Lists
         let lists = listStore.getLists(storeTypeID: storeTypeID)
-        completionHandler(lists, nil)
+        if lists.count > 0 {
+            completionHandler(lists, nil)
+        }
         
         listAPI.getLists { (lists: [ListModel], error: String?) in
             // Save lists
