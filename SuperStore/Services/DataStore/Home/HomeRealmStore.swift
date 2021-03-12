@@ -11,16 +11,24 @@ import RealmSwift
 
 class HomeRealmStore: DataStore, HomeStoreProtocol {
     
+    var homeObject: HomeObject? {
+        return realm?.objects(HomeObject.self).first
+    }
+    
     var productStore: ProductStoreProtocol = ProductRealmStore()
     var storeStore: StoreStoreProtocol = StoreRealmStore()
     var listStore: ListStoreProtocol = ListRealmStore()
     var categoryStore: GroceryStoreProtocol = GroceryRealmStore()
     
     func createHome(storeTypeID: Int, home: HomeModel){
+        
         try? realm?.write({
-            let savedHome = HomeObject()
             
-//            var categories = List<ChildCategoryObject>()
+            if let savedHome = homeObject {
+                realm?.delete(savedHome)
+            }
+            
+            let savedHome = HomeObject()
             
             savedHome.featured.removeAll()
             for savedProduct in home.featured.map({ productStore.createProductObject(product: $0) }) {
@@ -57,5 +65,94 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
             realm?.add(savedHome)
         })
     }
+    
+    func getHome() -> HomeModel {
+        
+        let listLimit: Int = 4
+        let storeLimit: Int = 10
+        
+        let lists: [ListModel] = getLists(limit: listLimit)
+        let stores: [StoreModel] = getStores(limit: storeLimit)
+        let featured: [ProductModel] = getProducts(savedProducts: homeObject?.featured)
+        let groceries: [ProductModel] = getProducts(savedProducts: homeObject?.groceries)
+        let monitoring: [ProductModel] = getProducts(savedProducts: homeObject?.monitoring)
+        let promotions: [PromotionModel] = getPromotions()
+        let categories: [ChildCategoryModel] = getCategories()
+        
+        return HomeModel(
+            lists: lists,
+            stores: stores,
+            featured: featured,
+            groceries: groceries,
+            monitoring: monitoring,
+            promotions: promotions,
+            categories: categories
+        )
+        
+    }
 
+}
+
+extension HomeRealmStore {
+    private func getLists(limit: Int) -> [ListModel] {
+        let savedLists = realm?.objects(ListObject.self).sorted(byKeyPath: "updatedAt", ascending: true)
+        var lists: [ListModel] = []
+        
+        if let savedLists = savedLists {
+            for index in 0...limit {
+                lists.append( savedLists[index].getListModel() )
+            }
+        }
+        
+        return lists
+    }
+    
+    func getStores(limit: Int) -> [StoreModel] {
+        let savedStores = realm?.objects(StoreObject.self).sorted(byKeyPath: "updatedAt", ascending: true)
+        var stores: [StoreModel] = []
+        
+        if let savedStores = savedStores {
+            for index in 0...limit {
+                stores.append( savedStores[index].getStoreModel() )
+            }
+        }
+        
+        return stores
+    }
+    
+    func getProducts(savedProducts: List<ProductObject>?) -> [ProductModel]{
+        var products: [ProductModel] = []
+        
+        if let savedProducts = savedProducts {
+            savedProducts.forEach { (product: ProductObject) in
+                products.append( product.getProductModel() )
+            }
+        }
+        
+        return products
+    }
+    
+    func getPromotions() -> [PromotionModel]{
+        var promotions: [PromotionModel] = []
+        
+        if let savedPromotions = homeObject?.promotions {
+            savedPromotions.forEach { (promotion: PromotionObject) in
+                promotions.append( promotion.getPromotionModel() )
+            }
+        }
+        
+        return promotions
+    }
+    
+    func getCategories() -> [ChildCategoryModel] {
+        var categories: [ChildCategoryModel] = []
+        
+        if let savedCategories = homeObject?.categories {
+            savedCategories.forEach { (category: ChildCategoryObject) in
+                categories.append( category.getChildCategoryModel() )
+            }
+        }
+        
+        return categories
+    }
 }

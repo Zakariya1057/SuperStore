@@ -22,6 +22,9 @@ class StoreObject: Object {
     
     @objc dynamic var storeTypeID: Int = 1
     
+    @objc dynamic var createdAt: Date = Date()
+    @objc dynamic var updatedAt: Date = Date()
+    
     func getStoreModel() -> StoreModel {
         return StoreModel(
             id: id,
