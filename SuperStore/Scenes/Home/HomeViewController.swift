@@ -85,6 +85,11 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     var homeModel: HomeModel?
     
+    var userSession: UserSessionWorker = UserSessionWorker()
+    var loggedIn: Bool {
+        return userSession.isLoggedIn()
+    }
+    
     func getHome()
     {
         let request = Home.GetHome.Request()
@@ -116,36 +121,42 @@ extension HomeViewController {
                 
                 switch element {
                 
-                case is StoreMapGroupElement:
-                    let storeElement = element as! StoreMapGroupElement
-                    storeElement.items = [ StoresMapElementModel(stores: homeModel.stores) ]
-                    storeElement.configurePressed()
-                    break
-                case is GroceryProductGroupElement:
-                    let productElement = element as! GroceryProductGroupElement
-                    productElement.items = [ ProductsElementModel(products: homeModel.groceries) ]
-                    productElement.configurePressed()
-                    break
-                case is MonitoringProductGroupElement:
-                    let productElement = element as! MonitoringProductGroupElement
-                    productElement.items =  [ ProductsElementModel(products: homeModel.monitoring.reversed()) ]
-                    productElement.configurePressed()
-                    break
-                case is PromotionGroupElement:
-                    let offerElement = element as! PromotionGroupElement
-                    offerElement.items = [ PromotionsElementModel(promotions: homeModel.promotions) ]
-                    offerElement.configurePressed()
-                    break
-                case is FeaturedProductGroupElement:
-                    let featuredElement = element as! FeaturedProductGroupElement
-                    featuredElement.items = [ FeaturedProductsElementModel(products: homeModel.featured) ]
-                    featuredElement.configurePressed()
-                    break
                 case is ListGroupProgressElement:
                     let listProgressElement = element as! ListGroupProgressElement
                     listProgressElement.items = homeModel.lists.map { ListProgressElement(list: $0) }
                     listProgressElement.configurePressed()
                     break
+                    
+                case is StoreMapGroupElement:
+                    let storeElement = element as! StoreMapGroupElement
+                    storeElement.items = [ StoresMapElementModel(stores: homeModel.stores) ]
+                    storeElement.configurePressed()
+                    break
+                    
+                case is GroceryProductGroupElement:
+                    let productElement = element as! GroceryProductGroupElement
+                    productElement.items = [ ProductsElementModel(products: homeModel.groceries) ]
+                    productElement.configurePressed()
+                    break
+                    
+                case is MonitoringProductGroupElement:
+                    let productElement = element as! MonitoringProductGroupElement
+                    productElement.items =  [ ProductsElementModel(products: homeModel.monitoring.reversed()) ]
+                    productElement.configurePressed()
+                    break
+                    
+                case is PromotionGroupElement:
+                    let offerElement = element as! PromotionGroupElement
+                    offerElement.items = [ PromotionsElementModel(promotions: homeModel.promotions) ]
+                    offerElement.configurePressed()
+                    break
+                    
+                case is FeaturedProductGroupElement:
+                    let featuredElement = element as! FeaturedProductGroupElement
+                    featuredElement.items = [ FeaturedProductsElementModel(products: homeModel.featured) ]
+                    featuredElement.configurePressed()
+                    break
+
                 default:
                     print("Unknown Type Encountered: \(element.type)")
                 }
@@ -209,6 +220,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.delegate = self
     }
     
+}
+
+extension HomeViewController {
     private func setupHomeCells(){
         homeCells = [
             ListGroupProgressElement(title: "List Progress", lists: [], listPressed: listPressed),
@@ -218,8 +232,26 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             PromotionGroupElement(title: "Promotions", promotions: [], promotionPressed: promotionPressed),
             FeaturedProductGroupElement(title: "Featured", products: [], productPressed: productPressed)
         ]
+        
+        if !loggedIn {
+            removeLoggedOutCells()
+        }
+    }
+    
+    func removeLoggedOutCells(){
+        homeCells.removeAll { (element: HomeElementGroupModel) -> Bool in
+            if element is ListGroupProgressElement
+                || element is GroceryProductGroupElement
+                || element is MonitoringProductGroupElement
+            {
+                return true
+            }
+            
+            return false
+        }
     }
 }
+
 
 extension HomeViewController {
     
