@@ -98,13 +98,13 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
     
     func displayStores(viewModel: ShowStoreResults.GetStores.ViewModel)
     {
-        loading = false
-        
         if let error = viewModel.error {
             showError(title: "Store Errors", error: error)
         } else {
             stores = viewModel.stores
             displayedStores = viewModel.displayedStore
+            
+            loading = false
             
             mapTableView.reloadData()
             storesTableView.reloadData()

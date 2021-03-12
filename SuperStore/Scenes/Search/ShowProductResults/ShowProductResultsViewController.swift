@@ -133,11 +133,11 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     func displayResults(viewModel: ShowProductResults.GetResults.ViewModel)
     {
         refreshControl.endRefreshing()
-        loading = false
         
         if let error = viewModel.error {
             showError(title: "Search Error", error: error)
         } else {
+            loading = false
             products = viewModel.products
             totalProductsLabel.text = "\(products.count) Products"
             productsTableView.reloadData()

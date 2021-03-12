@@ -123,7 +123,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     var product: ProductModel!
     var displayedProduct: ShowProduct.DisplayedProduct?
 
-    var loading: Bool = false
+    var loading: Bool = true
     
     var scrollPosition: CGFloat = 0
     
@@ -153,6 +153,9 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         if let error = viewModel.error {
             showError(title: "Product Error", error: error)
         } else {
+            
+            loading = false
+            
             if let displayedProduct = viewModel.displayedProduct {
                 
                 self.product = viewModel.product
@@ -377,7 +380,7 @@ extension ShowProductViewController {
 //MARK: - Setup TableView
 extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableView == reviewsTableView ? reviews.count : 1
+        return loading ? 1 : (tableView == reviewsTableView ? reviews.count : 1)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -387,17 +390,12 @@ extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate 
     func configureReviewCell(indexPath: IndexPath) -> ReviewCell {
         let cell = reviewsTableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewCell
         
-        if loading == false {
-            
-            if reviews.count > 0 {
-                cell.review = reviews[indexPath.row]
-            }
-            
-            cell.configureUI()
-            
-        } else {
-            cell.startLoading()
+        if reviews.count > 0 {
+            cell.review = reviews[indexPath.row]
         }
+        
+        cell.loading = loading
+        cell.configureUI()
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         
@@ -502,4 +500,3 @@ extension ShowProductViewController: SelectListProtocol {
         createListItem(listID: listID)
     }
 }
-

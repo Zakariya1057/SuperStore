@@ -56,7 +56,7 @@ class ProductObject: Object {
             name: name,
             smallImage: smallImage,
             largeImage: largeImage,
-            description: description,
+            description: productDescription,
             quantity: 0,
             price: price,
             avgRating: avgRating,

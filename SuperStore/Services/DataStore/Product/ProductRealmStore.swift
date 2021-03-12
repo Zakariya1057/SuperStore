@@ -94,12 +94,9 @@ extension ProductRealmStore {
             savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
         }
         
-        let recommended = List<ProductObject>()
         for product in product.recommended {
-            recommended.append( createProductObject(product: product) )
+            savedProduct.recommended.append( createProductObject(product: product) )
         }
-        
-        savedProduct.recommended = recommended
         
         savedProduct.smallImage = product.smallImage
         savedProduct.largeImage = product.largeImage
@@ -126,20 +123,14 @@ extension ProductRealmStore {
         savedProduct.dietaryInfo = product.dietaryInfo
         savedProduct.allergenInfo = product.allergenInfo
         
-        let reviews = List<ReviewObject>()
-        
         for review in product.reviews {
-            reviews.append( reviewStore.createReviewObject(review: review) )
+            savedProduct.reviews.append( reviewStore.createReviewObject(review: review) )
         }
         
-        savedProduct.reviews = reviews
-        
-        let ingredients = List<String>()
         product.ingredients.forEach { (ingredient: String) in
-            ingredients.append(ingredient)
+            savedProduct.ingredients.append(ingredient)
         }
         
-        savedProduct.ingredients = ingredients
         savedProduct.updatedAt = Date()
         
         return savedProduct
@@ -223,40 +214,33 @@ extension ProductRealmStore {
     
     func updateRecommended(product: ProductModel, savedProduct: ProductObject){
         if product.recommended.count > 0 {
-            let recommended = List<ProductObject>()
-            
+            savedProduct.recommended.removeAll()
             for product in product.recommended {
-                recommended.append( createProductObject(product: product) )
+                savedProduct.recommended.append( createProductObject(product: product) )
             }
             
-            savedProduct.recommended.removeAll()
-            savedProduct.recommended = recommended
         }
     }
     
     func updateIngredients(product: ProductModel, savedProduct: ProductObject){
         if product.ingredients.count > 0 {
-            let ingredients = List<String>()
-            
+
+            savedProduct.ingredients.removeAll()
             product.ingredients.forEach { (ingredient: String) in
-                ingredients.append(ingredient)
+                savedProduct.ingredients.append(ingredient)
             }
             
-            savedProduct.ingredients.removeAll()
-            savedProduct.ingredients = ingredients
         }
     }
     
     func updateReviews(product: ProductModel, savedProduct: ProductObject){
         if product.reviews.count > 0 {
-            let reviews = List<ReviewObject>()
-            
-            for review in product.reviews {
-                reviews.append( reviewStore.createReviewObject(review: review) )
-            }
             
             savedProduct.reviews.removeAll()
-            savedProduct.reviews = reviews
+            for review in product.reviews {
+                savedProduct.reviews.append( reviewStore.createReviewObject(review: review) )
+            }
+            
         }
     }
 }

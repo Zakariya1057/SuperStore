@@ -13,14 +13,18 @@ class ReviewCell: UITableViewCell {
 
     var review: ReviewModel?
     
+    @IBOutlet var loadingViews: [UIView]!
+    
+    var loading: Bool = true {
+        didSet {
+            loading ? startLoading() : stopLoading()
+        }
+    }
+    
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var reviewText: UILabel!
-    @IBOutlet weak var usernameField:UILabel!
+    @IBOutlet weak var usernameField: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    
-    var loadingViews: [UIView] {
-        return [ratingView,reviewText,usernameField,titleLabel]
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,9 +32,6 @@ class ReviewCell: UITableViewCell {
     }
     
     func configureUI(){
-        
-        stopLoading()
-        
         if let product_review = review {
             let rating: Double = Double(product_review.rating)
             
@@ -45,6 +46,9 @@ class ReviewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+}
+
+extension ReviewCell {
     
     func startLoading(){
         for item in loadingViews {
@@ -58,5 +62,4 @@ class ReviewCell: UITableViewCell {
             item.hideSkeleton()
         }
     }
-    
 }

@@ -147,6 +147,10 @@
                 <outlet property="reviewText" destination="pGe-To-hnb" id="dvz-UL-PhC"/>
                 <outlet property="titleLabel" destination="6Ll-19-tOA" id="2Na-PX-LMv"/>
                 <outlet property="usernameField" destination="zxC-DT-6lw" id="nG3-HF-LEv"/>
+                <outletCollection property="loadingViews" destination="wlG-AE-0pe" collectionClass="NSMutableArray" id="cQX-rC-LEb"/>
+                <outletCollection property="loadingViews" destination="zxC-DT-6lw" collectionClass="NSMutableArray" id="d7t-z1-taD"/>
+                <outletCollection property="loadingViews" destination="k69-f6-LuS" collectionClass="NSMutableArray" id="zEF-xW-1q4"/>
+                <outletCollection property="loadingViews" destination="98K-oz-umM" collectionClass="NSMutableArray" id="43j-tA-m19"/>
             </connections>
             <point key="canvasLocation" x="228.2608695652174" y="150.66964285714286"/>
         </tableViewCell>
