@@ -105,7 +105,7 @@ extension ShowDescriptionViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = productDescription
-        cell.textLabel?.numberOfLines = 5
+        cell.textLabel?.numberOfLines = 1000
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }

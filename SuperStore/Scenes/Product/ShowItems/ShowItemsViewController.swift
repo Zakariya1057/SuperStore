@@ -12,15 +12,15 @@
 
 import UIKit
 
-protocol ShowIngredientsDisplayLogic: class
+protocol ShowItemsDisplayLogic: class
 {
-    func displayIngredients(viewModel: ShowIngredients.GetIngredients.ViewModel)
+    func displayItems(viewModel: ShowItems.GetItems.ViewModel)
 }
 
-class ShowIngredientsViewController: UIViewController, ShowIngredientsDisplayLogic
+class ShowItemsViewController: UIViewController, ShowItemsDisplayLogic
 {
     var interactor: ShowIngredientsBusinessLogic?
-    var router: (NSObjectProtocol & ShowIngredientsRoutingLogic & ShowIngredientsDataPassing)?
+    var router: (NSObjectProtocol & ShowItemsRoutingLogic & ShowIngredientsDataPassing)?
     
     // MARK: Object lifecycle
     
@@ -41,9 +41,9 @@ class ShowIngredientsViewController: UIViewController, ShowIngredientsDisplayLog
     private func setup()
     {
         let viewController = self
-        let interactor = ShowIngredientsInteractor()
-        let presenter = ShowIngredientsPresenter()
-        let router = ShowIngredientsRouter()
+        let interactor = ShowItemsInteractor()
+        let presenter = ShowItemsPresenter()
+        let router = ShowItemsRouter()
         viewController.interactor = interactor
         viewController.router = router
         interactor.presenter = presenter
@@ -70,41 +70,42 @@ class ShowIngredientsViewController: UIViewController, ShowIngredientsDisplayLog
     {
         super.viewDidLoad()
         setupTableView()
-        getIngredients()
+        getItems()
     }
     
     // MARK: Do something
     
     @IBOutlet weak var ingredientsTableView: UITableView!
     
-    var ingredients: [String] = []
+    var items: [String] = []
     
-    func getIngredients()
+    func getItems()
     {
-        let request = ShowIngredients.GetIngredients.Request()
-        interactor?.getIngredients(request: request)
+        let request = ShowItems.GetItems.Request()
+        interactor?.getItems(request: request)
     }
     
-    func displayIngredients(viewModel: ShowIngredients.GetIngredients.ViewModel)
+    func displayItems(viewModel: ShowItems.GetItems.ViewModel)
     {
-        ingredients = viewModel.ingredients
+        title = viewModel.title
+        items = viewModel.items
         ingredientsTableView.reloadData()
     }
 }
 
-extension ShowIngredientsViewController: UITableViewDelegate, UITableViewDataSource {
+extension ShowItemsViewController: UITableViewDelegate, UITableViewDataSource {
     func setupTableView(){
         ingredientsTableView.delegate = self
         ingredientsTableView.dataSource = self
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredients.count
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = ingredients[indexPath.row]
+        cell.textLabel?.text = items[indexPath.row]
         cell.textLabel?.numberOfLines = 5
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell

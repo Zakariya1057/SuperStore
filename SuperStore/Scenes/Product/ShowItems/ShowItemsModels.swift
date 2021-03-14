@@ -1,5 +1,5 @@
 //
-//  ShowIngredientsWorker.swift
+//  ShowIngredientsModels.swift
 //  SuperStore
 //
 //  Created by Zakariya Mohummed on 28/02/2021.
@@ -12,9 +12,24 @@
 
 import UIKit
 
-class ShowIngredientsWorker
+enum ShowItems
 {
-  func doSomeWork()
+  // MARK: Use cases
+  
+  enum GetItems
   {
+    struct Request
+    {
+    }
+    struct Response
+    {
+        var title: String
+        var items: [String]
+    }
+    struct ViewModel
+    {
+        var title: String
+        var items: [String]
+    }
   }
 }

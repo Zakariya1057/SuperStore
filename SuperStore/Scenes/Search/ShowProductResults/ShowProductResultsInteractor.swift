@@ -66,8 +66,10 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
             
             if let results = results {
                 for product in results.products {
-                    uniqueBrands[product.brand] = 1
-                    uniqueCategories[product.childCategoryName!] = 1
+                    if let brand = product.brand {
+                        uniqueBrands[brand] = 1
+                        uniqueCategories[product.childCategoryName!] = 1
+                    }
                 }
                 
                 self.searchRefine.brands = uniqueBrands.compactMap{$0.key}

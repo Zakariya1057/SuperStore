@@ -112,7 +112,7 @@ extension HomeRealmStore {
             let savedCount = savedLists.count
             let maxItems = savedCount < limit ? savedCount - 1 : limit
             
-            for index in 0...maxItems - 1 {
+            for index in 0...maxItems {
                 lists.append( savedLists[index].getListModel() )
             }
         }

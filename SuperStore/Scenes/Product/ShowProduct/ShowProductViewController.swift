@@ -90,11 +90,13 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet var quantityStepper: UIStepper!
     @IBOutlet var quantityLabel: UILabel!
     
-    @IBOutlet weak var reviewsStackView: UIStackView!
-    @IBOutlet weak var ingredientsView: UIView!
     @IBOutlet weak var descriptionView: UIView!
-    @IBOutlet weak var allReviewsView: UIView!
+    @IBOutlet var featuresView: UIView!
+    @IBOutlet var dimensionsView: UIView!
+    @IBOutlet weak var ingredientsView: UIView!
     
+    @IBOutlet weak var reviewsStackView: UIStackView!
+    @IBOutlet weak var allReviewsView: UIView!
     @IBOutlet weak var allReviewsButton: UIButton!
     
     @IBOutlet weak var dietaryView: UIStackView!
@@ -195,6 +197,9 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                     promotionLabel.text = promotion.name
                 }
                 
+                displayFeatures(product: displayedProduct)
+                displayDimensions(product: displayedProduct)
+                
                 displayAllergen(product: displayedProduct)
                 displaydietary(product: displayedProduct)
                 
@@ -204,6 +209,14 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         }
     }
 
+    func displayFeatures(product: ShowProduct.DisplayedProduct){
+        featuresView.isHidden = product.features == nil
+    }
+    
+    func displayDimensions(product: ShowProduct.DisplayedProduct){
+        dimensionsView.isHidden = product.dimensions == nil
+    }
+    
     func displayAllergen(product: ShowProduct.DisplayedProduct) {
         if product.allergenInfo == nil || product.allergenInfo == "" {
             allergenView.isHidden = true
@@ -361,6 +374,12 @@ extension ShowProductViewController {
         
         let promotionPressedGesture = UITapGestureRecognizer(target: self, action: #selector(promotionButtonPressed))
         promotionView.addGestureRecognizer(promotionPressedGesture)
+        
+        let featuresPressedGesture = UITapGestureRecognizer(target: self, action: #selector(featuresButtonPressed))
+        featuresView.addGestureRecognizer(featuresPressedGesture)
+        
+        let dimensionsPressedGesture = UITapGestureRecognizer(target: self, action: #selector(dimensionsButtonPressed))
+        dimensionsView.addGestureRecognizer(dimensionsPressedGesture)
     }
     
     @objc func promotionButtonPressed(){
@@ -373,6 +392,14 @@ extension ShowProductViewController {
     
     @objc func descriptionButtonPressed(){
         router?.routeToShowDescription(segue: nil)
+    }
+    
+    @objc func featuresButtonPressed(){
+        router?.routeToShowFeatures(segue: nil)
+    }
+    
+    @objc func dimensionsButtonPressed(){
+        router?.routeToShowDimensions(segue: nil)
     }
     
 }

@@ -98,8 +98,9 @@ extension ProductRealmStore {
             savedProduct.recommended.append( createProductObject(product: product) )
         }
         
-        savedProduct.smallImage = product.smallImage
-        savedProduct.largeImage = product.largeImage
+        for image in product.images {
+            savedProduct.images.append( createImageObject(image: image) )
+        }
         
         savedProduct.productDescription = product.description
         
@@ -136,6 +137,15 @@ extension ProductRealmStore {
         return savedProduct
     }
     
+    func createImageObject(image: ImageModel) -> ImageObject {
+        let savedImage = ImageObject()
+        savedImage.productID = image.productID
+        savedImage.name = image.name
+        savedImage.size = image.size
+        
+        return savedImage
+    }
+    
 }
 
 extension ProductRealmStore {
@@ -149,7 +159,7 @@ extension ProductRealmStore {
             
             updateRecommended(product: product, savedProduct: savedProduct)
             
-            updateImage(product: product, savedProduct: savedProduct)
+            updateImages(product: product, savedProduct: savedProduct)
             
             savedProduct.productDescription = product.description
             
@@ -187,9 +197,17 @@ extension ProductRealmStore {
         savedProduct.totalReviewsCount = product.totalReviewsCount
     }
     
-    func updateImage(product: ProductModel, savedProduct: ProductObject){
-        savedProduct.smallImage = product.smallImage
-        savedProduct.largeImage = product.largeImage
+    func updateImages(product: ProductModel, savedProduct: ProductObject){
+        savedProduct.images.removeAll()
+        for image in product.images {
+            
+            let savedImage = ImageObject()
+            savedImage.productID = image.productID
+            savedImage.name = image.name
+            savedImage.size = image.size
+            
+            savedProduct.images.append(savedImage)
+        }
     }
     
     func updatePromotion(product: ProductModel, savedProduct: ProductObject){

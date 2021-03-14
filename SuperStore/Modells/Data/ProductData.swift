@@ -15,9 +15,15 @@ struct ProductDataResponse: Decodable {
 struct ProductData:Decodable {
     var id: Int
     var name:String
-    var large_image: String
+
     var small_image: String
+    var large_image: String
+    var images: [ImageData]?
+    
     var description: String?
+    var features: [String]?
+    var dimensions: [String]?
+    
     var price:Double
     var storage: String?
     var weight: String?
@@ -28,7 +34,7 @@ struct ProductData:Decodable {
     var dietary_info: String?
     var allergen_info: String?
     
-    var brand:String
+    var brand:String?
     var favourite: Bool?
     var monitoring: Bool?
     
@@ -49,7 +55,10 @@ struct ProductData:Decodable {
             name: name,
             smallImage: small_image,
             largeImage: large_image,
+            images: images?.map({ $0.getImageModel() }) ?? [],
             description: description,
+            features: features,
+            dimensions: dimensions,
             quantity: 0,
             price: price,
             avgRating: avg_rating,

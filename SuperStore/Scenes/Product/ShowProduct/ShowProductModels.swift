@@ -23,8 +23,11 @@ enum ShowProduct
         var promotion: PromotionModel?
         
         var largeImage: String
+        var images: [String]
         
         var description: String
+        var features: [String]?
+        var dimensions: [String]?
 
         var favourite: Bool
         var monitoring: Bool

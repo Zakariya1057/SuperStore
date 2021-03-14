@@ -18,8 +18,11 @@ import UIKit
     func routeToShowPromotion(segue: UIStoryboardSegue?)
     func routeToShowReviews(segue: UIStoryboardSegue?)
     func routeToShowDescription(segue: UIStoryboardSegue?)
-    func routeToShowIngredients(segue: UIStoryboardSegue?)
     func routeToEditReview(segue: UIStoryboardSegue?)
+    
+    func routeToShowIngredients(segue: UIStoryboardSegue?)
+    func routeToShowFeatures(segue: UIStoryboardSegue?)
+    func routeToShowDimensions(segue: UIStoryboardSegue?)
     
     func routeToShowLists(segue: UIStoryboardSegue?)
     func routeToLogin(segue: UIStoryboardSegue?)
@@ -131,20 +134,52 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
         }
     }
     
+    
     func routeToShowIngredients(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
-            let destinationVC = segue.destination as! ShowIngredientsViewController
+            let destinationVC = segue.destination as! ShowItemsViewController
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowIngredients(source: dataStore!, destination: &destinationDS)
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowIngredientsViewController") as! ShowIngredientsViewController
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowItemsViewController") as! ShowItemsViewController
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowIngredients(source: dataStore!, destination: &destinationDS)
-            navigateToShowIngredients(source: viewController!, destination: destinationVC)
+            navigateToShowItems(source: viewController!, destination: destinationVC)
         }
     }
+    
+    func routeToShowFeatures(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowItemsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowIngredients(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowItemsViewController") as! ShowItemsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowFeatures(source: dataStore!, destination: &destinationDS)
+            navigateToShowItems(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    func routeToShowDimensions(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowItemsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowIngredients(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowItemsViewController") as! ShowItemsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowDimensions(source: dataStore!, destination: &destinationDS)
+            navigateToShowItems(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     
     func routeToShowReviews(segue: UIStoryboardSegue?)
     {
@@ -183,7 +218,7 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
         source.show(destination, sender: nil)
     }
     
-    func navigateToShowIngredients(source: ShowProductViewController, destination: ShowIngredientsViewController)
+    func navigateToShowItems(source: ShowProductViewController, destination: ShowItemsViewController)
     {
         source.show(destination, sender: nil)
     }
@@ -208,7 +243,6 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     
     func passDataToLogin(source: ShowProductDataStore, destination: inout LoginDataStore)
     {
-
     }
     
     func passDataToShowReviews(source: ShowProductDataStore, destination: inout ShowReviewsDataStore)
@@ -216,9 +250,22 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
         destination.productID = source.productID
     }
 
-    func passDataToShowIngredients(source: ShowProductDataStore, destination: inout ShowIngredientsDataStore)
+    func passDataToShowIngredients(source: ShowProductDataStore, destination: inout ShowItemsDataStore)
     {
-        destination.ingredients = source.product?.ingredients ?? []
+        destination.title = "Ingredients"
+        destination.items = source.product?.ingredients ?? []
+    }
+    
+    func passDataToShowFeatures(source: ShowProductDataStore, destination: inout ShowItemsDataStore)
+    {
+        destination.title = "Features"
+        destination.items = source.product?.features ?? []
+    }
+    
+    func passDataToShowDimensions(source: ShowProductDataStore, destination: inout ShowItemsDataStore)
+    {
+        destination.title = "Dimensions"
+        destination.items = source.product?.dimensions ?? []
     }
     
     func passDataToShowDescription(source: ShowProductDataStore, destination: inout ShowDescriptionDataStore)

@@ -12,20 +12,20 @@
 
 import UIKit
 
-@objc protocol ShowIngredientsRoutingLogic
+@objc protocol ShowItemsRoutingLogic
 {
   //func routeToSomewhere(segue: UIStoryboardSegue?)
 }
 
 protocol ShowIngredientsDataPassing
 {
-  var dataStore: ShowIngredientsDataStore? { get }
+  var dataStore: ShowItemsDataStore? { get }
 }
 
-class ShowIngredientsRouter: NSObject, ShowIngredientsRoutingLogic, ShowIngredientsDataPassing
+class ShowItemsRouter: NSObject, ShowItemsRoutingLogic, ShowIngredientsDataPassing
 {
-  weak var viewController: ShowIngredientsViewController?
-  var dataStore: ShowIngredientsDataStore?
+  weak var viewController: ShowItemsViewController?
+  var dataStore: ShowItemsDataStore?
   
   // MARK: Routing
   

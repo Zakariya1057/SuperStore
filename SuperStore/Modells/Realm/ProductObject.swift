@@ -15,12 +15,16 @@ class ProductObject: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var price: Double = 0
     
-    var promotion: PromotionObject? = nil
-    
     @objc dynamic var smallImage: String = ""
     @objc dynamic var largeImage: String = ""
     
+    var images = List<ImageObject>()
+    
+    var promotion: PromotionObject? = nil
+    
     var productDescription: String? = nil
+    var features = List<String>()
+    var dimensions = List<String>()
 
     @objc dynamic var favourite: Bool = false
     @objc dynamic var monitoring: Bool = false
@@ -36,7 +40,7 @@ class ProductObject: Object {
 
     var storage: String? = nil
     var weight: String? = nil
-    @objc dynamic var brand: String = ""
+    var brand: String? = nil
 
     @objc dynamic var dietaryInfo: String? = nil
     @objc dynamic var allergenInfo: String? = nil
@@ -51,12 +55,26 @@ class ProductObject: Object {
     @objc dynamic var createdAt: Date = Date()
     
     func getProductModel() -> ProductModel {
+        var productFeatures: [String]? = nil
+        var productDimensions: [String]? = nil
+        
+        if(features.count > 0){
+            productFeatures = features.map{ String($0) }
+        }
+        
+        if(dimensions.count > 0){
+            productDimensions = dimensions.map{ String($0) }
+        }
+        
         return ProductModel(
             id: id,
             name: name,
             smallImage: smallImage,
             largeImage: largeImage,
+            images: images.map{ $0.getImageModel() },
             description: productDescription,
+            features: productFeatures,
+            dimensions: productDimensions,
             quantity: 0,
             price: price,
             avgRating: avgRating,

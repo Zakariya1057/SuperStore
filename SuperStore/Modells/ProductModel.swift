@@ -16,8 +16,11 @@ class ProductModel {
     
     var smallImage: String
     var largeImage: String
+    var images: [ImageModel]
     
     var description: String?
+    var features: [String]?
+    var dimensions: [String]?
 
     var favourite: Bool
     var monitoring: Bool
@@ -32,7 +35,7 @@ class ProductModel {
 
     var storage: String?
     var weight: String? = nil
-    var brand: String
+    var brand: String?
 
     var dietaryInfo: String?
     var allergenInfo: String?
@@ -45,10 +48,24 @@ class ProductModel {
 
     var listID: Int? = nil
     
-    init(id: Int, name: String, smallImage: String, largeImage: String,description: String?, quantity: Int,price:Double, avgRating: Double?, totalReviewsCount: Int?, promotion: PromotionModel?, storage: String?, weight: String?,parentCategoryID: Int?, parentCategoryName: String?, childCategoryName: String?, dietaryInfo: String?, allergenInfo: String?, brand: String, reviews: [ReviewModel], favourite: Bool, monitoring: Bool, ingredients: [String], recommended: [ProductModel]) {
+    init(
+        id: Int, name: String, smallImage: String, largeImage: String,
+        images: [ImageModel], description: String?, features: [String]?,
+        dimensions: [String]?, quantity: Int, price:Double,
+        avgRating: Double?, totalReviewsCount: Int?,
+        promotion: PromotionModel?, storage: String?,
+        weight: String?,parentCategoryID: Int?, parentCategoryName: String?,
+        childCategoryName: String?, dietaryInfo: String?,
+        allergenInfo: String?, brand: String?, reviews: [ReviewModel],
+        favourite: Bool, monitoring: Bool, ingredients: [String],
+        recommended: [ProductModel]
+    ) {
 
         self.id = id
         self.description = description
+        self.features = features
+        self.dimensions = dimensions
+        
         self.favourite = favourite
         self.avgRating = avgRating ?? 0
         self.totalReviewsCount = totalReviewsCount ?? 0
@@ -70,10 +87,13 @@ class ProductModel {
         self.favourite = favourite
         self.ingredients = ingredients
         self.recommended = recommended
-
+        
         self.name = name
+        
         self.smallImage = smallImage
         self.largeImage = largeImage
+        self.images = images
+        
         self.price = price
         self.weight = weight
         self.promotion = promotion

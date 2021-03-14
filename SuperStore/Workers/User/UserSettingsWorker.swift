@@ -66,8 +66,13 @@ class UserSettingsWorker {
 
 extension UserSettingsWorker {
     func logout(completionHandler: @escaping (_ error: String?) -> Void){
-        userAPI.logout(completionHandler: completionHandler)
-        userStore.logoutUser()
+        
+        userAPI.logout { (error: String?) in
+            print(error)
+            completionHandler(nil)
+        }
+        
+        self.userStore.logoutUser()
     }
     
     func deleteUser(completionHandler: @escaping (_ error: String?) -> Void){

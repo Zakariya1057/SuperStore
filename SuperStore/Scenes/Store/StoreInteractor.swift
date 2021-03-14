@@ -22,6 +22,7 @@ protocol StoreDataStore
 {
     var storeID: Int { get set }
     var selectedListID: Int? { get set }
+    var store: StoreModel? { get set }
 }
 
 class StoreInteractor: StoreBusinessLogic, StoreDataStore
@@ -31,10 +32,13 @@ class StoreInteractor: StoreBusinessLogic, StoreDataStore
     
     var storeID: Int = 10
     var selectedListID: Int?
+    var store: StoreModel?
     
     func getStore(request: Store.GetStore.Request)
     {
         storeWorker.getStore(storeID: storeID) { (store: StoreModel?, error: String?) in
+            self.store = store
+            
             let response = Store.GetStore.Response(store: store, error: error)
             self.presenter?.presentStore(response: response)
         }
