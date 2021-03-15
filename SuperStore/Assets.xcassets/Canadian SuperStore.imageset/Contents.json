@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "wc_total.png",
+      "filename" : "Canadian SuperStore.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "wc_total@2x.png",
+      "filename" : "Canadian SuperStore@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "wc_total@3x.png",
+      "filename" : "Canadian SuperStore@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

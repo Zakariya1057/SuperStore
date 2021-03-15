@@ -19,6 +19,7 @@ enum ShowStoreResults
     struct DisplayedStore {
         var name: String
         var logo: String
+        var logoImage: UIImage?
         var address: String
         var openingHour: String
     }

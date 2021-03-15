@@ -69,11 +69,17 @@ class StoreViewController: UIViewController, StoreDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        setUpHoursTable()
+        setupFeaturesTable()
+       
         displayRightBarButton()
         startLoading()
         getStore()
     }
     
+    @IBOutlet weak var facilitiesTableView: UITableView!
+    @IBOutlet weak var hoursTableView: UITableView!
     
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -102,6 +108,9 @@ class StoreViewController: UIViewController, StoreDisplayLogic
         }
     }
     
+    var hours: [Store.DisplayOpeningHour] = []
+    var facilities: [Store.DisplayFacility] = []
+    
     func getStore()
     {
         let request = Store.GetStore.Request()
@@ -119,10 +128,18 @@ class StoreViewController: UIViewController, StoreDisplayLogic
                 
                 nameLabel.text = store.name
                 addressLabel.text = store.address
-                logoImageView.downloaded(from: store.logo)
                 
-                displayOpeningHours(openingHours: store.openingHours)
-                displayFacilities(facilities: store.facilites)
+                if let image = store.logoImage {
+                    logoImageView.image = image
+                } else {
+                    logoImageView.downloaded(from: store.logo)
+                }
+                
+                hours = store.openingHours
+                hoursTableView.reloadData()
+                
+                facilities = store.facilities
+                facilitiesTableView.reloadData()
             }
         }
         
@@ -163,30 +180,77 @@ class StoreViewController: UIViewController, StoreDisplayLogic
             
         }
     }
-    
-    private func displayFacilities(facilities:Store.DisplayFacilites?){
-        let facilitySettings: [UIView: Bool] = [
-            carParkView: facilities?.carPark ?? false,
-            atmView: facilities?.ATM ?? false,
-            babyChangingView: facilities?.babyChanging ?? false,
-            customerWCView: facilities?.customerWC ?? false,
-            heliumBalloonsView: facilities?.heliumBaloons ?? false,
-            disabledView: facilities?.disabledAccess ?? false,
-            chargingView: facilities?.electricVehicleChargingPoint ?? false,
-            paypointView: facilities?.paypoint ?? false,
-            petrolFillingStationView: facilities?.petrolFillingStation ?? false
-        ]
-        
-        for (facilityView, facilityEnabled) in facilitySettings {
-            if !facilityEnabled {
-                facilityView.isHidden = true
-            } else {
-                facilityView.isHidden = false
-            }
-        }
-    }
+
 }
 
+
+extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableView == facilitiesTableView ? facilities.count : hours.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == hoursTableView {
+            return configureHourCell(indexPath: indexPath)
+        } else {
+            return configureFacilityCell(indexPath: indexPath)
+        }
+    }
+    
+    func configureFacilityCell(indexPath: IndexPath) -> FacilityTableViewCell {
+        let cell = facilitiesTableView.dequeueReusableCell(withIdentifier: "FacilityTableViewCell", for: indexPath) as! FacilityTableViewCell
+
+        cell.facility = facilities[indexPath.row]
+        cell.configureUI()
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        return cell
+    }
+    
+    func configureHourCell(indexPath: IndexPath) -> UITableViewCell {
+        let cell = hoursTableView.dequeueReusableCell(withIdentifier: "OpeningHourTableViewCell", for: indexPath) as! OpeningHourTableViewCell
+        
+        let hour = hours[indexPath.row]
+        
+        cell.dayLabel.text = hour.day
+        cell.hourLabel.text = hour.hours
+        
+        if hour.today {
+            if hour.closedToday {
+                cell.dayLabel.textColor = .systemRed
+                cell.hourLabel.textColor = .systemRed
+            } else {
+                cell.dayLabel.textColor = .systemBlue
+                cell.hourLabel.textColor = .systemBlue
+            }
+        } else {
+            cell.dayLabel.textColor = .label
+            cell.hourLabel.textColor = .label
+        }
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        return cell
+    }
+    
+    
+    func setupFeaturesTable(){
+        let featureCellNib = UINib(nibName: "FacilityTableViewCell", bundle: nil)
+        facilitiesTableView.register(featureCellNib, forCellReuseIdentifier: "FacilityTableViewCell")
+        
+        facilitiesTableView.separatorStyle = .none
+        facilitiesTableView.delegate = self
+        facilitiesTableView.dataSource = self
+    }
+    
+    func setUpHoursTable(){
+        let featureCellNib = UINib(nibName: "OpeningHourTableViewCell", bundle: nil)
+        hoursTableView.register(featureCellNib, forCellReuseIdentifier: "OpeningHourTableViewCell")
+        
+        hoursTableView.separatorStyle = .none
+        hoursTableView.delegate = self
+        hoursTableView.dataSource = self
+    }
+}
 
 extension StoreViewController {
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
@@ -208,3 +272,4 @@ extension StoreViewController {
         }
     }
 }
+

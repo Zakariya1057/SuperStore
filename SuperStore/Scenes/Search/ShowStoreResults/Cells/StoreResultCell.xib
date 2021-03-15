@@ -38,6 +38,7 @@
                                             <constraint firstItem="r3k-ra-MFr" firstAttribute="leading" secondItem="NUT-Aj-rWy" secondAttribute="leading" id="ba6-lm-rzh"/>
                                             <constraint firstAttribute="width" constant="60" id="fpm-cD-aL2"/>
                                             <constraint firstAttribute="trailing" secondItem="r3k-ra-MFr" secondAttribute="trailing" id="kES-7P-iCL"/>
+                                            <constraint firstAttribute="height" constant="77" id="ntq-gk-aHn"/>
                                             <constraint firstItem="r3k-ra-MFr" firstAttribute="top" secondItem="NUT-Aj-rWy" secondAttribute="top" id="p7E-Ea-UVP"/>
                                         </constraints>
                                     </view>
@@ -123,7 +124,7 @@
                     <constraint firstItem="GuC-xo-xpq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="6vP-vr-nMB"/>
                     <constraint firstItem="GuC-xo-xpq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="KzG-Jm-Nla"/>
                     <constraint firstAttribute="trailing" secondItem="GuC-xo-xpq" secondAttribute="trailing" id="Uml-Zg-SE8"/>
-                    <constraint firstAttribute="bottom" secondItem="GuC-xo-xpq" secondAttribute="bottom" id="nQV-YX-zEF"/>
+                    <constraint firstAttribute="bottom" secondItem="GuC-xo-xpq" secondAttribute="bottom" priority="999" id="nQV-YX-zEF"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

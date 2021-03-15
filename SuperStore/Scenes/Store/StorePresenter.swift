@@ -35,9 +35,11 @@ class StorePresenter: StorePresentationLogic
             displayedStore = Store.DisplayedStore(
                 name: store.name,
                 logo: store.logo,
+                logoImage: store.getLogoImage(),
                 address: store.address,
+                storeTypeID: store.storeTypeID,
                 openingHours: openingHours,
-                facilites: facilities
+                facilities: facilities
             )
         }
         
@@ -47,46 +49,15 @@ class StorePresenter: StorePresentationLogic
 }
 
 extension StorePresenter {
-    private func createFacilites(facilites: [String]) -> Store.DisplayFacilites? {
+    private func createFacilites(facilites: [String]) -> [Store.DisplayFacility] {
         
-        let displayFacilities: Store.DisplayFacilites = Store.DisplayFacilites()
+        var displayFacilities: [Store.DisplayFacility] = []
         
-        if facilites.count == 0 {
-            return nil
-        } else {
-            for facility in facilites {
-                switch facility.lowercased() {
-                
-                case "baby changing":
-                    displayFacilities.babyChanging = true
-                    break
-                case "car park":
-                    displayFacilities.carPark = true
-                    break
-                case "cash machine":
-                    displayFacilities.ATM = true
-                    break
-                case "customer wc":
-                    displayFacilities.customerWC = true
-                    break
-                case "disabled facilities":
-                    displayFacilities.disabledAccess = true
-                    break
-                case "helium balloons":
-                    displayFacilities.heliumBaloons = true
-                    break
-                case "paypoint":
-                    displayFacilities.paypoint = true
-                    break
-                case "petrol filling station":
-                    displayFacilities.petrolFillingStation = true
-                    break
-                case "photo cake machines":
-                    displayFacilities.photoCakeMachines = true
-                    break
-                default:
-                    break
-                }
+        for facility in facilites {
+            
+            if let iconImage = getFacilityIcon(facilites: facility){
+                let displayFacility = Store.DisplayFacility(name: facility, icon: iconImage)
+                displayFacilities.append(displayFacility)
             }
         }
         
@@ -107,12 +78,13 @@ extension StorePresenter {
             
             let today = dayOfWeek == hour.dayOfWeek
             
-            let displayOpeningHour = Store.DisplayOpeningHour(today: today, hours: openTimes, dayOfWeek: hour.dayOfWeek, closedToday: hour.closedToday)
+            let displayOpeningHour = Store.DisplayOpeningHour(today: today, hours: openTimes, day: getDayName(day: hour.dayOfWeek) ,dayOfWeek: hour.dayOfWeek, closedToday: hour.closedToday)
             displayOpeningHours.append(displayOpeningHour)
         }
         
         return displayOpeningHours
     }
+    
     
 }
 
@@ -125,4 +97,56 @@ extension StorePresenter {
         
         return dayOfWeek
     }
+    
+    func getDayName(day: Int) -> String {
+        let days: [Int: String] = [
+            0: "Monday",
+            1: "Tuesday",
+            2: "Wednesday",
+            3: "Thursday",
+            4: "Friday",
+            5: "Saturday",
+            6: "Sunday"
+        ]
+        
+        return days[day]!
+    }
+    
+    func getFacilityIcon(facilites: String) -> UIImage? {
+        let facilityIcon: [String: UIImage] = [
+            "Bakery": UIImage(named: "Bread")!,
+            "Click & Collect": UIImage(named: "Click-Collect")!,
+            "Dentist": UIImage(named: "Tooth")!,
+            "Dietitian": UIImage(named: "Diet")!,
+            "Dry Cleaners": UIImage(named: "Dry-Cleaning")!,
+            "Floral": UIImage(named: "Flower")!,
+            "Gas Bar": UIImage(named: "Petrol-Station")!,
+            "Joe Fresh®": UIImage(named: "Fashion")!,
+            "Medical Clinic": UIImage(named: "Hospital")!,
+            "Optical": UIImage(systemName: "eyeglasses")!,
+            "Passport Photos": UIImage(named: "Passport")!,
+            "PC Financial&reg; ATMs": UIImage(named: "ATM")!,
+            "Pharmacy": UIImage(named: "Pharmacy")!,
+            "Salad Bar": UIImage(named: "Salad")!,
+            "Seafood": UIImage(named: "Fish")!,
+            "Sushi Bar": UIImage(named: "Sushi")!,
+            "The Mobile Shop": UIImage(systemName: "phone")!,
+            "Tim Hortons": UIImage(named: "Coffee-Cup")!,
+            
+            "Electric Vehicle Charging Point": UIImage(named: "Electric-Charging")!,
+            "Petrol Filling Station": UIImage(named: "Petrol-Station")!,
+            "Helium Balloons": UIImage(named: "Balloon")!,
+            "Photo Cake Machines": UIImage(named: "Birthday-Cake")!,
+            "Paypoint": UIImage(named: "PayPoint")!,
+            "Baby Changing": UIImage(named: "Diaper")!,
+            "Disabled Facilities": UIImage(named: "Disabled")!,
+            "Customer WC": UIImage(named: "WC")!,
+            "Cash Machine": UIImage(named: "ATM")!,
+            "Car Park": UIImage(named: "Car")!,
+        ]
+        
+        return facilityIcon[facilites]
+    }
+    
+    
 }

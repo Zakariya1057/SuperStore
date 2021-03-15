@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct StoreModel {
     var id: Int
@@ -17,6 +18,18 @@ struct StoreModel {
     var location: LocationModel
     var facilities: [String]
     var storeTypeID: Int
+    
+    func getLogoImage() -> UIImage? {
+        var image: UIImage? = nil
+        
+        if(storeTypeID == 1){
+            image = UIImage(named: "Asda2")
+        } else if(storeTypeID == 2){
+            image = UIImage(named: "Canadian SuperStore")
+        }
+
+        return image
+    }
 }
 
 struct OpeningHourModel {

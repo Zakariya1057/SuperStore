@@ -52,6 +52,7 @@ class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
                 ShowStoreResults.DisplayedStore(
                     name: store.name,
                     logo: store.logo,
+                    logoImage: store.getLogoImage(),
                     address: store.address,
                     openingHour: openingHour
                 )

@@ -28,7 +28,13 @@ class StoreResultCell: UITableViewCell {
     func configureUI(){
         if let store = store {
             nameLabel.text = store.name
-            logoImageView.downloaded(from: store.logo)
+            
+            if let image = store.logoImage {
+                logoImageView.image = image
+            } else {
+                logoImageView.downloaded(from: store.logo)
+            }
+            
             addressLabel.text = store.address
             openingHoursLabel.text = store.openingHour
         }

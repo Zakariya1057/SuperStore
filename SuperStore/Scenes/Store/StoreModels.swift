@@ -18,30 +18,26 @@ enum Store
     struct DisplayedStore {
         var name: String
         var logo: String
+        var logoImage: UIImage?
         var address: String
+        var storeTypeID: Int
         
         var openingHours: [DisplayOpeningHour]
-        var facilites: DisplayFacilites?
+//        var facilities: [String]
+        var facilities: [DisplayFacility]
     }
     
     struct DisplayOpeningHour {
         var today: Bool
         var hours: String
+        var day: String
         var dayOfWeek: Int
         var closedToday: Bool
     }
 
-    class DisplayFacilites {
-        var carPark: Bool = false
-        var babyChanging: Bool = false
-        var customerWC: Bool = false
-        var heliumBaloons: Bool = false
-        var ATM: Bool = false
-        var disabledAccess: Bool = false
-        var electricVehicleChargingPoint: Bool = false
-        var paypoint: Bool = false
-        var petrolFillingStation: Bool = false
-        var photoCakeMachines: Bool = false
+    struct DisplayFacility {
+        var name: String
+        var icon: UIImage
     }
     
     enum GetStore

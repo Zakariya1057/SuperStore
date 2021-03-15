@@ -146,8 +146,6 @@ extension ShowSuggestionsViewController: UITableViewDataSource, UITableViewDeleg
     func configureSuggestionCell(indexPath: IndexPath) -> SearchSuggestionCell {
         let cell = suggestionsTableView.dequeueReusableCell(withIdentifier: "SearchSuggestionCell", for: indexPath) as! SearchSuggestionCell
         
-        print("Loading: \(loading)")
-        
         cell.loading = loading
         cell.suggestion = loading ? nil : suggestions[indexPath.row]
         cell.configureUI()
