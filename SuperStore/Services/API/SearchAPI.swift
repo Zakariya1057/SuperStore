@@ -39,6 +39,7 @@ class SearchAPI: SearchRequestProtocol {
         let url = Config.Route.Search.Results.Product + "?page=\(page)"
         
         let queryData: Parameters = [
+            "store_type_id": data.storeTypeID,
             "query": data.query,
             "type": data.type,
             "sort": data.sort,

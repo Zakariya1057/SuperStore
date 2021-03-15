@@ -290,6 +290,7 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     
     func passDataToShowLists(source: ShowProductDataStore, destination: inout ShowListsDataStore)
     {
+        destination.storeTypeID = source.product!.storeTypeID
         destination.addToList = true
     }
 }

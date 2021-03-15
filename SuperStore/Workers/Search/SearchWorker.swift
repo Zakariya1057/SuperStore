@@ -59,6 +59,7 @@ class SearchWorker {
     }
     
     func suggestionSelected(suggestion: SuggestionModel){
+        
         searchSuggestionStore.suggestionSelected(suggestion: suggestion)
     }
     

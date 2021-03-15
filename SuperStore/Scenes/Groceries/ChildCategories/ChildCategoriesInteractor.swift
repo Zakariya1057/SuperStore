@@ -21,6 +21,7 @@ protocol ChildCategoriesBusinessLogic
     func updateListItem(request: ChildCategories.UpdateListItem.Request)
     
     var selectedListID: Int? { get set }
+    var selectedProductStoreTypeID: Int? { get set }
 }
 
 protocol ChildCategoriesDataStore
@@ -28,6 +29,7 @@ protocol ChildCategoriesDataStore
     var parentCategoryID: Int { get set }
     var storeTypeID: Int { get set }
     var selectedListID: Int? { get set }
+    var selectedProductStoreTypeID: Int? { get set }
 }
 
 class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDataStore
@@ -41,6 +43,8 @@ class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDa
     
     var parentCategoryID: Int = 1
     var storeTypeID: Int = 1
+    
+    var selectedProductStoreTypeID: Int?
 
     func getCategories(request: ChildCategories.GetCategories.Request)
     {

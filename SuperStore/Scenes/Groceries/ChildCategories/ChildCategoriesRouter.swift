@@ -84,6 +84,7 @@ class ChildCategoriesRouter: BackToShowListRouter, ChildCategoriesRoutingLogic, 
     func passDataToShowLists(source: ChildCategoriesDataStore, destination: inout ShowListsDataStore)
     {
         destination.addToList = true
+        destination.storeTypeID = source.selectedProductStoreTypeID!
     }
     
     func passDataToShowProduct(source: ChildCategoriesDataStore, destination: inout ShowProductDataStore)

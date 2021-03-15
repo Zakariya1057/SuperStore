@@ -72,7 +72,7 @@ extension ShowSuggestionsInteractor {
             type = "parent_categories"
         }
         
-        productQueryModel = ProductQueryModel(query: suggestion.name, type: type)
+        productQueryModel = ProductQueryModel(storeTypeID: storeTypeID, query: suggestion.name, type: type)
         
         searchWorker.suggestionSelected(suggestion: suggestion)
     }

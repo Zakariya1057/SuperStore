@@ -14,8 +14,10 @@ class ListAPI: ListRequestProtocol {
     let jsonDecoder = JSONDecoder()
     let requestWorker: RequestProtocol = RequestWorker()
 
-    func getLists(completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
-        requestWorker.get(url: Config.Route.List.All) { (response: () throws -> Data) in
+    func getLists(storeTypeID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
+        let url: String = Config.Route.List.All + String(storeTypeID)
+        
+        requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let listsDataResponse =  try self.jsonDecoder.decode(ListsDataResponse.self, from: data)

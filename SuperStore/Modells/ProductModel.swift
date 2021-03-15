@@ -11,6 +11,7 @@ import Foundation
 class ProductModel {
     var id: Int
     var name: String
+    var storeTypeID: Int
     
     var promotion: PromotionModel?
     var price: Double
@@ -51,7 +52,7 @@ class ProductModel {
     var listID: Int? = nil
     
     init(
-        id: Int, name: String, smallImage: String, largeImage: String,
+        id: Int, storeTypeID: Int, name: String, smallImage: String, largeImage: String,
         images: [ImageModel], description: String?, features: [String]?,
         dimensions: [String]?, price:Double, currency: String,
         avgRating: Double?, totalReviewsCount: Int?,
@@ -64,6 +65,7 @@ class ProductModel {
     ) {
 
         self.id = id
+        self.storeTypeID = storeTypeID
         self.description = description
         self.features = features
         self.dimensions = dimensions

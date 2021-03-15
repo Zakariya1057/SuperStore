@@ -19,6 +19,7 @@ class ProductResultsRealmStore: DataStore, ProductResultsStoreProtocol {
     func searchResults(query: ProductQueryModel) -> ProductResultsModel {
         
         let type: String = query.type.lowercased()
+        let storeTypeID: Int = query.storeTypeID
         let query: String = query.query
         
         var products: [ProductModel] = []
@@ -33,11 +34,11 @@ class ProductResultsRealmStore: DataStore, ProductResultsStoreProtocol {
 //        var textSearch: Bool = false
         
         if type == "products" {
-            products = productSearch(query: query)
+            products = productSearch(storeTypeID:storeTypeID, query: query)
         } else if type == "child_categories" {
-            products = childCategorySearch(query: query)
+            products = childCategorySearch(storeTypeID:storeTypeID, query: query)
         } else if type == "parent_categories" {
-            products = parentCategorySearch(query: query)
+            products = parentCategorySearch(storeTypeID:storeTypeID, query: query)
         }
 
         return ProductResultsModel(products: products, paginate: nil)
@@ -46,18 +47,18 @@ class ProductResultsRealmStore: DataStore, ProductResultsStoreProtocol {
 }
 
 extension ProductResultsRealmStore {
-    private func productSearch(query: String) -> [ProductModel]{
-        let productResults = realm?.objects(ProductObject.self).filter("name contains[c] %@ AND childCategoryName != nil", query)
+    private func productSearch(storeTypeID: Int, query: String) -> [ProductModel]{
+        let productResults = realm?.objects(ProductObject.self).filter("storeTypeID = %@ AND name contains[c] %@ AND childCategoryName != nil", storeTypeID, query)
         return parseResults(results: productResults)
     }
     
-    private func childCategorySearch(query: String) -> [ProductModel]{
-        let productResults = realm?.objects(ProductObject.self).filter("childCategoryName = %@ AND childCategoryName != nil", query)
+    private func childCategorySearch(storeTypeID: Int, query: String) -> [ProductModel]{
+        let productResults = realm?.objects(ProductObject.self).filter("storeTypeID = %@ AND childCategoryName = %@ AND childCategoryName != nil", storeTypeID, query)
         return parseResults(results: productResults)
     }
     
-    private func parentCategorySearch(query: String) -> [ProductModel]{
-        let productResults = realm?.objects(ProductObject.self).filter("parentCategoryName = %@ AND childCategoryName != nil", query)
+    private func parentCategorySearch(storeTypeID: Int, query: String) -> [ProductModel]{
+        let productResults = realm?.objects(ProductObject.self).filter("storeTypeID = %@ AND parentCategoryName = %@ AND childCategoryName != nil", storeTypeID, query)
         return parseResults(results: productResults)
     }
 }

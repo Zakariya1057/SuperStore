@@ -44,7 +44,7 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
     
     var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [])
-    var productQueryModel: ProductQueryModel = ProductQueryModel(query: "", type: "")
+    var productQueryModel: ProductQueryModel = ProductQueryModel(storeTypeID: 0, query: "", type: "")
     
     var selectedListID: Int?
     

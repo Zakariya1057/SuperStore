@@ -107,6 +107,7 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
     
     func displayCategories(viewModel: ChildCategories.GetCategories.ViewModel)
     {
+        
         if let error = viewModel.error {
             showError(title: "Grocery Error", error: error)
         } else {
@@ -231,6 +232,7 @@ extension ChildCategoriesViewController: SelectListProtocol {
             updateProductQuantity(section: selectedSection!, productID: product.id, quantity: product.quantity)
             createListItem(listID: listID)
         } else {
+            interactor?.selectedProductStoreTypeID = product.storeTypeID
             router?.routeToShowLists(segue: nil)
         }
     }

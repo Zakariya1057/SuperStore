@@ -20,6 +20,8 @@ struct ProductData:Decodable {
     var large_image: String
     var images: [ImageData]?
     
+    var store_type_id: Int
+    
     var description: String?
     var features: [String]?
     var dimensions: [String]?
@@ -54,6 +56,7 @@ struct ProductData:Decodable {
     func getProductModel() -> ProductModel {
         return ProductModel(
             id: id,
+            storeTypeID: store_type_id,
             name: name,
             smallImage: small_image,
             largeImage: large_image,

@@ -25,6 +25,7 @@ protocol ShowListsDataStore
 {
     var lists: [ListModel] { get set }
     var addToList: Bool { get set }
+    var storeTypeID: Int? { get set }
 }
 
 class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
@@ -37,10 +38,13 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
     var addToList: Bool = false
     var lists: [ListModel] = []
     
+    var storeTypeID: Int? = nil
     
     func getLists(request: ShowLists.GetLists.Request)
     {
-        let storeTypeID = userSession.getStore()
+        let storeTypeID: Int = self.storeTypeID == nil ? userSession.getStore() : self.storeTypeID!
+        
+        print("Get Lists: \(storeTypeID)")
         
         listWorker.getLists(storeTypeID: storeTypeID) { (lists: [ListModel], error: String?) in
             self.lists = lists

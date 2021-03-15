@@ -9,6 +9,7 @@
 import Foundation
 
 struct ProductQueryModel {
+    var storeTypeID: Int
     var query: String
     var type: String
     var sort: String = ""

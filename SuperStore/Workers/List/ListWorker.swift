@@ -50,7 +50,7 @@ class ListWorker {
             completionHandler(lists, nil)
         }
         
-        listAPI.getLists { (lists: [ListModel], error: String?) in
+        listAPI.getLists(storeTypeID: storeTypeID) { (lists: [ListModel], error: String?) in
             // Save lists
             for list in lists {
                 self.listStore.createList(list: list, ignoreCategories: true)
@@ -98,7 +98,7 @@ extension ListWorker {
 
 protocol ListRequestProtocol {
     func getList(listID: Int, completionHandler: @escaping ( _ list: ListModel?, _ error: String?) -> Void)
-    func getLists(completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void)
+    func getLists(storeTypeID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void)
     
     func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ list: ListModel?, _ error: String?) -> Void)
     func updateList(listID: Int, name: String, storeTypeID: Int, completionHandler: @escaping (String?) -> Void)

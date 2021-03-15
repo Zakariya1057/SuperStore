@@ -14,6 +14,8 @@ class ProductObject: Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
     
+    @objc dynamic var storeTypeID: Int = 0
+    
     @objc dynamic var price: Double = 0
     @objc dynamic var currency: String = ""
     
@@ -70,6 +72,7 @@ class ProductObject: Object {
         
         return ProductModel(
             id: id,
+            storeTypeID: storeTypeID,
             name: name,
             smallImage: smallImage,
             largeImage: largeImage,
