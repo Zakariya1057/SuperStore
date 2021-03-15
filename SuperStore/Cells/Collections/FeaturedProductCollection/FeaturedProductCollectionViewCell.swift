@@ -37,15 +37,15 @@ class FeaturedProductCollectionViewCell: UICollectionViewCell {
             stopLoading()
         }
         
-        if product != nil {
-            imageView.downloaded(from: product!.smallImage)
-            nameLabel.text = product!.name
+        if let product = product {
+            imageView.downloaded(from: product.smallImage)
+            nameLabel.text = product.name
             
-            let price = String(format: "%.2f",product!.price )
+            let price = product.getPrice()
             priceLabel.text = "£\(price)"
             
-            ratingView.rating = Double(product!.avgRating)
-            ratingView.text = "\(product!.totalReviewsCount)"
+            ratingView.rating = Double(product.avgRating)
+            ratingView.text = "\(product.totalReviewsCount)"
         }
     }
 

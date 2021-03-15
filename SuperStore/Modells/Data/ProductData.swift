@@ -24,7 +24,9 @@ struct ProductData:Decodable {
     var features: [String]?
     var dimensions: [String]?
     
-    var price:Double
+    var price: Double
+    var currency: String
+    
     var storage: String?
     var weight: String?
     
@@ -59,8 +61,8 @@ struct ProductData:Decodable {
             description: description,
             features: features,
             dimensions: dimensions,
-            quantity: 0,
             price: price,
+            currency: currency,
             avgRating: avg_rating,
             totalReviewsCount: total_reviews_count,
             promotion: promotion?.getPromotionModel(),

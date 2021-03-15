@@ -59,6 +59,7 @@ class ListRealmStore: DataStore, ListStoreProtocol {
             savedList.name = list.name
             savedList.status = list.status.rawValue
             savedList.totalPrice = list.totalPrice
+            savedList.currency = list.currency
             savedList.oldTotalPrice = list.oldTotalPrice
             savedList.totalItems = list.totalItems
             savedList.tickedOffItems = list.tickedOffItems
@@ -114,6 +115,7 @@ extension ListRealmStore {
         savedList.identifier = list.identifier
         savedList.storeTypeID = list.storeTypeID
 
+        savedList.currency = list.currency
         savedList.totalPrice = list.totalPrice
         savedList.oldTotalPrice = list.oldTotalPrice
 

@@ -43,7 +43,7 @@ class ProductCell: UITableViewCell {
             productImageView.downloaded(from: product.smallImage)
             ratingView.rating = product.avgRating
             ratingView.text = "(\(product.totalReviewsCount))"
-            priceLabel.text = "£" + String(format: "%.2f", product.price)
+            priceLabel.text = product.getPrice()
             
             displayButtons()
         }

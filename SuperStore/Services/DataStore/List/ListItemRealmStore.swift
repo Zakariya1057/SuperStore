@@ -46,6 +46,7 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
                 savedListItem.image = listItem.image
                 savedListItem.listID = listID
                 savedListItem.price = listItem.price
+                savedListItem.currency = listItem.currency
                 savedListItem.totalPrice = listItem.totalPrice
                 savedListItem.productID = listItem.productID
                 savedListItem.quantity = listItem.quantity

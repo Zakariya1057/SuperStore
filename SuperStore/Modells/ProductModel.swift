@@ -11,8 +11,10 @@ import Foundation
 class ProductModel {
     var id: Int
     var name: String
-    var price: Double
+    
     var promotion: PromotionModel?
+    var price: Double
+    var currency: String
     
     var smallImage: String
     var largeImage: String
@@ -51,7 +53,7 @@ class ProductModel {
     init(
         id: Int, name: String, smallImage: String, largeImage: String,
         images: [ImageModel], description: String?, features: [String]?,
-        dimensions: [String]?, quantity: Int, price:Double,
+        dimensions: [String]?, price:Double, currency: String,
         avgRating: Double?, totalReviewsCount: Int?,
         promotion: PromotionModel?, storage: String?,
         weight: String?,parentCategoryID: Int?, parentCategoryName: String?,
@@ -75,7 +77,7 @@ class ProductModel {
         self.parentCategoryName = parentCategoryName
         self.childCategoryName = childCategoryName
 
-        self.quantity = quantity
+        self.weight = weight
         
         self.storage = storage
         self.avgRating = avgRating ?? 0
@@ -95,7 +97,8 @@ class ProductModel {
         self.images = images
         
         self.price = price
-        self.weight = weight
+        self.currency = currency
+        
         self.promotion = promotion
     }
 
@@ -104,5 +107,11 @@ class ProductModel {
 extension ProductModel: Equatable  {
     static func == (lhs: ProductModel, rhs: ProductModel) -> Bool {
         return lhs.id == rhs.id
+    }
+}
+
+extension ProductModel  {
+    func getPrice() -> String {
+        return currency + String(format: "%.2f", price)
     }
 }

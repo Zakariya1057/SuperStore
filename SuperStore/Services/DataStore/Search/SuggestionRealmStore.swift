@@ -39,6 +39,9 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
                 savedSuggestion.textSearch = suggestion.textSearch
                 savedSuggestion.storeTypeID = storeTypeID
                 
+                savedSuggestion.visited = suggestion.visited
+                savedSuggestion.visitedAt = suggestion.visitedAt
+                
                 realm?.add(savedSuggestion)
             })
         }
@@ -87,9 +90,10 @@ extension SuggestionRealmStore {
             
             if savedSuggestions.count == 0 {
                 recentSuggestions = [
-                    SuggestionModel(id: 1, name: "Asda", type: .store),
-                    SuggestionModel(id: 1, name: "Fruit", type: .parentCategory),
-                    SuggestionModel(id: 1, name: "Apples", type: .childCategory),
+                    SuggestionModel(id: 2, name: "Real Canadian Superstore", type: .store, visited: true, visitedAt: Date()),
+                    SuggestionModel(id: 1, name: "Asda", type: .store, visited: true, visitedAt: Date()),
+                    SuggestionModel(id: 1, name: "Fruit", type: .parentCategory, visited: true, visitedAt: Date()),
+                    SuggestionModel(id: 1, name: "Apples", type: .childCategory, visited: true, visitedAt: Date()),
                 ]
                 
                 createSuggestions(suggestions: recentSuggestions, storeTypeID: storeTypeID)

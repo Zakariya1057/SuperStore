@@ -89,8 +89,7 @@ enum ShowList
         
         struct Response
         {
-            var totalPrice: Double
-            var oldTotalPrice: Double?
+            var list: ListModel
         }
         
         struct ViewModel

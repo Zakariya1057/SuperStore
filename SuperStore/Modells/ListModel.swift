@@ -19,12 +19,26 @@ struct ListModel {
     
     var totalPrice: Double
     var oldTotalPrice: Double?
+    
+    var currency: String
 
     var totalItems: Int
     var tickedOffItems: Int
     
     var createdAt: Date
     var updatedAt: Date
+    
+    func getTotalPrice() -> String {
+        return formatPrice(price: totalPrice)
+    }
+    
+    func getOldTotalPrice() -> String {
+        return formatPrice(price: oldTotalPrice ?? 0)
+    }
+    
+    private func formatPrice(price: Double) -> String {
+        return currency + String(format: "%.2f", price)
+    }
 }
 
 
@@ -40,11 +54,16 @@ struct ListItemModel {
     var productID: Int
     var image: String?
     var price: Double
+    var currency: String
     var totalPrice: Double
     var quantity: Int
     var weight: String?
     var promotion: PromotionModel?
     var tickedOff: Bool
+    
+    func getPrice() -> String {
+        return currency + String(format: "%.2f", price)
+    }
 }
 
 enum ListStatus: String {

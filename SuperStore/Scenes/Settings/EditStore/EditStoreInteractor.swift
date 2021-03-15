@@ -25,6 +25,7 @@ protocol EditStoreDataStore
 class EditStoreInteractor: EditStoreBusinessLogic, EditStoreDataStore
 {
     var presenter: EditStorePresentationLogic?
+    var userSessionWorker = UserSessionWorker()
     var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     
     // MARK: Do something
@@ -32,7 +33,9 @@ class EditStoreInteractor: EditStoreBusinessLogic, EditStoreDataStore
     func updateStore(request: EditStore.UpdateStore.Request)
     {
         let storeTypeID = request.storeTypeID
-        userWorker.updateStore(storeTypeID: storeTypeID) { (error: String?) in
+        let loggedIn: Bool = userSessionWorker.isLoggedIn()
+        
+        userWorker.updateStore(storeTypeID: storeTypeID, loggedIn: loggedIn) { (error: String?) in
             let response = EditStore.UpdateStore.Response(error: error)
             self.presenter?.presentUpdatedStore(response: response)
         }

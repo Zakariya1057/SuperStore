@@ -80,6 +80,8 @@ class EditStoreViewController: UIViewController, EditStoreDisplayLogic
     
     func displayUpdatedStore(viewModel: EditStore.UpdateStore.ViewModel)
     {
+        stopLoading()
+        
         if loggedIn, let error = viewModel.error {
             showError(title: "Update Error", error: error)
         } else {
@@ -98,7 +100,7 @@ extension EditStoreViewController {
     }
     
     @IBAction func asdaButtonPressed(_ sender: Any) {
-        stopLoading()
+        startLoading()
         
         let request = EditStore.UpdateStore.Request(storeTypeID: 1)
         interactor?.updateStore(request: request)

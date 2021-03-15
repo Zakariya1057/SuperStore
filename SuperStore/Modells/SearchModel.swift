@@ -13,6 +13,9 @@ struct SuggestionModel {
     var name: String
     var type: SearchType
     var textSearch: Bool = false
+    
+    var visited: Bool = false
+    var visitedAt: Date? = nil
 }
 
 struct ProductResultsModel {

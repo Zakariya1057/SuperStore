@@ -37,14 +37,14 @@ class ListCell: UITableViewCell {
 
     func configureUI(){
 
-        if list != nil {
+        if let list = list {
 
-            let status = list!.status
+            let status = list.status
 
-            listNameLabel.text = list!.name
-            totalLabel.text = "£\( String(format:"%.2f", list!.totalPrice))"
+            listNameLabel.text = list.name
+            totalLabel.text = list.getTotalPrice()
 
-            createdLabel.text = formatDate(date: list!.createdAt)
+            createdLabel.text = formatDate(date: list.createdAt)
 
             if status == .notStarted {
                 statusLabel.textColor =  UIColor(red: 0.44, green: 0.44, blue: 0.47, alpha: 1.00)

@@ -41,8 +41,8 @@ class ShowListPresenter: ShowListPresentationLogic
                 id: list.id,
                 name: list.name,
                 categories: categories,
-                oldTotalPrice: list.oldTotalPrice != nil ? formatPrice(price: list.oldTotalPrice!, currency: "£") : nil,
-                totalPrice: formatPrice(price: list.totalPrice, currency: currency)
+                oldTotalPrice: list.oldTotalPrice != nil ? list.getOldTotalPrice() : nil,
+                totalPrice: list.getTotalPrice()
             )
         }
         
@@ -62,18 +62,11 @@ class ShowListPresenter: ShowListPresentationLogic
     }
 
     func presentListUpdateTotal(response: ShowList.UpdateListTotal.Response) {
-        let displayedListPrice = createListPriceDisplay(totalPrice: response.totalPrice, oldTotalPrice: response.oldTotalPrice)
+        let list = response.list
+        let displayedListPrice = ShowList.DisplayedListPrice(totalPrice: list.getTotalPrice(), oldTotalPrice: list.getOldTotalPrice())
+        
         let viewModel = ShowList.UpdateListTotal.ViewModel(displayedPrice: displayedListPrice)
         viewController?.displayListUpdateTotal(viewModel: viewModel)
-    }
-}
-
-extension ShowListPresenter {
-    func createListPriceDisplay(totalPrice: Double, oldTotalPrice: Double?) -> ShowList.DisplayedListPrice {
-        let totalPrice: String = formatPrice(price: totalPrice, currency: currency)
-        let oldTotalPrice: String? = oldTotalPrice == nil ? nil : formatPrice(price: oldTotalPrice!, currency: currency)
-        
-        return ShowList.DisplayedListPrice(totalPrice: totalPrice, oldTotalPrice: oldTotalPrice)
     }
 }
 
@@ -97,16 +90,10 @@ extension ShowListPresenter {
             return ShowList.DisplayedListItem(
                 name: item.name, productID: item.productID,
                 quantity: item.quantity,
-                totalPrice: formatPrice(price: item.totalPrice, currency: currency),
+                totalPrice: item.getPrice(),
                 tickedOff: item.tickedOff
             )
         }
     }
 
-}
-
-extension ShowListPresenter {
-    private func formatPrice(price: Double, currency: String) -> String {
-        return "\(currency)\(String(format: "%.2f", price))"
-    }
 }

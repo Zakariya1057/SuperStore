@@ -19,6 +19,8 @@ class ListItemObject: Object {
     
     @objc dynamic var price: Double = 0
     @objc dynamic var totalPrice: Double = 0
+    @objc dynamic var currency: String = ""
+    
     @objc dynamic var quantity: Int = 0
     
     var weight: String? = nil
@@ -34,6 +36,7 @@ class ListItemObject: Object {
             productID: productID,
             image: image,
             price: price,
+            currency: currency,
             totalPrice: totalPrice,
             quantity: quantity,
             weight: weight,

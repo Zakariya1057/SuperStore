@@ -88,7 +88,9 @@ extension ProductRealmStore {
         
         savedProduct.id = product.id
         savedProduct.name = product.name
+        
         savedProduct.price = product.price
+        savedProduct.currency = product.currency
         
         if let promotion = product.promotion {
             savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
@@ -153,7 +155,9 @@ extension ProductRealmStore {
         try? realm?.write({
             savedProduct.id = product.id
             savedProduct.name = product.name
+            
             savedProduct.price = product.price
+            savedProduct.currency = product.currency
             
             updatePromotion(product: product, savedProduct: savedProduct)
             

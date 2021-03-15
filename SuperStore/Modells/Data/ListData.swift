@@ -27,7 +27,9 @@ struct ListData: Decodable {
     var status: String
     var store_type_id: Int
     var user_id: Int
+    
     var total_price: Double
+    var currency: String
     
     var ticked_off_items: Int
     var total_items: Int
@@ -60,6 +62,7 @@ struct ListData: Decodable {
             categories: (categories ?? []).map{ $0.getCategoryModel() },
             totalPrice: total_price,
             oldTotalPrice: old_total_price,
+            currency: currency,
             totalItems: total_items,
             tickedOffItems: ticked_off_items,
             createdAt: formatDate(date: created_at),
@@ -93,6 +96,7 @@ struct ListItemData: Decodable {
     var name: String
     var total_price: Double
     var price: Double
+    var currency: String
     var product_id: Int
     var quantity: Int
     var large_image: String?
@@ -108,6 +112,7 @@ struct ListItemData: Decodable {
             productID: product_id,
             image: large_image,
             price: price,
+            currency: currency,
             totalPrice: total_price,
             quantity: quantity,
             weight: weight,

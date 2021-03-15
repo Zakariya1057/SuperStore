@@ -21,6 +21,7 @@ class ListObject: Object {
     
     var oldTotalPrice: Double? = nil
     @objc dynamic var totalPrice: Double = 0
+    @objc dynamic var currency: String = ""
     
     @objc dynamic var totalItems: Int = 0
     @objc dynamic var tickedOffItems: Int = 0
@@ -38,6 +39,7 @@ class ListObject: Object {
             categories: categories.map{ $0.getListCategoryModel() },
             totalPrice: totalPrice,
             oldTotalPrice: oldTotalPrice,
+            currency: currency,
             totalItems: totalItems,
             tickedOffItems: tickedOffItems,
             createdAt: createdAt,

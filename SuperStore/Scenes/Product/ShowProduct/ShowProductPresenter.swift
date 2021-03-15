@@ -39,7 +39,7 @@ class ShowProductPresenter: ShowProductPresentationLogic
             displayedProduct = ShowProduct.DisplayedProduct(
                 id: product.id,
                 name: product.name,
-                price: "£\( String(format: "%.2f", product.price) )",
+                price: product.getPrice(),
                 promotion: product.promotion,
                 largeImage: product.largeImage,
                 images: product.images.map{ $0.name },

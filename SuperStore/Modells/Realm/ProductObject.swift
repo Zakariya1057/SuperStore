@@ -13,7 +13,9 @@ class ProductObject: Object {
     
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
+    
     @objc dynamic var price: Double = 0
+    @objc dynamic var currency: String = ""
     
     @objc dynamic var smallImage: String = ""
     @objc dynamic var largeImage: String = ""
@@ -75,8 +77,8 @@ class ProductObject: Object {
             description: productDescription,
             features: productFeatures,
             dimensions: productDimensions,
-            quantity: 0,
             price: price,
+            currency: currency,
             avgRating: avgRating,
             totalReviewsCount: totalReviewsCount,
             promotion: promotion?.getPromotionModel(),

@@ -29,12 +29,11 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     func configureUI(){
-        if product != nil {
-            imageView.downloaded(from: product!.smallImage)
-            nameLabel.text = product!.name
+        if let product = product {
+            imageView.downloaded(from: product.smallImage)
+            nameLabel.text = product.name
             
-            let price = String(format: "%.2f",product!.price )
-            priceLabel.text = "£\(price)"
+            priceLabel.text = product.getPrice()
         }
     }
     

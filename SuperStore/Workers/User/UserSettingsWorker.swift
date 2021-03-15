@@ -49,11 +49,16 @@ class UserSettingsWorker {
         })
     }
     
-    func updateStore(storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
-        userAPI.updateStore(storeTypeID: storeTypeID, completionHandler: { (error: String?) in
-            self.userStore.updateStore(storeTypeID: storeTypeID)
-            completionHandler(error)
-        })
+    func updateStore(storeTypeID: Int, loggedIn: Bool, completionHandler: @escaping (_ error: String?) -> Void){
+        self.userStore.updateStore(storeTypeID: storeTypeID)
+        
+        if loggedIn {
+            userAPI.updateStore(storeTypeID: storeTypeID, completionHandler: { (error: String?) in
+                completionHandler(error)
+            })
+        } else {
+            completionHandler(nil)
+        }
     }
     
     func updatePassword(currentPassword: String, newPassword: String, confirmPassword: String, completionHandler: @escaping (_ error: String?) -> Void){
