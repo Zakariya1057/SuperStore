@@ -273,6 +273,7 @@ extension ShowProductResultsViewController: SelectListProtocol {
         if let listID = interactor?.selectedListID {
             createListItem(listID: listID)
         } else {
+            interactor?.selectedProductStoreTypeID = product.storeTypeID
             router?.routeToShowLists(segue: nil)
         }
     }

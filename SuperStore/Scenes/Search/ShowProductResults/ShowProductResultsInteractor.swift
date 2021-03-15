@@ -21,6 +21,7 @@ protocol ShowProductResultsBusinessLogic
     var searchRefine: SearchRefine { get set }
     
     var selectedListID: Int? { get set }
+    var selectedProductStoreTypeID: Int? { get set }
     
     func getListItems(request: ShowProductResults.GetListItems.Request)
     func createListItem(request: ShowProductResults.CreateListItem.Request)
@@ -34,6 +35,7 @@ protocol ShowProductResultsDataStore
     var searchRefine: SearchRefine { get set }
     
     var selectedListID: Int? { get set }
+    var selectedProductStoreTypeID: Int? { get set }
 }
 
 class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProductResultsDataStore
@@ -47,6 +49,7 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     var productQueryModel: ProductQueryModel = ProductQueryModel(storeTypeID: 0, query: "", type: "")
     
     var selectedListID: Int?
+    var selectedProductStoreTypeID: Int?
     
     var selectedRefineOptions: SelectedRefineOptions = SelectedRefineOptions() {
         didSet {

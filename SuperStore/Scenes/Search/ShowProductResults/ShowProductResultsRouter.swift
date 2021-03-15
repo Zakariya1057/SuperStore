@@ -120,6 +120,7 @@ class ShowProductResultsRouter: BackToShowListRouter, ShowProductResultsRoutingL
     func passDataToShowLists(source: ShowProductResultsDataStore, destination: inout ShowListsDataStore)
     {
         destination.addToList = true
+        destination.storeTypeID = source.selectedProductStoreTypeID!
     }
     
 }
