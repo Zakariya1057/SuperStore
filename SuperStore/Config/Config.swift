@@ -21,6 +21,10 @@ struct Config {
             }
             
             
+            public static var Location: String {
+                return UserRoute + "/location"
+            }
+            
             public static var Register: String {
                 return UserRoute + "/register"
             }

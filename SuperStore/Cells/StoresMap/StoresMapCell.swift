@@ -14,12 +14,15 @@ class StoreMapGroupElement: HomeElementGroupModel {
     var type: HomeElementType = .storesMap
     var items: [HomeElementItemModel]
     var storePressed: ((Int) -> Void)? = nil
+    var userLocationFetched: ((CLLocationCoordinate2D) -> Void)?
     var loading: Bool = true
     
-    init(title: String, stores: [StoresMapElementModel], storePressed: ((Int) -> Void)? ) {
+    init(title: String, stores: [StoresMapElementModel], storePressed: ((Int) -> Void)?, userLocationFetched: ((CLLocationCoordinate2D) -> Void)?) {
         self.title = title
         self.items = stores
+        
         self.storePressed = storePressed
+        self.userLocationFetched = userLocationFetched
         
         configurePressed()
     }
@@ -27,6 +30,7 @@ class StoreMapGroupElement: HomeElementGroupModel {
     func configurePressed(){
         let stores = items as! [StoresMapElementModel]
         for store in stores {
+            store.userLocationFetched = userLocationFetched
             store.storePressed = storePressed
         }
     }
@@ -35,6 +39,7 @@ class StoreMapGroupElement: HomeElementGroupModel {
 class StoresMapElementModel: HomeElementItemModel {
     var stores: [StoreModel] = []
     var storePressed: ((Int) -> Void)? = nil
+    var userLocationFetched: ((CLLocationCoordinate2D) -> Void)?
     var loading: Bool = true
     
     init(stores: [StoreModel]) {
@@ -46,6 +51,8 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
     
     var model: StoresMapElementModel!
     var stores: [StoreModel] = []
+    
+    var userLocationFetched: ((CLLocationCoordinate2D) -> Void)? = nil
     
     var storePressed: ((Int) -> Void)? = nil
     var storeHighlighted: ((Int) -> Void)? = nil
@@ -67,8 +74,11 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
             return
         }
         
+        print("All Setup")
+        
         self.model = model
         self.stores = model.stores
+        self.userLocationFetched = model.userLocationFetched
         self.storePressed = model.storePressed
         
         configureUI()
@@ -88,14 +98,22 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
         
         showStoreLocations()
         
+        
         DispatchQueue.main.async {
             self.locationManager.startUpdatingLocation()
         }
     }
     
     func zoomUserLocation(){
+        
         //Zoom to user location
         if let userLocation = locationManager.location?.coordinate {
+            
+            if let userLocationFetched = userLocationFetched {
+                print("Calling Location Thing")
+                userLocationFetched(userLocation)
+            }
+            
             let viewRegion = MKCoordinateRegion(center: userLocation, latitudinalMeters: 20000, longitudinalMeters: 20000)
             mapView.setRegion(viewRegion, animated: false)
         }
@@ -217,6 +235,7 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
                 mapView!.showsUserLocation = true
                 zoomUserLocation()
             case .restricted:
+                print("User location permission denied.\nPlease change from Apple settings.")
 //                errorDelegate?.showError("User location permission denied.\nPlease change from Apple settings.")
                 break
             @unknown default:
@@ -225,6 +244,13 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
             
         }
         
+    }
+    
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        if let userLocationFetched = userLocationFetched {
+            print("Calling Update Location Thing")
+            userLocationFetched(userLocation.coordinate)
+        }
     }
     
 }

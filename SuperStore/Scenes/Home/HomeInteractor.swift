@@ -15,6 +15,7 @@ import UIKit
 protocol HomeBusinessLogic
 {
     func getHome(request: Home.GetHome.Request)
+    func updateLocation(request: Home.UpdateLocation.Request)
 }
 
 protocol HomeDataStore
@@ -27,15 +28,30 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     var presenter: HomePresentationLogic?
     
     var worker: HomeWorker? = HomeWorker(homeAPI: HomeAPI())
+    var locationWorker: LocationWorker = LocationWorker(locationAPI: LocationAPI())
+    
     var userWorker: UserSessionWorker = UserSessionWorker()
     
     func getHome(request: Home.GetHome.Request)
     {
+        let latitude: Double? = request.latitude
+        let longitude: Double? = request.longitude
+        
         let storeTypeID: Int = userWorker.getStore()
         
-        worker?.getHome(storeTypeID: storeTypeID, completionHandler: { (home: HomeModel?, error: String?) in
+        worker?.getHome(storeTypeID: storeTypeID,latitude: latitude, longitude: longitude, completionHandler: { (home: HomeModel?, error: String?) in
             let response = Home.GetHome.Response(home: home, error: error)
             self.presenter?.presentHome(response: response)
         })
+    }
+    
+    func updateLocation(request: Home.UpdateLocation.Request){
+        let latitude: Double = request.latitude
+        let longitude: Double = request.longitude
+        let loggedIn: Bool = userWorker.isLoggedIn()
+        
+        locationWorker.updateLocation(loggedIn: loggedIn, latitude: latitude, longitude: longitude) { (error: String?) in
+            print(error)
+        }
     }
 }

@@ -22,13 +22,13 @@ class HomeWorker
         self.homeStore = HomeRealmStore()
     }
     
-    func getHome(storeTypeID: Int, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void){
+    func getHome(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void){
         
         if let home = homeStore.getHome() {
             completionHandler(home, nil)
         }
         
-        homeAPI.getHome { (home: HomeModel?, error: String?) in
+        homeAPI.getHome(storeTypeID: storeTypeID, latitude: latitude, longitude: longitude) { (home: HomeModel?, error: String?) in
             if let home = home {
                 self.homeStore.createHome(storeTypeID: storeTypeID, home: home)
             }
@@ -39,7 +39,7 @@ class HomeWorker
 }
 
 protocol HomeRequestProtocol {
-    func getHome(completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void)
+    func getHome(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void)
 }
 
 protocol HomeStoreProtocol {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class HomeAPI: HomeRequestProtocol {
 
@@ -14,8 +15,15 @@ class HomeAPI: HomeRequestProtocol {
     
     let requestWorker: RequestProtocol = RequestWorker()
 
-    func getHome(completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void) {
-        requestWorker.get(url: Config.Route.Home) { (response: () throws -> Data) in
+    func getHome(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void) {
+        
+        let homeData: Parameters = [
+            "store_type_id": storeTypeID,
+            "latitude": latitude ?? 0,
+            "longitude": longitude ?? 0
+        ]
+        
+        requestWorker.post(url: Config.Route.Home, data: homeData) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let homeDataResponse =  try self.jsonDecoder.decode(HomeDataRespone.self, from: data)

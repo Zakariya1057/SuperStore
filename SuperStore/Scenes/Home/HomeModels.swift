@@ -14,23 +14,39 @@ import UIKit
 
 enum Home
 {
-  // MARK: Use cases
-  
-  enum GetHome
-  {
-    struct Request
+    // MARK: Use cases
+    
+    enum GetHome
     {
-        // User Location
+        struct Request
+        {
+            var latitude: Double?
+            var longitude: Double?
+        }
+        struct Response
+        {
+            var home: HomeModel?
+            var error: String?
+        }
+        struct ViewModel
+        {
+            var home: HomeModel?
+            var error: String?
+        }
     }
-    struct Response
+    
+    enum UpdateLocation
     {
-        var home: HomeModel?
-        var error: String?
+        struct Request
+        {
+            var longitude: Double
+            var latitude: Double
+        }
+        struct Response
+        {
+        }
+        struct ViewModel
+        {
+        }
     }
-    struct ViewModel
-    {
-        var home: HomeModel?
-        var error: String?
-    }
-  }
 }

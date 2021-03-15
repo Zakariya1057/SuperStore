@@ -314,6 +314,11 @@
 		2CA11FA825EF96C70054AE19 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA11FA625EF96C70054AE19 /* CategoryTableViewCell.swift */; };
 		2CA11FA925EF96C70054AE19 /* CategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CA11FA725EF96C70054AE19 /* CategoryTableViewCell.xib */; };
 		2CA7C779250E547B002FF1B6 /* 1ListEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7C778250E547B002FF1B6 /* 1ListEditViewController.swift */; };
+		2CAB2EF525FFF6AF0014FE8D /* LocationManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB2EF425FFF6AF0014FE8D /* LocationManger.swift */; };
+		2CAB2EFB25FFF7C40014FE8D /* LocationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB2EFA25FFF7C40014FE8D /* LocationAPI.swift */; };
+		2CAB2EFF25FFF90D0014FE8D /* LocationRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB2EFE25FFF90D0014FE8D /* LocationRealmStore.swift */; };
+		2CAB2F0425FFF93B0014FE8D /* UserLocationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB2F0325FFF93B0014FE8D /* UserLocationObject.swift */; };
+		2CAB2F0A25FFF9C50014FE8D /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB2F0925FFF9C50014FE8D /* LocationModel.swift */; };
 		2CAB6A3B251F932D00774B89 /* 1ErrorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB6A3A251F932D00774B89 /* 1ErrorData.swift */; };
 		2CAB6A3E251F958500774B89 /* 1UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB6A3D251F958500774B89 /* 1UserData.swift */; };
 		2CAB6A41251F962E00774B89 /* 1SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB6A40251F962E00774B89 /* 1SpinnerViewController.swift */; };
@@ -770,6 +775,11 @@
 		2CA11FA625EF96C70054AE19 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		2CA11FA725EF96C70054AE19 /* CategoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryTableViewCell.xib; sourceTree = "<group>"; };
 		2CA7C778250E547B002FF1B6 /* 1ListEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = 1ListEditViewController.swift; path = SuperStore/Views/1ListEditViewController.swift; sourceTree = SOURCE_ROOT; };
+		2CAB2EF425FFF6AF0014FE8D /* LocationManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManger.swift; sourceTree = "<group>"; };
+		2CAB2EFA25FFF7C40014FE8D /* LocationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAPI.swift; sourceTree = "<group>"; };
+		2CAB2EFE25FFF90D0014FE8D /* LocationRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRealmStore.swift; sourceTree = "<group>"; };
+		2CAB2F0325FFF93B0014FE8D /* UserLocationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationObject.swift; sourceTree = "<group>"; };
+		2CAB2F0925FFF9C50014FE8D /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		2CAB6A3A251F932D00774B89 /* 1ErrorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1ErrorData.swift; sourceTree = "<group>"; };
 		2CAB6A3D251F958500774B89 /* 1UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1UserData.swift; sourceTree = "<group>"; };
 		2CAB6A40251F962E00774B89 /* 1SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = 1SpinnerViewController.swift; path = SuperStore/Controllers/1SpinnerViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -990,6 +1000,7 @@
 				2CC0ADEA25FA1E2D00373AC4 /* StoreObject.swift */,
 				2C5C987C25F6AA4000DF8B6D /* PromotionObject.swift */,
 				2C5E388225FAB42D004298A1 /* HomeObject.swift */,
+				2CAB2F0325FFF93B0014FE8D /* UserLocationObject.swift */,
 				2CF7A59425FA88C700172839 /* CategoryObject.swift */,
 				2CC72FFD25FD7CA1004E3987 /* ImageObject.swift */,
 				2C5C987225F69BC200DF8B6D /* ListObject.swift */,
@@ -1380,6 +1391,7 @@
 				2CA11F4625EEB92E0054AE19 /* StoreAPI.swift */,
 				2C55F9CD25EE3B9C007BBFA8 /* SearchAPI.swift */,
 				2CA11F9125EF90280054AE19 /* GroceryAPI.swift */,
+				2CAB2EFA25FFF7C40014FE8D /* LocationAPI.swift */,
 				2C72949D25ECEAC300D280B3 /* FavouriteAPI.swift */,
 			);
 			path = API;
@@ -1505,6 +1517,7 @@
 			isa = PBXGroup;
 			children = (
 				2C1476F525E82FF6000E8F66 /* UserRealmStore.swift */,
+				2CAB2EFE25FFF90D0014FE8D /* LocationRealmStore.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1705,6 +1718,7 @@
 				2CB911D925F11D3600A8FC66 /* List */,
 				2C1429AE25F38F87007D1EB7 /* Store */,
 				2CF7A59D25FAB20300172839 /* Home */,
+				2CAB2EF325FFF6990014FE8D /* Location */,
 				2C1476D025E7B388000E8F66 /* RequestWorker.swift */,
 				2C1476FB25E831B0000E8F66 /* SpinnerWorker.swift */,
 			);
@@ -1720,6 +1734,7 @@
 				2C48E7B625EA9DCF001A5702 /* ProductModel.swift */,
 				2CC72FF925FD7C68004E3987 /* ImageModel.swift */,
 				2C48E7D025EAA06E001A5702 /* StoreModel.swift */,
+				2CAB2F0925FFF9C50014FE8D /* LocationModel.swift */,
 				2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */,
 				2C48E7D425EAA078001A5702 /* ListModel.swift */,
 				2C55F9D125EE3C2E007BBFA8 /* SearchModel.swift */,
@@ -1868,6 +1883,14 @@
 				2CA11FA725EF96C70054AE19 /* CategoryTableViewCell.xib */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		2CAB2EF325FFF6990014FE8D /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				2CAB2EF425FFF6AF0014FE8D /* LocationManger.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		2CB2CFE525EAF78F00A00F7F /* ShowProduct */ = {
@@ -2414,6 +2437,7 @@
 				2CF239BB25094C8700D4CE91 /* ListsData.swift in Sources */,
 				2CB15C9924D36E7E00461AFE /* StoreSelectViewController.swift in Sources */,
 				2C1476E025E81FFA000E8F66 /* ErrorData.swift in Sources */,
+				2CAB2EFB25FFF7C40014FE8D /* LocationAPI.swift in Sources */,
 				2C55FA0F25EE4BF9007BBFA8 /* ShowProductResultsRouter.swift in Sources */,
 				2C0D44902537827D0046E2B0 /* GroceryHistory.swift in Sources */,
 				2C2BC7DB25EAF9220038882B /* ShowProductModels.swift in Sources */,
@@ -2461,6 +2485,7 @@
 				2C70829D25F013A700345147 /* EditNameWorker.swift in Sources */,
 				2C266E0324D70C3900C66EA5 /* 1SearchModel.swift in Sources */,
 				2C14299B25F2C282007D1EB7 /* EditListItemViewController.swift in Sources */,
+				2CAB2EFF25FFF90D0014FE8D /* LocationRealmStore.swift in Sources */,
 				2C6F621E25134F9B00179C2B /* 1RegisterViewController.swift in Sources */,
 				2C21C3A424F6F2A300D90B4B /* RequestHandler.swift in Sources */,
 				2C1567D324C8B34700B8DCB5 /* SearchViewController.swift in Sources */,
@@ -2490,11 +2515,13 @@
 				2CA11EED25EE84620054AE19 /* ShowRefineModels.swift in Sources */,
 				2CB9119D25F11B4500A8FC66 /* ShowListsModels.swift in Sources */,
 				2C70827425F0100700345147 /* EditPasswordPresenter.swift in Sources */,
+				2CAB2F0A25FFF9C50014FE8D /* LocationModel.swift in Sources */,
 				2CAC05FC252E314F00561509 /* FeaturedProductCollectionViewCell.swift in Sources */,
 				2CA11EEF25EE84620054AE19 /* ShowRefineInteractor.swift in Sources */,
 				2C2BC7D825EAF9220038882B /* ShowProductPresenter.swift in Sources */,
 				2CBF020625EFDE0C003AD5DF /* GroceryTableViewController.swift in Sources */,
 				2CC1EA1B24FA9550000A9BC4 /* GroceryProductsData.swift in Sources */,
+				2CAB2F0425FFF93B0014FE8D /* UserLocationObject.swift in Sources */,
 				2C70824825F009ED00345147 /* NewPasswordWorker.swift in Sources */,
 				2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */,
 				2CB911B925F11B6100A8FC66 /* ShowListModels.swift in Sources */,
@@ -2610,6 +2637,7 @@
 				2C72949E25ECEAC300D280B3 /* FavouriteAPI.swift in Sources */,
 				2CB2CFCD25EAA80E00A00F7F /* ProductData.swift in Sources */,
 				2CA11F3C25EEB6A50054AE19 /* StorePresenter.swift in Sources */,
+				2CAB2EF525FFF6AF0014FE8D /* LocationManger.swift in Sources */,
 				2CDFB63525EA6359002CE30D /* HomePresenter.swift in Sources */,
 				2CE7AB0224D077C700A31782 /* 1SettingsViewController.swift in Sources */,
 				2C14773425E90246000E8F66 /* RegisterInteractor.swift in Sources */,

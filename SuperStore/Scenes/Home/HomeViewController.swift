@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import MapKit
 
 protocol HomeDisplayLogic: class
 {
@@ -72,11 +73,11 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         
         setupHomeCells()
         registerTableViewCells()
-        getHome()
+//        getHome()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getHome()
+//        getHome()
     }
     
     var loading: Bool = true
@@ -91,6 +92,9 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     var homeModel: HomeModel?
     
+    var latitude: Double? = nil
+    var longitude: Double? = nil
+    
     var userSession: UserSessionWorker = UserSessionWorker()
     var loggedIn: Bool {
         return userSession.isLoggedIn()
@@ -98,7 +102,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     func getHome()
     {
-        let request = Home.GetHome.Request()
+        let request = Home.GetHome.Request(latitude: latitude, longitude: longitude)
         interactor?.getHome(request: request)
     }
     
@@ -249,7 +253,7 @@ extension HomeViewController {
     private func setupHomeCells(){
         homeCells = [
             ListGroupProgressElement(title: "List Progress", lists: [], listPressed: listPressed),
-            StoreMapGroupElement(title: "Stores", stores: [], storePressed: storePressed),
+            StoreMapGroupElement(title: "Stores", stores: [], storePressed: storePressed, userLocationFetched: userLocationFetched),
             GroceryProductGroupElement(title: "Grocery Items", products: [], productPressed: productPressed),
             MonitoringProductGroupElement(title: "Monitoring", products: [], productPressed: productPressed),
             PromotionGroupElement(title: "Promotions", promotions: [], promotionPressed: promotionPressed),
@@ -346,7 +350,9 @@ extension HomeViewController {
             break
             
         case is StoreMapGroupElement:
-            cellModel = StoresMapElementModel(stores: [])
+            let storeElement = StoresMapElementModel(stores: [])
+            storeElement.userLocationFetched = userLocationFetched
+            cellModel = storeElement
             break
             
         case is ListGroupProgressElement:
@@ -395,7 +401,20 @@ extension HomeViewController {
     }
 }
 
-
+extension HomeViewController {
+    private func userLocationFetched(location: CLLocationCoordinate2D){
+        longitude = Double(location.longitude)
+        latitude = Double(location.latitude)
+        
+        if homeModel == nil {
+            getHome()
+        } else {
+            // Update user location, send to endpoint for tracking
+            let request = Home.UpdateLocation.Request(longitude: longitude!, latitude: latitude!)
+            interactor?.updateLocation(request: request)
+        }
+    }
+}
 
 protocol HomeElementGroupModel: class {
     var title: String { get }
