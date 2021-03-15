@@ -167,7 +167,7 @@ struct Config {
             }
             
             public static var All: String {
-                return ListRoute + "/"
+                return ListRoute + "/stores"
             }
             
             public static var Show: String {
