@@ -7,16 +7,22 @@
 //
 
 import Foundation
+import Alamofire
 
 class StoreAPI: StoreRequestProtocol {
 
     let jsonDecoder = JSONDecoder()
     let requestWorker: RequestProtocol = RequestWorker()
     
-    func getStores(storeTypeID: Int, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void){
-        let url: String = Config.Route.Search.Results.Store + "/" + String(storeTypeID)
+    func getStores(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void){
         
-        requestWorker.get(url: url) { (response: () throws -> Data) in
+        let storeData: Parameters = [
+            "store_type_id": storeTypeID,
+            "latitude": latitude ?? 0,
+            "longitude": longitude ?? 0
+        ]
+        
+        requestWorker.post(url: Config.Route.Search.Results.Store, data: storeData) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let storesDataResponse =  try self.jsonDecoder.decode(StoresDataResponse.self, from: data)

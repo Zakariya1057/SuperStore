@@ -405,16 +405,20 @@ extension HomeViewController {
 }
 
 extension HomeViewController {
-    private func userLocationFetched(location: CLLocationCoordinate2D){
-        longitude = Double(location.longitude)
-        latitude = Double(location.latitude)
+    private func userLocationFetched(location: CLLocationCoordinate2D?){
         
-        if homeModel == nil {
-            getHome()
-        } else {
-            // Update user location, send to endpoint for tracking
+        if let location = location {
+            longitude = Double(location.longitude)
+            latitude = Double(location.latitude)
+            
             let request = Home.UpdateLocation.Request(longitude: longitude!, latitude: latitude!)
             interactor?.updateLocation(request: request)
+        } else {
+            // No location found
+        }
+
+        if homeModel == nil {
+            getHome()
         }
     }
 }

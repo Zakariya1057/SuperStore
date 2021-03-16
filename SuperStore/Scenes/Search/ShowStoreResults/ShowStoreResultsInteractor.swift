@@ -39,7 +39,10 @@ class ShowStoreResultsInteractor: ShowStoreResultsBusinessLogic, ShowStoreResult
     
     func getStores(request: ShowStoreResults.GetStores.Request)
     {
-        storeWorker.getStores(storeTypeID: storeTypeID) { (stores: [StoreModel], error: String?) in
+        let latitude: Double? = request.latitude
+        let longitude: Double? = request.longitude
+        
+        storeWorker.getStores(storeTypeID: storeTypeID, latitude: latitude, longitude: longitude) { (stores: [StoreModel], error: String?) in
             let response = ShowStoreResults.GetStores.Response(stores: stores, error: error)
             self.presenter?.presentStores(response: response)
         }

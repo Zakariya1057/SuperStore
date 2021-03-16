@@ -14,10 +14,10 @@ class StoreMapGroupElement: HomeElementGroupModel {
     var type: HomeElementType = .storesMap
     var items: [HomeElementItemModel]
     var storePressed: ((Int) -> Void)? = nil
-    var userLocationFetched: ((CLLocationCoordinate2D) -> Void)?
+    var userLocationFetched: ((CLLocationCoordinate2D?) -> Void)?
     var loading: Bool = true
     
-    init(title: String, stores: [StoresMapElementModel], storePressed: ((Int) -> Void)?, userLocationFetched: ((CLLocationCoordinate2D) -> Void)?) {
+    init(title: String, stores: [StoresMapElementModel], storePressed: ((Int) -> Void)?, userLocationFetched: ((CLLocationCoordinate2D?) -> Void)?) {
         self.title = title
         self.items = stores
         
@@ -39,7 +39,7 @@ class StoreMapGroupElement: HomeElementGroupModel {
 class StoresMapElementModel: HomeElementItemModel {
     var stores: [StoreModel] = []
     var storePressed: ((Int) -> Void)? = nil
-    var userLocationFetched: ((CLLocationCoordinate2D) -> Void)?
+    var userLocationFetched: ((CLLocationCoordinate2D?) -> Void)?
     var loading: Bool = true
     
     init(stores: [StoreModel]) {
@@ -52,7 +52,7 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
     var model: StoresMapElementModel!
     var stores: [StoreModel] = []
     
-    var userLocationFetched: ((CLLocationCoordinate2D) -> Void)? = nil
+    var userLocationFetched: ((CLLocationCoordinate2D?) -> Void)? = nil
     
     var storePressed: ((Int) -> Void)? = nil
     var storeHighlighted: ((Int) -> Void)? = nil
@@ -114,7 +114,7 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
                 userLocationFetched(userLocation)
             }
             
-            let viewRegion = MKCoordinateRegion(center: userLocation, latitudinalMeters: 20000, longitudinalMeters: 20000)
+            let viewRegion = MKCoordinateRegion(center: userLocation, latitudinalMeters: 50000, longitudinalMeters: 50000)
             mapView.setRegion(viewRegion, animated: false)
         }
     }
@@ -223,7 +223,7 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
                 zoomUserLocation()
             case .denied: // Show alert telling users how to turn on permissions
                 print("User Location Permission Denied")
-                // errorDelegate?.showError("User location permission denied.\nPlease change from Apple settings.")
+                locationNotFound()
                 break
             case .authorizedAlways:
                 locationManager.requestWhenInUseAuthorization()
@@ -236,6 +236,7 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
                 zoomUserLocation()
             case .restricted:
                 print("User location permission denied.\nPlease change from Apple settings.")
+                locationNotFound()
 //                errorDelegate?.showError("User location permission denied.\nPlease change from Apple settings.")
                 break
             @unknown default:
@@ -250,6 +251,13 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
         if let userLocationFetched = userLocationFetched {
             print("Calling Update Location Thing")
             userLocationFetched(userLocation.coordinate)
+        }
+    }
+    
+    func locationNotFound(){
+        if let userLocationFetched = userLocationFetched {
+            print("Location Not Found")
+            userLocationFetched(nil)
         }
     }
     

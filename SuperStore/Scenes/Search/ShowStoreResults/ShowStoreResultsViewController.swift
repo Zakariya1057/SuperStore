@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import MapKit
 
 protocol ShowStoreResultsDisplayLogic: class
 {
@@ -71,10 +72,15 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
         super.viewDidLoad()
         displayRightBarButton()
         setupStoresTableView()
-        getStores()
+//        getStores()
     }
     
+    var fetchingStores: Bool = false
+    
     var loading: Bool = true
+    
+    var latitude: Double? = nil
+    var longitude: Double? = nil
     
     var displayedStores: [ShowStoreResults.DisplayedStore] = []
     var stores: [StoreModel] = []
@@ -84,7 +90,7 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
     
     func getStores()
     {
-        let request = ShowStoreResults.GetStores.Request()
+        let request = ShowStoreResults.GetStores.Request(latitude: latitude, longitude: longitude)
         interactor?.getStores(request: request)
     }
     
@@ -126,6 +132,7 @@ extension ShowStoreResultsViewController: UITableViewDataSource, UITableViewDele
         
         cell.storeHighlighted = storeMapHighlighted
         cell.storePressed = storePressed
+        cell.userLocationFetched = userLocationFetched
         cell.stores = stores
         cell.configureUI()
         
@@ -158,6 +165,21 @@ extension ShowStoreResultsViewController: UITableViewDataSource, UITableViewDele
         
         mapTableView.delegate = self
         mapTableView.dataSource = self
+    }
+}
+
+extension ShowStoreResultsViewController {
+    private func userLocationFetched(location: CLLocationCoordinate2D?){
+        if let location = location {
+            longitude = Double(location.longitude)
+            latitude = Double(location.latitude)
+        }
+
+        if !fetchingStores {
+            getStores()
+            fetchingStores = true
+        }
+        
     }
 }
 

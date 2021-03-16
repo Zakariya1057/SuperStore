@@ -18,14 +18,14 @@ class StoreWorker
         self.storeStore = StoreRealmStore()
     }
     
-    func getStores(storeTypeID: Int, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void){
+    func getStores(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void){
         
         let stores = storeStore.getStores(storeTypeID: storeTypeID)
         if stores.count > 0 {
             completionHandler(stores, nil)
         }
         
-        storeAPI.getStores(storeTypeID: storeTypeID) { (stores: [StoreModel], error: String?) in
+        storeAPI.getStores(storeTypeID: storeTypeID, latitude: latitude, longitude: longitude) { (stores: [StoreModel], error: String?) in
             if stores.count > 0 {
                 self.storeStore.createStores(stores: stores)
             }
@@ -52,7 +52,7 @@ class StoreWorker
 
 protocol StoreRequestProtocol {
     func getStore(storeID: Int, completionHandler: @escaping (_ product: StoreModel?, _ error: String?) -> Void)
-    func getStores(storeTypeID: Int, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void)
+    func getStores(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void)
 }
 
 protocol StoreStoreProtocol {

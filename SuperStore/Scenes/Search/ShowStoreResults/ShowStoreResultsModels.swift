@@ -28,6 +28,8 @@ enum ShowStoreResults
     {
         struct Request
         {
+            var latitude: Double?
+            var longitude: Double?
         }
         struct Response
         {
