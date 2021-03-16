@@ -30,7 +30,7 @@ class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
         let dayOfWeek: Int = getDayOfWeek()
         
         for store in response.stores {
-            var openingHour: String = "Closed"
+            var openingHour: String = ""
             
             // If single hour given for API loaded results, show first. If all given from locally. Then choose for the given day
             if store.openingHours.count == 1 {
@@ -43,8 +43,12 @@ class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
                     hour.dayOfWeek == dayOfWeek
                 }
                 
-                if let storeHour = storeHour, storeHour.opensAt != nil, storeHour.closesAt != nil {
-                    openingHour = "\(storeHour.opensAt!.lowercased()) - \(storeHour.closesAt!.lowercased())"
+                if let storeHour = storeHour {
+                    if storeHour.opensAt != nil, storeHour.closesAt != nil {
+                        openingHour = "\(storeHour.opensAt!.lowercased()) - \(storeHour.closesAt!.lowercased())"
+                    } else {
+                        openingHour = "Closed"
+                    }
                 }
             }
             

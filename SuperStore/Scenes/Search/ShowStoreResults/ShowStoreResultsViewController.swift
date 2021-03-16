@@ -177,6 +177,8 @@ extension ShowStoreResultsViewController {
         } else {
             if !fetchingStores {
                 let banner = StatusBarNotificationBanner(title: "Please enable user location to see nearby stores.", style: .info)
+                banner.dismissOnTap = true
+                banner.dismissOnSwipeUp = true
                 banner.show()
             }
         }

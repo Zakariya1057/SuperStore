@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="6n5-x9-pou">
-                        <rect key="frame" x="15" y="0.0" width="305" height="30"/>
+                        <rect key="frame" x="15" y="0.0" width="290" height="30"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q17-Vb-IqF">
                                 <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
@@ -38,11 +38,22 @@
                                     <constraint firstItem="HB4-SO-s4M" firstAttribute="leading" secondItem="q17-Vb-IqF" secondAttribute="leading" id="wbz-MI-saC"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00AM - 11:00PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xNE-ZL-29w">
-                                <rect key="frame" x="130" y="0.0" width="175" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KXM-lf-3Pc">
+                                <rect key="frame" x="130" y="0.0" width="160" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00AM - 11:00PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xNE-ZL-29w">
+                                        <rect key="frame" x="0.0" y="5" width="160" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="xNE-ZL-29w" secondAttribute="trailing" id="F76-ep-I2C"/>
+                                    <constraint firstItem="xNE-ZL-29w" firstAttribute="leading" secondItem="KXM-lf-3Pc" secondAttribute="leading" id="nMw-6y-fPd"/>
+                                    <constraint firstItem="xNE-ZL-29w" firstAttribute="centerY" secondItem="KXM-lf-3Pc" secondAttribute="centerY" id="qAV-sQ-al5"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="oqE-Ze-sXj"/>
@@ -51,7 +62,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="6n5-x9-pou" secondAttribute="bottom" constant="8" id="39O-dJ-kzb"/>
-                    <constraint firstAttribute="trailing" secondItem="6n5-x9-pou" secondAttribute="trailing" id="KLH-qz-nfq"/>
+                    <constraint firstAttribute="trailing" secondItem="6n5-x9-pou" secondAttribute="trailing" constant="15" id="KLH-qz-nfq"/>
                     <constraint firstItem="6n5-x9-pou" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vkv-Ip-H9r"/>
                     <constraint firstItem="6n5-x9-pou" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="w6p-b6-5zc"/>
                 </constraints>
@@ -60,6 +71,8 @@
             <connections>
                 <outlet property="dayLabel" destination="HB4-SO-s4M" id="4E2-SW-pzX"/>
                 <outlet property="hourLabel" destination="xNE-ZL-29w" id="lC6-qc-519"/>
+                <outletCollection property="loadingViews" destination="q17-Vb-IqF" collectionClass="NSMutableArray" id="7Eh-hE-4lX"/>
+                <outletCollection property="loadingViews" destination="KXM-lf-3Pc" collectionClass="NSMutableArray" id="l8J-sR-o8f"/>
             </connections>
             <point key="canvasLocation" x="-246.37681159420291" y="76.339285714285708"/>
         </tableViewCell>

@@ -10,6 +10,14 @@ import UIKit
 
 class OpeningHourTableViewCell: UITableViewCell {
 
+    @IBOutlet var loadingViews: [UIView]!
+    
+    var loading: Bool = true {
+        didSet {
+            loading ? startLoading() : stopLoading()
+        }
+    }
+    
     @IBOutlet var dayLabel: UILabel!
     @IBOutlet var hourLabel: UILabel!
     
@@ -24,4 +32,19 @@ class OpeningHourTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+}
+
+extension OpeningHourTableViewCell {
+    func startLoading(){
+        for item in loadingViews {
+            item.isSkeletonable = true
+            item.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func stopLoading(){
+        for item in loadingViews {
+            item.hideSkeleton()
+        }
+    }
 }

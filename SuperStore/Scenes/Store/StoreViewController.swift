@@ -85,21 +85,6 @@ class StoreViewController: UIViewController, StoreDisplayLogic
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     
-    @IBOutlet var openingHoursDayLabels: [UILabel]!
-    @IBOutlet var openingHoursTimeLabels: [UILabel]!
-    
-    // Facilities Labels START
-    @IBOutlet weak var carParkView: UIStackView!
-    @IBOutlet weak var customerWCView: UIStackView!
-    @IBOutlet weak var heliumBalloonsView: UIStackView!
-    @IBOutlet weak var disabledView: UIStackView!
-    @IBOutlet weak var chargingView: UIStackView!
-    @IBOutlet weak var paypointView: UIStackView!
-    @IBOutlet weak var atmView: UIStackView!
-    @IBOutlet weak var babyChangingView: UIStackView!
-    @IBOutlet weak var petrolFillingStationView: UIStackView!
-    // Facilities Labels END
-    
     @IBOutlet var loadingViews: [UIView]!
     
     var loading: Bool = true {
@@ -150,43 +135,13 @@ class StoreViewController: UIViewController, StoreDisplayLogic
             self.navigationItem.rightBarButtonItem = nil
         }
     }
-    
-    private func displayOpeningHours(openingHours: [Store.DisplayOpeningHour]){
-        
-        for opening in openingHours {
-            
-            let dayOfWeek = opening.dayOfWeek
-            
-            // Set Hours
-            let hourLabel: UILabel = openingHoursTimeLabels[dayOfWeek]
-            let dayLabel: UILabel = openingHoursDayLabels[dayOfWeek]
-            
-            hourLabel.text = opening.hours
-            
-            if opening.today {
-
-                if opening.closedToday {
-                    dayLabel.textColor = .systemRed
-                    hourLabel.textColor = .systemRed
-                } else {
-                    dayLabel.textColor = .systemBlue
-                    hourLabel.textColor = .systemBlue
-                }
-
-            } else {
-                dayLabel.textColor = .label
-                hourLabel.textColor = .label
-            }
-            
-        }
-    }
 
 }
 
 
 extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableView == facilitiesTableView ? facilities.count : hours.count
+        return loading ? 7 : tableView == facilitiesTableView ? facilities.count : hours.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -200,9 +155,13 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
     func configureFacilityCell(indexPath: IndexPath) -> FacilityTableViewCell {
         let cell = facilitiesTableView.dequeueReusableCell(withIdentifier: "FacilityTableViewCell", for: indexPath) as! FacilityTableViewCell
 
-        cell.facility = facilities[indexPath.row]
-        cell.configureUI()
+        cell.loading = loading
         
+        if !loading {
+            cell.facility = facilities[indexPath.row]
+            cell.configureUI()
+        }
+
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
@@ -210,24 +169,30 @@ extension StoreViewController: UITableViewDataSource, UITableViewDelegate {
     func configureHourCell(indexPath: IndexPath) -> UITableViewCell {
         let cell = hoursTableView.dequeueReusableCell(withIdentifier: "OpeningHourTableViewCell", for: indexPath) as! OpeningHourTableViewCell
         
-        let hour = hours[indexPath.row]
+        cell.loading = loading
         
-        cell.dayLabel.text = hour.day
-        cell.hourLabel.text = hour.hours
-        
-        if hour.today {
-            if hour.closedToday {
-                cell.dayLabel.textColor = .systemRed
-                cell.hourLabel.textColor = .systemRed
+        if !loading {
+            
+            let hour = hours[indexPath.row]
+            
+            cell.dayLabel.text = hour.day
+            cell.hourLabel.text = hour.hours
+            
+            if hour.today {
+                if hour.closedToday {
+                    cell.dayLabel.textColor = .systemRed
+                    cell.hourLabel.textColor = .systemRed
+                } else {
+                    cell.dayLabel.textColor = .systemBlue
+                    cell.hourLabel.textColor = .systemBlue
+                }
             } else {
-                cell.dayLabel.textColor = .systemBlue
-                cell.hourLabel.textColor = .systemBlue
+                cell.dayLabel.textColor = .label
+                cell.hourLabel.textColor = .label
             }
-        } else {
-            cell.dayLabel.textColor = .label
-            cell.hourLabel.textColor = .label
+            
         }
-        
+
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }

@@ -74,8 +74,6 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
             return
         }
         
-        print("All Setup")
-        
         self.model = model
         self.stores = model.stores
         self.userLocationFetched = model.userLocationFetched
@@ -85,8 +83,8 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
     }
     
     func configureUI() {
-        
         // Initiallising Map. Required. Or MapView()
+        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
@@ -105,12 +103,9 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
     }
     
     func zoomUserLocation(){
-        
-        //Zoom to user location
         if let userLocation = locationManager.location?.coordinate {
             
             if let userLocationFetched = userLocationFetched {
-                print("Calling Location Thing")
                 userLocationFetched(userLocation)
             }
             
@@ -237,7 +232,6 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
             case .restricted:
                 print("User location permission denied.\nPlease change from Apple settings.")
                 locationNotFound()
-//                errorDelegate?.showError("User location permission denied.\nPlease change from Apple settings.")
                 break
             @unknown default:
                 fatalError()
@@ -245,6 +239,10 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
             
         }
         
+    }
+    
+    func mapViewWillStartLocatingUser(_ mapView: MKMapView) {
+        zoomUserLocation()
     }
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {

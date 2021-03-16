@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QO6-fO-HYL">
-                        <rect key="frame" x="15" y="0.0" width="305" height="30"/>
+                        <rect key="frame" x="15" y="0.0" width="290" height="30"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gV-B0-9Vq">
                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -41,10 +41,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MHd-C7-6I6">
-                                <rect key="frame" x="40" y="0.0" width="265" height="30"/>
+                                <rect key="frame" x="40" y="0.0" width="250" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facility" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i49-C9-EIf">
-                                        <rect key="frame" x="0.0" y="5" width="265" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="5" width="250" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -64,7 +64,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="QO6-fO-HYL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5f4-Zk-4p8"/>
-                    <constraint firstAttribute="trailing" secondItem="QO6-fO-HYL" secondAttribute="trailing" id="CXS-eT-cPp"/>
+                    <constraint firstAttribute="trailing" secondItem="QO6-fO-HYL" secondAttribute="trailing" constant="15" id="CXS-eT-cPp"/>
                     <constraint firstItem="QO6-fO-HYL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="TdX-2C-Y7Y"/>
                     <constraint firstAttribute="bottom" secondItem="QO6-fO-HYL" secondAttribute="bottom" constant="8" id="q2w-IW-PR7"/>
                 </constraints>
@@ -73,6 +73,8 @@
             <connections>
                 <outlet property="iconImageView" destination="mM8-vn-2kV" id="mV1-i4-sIm"/>
                 <outlet property="nameLabel" destination="i49-C9-EIf" id="Znz-sR-sbb"/>
+                <outletCollection property="loadingViews" destination="0gV-B0-9Vq" collectionClass="NSMutableArray" id="9i6-7j-rCM"/>
+                <outletCollection property="loadingViews" destination="MHd-C7-6I6" collectionClass="NSMutableArray" id="ZvT-tE-yj9"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="71.651785714285708"/>
         </tableViewCell>

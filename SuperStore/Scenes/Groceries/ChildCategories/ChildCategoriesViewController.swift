@@ -87,7 +87,7 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
     var selectedProduct: ProductModel?
     var selectedSection: Int?
     
-    var viewcontrollers:[GroceryTableViewController] = []
+    var viewcontrollers:[GroceryTableViewController] = [ GroceryTableViewController(nibName: nil, bundle: nil) ]
     var categories: [ChildCategoryModel] = []
     
     var listItems: [Int: ListItemModel] = [:]
@@ -107,11 +107,13 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
     
     func displayCategories(viewModel: ChildCategories.GetCategories.ViewModel)
     {
-        
+
         if let error = viewModel.error {
             showError(title: "Grocery Error", error: error)
         } else {
             loading = false
+            
+            reloadTableView()
             
             self.categories = viewModel.categories
             viewcontrollers = categories.map { _ in GroceryTableViewController(nibName: nil, bundle: nil) }
@@ -187,11 +189,11 @@ extension ChildCategoriesViewController:  TMBarDataSource, PageboyViewController
     }
     
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        return loading ? 1 : viewcontrollers.count
+        return viewcontrollers.count
     }
     
     func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
-        let viewController: GroceryTableViewController = loading ? GroceryTableViewController(nibName: nil, bundle: nil) : viewcontrollers[index]
+        let viewController: GroceryTableViewController = viewcontrollers[index]
         
         viewController.loading = loading
         
@@ -285,6 +287,7 @@ extension ChildCategoriesViewController: SelectListProtocol {
     
     func reloadTableView(){
         for viewController in viewcontrollers {
+            viewController.loading = loading
             viewController.tableView.reloadData()
         }
     }
