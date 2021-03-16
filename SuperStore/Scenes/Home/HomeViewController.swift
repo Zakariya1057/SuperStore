@@ -12,6 +12,7 @@
 
 import UIKit
 import MapKit
+import NotificationBannerSwift
 
 protocol HomeDisplayLogic: class
 {
@@ -415,6 +416,12 @@ extension HomeViewController {
             interactor?.updateLocation(request: request)
         } else {
             // No location found
+            if(homeModel == nil){
+                let banner = StatusBarNotificationBanner(title: "Please enable user location to see nearby stores.", style: .info)
+                banner.dismissOnTap = true
+                banner.dismissOnSwipeUp = true
+                banner.show()
+            }
         }
 
         if homeModel == nil {

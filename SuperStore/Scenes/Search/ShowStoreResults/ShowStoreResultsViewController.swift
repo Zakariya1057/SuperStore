@@ -12,6 +12,7 @@
 
 import UIKit
 import MapKit
+import NotificationBannerSwift
 
 protocol ShowStoreResultsDisplayLogic: class
 {
@@ -173,6 +174,11 @@ extension ShowStoreResultsViewController {
         if let location = location {
             longitude = Double(location.longitude)
             latitude = Double(location.latitude)
+        } else {
+            if !fetchingStores {
+                let banner = StatusBarNotificationBanner(title: "Please enable user location to see nearby stores.", style: .info)
+                banner.show()
+            }
         }
 
         if !fetchingStores {
