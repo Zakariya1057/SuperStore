@@ -84,7 +84,7 @@ extension ProductCell {
     }
     
     @IBAction func addButtonPressed(_ button: UIButton) {
-        updateQuanity(quantity: 1)
+//        updateQuanity(quantity: 1)
         if let addToListPressed = addToListPressed {
             addToListPressed(product)
         }

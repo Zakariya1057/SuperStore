@@ -25,17 +25,13 @@ class ShowListPresenter: ShowListPresentationLogic
 
     weak var viewController: ShowListDisplayLogic?
     
-    let currency: String = "£"
-    
-    // MARK: Do something
-    
     func presentList(response: ShowList.GetList.Response)
     {
         var displayedList: ShowList.DisplayedList?
         
         if let list = response.list {
 
-            let categories = createDisplayedCategories(categories: list.categories, currency: currency)
+            let categories = createDisplayedCategories(categories: list.categories)
             
             displayedList = ShowList.DisplayedList(
                 id: list.id,
@@ -72,11 +68,11 @@ class ShowListPresenter: ShowListPresentationLogic
 
 extension ShowListPresenter {
 
-    private func createDisplayedCategories(categories: [ListCategoryModel], currency: String) -> [ShowList.DisplayedListCategory] {
+    private func createDisplayedCategories(categories: [ListCategoryModel]) -> [ShowList.DisplayedListCategory] {
         var displayCategories: [ShowList.DisplayedListCategory] = []
         
         for category in categories {
-            let items = createDisplayedItems(items: category.items, currency: currency)
+            let items = createDisplayedItems(items: category.items)
             displayCategories.append(
                 ShowList.DisplayedListCategory(name: category.name, items: items)
             )
@@ -85,7 +81,7 @@ extension ShowListPresenter {
         return displayCategories
     }
     
-    private func createDisplayedItems(items: [ListItemModel], currency: String) -> [ShowList.DisplayedListItem] {
+    private func createDisplayedItems(items: [ListItemModel]) -> [ShowList.DisplayedListItem] {
         return items.map { (item: ListItemModel) in
             return ShowList.DisplayedListItem(
                 name: item.name, productID: item.productID,

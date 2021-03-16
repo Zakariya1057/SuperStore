@@ -139,6 +139,8 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
     func displayListUpdateTotal(viewModel: ShowList.UpdateListTotal.ViewModel) {
         let displayedListPrice = viewModel.displayedPrice
         
+        print(viewModel)
+        
         displayedList!.totalPrice = displayedListPrice.totalPrice
         displayedList!.oldTotalPrice = displayedListPrice.oldTotalPrice
         

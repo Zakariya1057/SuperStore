@@ -77,6 +77,9 @@ class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
 
         listWorker.updateListTotalPrice(listID: list.id, totalPrice: totalPrice, oldTotalPrice: oldTotalPrice)
         
+        list.totalPrice = totalPrice
+        list.oldTotalPrice = oldTotalPrice
+        
         let response = ShowList.UpdateListTotal.Response(list: list)
         self.presenter?.presentListUpdateTotal(response: response)
     }

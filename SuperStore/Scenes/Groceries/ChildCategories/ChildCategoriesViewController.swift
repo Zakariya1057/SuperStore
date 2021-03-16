@@ -229,12 +229,14 @@ extension ChildCategoriesViewController: SelectListProtocol {
         selectedSection = section
 
         if let listID = interactor?.selectedListID {
-            updateProductQuantity(section: selectedSection!, productID: product.id, quantity: product.quantity)
+            updateProductQuantity(section: selectedSection!, productID: product.id, quantity: 1, listID: listID)
             createListItem(listID: listID)
+            reloadTableView()
         } else {
             interactor?.selectedProductStoreTypeID = product.storeTypeID
             router?.routeToShowLists(segue: nil)
         }
+        
     }
     
     func listSelected(listID: Int) {

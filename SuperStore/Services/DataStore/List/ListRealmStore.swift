@@ -194,6 +194,7 @@ extension ListRealmStore {
                 savedItem.price = item.price
                 savedItem.listID = list.id
                 savedItem.price = item.price
+                savedItem.currency = item.currency
                 savedItem.quantity = item.quantity
                 savedItem.productID = item.productID
                 savedItem.totalPrice = item.totalPrice

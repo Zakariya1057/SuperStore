@@ -32,8 +32,8 @@ struct ListModel {
         return formatPrice(price: totalPrice)
     }
     
-    func getOldTotalPrice() -> String {
-        return formatPrice(price: oldTotalPrice ?? 0)
+    func getOldTotalPrice() -> String? {
+        return oldTotalPrice != nil ? formatPrice(price: oldTotalPrice!) : nil
     }
     
     private func formatPrice(price: Double) -> String {

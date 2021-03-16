@@ -268,12 +268,14 @@ extension ShowProductResultsViewController: SelectListProtocol {
     func addToListPressed(product: ProductModel){
         // Show lists, select one.
         selectedProduct = product
-        updateProductQuantity(productID: product.id, quantity: product.quantity)
-        
+       
         if let listID = interactor?.selectedListID {
             createListItem(listID: listID)
+            updateProductQuantity(productID: product.id, quantity: 1, listID: interactor?.selectedListID)
+            productsTableView.reloadData()
         } else {
             interactor?.selectedProductStoreTypeID = product.storeTypeID
+            updateProductQuantity(productID: product.id, quantity: product.quantity, listID: interactor?.selectedListID)
             router?.routeToShowLists(segue: nil)
         }
     }

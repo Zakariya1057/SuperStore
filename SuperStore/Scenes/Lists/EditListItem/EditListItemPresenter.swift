@@ -24,14 +24,10 @@ class EditListItemPresenter: EditListItemPresentationLogic
 
     weak var viewController: EditListItemDisplayLogic?
     
-    // MARK: Do something
-    
     func presentListItem(response: EditListItem.GetListItem.Response)
     {
         let listItem = response.listItem
         var displayPromotion: EditListItem.DisplayedPromotion?
-        
-        let currency: String = "£"
         
         if let promotion = listItem.promotion {
             displayPromotion = EditListItem.DisplayedPromotion(name: promotion.name)
@@ -42,7 +38,7 @@ class EditListItemPresenter: EditListItemPresentationLogic
             image: listItem.image,
             weight: listItem.weight,
             quantity: listItem.quantity,
-            price: formatPrice(price: listItem.totalPrice, currency: currency),
+            price: listItem.getPrice(),
             promotion: displayPromotion
         )
         
@@ -58,11 +54,5 @@ class EditListItemPresenter: EditListItemPresentationLogic
     func presentListItemDeleted(response: EditListItem.DeleteListItem.Response){
         let viewModel = EditListItem.DeleteListItem.ViewModel(error: response.error)
         viewController?.displayListItemDeleted(viewModel: viewModel)
-    }
-}
-
-extension EditListItemPresenter {
-    private func formatPrice(price: Double, currency: String) -> String {
-        return "\(currency)\(String(format: "%.2f", price))"
     }
 }

@@ -14,6 +14,8 @@ struct SuggestionModel {
     var type: SearchType
     var textSearch: Bool = false
     
+    var storeTypeID: Int? = nil
+    
     var visited: Bool = false
     var visitedAt: Date? = nil
 }

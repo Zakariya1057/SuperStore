@@ -71,8 +71,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     {
         super.viewDidLoad()
         
-        setupHomeCells()
         registerTableViewCells()
+        setupHomeCells()
 //        getHome()
     }
     
@@ -292,9 +292,12 @@ extension HomeViewController {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let title = homeCells[section].title
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SectionHeader") as! SectionHeader
-        header.headingLabel.text = title
+        
+        if section < homeCells.count {
+            header.headingLabel.text = homeCells[section].title
+        }
+
         return header
     }
     
