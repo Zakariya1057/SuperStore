@@ -247,7 +247,6 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if let userLocationFetched = userLocationFetched {
-            print("Calling Update Location Thing")
             userLocationFetched(userLocation.coordinate)
         }
     }

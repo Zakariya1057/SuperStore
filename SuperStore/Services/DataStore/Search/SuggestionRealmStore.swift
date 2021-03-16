@@ -61,7 +61,6 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
         let savedSuggestions = realm?.objects(SuggestionObject.self).filter("storeTypeID = %@ AND name CONTAINS[c] %@", storeTypeID, query)
         
         if let savedSuggestions = savedSuggestions {
-            print(savedSuggestions.map{ $0.getSuggestionModel() })
             return savedSuggestions.map{ $0.getSuggestionModel() }
         }
         

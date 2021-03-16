@@ -13,8 +13,9 @@ target 'SuperStore' do
   pod 'Kingfisher', '~> 5.0'
   pod 'SkeletonView', '~> 1.10.0'
   pod 'RealmSwift', '~> 5.0'
+  pod 'ImageSlideshow', '~> 1.9.0'
+  pod 'ImageSlideshow/AFURL'
   pod 'SwiftKeychainWrapper'
-  pod 'ReachabilitySwift'
   pod 'NotificationBannerSwift', '~> 3.0.0'
   
 end

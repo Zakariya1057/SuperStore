@@ -12,6 +12,9 @@
 
 import UIKit
 import Cosmos
+import ImageSlideshow
+import Alamofire
+import AFNetworking
 
 protocol ShowProductDisplayLogic: class
 {
@@ -26,7 +29,7 @@ protocol ShowProductDisplayLogic: class
 
 class ShowProductViewController: UIViewController, ShowProductDisplayLogic
 {
-
+    
     var interactor: ShowProductBusinessLogic?
     var router: (NSObjectProtocol & ShowProductRoutingLogic & ShowProductDataPassing)?
     
@@ -78,9 +81,17 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     {
         super.viewDidLoad()
         getProduct()
+        setupImageSlider()
         registerReviewsTableView()
         setupGestureRecognizer()
     }
+    
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    @IBOutlet var slideshow: ImageSlideshow!
+    
     
     // MARK: IB Outlets
     
@@ -124,7 +135,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     
     var product: ProductModel!
     var displayedProduct: ShowProduct.DisplayedProduct?
-
+    
     var loading: Bool = true
     
     var scrollPosition: CGFloat = 0
@@ -142,7 +153,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         let request = ShowProduct.GetProduct.Request()
         interactor?.getProduct(request: request)
     }
-        
+    
     func getListItem(){
         if let listID = interactor?.selectedListID {
             let request = ShowProduct.GetListItem.Request(listID: listID, productID: product.id)
@@ -162,13 +173,18 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 
                 self.product = viewModel.product
                 self.displayedProduct = displayedProduct
-
+                
                 getListItem()
                 
                 updateFavouriteButton(favourite: displayedProduct.favourite)
                 updateMonitorButton(monitor: displayedProduct.monitoring)
                 
-                imageView.downloaded(from: displayedProduct.largeImage)
+                var images: [String] = displayedProduct.images
+                images.append(displayedProduct.largeImage)
+                
+                if images.count > 0 {
+                    createSlideShowImages(images: images)
+                }
                 
                 nameLabel.text = displayedProduct.name
                 priceLabel.text = displayedProduct.price
@@ -190,7 +206,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 allReviewsButton.setTitle("All Reviews (\(displayedProduct.totalReviewsCount))", for: .normal)
                 
                 ingredientsView.isHidden = displayedProduct.ingredients.count == 0
-
+                
                 promotionView.isHidden = displayedProduct.promotion == nil
                 
                 if let promotion = displayedProduct.promotion {
@@ -208,7 +224,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
             }
         }
     }
-
+    
     func displayFeatures(product: ShowProduct.DisplayedProduct){
         featuresView.isHidden = product.features == nil
     }
@@ -263,7 +279,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 displayQuantity(quantity: listItem.quantity)
             }
         }
-
+        
     }
     
     func displayUpdatedListItem(viewModel: ShowProduct.UpdateListItem.ViewModel) {
@@ -331,7 +347,7 @@ extension ShowProductViewController {
                 interactor?.updateMonitoring(request: request)
             }
         }
-
+        
     }
     
     @IBAction func favouriteButtonPressed(_ sender: Any) {
@@ -359,7 +375,7 @@ extension ShowProductViewController {
     @IBAction func allReviewButtonPressed(_ sender: Any) {
         router?.routeToShowReviews(segue: nil)
     }
-
+    
 }
 
 //MARK: - Setup View Gestures
@@ -479,7 +495,7 @@ extension ShowProductViewController: UserLoggedInProtocol {
 
 //MARK: - List Handling
 extension ShowProductViewController: SelectListProtocol {
-
+    
     @IBAction func addToListButtonPressed(_ sender: Any) {
         
         if !loggedIn {
@@ -526,4 +542,52 @@ extension ShowProductViewController: SelectListProtocol {
         interactor?.selectedListID = listID
         createListItem(listID: listID)
     }
+}
+
+
+extension ShowProductViewController: ImageSlideshowDelegate {
+    func setupImageSlider(){
+        
+        slideshow.contentScaleMode = .scaleAspectFit
+        
+        slideshow.activityIndicator = DefaultActivityIndicator(style: .medium, color: .label)
+        
+        slideshow.zoomEnabled = true
+        slideshow.pageIndicatorPosition = .init(horizontal: .center, vertical: .under)
+        
+        let pageIndicator = UIPageControl()
+        pageIndicator.currentPageIndicatorTintColor = .label
+        pageIndicator.pageIndicatorTintColor = .quaternaryLabel
+
+        slideshow.pageIndicator = pageIndicator
+        
+        slideshow.activityIndicator = DefaultActivityIndicator()
+        slideshow.delegate = self
+        
+        setupImageGesture()
+    }
+    
+    func createSlideShowImages(images: [String]){
+        var sources: [InputSource] = []
+        
+        for image in images {
+            if let imageSource = AFURLSource(urlString: image) {
+                sources.append(imageSource)
+            } else {
+                sources.append(ImageSource(image: UIImage(named: "No Image")!))
+            }
+        }
+        
+        slideshow.setImageInputs(sources)
+    }
+    
+    func setupImageGesture(){
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imagePressed))
+        slideshow.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    @objc func imagePressed() {
+        slideshow.presentFullScreenController(from: self)
+    }
+    
 }

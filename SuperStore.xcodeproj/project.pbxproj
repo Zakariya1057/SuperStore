@@ -1139,6 +1139,7 @@
 			children = (
 				2CB2E7DF25483391009A1A26 /* SuperStore.entitlements */,
 				2C99F1D525435D4F0007C43F /* SuperStoreRelease.entitlements */,
+				2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */,
 				2C1567BB24C77FD800B8DCB5 /* SceneDelegate.swift */,
 				2C9CEED1250678590049E93D /* SceneDelegate.swift */,
 				2CDFB62C25EA6324002CE30D /* Cells */,
@@ -1148,7 +1149,6 @@
 				2C910B2125E7AA0300BCEACC /* Scenes */,
 				2CDFB60725EA5ECA002CE30D /* Config */,
 				2C910B2225E7AA0900BCEACC /* Workers */,
-				2C1567B924C77FD800B8DCB5 /* AppDelegate.swift */,
 				2C1567CF24C8B2D500B8DCB5 /* Models */,
 				2C1567CE24C8B2CC00B8DCB5 /* Views */,
 				2C1567CD24C8B2B400B8DCB5 /* Controllers */,

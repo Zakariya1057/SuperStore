@@ -86,6 +86,9 @@ extension ProductRealmStore {
         
         let savedProduct = ProductObject()
         
+        savedProduct.largeImage = product.largeImage
+        savedProduct.smallImage = product.smallImage
+        
         savedProduct.id = product.id
         savedProduct.name = product.name
         
