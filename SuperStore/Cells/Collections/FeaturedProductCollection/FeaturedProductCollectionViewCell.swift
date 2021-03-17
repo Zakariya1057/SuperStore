@@ -41,11 +41,9 @@ class FeaturedProductCollectionViewCell: UICollectionViewCell {
             imageView.downloaded(from: product.smallImage)
             nameLabel.text = product.name
             
-            let price = product.getPrice()
-            priceLabel.text = "£\(price)"
+            priceLabel.text = product.getPrice()
             
             ratingView.rating = Double(product.avgRating)
-            ratingView.text = "\(product.totalReviewsCount)"
         }
     }
 
