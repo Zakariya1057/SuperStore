@@ -109,7 +109,7 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
                 userLocationFetched(userLocation)
             }
             
-            let viewRegion = MKCoordinateRegion(center: userLocation, latitudinalMeters: 50000, longitudinalMeters: 50000)
+            let viewRegion = MKCoordinateRegion(center: userLocation, latitudinalMeters: 30000, longitudinalMeters: 30000)
             mapView.setRegion(viewRegion, animated: false)
         }
     }

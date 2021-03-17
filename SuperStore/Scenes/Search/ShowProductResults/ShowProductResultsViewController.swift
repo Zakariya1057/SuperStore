@@ -266,14 +266,13 @@ extension ShowProductResultsViewController: SelectListProtocol {
     func addToListPressed(product: ProductModel){
         // Show lists, select one.
         selectedProduct = product
-       
+        
         if let listID = interactor?.selectedListID {
             createListItem(listID: listID)
             updateProductQuantity(productID: product.id, quantity: 1, listID: interactor?.selectedListID)
             productsTableView.reloadData()
         } else {
             interactor?.selectedProductStoreTypeID = product.storeTypeID
-            updateProductQuantity(productID: product.id, quantity: product.quantity, listID: interactor?.selectedListID)
             router?.routeToShowLists(segue: nil)
         }
     }
@@ -281,7 +280,8 @@ extension ShowProductResultsViewController: SelectListProtocol {
     func listSelected(listID: Int) {
         // Update Cell Quantity Button
         createListItem(listID: listID)
-        updateProductQuantity(productID: selectedProduct!.id, quantity: selectedProduct!.quantity, listID: listID)
+        updateProductQuantity(productID: selectedProduct!.id, quantity: 1, listID: listID)
+        productsTableView.reloadData()
     }
     
     func createListItem(listID: Int){
@@ -292,16 +292,17 @@ extension ShowProductResultsViewController: SelectListProtocol {
         )
         
         interactor?.createListItem(request: request)
-        productsTableView.reloadData()
     }
     
     func updateQuantityPressed(product: ProductModel){
         // Update API/Realm Request
         selectedProduct = product
+        let listID: Int = product.listID!
+        
         updateProductQuantity(productID: product.id, quantity: product.quantity)
         
         let request = ShowProductResults.UpdateListItem.Request(
-            listID: product.listID!,
+            listID: listID,
             productID: product.id,
             quantity: product.quantity
         )
@@ -313,8 +314,9 @@ extension ShowProductResultsViewController: SelectListProtocol {
         for searchProduct in products {
             if searchProduct.id == productID {
                 searchProduct.quantity = quantity
-                
-                if listID != nil {
+                if quantity == 0 {
+                    searchProduct.listID = nil
+                } else if listID != nil {
                     searchProduct.listID = listID!
                 }
             }

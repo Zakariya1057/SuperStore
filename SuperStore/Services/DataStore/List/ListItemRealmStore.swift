@@ -73,8 +73,12 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
     func updateListItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool){
         if let savedListItem = realm?.objects(ListItemObject.self).filter("productID = %@ AND listID = %@", productID, listID).first {
             try? realm?.write({
-                savedListItem.quantity = quantity
-                savedListItem.tickedOff = tickedOff
+                if quantity > 0 {
+                    savedListItem.quantity = quantity
+                    savedListItem.tickedOff = tickedOff
+                } else {
+                    realm?.delete(savedListItem)
+                }
             })
         }
     }

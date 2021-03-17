@@ -244,7 +244,8 @@ extension ChildCategoriesViewController: SelectListProtocol {
     func listSelected(listID: Int) {
         // Update Cell Quantity Button
         createListItem(listID: listID)
-        updateProductQuantity(section: selectedSection!, productID: selectedProduct!.id, quantity: selectedProduct!.quantity, listID: listID)
+        updateProductQuantity(section: selectedSection!, productID: selectedProduct!.id, quantity: 1, listID: listID)
+        reloadTableView()
     }
     
     func createListItem(listID: Int){
@@ -256,16 +257,17 @@ extension ChildCategoriesViewController: SelectListProtocol {
         )
 
         interactor?.createListItem(request: request)
-        reloadTableView()
     }
     
     func updateQuantityPressed(section: Int, product: ProductModel){
         // Update API/Realm Request
         selectedProduct = product
+        let listID: Int =  product.listID!
+        
         updateProductQuantity(section: section, productID: product.id, quantity: product.quantity)
 
         let request = ChildCategories.UpdateListItem.Request(
-            listID: product.listID!,
+            listID: listID,
             productID: product.id,
             quantity: product.quantity
         )
@@ -278,7 +280,9 @@ extension ChildCategoriesViewController: SelectListProtocol {
             if searchProduct.id == productID {
                 searchProduct.quantity = quantity
 
-                if listID != nil {
+                if quantity == 0 {
+                    searchProduct.listID = nil
+                } else if listID != nil {
                     searchProduct.listID = listID!
                 }
             }
