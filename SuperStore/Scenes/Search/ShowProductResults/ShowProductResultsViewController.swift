@@ -152,10 +152,8 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             paginate = viewModel.paginate
             
             if let paginate = paginate, paginate.current == 1 {
-                print("Overwrite")
                 products = viewModel.products
             } else {
-                print("Append")
                 products.append(contentsOf: viewModel.products)
             }
             

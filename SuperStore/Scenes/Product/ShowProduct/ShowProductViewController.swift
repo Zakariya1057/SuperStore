@@ -13,7 +13,6 @@
 import UIKit
 import Cosmos
 import ImageSlideshow
-import Alamofire
 import AFNetworking
 
 protocol ShowProductDisplayLogic: class
@@ -84,10 +83,6 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         setupImageSlider()
         registerReviewsTableView()
         setupGestureRecognizer()
-    }
-    
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
     }
     
     @IBOutlet var slideshow: ImageSlideshow!

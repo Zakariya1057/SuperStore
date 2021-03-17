@@ -11,6 +11,8 @@
 //
 
 import UIKit
+import ImageSlideshow
+import AFNetworking
 
 protocol EditListItemDisplayLogic: class
 {
@@ -74,12 +76,14 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        setupImageSlider()
         getListItem()
     }
     
+    @IBOutlet var slideshow: ImageSlideshow!
+    
     let spinner: SpinnerViewController = SpinnerViewController()
     
-    @IBOutlet var itemImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var quantityLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
@@ -110,10 +114,8 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
         displayedListItem = viewModel.displayedListItem
         
         nameLabel.text = displayedListItem.name
-        
-        if let image = displayedListItem.image {
-            itemImageView.downloaded(from: image)
-        }
+
+        createSlideShowImages(image: displayedListItem.image)
         
         displayWeight()
         displayPromotion()
@@ -214,4 +216,51 @@ extension EditListItemViewController {
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
     }
+}
+
+
+extension EditListItemViewController: ImageSlideshowDelegate {
+    
+    func setupImageSlider(){
+        
+        slideshow.contentScaleMode = .scaleAspectFit
+        
+        slideshow.activityIndicator = DefaultActivityIndicator(style: .medium, color: .label)
+        
+        slideshow.zoomEnabled = true
+        slideshow.pageIndicatorPosition = .init(horizontal: .center, vertical: .under)
+        
+        let pageIndicator = UIPageControl()
+        pageIndicator.currentPageIndicatorTintColor = .label
+        pageIndicator.pageIndicatorTintColor = .quaternaryLabel
+
+        slideshow.pageIndicator = pageIndicator
+        
+        slideshow.activityIndicator = DefaultActivityIndicator()
+        slideshow.delegate = self
+        
+        setupImageGesture()
+    }
+    
+    func createSlideShowImages(image: String?){
+        var sources: [InputSource] = []
+        
+        if let image = image, let imageSource = AFURLSource(urlString: image) {
+            sources.append(imageSource)
+        } else {
+            sources.append(ImageSource(image: UIImage(named: "No Image")!))
+        }
+    
+        slideshow.setImageInputs(sources)
+    }
+    
+    func setupImageGesture(){
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imagePressed))
+        slideshow.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    @objc func imagePressed() {
+        slideshow.presentFullScreenController(from: self)
+    }
+    
 }

@@ -76,6 +76,11 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
         setupSearchDelegate()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        search()
+    }
+    
     var loading: Bool = true
     
     var recentSuggestionsLimit: Int = 7

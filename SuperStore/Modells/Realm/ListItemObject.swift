@@ -12,7 +12,7 @@ import RealmSwift
 class ListItemObject: Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
-    var image: String? = nil
+    @objc dynamic var image: String? = nil
     
     @objc dynamic var productID: Int = 1
     @objc dynamic var listID: Int = 1
