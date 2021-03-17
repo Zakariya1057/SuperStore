@@ -19,13 +19,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVc-IC-Vk0">
-                        <rect key="frame" x="0.0" y="0.0" width="404" height="90"/>
+                        <rect key="frame" x="0.0" y="0.0" width="404" height="110"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6Ly-6I-538">
-                                <rect key="frame" x="0.0" y="0.0" width="404" height="90"/>
+                                <rect key="frame" x="0.0" y="0.0" width="404" height="110"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2cj-it-VeX">
-                                        <rect key="frame" x="0.0" y="0.0" width="404" height="90"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="404" height="110"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" sectionInsetReference="safeArea" id="iRD-09-CVv">
                                             <size key="itemSize" width="0.0" height="0.0"/>
@@ -44,7 +44,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="90" id="8ca-WY-glV"/>
+                            <constraint firstAttribute="height" constant="110" id="8ca-WY-glV"/>
                             <constraint firstItem="6Ly-6I-538" firstAttribute="leading" secondItem="DVc-IC-Vk0" secondAttribute="leading" id="Rtq-gd-Q6v"/>
                             <constraint firstItem="6Ly-6I-538" firstAttribute="top" secondItem="DVc-IC-Vk0" secondAttribute="top" id="UdR-in-QqO"/>
                             <constraint firstAttribute="trailing" secondItem="6Ly-6I-538" secondAttribute="trailing" id="wYD-5k-3rY"/>

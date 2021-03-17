@@ -36,7 +36,9 @@ class PromotionRealmStore: DataStore, PromotionStoreProtocol {
 extension PromotionRealmStore {
     func updatePromotion(promotion: PromotionModel, savedPromotion: PromotionObject){
         try? realm?.write({
+            
             savedPromotion.name = promotion.name
+            savedPromotion.storeTypeID = promotion.storeTypeID
             
             savedPromotion.price = promotion.price
             savedPromotion.forQuantity = promotion.forQuantity
@@ -68,6 +70,7 @@ extension PromotionRealmStore {
         
         savedPromotion.id = promotion.id
         savedPromotion.name = promotion.name
+        savedPromotion.storeTypeID = promotion.storeTypeID
         
         savedPromotion.price = promotion.price
         savedPromotion.forQuantity = promotion.forQuantity

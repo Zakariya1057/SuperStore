@@ -13,6 +13,7 @@
 import UIKit
 import MapKit
 import NotificationBannerSwift
+import Kingfisher
 
 protocol HomeDisplayLogic: class
 {
@@ -71,6 +72,10 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        KingfisherManager.shared.cache.clearMemoryCache()
+        KingfisherManager.shared.cache.clearDiskCache()
+        KingfisherManager.shared.cache.cleanExpiredDiskCache()
         
         registerTableViewCells()
         setupHomeCells()
@@ -164,6 +169,7 @@ extension HomeViewController {
                     
                     if(homeModel.promotions.count == 0){
                         homeCells.remove(at: index)
+                        break
                     }
                     
                     let offerElement = element as! PromotionGroupElement

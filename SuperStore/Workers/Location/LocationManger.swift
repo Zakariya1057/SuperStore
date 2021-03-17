@@ -22,9 +22,9 @@ class LocationWorker
     func updateLocation(loggedIn: Bool, latitude: Double, longitude: Double, completionHandler: @escaping (_ error: String?) -> Void){
         locationStore.updateLocation(latitude: latitude, longitude: longitude)
         
-        if(loggedIn){
-            locationAPI.updateLocation(latitude: latitude, longitude: longitude, completionHandler: completionHandler)
-        }
+//        if(loggedIn){
+//            locationAPI.updateLocation(latitude: latitude, longitude: longitude, completionHandler: completionHandler)
+//        }
     }
 }
 

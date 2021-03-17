@@ -77,7 +77,7 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
         })
     }
     
-    func getHome() -> HomeModel? {
+    func getHome(storeTypeID: Int) -> HomeModel? {
         
         if homeObject == nil {
             return nil
@@ -86,14 +86,14 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
         let listLimit: Int = 4
         let storeLimit: Int = 10
         
-        let lists: [ListModel] = getLists(limit: listLimit)
-        let stores: [StoreModel] = getStores(limit: storeLimit)
-        let featured: [ProductModel] = getProducts(savedProducts: homeObject?.featured)
-        let groceries: [ProductModel] = getProducts(savedProducts: homeObject?.groceries)
-        let monitoring: [ProductModel] = getProducts(savedProducts: homeObject?.monitoring)
-        let on_sale: [ProductModel] = getProducts(savedProducts: homeObject?.on_sale)
-        let promotions: [PromotionModel] = getPromotions()
-        let categories: [ChildCategoryModel] = getCategories()
+        let lists: [ListModel] = getLists(storeTypeID: storeTypeID, limit: listLimit)
+        let stores: [StoreModel] = getStores(storeTypeID: storeTypeID, limit: storeLimit)
+        let featured: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: homeObject?.featured)
+        let groceries: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: homeObject?.groceries)
+        let monitoring: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: homeObject?.monitoring)
+        let on_sale: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: homeObject?.on_sale)
+        let promotions: [PromotionModel] = getPromotions(storeTypeID: storeTypeID)
+        let categories: [ChildCategoryModel] = getCategories(storeTypeID: storeTypeID)
         
         return HomeModel(
             lists: lists,
@@ -111,8 +111,12 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
 }
 
 extension HomeRealmStore {
-    private func getLists(limit: Int) -> [ListModel] {
-        let savedLists = realm?.objects(ListObject.self).sorted(byKeyPath: "updatedAt", ascending: true)
+    private func getLists(storeTypeID: Int, limit: Int) -> [ListModel] {
+        
+        let savedLists = realm?.objects(ListObject.self)
+            .filter("storeTypeID = %@", storeTypeID)
+            .sorted(byKeyPath: "updatedAt", ascending: true)
+        
         var lists: [ListModel] = []
         
         if let savedLists = savedLists, savedLists.count > 0 {
@@ -127,8 +131,11 @@ extension HomeRealmStore {
         return lists
     }
     
-    func getStores(limit: Int) -> [StoreModel] {
-        let savedStores = realm?.objects(StoreObject.self).sorted(byKeyPath: "updatedAt", ascending: true)
+    func getStores(storeTypeID: Int, limit: Int) -> [StoreModel] {
+        let savedStores = realm?.objects(StoreObject.self)
+            .filter("storeTypeID = %@", storeTypeID)
+            .sorted(byKeyPath: "updatedAt", ascending: true)
+        
         var stores: [StoreModel] = []
         
         if let savedStores = savedStores, savedStores.count > 0 {
@@ -143,10 +150,10 @@ extension HomeRealmStore {
         return stores
     }
     
-    func getProducts(savedProducts: List<ProductObject>?) -> [ProductModel]{
+    func getProducts(storeTypeID: Int, savedProducts: List<ProductObject>?) -> [ProductModel]{
         var products: [ProductModel] = []
         
-        if let savedProducts = savedProducts, savedProducts.count > 0 {
+        if let savedProducts = savedProducts, savedProducts.filter("storeTypeID = %@", storeTypeID).count > 0 {
             savedProducts.forEach { (product: ProductObject) in
                 products.append( product.getProductModel() )
             }
@@ -155,10 +162,10 @@ extension HomeRealmStore {
         return products
     }
     
-    func getPromotions() -> [PromotionModel]{
+    func getPromotions(storeTypeID: Int) -> [PromotionModel]{
         var promotions: [PromotionModel] = []
         
-        if let savedPromotions = homeObject?.promotions {
+        if let savedPromotions = homeObject?.promotions.filter("storeTypeID = %@", storeTypeID) {
             savedPromotions.forEach { (promotion: PromotionObject) in
                 promotions.append( promotion.getPromotionModel() )
             }
@@ -167,10 +174,10 @@ extension HomeRealmStore {
         return promotions
     }
     
-    func getCategories() -> [ChildCategoryModel] {
+    func getCategories(storeTypeID: Int) -> [ChildCategoryModel] {
         var categories: [ChildCategoryModel] = []
         
-        if let savedCategories = homeObject?.categories {
+        if let savedCategories = homeObject?.categories.filter("storeTypeID = %@", storeTypeID) {
             savedCategories.forEach { (category: ChildCategoryObject) in
                 categories.append( category.getChildCategoryModel() )
             }

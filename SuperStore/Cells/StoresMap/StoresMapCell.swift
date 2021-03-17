@@ -116,6 +116,8 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
     
     func showStoreLocations(){
         
+        removeAllAnotations()
+        
         for store in stores {
             let annotation = MKPointAnnotation()
             annotation.title = store.name
@@ -135,6 +137,11 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
             storesDetails[store.name] = store.id
         }
         
+    }
+    
+    func removeAllAnotations(){
+        let allAnnotations = self.mapView.annotations
+        self.mapView.removeAnnotations(allAnnotations)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

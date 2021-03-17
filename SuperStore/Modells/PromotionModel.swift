@@ -14,15 +14,17 @@ class PromotionModel {
     var price: Double?
     var forQuantity: Int?
     var products:[ProductModel]
+    var storeTypeID: Int
     var expires: Bool = false
     var startsAt: Date? = nil
     var endsAt: Date? = nil
 
-    init(id: Int, name: String, quantity: Int, price: Double?,forQuantity: Int?, products: [ProductModel] = [],expires: Bool = false, startsAt: Date? = nil, endsAt: Date? = nil) {
+    init(id: Int, name: String, storeTypeID: Int, quantity: Int, price: Double?, forQuantity: Int?, products: [ProductModel] = [],expires: Bool = false, startsAt: Date? = nil, endsAt: Date? = nil) {
         self.quantity = quantity
         self.price = price
         self.forQuantity = forQuantity
         self.name = name
+        self.storeTypeID = storeTypeID
         self.id = id
         self.products = products
         self.expires = expires

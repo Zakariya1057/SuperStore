@@ -24,7 +24,7 @@ class HomeWorker
     
     func getHome(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void){
         
-        if let home = homeStore.getHome() {
+        if let home = homeStore.getHome(storeTypeID: storeTypeID) {
             completionHandler(home, nil)
         }
         
@@ -44,5 +44,5 @@ protocol HomeRequestProtocol {
 
 protocol HomeStoreProtocol {
     func createHome(storeTypeID: Int, home: HomeModel)
-    func getHome() -> HomeModel?
+    func getHome(storeTypeID: Int) -> HomeModel?
 }
