@@ -71,6 +71,8 @@ class EditEmailViewController: UIViewController, EditEmailDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        openKeyboardOnTextField()
+        setupFieldDelegate()
         getEmail()
     }
     
@@ -86,6 +88,8 @@ class EditEmailViewController: UIViewController, EditEmailDisplayLogic
     
     func saveEmail(){
         startLoading()
+        hideRightBarButton()
+        dismissKeyboard()
         
         let request = EditEmail.UpdateEmail.Request(email: emailTextField.text ?? "")
         interactor?.updateEmail(request: request)
@@ -101,16 +105,50 @@ class EditEmailViewController: UIViewController, EditEmailDisplayLogic
         stopLoading()
         
         if let error = viewModel.error {
+            showRightBarButton()
             showError(title: "Update Error", error: error)
         } else {
             router?.routeToSettings(segue: nil)
         }
     }
+    
+
 }
 
 extension EditEmailViewController {
     @IBAction func saveButtonPressed(_ sender: Any) {
         saveEmail()
+    }
+}
+
+extension EditEmailViewController {
+    func dismissKeyboard(){
+        view.endEditing(true)
+    }
+    
+    func showRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+    
+    func hideRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    func openKeyboardOnTextField(){
+        emailTextField.becomeFirstResponder()
+    }
+}
+
+extension EditEmailViewController: UITextFieldDelegate {
+    private func setupFieldDelegate(){
+        emailTextField.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        saveEmail()
+        return true
     }
 }
 

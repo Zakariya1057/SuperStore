@@ -71,6 +71,8 @@ class EditListViewController: UIViewController, EditListDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        setupFieldDelegate()
+        openKeyboardOnTextField()
         getList()
     }
     
@@ -93,6 +95,7 @@ class EditListViewController: UIViewController, EditListDisplayLogic
         stopLoading()
         
         if let error = viewModel.error {
+            showRightBarButton()
             showError(title: "Restart Error", error: error)
         } else {
             router?.routeToShowLists(segue: nil)
@@ -103,10 +106,21 @@ class EditListViewController: UIViewController, EditListDisplayLogic
         stopLoading()
         
         if let error = viewModel.error {
+            showRightBarButton()
             showError(title: "Update Error", error: error)
         } else {
             router?.routeToShowLists(segue: nil)
         }
+    }
+    
+    func submitForm(){
+        startLoading()
+        hideRightBarButton()
+        dismissKeyboard()
+        
+        let name = nameTextField.text ?? ""
+        let request = EditList.UpdateList.Request(name: name)
+        interactor?.updateList(request: request)
     }
 
 }
@@ -114,16 +128,47 @@ class EditListViewController: UIViewController, EditListDisplayLogic
 extension EditListViewController {
     @IBAction func restartButtonPressed(_ sender: UIButton) {
         startLoading()
+        hideRightBarButton()
 
         let request = EditList.RestartList.Request()
         interactor?.restartList(request: request)
     }
     
     @IBAction func saveButtonPressed(_ sender: UIButton) {
-        startLoading()
-        let name = nameTextField.text ?? ""
-        let request = EditList.UpdateList.Request(name: name)
-        interactor?.updateList(request: request)
+        submitForm()
+    }
+}
+
+extension EditListViewController {
+    func dismissKeyboard(){
+        view.endEditing(true)
+    }
+    
+    func showRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+    
+    func hideRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    func openKeyboardOnTextField(){
+        nameTextField.becomeFirstResponder()
+    }
+}
+
+extension EditListViewController: UITextFieldDelegate {
+    
+    private func setupFieldDelegate(){
+        nameTextField.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        dismissKeyboard()
+        submitForm()
+        return true
     }
 }
 

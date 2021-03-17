@@ -69,6 +69,8 @@ class EditPasswordViewController: UIViewController, EditPasswordDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        openKeyboardOnTextField()
+        setupTextFieldDelegates()
     }
     
     let spinner: SpinnerViewController = SpinnerViewController()
@@ -80,6 +82,25 @@ class EditPasswordViewController: UIViewController, EditPasswordDisplayLogic
     func updatePassword()
     {
         startLoading()
+        submitForm()
+    }
+    
+    func displayPasswordUpdated(viewModel: EditPassword.UpdatePassword.ViewModel)
+    {
+        stopLoading()
+        
+        if let error = viewModel.error {
+            showRightBarButton()
+            showError(title: "Update Error", error: error)
+        } else {
+            router?.routeToSettings(segue: nil)
+        }
+    }
+    
+    
+    func submitForm(){
+        hideRightBarButton()
+        dismissKeyboard()
         
         let currentPassword = currentPasswordTextField.text ?? ""
         let newPassword = newPasswordTextField.text ?? ""
@@ -91,23 +112,60 @@ class EditPasswordViewController: UIViewController, EditPasswordDisplayLogic
         
         interactor?.updatePassword(request: request)
     }
-    
-    func displayPasswordUpdated(viewModel: EditPassword.UpdatePassword.ViewModel)
-    {
-        stopLoading()
-        
-        if let error = viewModel.error {
-            showError(title: "Update Error", error: error)
-        } else {
-            router?.routeToSettings(segue: nil)
-        }
-    }
-    
+
 }
 
 extension EditPasswordViewController {
     @IBAction func saveButtonPressed(_ sender: Any) {
         updatePassword()
+    }
+}
+
+extension EditPasswordViewController {
+    func dismissKeyboard(){
+        view.endEditing(true)
+    }
+    
+    func openKeyboardOnTextField(){
+        currentPasswordTextField.becomeFirstResponder()
+    }
+    
+    func hideRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    func showRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+}
+
+extension EditPasswordViewController: UITextFieldDelegate {
+    
+    private func setupTextFieldDelegates(){
+        let textFields: [UITextField]! = [currentPasswordTextField, newPasswordTextField, confirmPasswordTextField]
+        
+        for field in textFields {
+            field.delegate = self
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let textFields: [UITextField]! = [currentPasswordTextField, newPasswordTextField, confirmPasswordTextField]
+        
+        textField.resignFirstResponder()
+        
+        if let index = textFields.firstIndex(of: textField) {
+            if index < textFields.count - 1 {
+                let nextTextField = textFields[index + 1]
+                nextTextField.becomeFirstResponder()
+            } else {
+                startLoading()
+                dismissKeyboard()
+                submitForm()
+            }
+        }
+        
+        return true
     }
 }
 

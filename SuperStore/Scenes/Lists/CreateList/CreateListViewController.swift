@@ -69,6 +69,8 @@ class CreateListViewController: UIViewController, CreateListDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        setupFieldDelegate()
+        openKeyboardOnTextField()
     }
     
     let spinner: SpinnerViewController = SpinnerViewController()
@@ -87,7 +89,7 @@ class CreateListViewController: UIViewController, CreateListDisplayLogic
         stopLoading()
         
         if let error = viewModel.error {
-            navigationItem.rightBarButtonItem?.isEnabled = true
+            showRightBarButton()
             showError(title: "Create List Error", error: error)
         } else {
             router?.routeToShowLists(segue: nil)
@@ -95,9 +97,49 @@ class CreateListViewController: UIViewController, CreateListDisplayLogic
     }
     
     @IBAction func createButtonPressed(_ sender: Any) {
+        submitForm()
+    }
+    
+    func submitForm(){
         startLoading()
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        dismissKeyboard()
+        hideRightBarButton()
+        
         createList()
+    }
+
+}
+
+extension CreateListViewController {
+    func showRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+    
+    func hideRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    func dismissKeyboard(){
+        view.endEditing(true)
+    }
+    
+    
+    func openKeyboardOnTextField(){
+        nameTextField.becomeFirstResponder()
+    }
+}
+
+extension CreateListViewController: UITextFieldDelegate {
+    
+    private func setupFieldDelegate(){
+        nameTextField.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        submitForm()
+        return true
     }
 }
 

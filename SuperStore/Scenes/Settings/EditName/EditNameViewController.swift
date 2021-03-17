@@ -71,6 +71,8 @@ class EditNameViewController: UIViewController, EditNameDisplayLogic
     {
         super.viewDidLoad()
         getName()
+        setupFieldDelegate()
+        openKeyboardOnTextField()
     }
     
     let spinner: SpinnerViewController = SpinnerViewController()
@@ -85,6 +87,8 @@ class EditNameViewController: UIViewController, EditNameDisplayLogic
     
     func saveName(){
         startLoading()
+        dismissKeyboard()
+        hideRightBarButton()
         
         let request = EditName.UpdateName.Request(name: nameTextField.text ?? "")
         interactor?.updateName(request: request)
@@ -99,16 +103,49 @@ class EditNameViewController: UIViewController, EditNameDisplayLogic
         stopLoading()
         
         if let error = viewModel.error {
+            showRightBarButton()
             showError(title: "Update Error", error: error)
         } else {
             router?.routeToSettings(segue: nil)
         }
     }
+
 }
 
 extension EditNameViewController {
     @IBAction func saveButtonPressed(_ sender: Any) {
         saveName()
+    }
+}
+
+extension EditNameViewController {
+    func dismissKeyboard(){
+        view.endEditing(true)
+    }
+    
+    func openKeyboardOnTextField(){
+        nameTextField.becomeFirstResponder()
+    }
+    
+    func showRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+    
+    func hideRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+}
+
+extension EditNameViewController: UITextFieldDelegate {
+    private func setupFieldDelegate(){
+        nameTextField.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        saveName()
+        return true
     }
 }
 
