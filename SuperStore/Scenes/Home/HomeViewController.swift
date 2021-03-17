@@ -129,7 +129,7 @@ extension HomeViewController {
             
             setupHomeCells()
             
-            for element in homeCells {
+            for (index, element) in homeCells.enumerated() {
                 
                 switch element {
                 
@@ -161,10 +161,22 @@ extension HomeViewController {
                     break
                     
                 case is PromotionGroupElement:
+                    
+                    if(homeModel.promotions.count == 0){
+                        homeCells.remove(at: index)
+                    }
+                    
                     let offerElement = element as! PromotionGroupElement
                     offerElement.items = [ PromotionsElementModel(promotions: homeModel.promotions) ]
                     offerElement.configurePressed()
                     offerElement.setLoading(loading: loading)
+                    break
+                    
+                case is OnSaleProductGroupElement:
+                    let productElement = element as! OnSaleProductGroupElement
+                    productElement.items =  [ ProductsElementModel(products: homeModel.on_sale) ]
+                    productElement.configureProduct()
+                    productElement.setLoading(loading: loading)
                     break
                     
                 case is FeaturedProductGroupElement:
@@ -258,6 +270,7 @@ extension HomeViewController {
             GroceryProductGroupElement(title: "Grocery Items", products: [], productPressed: productPressed),
             MonitoringProductGroupElement(title: "Monitoring", products: [], productPressed: productPressed),
             PromotionGroupElement(title: "Promotions", promotions: [], promotionPressed: promotionPressed),
+            OnSaleProductGroupElement(title: "Product On Sale", products: [], productPressed: productPressed),
             FeaturedProductGroupElement(title: "Featured", products: [], productPressed: productPressed)
         ]
         

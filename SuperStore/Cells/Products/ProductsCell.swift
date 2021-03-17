@@ -69,6 +69,8 @@ class ProductsElementModel: HomeElementItemModel {
 class GroceryProductGroupElement: ProductGroupElement { }
 class MonitoringProductGroupElement: ProductGroupElement { }
 
+class OnSaleProductGroupElement: ProductGroupElement { }
+
 class CategoryProductGroupElement: ProductGroupElement { }
 
 class ProductsCell: UITableViewCell, HomeElementCell {

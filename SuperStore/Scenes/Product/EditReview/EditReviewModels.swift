@@ -66,7 +66,7 @@ enum EditReview
         {
             struct DisplayedProduct {
                 var name: String
-                var image: String
+                var image: String?
             }
             
             var displayedProduct: DisplayedProduct?

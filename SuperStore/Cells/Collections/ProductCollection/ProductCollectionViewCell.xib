@@ -53,27 +53,53 @@
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vqL-AF-m74" userLabel="Price">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="hNp-F2-zsO">
                                         <rect key="frame" x="0.0" y="190" width="150" height="27"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£10.00" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uS-zM-x2u">
-                                                <rect key="frame" x="0.0" y="3.5" width="150" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vqL-AF-m74" userLabel="Price">
+                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="27"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$14.50" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uS-zM-x2u">
+                                                        <rect key="frame" x="0.0" y="3.5" width="0.0" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EUl-CB-H5l">
+                                                        <rect key="frame" x="-27.5" y="12.5" width="55" height="2"/>
+                                                        <color key="backgroundColor" red="0.61682485080000005" green="0.22140261450000001" blue="0.033802555550000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="tintColor" systemColor="labelColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="55" id="JH0-CN-Fwm"/>
+                                                            <constraint firstAttribute="height" constant="2" id="xRd-Wb-o5R"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="EUl-CB-H5l" firstAttribute="centerX" secondItem="vqL-AF-m74" secondAttribute="centerX" id="QO3-Ty-ffg"/>
+                                                    <constraint firstItem="EUl-CB-H5l" firstAttribute="centerY" secondItem="vqL-AF-m74" secondAttribute="centerY" id="RIJ-BB-zAp"/>
+                                                    <constraint firstItem="6uS-zM-x2u" firstAttribute="leading" secondItem="vqL-AF-m74" secondAttribute="leading" id="TOc-wK-0AR"/>
+                                                    <constraint firstItem="6uS-zM-x2u" firstAttribute="centerY" secondItem="vqL-AF-m74" secondAttribute="centerY" id="TQM-aA-S6l"/>
+                                                    <constraint firstAttribute="trailing" secondItem="6uS-zM-x2u" secondAttribute="trailing" id="ehr-eL-0nG"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abN-ih-cQA" userLabel="Price">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="27"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£10.00" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOF-cY-fub">
+                                                        <rect key="frame" x="0.0" y="3.5" width="150" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="bOF-cY-fub" firstAttribute="centerY" secondItem="abN-ih-cQA" secondAttribute="centerY" id="Z2e-lC-V2n"/>
+                                                    <constraint firstAttribute="trailing" secondItem="bOF-cY-fub" secondAttribute="trailing" id="fO1-Jg-TGL"/>
+                                                    <constraint firstItem="bOF-cY-fub" firstAttribute="leading" secondItem="abN-ih-cQA" secondAttribute="leading" id="g2k-P3-doC"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstItem="6uS-zM-x2u" firstAttribute="leading" secondItem="vqL-AF-m74" secondAttribute="leading" id="TOc-wK-0AR"/>
-                                            <constraint firstItem="6uS-zM-x2u" firstAttribute="centerY" secondItem="vqL-AF-m74" secondAttribute="centerY" id="TQM-aA-S6l"/>
-                                            <constraint firstAttribute="trailing" secondItem="6uS-zM-x2u" secondAttribute="trailing" id="ehr-eL-0nG"/>
-                                        </constraints>
-                                    </view>
+                                    </stackView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="vqL-AF-m74" firstAttribute="leading" secondItem="yTS-Xf-mI6" secondAttribute="leading" id="NOt-o6-Udh"/>
-                                    <constraint firstAttribute="trailing" secondItem="vqL-AF-m74" secondAttribute="trailing" id="anM-3u-V9s"/>
-                                    <constraint firstAttribute="bottom" secondItem="vqL-AF-m74" secondAttribute="bottom" id="c7g-kK-bg8"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -98,15 +124,21 @@
             <connections>
                 <outlet property="imageView" destination="1Lg-dC-we0" id="3gA-Ul-9eq"/>
                 <outlet property="nameLabel" destination="njq-Qb-kj6" id="BxO-ZD-cbx"/>
-                <outlet property="priceLabel" destination="6uS-zM-x2u" id="ArS-M0-iE9"/>
+                <outlet property="oldPriceLabel" destination="6uS-zM-x2u" id="oOJ-3p-9TT"/>
+                <outlet property="oldPriceView" destination="vqL-AF-m74" id="EgP-Bt-CXn"/>
+                <outlet property="priceLabel" destination="bOF-cY-fub" id="xa1-y9-mWO"/>
                 <outletCollection property="loadingViews" destination="1Lg-dC-we0" collectionClass="NSMutableArray" id="vIq-E3-e7E"/>
                 <outletCollection property="loadingViews" destination="Dwx-DY-lHH" collectionClass="NSMutableArray" id="OdT-Co-Un2"/>
                 <outletCollection property="loadingViews" destination="vqL-AF-m74" collectionClass="NSMutableArray" id="glC-OZ-RfY"/>
+                <outletCollection property="loadingViews" destination="abN-ih-cQA" collectionClass="NSMutableArray" id="jTZ-uk-OV7"/>
             </connections>
-            <point key="canvasLocation" x="168.11594202898553" y="121.20535714285714"/>
+            <point key="canvasLocation" x="124.6376811594203" y="120.53571428571428"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

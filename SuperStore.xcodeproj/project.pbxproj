@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1C1BE4AD8045223682632323 /* Pods_SuperStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6527B7848ED54283EE5DD9 /* Pods_SuperStore.framework */; };
+		2C00466026021A3C005F03D2 /* DateWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00465F26021A3C005F03D2 /* DateWorker.swift */; };
 		2C058FE225F5098300B4A16B /* UserLoggedInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FE125F5098300B4A16B /* UserLoggedInRouter.swift */; };
 		2C058FE825F50CB000B4A16B /* UserLoggedInProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FE725F50CB000B4A16B /* UserLoggedInProtocol.swift */; };
 		2C058FF425F52AE100B4A16B /* EditStorePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C058FEE25F52AE100B4A16B /* EditStorePresenter.swift */; };
@@ -465,6 +466,7 @@
 
 /* Begin PBXFileReference section */
 		2A6527B7848ED54283EE5DD9 /* Pods_SuperStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuperStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C00465F26021A3C005F03D2 /* DateWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateWorker.swift; sourceTree = "<group>"; };
 		2C058FE125F5098300B4A16B /* UserLoggedInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoggedInRouter.swift; sourceTree = "<group>"; };
 		2C058FE725F50CB000B4A16B /* UserLoggedInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoggedInProtocol.swift; sourceTree = "<group>"; };
 		2C058FEE25F52AE100B4A16B /* EditStorePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStorePresenter.swift; sourceTree = "<group>"; };
@@ -1720,6 +1722,7 @@
 				2CF7A59D25FAB20300172839 /* Home */,
 				2CAB2EF325FFF6990014FE8D /* Location */,
 				2C1476D025E7B388000E8F66 /* RequestWorker.swift */,
+				2C00465F26021A3C005F03D2 /* DateWorker.swift */,
 				2C1476FB25E831B0000E8F66 /* SpinnerWorker.swift */,
 			);
 			path = Workers;
@@ -2377,6 +2380,7 @@
 				2C1476C325E7AE15000E8F66 /* UserAuthAPI.swift in Sources */,
 				2C6146A925F149FA00D92CB7 /* ListItemWorker.swift in Sources */,
 				2C7294C525ECF19C00D280B3 /* FavouritesWorker.swift in Sources */,
+				2C00466026021A3C005F03D2 /* DateWorker.swift in Sources */,
 				2C43E798253CC4C60084DF7C /* HomeHistory.swift in Sources */,
 				2C1477A425E96DD8000E8F66 /* ResetPasswordWorker.swift in Sources */,
 				2CB911BA25F11B6100A8FC66 /* ShowListViewController.swift in Sources */,

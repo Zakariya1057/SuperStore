@@ -16,8 +16,9 @@ struct ProductData:Decodable {
     var id: Int
     var name:String
 
-    var small_image: String
-    var large_image: String
+    var small_image: String?
+    var large_image: String?
+    
     var images: [ImageData]?
     
     var store_type_id: Int
@@ -27,6 +28,10 @@ struct ProductData:Decodable {
     var dimensions: [String]?
     
     var price: Double
+    var old_price: Double?
+    var is_on_sale: Bool?
+    var sale_ends_at: String?
+    
     var currency: String
     
     var storage: String?
@@ -54,6 +59,8 @@ struct ProductData:Decodable {
     var promotion: PromotionData?
     
     func getProductModel() -> ProductModel {
+        let dateWorker = DateWorker()
+        
         return ProductModel(
             id: id,
             storeTypeID: store_type_id,
@@ -65,6 +72,9 @@ struct ProductData:Decodable {
             features: features,
             dimensions: dimensions,
             price: price,
+            oldPrice: old_price,
+            isOnSale: is_on_sale,
+            saleEndsAt: sale_ends_at == nil ? nil : dateWorker.formatDate(date: sale_ends_at!),
             currency: currency,
             avgRating: avg_rating,
             totalReviewsCount: total_reviews_count,

@@ -19,10 +19,13 @@ enum ShowProduct
     struct DisplayedProduct {
         var id: Int
         var name: String
+        
         var price: String
+        var oldPrice: String?
+        
         var promotion: PromotionModel?
         
-        var largeImage: String
+        var largeImage: String?
         var images: [String]
         
         var description: String

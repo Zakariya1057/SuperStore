@@ -14,11 +14,17 @@ class ProductModel {
     var storeTypeID: Int
     
     var promotion: PromotionModel?
+    
     var price: Double
+    var oldPrice: Double?
+    var isOnSale: Bool?
+    var saleEndsAt: Date?
+
     var currency: String
     
-    var smallImage: String
-    var largeImage: String
+    var smallImage: String?
+    var largeImage: String?
+    
     var images: [ImageModel]
     
     var description: String?
@@ -52,9 +58,12 @@ class ProductModel {
     var listID: Int? = nil
     
     init(
-        id: Int, storeTypeID: Int, name: String, smallImage: String, largeImage: String,
+        id: Int, storeTypeID: Int, name: String,
+        smallImage: String?, largeImage: String?,
         images: [ImageModel], description: String?, features: [String]?,
-        dimensions: [String]?, price:Double, currency: String,
+        dimensions: [String]?,
+        price:Double, oldPrice: Double?, isOnSale: Bool?, saleEndsAt: Date?,
+        currency: String,
         avgRating: Double?, totalReviewsCount: Int?,
         promotion: PromotionModel?, storage: String?,
         weight: String?,parentCategoryID: Int?, parentCategoryName: String?,
@@ -99,6 +108,10 @@ class ProductModel {
         self.images = images
         
         self.price = price
+        self.oldPrice = oldPrice
+        self.isOnSale = isOnSale
+        self.saleEndsAt = saleEndsAt
+        
         self.currency = currency
         
         self.promotion = promotion
@@ -115,5 +128,9 @@ extension ProductModel: Equatable  {
 extension ProductModel  {
     func getPrice() -> String {
         return currency + String(format: "%.2f", price)
+    }
+    
+    func getOldPrice() -> String? {
+        return oldPrice == nil ? nil : currency + String(format: "%.2f", oldPrice!)
     }
 }

@@ -28,12 +28,10 @@ struct ReviewData: Decodable {
     var created_at: String
     
     func getReviewModel() -> ReviewModel {
+        let dateWorker = DateWorker()
         
-        let dateFormat: DateFormatter = DateFormatter()
-        dateFormat.dateFormat = "dd MMMM Y"
-        
-        let createdDate: Date = dateFormat.date(from: created_at)!
-        let updatedData: Date = dateFormat.date(from: updated_at)!
+        let createdDate: Date = dateWorker.formatDate(date: created_at)
+        let updatedData: Date = dateWorker.formatDate(date: updated_at)
         
         return ReviewModel(
             id: id,

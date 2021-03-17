@@ -40,6 +40,7 @@ class ShowProductPresenter: ShowProductPresentationLogic
                 id: product.id,
                 name: product.name,
                 price: product.getPrice(),
+                oldPrice: product.getOldPrice(),
                 promotion: product.promotion,
                 largeImage: product.largeImage,
                 images: product.images.map{ $0.name },

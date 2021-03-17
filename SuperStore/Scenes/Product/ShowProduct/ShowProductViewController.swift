@@ -110,11 +110,13 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet weak var promotionView: UIView!
     @IBOutlet weak var favouriteBarItem: UIBarButtonItem!
     
+    @IBOutlet weak var oldPriceView: UIView!
+    
     // Field Labels
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var oldPriceLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var lifeStyleLabel: UILabel!
     @IBOutlet weak var allergenLabel: UILabel!
     
@@ -175,14 +177,22 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 updateMonitorButton(monitor: displayedProduct.monitoring)
                 
                 var images: [String] = displayedProduct.images
-                images.append(displayedProduct.largeImage)
                 
-                if images.count > 0 {
-                    createSlideShowImages(images: images)
+                if let image = displayedProduct.largeImage {
+                    images.append(image)
                 }
                 
+                createSlideShowImages(images: images)
+                
                 nameLabel.text = displayedProduct.name
+                
                 priceLabel.text = displayedProduct.price
+                oldPriceView.isHidden = displayedProduct.oldPrice == nil
+                
+                if let oldPrice = displayedProduct.oldPrice {
+                    oldPriceLabel.text = oldPrice
+                }
+                
                 weightLabel.text = displayedProduct.weight
                 
                 if let review = displayedProduct.review {
@@ -565,13 +575,19 @@ extension ShowProductViewController: ImageSlideshowDelegate {
     func createSlideShowImages(images: [String]){
         var sources: [InputSource] = []
         
-        for image in images {
-            if let imageSource = AFURLSource(urlString: image) {
-                sources.append(imageSource)
-            } else {
-                sources.append(ImageSource(image: UIImage(named: "No Image")!))
+        if images.count > 0 {
+            for image in images {
+                if let imageSource = AFURLSource(urlString: image) {
+                    sources.append(imageSource)
+                } else {
+                    sources.append(ImageSource(image: UIImage(named: "No Image")!))
+                }
             }
+        } else {
+            sources.append(ImageSource(image: UIImage(named: "No Image")!))
         }
+        
+        print(sources)
         
         slideshow.setImageInputs(sources)
     }

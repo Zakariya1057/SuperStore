@@ -24,4 +24,8 @@ extension UIImageView {
         }
 
     }
+    
+    func noImage(){
+        self.image = UIImage(named: "No Image")
+    }
 }

@@ -17,10 +17,15 @@ class ProductObject: Object {
     @objc dynamic var storeTypeID: Int = 0
     
     @objc dynamic var price: Double = 0
+    var oldPrice =  RealmOptional<Double>()
+    var isOnSale =  RealmOptional<Bool>()
+    
+    @objc dynamic var saleEndsAt: Date? = nil
+    
     @objc dynamic var currency: String = ""
     
-    @objc dynamic var smallImage: String = ""
-    @objc dynamic var largeImage: String = ""
+    @objc dynamic var smallImage: String? = nil
+    @objc dynamic var largeImage: String? = nil
     
     var images = List<ImageObject>()
     
@@ -81,6 +86,9 @@ class ProductObject: Object {
             features: productFeatures,
             dimensions: productDimensions,
             price: price,
+            oldPrice: oldPrice.value,
+            isOnSale: isOnSale.value,
+            saleEndsAt: saleEndsAt,
             currency: currency,
             avgRating: avgRating,
             totalReviewsCount: totalReviewsCount,

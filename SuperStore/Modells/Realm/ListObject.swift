@@ -19,7 +19,8 @@ class ListObject: Object {
     
     var categories = List<ListCategoryObject>()
     
-    var oldTotalPrice: Double? = nil
+//    var oldTotalPrice: Double? = nil
+    var oldTotalPrice =  RealmOptional<Double>()
     @objc dynamic var totalPrice: Double = 0
     @objc dynamic var currency: String = ""
     
@@ -38,7 +39,7 @@ class ListObject: Object {
             storeTypeID: storeTypeID,
             categories: categories.map{ $0.getListCategoryModel() },
             totalPrice: totalPrice,
-            oldTotalPrice: oldTotalPrice,
+            oldTotalPrice: oldTotalPrice.value,
             currency: currency,
             totalItems: totalItems,
             tickedOffItems: tickedOffItems,

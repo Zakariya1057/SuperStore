@@ -38,7 +38,13 @@ class FeaturedProductCollectionViewCell: UICollectionViewCell {
         }
         
         if let product = product {
-            imageView.downloaded(from: product.smallImage)
+            
+            if let image = product.smallImage {
+                imageView.downloaded(from: image)
+            } else {
+                imageView.noImage()
+            }
+            
             nameLabel.text = product.name
             
             priceLabel.text = product.getPrice()

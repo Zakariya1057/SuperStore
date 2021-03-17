@@ -22,6 +22,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
     
+    @IBOutlet weak var oldPriceView: UIView!
+    @IBOutlet var oldPriceLabel: UILabel!
+    
     @IBOutlet var loadingViews: [UIView]!
     
     override func awakeFromNib() {
@@ -30,8 +33,21 @@ class ProductCollectionViewCell: UICollectionViewCell {
     
     func configureUI(){
         if let product = product {
-            imageView.downloaded(from: product.smallImage)
+            
+            if let image = product.smallImage {
+                imageView.downloaded(from: image)
+            } else {
+                imageView.noImage()
+            }
+           
             nameLabel.text = product.name
+            
+            if product.oldPrice != nil {
+                oldPriceView.isHidden = false
+                oldPriceLabel.text = product.getOldPrice()
+            } else {
+                oldPriceView.isHidden = true
+            }
             
             priceLabel.text = product.getPrice()
         }

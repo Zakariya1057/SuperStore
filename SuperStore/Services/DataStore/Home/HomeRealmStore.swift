@@ -46,6 +46,11 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
                 savedHome.monitoring.append(savedProduct)
             }
             
+            savedHome.on_sale.removeAll()
+            for savedProduct in home.on_sale.map({ productStore.createProductObject(product: $0) }) {
+                savedHome.on_sale.append(savedProduct)
+            }
+            
             savedHome.stores.removeAll()
             for savedStore in home.stores.map({ storeStore.createStoreObject(store: $0 ) }){
                 savedHome.stores.append(savedStore)
@@ -86,6 +91,7 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
         let featured: [ProductModel] = getProducts(savedProducts: homeObject?.featured)
         let groceries: [ProductModel] = getProducts(savedProducts: homeObject?.groceries)
         let monitoring: [ProductModel] = getProducts(savedProducts: homeObject?.monitoring)
+        let on_sale: [ProductModel] = getProducts(savedProducts: homeObject?.on_sale)
         let promotions: [PromotionModel] = getPromotions()
         let categories: [ChildCategoryModel] = getCategories()
         
@@ -96,6 +102,7 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
             groceries: groceries,
             monitoring: monitoring,
             promotions: promotions,
+            on_sale: on_sale,
             categories: categories
         )
         

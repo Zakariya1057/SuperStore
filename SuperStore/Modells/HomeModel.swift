@@ -15,5 +15,6 @@ struct HomeModel {
     var groceries: [ProductModel]
     var monitoring: [ProductModel]
     var promotions: [PromotionModel]
+    var on_sale: [ProductModel]
     var categories: [ChildCategoryModel]
 }

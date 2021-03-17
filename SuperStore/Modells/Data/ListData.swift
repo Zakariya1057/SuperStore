@@ -43,6 +43,8 @@ struct ListData: Decodable {
     func getListModel() -> ListModel {
         var listStatus: ListStatus = .notStarted
         
+        var dateWorker = DateWorker()
+
         let status = self.status.lowercased()
         
         if status.contains("completed"){
@@ -65,16 +67,16 @@ struct ListData: Decodable {
             currency: currency,
             totalItems: total_items,
             tickedOffItems: ticked_off_items,
-            createdAt: formatDate(date: created_at),
-            updatedAt: formatDate(date: updated_at)
+            createdAt: dateWorker.formatDate(date: created_at),
+            updatedAt: dateWorker.formatDate(date: updated_at)
         )
     }
     
-    private func formatDate(date: String) -> Date {
-        let dateFormat: DateFormatter = DateFormatter()
-        dateFormat.dateFormat = "d MMM y"
-        return dateFormat.date(from: date)!
-    }
+//    private func formatDate(date: String) -> Date {
+//        let dateFormat: DateFormatter = DateFormatter()
+//        dateFormat.dateFormat = "d MMM y"
+//        return dateFormat.date(from: date)!
+//    }
 }
 
 struct ListCategoryData:Decodable {

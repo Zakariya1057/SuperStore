@@ -40,7 +40,13 @@ class ProductCell: UITableViewCell {
     func configureUI(){
         if !loading {
             nameLabel.text = product.name
-            productImageView.downloaded(from: product.smallImage)
+            
+            if let image = product.smallImage {
+                productImageView.downloaded(from: image)
+            } else {
+                productImageView.noImage()
+            }
+            
             ratingView.rating = product.avgRating
             ratingView.text = "(\(product.totalReviewsCount))"
             priceLabel.text = product.getPrice()

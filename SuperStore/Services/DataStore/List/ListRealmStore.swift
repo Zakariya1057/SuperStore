@@ -60,7 +60,9 @@ class ListRealmStore: DataStore, ListStoreProtocol {
             savedList.status = list.status.rawValue
             savedList.totalPrice = list.totalPrice
             savedList.currency = list.currency
-            savedList.oldTotalPrice = list.oldTotalPrice
+            
+            setOldTotalPrice(savedList: savedList, oldTotalPrice: list.oldTotalPrice)
+            
             savedList.totalItems = list.totalItems
             savedList.tickedOffItems = list.tickedOffItems
             savedList.updatedAt = list.updatedAt
@@ -117,7 +119,8 @@ extension ListRealmStore {
 
         savedList.currency = list.currency
         savedList.totalPrice = list.totalPrice
-        savedList.oldTotalPrice = list.oldTotalPrice
+        
+        setOldTotalPrice(savedList: savedList, oldTotalPrice: list.oldTotalPrice)
 
         savedList.totalItems = list.totalItems
         savedList.tickedOffItems = list.tickedOffItems
@@ -142,7 +145,7 @@ extension ListRealmStore {
         if let savedList = getListObject(listID: listID) {
             try? realm?.write({
                 savedList.totalPrice = totalPrice
-                savedList.oldTotalPrice = oldTotalPrice
+                setOldTotalPrice(savedList: savedList, oldTotalPrice: oldTotalPrice)
             })
         }
     }
@@ -160,6 +163,17 @@ extension ListRealmStore {
     }
 }
 
+extension ListRealmStore {
+    func setOldTotalPrice(savedList: ListObject, oldTotalPrice: Double?){
+        let listOldTotalPrice = RealmOptional<Double>()
+        
+        if oldTotalPrice != nil {
+            listOldTotalPrice.value = oldTotalPrice!
+        }
+        
+        savedList.oldTotalPrice = listOldTotalPrice
+    }
+}
 
 extension ListRealmStore {
     private func deleteListItems(listID: Int){

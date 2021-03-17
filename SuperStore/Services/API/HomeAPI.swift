@@ -53,6 +53,7 @@ extension HomeAPI {
                 groceries: createProductModel(productData: homeData.groceries ?? []),
                 monitoring: createProductModel(productData: homeData.monitoring ?? []),
                 promotions: createPromotionModel(promotionData: homeData.promotions ?? []),
+                on_sale: createProductModel(productData: homeData.on_sale ?? []),
                 categories: createCategoriesModel(categoryData: homeData.categories)
             )
         }
