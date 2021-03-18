@@ -62,15 +62,17 @@ class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDa
 
 extension ShowSuggestionsInteractor {
     func suggestionSelected(suggestion: SuggestionModel){
-        var type: String = ""
+        var type: String = suggestion.type.rawValue
         
-        if suggestion.type == .product {
-            type = "products"
-        } else if suggestion.type == .childCategory {
-            type = "child_categories"
-        } else {
-            type = "parent_categories"
-        }
+//        if suggestion.type == .product {
+//            type = "products"
+//        } else if suggestion.type == .childCategory {
+//            type = "child_categories"
+//        } else if suggestion.type == .promotion {
+//            type = "promotions"
+//        } else {
+//            type = "parent_categories"
+//        }
         
         productQueryModel = ProductQueryModel(storeTypeID: storeTypeID, query: suggestion.name, type: type)
         

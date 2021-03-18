@@ -57,9 +57,8 @@ class SearchWorker {
         let savedSuggestion = searchSuggestionStore.getRecentSuggestions(storeTypeID: storeTypeID, limit: limit)
         completionHandler(savedSuggestion, nil)
     }
-    
+
     func suggestionSelected(suggestion: SuggestionModel){
-        
         searchSuggestionStore.suggestionSelected(suggestion: suggestion)
     }
     

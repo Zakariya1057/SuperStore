@@ -11,8 +11,8 @@ import RealmSwift
 
 class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
     
-    private func getSuggestionObject(name: String, type: String, textSearch: Bool) -> SuggestionObject? {
-        return realm?.objects(SuggestionObject.self).filter("textSearch = %@ AND type = %@ AND name = %@", textSearch, type, name).first
+    private func getSuggestionObject(name: String, type: String) -> SuggestionObject? {
+        return realm?.objects(SuggestionObject.self).filter("type = %@ AND name = %@", type, name).first
     }
 
     func createSuggestions(suggestions: [SuggestionModel], storeTypeID: Int){
@@ -22,8 +22,10 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
     }
     
     var defaultSuggestions: [SuggestionModel] = [
+        SuggestionModel(id: 1, name: "Deli", type: .childCategory, storeTypeID: 2, visited: true, visitedAt: Date()),
+        SuggestionModel(id: 2, name: "Real Canadian Superstore Sales", type: .storeSale, storeTypeID: 2, visited: true, visitedAt: Date()),
         SuggestionModel(id: 2, name: "Real Canadian Superstore", type: .store, storeTypeID: 2, visited: true, visitedAt: Date()),
-        SuggestionModel(id: 1, name: "Party Trays", type: .childCategory, storeTypeID: 2, visited: true, visitedAt: Date()),
+
         
         SuggestionModel(id: 1, name: "Asda", type: .store, storeTypeID: 1, visited: true, visitedAt: Date()),
         SuggestionModel(id: 1, name: "Fruit", type: .parentCategory, storeTypeID: 1, visited: true, visitedAt: Date()),
@@ -35,9 +37,8 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
         
         let name: String = suggestion.name
         let type: String = suggestion.type.rawValue
-        let textSearch: Bool = suggestion.textSearch
         
-        if getSuggestionObject(name: name, type: type, textSearch: textSearch) != nil {
+        if getSuggestionObject(name: name, type: type) != nil {
             print("Duplicate Search Item Found. Ignoring")
         } else {
             try? realm?.write({
@@ -46,7 +47,6 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
                 savedSuggestion.id = suggestion.id
                 savedSuggestion.name = suggestion.name
                 savedSuggestion.type = suggestion.type.rawValue
-                savedSuggestion.textSearch = suggestion.textSearch
                 savedSuggestion.storeTypeID = suggestion.storeTypeID ?? storeTypeID
                 
                 savedSuggestion.visited = suggestion.visited
@@ -73,10 +73,8 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
         let id: Int = suggestion.id
         let name: String = suggestion.name
         let type: String = suggestion.type.rawValue
-        let textSearch: Bool = suggestion.textSearch
         
-        let savedSuggestion = realm?.objects(SuggestionObject.self)
-            .filter("id  = %@ AND name = %@ AND type = %@ AND textSearch = %@", id, name, type, textSearch).first
+        let savedSuggestion = realm?.objects(SuggestionObject.self).filter("id  = %@ AND name = %@ AND type = %@", id, name, type).first
         
         if let savedSuggestion = savedSuggestion {
             try? realm?.write({
@@ -90,6 +88,7 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
 extension SuggestionRealmStore {
     func getRecentSuggestions(storeTypeID: Int, limit count: Int) -> [SuggestionModel] {
         // Get last X suggestions
+        
         var limit: Int = count
         
         var recentSuggestions: [SuggestionModel] = []

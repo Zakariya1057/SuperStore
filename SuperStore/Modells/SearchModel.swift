@@ -12,7 +12,6 @@ struct SuggestionModel {
     var id: Int
     var name: String
     var type: SearchType
-    var textSearch: Bool = false
     
     var storeTypeID: Int? = nil
     
@@ -49,10 +48,11 @@ struct SearchRefine {
 }
 
 enum SearchType: String {
-    case store
-    case product
-    case promotion
-    case childCategory
-    case parentCategory
+    case store = "stores"
+    case storeSale = "store_sales"
+    case product = "products"
+    case promotion = "promotions"
+    case childCategory = "child_categories"
+    case parentCategory = "parent_categories"
 }
 

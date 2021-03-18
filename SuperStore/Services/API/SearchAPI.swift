@@ -88,6 +88,8 @@ extension SearchAPI {
         var suggestions: [SuggestionModel] = []
         
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.stores, type: .store))
+        suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.store_sales, type: .storeSale))
+        suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.promotions, type: .promotion))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.child_categories, type: .childCategory))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.parent_categories, type: .parentCategory))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.products, type: .product))
