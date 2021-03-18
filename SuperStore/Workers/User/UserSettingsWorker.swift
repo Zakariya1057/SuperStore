@@ -21,8 +21,8 @@ class UserSettingsWorker {
         completionHandler(userStore.getUser())
     }
     
-    func updateNotifications(sendNotifications: Bool, completionHandler: @escaping (_ error: String?) -> Void){
-        userAPI.updateNotifications(sendNotifications: sendNotifications, completionHandler: { (error: String?) in
+    func updateNotifications(sendNotifications: Bool, notificationToken: String?, completionHandler: @escaping (_ error: String?) -> Void){
+        userAPI.updateNotifications(sendNotifications: sendNotifications, notificationToken: notificationToken, completionHandler: { (error: String?) in
             if error == nil {
                 self.userStore.updateNotifications(sendNotifications: sendNotifications)
             }
@@ -98,7 +98,7 @@ protocol UserRequestProtocol {
     func updateEmail(email: String, completionHandler: @escaping (_ error: String?) -> Void)
     func updateStore(storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void)
     func updatePassword(currentPassword: String, newPassword: String, confirmPassword: String, completionHandler: @escaping (_ error: String?) -> Void)
-    func updateNotifications(sendNotifications: Bool, completionHandler: @escaping (_ error: String?) -> Void)
+    func updateNotifications(sendNotifications: Bool, notificationToken: String?, completionHandler: @escaping (_ error: String?) -> Void)
     
     func logout(completionHandler: @escaping (_ error: String?) -> Void)
     func deleteUser(completionHandler: @escaping (_ error: String?) -> Void)

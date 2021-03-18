@@ -22,6 +22,7 @@ protocol ShowProductBusinessLogic
     func createListItem(request: ShowProduct.CreateListItem.Request)
     func updateListItem(request: ShowProduct.UpdateListItem.Request)
     
+    var productID: Int { get set }
     var selectedListID: Int? { get set }
 }
 

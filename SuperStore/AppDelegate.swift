@@ -53,93 +53,16 @@ import RealmSwift
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.reduce("") { $0 + String(format: "%02x", $1) }
         print("Device token: \(token)")
-//        UserSession.sharedInstance.notificationToken = token
         UserSessionWorker.notificationToken = token
     }
     
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        print("Notification Arrived")
-    
-        let realm = try! Realm()
-        
-        try? realm.write({
-            
-            let content = notification.request.content.userInfo
-            
-            if let aps = content["aps"] as? [String: AnyObject] {
-
-                if let notificationData: AnyObject = aps["data"] {
-
-                    print(notificationData)
-                    
-                    var type: String = notificationData["type"]! as! String
-                    let delete: Bool = notificationData["delete"]! as! Bool
-                    
-                    type = type.lowercased()
-                        
-//                        if type == "promotion" {
-//                            let promotionID: Int = notificationData["id"]! as! Int
-//                            
-//                            if delete {
-//                                realm.delete( realm.objects(PromotionHistory.self).filter("id = \(promotionID)") )
-//                            } else {
-//
-//                                let promotionName: String = notificationData["name"]! as! String
-//                                let promotionPrice: Double = notificationData["price"]! as! Double
-//                                let promotionForQuantity: Int = notificationData["for_quantity"]! as! Int
-//                                let promotionQuantity: Int = notificationData["quantity"]! as! Int
-//                                
-//                                let promotionHistory = realm.objects(PromotionHistory.self).filter("id = %@", promotionID).first
-//                                
-//                                if promotionHistory == nil {
-//                                    let newPromotionHistory = PromotionHistory()
-//                                    newPromotionHistory.id = promotionID
-//                                    newPromotionHistory.name = promotionName
-//                                    newPromotionHistory.price = promotionPrice
-//                                    newPromotionHistory.forQuantity = promotionForQuantity
-//                                    newPromotionHistory.quantity = promotionQuantity
-//                                    // Set all fields: expires
-//                                    
-//                                    // Insert into history
-//                                     realm.add(newPromotionHistory)
-//                                }
-//                                
-//                            }
-//
-//                        } else if type == "product" {
-//                            let productID: Int = notificationData["id"]! as! Int
-//                            
-//                            if delete {
-//                                realm.delete(realm.objects(ProductHistory.self).filter("id = \(productID)"))
-//                            } else {
-//                                let productPrice: Double = notificationData["price"]! as! Double
-//                                
-//                                let productHistory = realm.objects(ProductHistory.self).filter("id = \(productID)").first
-//                                let listHistory = realm.objects(ListItemHistory.self).filter("productID = \(productID)").first
-//                                
-//                                productHistory?.price = productPrice
-//                                listHistory?.price = productPrice
-//                            }
-//
-//                        } else {
-//                            print("Notification Error: Unknown Type: \(type)")
-//                        }
-
-                    }
-                    
-
-            }
-            
-        })
-
         completionHandler([.alert, .sound, .badge])
       }
     
     // This function will be called right after user tap on the notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("Notification Pressed")
 
         UIApplication.shared.applicationIconBadgeNumber = 0
         
@@ -149,40 +72,25 @@ import RealmSwift
 
             if let notificationData: AnyObject = aps["data"] {
                 
-                let type: String = notificationData["type"]! as! String
-                let ID: Int = notificationData["id"]! as! Int
+                let productID: Int = notificationData["product_id"]! as! Int
                 
-                print("Navigating To:\(type) \(ID)")
-                
-                // retrieve the root view controller (which is a tab bar controller)
-                guard let rootViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController else {
-                    return
+                if let rootViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController {
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+                    if let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowProductViewController") as? ShowProductViewController,
+                        let tabBarController = rootViewController as? UITabBarController,
+                        let navController = tabBarController.selectedViewController as? UINavigationController {
+                        destinationVC.interactor?.productID = productID
+                        navController.pushViewController(destinationVC, animated: true)
+                    }
+                    
                 }
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-//                if type == "product" {
-//                    if let conversationVC = storyboard.instantiateViewController(withIdentifier: "productViewController") as? ProductViewController,
-//                        let tabBarController = rootViewController as? UITabBarController,
-//                        let navController = tabBarController.selectedViewController as? UINavigationController {
-//                        conversationVC.productID = ID
-//                        navController.pushViewController(conversationVC, animated: true)
-//                    }
-//                } else {
-//                    if let conversationVC = storyboard.instantiateViewController(withIdentifier: "promotionViewController") as? PromotionViewController,
-//                        let tabBarController = rootViewController as? UITabBarController,
-//                        let navController = tabBarController.selectedViewController as? UINavigationController {
-//                        conversationVC.promotionID = ID
-//                        navController.pushViewController(conversationVC, animated: true)
-//                    }
-//                }
-
-                
             }
             
         }
     
-        // tell the app that we have finished processing the user’s action / response
         completionHandler()
     }
 

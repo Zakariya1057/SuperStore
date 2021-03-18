@@ -39,8 +39,12 @@ class UserSettingAPI: UserRequestProtocol {
         requestUpdateUser(data: updateData, type: "store_type_id", completionHandler: completionHandler)
     }
     
-    func updateNotifications(sendNotifications: Bool, completionHandler: @escaping (String?) -> Void) {
-        let updateData: Parameters = ["send_notifications": sendNotifications]
+    func updateNotifications(sendNotifications: Bool, notificationToken: String?, completionHandler: @escaping (String?) -> Void) {
+        let updateData: Parameters = [
+            "send_notifications": sendNotifications,
+            "notification_token": notificationToken
+        ]
+        
         requestUpdateUser(data: updateData, type: "send_notifications", completionHandler: completionHandler)
     }
     

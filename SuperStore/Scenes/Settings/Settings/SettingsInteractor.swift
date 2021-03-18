@@ -51,7 +51,10 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
     }
     
     func updateNotification(request: Settings.UpdateNotifications.Request){
-        userWorker.updateNotifications(sendNotifications: request.sendNotifications) { (error: String?) in
+        let sendNotification: Bool = request.sendNotifications
+        let notificationToken: String? = userSession.getUserNotificationToken()
+        
+        userWorker.updateNotifications(sendNotifications: sendNotification, notificationToken: notificationToken) { (error: String?) in
             let response = Settings.UpdateNotifications.Response(error: error)
             self.presenter?.presentUpdateNotifications(response: response)
         }

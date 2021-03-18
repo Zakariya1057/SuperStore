@@ -314,7 +314,7 @@ extension ShowProductViewController {
 extension ShowProductViewController {
     func updateMonitorButton(monitor: Bool){
         if monitor {
-            monitorButton.setTitle("Monitoring Price", for: .normal)
+            monitorButton.setTitle("Stop Monitoring Price", for: .normal)
         } else {
             monitorButton.setTitle("Monitor Price", for: .normal)
         }
@@ -586,8 +586,6 @@ extension ShowProductViewController: ImageSlideshowDelegate {
         } else {
             sources.append(ImageSource(image: UIImage(named: "No Image")!))
         }
-        
-        print(sources)
         
         slideshow.setImageInputs(sources)
     }
