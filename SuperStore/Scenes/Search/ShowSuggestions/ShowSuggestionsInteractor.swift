@@ -19,13 +19,13 @@ protocol ShowSuggestionsBusinessLogic
     
     func suggestionSelected(suggestion: SuggestionModel)
     
-    var productQueryModel: ProductQueryModel? { get set }
+    var searchQueryRequest: SearchQueryRequest? { get set }
     var selectedListID: Int? { get set }
 }
 
 protocol ShowSuggestionsDataStore
 {
-    var productQueryModel: ProductQueryModel? { get set }
+    var searchQueryRequest: SearchQueryRequest? { get set }
     var selectedListID: Int? { get set }
 }
 
@@ -36,7 +36,7 @@ class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDa
     
     var userSession = UserSessionWorker()
     
-    var productQueryModel: ProductQueryModel? = nil
+    var searchQueryRequest: SearchQueryRequest? = nil
     
     var selectedListID: Int?
     
@@ -70,7 +70,7 @@ extension ShowSuggestionsInteractor {
     func suggestionSelected(suggestion: SuggestionModel){
         let type: String = suggestion.type.rawValue
         
-        productQueryModel = ProductQueryModel(storeTypeID: storeTypeID, query: suggestion.name, type: type)
+        searchQueryRequest = SearchQueryRequest(storeTypeID: storeTypeID, query: suggestion.name, type: type)
         
         searchWorker.suggestionSelected(suggestion: suggestion)
     }

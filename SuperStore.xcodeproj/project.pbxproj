@@ -123,7 +123,7 @@
 		2C55FA2525EE4C7C007BBFA8 /* ShowStoreResultsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C55FA1F25EE4C7C007BBFA8 /* ShowStoreResultsModels.swift */; };
 		2C55FA2625EE4C7C007BBFA8 /* ShowStoreResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C55FA2025EE4C7C007BBFA8 /* ShowStoreResultsViewController.swift */; };
 		2C55FA2725EE4C7C007BBFA8 /* ShowStoreResultsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C55FA2125EE4C7C007BBFA8 /* ShowStoreResultsInteractor.swift */; };
-		2C55FA2D25EE5637007BBFA8 /* ProductQueryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C55FA2C25EE5637007BBFA8 /* ProductQueryModel.swift */; };
+		2C55FA2D25EE5637007BBFA8 /* SearchQueryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C55FA2C25EE5637007BBFA8 /* SearchQueryRequest.swift */; };
 		2C5C984825F69A6000DF8B6D /* ListItemRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C984725F69A6000DF8B6D /* ListItemRealmStore.swift */; };
 		2C5C984C25F69A6C00DF8B6D /* ListRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C984B25F69A6C00DF8B6D /* ListRealmStore.swift */; };
 		2C5C985425F69AB500DF8B6D /* SuggestionRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C985325F69AB500DF8B6D /* SuggestionRealmStore.swift */; };
@@ -497,7 +497,7 @@
 		2C55FA1F25EE4C7C007BBFA8 /* ShowStoreResultsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowStoreResultsModels.swift; sourceTree = "<group>"; };
 		2C55FA2025EE4C7C007BBFA8 /* ShowStoreResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowStoreResultsViewController.swift; sourceTree = "<group>"; };
 		2C55FA2125EE4C7C007BBFA8 /* ShowStoreResultsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowStoreResultsInteractor.swift; sourceTree = "<group>"; };
-		2C55FA2C25EE5637007BBFA8 /* ProductQueryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductQueryModel.swift; sourceTree = "<group>"; };
+		2C55FA2C25EE5637007BBFA8 /* SearchQueryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryRequest.swift; sourceTree = "<group>"; };
 		2C5C984725F69A6000DF8B6D /* ListItemRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemRealmStore.swift; sourceTree = "<group>"; };
 		2C5C984B25F69A6C00DF8B6D /* ListRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRealmStore.swift; sourceTree = "<group>"; };
 		2C5C985325F69AB500DF8B6D /* SuggestionRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionRealmStore.swift; sourceTree = "<group>"; };
@@ -1102,6 +1102,14 @@
 			path = Date;
 			sourceTree = "<group>";
 		};
+		2C461511260552360009D0E7 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				2C55FA2C25EE5637007BBFA8 /* SearchQueryRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
 		2C48E7B225EA9CCB001A5702 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -1460,7 +1468,7 @@
 				2C48E7D425EAA078001A5702 /* ListModel.swift */,
 				2C55F9D125EE3C2E007BBFA8 /* SearchModel.swift */,
 				2CA11F9B25EF90F00054AE19 /* CategoryModel.swift */,
-				2C55FA2C25EE5637007BBFA8 /* ProductQueryModel.swift */,
+				2C461511260552360009D0E7 /* Request */,
 				2C55F9DA25EE4121007BBFA8 /* ResultModel.swift */,
 				2C48E7D825EAA089001A5702 /* PromotionModel.swift */,
 				2CA11F0125EE860C0054AE19 /* RefineModel.swift */,
@@ -2119,7 +2127,7 @@
 				2CA11F3E25EEB6A50054AE19 /* StoreRouter.swift in Sources */,
 				2CDA613525ED159900FD3956 /* DownloadImage.swift in Sources */,
 				2C2BC82025EBBF2E0038882B /* ShowDescriptionViewController.swift in Sources */,
-				2C55FA2D25EE5637007BBFA8 /* ProductQueryModel.swift in Sources */,
+				2C55FA2D25EE5637007BBFA8 /* SearchQueryRequest.swift in Sources */,
 				2C70823D25F009D000345147 /* ResetPasswordRouter.swift in Sources */,
 				2C910B4225E7AABF00BCEACC /* LoginRouter.swift in Sources */,
 				2CB911AA25F11B5500A8FC66 /* EditListRouter.swift in Sources */,

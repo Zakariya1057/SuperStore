@@ -16,7 +16,9 @@ protocol ShowListsDisplayLogic: class
 {
     func displayLists(viewModel: ShowLists.GetLists.ViewModel)
     func displayListDeleted(viewModel: ShowLists.DeleteList.ViewModel)
-    func displayListOfflineDeleted(viewModel: ShowLists.Offline.DeleteList.ViewModel)
+    
+    func displayListOfflineDeleted(viewModel: ShowLists.Offline.DeletedLists.ViewModel)
+    func displayListOfflineEdited(viewModel: ShowLists.Offline.EditedLists.ViewModel)
 }
 
 class ShowListsViewController: UIViewController, ShowListsDisplayLogic
@@ -97,6 +99,7 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
     {
         
         syncDeletedLists()
+        syncEditedLists()
         
         if loggedIn {
             let request = ShowLists.GetLists.Request()
@@ -136,7 +139,14 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
         }
     }
     
-    func displayListOfflineDeleted(viewModel: ShowLists.Offline.DeleteList.ViewModel) {
+    
+    func displayListOfflineEdited(viewModel: ShowLists.Offline.EditedLists.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "List Sync Error", error: error)
+        }
+    }
+    
+    func displayListOfflineDeleted(viewModel: ShowLists.Offline.DeletedLists.ViewModel) {
         if let error = viewModel.error {
             showError(title: "List Sync Error", error: error)
         }
@@ -245,8 +255,13 @@ extension ShowListsViewController {
 
 extension ShowListsViewController {
     func syncDeletedLists(){
-        let request = ShowLists.Offline.DeleteList.Request()
+        let request = ShowLists.Offline.DeletedLists.Request()
         interactor?.offlineDeletedList(request: request)
+    }
+    
+    func syncEditedLists(){
+        let request = ShowLists.Offline.EditedLists.Request()
+        interactor?.offlineEditedList(request: request)
     }
 }
 

@@ -16,7 +16,7 @@ protocol ShowProductResultsBusinessLogic
 {
     func getResults(request: ShowProductResults.GetResults.Request)
     
-    var productQueryModel: ProductQueryModel { get set }
+    var searchQueryRequest: SearchQueryRequest { get set }
     var selectedRefineOptions: SelectedRefineOptions { get set }
     var searchRefine: SearchRefine { get set }
     
@@ -30,7 +30,7 @@ protocol ShowProductResultsBusinessLogic
 
 protocol ShowProductResultsDataStore
 {
-    var productQueryModel: ProductQueryModel { get set }
+    var searchQueryRequest: SearchQueryRequest { get set }
     var selectedRefineOptions: SelectedRefineOptions { get set }
     var searchRefine: SearchRefine { get set }
     
@@ -48,7 +48,7 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     var userSession = UserSessionWorker()
     
     var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [])
-    var productQueryModel: ProductQueryModel = ProductQueryModel(storeTypeID: 0, query: "", type: "")
+    var searchQueryRequest: SearchQueryRequest = SearchQueryRequest(storeTypeID: 0, query: "", type: "")
     
     var selectedListID: Int?
     var selectedProductStoreTypeID: Int?
@@ -67,7 +67,7 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         
         let page: Int = request.page
         
-        searchWorker.getProductResults(query: productQueryModel, page: page) { (results: ProductResultsModel?, error: String?) in
+        searchWorker.getProductResults(query: searchQueryRequest, page: page) { (results: ProductResultsModel?, error: String?) in
             
             if let results = results {
                 for product in results.products {
@@ -98,30 +98,30 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         resetRefineResults()
         
         if let selectedSort = selectedRefineOptions.sort.first {
-            productQueryModel.order = selectedSort.order.rawValue
-            productQueryModel.sort = selectedSort.type.rawValue
+            searchQueryRequest.order = selectedSort.order.rawValue
+            searchQueryRequest.sort = selectedSort.type.rawValue
         }
         
         if let selectedCategory = selectedRefineOptions.category.first {
-            productQueryModel.childCategory = selectedCategory.name
+            searchQueryRequest.childCategory = selectedCategory.name
         }
         
         if let selectedBrand = selectedRefineOptions.brand.first {
-            productQueryModel.brand = selectedBrand.name
+            searchQueryRequest.brand = selectedBrand.name
         }
 
-        productQueryModel.dietary = selectedRefineOptions.dietary.compactMap({ $0.name }).joined(separator: ",")
+        searchQueryRequest.dietary = selectedRefineOptions.dietary.compactMap({ $0.name }).joined(separator: ",")
     }
 
 }
 
 extension ShowProductResultsInteractor {
     func resetRefineResults(){
-        productQueryModel.sort = ""
-        productQueryModel.order = ""
-        productQueryModel.dietary = ""
-        productQueryModel.brand = ""
-        productQueryModel.childCategory = ""
+        searchQueryRequest.sort = ""
+        searchQueryRequest.order = ""
+        searchQueryRequest.dietary = ""
+        searchQueryRequest.brand = ""
+        searchQueryRequest.childCategory = ""
     }
 }
 

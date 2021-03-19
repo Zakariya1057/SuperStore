@@ -34,7 +34,7 @@ class SearchAPI: SearchRequestProtocol {
         }
     }
     
-    func getProductResults(data: ProductQueryModel, page: Int, completionHandler: @escaping (ProductResultsModel?, String?) -> Void) {
+    func getProductResults(data: SearchQueryRequest, page: Int, completionHandler: @escaping (ProductResultsModel?, String?) -> Void) {
         
         let url = Config.Route.Search.Results.Product + "?page=\(page)"
         

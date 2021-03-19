@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ProductQueryModel {
+struct SearchQueryRequest {
     var storeTypeID: Int
     var query: String
     var type: String

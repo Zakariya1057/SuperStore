@@ -19,9 +19,15 @@ class ListRealmStore: DataStore, ListStoreProtocol {
         return realm?.objects(ListObject.self).filter("deleted = false AND id = %@", listID).first
     }
     
+    
     func getDeletedListObject(listID: Int) -> ListObject? {
         return realm?.objects(ListObject.self).filter("deleted = true AND id = %@", listID).first
     }
+    
+    func getEditedListObject(listID: Int) -> ListObject? {
+        return realm?.objects(ListObject.self).filter("edited = true AND id = %@", listID).first
+    }
+    
     
     func getListCategory(categoryID: Int) -> ListCategoryObject? {
         return realm?.objects(ListCategoryObject.self).filter("deleted = false AND id = %@", categoryID).first
@@ -133,6 +139,8 @@ extension ListRealmStore {
         savedList.id = list.id
         savedList.name = list.name
         savedList.status = list.status.rawValue
+        
+        savedList.edited = false
 
         savedList.identifier = list.identifier
         savedList.storeTypeID = list.storeTypeID
@@ -171,6 +179,14 @@ extension ListRealmStore {
             try? realm?.write({
                 savedList.totalPrice = totalPrice
                 setOldTotalPrice(savedList: savedList, oldTotalPrice: oldTotalPrice)
+            })
+        }
+    }
+    
+    func listEdited(listID: Int){
+        if let savedList = getListObject(listID: listID) {
+            try? realm?.write({
+                savedList.edited = true
             })
         }
     }
@@ -255,7 +271,27 @@ extension ListRealmStore {
         return getDeletedListObject(listID: listID) != nil
     }
     
+    func isEditedList(listID: Int) -> Bool {
+        return getEditedListObject(listID: listID) != nil
+    }
+    
+    
     func getDeletedLists() -> [ListModel] {
         return realm?.objects(ListObject.self).filter("deleted = true").map { $0.getListModel() } ?? []
+    }
+    
+    func getEditedLists() -> [ListModel] {
+        return realm?.objects(ListObject.self).filter("deleted = false AND edited = true").map { $0.getListModel() } ?? []
+    }
+    
+    
+    func syncList(listID: Int){
+        if let savedList = getListObject(listID: listID){
+            
+            try? realm?.write({
+                savedList.edited = false
+            })
+            
+        }
     }
 }

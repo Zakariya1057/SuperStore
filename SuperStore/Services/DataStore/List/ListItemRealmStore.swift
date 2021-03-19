@@ -41,6 +41,8 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
     func createListItem(listID: Int, listItem: ListItemModel, product: ProductModel? = nil) {
         if getListItemObject(listID: listID, productID: listItem.productID) == nil {
             
+            listStore.listEdited(listID: listID)
+            
             let savedListItem = createListItemObject(listItem: listItem, listID: listID)
             
             if let savedList = listStore.getListObject(listID: listID){
@@ -98,6 +100,9 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
     
     func updateListItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool){
         if let savedListItem = realm?.objects(ListItemObject.self).filter("productID = %@ AND listID = %@", productID, listID).first {
+            
+            listStore.listEdited(listID: listID)
+            
             try? realm?.write({
                 if quantity > 0 {
                     savedListItem.quantity = quantity
@@ -113,6 +118,9 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
     
     func deleteListItem(listID: Int, productID: Int) {
         if let savedListItem = realm?.objects(ListItemObject.self).filter("productID = %@ AND listID = %@", productID, listID).first {
+            
+            listStore.listEdited(listID: listID)
+            
             try? realm?.write({
                 // If last item in category, delete whole catgory
                 realm?.delete(savedListItem)

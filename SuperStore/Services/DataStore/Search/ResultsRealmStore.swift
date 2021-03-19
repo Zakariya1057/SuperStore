@@ -16,7 +16,7 @@ class ProductResultsRealmStore: DataStore, ProductResultsStoreProtocol {
         productStore.createProducts(products: results.products)
     }
     
-    func searchResults(query: ProductQueryModel) -> ProductResultsModel {
+    func searchResults(query: SearchQueryRequest) -> ProductResultsModel {
         
         let type: String = query.type.lowercased()
         let storeTypeID: Int = query.storeTypeID

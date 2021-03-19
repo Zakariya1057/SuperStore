@@ -90,7 +90,7 @@ class ShowSuggestionsRouter: BackToShowListRouter, ShowSuggestionsRoutingLogic, 
     
     func passDataToShowProductResults(source: ShowSuggestionsDataStore, destination: inout ShowProductResultsDataStore)
     {
-        destination.productQueryModel = source.productQueryModel!
+        destination.searchQueryRequest = source.searchQueryRequest!
         destination.selectedListID = source.selectedListID
     }
     

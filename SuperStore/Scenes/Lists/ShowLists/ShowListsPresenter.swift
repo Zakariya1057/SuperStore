@@ -16,12 +16,14 @@ protocol ShowListsPresentationLogic
 {
     func presentLists(response: ShowLists.GetLists.Response)
     func presentListDeleted(response: ShowLists.DeleteList.Response)
-    func presentListOfflineDeleted(response: ShowLists.Offline.DeleteList.Response)
+    
+    func presentListOfflineDeleted(response: ShowLists.Offline.DeletedLists.Response)
+    func presentListOfflineEdited(response: ShowLists.Offline.EditedLists.Response)
 }
 
 class ShowListsPresenter: ShowListsPresentationLogic
 {
-    
+
     weak var viewController: ShowListsDisplayLogic?
     
     func presentLists(response: ShowLists.GetLists.Response)
@@ -36,8 +38,14 @@ class ShowListsPresenter: ShowListsPresentationLogic
         viewController?.displayListDeleted(viewModel: viewModel)
     }
     
-    func presentListOfflineDeleted(response: ShowLists.Offline.DeleteList.Response) {
-        let viewModel = ShowLists.Offline.DeleteList.ViewModel(error: response.error)
+    
+    func presentListOfflineDeleted(response: ShowLists.Offline.DeletedLists.Response) {
+        let viewModel = ShowLists.Offline.DeletedLists.ViewModel(error: response.error)
         viewController?.displayListOfflineDeleted(viewModel: viewModel)
+    }
+    
+    func presentListOfflineEdited(response: ShowLists.Offline.EditedLists.Response) {
+        let viewModel = ShowLists.Offline.EditedLists.ViewModel(error: response.error)
+        viewController?.displayListOfflineEdited(viewModel: viewModel)
     }
 }

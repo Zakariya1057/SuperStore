@@ -13,7 +13,7 @@ class ListAPI: ListRequestProtocol {
     
     let jsonDecoder = JSONDecoder()
     let requestWorker: RequestProtocol = RequestWorker()
-
+    
     func getLists(storeTypeID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
         let url: String = Config.Route.List.All + "/" + String(storeTypeID)
         
@@ -134,7 +134,24 @@ extension ListAPI {
                 completionHandler("Failed to delete list. Decoding error, please try again later.")
             }
         }
+    }
+    
+    func offlineEditedLists(lists: [ListModel], completionHandler: @escaping (String?) -> Void){
+
+        let listsData = createListData(lists: lists)
         
+        requestWorker.post(url: Config.Route.List.Offline.Edited, data: ["lists": listsData]) { (response: () throws -> Data) in
+            do {
+                _ = try response()
+                completionHandler(nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(errorMessage)
+            } catch {
+                print(error)
+                completionHandler("Failed to delete list. Decoding error, please try again later.")
+            }
+        }
     }
 }
 
@@ -149,5 +166,61 @@ extension ListAPI {
     private func createListModel(listDataResponse: ListDataResponse) -> ListModel {
         let listData = listDataResponse.data
         return listData.getListModel()
+    }
+}
+
+
+extension ListAPI {
+    private func createListData(lists: [ListModel]) -> [Parameters] {
+        
+        var listsData: [Parameters] = []
+
+        for list in lists {
+
+            let listData: Parameters = [
+                "id": list.id,
+                "categories": createListCategoriesData(categories: list.categories)
+            ]
+            
+            listsData.append(listData)
+
+        }
+        
+        return listsData
+        
+    }
+    
+    private func createListCategoriesData(categories: [ListCategoryModel]) -> [Parameters]{
+        
+        var categoriesData: [Parameters] = []
+        
+        for category in categories {
+            
+            let categoryData: Parameters = [
+                "id": category.id,
+                "items": createListItemsData(items: category.items)
+            ]
+            
+            categoriesData.append(categoryData)
+            
+        }
+        
+        return categoriesData
+    }
+    
+    private func createListItemsData(items: [ListItemModel]) -> [Parameters]{
+        var itemsData: [Parameters] = []
+        
+        for item in items {
+            let itemData: Parameters = [
+                "product_id": item.productID,
+                "quantity": item.quantity,
+                "ticked_off": item.tickedOff
+            ]
+            
+            itemsData.append(itemData)
+        }
+        
+        return itemsData
     }
 }

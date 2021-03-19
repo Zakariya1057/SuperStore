@@ -197,7 +197,11 @@ struct Config {
 
                 
                 public static var Delete: String {
-                    return OfflineListRoute + "/delete"
+                    return OfflineListRoute + "/deleted"
+                }
+                
+                public static var Edited: String {
+                    return OfflineListRoute + "/edited"
                 }
                 
             }

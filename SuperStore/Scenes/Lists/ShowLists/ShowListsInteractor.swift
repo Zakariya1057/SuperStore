@@ -18,7 +18,8 @@ protocol ShowListsBusinessLogic
     func deleteList(request: ShowLists.DeleteList.Request)
     func searchList(request: ShowLists.SearchList.Request)
     
-    func offlineDeletedList(request: ShowLists.Offline.DeleteList.Request)
+    func offlineDeletedList(request: ShowLists.Offline.DeletedLists.Request)
+    func offlineEditedList(request: ShowLists.Offline.EditedLists.Request)
     
     var addToList: Bool { get set }
 }
@@ -91,11 +92,20 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
 }
 
 extension ShowListsInteractor {
-    func offlineDeletedList(request: ShowLists.Offline.DeleteList.Request){
+    func offlineDeletedList(request: ShowLists.Offline.DeletedLists.Request){
         if !offline {
             listWorker.offlineDeletedLists { (error: String?) in
-                let response = ShowLists.Offline.DeleteList.Response(error: error)
+                let response = ShowLists.Offline.DeletedLists.Response(error: error)
                 self.presenter?.presentListOfflineDeleted(response: response)
+            }
+        }
+    }
+    
+    func offlineEditedList(request: ShowLists.Offline.EditedLists.Request){
+        if !offline {
+            listWorker.offlineEditedLists { (error: String?) in
+                let response = ShowLists.Offline.EditedLists.Response(error: error)
+                self.presenter?.presentListOfflineEdited(response: response)
             }
         }
     }

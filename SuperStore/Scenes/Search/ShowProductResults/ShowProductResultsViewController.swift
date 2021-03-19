@@ -112,7 +112,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     
     func updateTitle(){
-        title = interactor!.productQueryModel.query
+        title = interactor!.searchQueryRequest.query
     }
     
     func getResults(){

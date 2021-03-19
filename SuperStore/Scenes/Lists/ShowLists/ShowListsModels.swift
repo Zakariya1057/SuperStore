@@ -80,7 +80,24 @@ enum ShowLists
     
     enum Offline {
         
-        enum DeleteList
+        enum DeletedLists
+        {
+            struct Request
+            {
+            }
+            
+            struct Response
+            {
+                var error: String?
+            }
+            
+            struct ViewModel
+            {
+                var error: String?
+            }
+        }
+        
+        enum EditedLists
         {
             struct Request
             {

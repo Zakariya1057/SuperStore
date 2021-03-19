@@ -57,7 +57,7 @@ class ListWorker {
             var activeLists: [ListModel] = []
             
             for list in lists {
-                if !self.listStore.isDeletedList(listID: list.id) {
+                if !self.listStore.isDeletedList(listID: list.id) || !self.listStore.isEditedList(listID: list.id) {
                     activeLists.append(list)
                     self.listStore.createList(list: list, ignoreCategories: true)
                 }
@@ -125,6 +125,25 @@ extension ListWorker {
             }
         }
     }
+    
+    func offlineEditedLists(completionHandler: @escaping (String?) -> Void){
+        let lists = listStore.getEditedLists()
+        
+        if lists.count > 0 {
+            
+            listAPI.offlineEditedLists(lists: lists) { (error: String?) in
+                
+                if error == nil {
+                    for list in lists {
+                        self.listStore.syncList(listID: list.id)
+                    }
+                }
+                
+                completionHandler(error)
+                
+            }
+        }
+    }
 }
 
 extension ListWorker {
@@ -143,6 +162,7 @@ protocol ListRequestProtocol {
     func deleteList(listID: Int, completionHandler: @escaping (String?) -> Void)
     
     func offlineDeletedLists(listIDs: [Int], completionHandler: @escaping (String?) -> Void)
+    func offlineEditedLists(lists: [ListModel], completionHandler: @escaping (String?) -> Void)
 }
 
 protocol ListStoreProtocol {
@@ -158,6 +178,14 @@ protocol ListStoreProtocol {
     
     func createListObject(list: ListModel, ignoreCategories: Bool) -> ListObject
     
-    func isDeletedList(listID: Int) -> Bool
+    
+    func listEdited(listID: Int)
+    
     func getDeletedLists() -> [ListModel]
+    func getEditedLists() -> [ListModel]
+    
+    func isEditedList(listID: Int) -> Bool
+    func isDeletedList(listID: Int) -> Bool
+    
+    func syncList(listID: Int)
 }
