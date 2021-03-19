@@ -14,7 +14,6 @@ import RealmSwift
 @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
-    let notificationDelegate = CustomNotificationDelegate()
     
     var navigationController: UINavigationController = UINavigationController()
     
@@ -100,7 +99,6 @@ import RealmSwift
     // Enables user permission
     func configureNotification(application: UIApplication) {
            let center = UNUserNotificationCenter.current()
-           center.delegate = notificationDelegate
            center.requestAuthorization(options: [.badge, .sound, .alert]) { granted, _ in
                guard granted else { return }
                DispatchQueue.main.async {

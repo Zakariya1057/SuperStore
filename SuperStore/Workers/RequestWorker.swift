@@ -22,7 +22,7 @@ enum RequestError: Error {
 
 struct RequestWorker: RequestProtocol {
 
-    var userSession: UserSession = UserSession()
+    var userSession: UserSessionWorker = UserSessionWorker()
     var requestTimeout: Double = 10
     
     func get(url: String, completionHandler: @escaping (() throws -> Data) -> Void) {
@@ -75,7 +75,7 @@ struct RequestWorker: RequestProtocol {
                         throw RequestError.Error("User Unauthenticated. Logging out user.")
                     })
                     
-                    userSession.logOut()
+                    userSession.logOutUser()
                 } else {
                     completionHandler({
                         throw handlerResponseError(response: response, errorResponse: errorResponse)

@@ -105,3 +105,7 @@ struct ProductData:Decodable {
         )
     }
 }
+
+struct IngredientsData: Decodable {
+    var name: String
+}

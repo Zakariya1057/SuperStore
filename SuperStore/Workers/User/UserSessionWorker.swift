@@ -34,8 +34,11 @@ class UserSessionWorker {
         userStore.createUser(user: user)
     }
     
+    func logOutUser(){
+        userStore.logoutUser()
+    }
+    
     func isLoggedIn() -> Bool {
         return getUserToken() != nil
     }
 }
-
