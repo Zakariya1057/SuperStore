@@ -28,6 +28,7 @@ enum ShowProductResults
             var paginate: PaginateResultsModel?
             
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
@@ -35,6 +36,7 @@ enum ShowProductResults
             var paginate: PaginateResultsModel?
             
             var error: String?
+            var offline: Bool = false
         }
     }
     
@@ -58,18 +60,19 @@ enum ShowProductResults
         struct Request
         {
             var listID: Int
-            var productID: Int
-            var parentCategoryID: Int
+            var product: ProductModel
         }
         struct Response
         {
             var listItem: ListItemModel?
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var listItem: ListItemModel?
             var error: String?
+            var offline: Bool = false
         }
     }
     
@@ -83,10 +86,12 @@ enum ShowProductResults
         struct Response
         {
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var error: String?
+            var offline: Bool = false
         }
     }
 }

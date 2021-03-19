@@ -28,7 +28,7 @@ class EditStoreInteractor: EditStoreBusinessLogic, EditStoreDataStore
     var userSessionWorker = UserSessionWorker()
     var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     
-    // MARK: Do something
+
     
     func updateStore(request: EditStore.UpdateStore.Request)
     {

@@ -25,11 +25,13 @@ enum ChildCategories
         {
             var categories: [ChildCategoryModel]
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var categories: [ChildCategoryModel]
             var error: String?
+            var offline: Bool = false
         }
     }
     
@@ -52,21 +54,24 @@ enum ChildCategories
         struct Request
         {
             var listID: Int
-            var productID: Int
-            var parentCategoryID: Int
+            var product: ProductModel
             var section: Int
         }
         struct Response
         {
             var section: Int
             var listItem: ListItemModel?
+            
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var section: Int
             var listItem: ListItemModel?
+            
             var error: String?
+            var offline: Bool = false
         }
     }
     
@@ -80,10 +85,12 @@ enum ChildCategories
         struct Response
         {
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var error: String?
+            var offline: Bool = false
         }
     }
 }

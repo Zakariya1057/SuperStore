@@ -11,6 +11,7 @@ import Foundation
 class FavouriteWorker {
     var favouriteAPI: FavouriteRequestProtocol
     var productStore: ProductStoreProtocol
+    var userSession: UserSessionWorker = UserSessionWorker()
     
     init(favouriteAPI: FavouriteRequestProtocol) {
         self.favouriteAPI = favouriteAPI
@@ -30,7 +31,7 @@ class FavouriteWorker {
     func getFavourites(completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void){
         
         let favourites = productStore.getFavouriteProducts()
-        if favourites.count > 0 {
+        if !userSession.isOnline() || favourites.count > 0 {
             completionHandler(favourites, nil)
         }
       

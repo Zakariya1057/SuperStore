@@ -47,12 +47,12 @@ class EditListItemPresenter: EditListItemPresentationLogic
     }
     
     func presentListItemUpdated(response: EditListItem.UpdateListItem.Response) {
-        let viewModel = EditListItem.UpdateListItem.ViewModel(error: response.error)
+        let viewModel = EditListItem.UpdateListItem.ViewModel(error: response.error, offline: response.offline)
         viewController?.displayListItemUpdate(viewModel: viewModel)
     }
     
     func presentListItemDeleted(response: EditListItem.DeleteListItem.Response){
-        let viewModel = EditListItem.DeleteListItem.ViewModel(error: response.error)
+        let viewModel = EditListItem.DeleteListItem.ViewModel(error: response.error, offline: response.offline)
         viewController?.displayListItemDeleted(viewModel: viewModel)
     }
 }

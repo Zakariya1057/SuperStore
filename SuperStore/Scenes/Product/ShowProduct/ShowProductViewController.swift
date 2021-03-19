@@ -161,7 +161,11 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
     {
         if let error = viewModel.error {
-            showError(title: "Product Error", error: error)
+            
+            if !viewModel.offline {
+                showError(title: "Product Error", error: error)
+            }
+            
         } else {
             
             loading = false
@@ -276,7 +280,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     
     func displayCreatedListItem(viewModel: ShowProduct.CreateListItem.ViewModel) {
         // Update quantity, hide add button if success
-        if let error = viewModel.error {
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "List Error", error: error)
         } else {
             if let listItem = viewModel.listItem {
@@ -288,7 +292,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     }
     
     func displayUpdatedListItem(viewModel: ShowProduct.UpdateListItem.ViewModel) {
-        if let error = viewModel.error {
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "List Error", error: error)
         }
     }
@@ -539,7 +543,7 @@ extension ShowProductViewController: SelectListProtocol {
     }
     
     func createListItem(listID: Int){
-        let request = ShowProduct.CreateListItem.Request(listID: listID, productID: product.id, parentCategoryID: product.parentCategoryID!)
+        let request = ShowProduct.CreateListItem.Request(listID: listID)
         interactor?.createListItem(request: request)
     }
     

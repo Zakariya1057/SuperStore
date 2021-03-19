@@ -25,11 +25,13 @@ enum ShowReviews
         {
             var reviews: [ReviewModel]
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var reviews: [ReviewModel]
             var error: String?
+            var offline: Bool = false
         }
     }
 }

@@ -136,6 +136,9 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
     
     func passDataToShowList(source: ShowListsDataStore, destination: inout ShowListDataStore)
     {
+        print(source.lists)
+        print(viewController!.listsTableView.indexPathForSelectedRow!.row)
+        
         let list =  source.lists[ viewController!.listsTableView.indexPathForSelectedRow!.row ]
         destination.list = list
     }

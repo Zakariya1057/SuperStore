@@ -26,11 +26,13 @@ enum ShowSuggestions
         {
             var suggestions: [SuggestionModel]
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var suggestions: [SuggestionModel]
             var error: String?
+            var offline: Bool = false
         }
     }
     

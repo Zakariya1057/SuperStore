@@ -24,13 +24,13 @@ class ShowListsPresenter: ShowListsPresentationLogic
     
     func presentLists(response: ShowLists.GetLists.Response)
     {
-        let viewModel = ShowLists.GetLists.ViewModel(lists: response.lists, error: response.error)
+        let viewModel = ShowLists.GetLists.ViewModel(lists: response.lists, error: response.error, offline: response.offline)
         viewController?.displayLists(viewModel: viewModel)
     }
     
     func presentListDeleted(response: ShowLists.DeleteList.Response)
     {
-        let viewModel = ShowLists.DeleteList.ViewModel(indexPath: response.indexPath, error: response.error)
+        let viewModel = ShowLists.DeleteList.ViewModel(indexPath: response.indexPath, error: response.error, offline: response.offline)
         viewController?.displayListDeleted(viewModel: viewModel)
     }
 }

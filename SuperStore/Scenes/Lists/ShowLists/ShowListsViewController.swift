@@ -107,10 +107,15 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
     
     func displayLists(viewModel: ShowLists.GetLists.ViewModel)
     {
+        
+        print(viewModel)
+        
         refreshControl.endRefreshing()
         
         if let error = viewModel.error {
-            showError(title: "Lists Error", error: error)
+            if !viewModel.offline {
+                showError(title: "Lists Error", error: error)
+            }
         } else {
             loading = false
             lists = viewModel.lists
@@ -121,7 +126,7 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
     func displayListDeleted(viewModel: ShowLists.DeleteList.ViewModel){
         stopLoading()
         
-        if let error = viewModel.error {
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "Delete Error", error: error)
         } else {
             lists.remove(at: viewModel.indexPath.row)

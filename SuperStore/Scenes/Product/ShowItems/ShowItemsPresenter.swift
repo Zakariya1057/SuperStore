@@ -20,9 +20,7 @@ protocol ShowItemsPresentationLogic
 class ShowItemsPresenter: ShowItemsPresentationLogic
 {
     weak var viewController: ShowItemsDisplayLogic?
-    
-    // MARK: Do something
-    
+
     func presentSomething(response: ShowItems.GetItems.Response)
     {
         let viewModel = ShowItems.GetItems.ViewModel(title: response.title, items: response.items)

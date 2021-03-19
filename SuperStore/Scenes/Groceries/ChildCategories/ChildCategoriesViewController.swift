@@ -109,7 +109,9 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
     {
 
         if let error = viewModel.error {
-            showError(title: "Grocery Error", error: error)
+            if !viewModel.offline {
+                showError(title: "Grocery Error", error: error)
+            }
         } else {
             loading = false
             
@@ -127,7 +129,9 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
     
     func displayListItemCreated(viewModel: ChildCategories.CreateListItem.ViewModel) {
         if let error = viewModel.error {
-            showError(title: "List Error", error: error)
+            if !viewModel.offline {
+                showError(title: "List Error", error: error)
+            }
         } else {
             // If list item exists locally,
             if let listItem = viewModel.listItem {
@@ -138,7 +142,7 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
     }
     
     func displayListItemUpdated(viewModel: ChildCategories.UpdateListItem.ViewModel) {
-        if let error = viewModel.error {
+        if let error = viewModel.error, viewModel.offline {
             showError(title: "List Error", error: error)
         }
     }
@@ -251,8 +255,7 @@ extension ChildCategoriesViewController: SelectListProtocol {
     func createListItem(listID: Int){
         let request = ChildCategories.CreateListItem.Request(
             listID: listID,
-            productID: selectedProduct!.id,
-            parentCategoryID: selectedProduct!.parentCategoryID!,
+            product: selectedProduct!,
             section: selectedSection!
         )
 

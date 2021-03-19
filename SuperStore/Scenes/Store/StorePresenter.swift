@@ -20,9 +20,7 @@ protocol StorePresentationLogic
 class StorePresenter: StorePresentationLogic
 {
     weak var viewController: StoreDisplayLogic?
-    
-    // MARK: Do something
-    
+
     func presentStore(response: Store.GetStore.Response)
     {
         
@@ -43,7 +41,7 @@ class StorePresenter: StorePresentationLogic
             )
         }
         
-        let viewModel = Store.GetStore.ViewModel(displayedStore: displayedStore, error: response.error)
+        let viewModel = Store.GetStore.ViewModel(displayedStore: displayedStore, error: response.error, offline: response.offline)
         viewController?.displayStore(viewModel: viewModel)
     }
 }

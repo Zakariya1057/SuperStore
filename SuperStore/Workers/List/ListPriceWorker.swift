@@ -9,35 +9,6 @@
 import Foundation
 
 class ListPriceWorker {
-    // Calculate price using promotion.
-    // Calculate item price and list price.
-    
-//    func calculateItemPrice(price itemPrice: Double, quantity: Int, promotion: PromotionModel?) -> Double {
-//        var price:Double = 0
-//
-//        if promotion == nil {
-//            price = ( Double(quantity) * itemPrice)
-//        } else {
-//
-//            let promotion = promotion
-//
-//            let remainder = (quantity % promotion!.quantity)
-//            let goesIntoFully = floor(Double(Int(quantity) / Int(promotion!.quantity)))
-//
-//            if quantity < promotion!.quantity {
-//                price = Double(quantity) * itemPrice
-//            } else {
-//                if promotion!.forQuantity != nil && promotion!.forQuantity! > 0{
-//                    price = (Double(goesIntoFully) * (Double(promotion!.forQuantity!) * itemPrice) ) + (Double(remainder) * itemPrice)
-//                } else if (promotion!.price != nil){
-//                    price = (Double(goesIntoFully) * promotion!.price!) + (Double(remainder) * itemPrice)
-//                }
-//            }
-//
-//        }
-//
-//        return price
-//    }
     
     func calculateItemPrice(listItem: ListItemModel) -> Double {
         var price:Double = 0

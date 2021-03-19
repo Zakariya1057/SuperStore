@@ -25,11 +25,13 @@ enum ShowPromotion
     {
         var promotion: PromotionModel?
         var error: String?
+        var offline: Bool = false
     }
     struct ViewModel
     {
         var promotion: PromotionModel?
         var error: String?
+        var offline: Bool = false
     }
   }
 }

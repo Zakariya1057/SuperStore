@@ -97,7 +97,9 @@ class ShowPromotionViewController: UIViewController, ShowPromotionDisplayLogic
         refreshControl.endRefreshing()
         
         if let error = viewModel.error {
-            showError(title: "Promotion Error", error: error)
+            if !viewModel.offline {
+                showError(title: "Promotion Error", error: error)
+            }
         } else {
             promotion = viewModel.promotion
             title = viewModel.promotion?.name

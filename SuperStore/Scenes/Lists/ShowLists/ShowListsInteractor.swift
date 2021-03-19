@@ -47,9 +47,16 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
         print("Get Lists: \(storeTypeID)")
         
         listWorker.getLists(storeTypeID: storeTypeID) { (lists: [ListModel], error: String?) in
-            self.lists = lists
             
-            let response = ShowLists.GetLists.Response(lists: lists, error: error)
+            var response = ShowLists.GetLists.Response(lists: lists, error: error)
+            
+            if error == nil {
+                self.lists = lists
+            } else {
+                response.offline = !self.userSession.isOnline()
+            }
+            
+            
             self.presenter?.presentLists(response: response)
         }
     }
@@ -58,7 +65,12 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
     {
         let listID = request.listID
         listWorker.deleteList(listID: listID) { (error: String?) in
-            let response = ShowLists.DeleteList.Response(indexPath: request.indexPath, error: error)
+            var response = ShowLists.DeleteList.Response(indexPath: request.indexPath, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentListDeleted(response: response)
         }
     }

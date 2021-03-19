@@ -21,9 +21,7 @@ protocol RegisterPresentationLogic
 class RegisterPresenter: RegisterPresentationLogic
 {
     weak var viewController: RegisterDisplayLogic?
-    
-    // MARK: Do something
-    
+
     func presentUserEmail(response: Register.GetEmail.Response)
     {
         let viewModel = Register.GetEmail.ViewModel(email: response.email)

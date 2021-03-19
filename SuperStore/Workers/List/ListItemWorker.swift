@@ -12,6 +12,8 @@ class ListItemWorker {
     var listItemAPI: ListItemRequestProtocol
     var listItemStore: ListItemStoreProtocol
     
+    var userSession = UserSessionWorker()
+    
     init(listItemAPI: ListItemRequestProtocol) {
         self.listItemAPI = listItemAPI
         self.listItemStore = ListItemRealmStore()
@@ -22,6 +24,11 @@ class ListItemWorker {
     }
     
     func deleteItem(listID: Int, productID: Int, completionHandler: @escaping (_ error: String?) -> Void){
+        
+        if !userSession.isOnline() {
+            listItemStore.deleteListItem(listID: listID, productID: productID)
+        }
+        
         listItemAPI.deleteItem(listID: listID, productID: productID) { (error: String?) in
             if error == nil {
                 self.listItemStore.deleteListItem(listID: listID, productID: productID)
@@ -30,14 +37,34 @@ class ListItemWorker {
         }
     }
 
-    func createItem(listID: Int, productID: Int, parentCategoryID: Int, completionHandler: @escaping (_ listItem: ListItemModel?, _ error: String?) -> Void){
+    func createItem(listID: Int, product: ProductModel, completionHandler: @escaping (_ listItem: ListItemModel?, _ error: String?) -> Void){
         
-        let savedListItem = listItemStore.getListItem(listID: listID, productID: productID)
+        let savedListItem = listItemStore.getListItem(listID: listID, productID: product.id)
         completionHandler(savedListItem, nil)
         
-        listItemAPI.createItem(listID: listID, productID: productID, parentCategoryID: parentCategoryID) { (listItem: ListItemModel?, error: String?) in
+        if savedListItem == nil, !userSession.isOnline() {
+            let listItem = ListItemModel(
+                id: 0,
+                name: product.name,
+                productID: product.id,
+                image: product.largeImage,
+                price: product.price,
+                currency: product.currency,
+                totalPrice: product.price,
+                quantity: 1,
+                weight: nil,
+                promotion: product.promotion,
+                tickedOff: false
+            )
+            
+            print("Create List Item")
+            
+            listItemStore.createListItem(listID: listID, listItem: listItem, product: product)
+        }
+        
+        listItemAPI.createItem(listID: listID, productID: product.id, parentCategoryID: product.parentCategoryID!) { (listItem: ListItemModel?, error: String?) in
             if let listItem = listItem {
-                self.listItemStore.createListItem(listID: listID, listItem: listItem)
+                self.listItemStore.createListItem(listID: listID, listItem: listItem, product: product)
             }
             
             // Only show reflected quantity, if not found locally saved
@@ -51,6 +78,16 @@ class ListItemWorker {
     }
     
     func updateItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool, completionHandler: @escaping (_ error: String?) -> Void){
+        
+        if !userSession.isOnline() {
+            self.listItemStore.updateListItem(
+                listID: listID,
+                productID: productID,
+                quantity: quantity,
+                tickedOff: tickedOff
+            )
+        }
+        
         listItemAPI.updateItem(listID: listID, productID: productID, quanity: quantity, tickedOff: tickedOff) { [self] (error: String?) in
             if error == nil {
                 self.listItemStore.updateListItem(
@@ -76,6 +113,6 @@ protocol ListItemStoreProtocol {
     func getListItems(listID: Int) -> [ListItemModel]
     func getListItem(listID: Int, productID: Int) -> ListItemModel?
     func updateListItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool)
-    func createListItem(listID: Int, listItem: ListItemModel)
+    func createListItem(listID: Int, listItem: ListItemModel, product: ProductModel?)
     func deleteListItem(listID: Int, productID: Int)
 }

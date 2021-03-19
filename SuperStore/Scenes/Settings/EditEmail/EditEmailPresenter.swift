@@ -21,9 +21,7 @@ protocol EditEmailPresentationLogic
 class EditEmailPresenter: EditEmailPresentationLogic
 {
     weak var viewController: EditEmailDisplayLogic?
-    
-    // MARK: Do something
-    
+
     func presentEmail(response: EditEmail.GetEmail.Response)
     {
         let viewModel = EditEmail.GetEmail.ViewModel(email: response.email)

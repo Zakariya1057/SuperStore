@@ -21,9 +21,7 @@ protocol ShowRefinePresentationLogic
 class ShowRefinePresenter: ShowRefinePresentationLogic
 {
     weak var viewController: ShowRefineDisplayLogic?
-    
-    // MARK: Do something
-    
+
     func presentSelectedOptions(response: ShowRefine.GetSelectedOptions.Response)
     {
         let viewModel = ShowRefine.GetSelectedOptions.ViewModel(selectedRefineOptions: response.selectedRefineOptions)

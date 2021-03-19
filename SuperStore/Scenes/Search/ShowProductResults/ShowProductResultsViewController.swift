@@ -145,7 +145,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     {
         refreshControl.endRefreshing()
         
-        if let error = viewModel.error {
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "Search Error", error: error)
         } else {
             loading = false
@@ -167,7 +167,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     }
     
     func displayListItemCreated(viewModel: ShowProductResults.CreateListItem.ViewModel) {
-        if let error = viewModel.error {
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "List Error", error: error)
         } else {
             // If list item exists locally,
@@ -178,7 +178,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     }
     
     func displayListItemUpdated(viewModel: ShowProductResults.UpdateListItem.ViewModel) {
-        if let error = viewModel.error {
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "List Error", error: error)
         }
     }
@@ -287,8 +287,7 @@ extension ShowProductResultsViewController: SelectListProtocol {
     func createListItem(listID: Int){
         let request = ShowProductResults.CreateListItem.Request(
             listID: listID,
-            productID: selectedProduct!.id,
-            parentCategoryID: selectedProduct!.parentCategoryID!
+            product: selectedProduct!
         )
         
         interactor?.createListItem(request: request)

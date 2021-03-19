@@ -21,12 +21,10 @@ protocol ShowSuggestionsPresentationLogic
 class ShowSuggestionsPresenter: ShowSuggestionsPresentationLogic
 {
     weak var viewController: ShowSuggestionsDisplayLogic?
-    
-    // MARK: Do something
-    
+
     func presentSuggestions(response: ShowSuggestions.GetSuggestions.Response)
     {
-        let viewModel = ShowSuggestions.GetSuggestions.ViewModel(suggestions: response.suggestions, error: response.error)
+        let viewModel = ShowSuggestions.GetSuggestions.ViewModel(suggestions: response.suggestions, error: response.error, offline: response.offline)
         viewController?.displaySuggestions(viewModel: viewModel)
     }
     

@@ -127,7 +127,7 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
     func displayListItemDeleted(viewModel: EditListItem.DeleteListItem.ViewModel) {
         stopLoading()
         
-        if let error = viewModel.error {
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "Delete Error", error: error)
         } else {
             router?.routeToShowList(segue: nil)
@@ -137,7 +137,7 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
     func displayListItemUpdate(viewModel: EditListItem.UpdateListItem.ViewModel) {
         stopLoading()
         
-        if let error = viewModel.error {
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "Update Error", error: error)
         } else {
             router?.routeToShowList(segue: nil)

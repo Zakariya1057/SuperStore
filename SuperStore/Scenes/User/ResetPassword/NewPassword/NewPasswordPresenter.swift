@@ -21,8 +21,6 @@ class NewPasswordPresenter: NewPasswordPresentationLogic
 {
   weak var viewController: NewPasswordDisplayLogic?
   
-  // MARK: Do something
-  
   func presentNewPassword(response: NewPassword.NewPassword.Response)
   {
     let viewModel = NewPassword.NewPassword.ViewModel(error: response.error)

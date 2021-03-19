@@ -20,7 +20,18 @@ class ProductRealmStore: DataStore, ProductStoreProtocol {
     
     
     func getProduct(productID: Int) -> ProductModel? {
-        return getProductObject(productID: productID)?.getProductModel()
+        
+        if let productObject = getProductObject(productID: productID) {
+            let product = productObject.getProductModel()
+            
+            if let promotionID = productObject.promotionID.value {
+                product.promotion = promotionStore.getPromotion(promotionID: promotionID)
+            }
+            
+            return product
+        }
+        
+        return nil
     }
     
     func createProducts(products: [ProductModel]){
@@ -101,9 +112,7 @@ extension ProductRealmStore {
         
         savedProduct.currency = product.currency
         
-        if let promotion = product.promotion {
-            savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
-        }
+        updatePromotion(product: product, savedProduct: savedProduct)
         
         for product in product.recommended {
             savedProduct.recommended.append( createProductObject(product: product) )
@@ -212,6 +221,24 @@ extension ProductRealmStore {
 
 extension ProductRealmStore {
     
+    func updatePromotion(product: ProductModel, savedProduct: ProductObject){
+        if let promotion = product.promotion {
+            savedProduct.promotionID.value = promotion.id
+            
+            if savedProduct.promotionID.value == nil {
+                
+                _ = promotionStore.createPromotionObject(promotion: promotion)
+                
+                let promotionID = RealmOptional<Int>()
+                promotionID.value = promotion.id
+                
+                savedProduct.promotionID = promotionID
+            } else {
+                savedProduct.promotionID.value = promotion.id
+            }
+        }
+    }
+    
     func updateOldTotalPrice(product: ProductModel, savedProduct: ProductObject){
         let oldPrice = RealmOptional<Double>()
         let isOnSale = RealmOptional<Bool>()
@@ -243,11 +270,11 @@ extension ProductRealmStore {
         }
     }
     
-    func updatePromotion(product: ProductModel, savedProduct: ProductObject){
-        if let promotion = product.promotion {
-            savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
-        }
-    }
+//    func updatePromotion(product: ProductModel, savedProduct: ProductObject){
+//        if let promotion = product.promotion {
+//            savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
+//        }
+//    }
     
     func updateParentCategory(product: ProductModel, savedProduct: ProductObject){
         

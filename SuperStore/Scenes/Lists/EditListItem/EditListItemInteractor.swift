@@ -34,10 +34,10 @@ class EditListItemInteractor: EditListItemBusinessLogic, EditListItemDataStore
     var listPriceWorker: ListPriceWorker = ListPriceWorker()
     var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
     
+    var userSession = UserSessionWorker()
+    
     var listID: Int!
     var listItem: ListItemModel!
-    
-    // MARK: Do something
     
     func getListItem(request: EditListItem.GetListItem.Request)
     {
@@ -59,7 +59,12 @@ class EditListItemInteractor: EditListItemBusinessLogic, EditListItemDataStore
         let productID: Int = listItem.productID
         
         listItemWorker.deleteItem(listID: listID, productID: productID) { (error: String?) in
-            let response = EditListItem.DeleteListItem.Response(error: error)
+            var response = EditListItem.DeleteListItem.Response(error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentListItemDeleted(response: response)
         }
     }
@@ -70,7 +75,12 @@ class EditListItemInteractor: EditListItemBusinessLogic, EditListItemDataStore
         let tickedOff = listItem.tickedOff
         
         listItemWorker.updateItem(listID: listID, productID: productID, quantity: quantity, tickedOff: tickedOff) { (error: String?) in
-            let response = EditListItem.UpdateListItem.Response(error: error)
+            var response = EditListItem.UpdateListItem.Response(error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentListItemUpdated(response: response)
         }
     }

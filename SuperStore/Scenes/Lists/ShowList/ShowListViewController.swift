@@ -109,41 +109,44 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
     
     func displayList(viewModel: ShowList.GetList.ViewModel)
     {
-        refreshControl.endRefreshing()
-        loading = false
+        print(viewModel)
         
-        if let error = viewModel.error {
+        loading = false
+        self.refreshControl.endRefreshing()
+        
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "List Error", error: error)
         } else {
            
             if let displayedList = viewModel.displayedList {
                 self.displayedList = displayedList
                 displayPrice()
-                itemsTableView.reloadData()
+            } else {
+                interactor?.updateListTotal(request: ShowList.UpdateListTotal.Request())
             }
         }
+        
+        itemsTableView.reloadData()
     }
 
     func displayListItemDeleted(viewModel: ShowList.DeleteListItem.ViewModel) {
-        if let error = viewModel.error {
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "Delete Error", error: error)
         }
     }
     
     func displayListItemUpdated(viewModel: ShowList.UpdateListItem.ViewModel) {
-        if let error = viewModel.error {
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "Update Error", error: error)
         }
     }
     
     func displayListUpdateTotal(viewModel: ShowList.UpdateListTotal.ViewModel) {
         let displayedListPrice = viewModel.displayedPrice
-        
-        print(viewModel)
-        
-        displayedList!.totalPrice = displayedListPrice.totalPrice
-        displayedList!.oldTotalPrice = displayedListPrice.oldTotalPrice
-        
+    
+        displayedList?.totalPrice = displayedListPrice.totalPrice
+        displayedList?.oldTotalPrice = displayedListPrice.oldTotalPrice
+
         displayPrice()
     }
 
@@ -151,9 +154,9 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
 
 extension ShowListViewController {
     func displayPrice(){
-        totalPriceLabel.text = displayedList!.totalPrice
+        totalPriceLabel.text = displayedList?.totalPrice ?? ""
         
-        if displayedList!.oldTotalPrice == nil {
+        if displayedList?.oldTotalPrice == nil {
             oldPriceView.alpha = 0
         } else {
             oldPriceView.alpha = 1
@@ -256,6 +259,10 @@ extension ShowListViewController {
 extension ShowListViewController {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
+        if loading {
+            return UISwipeActionsConfiguration(actions: [])
+        }
+        
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (_, _, completionHandler) in
             self.deleteListItemPressed(indexPath: indexPath)
             completionHandler(true)

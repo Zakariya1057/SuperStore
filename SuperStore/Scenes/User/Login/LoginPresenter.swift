@@ -21,9 +21,7 @@ protocol LoginPresentationLogic
 class LoginPresenter: LoginPresentationLogic
 {
     weak var viewController: LoginDisplayLogic?
-    
-    // MARK: Do something
-    
+
     func presentLogin(response: Login.Login.Response)
     {
         let viewModel = Login.Login.ViewModel(error: response.error)

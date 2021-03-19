@@ -21,8 +21,6 @@ class VerifyCodePresenter: VerifyCodePresentationLogic
 {
   weak var viewController: VerifyCodeDisplayLogic?
   
-  // MARK: Do something
-  
   func presentCodeVerified(response: VerifyCode.VerifyCode.Response)
   {
     let viewModel = VerifyCode.VerifyCode.ViewModel(error: response.error)

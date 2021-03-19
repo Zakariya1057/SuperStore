@@ -90,7 +90,9 @@ class GrandParentCategoriesViewController: UIViewController, GrandParentCategori
     func displayCategories(viewModel: GrandParentCategories.GetCategories.ViewModel)
     {
         if let error = viewModel.error {
-            showError(title: "Grocery Error", error: error)
+            if !viewModel.offline {
+                showError(title: "Grocery Error", error: error)
+            }
         } else {
             loading = false
             categories =  viewModel.displayedCategories

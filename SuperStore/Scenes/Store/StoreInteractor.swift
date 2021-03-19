@@ -30,6 +30,8 @@ class StoreInteractor: StoreBusinessLogic, StoreDataStore
     var presenter: StorePresentationLogic?
     var storeWorker: StoreWorker = StoreWorker(storeAPI: StoreAPI())
     
+    var userSession = UserSessionWorker()
+    
     var storeID: Int = 10
     var selectedListID: Int?
     var store: StoreModel?
@@ -37,9 +39,15 @@ class StoreInteractor: StoreBusinessLogic, StoreDataStore
     func getStore(request: Store.GetStore.Request)
     {
         storeWorker.getStore(storeID: storeID) { (store: StoreModel?, error: String?) in
-            self.store = store
             
-            let response = Store.GetStore.Response(store: store, error: error)
+            var response = Store.GetStore.Response(store: store, error: error)
+            
+            if error == nil {
+                self.store = store
+            } else {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentStore(response: response)
         }
     }

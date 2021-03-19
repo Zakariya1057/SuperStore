@@ -50,12 +50,14 @@ enum Store
         {
             var store: StoreModel?
             var error: String?
+            var offline: Bool = false
         }
         
         struct ViewModel
         {
             var displayedStore: DisplayedStore?
             var error: String?
+            var offline: Bool = false
         }
     }
 }

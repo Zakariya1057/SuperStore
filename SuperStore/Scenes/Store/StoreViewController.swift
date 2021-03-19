@@ -104,7 +104,7 @@ class StoreViewController: UIViewController, StoreDisplayLogic
     
     func displayStore(viewModel: Store.GetStore.ViewModel)
     {
-        if let error = viewModel.error {
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "Store Error", error: error)
         } else {
             if let store = viewModel.displayedStore {

@@ -14,18 +14,16 @@ import UIKit
 
 protocol EditPasswordPresentationLogic
 {
-  func presentPasswordUpdated(response: EditPassword.UpdatePassword.Response)
+    func presentPasswordUpdated(response: EditPassword.UpdatePassword.Response)
 }
 
 class EditPasswordPresenter: EditPasswordPresentationLogic
 {
-  weak var viewController: EditPasswordDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentPasswordUpdated(response: EditPassword.UpdatePassword.Response)
-  {
-    let viewModel = EditPassword.UpdatePassword.ViewModel(error: response.error)
-    viewController?.displayPasswordUpdated(viewModel: viewModel)
-  }
+    weak var viewController: EditPasswordDisplayLogic?
+    
+    func presentPasswordUpdated(response: EditPassword.UpdatePassword.Response)
+    {
+        let viewModel = EditPassword.UpdatePassword.ViewModel(error: response.error)
+        viewController?.displayPasswordUpdated(viewModel: viewModel)
+    }
 }

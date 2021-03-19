@@ -21,8 +21,6 @@ class GrandParentCategoriesPresenter: GrandParentCategoriesPresentationLogic
 {
   weak var viewController: GrandParentCategoriesDisplayLogic?
   
-  // MARK: Do something
-  
   func presentCategories(response: GrandParentCategories.GetCategories.Response)
   {
     var displayedCategories: [GrandParentCategories.GetCategories.ViewModel.DisplayedCategory] = []
@@ -31,7 +29,7 @@ class GrandParentCategoriesPresenter: GrandParentCategoriesPresentationLogic
         displayedCategories.append(GrandParentCategories.GetCategories.ViewModel.DisplayedCategory(name: category.name))
     }
     
-    let viewModel = GrandParentCategories.GetCategories.ViewModel(displayedCategories: displayedCategories, error: response.error)
+    let viewModel = GrandParentCategories.GetCategories.ViewModel(displayedCategories: displayedCategories, error: response.error, offline: response.offline)
     viewController?.displayCategories(viewModel: viewModel)
   }
 }

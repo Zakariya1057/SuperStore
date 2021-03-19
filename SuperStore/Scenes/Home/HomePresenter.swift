@@ -21,11 +21,9 @@ class HomePresenter: HomePresentationLogic
 {
   weak var viewController: HomeDisplayLogic?
   
-  // MARK: Do something
-  
   func presentHome(response: Home.GetHome.Response)
   {
-    let viewModel = Home.GetHome.ViewModel(home: response.home, error: response.error)
+    let viewModel = Home.GetHome.ViewModel(home: response.home, error: response.error, offline: response.offline)
     viewController?.displayHome(viewModel: viewModel)
   }
 }

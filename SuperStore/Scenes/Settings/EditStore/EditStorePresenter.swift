@@ -14,18 +14,16 @@ import UIKit
 
 protocol EditStorePresentationLogic
 {
-  func presentUpdatedStore(response: EditStore.UpdateStore.Response)
+    func presentUpdatedStore(response: EditStore.UpdateStore.Response)
 }
 
 class EditStorePresenter: EditStorePresentationLogic
 {
-  weak var viewController: EditStoreDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentUpdatedStore(response: EditStore.UpdateStore.Response)
-  {
-    let viewModel = EditStore.UpdateStore.ViewModel(error: response.error)
-    viewController?.displayUpdatedStore(viewModel: viewModel)
-  }
+    weak var viewController: EditStoreDisplayLogic?
+    
+    func presentUpdatedStore(response: EditStore.UpdateStore.Response)
+    {
+        let viewModel = EditStore.UpdateStore.ViewModel(error: response.error)
+        viewController?.displayUpdatedStore(viewModel: viewModel)
+    }
 }

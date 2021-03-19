@@ -52,10 +52,12 @@ enum EditListItem
         struct Response
         {
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var error: String?
+            var offline: Bool = false
         }
     }
     
@@ -68,10 +70,12 @@ enum EditListItem
         struct Response
         {
             var listItem: ListItemModel
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var displayedListItem: DisplayedListItem
+            var offline: Bool = false
         }
     }
     
@@ -83,10 +87,12 @@ enum EditListItem
         struct Response
         {
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var error: String?
+            var offline: Bool = false
         }
     }
 }

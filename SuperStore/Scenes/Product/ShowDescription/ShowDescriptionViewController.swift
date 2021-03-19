@@ -73,7 +73,7 @@ class ShowDescriptionViewController: UIViewController, ShowDescriptionDisplayLog
         getDescription()
     }
     
-    // MARK: Do something
+
     
     @IBOutlet var descriptionTableView: UITableView!
     var productDescription: String = ""

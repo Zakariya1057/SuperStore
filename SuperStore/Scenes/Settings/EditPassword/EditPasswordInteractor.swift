@@ -28,7 +28,7 @@ class EditPasswordInteractor: EditPasswordBusinessLogic, EditPasswordDataStore
     var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     var validationWorker: UserValidationWorker = UserValidationWorker()
     
-    // MARK: Do something
+
     
     func updatePassword(request: EditPassword.UpdatePassword.Request)
     {

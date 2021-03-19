@@ -74,7 +74,7 @@ class ParentCategoriesViewController: UIViewController, ParentCategoriesDisplayL
         getCategories()
     }
     
-    // MARK: Do something
+
     
     @IBOutlet var categoriesTableView: UITableView!
 

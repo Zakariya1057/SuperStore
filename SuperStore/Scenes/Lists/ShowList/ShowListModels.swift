@@ -52,12 +52,14 @@ enum ShowList
         {
             var list: ListModel?
             var error: String?
+            var offline: Bool = false
         }
         
         struct ViewModel
         {
             var displayedList: DisplayedList?
             var error: String?
+            var offline: Bool = false
         }
     }
     
@@ -73,11 +75,13 @@ enum ShowList
         struct Response
         {
             var error: String?
+            var offline: Bool = false
         }
         
         struct ViewModel
         {
             var error: String?
+            var offline: Bool = false
         }
     }
     
@@ -108,11 +112,13 @@ enum ShowList
         struct Response
         {
             var error: String?
+            var offline: Bool = false
         }
         
         struct ViewModel
         {
             var error: String?
+            var offline: Bool = false
         }
     }
 

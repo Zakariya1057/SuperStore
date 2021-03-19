@@ -27,9 +27,7 @@ class ShowProductPresenter: ShowProductPresentationLogic
 {
     
     weak var viewController: ShowProductDisplayLogic?
-    
-    // MARK: Do something
-    
+
     func presentProduct(response: ShowProduct.GetProduct.Response)
     {
         
@@ -61,7 +59,7 @@ class ShowProductPresenter: ShowProductPresentationLogic
         }
         
         
-        let viewModel = ShowProduct.GetProduct.ViewModel(product: response.product, displayedProduct: displayedProduct, error: response.error)
+        let viewModel = ShowProduct.GetProduct.ViewModel(product: response.product, displayedProduct: displayedProduct, error: response.error, offline: response.offline)
         viewController?.displayProduct(viewModel: viewModel)
         
     }
@@ -84,12 +82,12 @@ extension ShowProductPresenter {
     }
     
     func presentListItemCreated(response: ShowProduct.CreateListItem.Response){
-        let viewModel = ShowProduct.CreateListItem.ViewModel(listItem: response.listItem, error: response.error)
+        let viewModel = ShowProduct.CreateListItem.ViewModel(listItem: response.listItem, error: response.error, offline: response.offline)
         viewController?.displayCreatedListItem(viewModel: viewModel)
     }
     
     func presentListItemUpdated(response: ShowProduct.UpdateListItem.Response){
-        let viewModel = ShowProduct.UpdateListItem.ViewModel(error: response.error)
+        let viewModel = ShowProduct.UpdateListItem.ViewModel(error: response.error, offline: response.offline)
         viewController?.displayUpdatedListItem(viewModel: viewModel)
     }
 }

@@ -106,7 +106,9 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
     func displayFavourites(viewModel: Favourites.GetFavourites.ViewModel)
     {
         if let error = viewModel.error {
-            showError(title: "Home Error", error: error)
+            if !viewModel.offline {
+                showError(title: "Favourite Error", error: error)
+            }
         } else {
             loading = false
             products = viewModel.products

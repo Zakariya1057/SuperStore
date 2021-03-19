@@ -14,18 +14,16 @@ import UIKit
 
 protocol CreateListPresentationLogic
 {
-  func presentListCreated(response: CreateList.CreateList.Response)
+    func presentListCreated(response: CreateList.CreateList.Response)
 }
 
 class CreateListPresenter: CreateListPresentationLogic
 {
-  weak var viewController: CreateListDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentListCreated(response: CreateList.CreateList.Response)
-  {
-    let viewModel = CreateList.CreateList.ViewModel(error: response.error)
-    viewController?.displayListCreated(viewModel: viewModel)
-  }
+    weak var viewController: CreateListDisplayLogic?
+    
+    func presentListCreated(response: CreateList.CreateList.Response)
+    {
+        let viewModel = CreateList.CreateList.ViewModel(error: response.error)
+        viewController?.displayListCreated(viewModel: viewModel)
+    }
 }

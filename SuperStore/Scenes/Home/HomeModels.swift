@@ -27,11 +27,13 @@ enum Home
         {
             var home: HomeModel?
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var home: HomeModel?
             var error: String?
+            var offline: Bool = false
         }
     }
     

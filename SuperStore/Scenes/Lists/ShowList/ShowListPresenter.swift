@@ -42,18 +42,18 @@ class ShowListPresenter: ShowListPresentationLogic
             )
         }
         
-        let viewModel = ShowList.GetList.ViewModel(displayedList: displayedList, error: response.error)
+        let viewModel = ShowList.GetList.ViewModel(displayedList: displayedList, error: response.error, offline: response.offline)
         viewController?.displayList(viewModel: viewModel)
     }
     
     
     func presentListUpdated(response: ShowList.UpdateListItem.Response) {
-        let viewModel = ShowList.UpdateListItem.ViewModel(error: response.error)
+        let viewModel = ShowList.UpdateListItem.ViewModel(error: response.error, offline: response.offline)
         viewController?.displayListItemUpdated(viewModel: viewModel)
     }
     
     func presentListDeleted(response: ShowList.DeleteListItem.Response) {
-        let viewModel = ShowList.DeleteListItem.ViewModel(error: response.error)
+        let viewModel = ShowList.DeleteListItem.ViewModel(error: response.error, offline: response.offline)
         viewController?.displayListItemDeleted(viewModel: viewModel)
     }
 

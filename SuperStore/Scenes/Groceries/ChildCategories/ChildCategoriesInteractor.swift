@@ -39,6 +39,8 @@ class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDa
     var groceryWorker: GroceryWorker = GroceryWorker(groceryAPI: GroceryAPI())
     var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
     
+    var userSession = UserSessionWorker()
+    
     var selectedListID: Int?
     
     var parentCategoryID: Int = 1
@@ -49,7 +51,12 @@ class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDa
     func getCategories(request: ChildCategories.GetCategories.Request)
     {
         groceryWorker.getChildCategories(parentCategoryID: parentCategoryID) { (categories: [ChildCategoryModel], error: String?) in
-            let response = ChildCategories.GetCategories.Response(categories: categories, error: error)
+            var response = ChildCategories.GetCategories.Response(categories: categories, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentCategories(response: response)
         }
     }
@@ -67,12 +74,16 @@ extension ChildCategoriesInteractor {
     
     func createListItem(request: ChildCategories.CreateListItem.Request){
         let listID: Int = request.listID
-        let productID: Int = request.productID
-        let parentCategoryID: Int = request.parentCategoryID
+        let product: ProductModel = request.product
         let section: Int = request.section
         
-        listItemWorker.createItem(listID: listID, productID: productID, parentCategoryID: parentCategoryID) { (listItem: ListItemModel?, error: String?) in
-            let response = ChildCategories.CreateListItem.Response(section: section, listItem: listItem, error: error)
+        listItemWorker.createItem(listID: listID, product: product) { (listItem: ListItemModel?, error: String?) in
+            var response = ChildCategories.CreateListItem.Response(section: section, listItem: listItem, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentListItemCreated(response: response)
         }
     }
@@ -83,7 +94,12 @@ extension ChildCategoriesInteractor {
         let quantity: Int = request.quantity
         
         listItemWorker.updateItem(listID: listID, productID: productID, quantity: quantity, tickedOff: false) { (error: String?) in
-            let response = ChildCategories.UpdateListItem.Response(error: error)
+            var response = ChildCategories.UpdateListItem.Response(error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentListItemUpdated(response: response)
         }
     }

@@ -20,9 +20,7 @@ protocol ShowStoreResultsPresentationLogic
 class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
 {
     weak var viewController: ShowStoreResultsDisplayLogic?
-    
-    // MARK: Do something
-    
+
     func presentStores(response: ShowStoreResults.GetStores.Response)
     {
         var displayedStores: [ShowStoreResults.DisplayedStore] = []

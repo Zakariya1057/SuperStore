@@ -33,7 +33,7 @@ class VerifyCodeInteractor: VerifyCodeBusinessLogic, VerifyCodeDataStore
     var email: String = ""
     var code: String = ""
     
-    // MARK: Do something
+
     
     func verifyCode(request: VerifyCode.VerifyCode.Request)
     {

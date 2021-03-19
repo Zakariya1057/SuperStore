@@ -37,7 +37,6 @@
 		2C1476E025E81FFA000E8F66 /* ErrorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476DF25E81FFA000E8F66 /* ErrorData.swift */; };
 		2C1476E625E82B91000E8F66 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476E525E82B91000E8F66 /* UserData.swift */; };
 		2C1476F625E82FF6000E8F66 /* UserRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476F525E82FF6000E8F66 /* UserRealmStore.swift */; };
-		2C1476FC25E831B0000E8F66 /* SpinnerWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476FB25E831B0000E8F66 /* SpinnerWorker.swift */; };
 		2C14772F25E90246000E8F66 /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14772925E90246000E8F66 /* RegisterPresenter.swift */; };
 		2C14773025E90246000E8F66 /* RegisterWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14772A25E90246000E8F66 /* RegisterWorker.swift */; };
 		2C14773125E90246000E8F66 /* RegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14772B25E90246000E8F66 /* RegisterRouter.swift */; };
@@ -93,6 +92,7 @@
 		2C2BC84D25EBC2460038882B /* ReviewAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC84C25EBC2460038882B /* ReviewAPI.swift */; };
 		2C3F537E24D184C80095C4B1 /* SearchSuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F537C24D184C80095C4B1 /* SearchSuggestionCell.swift */; };
 		2C3F537F24D184C80095C4B1 /* SearchSuggestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C3F537D24D184C80095C4B1 /* SearchSuggestionCell.xib */; };
+		2C4615052604B7E30009D0E7 /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4615042604B7E30009D0E7 /* NetworkWorker.swift */; };
 		2C48E7A625EA99D4001A5702 /* StoresMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C48E7A425EA99D4001A5702 /* StoresMapCell.xib */; };
 		2C48E7A725EA99D4001A5702 /* StoresMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7A525EA99D4001A5702 /* StoresMapCell.swift */; };
 		2C48E7AF25EA9CC1001A5702 /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7AE25EA9CC1001A5702 /* HomeAPI.swift */; };
@@ -408,7 +408,6 @@
 		2C1476DF25E81FFA000E8F66 /* ErrorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorData.swift; sourceTree = "<group>"; };
 		2C1476E525E82B91000E8F66 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		2C1476F525E82FF6000E8F66 /* UserRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRealmStore.swift; sourceTree = "<group>"; };
-		2C1476FB25E831B0000E8F66 /* SpinnerWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerWorker.swift; sourceTree = "<group>"; };
 		2C14770325E833A7000E8F66 /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		2C14772925E90246000E8F66 /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
 		2C14772A25E90246000E8F66 /* RegisterWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterWorker.swift; sourceTree = "<group>"; };
@@ -468,6 +467,7 @@
 		2C2BC84C25EBC2460038882B /* ReviewAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAPI.swift; sourceTree = "<group>"; };
 		2C3F537C24D184C80095C4B1 /* SearchSuggestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionCell.swift; sourceTree = "<group>"; };
 		2C3F537D24D184C80095C4B1 /* SearchSuggestionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSuggestionCell.xib; sourceTree = "<group>"; };
+		2C4615042604B7E30009D0E7 /* NetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
 		2C48E7A425EA99D4001A5702 /* StoresMapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoresMapCell.xib; sourceTree = "<group>"; };
 		2C48E7A525EA99D4001A5702 /* StoresMapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresMapCell.swift; sourceTree = "<group>"; };
 		2C48E7AE25EA9CC1001A5702 /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
@@ -1096,6 +1096,14 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		2C46150A2604BB360009D0E7 /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				2C00465F26021A3C005F03D2 /* DateWorker.swift */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
 		2C48E7B225EA9CCB001A5702 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -1434,9 +1442,9 @@
 				2C1429AE25F38F87007D1EB7 /* Store */,
 				2CF7A59D25FAB20300172839 /* Home */,
 				2CAB2EF325FFF6990014FE8D /* Location */,
+				2C46150A2604BB360009D0E7 /* Date */,
 				2C1476D025E7B388000E8F66 /* RequestWorker.swift */,
-				2C00465F26021A3C005F03D2 /* DateWorker.swift */,
-				2C1476FB25E831B0000E8F66 /* SpinnerWorker.swift */,
+				2C4615042604B7E30009D0E7 /* NetworkWorker.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -2110,7 +2118,6 @@
 				2CA11F4025EEB6A50054AE19 /* StoreViewController.swift in Sources */,
 				2C2BC83C25EBC0680038882B /* ShowItemsPresenter.swift in Sources */,
 				2C2BC83025EBBFD40038882B /* ShowPromotionModels.swift in Sources */,
-				2C1476FC25E831B0000E8F66 /* SpinnerWorker.swift in Sources */,
 				2C1476F625E82FF6000E8F66 /* UserRealmStore.swift in Sources */,
 				2CA11F3E25EEB6A50054AE19 /* StoreRouter.swift in Sources */,
 				2CDA613525ED159900FD3956 /* DownloadImage.swift in Sources */,
@@ -2286,6 +2293,7 @@
 				2C05901125F6265F00B4A16B /* RequestLoginCell.swift in Sources */,
 				2CBF020A25EFDE0C003AD5DF /* GroceryTableModels.swift in Sources */,
 				2CB15C9424D2FB8900461AFE /* ListItemCell.swift in Sources */,
+				2C4615052604B7E30009D0E7 /* NetworkWorker.swift in Sources */,
 				2C2BC7E825EAFCFB0038882B /* ProductAPI.swift in Sources */,
 				2C2BC7E225EAFCEA0038882B /* ProductWorker.swift in Sources */,
 				2C70828725F0108500345147 /* SettingsPresenter.swift in Sources */,

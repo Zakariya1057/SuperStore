@@ -19,11 +19,14 @@ enum GrandParentCategories
     struct Request
     {
     }
+    
     struct Response
     {
         var categories: [GrandParentCategoryModel]
         var error: String?
+        var offline: Bool = false
     }
+    
     struct ViewModel
     {
         struct DisplayedCategory {
@@ -31,7 +34,9 @@ enum GrandParentCategories
         }
         
         var displayedCategories: [DisplayedCategory]
+        
         var error: String?
+        var offline: Bool = false
     }
   }
 }

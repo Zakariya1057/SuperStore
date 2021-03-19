@@ -73,7 +73,7 @@ class ShowItemsViewController: UIViewController, ShowItemsDisplayLogic
         getItems()
     }
     
-    // MARK: Do something
+
     
     @IBOutlet weak var ingredientsTableView: UITableView!
     

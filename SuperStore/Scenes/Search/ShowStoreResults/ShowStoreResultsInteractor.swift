@@ -35,7 +35,7 @@ class ShowStoreResultsInteractor: ShowStoreResultsBusinessLogic, ShowStoreResult
     var storeTypeID: Int = 1
     var stores: [StoreModel] = []
     
-    // MARK: Do something
+
     
     func getStores(request: ShowStoreResults.GetStores.Request)
     {

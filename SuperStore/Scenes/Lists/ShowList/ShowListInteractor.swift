@@ -34,6 +34,7 @@ class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
     var listWorker: ListWorker = ListWorker(listAPI: ListAPI())
     var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
     var listPriceWorker: ListPriceWorker = ListPriceWorker()
+    var userSession = UserSessionWorker()
     
     var list: ListModel!
     
@@ -41,11 +42,16 @@ class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
     {
         listWorker.getList(listID: list.id) { (list: ListModel?, error: String?) in
             
+            var response = ShowList.GetList.Response(list: list, error: error)
+            
             if list != nil {
                 self.list = list
             }
             
-            let response = ShowList.GetList.Response(list: list, error: error)
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+           
             self.presenter?.presentList(response: response)
         }
     }
@@ -57,7 +63,12 @@ class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
         let tickedOff = request.tickedOff
         
         listItemWorker.updateItem(listID: listID, productID: productID, quantity: quantity, tickedOff: tickedOff) { (error: String?) in
-            let response = ShowList.UpdateListItem.Response(error: error)
+            var response = ShowList.UpdateListItem.Response(error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentListUpdated(response: response)
         }
     }
@@ -67,7 +78,12 @@ class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
         let productID: Int = request.productID
         
         listItemWorker.deleteItem(listID: listID, productID: productID) { (error: String?) in
-            let response = ShowList.DeleteListItem.Response(error: error)
+            var response = ShowList.DeleteListItem.Response(error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentListDeleted(response: response)
         }
     }
@@ -75,7 +91,7 @@ class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
     func updateListTotal(request: ShowList.UpdateListTotal.Request){
         let (totalPrice, oldTotalPrice) = self.calculateTotalListPrice()
 
-        listWorker.updateListTotalPrice(listID: list.id, totalPrice: totalPrice, oldTotalPrice: oldTotalPrice)
+        listWorker.updateListTotalPrice(listID: list.id)
         
         list.totalPrice = totalPrice
         list.oldTotalPrice = oldTotalPrice

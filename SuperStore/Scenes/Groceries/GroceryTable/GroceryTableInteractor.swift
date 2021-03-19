@@ -28,7 +28,7 @@ class GroceryTableInteractor: GroceryTableBusinessLogic, GroceryTableDataStore
   var worker: GroceryTableWorker?
   //var name: String = ""
   
-  // MARK: Do something
+
   
   func doSomething(request: GroceryTable.Something.Request)
   {

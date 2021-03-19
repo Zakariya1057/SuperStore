@@ -28,7 +28,7 @@ class ShowDescriptionInteractor: ShowDescriptionBusinessLogic, ShowDescriptionDa
   var worker: ShowDescriptionWorker?
   var description: String = ""
   
-  // MARK: Do something
+
   
   func doSomething(request: ShowDescription.GetDescription.Request)
   {

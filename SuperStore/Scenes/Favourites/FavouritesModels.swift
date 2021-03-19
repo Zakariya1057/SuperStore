@@ -25,11 +25,13 @@ enum Favourites
         {
             var products: [ProductModel]
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var products: [ProductModel]
             var error: String?
+            var offline: Bool = false
         }
     }
     

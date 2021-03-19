@@ -19,19 +19,17 @@ protocol ParentCategoriesPresentationLogic
 
 class ParentCategoriesPresenter: ParentCategoriesPresentationLogic
 {
-  weak var viewController: ParentCategoriesDisplayLogic?
-  
-  // MARK: Do something
-  
+    weak var viewController: ParentCategoriesDisplayLogic?
+    
     func presentCategories(response: ParentCategories.GetCategories.Response)
     {
-      var displayedCategories: [ParentCategories.GetCategories.ViewModel.DisplayedCategory] = []
-      
-      for category in response.categories {
-          displayedCategories.append(ParentCategories.GetCategories.ViewModel.DisplayedCategory(name: category.name))
-      }
-      
-      let viewModel = ParentCategories.GetCategories.ViewModel(displayedCategories: displayedCategories)
-      viewController?.displayCategories(viewModel: viewModel)
+        var displayedCategories: [ParentCategories.GetCategories.ViewModel.DisplayedCategory] = []
+        
+        for category in response.categories {
+            displayedCategories.append(ParentCategories.GetCategories.ViewModel.DisplayedCategory(name: category.name))
+        }
+        
+        let viewModel = ParentCategories.GetCategories.ViewModel(displayedCategories: displayedCategories)
+        viewController?.displayCategories(viewModel: viewModel)
     }
 }

@@ -27,14 +27,19 @@ class ShowReviewsInteractor: ShowReviewsBusinessLogic, ShowReviewsDataStore
     var presenter: ShowReviewsPresentationLogic?
     var reviewWorker: ReviewWorker = ReviewWorker(reviewAPI: ReviewAPI())
     
-    var productID: Int = 1
+    var userSession = UserSessionWorker()
     
-    // MARK: Do something
+    var productID: Int = 1
     
     func getReviews(request: ShowReviews.GetReviews.Request)
     {
         reviewWorker.getReviews(productID: productID) { (reviews: [ReviewModel], error: String?) in
-            let response = ShowReviews.GetReviews.Response(reviews: reviews, error: error)
+            var response = ShowReviews.GetReviews.Response(reviews: reviews, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentReviews(response: response)
         }
     }

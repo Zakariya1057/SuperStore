@@ -112,7 +112,9 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     func displaySuggestions(viewModel: ShowSuggestions.GetSuggestions.ViewModel)
     {
         if let error = viewModel.error {
-            showError(title: "Search Error", error: error)
+            if !viewModel.offline {
+                showError(title: "Search Error", error: error)
+            }
         } else {
             loading = false
             self.suggestions = viewModel.suggestions

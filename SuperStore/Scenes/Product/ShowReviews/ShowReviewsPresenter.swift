@@ -14,18 +14,16 @@ import UIKit
 
 protocol ShowReviewsPresentationLogic
 {
-  func presentReviews(response: ShowReviews.GetReviews.Response)
+    func presentReviews(response: ShowReviews.GetReviews.Response)
 }
 
 class ShowReviewsPresenter: ShowReviewsPresentationLogic
 {
-  weak var viewController: ShowReviewsDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentReviews(response: ShowReviews.GetReviews.Response)
-  {
-    let viewModel = ShowReviews.GetReviews.ViewModel(reviews: response.reviews, error: response.error)
-    viewController?.displayReviews(viewModel: viewModel)
-  }
+    weak var viewController: ShowReviewsDisplayLogic?
+    
+    func presentReviews(response: ShowReviews.GetReviews.Response)
+    {
+        let viewModel = ShowReviews.GetReviews.ViewModel(reviews: response.reviews, error: response.error, offline: response.offline)
+        viewController?.displayReviews(viewModel: viewModel)
+    }
 }

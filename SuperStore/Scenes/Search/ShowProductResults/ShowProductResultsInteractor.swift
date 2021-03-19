@@ -45,6 +45,8 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     var searchWorker: SearchWorker = SearchWorker(searchAPI: SearchAPI())
     var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
     
+    var userSession = UserSessionWorker()
+    
     var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [])
     var productQueryModel: ProductQueryModel = ProductQueryModel(storeTypeID: 0, query: "", type: "")
     
@@ -79,7 +81,12 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
                 self.searchRefine.categories = uniqueCategories.compactMap{$0.key}
             }
 
-            let response = ShowProductResults.GetResults.Response(products: results?.products ?? [], paginate: results?.paginate, error: error)
+            var response = ShowProductResults.GetResults.Response(products: results?.products ?? [], paginate: results?.paginate, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentResults(response: response)
         }
     
@@ -130,11 +137,15 @@ extension ShowProductResultsInteractor {
     
     func createListItem(request: ShowProductResults.CreateListItem.Request){
         let listID: Int = request.listID
-        let productID: Int = request.productID
-        let parentCategoryID: Int = request.parentCategoryID
+        let product: ProductModel = request.product
         
-        listItemWorker.createItem(listID: listID, productID: productID, parentCategoryID: parentCategoryID) { (listItem: ListItemModel?, error: String?) in
-            let response = ShowProductResults.CreateListItem.Response(listItem: listItem, error: error)
+        listItemWorker.createItem(listID: listID, product: product) { (listItem: ListItemModel?, error: String?) in
+            var response = ShowProductResults.CreateListItem.Response(listItem: listItem, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentListItemCreated(response: response)
         }
     }
@@ -145,7 +156,12 @@ extension ShowProductResultsInteractor {
         let quantity: Int = request.quantity
         
         listItemWorker.updateItem(listID: listID, productID: productID, quantity: quantity, tickedOff: false) { (error: String?) in
-            let response = ShowProductResults.UpdateListItem.Response(error: error)
+            var response = ShowProductResults.UpdateListItem.Response(error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentListItemUpdated(response: response)
         }
     }

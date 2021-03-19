@@ -10,8 +10,10 @@ import Foundation
 
 class UserSessionWorker {
     
+    static var online: Bool = false
     static var notificationToken: String?
     
+    var networkManager: NetworkWorker = NetworkWorker()
     var userStore: UserStoreProtocol = UserRealmStore()
     
     func getUserToken() -> String? {
@@ -38,7 +40,12 @@ class UserSessionWorker {
         userStore.logoutUser()
     }
     
+    
     func isLoggedIn() -> Bool {
         return getUserToken() != nil
+    }
+    
+    func isOnline() -> Bool {
+        return type(of: self).online
     }
 }

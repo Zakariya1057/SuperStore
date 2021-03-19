@@ -10,11 +10,13 @@ import Foundation
 
 class ListWorker {
     private var listAPI: ListRequestProtocol
-    private var listStore: ListStoreProtocol
+    
+    private var listStore: ListStoreProtocol = ListRealmStore()
+    
+    var userSession = UserSessionWorker()
     
     init(listAPI: ListRequestProtocol) {
         self.listAPI = listAPI
-        self.listStore = ListRealmStore()
     }
     
     func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
@@ -70,6 +72,11 @@ class ListWorker {
     }
     
     func restartList(listID: Int, completionHandler: @escaping (String?) -> Void){
+        
+        if !userSession.isOnline() {
+            listStore.restartList(listID: listID)
+        }
+        
         listAPI.restartList(listID: listID) { (error: String?) in
             if error == nil {
                 self.listStore.restartList(listID: listID)
@@ -80,6 +87,11 @@ class ListWorker {
     }
     
     func deleteList(listID: Int, completionHandler: @escaping (String?) -> Void){
+        
+        if !userSession.isOnline() {
+            listStore.deleteList(listID: listID)
+        }
+        
         listAPI.deleteList(listID: listID) { (error: String?) in
             if error == nil {
                 self.listStore.deleteList(listID: listID)
@@ -91,8 +103,8 @@ class ListWorker {
 }
 
 extension ListWorker {
-    func updateListTotalPrice(listID: Int, totalPrice: Double, oldTotalPrice: Double?){
-        listStore.updateListTotalPrice(listID: listID, totalPrice: totalPrice, oldTotalPrice: oldTotalPrice)
+    func updateListTotalPrice(listID: Int){
+        listStore.updateListTotalPrice(listID: listID)
     }
 }
 
@@ -114,7 +126,7 @@ protocol ListStoreProtocol {
     
     func searchLists(query: String) -> [ListModel]
     
-    func updateListTotalPrice(listID: Int, totalPrice: Double, oldTotalPrice: Double?)
+    func updateListTotalPrice(listID: Int)
     func restartList(listID: Int)
     
     func createListObject(list: ListModel, ignoreCategories: Bool) -> ListObject

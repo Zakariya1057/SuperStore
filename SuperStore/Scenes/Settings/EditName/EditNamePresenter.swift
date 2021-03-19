@@ -21,9 +21,7 @@ protocol EditNamePresentationLogic
 class EditNamePresenter: EditNamePresentationLogic
 {
     weak var viewController: EditNameDisplayLogic?
-    
-    // MARK: Do something
-    
+
     func presentName(response: EditName.GetName.Response)
     {
         let viewModel = EditName.GetName.ViewModel(name: response.name)

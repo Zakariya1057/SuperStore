@@ -21,8 +21,6 @@ class GroceryTablePresenter: GroceryTablePresentationLogic
 {
   weak var viewController: GroceryTableDisplayLogic?
   
-  // MARK: Do something
-  
   func presentSomething(response: GroceryTable.Something.Response)
   {
     let viewModel = GroceryTable.Something.ViewModel()

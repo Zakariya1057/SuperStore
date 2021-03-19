@@ -119,7 +119,9 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         refreshControl.endRefreshing()
         
         if let error = viewModel.error {
-            showError(title: "Home Error", error: error)
+            if !viewModel.offline {
+                showError(title: "Home Error", error: error)
+            }
         } else {
             homeModel = viewModel.home
             loading = false

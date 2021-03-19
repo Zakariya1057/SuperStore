@@ -20,7 +20,7 @@ protocol FavouritesBusinessLogic
 
 protocol FavouritesDataStore
 {
-    //var name: String { get set }
+    
 }
 
 class FavouritesInteractor: FavouritesBusinessLogic, FavouritesDataStore
@@ -28,12 +28,17 @@ class FavouritesInteractor: FavouritesBusinessLogic, FavouritesDataStore
     var presenter: FavouritesPresentationLogic?
     var favouriteWorker: FavouriteWorker = FavouriteWorker(favouriteAPI: FavouriteAPI())
     
-    // MARK: Do something
+    var userSession = UserSessionWorker()
     
     func getFavourites(request: Favourites.GetFavourites.Request)
     {
         favouriteWorker.getFavourites { (products: [ProductModel], error: String?) in
-            let response = Favourites.GetFavourites.Response(products: products, error: error)
+            var response = Favourites.GetFavourites.Response(products: products, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentFavourites(response: response)
         }
     }

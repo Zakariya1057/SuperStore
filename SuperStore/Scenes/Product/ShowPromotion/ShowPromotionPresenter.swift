@@ -14,18 +14,16 @@ import UIKit
 
 protocol ShowPromotionPresentationLogic
 {
-  func presentPromotion(response: ShowPromotion.GetPromotion.Response)
+    func presentPromotion(response: ShowPromotion.GetPromotion.Response)
 }
 
 class ShowPromotionPresenter: ShowPromotionPresentationLogic
 {
-  weak var viewController: ShowPromotionDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentPromotion(response: ShowPromotion.GetPromotion.Response)
-  {
-    let viewModel = ShowPromotion.GetPromotion.ViewModel(promotion: response.promotion, error: response.error)
-    viewController?.displayPromotion(viewModel: viewModel)
-  }
+    weak var viewController: ShowPromotionDisplayLogic?
+    
+    func presentPromotion(response: ShowPromotion.GetPromotion.Response)
+    {
+        let viewModel = ShowPromotion.GetPromotion.ViewModel(promotion: response.promotion, error: response.error, offline: response.offline)
+        viewController?.displayPromotion(viewModel: viewModel)
+    }
 }

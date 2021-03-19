@@ -34,11 +34,12 @@ class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDa
     var presenter: ShowSuggestionsPresentationLogic?
     var searchWorker: SearchWorker = SearchWorker(searchAPI: SearchAPI())
     
+    var userSession = UserSessionWorker()
+    
     var productQueryModel: ProductQueryModel? = nil
     
     var selectedListID: Int?
     
-    var userSession = UserSessionWorker()
     var storeTypeID: Int {
         return userSession.getStore()
     }
@@ -47,7 +48,12 @@ class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDa
     func getSuggestions(request: ShowSuggestions.GetSuggestions.Request)
     {
         searchWorker.getSuggestions(storeTypeID: storeTypeID, query: request.query) { (suggestions: [SuggestionModel], error: String?) in
-            let response = ShowSuggestions.GetSuggestions.Response(suggestions: suggestions, error: error)
+            var response = ShowSuggestions.GetSuggestions.Response(suggestions: suggestions, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentSuggestions(response: response)
         }
     }
@@ -62,17 +68,7 @@ class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDa
 
 extension ShowSuggestionsInteractor {
     func suggestionSelected(suggestion: SuggestionModel){
-        var type: String = suggestion.type.rawValue
-        
-//        if suggestion.type == .product {
-//            type = "products"
-//        } else if suggestion.type == .childCategory {
-//            type = "child_categories"
-//        } else if suggestion.type == .promotion {
-//            type = "promotions"
-//        } else {
-//            type = "parent_categories"
-//        }
+        let type: String = suggestion.type.rawValue
         
         productQueryModel = ProductQueryModel(storeTypeID: storeTypeID, query: suggestion.name, type: type)
         

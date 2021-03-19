@@ -11,8 +11,16 @@ import RealmSwift
 
 class ListRealmStore: DataStore, ListStoreProtocol {
 
-    private func getListObject(listID: Int) -> ListObject? {
+    lazy var listItemStore: ListItemRealmStore = ListItemRealmStore()
+    
+    var listPriceWorker = ListPriceWorker()
+    
+    func getListObject(listID: Int) -> ListObject? {
         return realm?.objects(ListObject.self).filter("id = %@", listID).first
+    }
+    
+    func getListCategory(categoryID: Int) -> ListCategoryObject? {
+        return realm?.objects(ListCategoryObject.self).filter("id = %@", categoryID).first
     }
     
     func getList(listID: Int) -> ListModel? {
@@ -141,7 +149,12 @@ extension ListRealmStore {
 }
 
 extension ListRealmStore {
-    func updateListTotalPrice(listID: Int, totalPrice: Double, oldTotalPrice: Double?) {
+    func updateListTotalPrice(listID: Int) {
+        
+        let items = listItemStore.getListItems(listID: listID)
+        
+        let (totalPrice, oldTotalPrice) = listPriceWorker.calculateListPrice(items: items)
+        
         if let savedList = getListObject(listID: listID) {
             try? realm?.write({
                 savedList.totalPrice = totalPrice

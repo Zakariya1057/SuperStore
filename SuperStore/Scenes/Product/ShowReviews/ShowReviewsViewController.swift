@@ -91,7 +91,9 @@ class ShowReviewsViewController: UIViewController, ShowReviewsDisplayLogic
         refreshControl.endRefreshing()
         
         if let error = viewModel.error {
-            showError(title: "Review Error", error: error)
+            if !viewModel.offline {
+                showError(title: "Review Error", error: error)
+            }
         } else {
             reviews = viewModel.reviews
             reviewsTableView.reloadData()

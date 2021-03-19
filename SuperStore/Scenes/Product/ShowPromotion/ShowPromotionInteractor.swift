@@ -34,10 +34,17 @@ class ShowPromotionInteractor: ShowPromotionBusinessLogic, ShowPromotionDataStor
     var promotionID: Int = 1
     var selectedListID: Int = 1
     
+    var userSession = UserSessionWorker()
+    
     func getPromotion(request: ShowPromotion.GetPromotion.Request)
     {
         promotionWorker.getPromotion(promotionID: promotionID) { (promotion: PromotionModel?, error: String?) in
-            let response = ShowPromotion.GetPromotion.Response(promotion: promotion, error: error)
+            var response = ShowPromotion.GetPromotion.Response(promotion: promotion, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentPromotion(response: response)
         }
 

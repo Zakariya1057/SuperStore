@@ -21,12 +21,10 @@ protocol FavouritesPresentationLogic
 class FavouritesPresenter: FavouritesPresentationLogic
 {
     weak var viewController: FavouritesDisplayLogic?
-    
-    // MARK: Do something
-    
+
     func presentFavourites(response: Favourites.GetFavourites.Response)
     {
-        let viewModel = Favourites.GetFavourites.ViewModel(products: response.products, error: response.error)
+        let viewModel = Favourites.GetFavourites.ViewModel(products: response.products, error: response.error, offline: response.offline)
         viewController?.displayFavourites(viewModel: viewModel)
     }
     

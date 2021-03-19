@@ -21,8 +21,6 @@ class ShowDescriptionPresenter: ShowDescriptionPresentationLogic
 {
   weak var viewController: ShowDescriptionDisplayLogic?
   
-  // MARK: Do something
-  
   func presentDescription(response: ShowDescription.GetDescription.Response)
   {
     let viewModel = ShowDescription.GetDescription.ViewModel(description: response.description)

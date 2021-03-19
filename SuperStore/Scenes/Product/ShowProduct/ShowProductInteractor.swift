@@ -39,6 +39,8 @@ class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
     var productWorker: ProductWorker = ProductWorker(productAPI: ProductAPI())
     var favouriteWorker: FavouriteWorker = FavouriteWorker(favouriteAPI: FavouriteAPI())
     
+    var userSession = UserSessionWorker()
+    
     var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
     
     var selectedListID: Int?
@@ -49,8 +51,15 @@ class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
     func getProduct(request: ShowProduct.GetProduct.Request)
     {
         productWorker.getProduct(productID: productID) { (product: ProductModel?, error: String?) in
-            self.product = product
-            let response = ShowProduct.GetProduct.Response(product: product, error: error)
+            
+            var response = ShowProduct.GetProduct.Response(product: product, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            } else {
+                self.product = product
+            }
+            
             self.presenter?.presentProduct(response: response)
         }
     }
@@ -79,15 +88,25 @@ extension ShowProductInteractor {
     }
     
     func createListItem(request: ShowProduct.CreateListItem.Request){
-        listItemWorker.createItem(listID: request.listID, productID: product!.id, parentCategoryID: product!.parentCategoryID!) { (listItem: ListItemModel?, error: String?) in
-            let response = ShowProduct.CreateListItem.Response(listItem: listItem, error: error)
+        listItemWorker.createItem(listID: request.listID, product: product!) { (listItem: ListItemModel?, error: String?) in
+            var response = ShowProduct.CreateListItem.Response(listItem: listItem, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentListItemCreated(response: response)
         }
     }
     
     func updateListItem(request: ShowProduct.UpdateListItem.Request){
         listItemWorker.updateItem(listID: request.listID, productID: request.productID, quantity: request.quantity, tickedOff: false) { (error: String?) in
-            let response = ShowProduct.UpdateListItem.Response(error: error)
+            var response = ShowProduct.UpdateListItem.Response(error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentListItemUpdated(response: response)
         }
     }

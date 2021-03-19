@@ -31,6 +31,8 @@ class ProductObject: Object {
     
     var promotion: PromotionObject? = nil
     
+    var promotionID = RealmOptional<Int>()
+    
     var productDescription: String? = nil
     var features = List<String>()
     var dimensions = List<String>()
@@ -74,7 +76,7 @@ class ProductObject: Object {
         if(dimensions.count > 0){
             productDimensions = dimensions.map{ String($0) }
         }
-        
+
         return ProductModel(
             id: id,
             storeTypeID: storeTypeID,
@@ -92,7 +94,7 @@ class ProductObject: Object {
             currency: currency,
             avgRating: avgRating,
             totalReviewsCount: totalReviewsCount,
-            promotion: promotion?.getPromotionModel(),
+            promotion: nil,
             storage: storage,
             weight: weight,
             parentCategoryID: parentCategoryID.value,

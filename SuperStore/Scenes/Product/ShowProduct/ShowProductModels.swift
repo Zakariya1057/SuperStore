@@ -60,12 +60,14 @@ enum ShowProduct
         {
             var product: ProductModel?
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var product: ProductModel?
             var displayedProduct: DisplayedProduct?
             var error: String?
+            var offline: Bool = false
         }
     }
     
@@ -124,18 +126,18 @@ enum ShowProduct
         struct Request
         {
             var listID: Int
-            var productID: Int
-            var parentCategoryID: Int
         }
         struct Response
         {
             var listItem: ListItemModel?
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var listItem: ListItemModel?
             var error: String?
+            var offline: Bool = false
         }
     }
     
@@ -149,10 +151,12 @@ enum ShowProduct
         struct Response
         {
             var error: String?
+            var offline: Bool = false
         }
         struct ViewModel
         {
             var error: String?
+            var offline: Bool = false
         }
     }
 }

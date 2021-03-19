@@ -30,17 +30,22 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     var worker: HomeWorker? = HomeWorker(homeAPI: HomeAPI())
     var locationWorker: LocationWorker = LocationWorker(locationAPI: LocationAPI())
     
-    var userWorker: UserSessionWorker = UserSessionWorker()
+    var userSession: UserSessionWorker = UserSessionWorker()
     
     func getHome(request: Home.GetHome.Request)
     {
         let latitude: Double? = request.latitude
         let longitude: Double? = request.longitude
         
-        let storeTypeID: Int = userWorker.getStore()
+        let storeTypeID: Int = userSession.getStore()
         
         worker?.getHome(storeTypeID: storeTypeID,latitude: latitude, longitude: longitude, completionHandler: { (home: HomeModel?, error: String?) in
-            let response = Home.GetHome.Response(home: home, error: error)
+            var response = Home.GetHome.Response(home: home, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentHome(response: response)
         })
     }
@@ -48,7 +53,7 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     func updateLocation(request: Home.UpdateLocation.Request){
         let latitude: Double = request.latitude
         let longitude: Double = request.longitude
-        let loggedIn: Bool = userWorker.isLoggedIn()
+        let loggedIn: Bool = userSession.isLoggedIn()
         
         locationWorker.updateLocation(loggedIn: loggedIn, latitude: latitude, longitude: longitude) { (error: String?) in
             print(error)

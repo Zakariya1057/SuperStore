@@ -27,7 +27,7 @@ class ShowProductResultsPresenter: ShowProductResultsPresentationLogic
     
     func presentResults(response: ShowProductResults.GetResults.Response)
     {
-        let viewModel = ShowProductResults.GetResults.ViewModel(products: response.products, paginate: response.paginate, error: response.error)
+        let viewModel = ShowProductResults.GetResults.ViewModel(products: response.products, paginate: response.paginate, error: response.error, offline: response.offline)
         viewController?.displayResults(viewModel: viewModel)
     }
     
@@ -43,12 +43,12 @@ class ShowProductResultsPresenter: ShowProductResultsPresentationLogic
     }
     
     func presentListItemCreated(response: ShowProductResults.CreateListItem.Response) {
-        let viewModel = ShowProductResults.CreateListItem.ViewModel(listItem: response.listItem, error: response.error)
+        let viewModel = ShowProductResults.CreateListItem.ViewModel(listItem: response.listItem, error: response.error, offline: response.offline)
         viewController?.displayListItemCreated(viewModel: viewModel)
     }
     
     func presentListItemUpdated(response: ShowProductResults.UpdateListItem.Response) {
-        let viewModel = ShowProductResults.UpdateListItem.ViewModel(error: response.error)
+        let viewModel = ShowProductResults.UpdateListItem.ViewModel(error: response.error, offline: response.offline)
         viewController?.displayListItemUpdated(viewModel: viewModel)
     }
 }

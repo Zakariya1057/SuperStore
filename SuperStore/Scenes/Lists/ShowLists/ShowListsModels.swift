@@ -26,12 +26,14 @@ enum ShowLists
         {
             var lists: [ListModel]
             var error: String?
+            var offline: Bool = false
         }
         
         struct ViewModel
         {
             var lists: [ListModel]
             var error: String?
+            var offline: Bool = false
         }
     }
     
@@ -47,12 +49,14 @@ enum ShowLists
         {
             var indexPath: IndexPath
             var error: String?
+            var offline: Bool = false
         }
         
         struct ViewModel
         {
             var indexPath: IndexPath
             var error: String?
+            var offline: Bool = false
         }
     }
     

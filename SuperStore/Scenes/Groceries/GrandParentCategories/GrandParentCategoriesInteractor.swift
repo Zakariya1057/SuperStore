@@ -30,19 +30,25 @@ class GrandParentCategoriesInteractor: GrandParentCategoriesBusinessLogic, Grand
     var presenter: GrandParentCategoriesPresentationLogic?
     var groceryWorker: GroceryWorker = GroceryWorker(groceryAPI: GroceryAPI())
     
+    var userSession = UserSessionWorker()
+    
     var selectedListID: Int?
     
     var storeTypeID: Int = 1
     var categories: [GrandParentCategoryModel] = []
     
-    // MARK: Do something
-    
     func getCategories(request: GrandParentCategories.GetCategories.Request)
     {
         groceryWorker.getGrandParentCategories(storeTypeID: storeTypeID) { (categories: [GrandParentCategoryModel], error: String?) in
-            self.categories = categories
             
-            let response = GrandParentCategories.GetCategories.Response(categories: categories, error: error)
+            var response = GrandParentCategories.GetCategories.Response(categories: categories, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            } else {
+                self.categories = categories
+            }
+            
             self.presenter?.presentCategories(response: response)
         }
     }
