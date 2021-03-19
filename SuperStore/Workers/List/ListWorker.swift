@@ -28,7 +28,7 @@ class ListWorker {
             completionHandler(error)
         }
     }
-
+    
     func getList(listID: Int, completionHandler: @escaping ( _ list: ListModel?, _ error: String?) -> Void){
         // Preload List
         
@@ -38,11 +38,28 @@ class ListWorker {
         }
         
         listAPI.getList(listID: listID) { (list: ListModel?, error: String?) in
+            
+            var listContent = list
+            
             if let list = list {
-                self.listStore.createList(list: list, ignoreCategories: false)
+                
+                if self.listStore.isEditedList(listID: list.id) {
+                    
+                    // Add local editted list instead of fetched list
+                    if let savedList = self.listStore.getList(listID: list.id) {
+                        listContent = savedList
+                        
+                        self.offlineEditedLists { (error: String?) in
+                            // Requesting List Synced
+                        }
+                    }
+                } else {
+                    self.listStore.createList(list: list, ignoreCategories: false)
+                }
+                
             }
             
-            completionHandler(list, error)
+            completionHandler(listContent, error)
         }
     }
     
@@ -57,8 +74,19 @@ class ListWorker {
             var activeLists: [ListModel] = []
             
             for list in lists {
-                if !self.listStore.isDeletedList(listID: list.id) || !self.listStore.isEditedList(listID: list.id) {
-                    activeLists.append(list)
+                if !self.listStore.isDeletedList(listID: list.id) {
+                    
+                    if self.listStore.isEditedList(listID: list.id) {
+                        // Add local editted list instead of fetched list
+                        if let savedList = self.listStore.getList(listID: list.id) {
+                            activeLists.append(savedList)
+                        }
+                        
+                    } else {
+                        activeLists.append(list)
+                    }
+                    
+                    
                     self.listStore.createList(list: list, ignoreCategories: true)
                 }
             }
@@ -71,7 +99,7 @@ class ListWorker {
         let lists = listStore.searchLists(query: query)
         completionHandler(lists)
     }
-
+    
     func updateList(listID: Int, name: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
         listAPI.updateList(listID: listID, name: name, storeTypeID: storeTypeID, completionHandler: completionHandler)
     }

@@ -106,7 +106,10 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
     func displayStores(viewModel: ShowStoreResults.GetStores.ViewModel)
     {
         if let error = viewModel.error {
-            showError(title: "Store Errors", error: error)
+            
+            if !viewModel.offline {
+                showError(title: "Store Errors", error: error)
+            }
         } else {
             stores = viewModel.stores
             displayedStores = viewModel.displayedStore

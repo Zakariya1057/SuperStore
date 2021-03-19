@@ -62,7 +62,13 @@ class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
         }
         
         
-        let viewModel = ShowStoreResults.GetStores.ViewModel(displayedStore: displayedStores, stores: response.stores, error: response.error)
+        let viewModel = ShowStoreResults.GetStores.ViewModel(
+            displayedStore: displayedStores,
+            stores: response.stores,
+            error: response.error,
+            offline: response.offline
+        )
+        
         viewController?.displayStores(viewModel: viewModel)
     }
 }

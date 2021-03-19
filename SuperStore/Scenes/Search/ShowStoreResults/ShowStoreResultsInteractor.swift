@@ -30,11 +30,12 @@ class ShowStoreResultsInteractor: ShowStoreResultsBusinessLogic, ShowStoreResult
     var presenter: ShowStoreResultsPresentationLogic?
     var storeWorker: StoreWorker = StoreWorker(storeAPI: StoreAPI())
     
+    var userSession = UserSessionWorker()
+    
     var selectedListID: Int?
     
     var storeTypeID: Int = 1
     var stores: [StoreModel] = []
-    
 
     
     func getStores(request: ShowStoreResults.GetStores.Request)
@@ -43,7 +44,12 @@ class ShowStoreResultsInteractor: ShowStoreResultsBusinessLogic, ShowStoreResult
         let longitude: Double? = request.longitude
         
         storeWorker.getStores(storeTypeID: storeTypeID, latitude: latitude, longitude: longitude) { (stores: [StoreModel], error: String?) in
-            let response = ShowStoreResults.GetStores.Response(stores: stores, error: error)
+            var response = ShowStoreResults.GetStores.Response(stores: stores, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentStores(response: response)
         }
     }
