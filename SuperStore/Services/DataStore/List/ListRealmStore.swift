@@ -118,8 +118,8 @@ class ListRealmStore: DataStore, ListStoreProtocol {
         })
     }
     
-    func searchLists(query: String) -> [ListModel] {
-        if let savedLists = realm?.objects(ListObject.self).filter("deleted = false AND name contains[c] %@", query){
+    func searchLists(storeTypeID: Int, query: String) -> [ListModel] {
+        if let savedLists = realm?.objects(ListObject.self).filter("deleted = false AND storeTypeID = %@ AND name contains[c] %@",storeTypeID, query){
             return savedLists.map{ $0.getListModel() }
         }
         

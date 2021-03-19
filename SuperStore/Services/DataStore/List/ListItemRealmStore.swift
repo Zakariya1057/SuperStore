@@ -123,6 +123,20 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
             
             try? realm?.write({
                 // If last item in category, delete whole catgory
+                
+                if let savedList = listStore.getListObject(listID: listID) {
+                    for (index, category) in savedList.categories.enumerated() {
+                        for item in category.items {
+                            if item.productID == productID {
+                                // Find the correct category for list item.
+                                if category.items.count == 1 {
+                                    savedList.categories.remove(at: index)
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 realm?.delete(savedListItem)
             })
             

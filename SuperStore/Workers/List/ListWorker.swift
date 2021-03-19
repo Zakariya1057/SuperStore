@@ -95,8 +95,8 @@ class ListWorker {
         }
     }
     
-    func searchLists(query: String, completionHandler: @escaping ( _ lists: [ListModel]) -> Void){
-        let lists = listStore.searchLists(query: query)
+    func searchLists(storeTypeID: Int, query: String, completionHandler: @escaping ( _ lists: [ListModel]) -> Void){
+        let lists = listStore.searchLists(storeTypeID: storeTypeID, query: query)
         completionHandler(lists)
     }
     
@@ -199,7 +199,7 @@ protocol ListStoreProtocol {
     func createList(list: ListModel, ignoreCategories: Bool)
     func deleteList(listID: Int, offline: Bool)
     
-    func searchLists(query: String) -> [ListModel]
+    func searchLists(storeTypeID: Int, query: String) -> [ListModel]
     
     func updateListTotalPrice(listID: Int)
     func restartList(listID: Int)

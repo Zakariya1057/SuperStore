@@ -84,7 +84,7 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
     
     func searchList(request: ShowLists.SearchList.Request){
         let query = request.query
-        listWorker.searchLists(query: query) { (lists: [ListModel]) in
+        listWorker.searchLists(storeTypeID: userSession.getStore() ,query: query) { (lists: [ListModel]) in
             let response = ShowLists.GetLists.Response(lists: lists, error: nil)
             self.presenter?.presentLists(response: response)
         }
