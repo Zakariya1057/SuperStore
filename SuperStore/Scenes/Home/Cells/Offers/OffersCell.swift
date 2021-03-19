@@ -84,7 +84,7 @@ class OffersCell: UITableViewCell, HomeElementCell, UICollectionViewDelegate, UI
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        offersCollectionView.register(UINib(nibName: K.Collections.OfferCollectionCell.CellNibName, bundle: nil), forCellWithReuseIdentifier: K.Collections.OfferCollectionCell.CellIdentifier)
+        offersCollectionView.register(UINib(nibName: "OfferCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "OfferCollectionViewCell")
         
         offersCollectionView.delegate = self
         offersCollectionView.dataSource = self
@@ -104,7 +104,7 @@ extension OffersCell {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = offersCollectionView.dequeueReusableCell(withReuseIdentifier: K.Collections.OfferCollectionCell.CellIdentifier, for: indexPath) as! OfferCollectionViewCell
+        let cell = offersCollectionView.dequeueReusableCell(withReuseIdentifier: "OfferCollectionViewCell", for: indexPath) as! OfferCollectionViewCell
         
         cell.promotion = loading ? nil : promotions[indexPath.row]
 

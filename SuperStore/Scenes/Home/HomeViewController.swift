@@ -276,8 +276,8 @@ extension HomeViewController {
             GroceryProductGroupElement(title: "Grocery Items", products: [], productPressed: productPressed),
             MonitoringProductGroupElement(title: "Monitoring", products: [], productPressed: productPressed),
             PromotionGroupElement(title: "Promotions", promotions: [], promotionPressed: promotionPressed),
+            FeaturedProductGroupElement(title: "Featured", products: [], productPressed: productPressed),
             OnSaleProductGroupElement(title: "Product On Sale", products: [], productPressed: productPressed),
-            FeaturedProductGroupElement(title: "Featured", products: [], productPressed: productPressed)
         ]
         
         if loading {

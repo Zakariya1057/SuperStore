@@ -14,7 +14,6 @@ import RealmSwift
 @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
-//    var userSession = UserSession()
     let notificationDelegate = CustomNotificationDelegate()
     
     var navigationController: UINavigationController = UINavigationController()
@@ -24,11 +23,15 @@ import RealmSwift
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
-        // Deleting All Realm Data
+        let config = Realm.Configuration(
+          schemaVersion: 0
+        )
+
+        Realm.Configuration.defaultConfiguration = config
+        
 //        try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
-//        UIApplication.shared.registerForRemoteNotifications()
         configureNotification(application: application)
         
         UIApplication.shared.applicationIconBadgeNumber = 0

@@ -16,7 +16,7 @@ import AuthenticationServices
 
 class LoginWorker {
     
-    public func appleLogin(appleIDCredential: ASAuthorizationAppleIDCredential) -> UserHistoryModel? {
+    public func appleLogin(appleIDCredential: ASAuthorizationAppleIDCredential) -> UserHistory? {
         
         let userIdentifier = appleIDCredential.user
         let userFullName = appleIDCredential.fullName
@@ -24,9 +24,8 @@ class LoginWorker {
         
         print("User id is \(userIdentifier) \n Full Name is \(String(describing: userFullName)) \n Email id is \(String(describing: userEmail))")
         
-        let user = UserHistoryModel()
+        let user = UserHistory()
         
-//        user.password = generatePassword()
         user.userToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)!
         user.identifier = userIdentifier
         
@@ -35,9 +34,11 @@ class LoginWorker {
             user.name = "\(userFullName!.givenName!) \(userFullName!.familyName!)"
             storeUserInKeyChain(user: user)
         } else if userIdentifier != "" {
+            
             // User identifier found instead. This can mean:
+            
             // 1. User already register.  Get details from storage. Send Details Endpoint.
-            // 2. User login previously failed. Network Error. Get details from storage. Send Details Endpoint.
+            // 2. User login previously failed. Network Error. Get details from storage. Send Details To Endpoint.
             
             let userSettings = KeychainWrapper.standard.data(forKey: "appleUserAccounts")
             
@@ -47,7 +48,6 @@ class LoginWorker {
                 if let userInfo = userInfo {
                     user.email = userInfo.email
                     user.name = userInfo.name
-//                    user.password = userInfo.password
                 } else {
                     print("Error: No User Found Saved In History.")
                     return nil
@@ -71,12 +71,12 @@ class LoginWorker {
         return String((0..<length).compactMap{ _ in passwordCharacters.randomElement() })
     }
     
-    private func storeUserInKeyChain(user: UserHistoryModel){
+    private func storeUserInKeyChain(user: UserHistory){
         KeychainWrapper.standard.set(try! PropertyListEncoder().encode(user), forKey: "appleUserAccounts")
     }
     
-    private func retrieveUserFromKeyChain(userSettings: Data) -> UserHistoryModel? {
-        return try? PropertyListDecoder().decode(UserHistoryModel.self, from: userSettings)
+    private func retrieveUserFromKeyChain(userSettings: Data) -> UserHistory? {
+        return try? PropertyListDecoder().decode(UserHistory.self, from: userSettings)
     }
     
 }

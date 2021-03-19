@@ -238,7 +238,7 @@
 		2C7082AF25F013B200345147 /* EditEmailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082A925F013B200345147 /* EditEmailInteractor.swift */; };
 		2C7082B325F0146100345147 /* UserSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082B225F0146100345147 /* UserSettingsWorker.swift */; };
 		2C7082B725F0155700345147 /* UserSettingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082B625F0155700345147 /* UserSettingAPI.swift */; };
-		2C7082D025F01C7500345147 /* UserHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082CF25F01C7500345147 /* UserHistoryModel.swift */; };
+		2C7082D025F01C7500345147 /* UserHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7082CF25F01C7500345147 /* UserHistory.swift */; };
 		2C72943925EBE75500D280B3 /* ResetPasswordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C72943825EBE75500D280B3 /* ResetPasswordAPI.swift */; };
 		2C72945425EBE77900D280B3 /* PromotionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C72945325EBE77900D280B3 /* PromotionAPI.swift */; };
 		2C72945A25EBE79C00D280B3 /* PromotionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C72945925EBE79C00D280B3 /* PromotionWorker.swift */; };
@@ -415,8 +415,6 @@
 		2CCBEB8325FF8CEC0068FFAF /* FacilityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CCBEB8125FF8CEC0068FFAF /* FacilityTableViewCell.xib */; };
 		2CCE48D425177F9F00AE3BCA /* SearchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */; };
 		2CCE48D825177FE700AE3BCA /* 1SearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE48D725177FE700AE3BCA /* 1SearchData.swift */; };
-		2CD4BC4525C4661200F2F4E5 /* LoginToUseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD4BC4325C4661100F2F4E5 /* LoginToUseTableViewCell.swift */; };
-		2CD4BC4625C4661200F2F4E5 /* LoginToUseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CD4BC4425C4661100F2F4E5 /* LoginToUseTableViewCell.xib */; };
 		2CD5E02F25324AB000E4A01B /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD5E02E25324AB000E4A01B /* SearchHistory.swift */; };
 		2CD5E03325337BE000E4A01B /* ListHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD5E03225337BE000E4A01B /* ListHistory.swift */; };
 		2CDA612B25ED0FC700FD3956 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */; };
@@ -700,7 +698,7 @@
 		2C7082A925F013B200345147 /* EditEmailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailInteractor.swift; sourceTree = "<group>"; };
 		2C7082B225F0146100345147 /* UserSettingsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsWorker.swift; sourceTree = "<group>"; };
 		2C7082B625F0155700345147 /* UserSettingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingAPI.swift; sourceTree = "<group>"; };
-		2C7082CF25F01C7500345147 /* UserHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistoryModel.swift; sourceTree = "<group>"; };
+		2C7082CF25F01C7500345147 /* UserHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistory.swift; sourceTree = "<group>"; };
 		2C72943825EBE75500D280B3 /* ResetPasswordAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordAPI.swift; sourceTree = "<group>"; };
 		2C72945325EBE77900D280B3 /* PromotionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionAPI.swift; sourceTree = "<group>"; };
 		2C72945925EBE79C00D280B3 /* PromotionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionWorker.swift; sourceTree = "<group>"; };
@@ -884,8 +882,6 @@
 		2CCBEB8125FF8CEC0068FFAF /* FacilityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FacilityTableViewCell.xib; sourceTree = "<group>"; };
 		2CCE48D325177F9F00AE3BCA /* SearchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHandler.swift; sourceTree = "<group>"; };
 		2CCE48D725177FE700AE3BCA /* 1SearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1SearchData.swift; sourceTree = "<group>"; };
-		2CD4BC4325C4661100F2F4E5 /* LoginToUseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginToUseTableViewCell.swift; sourceTree = "<group>"; };
-		2CD4BC4425C4661100F2F4E5 /* LoginToUseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginToUseTableViewCell.xib; sourceTree = "<group>"; };
 		2CD5E02E25324AB000E4A01B /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
 		2CD5E03225337BE000E4A01B /* ListHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHistory.swift; sourceTree = "<group>"; };
 		2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
@@ -1152,10 +1148,10 @@
 				2CDFB60725EA5ECA002CE30D /* Config */,
 				2C910B2225E7AA0900BCEACC /* Workers */,
 				2C1567CF24C8B2D500B8DCB5 /* Models */,
-				2C1567CE24C8B2CC00B8DCB5 /* Views */,
 				2C1567CD24C8B2B400B8DCB5 /* Controllers */,
 				2C1567C224C77FDB00B8DCB5 /* Assets.xcassets */,
 				2C9C1B7C24CDBE25001ACA35 /* Fonts */,
+				2C1567BF24C77FD800B8DCB5 /* Main.storyboard */,
 				2C1567C424C77FDB00B8DCB5 /* LaunchScreen.storyboard */,
 				2C1567C724C77FDB00B8DCB5 /* Info.plist */,
 			);
@@ -1198,18 +1194,6 @@
 				2CAB6A40251F962E00774B89 /* 1SpinnerViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		2C1567CE24C8B2CC00B8DCB5 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				2C1567BF24C77FD800B8DCB5 /* Main.storyboard */,
-				2C9C1B8F24CEEF8F001ACA35 /* ListPriceUpdateTableViewCell.swift */,
-				2C9C1B9024CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib */,
-				2CD4BC4325C4661100F2F4E5 /* LoginToUseTableViewCell.swift */,
-				2CD4BC4425C4661100F2F4E5 /* LoginToUseTableViewCell.xib */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		2C1567CF24C8B2D500B8DCB5 /* Models */ = {
@@ -1619,7 +1603,7 @@
 		2C7082D325F01CB500345147 /* History */ = {
 			isa = PBXGroup;
 			children = (
-				2C7082CF25F01C7500345147 /* UserHistoryModel.swift */,
+				2C7082CF25F01C7500345147 /* UserHistory.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -1888,6 +1872,15 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		2CA560172604AC6700714AAC /* ListPriceUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				2C9C1B8F24CEEF8F001ACA35 /* ListPriceUpdateTableViewCell.swift */,
+				2C9C1B9024CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib */,
+			);
+			path = ListPriceUpdate;
+			sourceTree = "<group>";
+		};
 		2CAB2EF325FFF6990014FE8D /* Location */ = {
 			isa = PBXGroup;
 			children = (
@@ -2096,6 +2089,7 @@
 		2CDFB62C25EA6324002CE30D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				2CA560172604AC6700714AAC /* ListPriceUpdate */,
 				2C72942C25EBE58800D280B3 /* Product */,
 				2C2BC7EE25EBB8870038882B /* Review */,
 				2CDFB66125EA6F3E002CE30D /* Products */,
@@ -2287,7 +2281,6 @@
 				2CA11FA925EF96C70054AE19 /* CategoryTableViewCell.xib in Resources */,
 				2C9C1B8624CDDDCE001ACA35 /* OpenSans-ExtraBold.ttf in Resources */,
 				2C9C1B9224CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib in Resources */,
-				2CD4BC4625C4661200F2F4E5 /* LoginToUseTableViewCell.xib in Resources */,
 				2CB19B832565A8C900C19550 /* ProductCell.xib in Resources */,
 				2CB3DCFD252A180900FC5792 /* ListProgressCell.xib in Resources */,
 				2CB3DCF62527AFB600FC5792 /* RefineOptionCell.xib in Resources */,
@@ -2598,7 +2591,7 @@
 				2C2BC83D25EBC0680038882B /* ShowItemsWorker.swift in Sources */,
 				2C5C987725F69BD300DF8B6D /* ListItemObject.swift in Sources */,
 				2C6146A225F1266400D92CB7 /* CreateListModels.swift in Sources */,
-				2C7082D025F01C7500345147 /* UserHistoryModel.swift in Sources */,
+				2C7082D025F01C7500345147 /* UserHistory.swift in Sources */,
 				2C2BC81125EBBF180038882B /* EditReviewModels.swift in Sources */,
 				2CA11F8325EF8E6D0054AE19 /* ChildCategoriesPresenter.swift in Sources */,
 				2CB2CFC925EAA80200A00F7F /* StoreData.swift in Sources */,
@@ -2660,7 +2653,6 @@
 				2CB9119C25F11B4500A8FC66 /* ShowListsRouter.swift in Sources */,
 				2CB15C9724D2FCD400461AFE /* 1ListViewController.swift in Sources */,
 				2CB1425125E434EF00EAF272 /* 1ReviewData.swift in Sources */,
-				2CD4BC4525C4661200F2F4E5 /* LoginToUseTableViewCell.swift in Sources */,
 				2CC0ADEF25FA3DC300373AC4 /* ResultsRealmStore.swift in Sources */,
 				2C6F6220251357D100179C2B /* 1ForgotPasswordViewController.swift in Sources */,
 				2C48E7AF25EA9CC1001A5702 /* HomeAPI.swift in Sources */,

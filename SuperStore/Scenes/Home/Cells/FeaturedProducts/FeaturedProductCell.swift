@@ -87,7 +87,7 @@ class FeaturedProductCell: UITableViewCell, HomeElementCell {
     override func awakeFromNib() {
         
         super.awakeFromNib()
-        productCollection.register(UINib(nibName: K.Collections.FeaturedProductsCollecionCell.CellNibName, bundle: nil), forCellWithReuseIdentifier:  K.Collections.FeaturedProductsCollecionCell.CellIdentifier)
+        productCollection.register(UINib(nibName: "FeaturedProductCollectionViewCell", bundle: nil), forCellWithReuseIdentifier:  "FeaturedProductCollectionViewCell")
         
         productCollection.delegate = self
         productCollection.dataSource = self
@@ -111,7 +111,7 @@ extension FeaturedProductCell: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = productCollection.dequeueReusableCell(withReuseIdentifier: K.Collections.FeaturedProductsCollecionCell.CellIdentifier, for: indexPath) as! FeaturedProductCollectionViewCell
+        let cell = productCollection.dequeueReusableCell(withReuseIdentifier: "FeaturedProductCollectionViewCell", for: indexPath) as! FeaturedProductCollectionViewCell
         
         cell.loading = loading
         cell.product = loading ? nil : products[indexPath.row]

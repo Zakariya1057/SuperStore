@@ -63,20 +63,20 @@ struct UserSession {
         return realm?.objects(UserObject.self).first
     }
     
-    private func showUserInfo() -> UserHistoryModel? {
+    private func showUserInfo() -> UserHistory? {
         guard let userSettings =  KeychainWrapper.standard.data(forKey: "userSetting") else {
             return nil
         }
         
         // Use PropertyListDecoder to convert Data into Player
-        guard let details = try? PropertyListDecoder().decode(UserHistoryModel.self, from: userSettings) else {
+        guard let details = try? PropertyListDecoder().decode(UserHistory.self, from: userSettings) else {
             return nil
         }
         
         return details
     }
     
-    private func saveUserInfo(userData: UserHistoryModel){
+    private func saveUserInfo(userData: UserHistory){
         KeychainWrapper.standard.set(try! PropertyListEncoder().encode(userData), forKey: "userSetting")
     }
     
