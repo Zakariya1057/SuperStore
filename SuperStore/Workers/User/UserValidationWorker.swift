@@ -40,7 +40,6 @@ class UserValidationWorker {
             }
             
             if type == .code {
-                print(value)
                 if !isValidCode(value){
                     return "\(fieldName) must be at least 7 characters long."
                 }

@@ -175,11 +175,16 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
 extension SettingsViewController {
     func displayUserViews(loggedIn: Bool){
         if loggedIn {
+            showRightBarButton()
+            
             loggedInView.isHidden = false
             logoutButton.isHidden = false
             
             loggedOutView.isHidden = true
         } else {
+            
+            hideRightBarButton()
+            
             loggedInView.isHidden = true
             logoutButton.isHidden = true
             
@@ -228,6 +233,17 @@ extension SettingsViewController {
         storeLoggedInStackView.addGestureRecognizer(storeGestureLoggedIn)
     }
 }
+
+extension SettingsViewController {
+    func showRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+
+    func hideRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+}
+
 
 extension SettingsViewController {
     func startLoading() {

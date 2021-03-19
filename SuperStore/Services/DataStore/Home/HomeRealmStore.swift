@@ -114,7 +114,7 @@ extension HomeRealmStore {
     private func getLists(storeTypeID: Int, limit: Int) -> [ListModel] {
         
         let savedLists = realm?.objects(ListObject.self)
-            .filter("storeTypeID = %@", storeTypeID)
+            .filter("deleted = false AND storeTypeID = %@", storeTypeID)
             .sorted(byKeyPath: "updatedAt", ascending: true)
         
         var lists: [ListModel] = []

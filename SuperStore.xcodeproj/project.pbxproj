@@ -33,7 +33,6 @@
 		2C1476C325E7AE15000E8F66 /* UserAuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476C225E7AE15000E8F66 /* UserAuthAPI.swift */; };
 		2C1476C925E7AEEB000E8F66 /* UserValidationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476C825E7AEEB000E8F66 /* UserValidationWorker.swift */; };
 		2C1476D125E7B388000E8F66 /* RequestWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476D025E7B388000E8F66 /* RequestWorker.swift */; };
-		2C1476D825E7C402000E8F66 /* UserLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476D725E7C402000E8F66 /* UserLoginModel.swift */; };
 		2C1476E025E81FFA000E8F66 /* ErrorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476DF25E81FFA000E8F66 /* ErrorData.swift */; };
 		2C1476E625E82B91000E8F66 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476E525E82B91000E8F66 /* UserData.swift */; };
 		2C1476F625E82FF6000E8F66 /* UserRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1476F525E82FF6000E8F66 /* UserRealmStore.swift */; };
@@ -404,7 +403,6 @@
 		2C1476C225E7AE15000E8F66 /* UserAuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthAPI.swift; sourceTree = "<group>"; };
 		2C1476C825E7AEEB000E8F66 /* UserValidationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserValidationWorker.swift; sourceTree = "<group>"; };
 		2C1476D025E7B388000E8F66 /* RequestWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestWorker.swift; sourceTree = "<group>"; };
-		2C1476D725E7C402000E8F66 /* UserLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginModel.swift; sourceTree = "<group>"; };
 		2C1476DF25E81FFA000E8F66 /* ErrorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorData.swift; sourceTree = "<group>"; };
 		2C1476E525E82B91000E8F66 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		2C1476F525E82FF6000E8F66 /* UserRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRealmStore.swift; sourceTree = "<group>"; };
@@ -1454,7 +1452,6 @@
 			children = (
 				2CB2CFB625EAA6C500A00F7F /* HomeModel.swift */,
 				2C48E7CC25EAA064001A5702 /* UserModel.swift */,
-				2C1476D725E7C402000E8F66 /* UserLoginModel.swift */,
 				2C48E7B625EA9DCF001A5702 /* ProductModel.swift */,
 				2CC72FF925FD7C68004E3987 /* ImageModel.swift */,
 				2C48E7D025EAA06E001A5702 /* StoreModel.swift */,
@@ -2273,7 +2270,6 @@
 				2C7082AB25F013B200345147 /* EditEmailWorker.swift in Sources */,
 				2C058FF525F52AE100B4A16B /* EditStoreWorker.swift in Sources */,
 				2C55F9C525EE3B62007BBFA8 /* ShowSuggestionsPresenter.swift in Sources */,
-				2C1476D825E7C402000E8F66 /* UserLoginModel.swift in Sources */,
 				2CA11EEB25EE84620054AE19 /* ShowRefineWorker.swift in Sources */,
 				2C70824625F009ED00345147 /* NewPasswordRouter.swift in Sources */,
 				2CAC0601252E334F00561509 /* FeaturedProductCell.swift in Sources */,

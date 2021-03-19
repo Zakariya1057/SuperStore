@@ -18,6 +18,8 @@ protocol ShowListsBusinessLogic
     func deleteList(request: ShowLists.DeleteList.Request)
     func searchList(request: ShowLists.SearchList.Request)
     
+    func offlineDeletedList(request: ShowLists.Offline.DeleteList.Request)
+    
     var addToList: Bool { get set }
 }
 
@@ -40,6 +42,10 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
     
     var storeTypeID: Int? = nil
     
+    var offline: Bool {
+        return !self.userSession.isOnline()
+    }
+    
     func getLists(request: ShowLists.GetLists.Request)
     {
         let storeTypeID: Int = self.storeTypeID == nil ? userSession.getStore() : self.storeTypeID!
@@ -53,7 +59,7 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
             if error == nil {
                 self.lists = lists
             } else {
-                response.offline = !self.userSession.isOnline()
+                response.offline = self.offline
             }
             
             
@@ -80,6 +86,17 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
         listWorker.searchLists(query: query) { (lists: [ListModel]) in
             let response = ShowLists.GetLists.Response(lists: lists, error: nil)
             self.presenter?.presentLists(response: response)
+        }
+    }
+}
+
+extension ShowListsInteractor {
+    func offlineDeletedList(request: ShowLists.Offline.DeleteList.Request){
+        if !offline {
+            listWorker.offlineDeletedLists { (error: String?) in
+                let response = ShowLists.Offline.DeleteList.Response(error: error)
+                self.presenter?.presentListOfflineDeleted(response: response)
+            }
         }
     }
 }

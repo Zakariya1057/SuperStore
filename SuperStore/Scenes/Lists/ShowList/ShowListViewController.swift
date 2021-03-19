@@ -109,8 +109,6 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
     
     func displayList(viewModel: ShowList.GetList.ViewModel)
     {
-        print(viewModel)
-        
         loading = false
         self.refreshControl.endRefreshing()
         

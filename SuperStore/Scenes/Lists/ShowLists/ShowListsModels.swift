@@ -77,4 +77,25 @@ enum ShowLists
             var lists: [ListModel]
         }
     }
+    
+    enum Offline {
+        
+        enum DeleteList
+        {
+            struct Request
+            {
+            }
+            
+            struct Response
+            {
+                var error: String?
+            }
+            
+            struct ViewModel
+            {
+                var error: String?
+            }
+        }
+        
+    }
 }

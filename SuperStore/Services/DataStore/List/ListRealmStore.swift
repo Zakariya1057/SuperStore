@@ -16,11 +16,15 @@ class ListRealmStore: DataStore, ListStoreProtocol {
     var listPriceWorker = ListPriceWorker()
     
     func getListObject(listID: Int) -> ListObject? {
-        return realm?.objects(ListObject.self).filter("id = %@", listID).first
+        return realm?.objects(ListObject.self).filter("deleted = false AND id = %@", listID).first
+    }
+    
+    func getDeletedListObject(listID: Int) -> ListObject? {
+        return realm?.objects(ListObject.self).filter("deleted = true AND id = %@", listID).first
     }
     
     func getListCategory(categoryID: Int) -> ListCategoryObject? {
-        return realm?.objects(ListCategoryObject.self).filter("id = %@", categoryID).first
+        return realm?.objects(ListCategoryObject.self).filter("deleted = false AND id = %@", categoryID).first
     }
     
     func getList(listID: Int) -> ListModel? {
@@ -35,7 +39,7 @@ class ListRealmStore: DataStore, ListStoreProtocol {
     func getLists(storeTypeID: Int) -> [ListModel] {
         var lists: [ListModel] = []
         
-        let savedLists = realm?.objects(ListObject.self).filter("storeTypeID = %@", storeTypeID)
+        let savedLists = realm?.objects(ListObject.self).filter("deleted = false AND storeTypeID = %@", storeTypeID)
         
         if let savedLists = savedLists {
             for list in savedLists {
@@ -47,7 +51,7 @@ class ListRealmStore: DataStore, ListStoreProtocol {
     }
     
     func createList(list: ListModel, ignoreCategories: Bool = false){
-        
+
         let duplicateList = getListObject(listID: list.id)
         
         if let duplicateList = duplicateList {
@@ -60,6 +64,7 @@ class ListRealmStore: DataStore, ListStoreProtocol {
             let savedList = createListObject(list: list)
             realm?.add(savedList)
         })
+
     }
     
     func updateList(list: ListModel, savedList: ListObject, ignoreCategories: Bool){
@@ -88,20 +93,27 @@ class ListRealmStore: DataStore, ListStoreProtocol {
         })
     }
     
-    func deleteList(listID: Int){
+    func deleteList(listID: Int, offline: Bool = false){
         try? realm?.write({
             let results = realm?.objects(ListObject.self).filter("id = %@", listID)
             if let results = results {
+                
                 deleteListItems(listID: listID)
                 deleteListCategories(listID: listID)
                 
-                realm?.delete(results)
+                if offline {
+                    if let list = results.first {
+                        list.deleted = true
+                    }
+                } else {
+                    realm?.delete(results)
+                }
             }
         })
     }
     
     func searchLists(query: String) -> [ListModel] {
-        if let savedLists = realm?.objects(ListObject.self).filter("name contains[c] %@", query){
+        if let savedLists = realm?.objects(ListObject.self).filter("deleted = false AND name contains[c] %@", query){
             return savedLists.map{ $0.getListModel() }
         }
         
@@ -235,5 +247,15 @@ extension ListRealmStore {
         }
         
         return savedCategories
+    }
+}
+
+extension ListRealmStore {
+    func isDeletedList(listID: Int) -> Bool {
+        return getDeletedListObject(listID: listID) != nil
+    }
+    
+    func getDeletedLists() -> [ListModel] {
+        return realm?.objects(ListObject.self).filter("deleted = true").map { $0.getListModel() } ?? []
     }
 }

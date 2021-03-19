@@ -48,17 +48,22 @@ class ListWorker {
     
     func getLists(storeTypeID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
         let lists = listStore.getLists(storeTypeID: storeTypeID)
-        if lists.count > 0 {
+        if !userSession.isOnline() || lists.count > 0 {
             completionHandler(lists, nil)
         }
         
         listAPI.getLists(storeTypeID: storeTypeID) { (lists: [ListModel], error: String?) in
-            // Save lists
+            
+            var activeLists: [ListModel] = []
+            
             for list in lists {
-                self.listStore.createList(list: list, ignoreCategories: true)
+                if !self.listStore.isDeletedList(listID: list.id) {
+                    activeLists.append(list)
+                    self.listStore.createList(list: list, ignoreCategories: true)
+                }
             }
             
-            completionHandler(lists, error)
+            completionHandler(activeLists, error)
         }
     }
     
@@ -89,15 +94,35 @@ class ListWorker {
     func deleteList(listID: Int, completionHandler: @escaping (String?) -> Void){
         
         if !userSession.isOnline() {
-            listStore.deleteList(listID: listID)
+            listStore.deleteList(listID: listID, offline: true)
         }
         
         listAPI.deleteList(listID: listID) { (error: String?) in
             if error == nil {
-                self.listStore.deleteList(listID: listID)
+                self.listStore.deleteList(listID: listID, offline: false)
             }
             
             completionHandler(error)
+        }
+    }
+}
+
+extension ListWorker {
+    func offlineDeletedLists(completionHandler: @escaping (String?) -> Void){
+        let lists = listStore.getDeletedLists()
+        
+        let listIDs = lists.map{ $0.id }
+        
+        if listIDs.count > 0 {
+            
+            listAPI.offlineDeletedLists(listIDs: listIDs) { (error: String?) in
+                if error == nil {
+                    for listID in listIDs {
+                        self.listStore.deleteList(listID: listID, offline: false)
+                    }
+                }
+                completionHandler(error)
+            }
         }
     }
 }
@@ -116,13 +141,15 @@ protocol ListRequestProtocol {
     func updateList(listID: Int, name: String, storeTypeID: Int, completionHandler: @escaping (String?) -> Void)
     func restartList(listID: Int, completionHandler: @escaping (String?) -> Void)
     func deleteList(listID: Int, completionHandler: @escaping (String?) -> Void)
+    
+    func offlineDeletedLists(listIDs: [Int], completionHandler: @escaping (String?) -> Void)
 }
 
 protocol ListStoreProtocol {
     func getList(listID: Int) -> ListModel?
     func getLists(storeTypeID: Int) -> [ListModel]
     func createList(list: ListModel, ignoreCategories: Bool)
-    func deleteList(listID: Int)
+    func deleteList(listID: Int, offline: Bool)
     
     func searchLists(query: String) -> [ListModel]
     
@@ -130,4 +157,7 @@ protocol ListStoreProtocol {
     func restartList(listID: Int)
     
     func createListObject(list: ListModel, ignoreCategories: Bool) -> ListObject
+    
+    func isDeletedList(listID: Int) -> Bool
+    func getDeletedLists() -> [ListModel]
 }

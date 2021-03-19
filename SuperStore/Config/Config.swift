@@ -190,6 +190,18 @@ struct Config {
                 return ListRoute + "/delete"
             }
             
+            public struct Offline {
+                private static var OfflineListRoute: String {
+                    return Host + "/list/offline"
+                }
+
+                
+                public static var Delete: String {
+                    return OfflineListRoute + "/delete"
+                }
+                
+            }
+            
             public struct Item {
                 public static var ItemRoute: String {
                     return "/item"

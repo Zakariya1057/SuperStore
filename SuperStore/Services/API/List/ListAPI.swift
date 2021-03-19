@@ -121,6 +121,24 @@ class ListAPI: ListRequestProtocol {
 }
 
 extension ListAPI {
+    func offlineDeletedLists(listIDs: [Int], completionHandler: @escaping (String?) -> Void){
+        requestWorker.post(url: Config.Route.List.Offline.Delete, data: ["list_ids": listIDs]) { (response: () throws -> Data) in
+            do {
+                _ = try response()
+                completionHandler(nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(errorMessage)
+            } catch {
+                print(error)
+                completionHandler("Failed to delete list. Decoding error, please try again later.")
+            }
+        }
+        
+    }
+}
+
+extension ListAPI {
     private func createListModels(listsDataResponse: ListsDataResponse) -> [ListModel] {
         let listData = listsDataResponse.data
         return listData.map { (list: ListData) in

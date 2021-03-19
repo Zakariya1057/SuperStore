@@ -16,10 +16,12 @@ protocol ShowListsPresentationLogic
 {
     func presentLists(response: ShowLists.GetLists.Response)
     func presentListDeleted(response: ShowLists.DeleteList.Response)
+    func presentListOfflineDeleted(response: ShowLists.Offline.DeleteList.Response)
 }
 
 class ShowListsPresenter: ShowListsPresentationLogic
 {
+    
     weak var viewController: ShowListsDisplayLogic?
     
     func presentLists(response: ShowLists.GetLists.Response)
@@ -32,5 +34,10 @@ class ShowListsPresenter: ShowListsPresentationLogic
     {
         let viewModel = ShowLists.DeleteList.ViewModel(indexPath: response.indexPath, error: response.error, offline: response.offline)
         viewController?.displayListDeleted(viewModel: viewModel)
+    }
+    
+    func presentListOfflineDeleted(response: ShowLists.Offline.DeleteList.Response) {
+        let viewModel = ShowLists.Offline.DeleteList.ViewModel(error: response.error)
+        viewController?.displayListOfflineDeleted(viewModel: viewModel)
     }
 }

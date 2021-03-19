@@ -16,10 +16,12 @@ protocol ShowListsDisplayLogic: class
 {
     func displayLists(viewModel: ShowLists.GetLists.ViewModel)
     func displayListDeleted(viewModel: ShowLists.DeleteList.ViewModel)
+    func displayListOfflineDeleted(viewModel: ShowLists.Offline.DeleteList.ViewModel)
 }
 
 class ShowListsViewController: UIViewController, ShowListsDisplayLogic
 {
+    
     var interactor: ShowListsBusinessLogic?
     var router: (NSObjectProtocol & ShowListsRoutingLogic & ShowListsDataPassing)?
     
@@ -93,6 +95,9 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
 
     func getLists()
     {
+        
+        syncDeletedLists()
+        
         if loggedIn {
             let request = ShowLists.GetLists.Request()
             interactor?.getLists(request: request)
@@ -107,9 +112,6 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
     
     func displayLists(viewModel: ShowLists.GetLists.ViewModel)
     {
-        
-        print(viewModel)
-        
         refreshControl.endRefreshing()
         
         if let error = viewModel.error {
@@ -133,6 +135,13 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
             listsTableView.deleteRows(at: [viewModel.indexPath], with: .left)
         }
     }
+    
+    func displayListOfflineDeleted(viewModel: ShowLists.Offline.DeleteList.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "List Sync Error", error: error)
+        }
+    }
+    
 }
 
 extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -231,6 +240,13 @@ extension ShowListsViewController {
         let listID = lists[indexPath.row].id
         let request = ShowLists.DeleteList.Request(indexPath: indexPath, listID: listID)
         interactor?.deleteList(request: request)
+    }
+}
+
+extension ShowListsViewController {
+    func syncDeletedLists(){
+        let request = ShowLists.Offline.DeleteList.Request()
+        interactor?.offlineDeletedList(request: request)
     }
 }
 

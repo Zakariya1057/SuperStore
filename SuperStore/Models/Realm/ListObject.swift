@@ -19,13 +19,16 @@ class ListObject: Object {
     
     var categories = List<ListCategoryObject>()
     
-//    var oldTotalPrice: Double? = nil
     var oldTotalPrice =  RealmOptional<Double>()
+    
     @objc dynamic var totalPrice: Double = 0
     @objc dynamic var currency: String = ""
     
     @objc dynamic var totalItems: Int = 0
     @objc dynamic var tickedOffItems: Int = 0
+    
+    @objc dynamic var deleted: Bool = false
+    @objc dynamic var edited: Bool = false
     
     @objc dynamic var createdAt: Date = Date()
     @objc dynamic var updatedAt: Date = Date()
