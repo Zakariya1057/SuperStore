@@ -247,8 +247,8 @@ extension ChildCategoriesViewController: SelectListProtocol {
     
     func listSelected(listID: Int) {
         // Update Cell Quantity Button
-        createListItem(listID: listID)
         updateProductQuantity(section: selectedSection!, productID: selectedProduct!.id, quantity: 1, listID: listID)
+        createListItem(listID: listID)
         reloadTableView()
     }
     

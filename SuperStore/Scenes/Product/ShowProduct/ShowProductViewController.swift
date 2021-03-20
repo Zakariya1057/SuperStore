@@ -230,6 +230,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 
                 recommendedProducts = displayedProduct.recommended
                 recommendedTableView.reloadData()
+                recommendedTableView.isHidden = recommendedProducts.count == 0
             }
         }
     }
@@ -247,14 +248,17 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
             allergenView.isHidden = true
         } else {
             allergenLabel.text = product.allergenInfo
+            allergenView.isHidden = false
         }
     }
     
     func displaydietary(product: ShowProduct.DisplayedProduct) {
+        
         if product.dietaryInfo == nil || product.dietaryInfo == "" {
             dietaryView.isHidden = true
         } else {
             lifeStyleLabel.text = product.dietaryInfo
+            dietaryView.isHidden = false
         }
     }
     

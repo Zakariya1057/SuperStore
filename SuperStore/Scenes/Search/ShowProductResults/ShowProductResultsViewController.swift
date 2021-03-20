@@ -90,6 +90,8 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         }
     }
     
+    var uniqueProducts: [Int: Bool] = [:]
+    
     var loading: Bool = true
     var refreshControl = UIRefreshControl()
     
@@ -153,8 +155,17 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             
             if let paginate = paginate, paginate.current == 1 {
                 products = viewModel.products
+                
+                for product in products {
+                    uniqueProducts[product.id] = true
+                }
+                
             } else {
-                products.append(contentsOf: viewModel.products)
+                for product in viewModel.products {
+                    if uniqueProducts[product.id] == nil {
+                        products.append(product)
+                    }
+                }
             }
             
             totalProductsLabel.text = "\(products.count) Products"
@@ -173,6 +184,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             // If list item exists locally,
             if let listItem = viewModel.listItem {
                 updateProductQuantity(productID: listItem.productID, quantity: listItem.quantity)
+                productsTableView.reloadData()
             }
         }
     }
@@ -279,8 +291,8 @@ extension ShowProductResultsViewController: SelectListProtocol {
     
     func listSelected(listID: Int) {
         // Update Cell Quantity Button
-        createListItem(listID: listID)
         updateProductQuantity(productID: selectedProduct!.id, quantity: 1, listID: listID)
+        createListItem(listID: listID)
         productsTableView.reloadData()
     }
     
@@ -310,6 +322,7 @@ extension ShowProductResultsViewController: SelectListProtocol {
     }
     
     func updateProductQuantity(productID: Int, quantity: Int, listID: Int? = nil){
+//        print("productID: \(productID), quantity: \(quantity), listID: \(listID) ")
         for searchProduct in products {
             if searchProduct.id == productID {
                 searchProduct.quantity = quantity
