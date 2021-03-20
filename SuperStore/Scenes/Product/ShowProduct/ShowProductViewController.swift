@@ -290,6 +290,9 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
             if let listItem = viewModel.listItem {
                 displayStepper()
                 displayQuantity(quantity: listItem.quantity)
+            } else if viewModel.offline {
+                displayStepper()
+                displayQuantity(quantity: 1)
             }
         }
         
@@ -530,15 +533,16 @@ extension ShowProductViewController: SelectListProtocol {
         
         let quantity = Int(sender.value)
         
+        let listID: Int = interactor!.selectedListID!
+        
         if quantity == 0 {
             interactor?.selectedListID = nil
             displayAddButton()
         } else {
             displayQuantity(quantity: quantity)
-            
-            let listID: Int = interactor!.selectedListID!
-            updateListItem(listID: listID, quantity: quantity)
         }
+        
+        updateListItem(listID: listID, quantity: quantity)
     }
     
     func updateListItem(listID: Int, quantity: Int){
@@ -552,6 +556,8 @@ extension ShowProductViewController: SelectListProtocol {
     }
     
     func listSelected(listID: Int) {
+        print("List Selected")
+        
         interactor?.selectedListID = listID
         createListItem(listID: listID)
     }
