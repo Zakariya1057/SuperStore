@@ -40,15 +40,17 @@ extension PromotionRealmStore {
             savedPromotion.name = promotion.name
             savedPromotion.storeTypeID = promotion.storeTypeID
             
+            let quantity = RealmOptional<Int>()
             let forQuantity = RealmOptional<Int>()
             let price = RealmOptional<Double>()
             
+            quantity.value = promotion.quantity
             forQuantity.value = promotion.forQuantity
             price.value = promotion.price
 
             savedPromotion.price = price
             savedPromotion.forQuantity = forQuantity
-            savedPromotion.quantity = promotion.quantity
+            savedPromotion.quantity = quantity
             
             savedPromotion.startsAt = promotion.startsAt
             savedPromotion.endsAt = promotion.endsAt
@@ -78,15 +80,17 @@ extension PromotionRealmStore {
         savedPromotion.name = promotion.name
         savedPromotion.storeTypeID = promotion.storeTypeID
         
+        let quantity = RealmOptional<Int>()
         let forQuantity = RealmOptional<Int>()
         let price = RealmOptional<Double>()
         
+        quantity.value = promotion.quantity
         forQuantity.value = promotion.forQuantity
         price.value = promotion.price
         
         savedPromotion.price = price
         savedPromotion.forQuantity = forQuantity
-        savedPromotion.quantity = promotion.quantity
+        savedPromotion.quantity = quantity
         
         savedPromotion.startsAt = promotion.startsAt
         savedPromotion.endsAt = promotion.endsAt

@@ -15,11 +15,16 @@ struct PromotionDataResponse: Decodable {
 struct PromotionData:Decodable {
     var id: Int
     var name: String
-    var store_type_id: Int
-    var quantity: Int
+    
+    var quantity: Int?
     var price: Double?
     var for_quantity: Int?
+    
+    var maximum: Int?
+    var minimum: Int?
+    
     let products: [ProductData]?
+    var store_type_id: Int
     
     func getPromotionModel() -> PromotionModel {
         return PromotionModel(
@@ -29,6 +34,8 @@ struct PromotionData:Decodable {
             quantity: quantity,
             price: price,
             forQuantity: for_quantity,
+            minimum: minimum,
+            maximum: maximum,
             products: products?.map({ (product: ProductData) in
                 return product.getProductModel()
             }) ?? []

@@ -23,18 +23,34 @@ class ListPriceWorker {
 
             if let promotion = promotion {
                 
-                let remainder = (quantity % promotion.quantity)
-                let goesIntoFully = floor(Double(Int(quantity) / Int(promotion.quantity)))
-                
-                if quantity < promotion.quantity {
-                    price = Double(quantity) * itemPrice
+                if let minimum = promotion.minimum {
+                    
+                    if quantity >= minimum {
+                        price = ( Double(quantity) * promotion.price! )
+                    } else {
+                        price = ( Double(quantity) * itemPrice )
+                    }
+                    
                 } else {
-                    if promotion.forQuantity != nil && promotion.forQuantity! > 0{
-                        price = (Double(goesIntoFully) * (Double(promotion.forQuantity!) * itemPrice) ) + (Double(remainder) * itemPrice)
-                    } else if (promotion.price != nil){
-                        price = (Double(goesIntoFully) * promotion.price!) + (Double(remainder) * itemPrice)
+                    if let promotionQuantity = promotion.quantity {
+                        
+                        let remainder = (quantity % promotionQuantity)
+                        let goesIntoFully = floor(Double(Int(quantity) / Int(promotionQuantity)))
+                        
+                        if quantity < promotionQuantity {
+                            price = Double(quantity) * itemPrice
+                        } else {
+                            if promotion.forQuantity != nil && promotion.forQuantity! > 0{
+                                price = (Double(goesIntoFully) * (Double(promotion.forQuantity!) * itemPrice) ) + (Double(remainder) * itemPrice)
+                            } else if (promotion.price != nil){
+                                price = (Double(goesIntoFully) * promotion.price!) + (Double(remainder) * itemPrice)
+                            }
+                        }
+                        
                     }
                 }
+                
+
                 
             }
 
@@ -78,38 +94,42 @@ class ListPriceWorker {
                 totalQuantity += product.quantity
             }
 
-            // Calculate Product Promotion By Group.
-            if totalQuantity >= promotion.quantity {
+            if let promotionQuantity = promotion.quantity {
+                
+                // Calculate Product Promotion By Group.
+                if totalQuantity >= promotionQuantity {
 
-                var highestPrice: Double = 0
-                var previousTotalPrice: Double = 0
+                    var highestPrice: Double = 0
+                    var previousTotalPrice: Double = 0
 
-                for product in items {
-                    previousTotalPrice = previousTotalPrice + calculateItemPrice(listItem: product)
+                    for product in items {
+                        previousTotalPrice = previousTotalPrice + calculateItemPrice(listItem: product)
 
-                    if product.price > highestPrice {
-                        highestPrice = product.price
+                        if product.price > highestPrice {
+                            highestPrice = product.price
+                        }
                     }
+
+                    let remainder = (totalQuantity % promotionQuantity)
+                    let goesIntoFully = floor(Double(totalQuantity) / Double(promotionQuantity))
+
+                    var newTotal: Double = 0
+
+                    if promotion.forQuantity != nil && promotion.forQuantity! > 0 {
+                        newTotal = (Double(goesIntoFully) * (Double(promotion.forQuantity!) * highestPrice) ) + (Double(remainder) * highestPrice)
+                    } else if (promotion.price != nil && promotion.price! > 0){
+                        newTotal = (Double(goesIntoFully) * promotion.price!) + (Double(remainder) * highestPrice)
+                    }
+
+                    newTotalPrice = (totalPrice - previousTotalPrice) + newTotal
+
+                    if newTotalPrice != totalPrice && totalPrice > newTotalPrice {
+                        oldTotalPrice = priceNoPromotion
+                        totalPrice = newTotalPrice
+                    }
+
                 }
-
-                let remainder = (totalQuantity % promotion.quantity)
-                let goesIntoFully = floor(Double(totalQuantity) / Double(promotion.quantity))
-
-                var newTotal: Double = 0
-
-                if promotion.forQuantity != nil && promotion.forQuantity! > 0 {
-                    newTotal = (Double(goesIntoFully) * (Double(promotion.forQuantity!) * highestPrice) ) + (Double(remainder) * highestPrice)
-                } else if (promotion.price != nil && promotion.price! > 0){
-                    newTotal = (Double(goesIntoFully) * promotion.price!) + (Double(remainder) * highestPrice)
-                }
-
-                newTotalPrice = (totalPrice - previousTotalPrice) + newTotal
-
-                if newTotalPrice != totalPrice && totalPrice > newTotalPrice {
-                    oldTotalPrice = priceNoPromotion
-                    totalPrice = newTotalPrice
-                }
-
+                
             }
 
         }

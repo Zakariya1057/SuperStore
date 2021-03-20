@@ -16,10 +16,12 @@ class PromotionObject: Object {
     
     @objc dynamic var storeTypeID: Int = 0
     
-    @objc dynamic var quantity: Int = 0
-    
+    var quantity = RealmOptional<Int>()
     var forQuantity = RealmOptional<Int>()
     var price = RealmOptional<Double>()
+    
+    var minimum = RealmOptional<Int>()
+    var maximum = RealmOptional<Int>()
     
     var products = List<ProductObject>()
     
@@ -36,9 +38,11 @@ class PromotionObject: Object {
             id: id,
             name: name,
             storeTypeID: storeTypeID,
-            quantity: quantity,
+            quantity: quantity.value,
             price: price.value,
             forQuantity: forQuantity.value,
+            minimum: minimum.value,
+            maximum: maximum.value,
             products: products.map{$0.getProductModel()},
             startsAt: startsAt,
             endsAt: endsAt

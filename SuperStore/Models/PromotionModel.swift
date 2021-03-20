@@ -10,23 +10,49 @@ import Foundation
 class PromotionModel {
     var id: Int
     var name: String
-    var quantity: Int
+    
+    var quantity: Int?
     var price: Double?
     var forQuantity: Int?
+    
+    var minimum: Int?
+    var maximum: Int?
+    
     var products:[ProductModel]
     var storeTypeID: Int
+    
     var expires: Bool = false
     var startsAt: Date? = nil
     var endsAt: Date? = nil
 
-    init(id: Int, name: String, storeTypeID: Int, quantity: Int, price: Double?, forQuantity: Int?, products: [ProductModel] = [],expires: Bool = false, startsAt: Date? = nil, endsAt: Date? = nil) {
+    init(
+        id: Int,
+        name: String,
+        storeTypeID: Int,
+        quantity: Int?,
+        price: Double?,
+        forQuantity: Int?,
+        minimum: Int?,
+        maximum: Int?,
+        products: [ProductModel] = [],
+        expires: Bool = false,
+        startsAt: Date? = nil,
+        endsAt: Date? = nil
+    ) {
+        self.id = id
+        self.name = name
+        
         self.quantity = quantity
         self.price = price
         self.forQuantity = forQuantity
-        self.name = name
+        
+        self.minimum = minimum
+        self.maximum = maximum
+        
         self.storeTypeID = storeTypeID
-        self.id = id
+
         self.products = products
+        
         self.expires = expires
         self.startsAt = startsAt
         self.endsAt = endsAt
