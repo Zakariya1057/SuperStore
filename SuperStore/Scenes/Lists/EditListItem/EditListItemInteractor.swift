@@ -41,6 +41,8 @@ class EditListItemInteractor: EditListItemBusinessLogic, EditListItemDataStore
     
     func getListItem(request: EditListItem.GetListItem.Request)
     {
+        print(listItem)
+        
         let response = EditListItem.GetListItem.Response(listItem: listItem)
         presenter?.presentListItem(response: response)
     }
@@ -51,8 +53,8 @@ class EditListItemInteractor: EditListItemBusinessLogic, EditListItemDataStore
         listItem.quantity = quantity
         listItem.totalPrice = listPriceWorker.calculateItemPrice(listItem: listItem)
         
-        let response = EditListItem.GetListItem.Response(listItem: listItem)
-        presenter?.presentListItem(response: response)
+        let response = EditListItem.UpdateQuantity.Response(listItem: listItem)
+        presenter?.presentListItemQuantityUpdated(response: response)
     }
 
     func deleteListItem(request: EditListItem.DeleteListItem.Request){
@@ -74,7 +76,7 @@ class EditListItemInteractor: EditListItemBusinessLogic, EditListItemDataStore
         let quantity: Int = listItem.quantity
         let tickedOff = listItem.tickedOff
         
-        listItemWorker.updateItem(listID: listID, productID: productID, quantity: quantity, tickedOff: tickedOff) { (error: String?) in
+        listItemWorker.updateItem(listID: listID, productID: productID, quantity: quantity, tickedOff: tickedOff, totalPrice: listItem.totalPrice) { (error: String?) in
             var response = EditListItem.UpdateListItem.Response(error: error)
             
             if error != nil {

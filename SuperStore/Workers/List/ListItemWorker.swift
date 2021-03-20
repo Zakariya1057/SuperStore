@@ -77,14 +77,16 @@ class ListItemWorker {
         completionHandler(item)
     }
     
-    func updateItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool, completionHandler: @escaping (_ error: String?) -> Void){
+    func updateItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool, totalPrice: Double? = nil, completionHandler: @escaping (_ error: String?) -> Void){
         
+        // If only wait to see if server responds successfully before updating.
         if !userSession.isOnline() {
             self.listItemStore.updateListItem(
                 listID: listID,
                 productID: productID,
                 quantity: quantity,
-                tickedOff: tickedOff
+                tickedOff: tickedOff,
+                totalPrice: totalPrice
             )
         }
         
@@ -94,7 +96,8 @@ class ListItemWorker {
                     listID: listID,
                     productID: productID,
                     quantity: quantity,
-                    tickedOff: tickedOff
+                    tickedOff: tickedOff,
+                    totalPrice: totalPrice
                 )
             }
             
@@ -112,7 +115,7 @@ protocol ListItemRequestProtocol {
 protocol ListItemStoreProtocol {
     func getListItems(listID: Int) -> [ListItemModel]
     func getListItem(listID: Int, productID: Int) -> ListItemModel?
-    func updateListItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool)
+    func updateListItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool, totalPrice: Double?)
     func createListItem(listID: Int, listItem: ListItemModel, product: ProductModel?)
     func deleteListItem(listID: Int, productID: Int)
 }

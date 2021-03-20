@@ -172,11 +172,11 @@
                                                                 <rect key="frame" x="236" y="0.0" width="118" height="35"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dk3-Sy-9OV">
-                                                                        <rect key="frame" x="38" y="2.5" width="80" height="30"/>
+                                                                        <rect key="frame" x="33" y="0.0" width="85" height="35"/>
                                                                         <color key="backgroundColor" red="0.098039215690000001" green="0.46299999949999998" blue="0.80400002000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" constant="80" id="3GS-2V-hHa"/>
-                                                                            <constraint firstAttribute="height" constant="30" id="9tj-fd-YXf"/>
+                                                                            <constraint firstAttribute="width" constant="85" id="3GS-2V-hHa"/>
+                                                                            <constraint firstAttribute="height" constant="35" id="9tj-fd-YXf"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                                                         <state key="normal" title="Add">

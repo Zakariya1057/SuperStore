@@ -62,7 +62,7 @@ struct ListItemModel {
     var tickedOff: Bool
     
     func getPrice() -> String {
-        return currency + String(format: "%.2f", price)
+        return currency + String(format: "%.2f", totalPrice)
     }
 }
 

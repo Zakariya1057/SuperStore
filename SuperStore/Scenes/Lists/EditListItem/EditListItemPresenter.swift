@@ -17,6 +17,7 @@ protocol EditListItemPresentationLogic
     func presentListItem(response: EditListItem.GetListItem.Response)
     func presentListItemDeleted(response: EditListItem.DeleteListItem.Response)
     func presentListItemUpdated(response: EditListItem.UpdateListItem.Response)
+    func presentListItemQuantityUpdated(response: EditListItem.UpdateQuantity.Response)
 }
 
 class EditListItemPresenter: EditListItemPresentationLogic
@@ -26,23 +27,7 @@ class EditListItemPresenter: EditListItemPresentationLogic
     
     func presentListItem(response: EditListItem.GetListItem.Response)
     {
-        let listItem = response.listItem
-        var displayPromotion: EditListItem.DisplayedPromotion?
-        
-        if let promotion = listItem.promotion {
-            displayPromotion = EditListItem.DisplayedPromotion(name: promotion.name)
-        }
-        
-        let displayedListItem = EditListItem.DisplayedListItem(
-            name: listItem.name,
-            image: listItem.image,
-            weight: listItem.weight,
-            quantity: listItem.quantity,
-            price: listItem.getPrice(),
-            promotion: displayPromotion
-        )
-        
-        let viewModel = EditListItem.GetListItem.ViewModel(displayedListItem: displayedListItem)
+        let viewModel = EditListItem.GetListItem.ViewModel(displayedListItem: createDisplayedListItem(listItem: response.listItem))
         viewController?.displayListItem(viewModel: viewModel)
     }
     
@@ -51,8 +36,34 @@ class EditListItemPresenter: EditListItemPresentationLogic
         viewController?.displayListItemUpdate(viewModel: viewModel)
     }
     
+    func presentListItemQuantityUpdated(response: EditListItem.UpdateQuantity.Response) {
+        let viewModel = EditListItem.UpdateQuantity.ViewModel(displayedListItem: createDisplayedListItem(listItem: response.listItem))
+        viewController?.displayUpdateQuantity(viewModel: viewModel)
+    }
+    
     func presentListItemDeleted(response: EditListItem.DeleteListItem.Response){
         let viewModel = EditListItem.DeleteListItem.ViewModel(error: response.error, offline: response.offline)
         viewController?.displayListItemDeleted(viewModel: viewModel)
+    }
+}
+
+
+extension EditListItemPresenter {
+    func createDisplayedListItem(listItem: ListItemModel) -> EditListItem.DisplayedListItem {
+        
+        var displayPromotion: EditListItem.DisplayedPromotion?
+        
+        if let promotion = listItem.promotion {
+            displayPromotion = EditListItem.DisplayedPromotion(name: promotion.name)
+        }
+        
+        return EditListItem.DisplayedListItem(
+            name: listItem.name,
+            image: listItem.image,
+            weight: listItem.weight,
+            quantity: listItem.quantity,
+            price: listItem.getPrice(),
+            promotion: displayPromotion
+        )
     }
 }

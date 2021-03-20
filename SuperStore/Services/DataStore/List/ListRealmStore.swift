@@ -11,6 +11,7 @@ import RealmSwift
 
 class ListRealmStore: DataStore, ListStoreProtocol {
 
+    lazy var userSession = UserSessionWorker()
     lazy var listItemStore: ListItemRealmStore = ListItemRealmStore()
     
     var listPriceWorker = ListPriceWorker()
@@ -184,11 +185,27 @@ extension ListRealmStore {
     }
     
     func listEdited(listID: Int){
-        if let savedList = getListObject(listID: listID) {
-            try? realm?.write({
-                savedList.edited = true
-            })
-        }
+        try? realm?.write({
+            
+            if let savedList = getListObject(listID: listID) {
+                if !userSession.isOnline() {
+                    savedList.edited = true
+                }
+                
+                // Update total ticked off items count
+                let items = savedList.categories.flatMap { (category: ListCategoryObject)  in
+                    return category.items
+                }
+                
+                savedList.totalItems = items.count
+                
+                savedList.tickedOffItems = items.filter({ (listItem: ListItemObject) -> Bool in
+                    return listItem.tickedOff
+                }).count
+                
+                setListStatus(savedList: savedList)
+            }
+        })
     }
     
     func restartList(listID: Int) {
@@ -213,6 +230,16 @@ extension ListRealmStore {
         }
         
         savedList.oldTotalPrice = listOldTotalPrice
+    }
+    
+    func setListStatus(savedList: ListObject){
+        if savedList.totalItems == 0 || savedList.tickedOffItems == 0 {
+            savedList.status = ListStatus.notStarted.rawValue
+        } else if savedList.tickedOffItems == savedList.totalItems {
+            savedList.status = ListStatus.completed.rawValue
+        } else if savedList.tickedOffItems > 0 {
+            savedList.status = ListStatus.inProgress.rawValue
+        }
     }
 }
 
@@ -241,21 +268,7 @@ extension ListRealmStore {
             savedCategory.listID = list.id
             
             for item in category.items {
-                let savedItem = ListItemObject()
-                
-                savedItem.id = item.id
-                savedItem.name = item.name
-                savedItem.image = item.image
-                savedItem.price = item.price
-                savedItem.listID = list.id
-                savedItem.price = item.price
-                savedItem.currency = item.currency
-                savedItem.quantity = item.quantity
-                savedItem.productID = item.productID
-                savedItem.totalPrice = item.totalPrice
-                savedItem.weight = item.weight
-                savedItem.tickedOff = item.tickedOff
-
+                let savedItem = listItemStore.createListItemObject(listItem: item, listID: list.id)
                 savedCategory.items.append(savedItem)
             }
             

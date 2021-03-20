@@ -12,7 +12,7 @@ class ListPriceWorker {
     
     func calculateItemPrice(listItem: ListItemModel) -> Double {
         var price:Double = 0
-
+        
         let quantity = listItem.quantity
         let itemPrice = listItem.price
         let promotion = listItem.promotion
@@ -21,23 +21,25 @@ class ListPriceWorker {
             price = ( Double(quantity) * itemPrice)
         } else {
 
-            let promotion = promotion
-
-            let remainder = (quantity % promotion!.quantity)
-            let goesIntoFully = floor(Double(Int(quantity) / Int(promotion!.quantity)))
-
-            if quantity < promotion!.quantity {
-                price = Double(quantity) * itemPrice
-            } else {
-                if promotion!.forQuantity != nil && promotion!.forQuantity! > 0{
-                    price = (Double(goesIntoFully) * (Double(promotion!.forQuantity!) * itemPrice) ) + (Double(remainder) * itemPrice)
-                } else if (promotion!.price != nil){
-                    price = (Double(goesIntoFully) * promotion!.price!) + (Double(remainder) * itemPrice)
+            if let promotion = promotion {
+                
+                let remainder = (quantity % promotion.quantity)
+                let goesIntoFully = floor(Double(Int(quantity) / Int(promotion.quantity)))
+                
+                if quantity < promotion.quantity {
+                    price = Double(quantity) * itemPrice
+                } else {
+                    if promotion.forQuantity != nil && promotion.forQuantity! > 0{
+                        price = (Double(goesIntoFully) * (Double(promotion.forQuantity!) * itemPrice) ) + (Double(remainder) * itemPrice)
+                    } else if (promotion.price != nil){
+                        price = (Double(goesIntoFully) * promotion.price!) + (Double(remainder) * itemPrice)
+                    }
                 }
+                
             }
 
         }
-
+        
         return price
     }
         

@@ -105,6 +105,9 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
     
     func displayFavourites(viewModel: Favourites.GetFavourites.ViewModel)
     {
+        
+        refreshControl.endRefreshing()
+        
         if let error = viewModel.error {
             if !viewModel.offline {
                 showError(title: "Favourite Error", error: error)
@@ -115,7 +118,6 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
             favouriteTableView.reloadData()
         }
         
-        refreshControl.endRefreshing()
     }
     
     func displayDeleteFavourite(viewModel: Favourites.DeleteFavourite.ViewModel){
@@ -136,7 +138,7 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
 
 extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? (loggedIn ? 5 : 1) : products.count
+        return loading ? 1 : products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -158,8 +160,8 @@ extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
     func configureProductCell(indexPath: IndexPath) -> ProductCell {
         let cell = favouriteTableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
         
-        cell.product = loading ? nil : products[indexPath.row]
         cell.loading = loading
+        cell.product = loading ? nil : products[indexPath.row]
         cell.configureUI()
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none

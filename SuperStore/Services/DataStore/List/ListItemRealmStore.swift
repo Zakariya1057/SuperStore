@@ -12,6 +12,9 @@ import RealmSwift
 class ListItemRealmStore: DataStore, ListItemStoreProtocol {
     
     lazy var listStore: ListRealmStore = ListRealmStore()
+    lazy var promotionStore: PromotionRealmStore = PromotionRealmStore()
+    
+    lazy var listPriceWorker = ListPriceWorker()
     
     func getListItemObject(itemID: Int) -> ListItemObject? {
         return realm?.objects(ListItemObject.self).filter("id = %@", itemID).first
@@ -41,7 +44,12 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
     func createListItem(listID: Int, listItem: ListItemModel, product: ProductModel? = nil) {
         if getListItemObject(listID: listID, productID: listItem.productID) == nil {
             
-            listStore.listEdited(listID: listID)
+            var listItem = listItem
+            
+            if let product = product {
+                listItem.image = product.largeImage
+                listItem.promotion = product.promotion
+            }
             
             let savedListItem = createListItemObject(listItem: listItem, listID: listID)
             
@@ -65,6 +73,8 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
 
             }
             
+            listStore.listEdited(listID: listID)
+            
         }
     }
     
@@ -80,46 +90,39 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
         savedListItem.totalPrice = listItem.totalPrice
         savedListItem.productID = listItem.productID
         savedListItem.quantity = listItem.quantity
-
-        var savedPromotion: PromotionObject?
-
+        savedListItem.tickedOff = listItem.tickedOff
+        
         if let promotion = listItem.promotion {
-            savedPromotion = PromotionObject()
-            savedPromotion?.id = promotion.id
-            savedPromotion?.name = promotion.name
-            savedPromotion?.forQuantity = promotion.forQuantity
-            savedPromotion?.endsAt = promotion.endsAt
-            savedPromotion?.startsAt = promotion.startsAt
-            savedPromotion?.price = promotion.price
+            savedListItem.promotion = promotionStore.createPromotionObject(promotion: promotion)
         }
-
-        savedListItem.promotion = savedPromotion
         
         return savedListItem
     }
     
-    func updateListItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool){
+    func updateListItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool, totalPrice: Double?){
         if let savedListItem = realm?.objects(ListItemObject.self).filter("productID = %@ AND listID = %@", productID, listID).first {
-            
-            listStore.listEdited(listID: listID)
             
             try? realm?.write({
                 if quantity > 0 {
                     savedListItem.quantity = quantity
                     savedListItem.tickedOff = tickedOff
+                    
+                    if let totalPrice = totalPrice {
+                        savedListItem.totalPrice = totalPrice
+                    }
                 } else {
                     realm?.delete(savedListItem)
                 }
             })
             
             listStore.updateListTotalPrice(listID: listID)
+            
+            listStore.listEdited(listID: listID)
         }
     }
     
     func deleteListItem(listID: Int, productID: Int) {
         if let savedListItem = realm?.objects(ListItemObject.self).filter("productID = %@ AND listID = %@", productID, listID).first {
-            
-            listStore.listEdited(listID: listID)
             
             try? realm?.write({
                 // If last item in category, delete whole catgory
@@ -141,6 +144,8 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
             })
             
             listStore.updateListTotalPrice(listID: listID)
+            
+            listStore.listEdited(listID: listID)
         }
     }
 }

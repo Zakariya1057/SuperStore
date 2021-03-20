@@ -17,13 +17,14 @@ class PromotionObject: Object {
     @objc dynamic var storeTypeID: Int = 0
     
     @objc dynamic var quantity: Int = 0
-    var forQuantity: Int? = nil
-    var price: Double? = nil
+    
+    var forQuantity = RealmOptional<Int>()
+    var price = RealmOptional<Double>()
     
     var products = List<ProductObject>()
     
-    var startsAt: Date? = nil
-    var endsAt: Date? = nil
+    @objc dynamic var startsAt: Date? = nil
+    @objc dynamic var endsAt: Date? = nil
     
     @objc dynamic var expires: Bool = false
     
@@ -36,8 +37,8 @@ class PromotionObject: Object {
             name: name,
             storeTypeID: storeTypeID,
             quantity: quantity,
-            price: price,
-            forQuantity: forQuantity,
+            price: price.value,
+            forQuantity: forQuantity.value,
             products: products.map{$0.getProductModel()},
             startsAt: startsAt,
             endsAt: endsAt

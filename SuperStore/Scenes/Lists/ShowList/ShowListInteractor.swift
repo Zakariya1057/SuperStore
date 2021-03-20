@@ -61,7 +61,7 @@ class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
         let productID: Int = request.productID
         let quantity: Int = request.quantity
         let tickedOff = request.tickedOff
-        
+
         listItemWorker.updateItem(listID: listID, productID: productID, quantity: quantity, tickedOff: tickedOff) { (error: String?) in
             var response = ShowList.UpdateListItem.Response(error: error)
             
@@ -70,6 +70,14 @@ class ShowListInteractor: ShowListBusinessLogic, ShowListDataStore
             }
             
             self.presenter?.presentListUpdated(response: response)
+        }
+        
+        for (categoryIndex, category) in list.categories.enumerated() {
+            for (itemIndex,item) in category.items.enumerated() {
+                if item.productID == productID {
+                    list.categories[categoryIndex].items[itemIndex].tickedOff = tickedOff
+                }
+            }
         }
     }
     

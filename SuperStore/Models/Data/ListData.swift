@@ -43,7 +43,7 @@ struct ListData: Decodable {
     func getListModel() -> ListModel {
         var listStatus: ListStatus = .notStarted
         
-        var dateWorker = DateWorker()
+        let dateWorker = DateWorker()
 
         let status = self.status.lowercased()
         
@@ -71,12 +71,6 @@ struct ListData: Decodable {
             updatedAt: dateWorker.formatDate(date: updated_at)
         )
     }
-    
-//    private func formatDate(date: String) -> Date {
-//        let dateFormat: DateFormatter = DateFormatter()
-//        dateFormat.dateFormat = "d MMM y"
-//        return dateFormat.date(from: date)!
-//    }
 }
 
 struct ListCategoryData:Decodable {

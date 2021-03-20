@@ -75,18 +75,7 @@ class ListWorker {
             
             for list in lists {
                 if !self.listStore.isDeletedList(listID: list.id) {
-                    
-                    if self.listStore.isEditedList(listID: list.id) {
-                        // Add local editted list instead of fetched list
-                        if let savedList = self.listStore.getList(listID: list.id) {
-                            activeLists.append(savedList)
-                        }
-                        
-                    } else {
-                        activeLists.append(list)
-                    }
-                    
-                    
+                    activeLists.append(list)
                     self.listStore.createList(list: list, ignoreCategories: true)
                 }
             }

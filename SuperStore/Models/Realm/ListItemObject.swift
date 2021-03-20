@@ -25,7 +25,7 @@ class ListItemObject: Object {
     
     var weight: String? = nil
     
-    var promotion: PromotionObject? = nil
+    @objc dynamic var promotion: PromotionObject? = nil
     
     @objc dynamic var tickedOff: Bool = false
     
