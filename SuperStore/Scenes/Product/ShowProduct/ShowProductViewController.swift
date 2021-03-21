@@ -180,9 +180,13 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 updateFavouriteButton(favourite: displayedProduct.favourite)
                 updateMonitorButton(monitor: displayedProduct.monitoring)
                 
-                var images: [String] = displayedProduct.images
+                var images: [String] = []
                 
                 if let image = displayedProduct.largeImage {
+                    images.append(image)
+                }
+                
+                for image in displayedProduct.images {
                     images.append(image)
                 }
                 
