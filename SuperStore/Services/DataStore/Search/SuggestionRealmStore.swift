@@ -22,7 +22,7 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
     }
     
     var defaultSuggestions: [SuggestionModel] = [
-        SuggestionModel(id: 1, name: "Deli", type: .childCategory, storeTypeID: 2, visited: true, visitedAt: Date()),
+        SuggestionModel(id: 1, name: "Deli", type: .parentCategory, storeTypeID: 2, visited: true, visitedAt: Date()),
         SuggestionModel(id: 2, name: "Real Canadian Superstore Sales", type: .storeSale, storeTypeID: 2, visited: true, visitedAt: Date()),
         SuggestionModel(id: 2, name: "Real Canadian Superstore", type: .store, storeTypeID: 2, visited: true, visitedAt: Date()),
 

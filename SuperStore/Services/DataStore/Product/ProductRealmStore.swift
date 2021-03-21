@@ -84,7 +84,7 @@ extension ProductRealmStore {
     }
     
     func getFavouriteProducts() -> [ProductModel] {
-        return realm?.objects(ProductObject.self).filter("favourite = %@", true).map{ $0.getProductModel() } ?? []
+        return realm?.objects(ProductObject.self).filter("favourite = %@", true).sorted(byKeyPath: "updatedAt", ascending: false).map{ $0.getProductModel() } ?? []
     }
 }
 

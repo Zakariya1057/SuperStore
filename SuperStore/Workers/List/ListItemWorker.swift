@@ -57,8 +57,6 @@ class ListItemWorker {
                 tickedOff: false
             )
             
-            print("Create List Item")
-            
             listItemStore.createListItem(listID: listID, listItem: listItem, product: product)
         }
         

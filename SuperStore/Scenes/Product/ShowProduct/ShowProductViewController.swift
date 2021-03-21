@@ -556,8 +556,6 @@ extension ShowProductViewController: SelectListProtocol {
     }
     
     func listSelected(listID: Int) {
-        print("List Selected")
-        
         interactor?.selectedListID = listID
         createListItem(listID: listID)
     }

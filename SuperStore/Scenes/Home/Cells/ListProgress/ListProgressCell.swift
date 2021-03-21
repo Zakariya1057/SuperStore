@@ -86,11 +86,17 @@ class ListProgressCell: UITableViewCell, HomeElementCell {
     func displayList(){
         
         if let list = list {
-            let tickedOffItems: Int = list.tickedOffItems
-            let totalItems: Int = list.totalItems
+            let tickedOffItems: Float = Float(list.tickedOffItems)
+            let totalItems: Float = Float(list.totalItems)
             
             nameLabel.text = list.name
-            progressBar.progress = (tickedOffItems > 0 && totalItems > 0) ? Float( tickedOffItems / totalItems) : 0
+            
+            if tickedOffItems > 0 && totalItems > 0 {
+                progressBar.progress = tickedOffItems / totalItems
+            } else {
+                progressBar.progress = 0
+            }
+            
             tickedOffLabel.text = "\(list.tickedOffItems)/\(list.totalItems)"
             
             if totalItems > 0 && tickedOffItems == totalItems {

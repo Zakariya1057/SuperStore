@@ -24,7 +24,6 @@ class ListPriceWorker {
             if let promotion = promotion {
                 
                 if let minimum = promotion.minimum {
-                    
                     if quantity >= minimum {
                         price = ( Double(quantity) * promotion.price! )
                     } else {

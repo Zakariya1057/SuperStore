@@ -73,7 +73,7 @@ class UserRealmStore: DataStore, UserStoreProtocol {
     }
     
     func logoutUser(){
-        deleteUser()
+        deleteAllData()
     }
     
     func deleteUser() {

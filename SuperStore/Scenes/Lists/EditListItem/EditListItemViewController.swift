@@ -104,8 +104,6 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
     func displayUpdateQuantity(viewModel: EditListItem.UpdateQuantity.ViewModel) {
         displayedListItem = viewModel.displayedListItem
         
-        print(viewModel)
-        
         displayQuantity()
         displayPrice()
     }

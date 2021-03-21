@@ -48,7 +48,6 @@ class ListValidationWorker {
     }
     
     func isValidIdentifier(_ identifier: String) -> Bool {
-        print(identifier)
         let identifierRegex = #"^^\w+-\w+-\w+-\w+-\w+$$"#
         let identifierPred = NSPredicate(format:"SELF MATCHES %@", identifierRegex)
         return identifierPred.evaluate(with: identifier)

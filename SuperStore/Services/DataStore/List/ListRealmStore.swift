@@ -46,7 +46,7 @@ class ListRealmStore: DataStore, ListStoreProtocol {
     func getLists(storeTypeID: Int) -> [ListModel] {
         var lists: [ListModel] = []
         
-        let savedLists = realm?.objects(ListObject.self).filter("deleted = false AND storeTypeID = %@", storeTypeID)
+        let savedLists = realm?.objects(ListObject.self).filter("deleted = false AND storeTypeID = %@", storeTypeID).sorted(byKeyPath: "updatedAt", ascending: false)
         
         if let savedLists = savedLists {
             for list in savedLists {
@@ -120,7 +120,11 @@ class ListRealmStore: DataStore, ListStoreProtocol {
     }
     
     func searchLists(storeTypeID: Int, query: String) -> [ListModel] {
-        if let savedLists = realm?.objects(ListObject.self).filter("deleted = false AND storeTypeID = %@ AND name contains[c] %@",storeTypeID, query){
+        let savedLists = realm?.objects(ListObject.self)
+            .filter("deleted = false AND storeTypeID = %@ AND name contains[c] %@",storeTypeID, query)
+            .sorted(byKeyPath: "updatedAt", ascending: false)
+        
+        if let savedLists = savedLists {
             return savedLists.map{ $0.getListModel() }
         }
         
@@ -204,6 +208,8 @@ extension ListRealmStore {
                 }).count
                 
                 setListStatus(savedList: savedList)
+                
+                savedList.updatedAt = Date()
             }
         })
     }

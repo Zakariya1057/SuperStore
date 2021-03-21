@@ -115,7 +115,6 @@ extension HomeRealmStore {
         
         let savedLists = realm?.objects(ListObject.self)
             .filter("deleted = false AND storeTypeID = %@", storeTypeID)
-            .sorted(byKeyPath: "updatedAt", ascending: true)
         
         var lists: [ListModel] = []
         
@@ -123,8 +122,15 @@ extension HomeRealmStore {
             let savedCount = savedLists.count
             let maxItems = savedCount < limit ? savedCount - 1 : limit
             
+            let sortedList = savedLists.sorted(by: { (a: ListObject, b:ListObject) -> Bool in
+                let progressA = a.tickedOffItems > 0 && a.totalItems > 0 ? Float(a.tickedOffItems) / Float(a.totalItems) : 0
+                let progressB = b.tickedOffItems > 0 && b.totalItems > 0 ? Float(b.tickedOffItems) / Float(b.totalItems) : 0
+                
+                return progressA > progressB
+            })
+            
             for index in 0...maxItems {
-                lists.append( savedLists[index].getListModel() )
+                lists.append( sortedList[index].getListModel() )
             }
         }
         

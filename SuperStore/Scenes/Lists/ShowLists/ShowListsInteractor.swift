@@ -51,8 +51,6 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
     {
         let storeTypeID: Int = self.storeTypeID == nil ? userSession.getStore() : self.storeTypeID!
         
-        print("Get Lists: \(storeTypeID)")
-        
         listWorker.getLists(storeTypeID: storeTypeID) { (lists: [ListModel], error: String?) in
             
             var response = ShowLists.GetLists.Response(lists: lists, error: error)

@@ -52,6 +52,15 @@ extension PromotionRealmStore {
             savedPromotion.forQuantity = forQuantity
             savedPromotion.quantity = quantity
             
+            let minumum = RealmOptional<Int>()
+            let maximum = RealmOptional<Int>()
+            
+            minumum.value = promotion.minimum
+            maximum.value = promotion.maximum
+            
+            savedPromotion.minimum = minumum
+            savedPromotion.maximum = maximum
+            
             savedPromotion.startsAt = promotion.startsAt
             savedPromotion.endsAt = promotion.endsAt
             savedPromotion.expires = promotion.expires
@@ -88,9 +97,18 @@ extension PromotionRealmStore {
         forQuantity.value = promotion.forQuantity
         price.value = promotion.price
         
+        let minumum = RealmOptional<Int>()
+        let maximum = RealmOptional<Int>()
+        
+        minumum.value = promotion.minimum
+        maximum.value = promotion.maximum
+        
         savedPromotion.price = price
         savedPromotion.forQuantity = forQuantity
         savedPromotion.quantity = quantity
+        
+        savedPromotion.minimum = minumum
+        savedPromotion.maximum = maximum
         
         savedPromotion.startsAt = promotion.startsAt
         savedPromotion.endsAt = promotion.endsAt

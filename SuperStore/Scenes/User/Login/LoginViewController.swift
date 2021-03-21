@@ -90,7 +90,6 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         stopLoading()
         
         if viewModel.error == nil {
-            print("Login Success")
             router?.routeToLoggedIn(segue: nil)
         } else {
             let error = viewModel.error!

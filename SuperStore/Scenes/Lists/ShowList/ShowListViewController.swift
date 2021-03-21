@@ -304,9 +304,23 @@ extension ShowListViewController {
     func itemCheckboxPressed(item: ShowList.DisplayedListItem){
         let request = ShowList.UpdateListItem.Request(productID: item.productID, quantity: item.quantity, tickedOff: item.tickedOff)
         interactor?.updateListItem(request: request)
+        
+        updateDisplayedListItem(productID: item.productID, tickedOff: item.tickedOff)
     }
 }
 
+extension ShowListViewController {
+    func updateDisplayedListItem(productID: Int, tickedOff: Bool){
+        // Update displayed list item
+        for (categoryIndex, category) in displayedList!.categories.enumerated() {
+            for (itemIndex, listItem) in category.items.enumerated() {
+                if listItem.productID == productID {
+                    displayedList!.categories[categoryIndex].items[itemIndex].tickedOff = tickedOff
+                }
+            }
+        }
+    }
+}
 
 extension ShowListViewController {
     func reflectListChanged(){

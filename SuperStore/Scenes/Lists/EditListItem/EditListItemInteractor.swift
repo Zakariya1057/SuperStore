@@ -41,8 +41,6 @@ class EditListItemInteractor: EditListItemBusinessLogic, EditListItemDataStore
     
     func getListItem(request: EditListItem.GetListItem.Request)
     {
-        print(listItem)
-        
         let response = EditListItem.GetListItem.Response(listItem: listItem)
         presenter?.presentListItem(response: response)
     }
