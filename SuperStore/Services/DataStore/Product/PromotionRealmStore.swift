@@ -30,6 +30,18 @@ class PromotionRealmStore: DataStore, PromotionStoreProtocol {
     func getPromotion(promotionID: Int) -> PromotionModel? {
         getPromotionObject(promotionID: promotionID)?.getPromotionModel()
     }
+    
+    func deletePromotion(promotionID: Int){
+        if let savedPromotion = getPromotionObject(promotionID: promotionID){
+            if let inWrite = realm?.isInWriteTransaction, inWrite {
+                realm?.delete(savedPromotion)
+            } else {
+                try? realm?.write({
+                    realm?.delete(savedPromotion)
+                })
+            }
+        }
+    }
 }
 
 

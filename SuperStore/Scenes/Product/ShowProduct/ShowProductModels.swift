@@ -23,7 +23,7 @@ enum ShowProduct
         var price: String
         var oldPrice: String?
         
-        var promotion: PromotionModel?
+        var promotion: DisplayedPromotion?
         
         var largeImage: String?
         var images: [String]
@@ -49,6 +49,11 @@ enum ShowProduct
         var ingredients: [String]
 
         var recommended: [ProductModel]
+    }
+    
+    struct DisplayedPromotion {
+        var id: Int
+        var name: String
     }
     
     enum GetProduct

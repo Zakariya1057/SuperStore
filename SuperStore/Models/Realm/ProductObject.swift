@@ -29,7 +29,7 @@ class ProductObject: Object {
     
     var images = List<ImageObject>()
     
-    var promotion: PromotionObject? = nil
+    @objc dynamic var promotion: PromotionObject? = nil
     
     var promotionID = RealmOptional<Int>()
     

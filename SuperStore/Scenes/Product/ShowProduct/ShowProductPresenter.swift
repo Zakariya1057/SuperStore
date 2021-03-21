@@ -34,30 +34,8 @@ class ShowProductPresenter: ShowProductPresentationLogic
         var displayedProduct: ShowProduct.DisplayedProduct?
         
         if let product = response.product {
-            displayedProduct = ShowProduct.DisplayedProduct(
-                id: product.id,
-                name: product.name,
-                price: product.getPrice(),
-                oldPrice: product.getOldPrice(),
-                promotion: product.promotion,
-                largeImage: product.largeImage,
-                images: product.images.map{ $0.name },
-                description: product.description ?? "",
-                features: product.features,
-                dimensions: product.dimensions,
-                favourite: product.favourite,
-                monitoring: product.monitoring,
-                avgRating: product.avgRating,
-                totalReviewsCount: product.totalReviewsCount,
-                storage: product.storage,
-                weight: product.weight,
-                dietaryInfo: product.dietaryInfo,
-                allergenInfo: product.allergenInfo,
-                review: product.reviews.first,
-                ingredients: product.ingredients,
-                recommended: product.recommended)
+            displayedProduct = createDisplayedProduct(product: product)
         }
-        
         
         let viewModel = ShowProduct.GetProduct.ViewModel(product: response.product, displayedProduct: displayedProduct, error: response.error, offline: response.offline)
         viewController?.displayProduct(viewModel: viewModel)
@@ -89,5 +67,45 @@ extension ShowProductPresenter {
     func presentListItemUpdated(response: ShowProduct.UpdateListItem.Response){
         let viewModel = ShowProduct.UpdateListItem.ViewModel(error: response.error, offline: response.offline)
         viewController?.displayUpdatedListItem(viewModel: viewModel)
+    }
+}
+
+extension ShowProductPresenter {
+    func createDisplayedProduct(product: ProductModel) -> ShowProduct.DisplayedProduct {
+        return ShowProduct.DisplayedProduct(
+            id: product.id,
+            name: product.name,
+            price: product.getPrice(),
+            oldPrice: product.getOldPrice(),
+            promotion: createDisplayedPromotion(promotion: product.promotion),
+            largeImage: product.largeImage,
+            images: product.images.map{ $0.name },
+            description: product.description ?? "",
+            features: product.features,
+            dimensions: product.dimensions,
+            favourite: product.favourite,
+            monitoring: product.monitoring,
+            avgRating: product.avgRating,
+            totalReviewsCount: product.totalReviewsCount,
+            storage: product.storage,
+            weight: product.weight,
+            dietaryInfo: product.dietaryInfo,
+            allergenInfo: product.allergenInfo,
+            review: product.reviews.first,
+            ingredients: product.ingredients,
+            recommended: product.recommended
+        )
+    }
+    
+    func createDisplayedPromotion(promotion: PromotionModel?) -> ShowProduct.DisplayedPromotion? {
+        if let promotion = promotion {
+            if let endsAt = promotion.endsAt, ( endsAt < Date() && !Calendar.current.isDate(Date(), inSameDayAs: endsAt) ) {
+                print("Promotion Expired. Not Displaying")
+            } else {
+                return ShowProduct.DisplayedPromotion(id: promotion.id, name: promotion.name)
+            }
+        }
+        
+        return nil
     }
 }

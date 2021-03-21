@@ -23,22 +23,35 @@ struct PromotionData:Decodable {
     var maximum: Int?
     var minimum: Int?
     
-    let products: [ProductData]?
+    var products: [ProductData]?
     var store_type_id: Int
     
+    var expires: Bool?
+    var starts_at: String?
+    var ends_at: String?
+    
     func getPromotionModel() -> PromotionModel {
+        let dateWorker = DateWorker()
+        
         return PromotionModel(
             id: id,
             name: name,
             storeTypeID: store_type_id,
+            
             quantity: quantity,
             price: price,
             forQuantity: for_quantity,
             minimum: minimum,
             maximum: maximum,
+            
             products: products?.map({ (product: ProductData) in
                 return product.getProductModel()
-            }) ?? []
+            }) ?? [],
+            
+            expires: expires ?? false,
+            
+            startsAt: starts_at != nil ? dateWorker.formatDate(date: starts_at!) : nil,
+            endsAt: ends_at != nil ? dateWorker.formatDate(date: ends_at!) : nil
         )
     }
 }

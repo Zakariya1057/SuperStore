@@ -44,6 +44,7 @@ class PromotionObject: Object {
             minimum: minimum.value,
             maximum: maximum.value,
             products: products.map{$0.getProductModel()},
+            expires: expires,
             startsAt: startsAt,
             endsAt: endsAt
         )

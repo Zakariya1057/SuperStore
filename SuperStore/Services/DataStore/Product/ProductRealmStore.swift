@@ -25,7 +25,16 @@ class ProductRealmStore: DataStore, ProductStoreProtocol {
             let product = productObject.getProductModel()
             
             if let promotionID = productObject.promotionID.value {
-                product.promotion = promotionStore.getPromotion(promotionID: promotionID)
+                let promotion: PromotionModel? = promotionStore.getPromotion(promotionID: promotionID)
+                
+                if let promotion = promotion {
+                    if promotionExpired(promotion: promotion){
+                        deleteProductPromotion(productID: product.id, promotionID: promotion.id)
+                    }
+                }
+                
+                product.promotion = promotion
+                
             }
             
             return product
@@ -61,6 +70,22 @@ class ProductRealmStore: DataStore, ProductStoreProtocol {
         }
     }
     
+}
+
+extension ProductRealmStore {
+    func deleteProductPromotion(productID: Int, promotionID: Int){
+        if let savedProduct = getProductObject(productID: productID){
+            if let inWrite = realm?.isInWriteTransaction, inWrite {
+                savedProduct.promotionID.value = nil
+            } else {
+                try? realm?.write({
+                    savedProduct.promotionID.value = nil
+                })
+            }
+        }
+        
+        promotionStore.deletePromotion(promotionID: promotionID)
+    }
 }
 
 extension ProductRealmStore {
@@ -112,7 +137,7 @@ extension ProductRealmStore {
         
         savedProduct.currency = product.currency
         
-        updatePromotion(product: product, savedProduct: savedProduct)
+        createPromotion(product: product, savedProduct: savedProduct)
         
         for product in product.recommended {
             savedProduct.recommended.append( createProductObject(product: product) )
@@ -173,7 +198,7 @@ extension ProductRealmStore {
         try? realm?.write({
             savedProduct.id = product.id
             savedProduct.name = product.name
-
+            
             savedProduct.storeTypeID = product.storeTypeID
             
             savedProduct.price = product.price
@@ -197,7 +222,7 @@ extension ProductRealmStore {
             updateRatings(product: product, savedProduct: savedProduct)
             
             updateParentCategory(product: product, savedProduct: savedProduct)
-
+            
             if product.childCategoryName != nil {
                 savedProduct.childCategoryName = product.childCategoryName
             }
@@ -210,35 +235,66 @@ extension ProductRealmStore {
             savedProduct.allergenInfo = product.allergenInfo
             
             updateReviews(product: product, savedProduct: savedProduct)
-
+            
             updateIngredients(product: product, savedProduct: savedProduct)
-
+            
         })
     }
-
+    
 }
 
 
 extension ProductRealmStore {
     
-    func updatePromotion(product: ProductModel, savedProduct: ProductObject){
+    func createPromotion(product: ProductModel, savedProduct: ProductObject){
+        // If promotion already expired, don't insert that
+        
         if let promotion = product.promotion {
-            savedProduct.promotionID.value = promotion.id
+            print("Create Promtion")
             
-            if savedProduct.promotionID.value == nil {
-                
-                _ = promotionStore.createPromotionObject(promotion: promotion)
-                
-                let promotionID = RealmOptional<Int>()
-                promotionID.value = promotion.id
-                
-                savedProduct.promotionID = promotionID
-            } else {
+            if !promotionExpired(promotion: promotion) {
+                savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
                 savedProduct.promotionID.value = promotion.id
             }
         }
     }
     
+    func updatePromotion(product: ProductModel, savedProduct: ProductObject){
+        if let promotion = product.promotion {
+            if promotionExpired(promotion: promotion) {
+                // If present locally, then delete
+                print("Delete Old Promotion")
+                if savedProduct.promotionID.value != nil {
+                    promotionStore.deletePromotion(promotionID: savedProduct.promotionID.value!)
+                    savedProduct.promotionID.value = nil
+                }
+            } else {
+                print("Store New Promotion")
+                savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
+                savedProduct.promotionID.value = promotion.id
+            }
+        } else {
+            print("Delete Old Promotion")
+            if savedProduct.promotionID.value != nil {
+                promotionStore.deletePromotion(promotionID: savedProduct.promotionID.value!)
+                savedProduct.promotionID.value = nil
+            }
+        }
+    }
+    
+    func promotionExpired(promotion: PromotionModel) -> Bool {
+        var expired: Bool = false
+        
+        if let endsAt = promotion.endsAt, ( endsAt < Date() && !Calendar.current.isDate(Date(), inSameDayAs: endsAt) ) {
+           expired = true
+        }
+        
+        return expired
+    }
+}
+
+extension ProductRealmStore {
+        
     func updateOldTotalPrice(product: ProductModel, savedProduct: ProductObject){
         let oldPrice = RealmOptional<Double>()
         let isOnSale = RealmOptional<Bool>()
@@ -270,12 +326,6 @@ extension ProductRealmStore {
         }
     }
     
-//    func updatePromotion(product: ProductModel, savedProduct: ProductObject){
-//        if let promotion = product.promotion {
-//            savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
-//        }
-//    }
-    
     func updateParentCategory(product: ProductModel, savedProduct: ProductObject){
         
         if product.parentCategoryName != nil {
@@ -302,7 +352,7 @@ extension ProductRealmStore {
     
     func updateIngredients(product: ProductModel, savedProduct: ProductObject){
         if product.ingredients.count > 0 {
-
+            
             savedProduct.ingredients.removeAll()
             product.ingredients.forEach { (ingredient: String) in
                 savedProduct.ingredients.append(ingredient)

@@ -22,14 +22,17 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
     var promotionStore: PromotionStoreProtocol = PromotionRealmStore()
     
     func createHome(storeTypeID: Int, home: HomeModel){
-        
+
         try? realm?.write({
+            
+            let savedHome = HomeObject()
             
             if let savedHome = homeObject {
                 realm?.delete(savedHome)
             }
             
-            let savedHome = HomeObject()
+            realm?.add(savedHome)
+            
             
             savedHome.featured.removeAll()
             for savedProduct in home.featured.map({ productStore.createProductObject(product: $0) }) {
@@ -65,15 +68,14 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
             for savedPromotion in home.promotions.map({ promotionStore.createPromotionObject(promotion: $0)}){
                 savedHome.promotions.append(savedPromotion)
             }
-            
+
             savedHome.categories.removeAll()
             let savedCagegories = home.categories.map({ categoryStore.createCategoryObject(category: $0) })
-            
+
             for savedCategory in savedCagegories {
                 savedHome.categories.append(savedCategory)
             }
             
-            realm?.add(savedHome)
         })
     }
     
@@ -107,7 +109,7 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
         )
         
     }
-
+    
 }
 
 extension HomeRealmStore {
