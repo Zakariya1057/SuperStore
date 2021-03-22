@@ -16,13 +16,13 @@ protocol ShowPromotionBusinessLogic
 {
     func getPromotion(request: ShowPromotion.GetPromotion.Request)
     
-    var selectedListID: Int { get set }
+    var selectedListID: Int? { get set }
 }
 
 protocol ShowPromotionDataStore
 {
     var promotionID: Int { get set }
-    var selectedListID: Int { get set }
+    var selectedListID: Int? { get set }
 }
 
 class ShowPromotionInteractor: ShowPromotionBusinessLogic, ShowPromotionDataStore
@@ -32,7 +32,7 @@ class ShowPromotionInteractor: ShowPromotionBusinessLogic, ShowPromotionDataStor
     var promotionWorker: PromotionWorker = PromotionWorker(promotionAPI: PromotionAPI())
     
     var promotionID: Int = 1
-    var selectedListID: Int = 1
+    var selectedListID: Int? = nil
     
     var userSession = UserSessionWorker()
     

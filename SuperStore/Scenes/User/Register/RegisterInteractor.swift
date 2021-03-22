@@ -16,6 +16,7 @@ protocol RegisterBusinessLogic
 {
     func register(request: Register.Register.Request)
     func getEmail(request: Register.GetEmail.Request)
+    func getStore(request: Register.GetStore.Request)
 }
 
 protocol RegisterDataStore
@@ -30,7 +31,22 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
     var authWorker: UserAuthWorker = UserAuthWorker(userAuth: UserAuthAPI())
     var validationWorker: UserValidationWorker = UserValidationWorker()
     
+    var userSession = UserSessionWorker()
+    
     var email: String?
+    
+    func getEmail(request: Register.GetEmail.Request)
+    {
+        let response = Register.GetEmail.Response(email: email)
+        presenter?.presentUserEmail(response: response)
+    }
+    
+    func getStore(request: Register.GetStore.Request){
+        let storeTypeID = userSession.getStore()
+        
+        let response = Register.GetStore.Response(storeTypeID: storeTypeID)
+        presenter?.presentStore(response: response)
+    }
     
     func register(request: Register.Register.Request){
         let name = request.name
@@ -55,6 +71,10 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
         }
     }
     
+}
+
+extension RegisterInteractor {
+    
     func validateForm(name: String, email: String, password: String, passwordConfirm: String) -> String? {
         
         let formFields: [UserFormField] = [
@@ -66,7 +86,7 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
         ]
         
         let error = validationWorker.validateFields(formFields)
-
+        
         if let error = error {
             let response = Register.Register.Response(error: error)
             presenter?.presentRegisteredUser(response: response)
@@ -81,9 +101,5 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
         presenter?.presentRegisteredUser(response: response)
     }
     
-    func getEmail(request: Register.GetEmail.Request)
-    {
-        let response = Register.GetEmail.Response(email: email)
-        presenter?.presentUserEmail(response: response)
-    }
+    
 }

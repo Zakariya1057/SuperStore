@@ -15,6 +15,7 @@ import UIKit
 protocol RegisterPresentationLogic
 {
     func presentUserEmail(response: Register.GetEmail.Response)
+    func presentStore(response: Register.GetStore.Response)
     func presentRegisteredUser(response: Register.Register.Response)
 }
 
@@ -26,6 +27,11 @@ class RegisterPresenter: RegisterPresentationLogic
     {
         let viewModel = Register.GetEmail.ViewModel(email: response.email)
         viewController?.displayUserEmail(viewModel: viewModel)
+    }
+    
+    func presentStore(response: Register.GetStore.Response) {
+        let viewModel = Register.GetStore.ViewModel(storeTypeID: response.storeTypeID)
+        viewController?.displayStore(viewModel: viewModel)
     }
     
     func presentRegisteredUser(response: Register.Register.Response){

@@ -31,6 +31,7 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
     
     var loginWorker: LoginWorker = LoginWorker()
     
+    var userSession = UserSessionWorker()
     var validationWorker: UserValidationWorker = UserValidationWorker()
     
     var email: String?
@@ -68,11 +69,12 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
             let password = loginWorker.generatePassword()
             let identifier = userHistory.identifier
             let userToken = userHistory.userToken
+            let storeTypeID = userSession.getStore()
             
             authWorker.register(
                 name: name,
                 email: email,
-                storeTypeID: 2,
+                storeTypeID: storeTypeID,
                 password: password,
                 passwordConfirmation: password,
                 identifier: identifier,

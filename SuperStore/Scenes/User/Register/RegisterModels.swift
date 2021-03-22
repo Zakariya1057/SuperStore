@@ -50,4 +50,20 @@ enum Register
             var email: String?
         }
     }
+    
+    enum GetStore
+    {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var storeTypeID: Int
+        }
+        struct ViewModel
+        {
+            var storeTypeID: Int
+        }
+    }
+
 }

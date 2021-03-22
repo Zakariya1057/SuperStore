@@ -15,6 +15,7 @@ import UIKit
 protocol RegisterDisplayLogic: class
 {
     func displayUserEmail(viewModel: Register.GetEmail.ViewModel)
+    func displayStore(viewModel: Register.GetStore.ViewModel)
     func displayRegisteredUser(viewModel: Register.Register.ViewModel)
 }
 
@@ -70,9 +71,12 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
         configureStorePicker()
-        getEmail()
         setupTextFieldDelegates()
+        
+        getEmail()
+        getStore()
     }
     
     // MARK: Outlets
@@ -118,6 +122,19 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         emailField.text = viewModel.email
     }
     
+    func displayStore(viewModel: Register.GetStore.ViewModel) {
+        let storeTypeID: Int = viewModel.storeTypeID
+        
+        let storeType = storeTypes.first { (storeType: StoreTypeModel) -> Bool in
+            return storeType.id == storeTypeID
+        }
+        
+        if let storeType = storeType {
+            selectedStoreType = storeType
+            storeField.text = storeType.name
+        }
+    }
+    
     func displayRegisteredUser(viewModel: Register.Register.ViewModel){
         stopLoading()
         
@@ -158,6 +175,12 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         let request = Register.GetEmail.Request()
         interactor?.getEmail(request: request)
     }
+    
+    func getStore(){
+        let request = Register.GetStore.Request()
+        interactor?.getStore(request: request)
+    }
+    
 }
 
 extension RegisterViewController {
