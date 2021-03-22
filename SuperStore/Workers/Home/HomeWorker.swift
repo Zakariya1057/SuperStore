@@ -14,8 +14,10 @@ import UIKit
 
 class HomeWorker
 {
-    var homeAPI: HomeRequestProtocol
-    var homeStore: HomeStoreProtocol
+    private var homeAPI: HomeRequestProtocol
+    private var homeStore: HomeStoreProtocol
+    
+    private var promotionStore: PromotionStoreProtocol = PromotionRealmStore()
     
     init(homeAPI: HomeRequestProtocol) {
         self.homeAPI = homeAPI
@@ -29,11 +31,23 @@ class HomeWorker
         }
         
         homeAPI.getHome(storeTypeID: storeTypeID, latitude: latitude, longitude: longitude) { (home: HomeModel?, error: String?) in
-            if let home = home {
-                self.homeStore.createHome(storeTypeID: storeTypeID, home: home)
+            
+            var homeModel = home
+            
+            if homeModel != nil {
+                
+                // If home promotions expired, then remove them
+                for (index, promotion) in homeModel!.promotions.enumerated() {
+                    if self.promotionStore.promotionExpired(promotion: promotion){
+                        homeModel!.promotions.remove(at: index)
+                    }
+                }
+                
+                self.homeStore.createHome(storeTypeID: storeTypeID, home: homeModel!)
+                
             }
             
-            completionHandler(home, error)
+            completionHandler(homeModel, error)
         }
     }
 }

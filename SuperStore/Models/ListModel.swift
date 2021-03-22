@@ -62,7 +62,8 @@ struct ListItemModel {
     var tickedOff: Bool
     
     func getPrice() -> String {
-        return currency + String(format: "%.2f", totalPrice)
+        let priceCalculator = ListPriceWorker()
+        return currency + String(format: "%.2f", priceCalculator.calculateItemPrice(listItem: self))
     }
 }
 

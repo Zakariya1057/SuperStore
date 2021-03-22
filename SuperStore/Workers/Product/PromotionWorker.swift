@@ -42,6 +42,8 @@ protocol PromotionStoreProtocol {
     func createPromotion(promotion: PromotionModel)
     func getPromotion(promotionID: Int) -> PromotionModel?
     
+    func promotionExpired(promotion: PromotionModel) -> Bool
+    
     func deletePromotion(promotionID: Int)
     
     func createPromotionObject(promotion: PromotionModel) -> PromotionObject

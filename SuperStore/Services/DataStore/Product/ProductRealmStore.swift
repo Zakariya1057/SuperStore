@@ -28,7 +28,7 @@ class ProductRealmStore: DataStore, ProductStoreProtocol {
                 let promotion: PromotionModel? = promotionStore.getPromotion(promotionID: promotionID)
                 
                 if let promotion = promotion {
-                    if promotionExpired(promotion: promotion){
+                    if promotionStore.promotionExpired(promotion: promotion){
                         deleteProductPromotion(productID: product.id, promotionID: promotion.id)
                     }
                 }
@@ -252,7 +252,7 @@ extension ProductRealmStore {
         if let promotion = product.promotion {
             print("Create Promtion")
             
-            if !promotionExpired(promotion: promotion) {
+            if !promotionStore.promotionExpired(promotion: promotion) {
                 savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
                 savedProduct.promotionID.value = promotion.id
             }
@@ -261,7 +261,7 @@ extension ProductRealmStore {
     
     func updatePromotion(product: ProductModel, savedProduct: ProductObject){
         if let promotion = product.promotion {
-            if promotionExpired(promotion: promotion) {
+            if promotionStore.promotionExpired(promotion: promotion) {
                 // If present locally, then delete
                 print("Delete Old Promotion")
                 if savedProduct.promotionID.value != nil {
@@ -280,16 +280,6 @@ extension ProductRealmStore {
                 savedProduct.promotionID.value = nil
             }
         }
-    }
-    
-    func promotionExpired(promotion: PromotionModel) -> Bool {
-        var expired: Bool = false
-        
-        if let endsAt = promotion.endsAt, ( endsAt < Date() && !Calendar.current.isDate(Date(), inSameDayAs: endsAt) ) {
-           expired = true
-        }
-        
-        return expired
     }
 }
 

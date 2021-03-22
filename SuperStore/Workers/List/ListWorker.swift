@@ -12,6 +12,7 @@ class ListWorker {
     private var listAPI: ListRequestProtocol
     
     private var listStore: ListStoreProtocol = ListRealmStore()
+    private var promotionStore: PromotionRealmStore = PromotionRealmStore()
     
     var userSession = UserSessionWorker()
     
@@ -30,8 +31,6 @@ class ListWorker {
     }
     
     func getList(listID: Int, completionHandler: @escaping ( _ list: ListModel?, _ error: String?) -> Void){
-        // Preload List
-        
         // Unless offline, dont show empty list items
         if let list = listStore.getList(listID: listID), list.categories.count > 0{
             completionHandler(list, nil)
@@ -54,9 +53,18 @@ class ListWorker {
                         }
                     }
                 } else {
-                    self.listStore.createList(list: list, ignoreCategories: false)
+                    // If list items promotion expired, then don't remove it
+                    for (categoryIndex, categories) in list.categories.enumerated() {
+                        for (itemIndex, item) in categories.items.enumerated(){
+                            if item.promotion != nil && self.promotionStore.promotionExpired(promotion: item.promotion!){
+                                listContent!.categories[categoryIndex].items[itemIndex].promotion = nil
+                            }
+                        }
+                    }
+                    
+                    self.listStore.createList(list: listContent!, ignoreCategories: false)
+                    
                 }
-                
             }
             
             completionHandler(listContent, error)

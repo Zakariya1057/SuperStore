@@ -32,8 +32,16 @@ class OfferCollectionViewCell: UICollectionViewCell {
         if promotion != nil {
             let details = promotion!.name.components(separatedBy: " - ")
             
-            let name = details[0]
-            let price = details[1]
+            var name: String = ""
+            var price: String = ""
+            
+            if details.count > 1 {
+                name = details[0]
+                price = details[1]
+            } else {
+                name = promotion!.name
+            }
+
             
             nameLabel.text = name
             priceLabel.text = price

@@ -116,4 +116,6 @@ protocol ListItemStoreProtocol {
     func updateListItem(listID: Int, productID: Int, quantity: Int, tickedOff: Bool, totalPrice: Double?)
     func createListItem(listID: Int, listItem: ListItemModel, product: ProductModel?)
     func deleteListItem(listID: Int, productID: Int)
+    
+    func deleteListItems(listID: Int)
 }

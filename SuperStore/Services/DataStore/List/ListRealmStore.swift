@@ -88,8 +88,7 @@ class ListRealmStore: DataStore, ListStoreProtocol {
             savedList.updatedAt = list.updatedAt
             
             if !ignoreCategories {
-
-                deleteListItems(listID: list.id)
+                listItemStore.deleteListItems(listID: list.id)
                 deleteListCategories(listID: list.id)
                 
                 for category in createCategoryObjects(list: list) {
@@ -105,7 +104,7 @@ class ListRealmStore: DataStore, ListStoreProtocol {
             let results = realm?.objects(ListObject.self).filter("id = %@", listID)
             if let results = results {
                 
-                deleteListItems(listID: listID)
+                listItemStore.deleteListItems(listID: listID)
                 deleteListCategories(listID: listID)
                 
                 if offline {
@@ -250,11 +249,6 @@ extension ListRealmStore {
 }
 
 extension ListRealmStore {
-    private func deleteListItems(listID: Int){
-        if let items = realm?.objects(ListItemObject.self).filter("listID = %@", listID) {
-            realm?.delete(items)
-        }
-    }
     
     private func deleteListCategories(listID: Int){
         if let categories = realm?.objects(ListCategoryObject.self).filter("listID = %@", listID) {

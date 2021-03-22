@@ -66,7 +66,9 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
             
             savedHome.promotions.removeAll()
             for savedPromotion in home.promotions.map({ promotionStore.createPromotionObject(promotion: $0)}){
-                savedHome.promotions.append(savedPromotion)
+                if !promotionStore.promotionExpired(promotion: savedPromotion.getPromotionModel()){
+                    savedHome.promotions.append(savedPromotion)
+                }
             }
 
             savedHome.categories.removeAll()
@@ -175,7 +177,12 @@ extension HomeRealmStore {
         
         if let savedPromotions = homeObject?.promotions.filter("storeTypeID = %@", storeTypeID) {
             savedPromotions.forEach { (promotion: PromotionObject) in
-                promotions.append( promotion.getPromotionModel() )
+                let promotionModel = promotion.getPromotionModel()
+                
+                if !promotionStore.promotionExpired(promotion: promotionModel){
+                    promotions.append( promotionModel )
+                }
+                
             }
         }
         

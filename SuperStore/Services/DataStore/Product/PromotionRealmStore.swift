@@ -44,6 +44,17 @@ class PromotionRealmStore: DataStore, PromotionStoreProtocol {
     }
 }
 
+extension PromotionRealmStore {
+    func promotionExpired(promotion: PromotionModel) -> Bool {
+        var expired: Bool = false
+        
+        if let endsAt = promotion.endsAt, ( endsAt < Date() && !Calendar.current.isDate(Date(), inSameDayAs: endsAt) ) {
+           expired = true
+        }
+        
+        return expired
+    }
+}
 
 extension PromotionRealmStore {
     func updatePromotion(promotion: PromotionModel, savedPromotion: PromotionObject){

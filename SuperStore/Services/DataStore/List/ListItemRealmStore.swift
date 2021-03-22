@@ -92,7 +92,7 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
         savedListItem.quantity = listItem.quantity
         savedListItem.tickedOff = listItem.tickedOff
         
-        if let promotion = listItem.promotion {
+        if let promotion = listItem.promotion, !promotionStore.promotionExpired(promotion: promotion) {
             savedListItem.promotion = promotionStore.createPromotionObject(promotion: promotion)
         }
         
@@ -147,6 +147,23 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
             listStore.updateListTotalPrice(listID: listID)
             
             listStore.listEdited(listID: listID)
+        }
+    }
+}
+
+extension ListItemRealmStore {
+    func deleteListItems(listID: Int){
+        if let items = realm?.objects(ListItemObject.self).filter("listID = %@", listID) {
+            for item in items {
+                if let promotion = item.promotion {
+                    if promotionStore.promotionExpired(promotion: promotion.getPromotionModel()){
+                        print("Delete List Item Expired Promotion")
+                        promotionStore.deletePromotion(promotionID: promotion.id)
+                    }
+                }
+            }
+            
+            realm?.delete(items)
         }
     }
 }

@@ -263,7 +263,7 @@
 		2CA11FA225EF92690054AE19 /* CategoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA11FA125EF92690054AE19 /* CategoryData.swift */; };
 		2CA11FA825EF96C70054AE19 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA11FA625EF96C70054AE19 /* CategoryTableViewCell.swift */; };
 		2CA11FA925EF96C70054AE19 /* CategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CA11FA725EF96C70054AE19 /* CategoryTableViewCell.xib */; };
-		2CA5601D2604AE7C00714AAC /* SpinnerViewController copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5601C2604AE7C00714AAC /* SpinnerViewController copy.swift */; };
+		2CA5601D2604AE7C00714AAC /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5601C2604AE7C00714AAC /* SpinnerViewController.swift */; };
 		2CAB2EF525FFF6AF0014FE8D /* LocationManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB2EF425FFF6AF0014FE8D /* LocationManger.swift */; };
 		2CAB2EFB25FFF7C40014FE8D /* LocationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB2EFA25FFF7C40014FE8D /* LocationAPI.swift */; };
 		2CAB2EFF25FFF90D0014FE8D /* LocationRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB2EFE25FFF90D0014FE8D /* LocationRealmStore.swift */; };
@@ -406,7 +406,6 @@
 		2C1476DF25E81FFA000E8F66 /* ErrorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorData.swift; sourceTree = "<group>"; };
 		2C1476E525E82B91000E8F66 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		2C1476F525E82FF6000E8F66 /* UserRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRealmStore.swift; sourceTree = "<group>"; };
-		2C14770325E833A7000E8F66 /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		2C14772925E90246000E8F66 /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
 		2C14772A25E90246000E8F66 /* RegisterWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterWorker.swift; sourceTree = "<group>"; };
 		2C14772B25E90246000E8F66 /* RegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRouter.swift; sourceTree = "<group>"; };
@@ -637,7 +636,7 @@
 		2CA11FA125EF92690054AE19 /* CategoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryData.swift; sourceTree = "<group>"; };
 		2CA11FA625EF96C70054AE19 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		2CA11FA725EF96C70054AE19 /* CategoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryTableViewCell.xib; sourceTree = "<group>"; };
-		2CA5601C2604AE7C00714AAC /* SpinnerViewController copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpinnerViewController copy.swift"; sourceTree = "<group>"; };
+		2CA5601C2604AE7C00714AAC /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		2CAB2EF425FFF6AF0014FE8D /* LocationManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManger.swift; sourceTree = "<group>"; };
 		2CAB2EFA25FFF7C40014FE8D /* LocationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAPI.swift; sourceTree = "<group>"; };
 		2CAB2EFE25FFF90D0014FE8D /* LocationRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRealmStore.swift; sourceTree = "<group>"; };
@@ -857,8 +856,7 @@
 		2C14770225E8338B000E8F66 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				2C14770325E833A7000E8F66 /* SpinnerViewController.swift */,
-				2CA5601C2604AE7C00714AAC /* SpinnerViewController copy.swift */,
+				2CA5601C2604AE7C00714AAC /* SpinnerViewController.swift */,
 				2C14779F25E94CEE000E8F66 /* ErrorViewController.swift */,
 				2CDA613025ED157500FD3956 /* FontHighlight.swift */,
 				2CDA613425ED159900FD3956 /* DownloadImage.swift */,
@@ -2263,7 +2261,7 @@
 				2C48E7D125EAA06E001A5702 /* StoreModel.swift in Sources */,
 				2C7294A225ECEAEB00D280B3 /* FavouriteWorker.swift in Sources */,
 				2CDFB63725EA6359002CE30D /* HomeRouter.swift in Sources */,
-				2CA5601D2604AE7C00714AAC /* SpinnerViewController copy.swift in Sources */,
+				2CA5601D2604AE7C00714AAC /* SpinnerViewController.swift in Sources */,
 				2CA11F6825EF8E490054AE19 /* GrandParentCategoriesWorker.swift in Sources */,
 				2C2BC83225EBBFD40038882B /* ShowPromotionInteractor.swift in Sources */,
 				2C7082AD25F013B200345147 /* EditEmailModels.swift in Sources */,
