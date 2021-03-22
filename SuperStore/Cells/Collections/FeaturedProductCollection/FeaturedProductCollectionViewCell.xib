@@ -33,10 +33,10 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6x-Lw-6Dz">
                                                         <rect key="frame" x="0.0" y="0.0" width="110" height="108"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PXt-Tg-edQ">
-                                                                <rect key="frame" x="0.0" y="-1" width="110" height="110"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PXt-Tg-edQ">
+                                                                <rect key="frame" x="0.0" y="4" width="110" height="100"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="110" id="wYk-ml-3aw"/>
+                                                                    <constraint firstAttribute="height" constant="100" id="wYk-ml-3aw"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -192,7 +192,7 @@
                 <outletCollection property="loadingViews" destination="fnK-QZ-xmF" collectionClass="NSMutableArray" id="SXK-bl-DVF"/>
                 <outletCollection property="loadingViews" destination="osE-rl-DAP" collectionClass="NSMutableArray" id="57B-zV-Sie"/>
             </connections>
-            <point key="canvasLocation" x="243.47826086956525" y="80.357142857142847"/>
+            <point key="canvasLocation" x="243.47826086956525" y="79.6875"/>
         </collectionViewCell>
     </objects>
     <designables>
