@@ -3143,42 +3143,7 @@
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Wzx-F7-brg">
                                         <rect key="frame" x="0.0" y="-40" width="414" height="40"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qy4-E2-00T">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
-                                                <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R47-Ft-ljo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
-                                                        <subviews>
-                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Jy-N6-QJ7">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
-                                                                <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mix and match - Halal meat - 3 for £10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5n-eZ-2gq">
-                                                                        <rect key="frame" x="15" y="10.5" width="399" height="19.5"/>
-                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
-                                                                        <color key="textColor" red="0.93756216839999995" green="0.93756216839999995" blue="0.93756216839999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                </subviews>
-                                                                <color key="tintColor" red="0.16964994899999999" green="0.35245279810000002" blue="0.60309146219999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <constraints>
-                                                                    <constraint firstItem="D5n-eZ-2gq" firstAttribute="leading" secondItem="8Jy-N6-QJ7" secondAttribute="leading" constant="15" id="3Ld-PK-EtU"/>
-                                                                    <constraint firstAttribute="height" constant="40" id="NTI-aI-WqP"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="D5n-eZ-2gq" secondAttribute="trailing" id="fXd-vm-vjN"/>
-                                                                    <constraint firstItem="D5n-eZ-2gq" firstAttribute="centerY" secondItem="8Jy-N6-QJ7" secondAttribute="centerY" id="sld-1c-efS"/>
-                                                                </constraints>
-                                                            </view>
-                                                        </subviews>
-                                                    </stackView>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.098049692810000005" green="0.48702979089999998" blue="0.8588690162" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstItem="R47-Ft-ljo" firstAttribute="leading" secondItem="qy4-E2-00T" secondAttribute="leading" id="6zx-hX-9Wf"/>
-                                                    <constraint firstAttribute="trailing" secondItem="R47-Ft-ljo" secondAttribute="trailing" id="SuE-6t-Inn"/>
-                                                    <constraint firstAttribute="bottom" secondItem="R47-Ft-ljo" secondAttribute="bottom" id="ckD-eu-jql"/>
-                                                    <constraint firstItem="R47-Ft-ljo" firstAttribute="top" secondItem="qy4-E2-00T" secondAttribute="top" id="oVL-dJ-8WA"/>
-                                                </constraints>
-                                            </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C9Y-ut-iRW">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C9Y-ut-iRW">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QyJ-1q-zz9">
@@ -3188,9 +3153,9 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offer ends Tuesday 20/09/2019" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVf-FN-EsO">
-                                                                        <rect key="frame" x="15" y="11.5" width="399" height="17"/>
-                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
-                                                                        <nil key="highlightedColor"/>
+                                                                        <rect key="frame" x="15" y="11" width="399" height="18"/>
+                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                                                        <color key="highlightedColor" systemColor="labelColor"/>
                                                                     </label>
                                                                 </subviews>
                                                                 <constraints>
@@ -3203,7 +3168,7 @@
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.93756216839999995" green="0.93756216839999995" blue="0.93756216839999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="backgroundColor" name="LightGrey"/>
                                                 <constraints>
                                                     <constraint firstItem="QyJ-1q-zz9" firstAttribute="top" secondItem="C9Y-ut-iRW" secondAttribute="top" id="FfW-fI-Jg0"/>
                                                     <constraint firstAttribute="trailing" secondItem="QyJ-1q-zz9" secondAttribute="trailing" id="Mhl-l5-0g5"/>
@@ -3237,10 +3202,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="pkH-zn-Fpe"/>
                     <connections>
+                        <outlet property="expiresStackView" destination="Wzx-F7-brg" id="HJw-5K-e9a"/>
                         <outlet property="promotionExpiresLabel" destination="fVf-FN-EsO" id="Ihy-2w-09p"/>
                         <outlet property="promotionExpiryView" destination="C9Y-ut-iRW" id="DaJ-z9-QkW"/>
-                        <outlet property="promotionNameLabel" destination="D5n-eZ-2gq" id="uXU-aD-Lj1"/>
-                        <outlet property="promotionNameView" destination="qy4-E2-00T" id="efk-v1-gK8"/>
                         <outlet property="promotionTableView" destination="jq5-I9-xte" id="ihX-g8-6Ts"/>
                     </connections>
                 </viewController>
@@ -4936,7 +4900,7 @@
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <namedColor name="Grey.Blank">
-            <color red="0.96388653593809426" green="0.96112468339958979" blue="0.96664838847659884" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.96399998664855957" green="0.96100002527236938" blue="0.96700000762939453" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="LightBlack">
             <color red="0.48899999260902405" green="0.48899999260902405" blue="0.48899999260902405" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

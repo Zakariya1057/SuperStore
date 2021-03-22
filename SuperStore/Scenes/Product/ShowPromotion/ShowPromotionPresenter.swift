@@ -23,7 +23,26 @@ class ShowPromotionPresenter: ShowPromotionPresentationLogic
     
     func presentPromotion(response: ShowPromotion.GetPromotion.Response)
     {
-        let viewModel = ShowPromotion.GetPromotion.ViewModel(promotion: response.promotion, error: response.error, offline: response.offline)
+        let dateWorker = DateWorker()
+        var displayedPromotion: ShowPromotion.DisplayedPromotion? = nil
+        
+        if let promotion = response.promotion {
+            let endsAt: String? = promotion.endsAt == nil ? nil : dateWorker.formatDate(date: promotion.endsAt!)
+            
+            displayedPromotion = ShowPromotion.DisplayedPromotion(
+                name: promotion.name,
+                products: promotion.products,
+                expires: promotion.expires,
+                endsAt: endsAt
+            )
+        }
+    
+        let viewModel = ShowPromotion.GetPromotion.ViewModel(
+            displayedPromotion: displayedPromotion,
+            error: response.error,
+            offline: response.offline
+        )
+        
         viewController?.displayPromotion(viewModel: viewModel)
     }
 }

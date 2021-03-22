@@ -14,4 +14,10 @@ class DateWorker {
         dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return dateFormat.date(from: date)!
     }
+    
+    func formatDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMM y"
+        return dateFormatter.string(from: date)
+    }
 }

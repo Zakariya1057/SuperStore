@@ -77,14 +77,12 @@ class ShowPromotionViewController: UIViewController, ShowPromotionDisplayLogic
     
     @IBOutlet var promotionTableView: UITableView!
     
+    @IBOutlet weak var expiresStackView: UIStackView!
     @IBOutlet var promotionExpiryView: UIView!
     @IBOutlet var promotionExpiresLabel: UILabel!
     
-    @IBOutlet var promotionNameLabel: UILabel!
-    @IBOutlet var promotionNameView: UIView!
-    
-    var loading: Bool = false
-    var promotion: PromotionModel? = nil
+    var loading: Bool = true
+    var products: [ProductModel] = []
     
     func getPromotion()
     {
@@ -101,9 +99,20 @@ class ShowPromotionViewController: UIViewController, ShowPromotionDisplayLogic
                 showError(title: "Promotion Error", error: error)
             }
         } else {
-            promotion = viewModel.promotion
-            title = viewModel.promotion?.name
-            promotionTableView.reloadData()
+            
+            if let promotion = viewModel.displayedPromotion {
+                title = promotion.name
+                expiresStackView.isHidden = !promotion.expires
+                
+                products = promotion.products
+                
+                if promotion.expires, let endsAt = promotion.endsAt {
+                    promotionExpiresLabel.text = "Expires: \(endsAt)"
+                }
+                
+                loading = false
+                promotionTableView.reloadData()
+            }
         }
     }
 }
@@ -123,7 +132,7 @@ extension ShowPromotionViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return promotion?.products.count ?? 0
+        return loading ? 5 : products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -132,9 +141,7 @@ extension ShowPromotionViewController: UITableViewDelegate, UITableViewDataSourc
 
         cell.loading = loading
         
-        if let promotion = promotion {
-            cell.product = promotion.products[indexPath.row]
-        }
+        cell.product = loading ? nil : products[indexPath.row]
 
         cell.configureUI()
 
@@ -146,10 +153,8 @@ extension ShowPromotionViewController: UITableViewDelegate, UITableViewDataSourc
 
 extension ShowPromotionViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let promotion = promotion {
-            router?.selectedProductID = promotion.products[indexPath.row].id
-            router?.routeToShowProduct(segue: nil)
-        }
+        router?.selectedProductID = products[indexPath.row].id
+        router?.routeToShowProduct(segue: nil)
     }
 }
 

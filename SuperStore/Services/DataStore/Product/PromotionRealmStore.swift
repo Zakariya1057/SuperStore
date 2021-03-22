@@ -17,13 +17,17 @@ class PromotionRealmStore: DataStore, PromotionStoreProtocol {
     }
     
     func createPromotion(promotion: PromotionModel) {
-        if let savedPromotion = getPromotionObject(promotionID: promotion.id){
-            updatePromotion(promotion: promotion, savedPromotion: savedPromotion)
+        if !promotionExpired(promotion: promotion){
+            if let savedPromotion = getPromotionObject(promotionID: promotion.id){
+                updatePromotion(promotion: promotion, savedPromotion: savedPromotion)
+            } else {
+                try? realm?.write({
+                    let savedPromotion = createPromotionObject(promotion: promotion)
+                    realm?.add(savedPromotion)
+                })
+            }
         } else {
-            try? realm?.write({
-                let savedPromotion = createPromotionObject(promotion: promotion)
-                realm?.add(savedPromotion)
-            })
+            deletePromotion(promotionID: promotion.id)
         }
     }
     

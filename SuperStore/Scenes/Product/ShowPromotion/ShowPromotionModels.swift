@@ -14,24 +14,30 @@ import UIKit
 
 enum ShowPromotion
 {
-  // MARK: Use cases
-  
-  enum GetPromotion
-  {
-    struct Request
-    {
+    struct DisplayedPromotion {
+        var name: String
+        var products:[ProductModel]
+        
+        var expires: Bool = false
+        var endsAt: String? = nil
     }
-    struct Response
+    
+    enum GetPromotion
     {
-        var promotion: PromotionModel?
-        var error: String?
-        var offline: Bool = false
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var promotion: PromotionModel?
+            var error: String?
+            var offline: Bool = false
+        }
+        struct ViewModel
+        {
+            var displayedPromotion: DisplayedPromotion?
+            var error: String?
+            var offline: Bool = false
+        }
     }
-    struct ViewModel
-    {
-        var promotion: PromotionModel?
-        var error: String?
-        var offline: Bool = false
-    }
-  }
 }
