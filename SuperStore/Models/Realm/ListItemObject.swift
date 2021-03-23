@@ -23,7 +23,7 @@ class ListItemObject: Object {
     
     @objc dynamic var quantity: Int = 0
     
-    var weight: String? = nil
+    @objc dynamic var weight: String? = nil
     
     @objc dynamic var promotion: PromotionObject? = nil
     

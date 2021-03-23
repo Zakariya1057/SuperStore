@@ -17,7 +17,7 @@ class ListPriceWorker {
         let itemPrice = listItem.price
         let promotion = listItem.promotion
         
-        if promotion == nil {
+        if promotion == nil || ( promotion!.quantity == nil && promotion!.minimum == nil ){
             price = ( Double(quantity) * itemPrice)
         } else {
 
@@ -70,11 +70,11 @@ class ListPriceWorker {
 
         for product in items {
 
-            if product.promotion != nil {
+            if let promotion = product.promotion, (promotion.quantity != nil || promotion.minimum != nil) {
                 if let _ = promotions[product.promotion!.id] {
-                    promotions[product.promotion!.id]!["items"]!.append(product)
+                    promotions[promotion.id]!["items"]!.append(product)
                 } else {
-                    promotions[product.promotion!.id] = ["items": [product], "promotion": [product.promotion!]]
+                    promotions[promotion.id] = ["items": [product], "promotion": [product.promotion!]]
                 }
             }
 

@@ -8,8 +8,6 @@
 
 import Foundation
 
-// Suggestions
-
 struct SearchSuggestionsDataResponse: Decodable {
     let data: SearchSuggestionsData
 }
