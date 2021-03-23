@@ -108,13 +108,47 @@ class ProductModel {
         self.images = images
         
         self.price = price
-        self.oldPrice = oldPrice
-        self.isOnSale = isOnSale
-        self.saleEndsAt = saleEndsAt
-        
         self.currency = currency
         
-        self.promotion = promotion
+        let dateWorker = DateWorker()
+        
+        setPromotion(dateWorker: dateWorker, promotion: promotion)
+        setSalePrices(dateWorker: dateWorker, oldPrice: oldPrice, isOnSale: isOnSale, saleEndsAt: saleEndsAt)
+    }
+    
+    
+    private func setPromotion(dateWorker: DateWorker, promotion: PromotionModel?){
+        if let promotion = promotion {
+            if let endsAt = promotion.endsAt {
+                if dateWorker.dateDiff(date: endsAt) > 0 {
+                    self.promotion = promotion
+                }
+            } else {
+                self.promotion = promotion
+            }
+        }
+    }
+    
+    private func setSalePrices(dateWorker: DateWorker, oldPrice: Double?, isOnSale: Bool?, saleEndsAt: Date?){
+        // On model creation, check if sale, promotion expired. If has, then never set in the model.
+        if let saleEndsAt = saleEndsAt, let oldPrice = oldPrice {
+            
+            if dateWorker.dateDiff(date: saleEndsAt) < 0 {
+                self.price = oldPrice
+                self.isOnSale = false
+                self.oldPrice = nil
+                self.saleEndsAt = nil
+            } else {
+                self.oldPrice = oldPrice
+                self.isOnSale = isOnSale
+                self.saleEndsAt = saleEndsAt
+            }
+            
+        } else {
+            self.oldPrice = oldPrice
+            self.isOnSale = isOnSale
+            self.saleEndsAt = saleEndsAt
+        }
     }
 
 }

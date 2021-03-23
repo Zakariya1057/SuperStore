@@ -61,6 +61,45 @@ struct ListItemModel {
     var promotion: PromotionModel?
     var tickedOff: Bool
     
+    init(
+        id: Int,
+        name: String,
+        productID: Int,
+        image: String?,
+        price: Double,
+        currency: String,
+        totalPrice: Double,
+        quantity: Int,
+        weight: String?,
+        promotion: PromotionModel?,
+        tickedOff: Bool
+    ) {
+        
+        self.id = id
+        self.name = name
+        self.productID = productID
+        self.image = image
+        self.price = price
+        self.currency = currency
+        self.totalPrice = totalPrice
+        self.quantity = quantity
+        self.weight = weight
+        self.tickedOff = tickedOff
+        
+        if let promotion = promotion {
+            if let endsAt = promotion.endsAt {
+                let dateWorker = DateWorker()
+                
+                if dateWorker.dateDiff(date: endsAt) > 0 {
+                    self.promotion = promotion
+                }
+            } else {
+                self.promotion = promotion
+            }
+        }
+    }
+    
+    
     func getPrice() -> String {
         let priceCalculator = ListPriceWorker()
         return currency + String(format: "%.2f", priceCalculator.calculateItemPrice(listItem: self))

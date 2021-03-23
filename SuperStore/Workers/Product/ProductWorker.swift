@@ -25,6 +25,10 @@ class ProductWorker {
         
         productAPI.getProduct(productID: productID) { (product: ProductModel?, error: String?) in
             if let product = product {
+                
+                // Remove expired promotion
+                // Remove expired sale
+                
                 self.productStore.createProduct(product: product)
             }
             

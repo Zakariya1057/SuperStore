@@ -98,14 +98,6 @@ extension ShowProductPresenter {
     }
     
     func createDisplayedPromotion(promotion: PromotionModel?) -> ShowProduct.DisplayedPromotion? {
-        if let promotion = promotion {
-            if let endsAt = promotion.endsAt, ( endsAt < Date() && !Calendar.current.isDate(Date(), inSameDayAs: endsAt) ) {
-                print("Promotion Expired. Not Displaying")
-            } else {
-                return ShowProduct.DisplayedPromotion(id: promotion.id, name: promotion.name)
-            }
-        }
-        
-        return nil
+        return promotion == nil ? nil : ShowProduct.DisplayedPromotion(id: promotion!.id, name: promotion!.name)
     }
 }

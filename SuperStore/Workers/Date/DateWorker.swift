@@ -21,3 +21,16 @@ class DateWorker {
         return dateFormatter.string(from: date)
     }
 }
+
+extension DateWorker {
+    func dateDiff(date: Date) -> Int {
+        let calendar = Calendar.current
+
+        let date1 = calendar.startOfDay(for: Date())
+        let date2 = calendar.startOfDay(for: date)
+
+        let components = calendar.dateComponents([.day], from: date1, to: date2)
+        
+        return components.day!
+    }
+}

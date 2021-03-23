@@ -133,8 +133,6 @@ extension ProductRealmStore {
         savedProduct.price = product.price
         updateOldTotalPrice(product: product, savedProduct: savedProduct)
         
-        savedProduct.saleEndsAt = product.saleEndsAt
-        
         savedProduct.currency = product.currency
         
         createPromotion(product: product, savedProduct: savedProduct)
@@ -286,16 +284,32 @@ extension ProductRealmStore {
 extension ProductRealmStore {
         
     func updateOldTotalPrice(product: ProductModel, savedProduct: ProductObject){
-        let oldPrice = RealmOptional<Double>()
-        let isOnSale = RealmOptional<Bool>()
+        var saleEndsAt = product.saleEndsAt
+        
+        let dateWorker = DateWorker()
         
         if product.oldPrice != nil {
-            oldPrice.value = product.oldPrice!
-            isOnSale.value = true
+            if let endsAt = saleEndsAt {
+                if dateWorker.dateDiff(date: endsAt) > 0 {
+                    savedProduct.oldPrice.value = product.oldPrice!
+                    savedProduct.isOnSale.value = true
+                } else {
+                    saleEndsAt = nil
+                    savedProduct.isOnSale.value = nil
+                    savedProduct.oldPrice.value = nil
+                    savedProduct.price = product.oldPrice!
+                }
+            } else {
+                savedProduct.oldPrice.value = product.oldPrice!
+                savedProduct.isOnSale.value = true
+            }
+        } else {
+            savedProduct.oldPrice.value = nil
+            savedProduct.isOnSale.value = nil
+            saleEndsAt = nil
         }
         
-        savedProduct.oldPrice = oldPrice
-        savedProduct.isOnSale = isOnSale
+        savedProduct.saleEndsAt = saleEndsAt
     }
     
     func updateRatings(product: ProductModel, savedProduct: ProductObject){

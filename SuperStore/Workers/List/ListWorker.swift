@@ -48,22 +48,10 @@ class ListWorker {
                     if let savedList = self.listStore.getList(listID: list.id) {
                         listContent = savedList
                         
-                        self.offlineEditedLists { (error: String?) in
-                            // Requesting List Synced
-                        }
+                        self.offlineEditedLists { (error: String?) in }
                     }
                 } else {
-                    // If list items promotion expired, then don't remove it
-                    for (categoryIndex, categories) in list.categories.enumerated() {
-                        for (itemIndex, item) in categories.items.enumerated(){
-                            if item.promotion != nil && self.promotionStore.promotionExpired(promotion: item.promotion!){
-                                listContent!.categories[categoryIndex].items[itemIndex].promotion = nil
-                            }
-                        }
-                    }
-                    
                     self.listStore.createList(list: listContent!, ignoreCategories: false)
-                    
                 }
             }
             
