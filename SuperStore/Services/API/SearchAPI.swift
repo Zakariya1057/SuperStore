@@ -92,6 +92,7 @@ extension SearchAPI {
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.promotions, type: .promotion))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.child_categories, type: .childCategory))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.parent_categories, type: .parentCategory))
+        suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.brands, type: .brand))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.products, type: .product))
  
         return suggestions

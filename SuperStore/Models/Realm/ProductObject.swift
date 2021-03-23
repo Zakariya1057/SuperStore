@@ -33,7 +33,7 @@ class ProductObject: Object {
     
     var promotionID = RealmOptional<Int>()
     
-    var productDescription: String? = nil
+    @objc dynamic var productDescription: String? = nil
     var features = List<String>()
     var dimensions = List<String>()
 
@@ -49,9 +49,9 @@ class ProductObject: Object {
     @objc dynamic var parentCategoryName: String? = nil
     @objc dynamic var childCategoryName: String? = nil
 
-    var storage: String? = nil
-    var weight: String? = nil
-    var brand: String? = nil
+    @objc dynamic var storage: String? = nil
+    @objc dynamic var weight: String? = nil
+    @objc dynamic var brand: String? = nil
 
     @objc dynamic var dietaryInfo: String? = nil
     @objc dynamic var allergenInfo: String? = nil

@@ -41,6 +41,8 @@ class ProductResultsRealmStore: DataStore, ProductResultsStoreProtocol {
             products = parentCategorySearch(storeTypeID:storeTypeID, query: query)
         } else if type == "promotions" {
             products = promotionSearch(storeTypeID:storeTypeID, query: query)
+        } else if type == "brands" {
+            products = brandSearch(storeTypeID:storeTypeID, query: query)
         }
 
         return ProductResultsModel(products: products, paginate: nil)
@@ -52,6 +54,12 @@ extension ProductResultsRealmStore {
     private func productSearch(storeTypeID: Int, query: String) -> [ProductModel]{
         let productResults = realm?.objects(ProductObject.self)
             .filter("storeTypeID = %@ AND name contains[c] %@ AND childCategoryName != nil", storeTypeID, query)
+        return parseResults(results: productResults)
+    }
+    
+    private func brandSearch(storeTypeID: Int, query: String) -> [ProductModel]{
+        let productResults = realm?.objects(ProductObject.self)
+            .filter("storeTypeID = %@ AND brand contains[c] %@ AND childCategoryName != nil", storeTypeID, query)
         return parseResults(results: productResults)
     }
     

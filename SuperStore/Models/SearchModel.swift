@@ -50,6 +50,7 @@ struct SearchRefine {
 enum SearchType: String {
     case store = "stores"
     case storeSale = "store_sales"
+    case brand = "brands"
     case product = "products"
     case promotion = "promotions"
     case childCategory = "child_categories"
