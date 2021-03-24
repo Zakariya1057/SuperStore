@@ -32,14 +32,14 @@ class StoreInteractor: StoreBusinessLogic, StoreDataStore
     
     var userSession = UserSessionWorker()
     
-    var storeID: Int = 10
+    var storeID: Int = 1
     var selectedListID: Int?
     var store: StoreModel?
     
     func getStore(request: Store.GetStore.Request)
     {
         storeWorker.getStore(storeID: storeID) { (store: StoreModel?, error: String?) in
-            
+
             var response = Store.GetStore.Response(store: store, error: error)
             
             if error == nil {
