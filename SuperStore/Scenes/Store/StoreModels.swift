@@ -14,7 +14,6 @@ import UIKit
 
 enum Store
 {
-    
     struct DisplayedStore {
         var name: String
         var logo: String
@@ -23,7 +22,6 @@ enum Store
         var storeTypeID: Int
         
         var openingHours: [DisplayOpeningHour]
-//        var facilities: [String]
         var facilities: [DisplayFacility]
     }
     

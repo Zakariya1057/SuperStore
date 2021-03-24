@@ -30,6 +30,11 @@ struct StoreModel {
 
         return image
     }
+    
+    func getAddress() -> String {
+        let addressList = [location.addressLine1, location.addressLine2, location.addressLine3, location.city ]
+        return addressList.compactMap { $0 }.joined(separator: ", ")
+    }
 }
 
 struct OpeningHourModel {

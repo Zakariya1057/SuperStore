@@ -13,8 +13,6 @@
 @testable import SuperStore
 import XCTest
 
-// Right Button Display
-
 class StoreViewControllerTests: XCTestCase
 {
     // MARK: Subject under test

@@ -1312,7 +1312,6 @@
 			children = (
 				2C69E24E260A872F003863BF /* StoreViewControllerTests.swift */,
 				2C69E24F260A872F003863BF /* StoreInteractorTests.swift */,
-				2C69E250260A872F003863BF /* StoreWorkerTests.swift */,
 				2C69E251260A872F003863BF /* StorePresenterTests.swift */,
 			);
 			path = Store;
@@ -1324,6 +1323,22 @@
 				2C69E241260A86D1003863BF /* Store */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		2C69E268260B7020003863BF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2C69E269260B703A003863BF /* API */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2C69E269260B703A003863BF /* API */ = {
+			isa = PBXGroup;
+			children = (
+				2C69E250260A872F003863BF /* StoreWorkerTests.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		2C70825A25F00DC900345147 /* Settings */ = {
@@ -1551,6 +1566,7 @@
 		2C91F772260A8393009FF465 /* SuperStoreTests */ = {
 			isa = PBXGroup;
 			children = (
+				2C69E268260B7020003863BF /* Services */,
 				2C69E261260B4FC5003863BF /* Scenes */,
 				2C91F773260A8393009FF465 /* SuperStoreTests.swift */,
 				2C69E259260B3F94003863BF /* Seeds.swift */,

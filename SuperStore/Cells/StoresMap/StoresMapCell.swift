@@ -122,11 +122,7 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
             let annotation = MKPointAnnotation()
             annotation.title = store.name
             
-            let location = store.location
-            let addressList = [location.addressLine1, location.addressLine2, location.addressLine3, location.city ]
-            let address = addressList.compactMap { $0 }.joined(separator: ", ")
-            
-            annotation.subtitle = address
+            annotation.subtitle = store.getAddress()
             annotation.coordinate = CLLocationCoordinate2D(
                 latitude: CLLocationDegrees(store.location.latitude),
                 longitude: CLLocationDegrees(store.location.longitude)

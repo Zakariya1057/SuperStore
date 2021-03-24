@@ -34,7 +34,7 @@ class StorePresenter: StorePresentationLogic
                 name: store.name,
                 logo: store.logo,
                 logoImage: store.getLogoImage(),
-                address: store.address,
+                address: store.getAddress(),
                 storeTypeID: store.storeTypeID,
                 openingHours: openingHours,
                 facilities: facilities

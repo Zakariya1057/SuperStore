@@ -41,26 +41,24 @@ struct Seeds
                 ),
                 
                 facilities: [
+                    "Bakery",
                     "Click & Collect",
+                    "Dentist",
+                    "Dietitian",
                     "Dry Cleaners",
                     "Floral",
-                    "Click & Collect",
-                    "Garden Centre",
-                    "Goodlife Fitness",
+                    "Gas Bar",
                     "Joe Fresh®",
-                    "Lottery",
-                    "Meals To Go",
                     "Medical Clinic",
+                    "Optical",
                     "Passport Photos",
-                    "PC Cooking School",
-                    "PC Financial",
-                    "PC Financial® ATMs",
-                    "PC Financial® Pavilion",
-                    "PC Optimum",
+                    "PC Financial&reg; ATMs",
                     "Pharmacy",
-                    "Prepaid/Long Distance Calling Cards",
+                    "Salad Bar",
+                    "Seafood",
+                    "Sushi Bar",
                     "The Mobile Shop",
-                    "Wine",
+                    "Tim Hortons",
                 ],
                 storeTypeID: 2
             )
@@ -71,7 +69,7 @@ struct Seeds
                 name: "Don Mills and Eglinton",
                 logo: "",
                 logoImage: UIImage(named: "Canadian SuperStore"),
-                address: "825 Don Mills Rd",
+                address: "100 Country Village Rd NE, Calgary",
                 storeTypeID: 2,
                 
                 openingHours: [
@@ -85,14 +83,24 @@ struct Seeds
                 ],
                 
                 facilities: [
+                    Store.DisplayFacility(name: "Bakery", icon: UIImage()),
                     Store.DisplayFacility(name: "Click & Collect", icon: UIImage()),
+                    Store.DisplayFacility(name: "Dentist", icon: UIImage()),
+                    Store.DisplayFacility(name: "Dietitian", icon: UIImage()),
                     Store.DisplayFacility(name: "Dry Cleaners", icon: UIImage()),
                     Store.DisplayFacility(name: "Floral", icon: UIImage()),
-                    Store.DisplayFacility(name: "Garden Centre", icon: UIImage()),
-                    Store.DisplayFacility(name: "Goodlife Fitness", icon: UIImage()),
+                    Store.DisplayFacility(name: "Gas Bar", icon: UIImage()),
                     Store.DisplayFacility(name: "Joe Fresh®", icon: UIImage()),
-                    Store.DisplayFacility(name: "Meals To Go", icon: UIImage()),
+                    Store.DisplayFacility(name: "Medical Clinic", icon: UIImage()),
+                    Store.DisplayFacility(name: "Optical", icon: UIImage()),
+                    Store.DisplayFacility(name: "Passport Photos", icon: UIImage()),
+                    Store.DisplayFacility(name: "PC Financial&reg; ATMs", icon: UIImage()),
                     Store.DisplayFacility(name: "Pharmacy", icon: UIImage()),
+                    Store.DisplayFacility(name: "Salad Bar", icon: UIImage()),
+                    Store.DisplayFacility(name: "Seafood", icon: UIImage()),
+                    Store.DisplayFacility(name: "Sushi Bar", icon: UIImage()),
+                    Store.DisplayFacility(name: "The Mobile Shop", icon: UIImage()),
+                    Store.DisplayFacility(name: "Tim Hortons", icon: UIImage())
                 ]
             )
         ]
