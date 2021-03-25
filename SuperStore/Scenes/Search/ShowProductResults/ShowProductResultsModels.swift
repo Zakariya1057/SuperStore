@@ -21,6 +21,7 @@ enum ShowProductResults
         struct Request
         {
             var page: Int = 1
+            var refine: Bool
         }
         struct Response
         {

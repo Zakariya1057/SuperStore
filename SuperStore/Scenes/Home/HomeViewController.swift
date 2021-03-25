@@ -79,12 +79,18 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         
         registerTableViewCells()
         setupHomeCells()
-//        getHome()
+        homeStoreTypeID = userSession.getStore()
+        getHome()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        getHome()
+        if userSession.getStore() != homeStoreTypeID {
+            homeStoreTypeID = userSession.getStore()
+            getHome()
+        }
     }
+    
+    var homeStoreTypeID: Int = 0
     
     var loading: Bool = true
     

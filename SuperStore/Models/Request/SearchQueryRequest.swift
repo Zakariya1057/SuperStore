@@ -18,4 +18,6 @@ struct SearchQueryRequest {
     var brand: String = ""
     var childCategory: String = ""
     var textSearch: Bool = false
+    
+    var refine: Bool = false
 }

@@ -261,18 +261,18 @@ extension ProductRealmStore {
         if let promotion = product.promotion {
             if promotionStore.promotionExpired(promotion: promotion) {
                 // If present locally, then delete
-                print("Delete Old Promotion")
+//                print("Delete Old Promotion")
                 if savedProduct.promotionID.value != nil {
                     promotionStore.deletePromotion(promotionID: savedProduct.promotionID.value!)
                     savedProduct.promotionID.value = nil
                 }
             } else {
-                print("Store New Promotion")
+//                print("Store New Promotion")
                 savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
                 savedProduct.promotionID.value = promotion.id
             }
         } else {
-            print("Delete Old Promotion")
+//            print("Delete Old Promotion")
             if savedProduct.promotionID.value != nil {
                 promotionStore.deletePromotion(promotionID: savedProduct.promotionID.value!)
                 savedProduct.promotionID.value = nil

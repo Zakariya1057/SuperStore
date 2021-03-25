@@ -122,7 +122,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         productsTableView.reloadData()
         totalProductsLabel.text = "Fetching Products"
         
-        let request = ShowProductResults.GetResults.Request(page: currentPage)
+        let request = ShowProductResults.GetResults.Request(page: currentPage, refine: false)
         interactor?.getResults(request: request)
     }
     
@@ -134,9 +134,10 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     func refineResults(){
         loading = true
         currentPage = 1
+        
         productsTableView.reloadData()
         
-        let request = ShowProductResults.GetResults.Request()
+        let request = ShowProductResults.GetResults.Request(refine: true)
         totalProductsLabel.text = "Refining Search Results"
         interactor?.getResults(request: request)
     }
@@ -155,17 +156,8 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             
             if let paginate = paginate, paginate.current == 1 {
                 products = viewModel.products
-                
-                for product in products {
-                    uniqueProducts[product.id] = true
-                }
-                
             } else {
-                for product in viewModel.products {
-                    if uniqueProducts[product.id] == nil {
-                        products.append(product)
-                    }
-                }
+                products.append(contentsOf: viewModel.products)
             }
             
             totalProductsLabel.text = "\(products.count) Products"

@@ -20,7 +20,6 @@ protocol FavouritesBusinessLogic
 
 protocol FavouritesDataStore
 {
-    
 }
 
 class FavouritesInteractor: FavouritesBusinessLogic, FavouritesDataStore

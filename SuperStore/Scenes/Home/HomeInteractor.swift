@@ -20,7 +20,6 @@ protocol HomeBusinessLogic
 
 protocol HomeDataStore
 {
-
 }
 
 class HomeInteractor: HomeBusinessLogic, HomeDataStore

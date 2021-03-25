@@ -66,12 +66,15 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         var uniqueCategories: [String: Int] = [:]
         
         let page: Int = request.page
+        let refine: Bool = request.refine
+        
+        searchQueryRequest.refine = refine
         
         searchWorker.getProductResults(query: searchQueryRequest, page: page) { (results: ProductResultsModel?, error: String?) in
             
             if let results = results {
                 for product in results.products {
-                    if let brand = product.brand {
+                    if let brand = product.brand, brand != "" {
                         uniqueBrands[brand] = 1
                         uniqueCategories[product.childCategoryName!] = 1
                     }
@@ -110,6 +113,7 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
             searchQueryRequest.brand = selectedBrand.name
         }
 
+        searchQueryRequest.refine = true
         searchQueryRequest.dietary = selectedRefineOptions.dietary.compactMap({ $0.name }).joined(separator: ",")
     }
 
