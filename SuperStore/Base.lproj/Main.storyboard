@@ -282,7 +282,7 @@
         <!--Favourites-->
         <scene sceneID="5es-Nj-h9A">
             <objects>
-                <viewController id="hYh-V0-gqD" customClass="FavouritesViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FavouritesViewController" id="hYh-V0-gqD" customClass="FavouritesViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JbJ-gu-k9r">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

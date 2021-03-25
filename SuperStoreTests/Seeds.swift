@@ -11,6 +11,43 @@ import XCTest
 
 struct Seeds
 {
+    struct ProductSeed {
+        static let Products: [ProductModel] = [
+            ProductModel(
+                id: 1,
+                storeTypeID: 1,
+                name: "",
+                smallImage: "",
+                largeImage: "",
+                images: [],
+                description: nil,
+                features: nil,
+                dimensions: nil,
+                price: 1.50,
+                oldPrice: nil,
+                isOnSale: nil,
+                saleEndsAt: nil,
+                currency: "£",
+                avgRating: 5.0,
+                totalReviewsCount: 10,
+                promotion: nil,
+                storage: nil,
+                weight: nil,
+                parentCategoryID: 1,
+                parentCategoryName: "Fruits",
+                childCategoryName: "Apple",
+                dietaryInfo: nil,
+                allergenInfo: nil,
+                brand: nil,
+                reviews: [],
+                favourite: true,
+                monitoring: true,
+                ingredients: [],
+                recommended: []
+            )
+        ]
+    }
+    
     struct StoreSeed {
         static let Stores: [StoreModel] = [
             StoreModel(
@@ -46,19 +83,9 @@ struct Seeds
                     "Dentist",
                     "Dietitian",
                     "Dry Cleaners",
-                    "Floral",
-                    "Gas Bar",
-                    "Joe Fresh®",
-                    "Medical Clinic",
-                    "Optical",
-                    "Passport Photos",
-                    "PC Financial&reg; ATMs",
                     "Pharmacy",
-                    "Salad Bar",
-                    "Seafood",
-                    "Sushi Bar",
                     "The Mobile Shop",
-                    "Tim Hortons",
+                    "Tim Hortons"
                 ],
                 storeTypeID: 2
             )
@@ -88,17 +115,7 @@ struct Seeds
                     Store.DisplayFacility(name: "Dentist", icon: UIImage()),
                     Store.DisplayFacility(name: "Dietitian", icon: UIImage()),
                     Store.DisplayFacility(name: "Dry Cleaners", icon: UIImage()),
-                    Store.DisplayFacility(name: "Floral", icon: UIImage()),
-                    Store.DisplayFacility(name: "Gas Bar", icon: UIImage()),
-                    Store.DisplayFacility(name: "Joe Fresh®", icon: UIImage()),
-                    Store.DisplayFacility(name: "Medical Clinic", icon: UIImage()),
-                    Store.DisplayFacility(name: "Optical", icon: UIImage()),
-                    Store.DisplayFacility(name: "Passport Photos", icon: UIImage()),
-                    Store.DisplayFacility(name: "PC Financial&reg; ATMs", icon: UIImage()),
                     Store.DisplayFacility(name: "Pharmacy", icon: UIImage()),
-                    Store.DisplayFacility(name: "Salad Bar", icon: UIImage()),
-                    Store.DisplayFacility(name: "Seafood", icon: UIImage()),
-                    Store.DisplayFacility(name: "Sushi Bar", icon: UIImage()),
                     Store.DisplayFacility(name: "The Mobile Shop", icon: UIImage()),
                     Store.DisplayFacility(name: "Tim Hortons", icon: UIImage())
                 ]

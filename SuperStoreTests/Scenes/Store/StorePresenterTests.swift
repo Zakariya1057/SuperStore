@@ -166,6 +166,9 @@ class StorePresenterTests: XCTestCase
         sut.presentStore(response: response)
         
         // Then
-        XCTAssertTrue(storeDisplayMock.verifyStoreMatches(actualStore: store), "presentStore(response:) should ask the view controller to display the store in correct format")
+        XCTAssertTrue(
+            storeDisplayMock.verifyStoreMatches(actualStore: store),
+            "presentStore(response:) should ask the view controller to display the store in correct format"
+        )
     }
 }

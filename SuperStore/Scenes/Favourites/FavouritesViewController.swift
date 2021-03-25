@@ -210,18 +210,22 @@ extension FavouritesViewController {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            let deleteProduct = products[indexPath.row]
-            
-            let request = Favourites.DeleteFavourite.Request(productID: deleteProduct.id)
-            interactor?.deleteFavourite(request: request)
-            
-            products.remove(at: indexPath.row)
-            favouriteTableView.deleteRows(at: [indexPath], with: .fade)
+            deleteFavourite(indexPath: indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
+    }
+    
+    func deleteFavourite(indexPath: IndexPath){
+        let deleteProduct = products[indexPath.row]
+        
+        let request = Favourites.DeleteFavourite.Request(productID: deleteProduct.id)
+        interactor?.deleteFavourite(request: request)
+        
+        products.remove(at: indexPath.row)
+        favouriteTableView.deleteRows(at: [indexPath], with: .fade)
     }
 }
 
