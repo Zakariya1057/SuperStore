@@ -94,7 +94,7 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
     var loggedIn: Bool {
         return userSession.isLoggedIn()
     }
-
+    
     func getLists()
     {
         
@@ -156,11 +156,15 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
 
 extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? (loggedIn ? 5 : 1) : lists.count
+        return loading ? (loggedIn ? 5 : 1) : ( (interactor!.addToList && lists.count == 0) ? 1 : lists.count )
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return loggedIn ? configureProductCell(indexPath: indexPath) : configureRequestLoginCell(indexPath: indexPath)
+        if loggedIn {
+            return (interactor!.addToList && lists.count == 0) ? configureCreateListCell(indexPath: indexPath) : configureProductCell(indexPath: indexPath)
+        } else {
+            return configureRequestLoginCell(indexPath: indexPath)
+        }
     }
     
     func configureRequestLoginCell(indexPath: IndexPath) -> RequestLoginCell {
@@ -188,12 +192,22 @@ extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    func configureCreateListCell(indexPath: IndexPath) -> CreateListCell {
+        let cell = listsTableView.dequeueReusableCell(withIdentifier: "CreateListCell", for: indexPath) as! CreateListCell
+        cell.createListButtonPressed = createListButtonPressed
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        return cell
+    }
+    
     func setupListsTableView(){
         let listCellNib = UINib(nibName: "ListCell", bundle: nil)
         listsTableView.register(listCellNib, forCellReuseIdentifier: "ListCell")
         
         let requestLoginCellNib = UINib(nibName: "RequestLoginCell", bundle: nil)
         listsTableView.register(requestLoginCellNib, forCellReuseIdentifier: "RequestLoginCell")
+        
+        let createListCellNib = UINib(nibName: "CreateListCell", bundle: nil)
+        listsTableView.register(createListCellNib, forCellReuseIdentifier: "CreateListCell")
         
         listsTableView.delegate = self
         listsTableView.dataSource = self
@@ -215,6 +229,10 @@ extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ShowListsViewController {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        if !loggedIn || loading || interactor!.addToList {
+            return UISwipeActionsConfiguration(actions: [])
+        }
         
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (_, _, completionHandler) in
             self.deleteListPressed(indexPath: indexPath)
@@ -251,6 +269,10 @@ extension ShowListsViewController {
         let request = ShowLists.DeleteList.Request(indexPath: indexPath, listID: listID)
         interactor?.deleteList(request: request)
     }
+    
+    func createListButtonPressed(){
+        router?.routeToCreateList(segue: nil)
+    }
 }
 
 extension ShowListsViewController {
@@ -282,7 +304,7 @@ extension ShowListsViewController {
 
 extension ShowListsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if !loading {
+        if !loading && lists.indices.contains(indexPath.row) {
             router?.listSelectedID = lists[indexPath.row].id
             interactor!.addToList ? router?.routeToBackListSelected(segue: nil) : router?.routeToShowList(segue: nil)
         }
@@ -298,7 +320,7 @@ extension ShowListsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         listSearch()
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         listSearch()
     }

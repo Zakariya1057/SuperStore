@@ -21,6 +21,8 @@
 		2C05901225F6265F00B4A16B /* RequestLoginCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C05901025F6265F00B4A16B /* RequestLoginCell.xib */; };
 		2C0A705825FFA254006A3F6F /* OpeningHourTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A705625FFA254006A3F6F /* OpeningHourTableViewCell.swift */; };
 		2C0A705925FFA254006A3F6F /* OpeningHourTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C0A705725FFA254006A3F6F /* OpeningHourTableViewCell.xib */; };
+		2C0C84F0260DF81400F813E6 /* CreateListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C84EE260DF81400F813E6 /* CreateListCell.swift */; };
+		2C0C84F1260DF81400F813E6 /* CreateListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C0C84EF260DF81400F813E6 /* CreateListCell.xib */; };
 		2C14299725F2C282007D1EB7 /* EditListItemPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14299125F2C282007D1EB7 /* EditListItemPresenter.swift */; };
 		2C14299825F2C282007D1EB7 /* EditListItemWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14299225F2C282007D1EB7 /* EditListItemWorker.swift */; };
 		2C14299925F2C282007D1EB7 /* EditListItemRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C14299325F2C282007D1EB7 /* EditListItemRouter.swift */; };
@@ -407,6 +409,8 @@
 		2C05901025F6265F00B4A16B /* RequestLoginCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestLoginCell.xib; sourceTree = "<group>"; };
 		2C0A705625FFA254006A3F6F /* OpeningHourTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningHourTableViewCell.swift; sourceTree = "<group>"; };
 		2C0A705725FFA254006A3F6F /* OpeningHourTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OpeningHourTableViewCell.xib; sourceTree = "<group>"; };
+		2C0C84EE260DF81400F813E6 /* CreateListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateListCell.swift; sourceTree = "<group>"; };
+		2C0C84EF260DF81400F813E6 /* CreateListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateListCell.xib; sourceTree = "<group>"; };
 		2C14299125F2C282007D1EB7 /* EditListItemPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListItemPresenter.swift; sourceTree = "<group>"; };
 		2C14299225F2C282007D1EB7 /* EditListItemWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListItemWorker.swift; sourceTree = "<group>"; };
 		2C14299325F2C282007D1EB7 /* EditListItemRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListItemRouter.swift; sourceTree = "<group>"; };
@@ -817,6 +821,24 @@
 				2C05901025F6265F00B4A16B /* RequestLoginCell.xib */,
 			);
 			path = RequestLogin;
+			sourceTree = "<group>";
+		};
+		2C0C84EC260DF7DC00F813E6 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C84ED260DF7FB00F813E6 /* CreateList */,
+				2CB911E825F120AF00A8FC66 /* List */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		2C0C84ED260DF7FB00F813E6 /* CreateList */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C84EE260DF81400F813E6 /* CreateListCell.swift */,
+				2C0C84EF260DF81400F813E6 /* CreateListCell.xib */,
+			);
+			path = CreateList;
 			sourceTree = "<group>";
 		};
 		2C14298F25F2C262007D1EB7 /* EditListItem */ = {
@@ -1759,6 +1781,7 @@
 		2CB9119125F11A5200A8FC66 /* ShowLists */ = {
 			isa = PBXGroup;
 			children = (
+				2C0C84EC260DF7DC00F813E6 /* Cells */,
 				2CB9119425F11B4500A8FC66 /* ShowListsPresenter.swift */,
 				2CB9119525F11B4500A8FC66 /* ShowListsWorker.swift */,
 				2CB9119625F11B4500A8FC66 /* ShowListsRouter.swift */,
@@ -1928,7 +1951,6 @@
 				2CDFB66125EA6F3E002CE30D /* Products */,
 				2CDFB66425EA6F45002CE30D /* StoresMap */,
 				2CA11FA525EF96A90054AE19 /* Category */,
-				2CB911E825F120AF00A8FC66 /* List */,
 				2C05900E25F6262800B4A16B /* RequestLogin */,
 				2CDFB68025EA722D002CE30D /* Collections */,
 				2CA11F5D25EF8CE20054AE19 /* Sections */,
@@ -2154,6 +2176,7 @@
 				2C1567C324C77FDB00B8DCB5 /* Assets.xcassets in Resources */,
 				2C9C1B8224CDD794001ACA35 /* ProductsCell.xib in Resources */,
 				2C1567C124C77FD800B8DCB5 /* Main.storyboard in Resources */,
+				2C0C84F1260DF81400F813E6 /* CreateListCell.xib in Resources */,
 				2C3F537F24D184C80095C4B1 /* SearchSuggestionCell.xib in Resources */,
 				2CCBEB8325FF8CEC0068FFAF /* FacilityTableViewCell.xib in Resources */,
 				2CAC05ED252B83FF00561509 /* OffersCell.xib in Resources */,
@@ -2361,6 +2384,7 @@
 				2C70829C25F013A700345147 /* EditNamePresenter.swift in Sources */,
 				2CA11F6925EF8E490054AE19 /* GrandParentCategoriesRouter.swift in Sources */,
 				2C058FF725F52AE100B4A16B /* EditStoreModels.swift in Sources */,
+				2C0C84F0260DF81400F813E6 /* CreateListCell.swift in Sources */,
 				2C2BC80F25EBBF180038882B /* EditReviewWorker.swift in Sources */,
 				2C14775E25E9070D000E8F66 /* UserSessionWorker.swift in Sources */,
 				2CA11F9725EF90560054AE19 /* GroceryWorker.swift in Sources */,

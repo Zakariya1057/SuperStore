@@ -14,6 +14,7 @@ import UIKit
 
 @objc protocol ShowListsRoutingLogic
 {
+    func routeToCreateList(segue: UIStoryboardSegue?)
     func routeToEditList(segue: UIStoryboardSegue?)
     func routeToShowList(segue: UIStoryboardSegue?)
     func routeToLogin(segue: UIStoryboardSegue?)
@@ -39,6 +40,22 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
     var listSelectedID: Int?
     
     // MARK: Routing
+    
+    func routeToCreateList(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! CreateListViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToCreateList(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "CreateListViewController") as! CreateListViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToCreateList(source: dataStore!, destination: &destinationDS)
+            navigateToCreateList(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     
     func routeToBackListSelected(segue: UIStoryboardSegue?)
     {
@@ -106,6 +123,11 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
     
     // MARK: Navigation
     
+    func navigateToCreateList(source: ShowListsViewController, destination: CreateListViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
     func navigateToBackListSelected(source: ShowListsViewController, destination: SelectListProtocol)
     {
         source.dismiss(animated: true, completion: nil)
@@ -127,6 +149,10 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
     }
     
     // MARK: Passing data
+    func passDataToCreateList(source: ShowListsDataStore, destination: inout CreateListDataStore)
+    {
+
+    }
     
     func passDataToEditList(source: ShowListsDataStore, destination: inout EditListDataStore)
     {

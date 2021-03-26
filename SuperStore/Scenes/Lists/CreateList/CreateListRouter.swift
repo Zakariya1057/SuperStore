@@ -36,8 +36,16 @@ class CreateListRouter: NSObject, CreateListRoutingLogic, CreateListDataPassing
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowLists(source: dataStore!, destination: &destinationDS)
         } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowListsViewController") as! ShowListsViewController
+            var destinationVC: ShowListsViewController
+            
+            if let viewController = viewController!.presentingViewController as? ShowListsViewController {
+                destinationVC = viewController
+                callListSelected(source: self.viewController!, destination: destinationVC)
+            } else {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowListsViewController") as! ShowListsViewController
+            }
+            
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowLists(source: dataStore!, destination: &destinationDS)
             navigateToShowLists(source: viewController!, destination: destinationVC)
@@ -49,12 +57,19 @@ class CreateListRouter: NSObject, CreateListRoutingLogic, CreateListDataPassing
     func navigateToShowLists(source: CreateListViewController, destination: ShowListsViewController)
     {
         source.navigationController?.popViewController(animated: true)
+        source.dismiss(animated: true, completion: nil)
     }
     
     // MARK: Passing data
     
     func passDataToShowLists(source: CreateListDataStore, destination: inout ShowListsDataStore)
     {
-        //    destination.name = source.name
+    }
+    
+    //MARK: - New List Created Callback (For Product, Add To List. No Lists Found, Create)
+    
+    func callListSelected(source: CreateListViewController, destination: ShowListsViewController)
+    {
+        destination.refreshLists()
     }
 }
