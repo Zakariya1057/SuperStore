@@ -83,7 +83,7 @@ class EditStoreViewController: UIViewController, EditStoreDisplayLogic
         stopLoading()
         
         if loggedIn, let error = viewModel.error {
-            showError(title: "Update Error", error: error)
+            showError(title: "Store Change Error", error: error)
         } else {
             router?.routeToSettings(segue: nil)
         }

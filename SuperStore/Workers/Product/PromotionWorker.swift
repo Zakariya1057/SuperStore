@@ -25,7 +25,7 @@ class PromotionWorker {
         }
         
         promotionAPI.getPromotion(promotionID: promotionID) { (promotion: PromotionModel?, error: String?) in
-            var promotionModel = promotion
+            let promotionModel = promotion
             
             if promotionModel != nil {
                 if self.promotionStore.promotionExpired(promotion: promotionModel!){

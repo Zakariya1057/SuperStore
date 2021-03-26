@@ -48,7 +48,6 @@ class StoreRealmStore: DataStore, StoreStoreProtocol {
     
     func updateStore(store: StoreModel, savedStore: StoreObject){
         try? realm?.write({
-            savedStore.id = store.id
             savedStore.name = store.name
             savedStore.address = store.address
             savedStore.logo = store.logo

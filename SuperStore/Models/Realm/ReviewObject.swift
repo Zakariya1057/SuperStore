@@ -34,4 +34,9 @@ class ReviewObject: Object {
             createdAt: updatedAt
         )
     }
+    
+    
+    override static func primaryKey() -> String? {
+         return "id"
+     }
 }

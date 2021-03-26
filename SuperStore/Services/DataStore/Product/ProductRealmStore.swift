@@ -37,6 +37,8 @@ class ProductRealmStore: DataStore, ProductStoreProtocol {
                 
             }
             
+            product.recommended = productObject.recommended.map({ $0.getProductModel() })
+            
             return product
         }
         
@@ -194,7 +196,6 @@ extension ProductRealmStore {
 extension ProductRealmStore {
     func updateSavedProduct(product: ProductModel, savedProduct: ProductObject){
         try? realm?.write({
-            savedProduct.id = product.id
             savedProduct.name = product.name
             
             savedProduct.storeTypeID = product.storeTypeID

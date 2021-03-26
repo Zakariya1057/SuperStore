@@ -49,7 +49,9 @@ class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDa
     
     func getSuggestions(request: ShowSuggestions.GetSuggestions.Request)
     {
-        searchWorker.getSuggestions(storeTypeID: storeTypeID, query: request.query) { (suggestions: [SuggestionModel], error: String?) in
+        let offline: Bool = !userSession.isOnline()
+        
+        searchWorker.getSuggestions(storeTypeID: storeTypeID, query: request.query, offline: offline) { (suggestions: [SuggestionModel], error: String?) in
             var response = ShowSuggestions.GetSuggestions.Response(suggestions: suggestions, error: error)
             
             if error != nil {

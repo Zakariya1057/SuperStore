@@ -44,4 +44,9 @@ class ListItemObject: Object {
             tickedOff: tickedOff
         )
     }
+    
+    
+    override static func indexedProperties() -> [String] {
+        return ["id", "productID", "listID"]
+    }
 }

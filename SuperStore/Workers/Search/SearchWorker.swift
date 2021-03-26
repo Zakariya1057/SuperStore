@@ -20,12 +20,15 @@ class SearchWorker {
         self.searchResultsStore = ProductResultsRealmStore()
     }
     
-    func getSuggestions(storeTypeID: Int, query: String, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void){
-        let savedSuggestions = searchSuggestionStore.searchSuggestion(storeTypeID: storeTypeID, query: query)
-        if savedSuggestions.count > 0 {
-            completionHandler(savedSuggestions, nil)
-        }
+    func getSuggestions(storeTypeID: Int, query: String, offline: Bool, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void){
         
+        if offline {
+            let savedSuggestions = searchSuggestionStore.searchSuggestion(storeTypeID: storeTypeID, query: query)
+            if savedSuggestions.count > 0 {
+                completionHandler(savedSuggestions, nil)
+            }
+        }
+
         searchAPI.getSuggestions(storeTypeID: storeTypeID, query: query) { (suggestions: [SuggestionModel], error: String?) in
             if error == nil {
                 self.searchSuggestionStore.createSuggestions(suggestions: suggestions, storeTypeID: storeTypeID)
@@ -38,7 +41,6 @@ class SearchWorker {
     func getProductResults(query: SearchQueryRequest, page: Int, completionHandler: @escaping (_ ResultsModel: ProductResultsModel?, _ error: String?) -> Void){
         
         if page == 1 && !query.refine {
-            print("Loading Results Locally")
             let results = searchResultsStore.searchResults(query: query)
             if results.products.count > 0 {
                 completionHandler(results, nil)

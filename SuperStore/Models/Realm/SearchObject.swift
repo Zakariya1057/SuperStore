@@ -24,4 +24,8 @@ class SuggestionObject: Object {
         let searchType: SearchType = SearchType.init(rawValue: type)!
         return SuggestionModel(id: id, name: name, type: searchType)
     }
+    
+    override static func indexedProperties() -> [String] {
+        return ["name", "type", "storeTypeID"]
+    }
 }

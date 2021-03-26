@@ -518,6 +518,10 @@ extension ShowProductViewController: SelectListProtocol {
     
     @IBAction func addToListButtonPressed(_ sender: Any) {
         
+        if product.parentCategoryName == nil || product.parentCategoryName == nil {
+            showError(title: "Internet connection required", error: "Please connect to internet to add this product to your list.")
+        }
+        
         if !loggedIn {
             router?.routeToLogin(segue: nil)
             return

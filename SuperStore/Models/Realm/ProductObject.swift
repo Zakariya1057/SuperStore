@@ -107,7 +107,12 @@ class ProductObject: Object {
             favourite: favourite,
             monitoring: monitoring,
             ingredients: ingredients.map{ String($0) },
-            recommended: recommended.map({ $0.getProductModel() })
+            recommended: []
         )
+    }
+    
+    
+    override static func primaryKey() -> String? {
+         return "id"
     }
 }

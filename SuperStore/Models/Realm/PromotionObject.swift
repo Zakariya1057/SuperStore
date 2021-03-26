@@ -49,5 +49,11 @@ class PromotionObject: Object {
             endsAt: endsAt
         )
     }
+    
+    
+    
+    override static func primaryKey() -> String? {
+         return "id"
+     }
 }
 

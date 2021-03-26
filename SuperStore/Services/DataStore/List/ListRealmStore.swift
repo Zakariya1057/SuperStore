@@ -62,7 +62,7 @@ class ListRealmStore: DataStore, ListStoreProtocol {
         let duplicateList = getListObject(listID: list.id)
         
         if let duplicateList = duplicateList {
-            print("List already created. Updating instead.")
+//            print("List already created. Updating instead.")
             updateList(list: list, savedList: duplicateList, ignoreCategories: ignoreCategories)
             return
         }

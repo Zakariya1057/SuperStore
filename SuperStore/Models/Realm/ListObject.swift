@@ -50,6 +50,11 @@ class ListObject: Object {
             updatedAt: updatedAt
         )
     }
+    
+    
+    override static func primaryKey() -> String? {
+         return "id"
+    }
 }
 
 class ListCategoryObject: Object {
@@ -65,6 +70,11 @@ class ListCategoryObject: Object {
             name: name,
             items: items.map{$0.getListItemModel()}
         )
+    }
+    
+    
+    override static func indexedProperties() -> [String] {
+        return ["id"]
     }
 }
 

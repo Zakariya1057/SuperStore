@@ -141,10 +141,12 @@ extension PromotionRealmStore {
         savedPromotion.endsAt = promotion.endsAt
         savedPromotion.expires = promotion.expires
         
-        for savedProduct in promotion.products.map({ productStore.createProductObject(product: $0) }) {
+        for product in  promotion.products {
+            product.promotion = promotion
+            let savedProduct = productStore.createProductObject(product: product)
             savedPromotion.products.append(savedProduct)
         }
-        
+
         return savedPromotion
     }
 }

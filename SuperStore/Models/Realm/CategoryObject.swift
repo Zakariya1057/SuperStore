@@ -26,6 +26,11 @@ class GrandParentCategoryObject: Object {
             storeTypeID: storeTypeID,
             parentCategories: parentCategories.map{ $0.getParentCategoryModel() })
     }
+    
+    
+    override static func primaryKey() -> String? {
+         return "id"
+     }
 }
 
 class ParentCategoryObject: Object {
@@ -48,6 +53,11 @@ class ParentCategoryObject: Object {
             storeTypeID: storeTypeID,
             childCategories: childCategories.map{ $0.getChildCategoryModel() }
         )
+    }
+    
+    
+    override static func primaryKey() -> String? {
+         return "id"
     }
 }
 
@@ -72,4 +82,9 @@ class ChildCategoryObject: Object {
             products: products.map{ $0.getProductModel() }
         )
     }
+    
+    
+    override static func primaryKey() -> String? {
+         return "id"
+     }
 }
