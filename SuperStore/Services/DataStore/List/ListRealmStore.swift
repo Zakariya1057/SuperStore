@@ -20,6 +20,11 @@ class ListRealmStore: DataStore, ListStoreProtocol {
         return realm?.objects(ListObject.self).filter("deleted = false AND id = %@", listID).first
     }
     
+    func getAnyListObject(listID: Int) -> ListObject? {
+        // Deleted Or Not
+        return realm?.objects(ListObject.self).filter("id = %@", listID).first
+    }
+    
     
     func getDeletedListObject(listID: Int) -> ListObject? {
         return realm?.objects(ListObject.self).filter("deleted = true AND id = %@", listID).first
@@ -135,7 +140,7 @@ class ListRealmStore: DataStore, ListStoreProtocol {
 extension ListRealmStore {
     func createListObject(list: ListModel, ignoreCategories: Bool = false) -> ListObject {
         
-        if let savedList = getListObject(listID: list.id){
+        if let savedList = getAnyListObject(listID: list.id){
             return savedList
         }
         

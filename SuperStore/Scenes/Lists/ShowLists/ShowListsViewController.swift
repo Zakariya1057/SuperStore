@@ -97,13 +97,20 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
     
     func getLists()
     {
-        
         syncDeletedLists()
         syncEditedLists()
         
+        let searchText = searchBar.text ?? ""
+        
         if loggedIn {
-            let request = ShowLists.GetLists.Request()
-            interactor?.getLists(request: request)
+            
+            if searchText == "" {
+                let request = ShowLists.GetLists.Request()
+                interactor?.getLists(request: request)
+            } else {
+                listSearch()
+            }
+            
             navigationItem.rightBarButtonItem!.isEnabled = true
         } else {
             refreshControl.endRefreshing()

@@ -124,7 +124,7 @@ extension HomeRealmStore {
         
         if let savedLists = savedLists, savedLists.count > 0 {
             let savedCount = savedLists.count
-            let maxItems = savedCount < limit ? savedCount - 1 : limit
+            let maxItems = savedCount < limit ? savedCount : limit
             
             let sortedList = savedLists.sorted(by: { (a: ListObject, b:ListObject) -> Bool in
                 let progressA = a.tickedOffItems > 0 && a.totalItems > 0 ? Float(a.tickedOffItems) / Float(a.totalItems) : 0
@@ -133,7 +133,7 @@ extension HomeRealmStore {
                 return progressA > progressB
             })
             
-            for index in 0...maxItems {
+            for index in 0...maxItems - 1{
                 lists.append( sortedList[index].getListModel() )
             }
         }
@@ -150,9 +150,9 @@ extension HomeRealmStore {
         
         if let savedStores = savedStores, savedStores.count > 0 {
             let savedCount = savedStores.count
-            let maxItems = savedCount < limit ? savedCount - 1 : limit
+            let maxItems = savedCount < limit ? savedCount : limit
             
-            for index in 0...maxItems {
+            for index in 0...maxItems - 1 {
                 stores.append( savedStores[index].getStoreModel() )
             }
         }
