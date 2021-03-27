@@ -154,10 +154,20 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             loading = false
             paginate = viewModel.paginate
             
-            if let paginate = paginate, paginate.current == 1 {
-                products = viewModel.products
+            if let paginate = viewModel.paginate, paginate.current > 1 {
+                for product in viewModel.products {
+                    if uniqueProducts[product.id] != nil {
+                        products.append(product)
+                    }
+                }
             } else {
-                products.append(contentsOf: viewModel.products)
+                uniqueProducts = [:]
+                products = []
+                
+                for product in viewModel.products {
+                    products.append(product)
+                    uniqueProducts[product.id] = true
+                }
             }
             
             totalProductsLabel.text = "\(products.count) Products"

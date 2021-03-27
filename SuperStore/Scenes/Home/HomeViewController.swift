@@ -171,7 +171,7 @@ extension HomeViewController {
                     
                 case is MonitoringProductGroupElement:
                     let productElement = element as! MonitoringProductGroupElement
-                    productElement.items =  [ ProductsElementModel(products: homeModel.monitoring.reversed()) ]
+                    productElement.items =  [ ProductsElementModel(products: homeModel.monitoring) ]
                     productElement.configureProduct()
                     productElement.setLoading(loading: loading)
                     break
