@@ -12,7 +12,8 @@ struct Config {
     
     struct Route {
         
-        private static let Host: String = "http://192.168.1.187/api"
+//        private static let Host: String = "http://192.168.1.187/api"
+        private static let Host: String = "http://18.132.206.84/api"
         
         public struct User {
             
