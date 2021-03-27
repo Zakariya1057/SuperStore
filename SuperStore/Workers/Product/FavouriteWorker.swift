@@ -31,7 +31,7 @@ class FavouriteWorker {
     func getFavourites(completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void){
         
         let favourites = productStore.getFavouriteProducts()
-        if !userSession.isOnline() || favourites.count > 0 {
+        if !userSession.isOnline() && favourites.count > 0 {
             completionHandler(favourites, nil)
         }
       
