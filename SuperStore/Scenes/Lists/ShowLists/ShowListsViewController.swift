@@ -168,7 +168,11 @@ extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if loggedIn {
-            return (interactor!.addToList && lists.count == 0) ? configureCreateListCell(indexPath: indexPath) : configureProductCell(indexPath: indexPath)
+            if loading {
+                return configureProductCell(indexPath: indexPath)
+            } else {
+                return (interactor!.addToList && lists.count == 0) ? configureCreateListCell(indexPath: indexPath) : configureProductCell(indexPath: indexPath)
+            }
         } else {
             return configureRequestLoginCell(indexPath: indexPath)
         }

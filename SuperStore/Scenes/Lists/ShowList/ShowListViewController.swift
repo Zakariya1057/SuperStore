@@ -115,7 +115,6 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
         if let error = viewModel.error, !viewModel.offline {
             showError(title: "List Error", error: error)
         } else {
-           
             if let displayedList = viewModel.displayedList {
                 self.displayedList = displayedList
                 displayPrice()

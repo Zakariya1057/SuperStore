@@ -67,7 +67,7 @@ class ListRealmStore: DataStore, ListStoreProtocol {
         let duplicateList = getListObject(listID: list.id)
         
         if let duplicateList = duplicateList {
-//            print("List already created. Updating instead.")
+            print("List already created. Updating instead.")
             updateList(list: list, savedList: duplicateList, ignoreCategories: ignoreCategories)
             return
         }
@@ -100,7 +100,6 @@ class ListRealmStore: DataStore, ListStoreProtocol {
                     savedList.categories.append(category)
                 }
             }
-            
         })
     }
     
@@ -233,13 +232,7 @@ extension ListRealmStore {
 
 extension ListRealmStore {
     func setOldTotalPrice(savedList: ListObject, oldTotalPrice: Double?){
-        let listOldTotalPrice = RealmOptional<Double>()
-        
-        if oldTotalPrice != nil {
-            listOldTotalPrice.value = oldTotalPrice!
-        }
-        
-        savedList.oldTotalPrice = listOldTotalPrice
+        savedList.oldTotalPrice.value = oldTotalPrice
     }
     
     func setListStatus(savedList: ListObject){
@@ -274,6 +267,7 @@ extension ListRealmStore {
             
             for item in category.items {
                 let savedItem = listItemStore.createListItemObject(listItem: item, listID: list.id)
+                realm?.add(savedItem)
                 savedCategory.items.append(savedItem)
             }
             

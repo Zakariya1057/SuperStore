@@ -109,7 +109,7 @@ extension PromotionRealmStore {
         if let savedPromotion = getPromotionObject(promotionID: promotion.id){
             return savedPromotion
         }
-        
+
         let savedPromotion = PromotionObject()
         
         savedPromotion.id = promotion.id

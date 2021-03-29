@@ -249,8 +249,6 @@ extension ProductRealmStore {
         // If promotion already expired, don't insert that
         
         if let promotion = product.promotion {
-            print("Create Promtion")
-            
             if !promotionStore.promotionExpired(promotion: promotion) {
                 savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
                 savedProduct.promotionID.value = promotion.id

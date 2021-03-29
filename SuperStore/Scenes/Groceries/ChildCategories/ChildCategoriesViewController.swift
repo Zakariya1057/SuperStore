@@ -142,7 +142,7 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
     }
     
     func displayListItemUpdated(viewModel: ChildCategories.UpdateListItem.ViewModel) {
-        if let error = viewModel.error, viewModel.offline {
+        if let error = viewModel.error, !viewModel.offline {
             showError(title: "List Error", error: error)
         }
     }

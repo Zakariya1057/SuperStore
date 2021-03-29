@@ -148,8 +148,10 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     {
         refreshControl.endRefreshing()
         
-        if let error = viewModel.error, !viewModel.offline {
-            showError(title: "Search Error", error: error)
+        if let error = viewModel.error {
+            if !viewModel.offline {
+                showError(title: "Search Error", error: error)
+            }
         } else {
             loading = false
             paginate = viewModel.paginate
@@ -173,6 +175,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             totalProductsLabel.text = "\(products.count) Products"
             productsTableView.reloadData()
         }
+        
     }
     
     func displayListItems(viewModel: ShowProductResults.GetListItems.ViewModel) {
@@ -214,8 +217,10 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        router?.selectedProductID = products[indexPath.row].id
-        router?.routeToShowProduct(segue: nil)
+        if !loading {
+            router?.selectedProductID = products[indexPath.row].id
+            router?.routeToShowProduct(segue: nil)
+        }
     }
     
     func configureProductCell(indexPath: IndexPath) -> ProductCell {
