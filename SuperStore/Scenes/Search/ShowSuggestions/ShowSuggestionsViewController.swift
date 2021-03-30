@@ -78,7 +78,10 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        search()
+        if userSession.getStore() != currentStoreTypeID  {
+            currentStoreTypeID = userSession.getStore()
+            search()
+        }
     }
     
     var loading: Bool = true
@@ -89,6 +92,9 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     @IBOutlet var searchBar: UISearchBar!
     
     var suggestions: [SuggestionModel] = []
+    
+    var currentStoreTypeID: Int = 0
+    var userSession: UserSessionWorker = UserSessionWorker()
     
     func getRecentSuggestions(){
         let request = ShowSuggestions.GetRecentSuggestions.Request(limit: recentSuggestionsLimit)

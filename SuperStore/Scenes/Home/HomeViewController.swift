@@ -79,21 +79,21 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         
         registerTableViewCells()
         setupHomeCells()
-        homeStoreTypeID = userSession.getStore()
+        currentStoreTypeID = userSession.getStore()
         getHome()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if userSession.getStore() != homeStoreTypeID || homeLoggedIn != loggedIn {
-            homeStoreTypeID = userSession.getStore()
-            homeLoggedIn = loggedIn
+        if userSession.getStore() != currentStoreTypeID || currentLoggedIn != loggedIn {
+            currentStoreTypeID = userSession.getStore()
+            currentLoggedIn = loggedIn
             getHome()
         }
     }
     
     // Used to decide to refresh page or not
-    var homeLoggedIn: Bool = false
-    var homeStoreTypeID: Int = 0
+    var currentLoggedIn: Bool = false
+    var currentStoreTypeID: Int = 0
     
     var loading: Bool = true
     
@@ -296,7 +296,7 @@ extension HomeViewController {
             homeCells.append(CategoryProductGroupElement(title: "Vegetables & Potatoes", products: [], productPressed: productPressed))
         }
         
-        homeLoggedIn = loggedIn
+        currentLoggedIn = loggedIn
         
         if !loggedIn {
             removeLoggedOutCells()
