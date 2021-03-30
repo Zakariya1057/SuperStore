@@ -88,6 +88,8 @@ class ParentCategoriesViewController: UIViewController, ParentCategoriesDisplayL
     
     func displayCategories(viewModel: ParentCategories.GetCategories.ViewModel)
     {
+        title = viewModel.title
+        
         categories =  viewModel.displayedCategories
         categoriesTableView.reloadData()
     }

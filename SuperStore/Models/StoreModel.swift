@@ -55,6 +55,6 @@ struct LocationModel {
     let addressLine3: String?
     let postcode: String
 
-    var latitude: Double
-    var longitude: Double
+    var latitude: Double?
+    var longitude: Double?
 }

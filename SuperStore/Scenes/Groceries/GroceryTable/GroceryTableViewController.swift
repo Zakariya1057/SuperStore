@@ -74,6 +74,8 @@ class GroceryTableViewController: UITableViewController, GroceryTableDisplayLogi
     
     var loading: Bool = true
     
+    var loggedIn: Bool = false
+    
     var section: Int = 0
     
     var listItems: [Int: ListItemModel] = [:]
@@ -107,7 +109,7 @@ extension GroceryTableViewController {
         let product: ProductModel? = loading ? nil : products[indexPath.row]
         
         cell.product = product
-        cell.addToList = true
+        cell.addToList = loggedIn
         
         // check if found in locally saved list items. If found, update quantity, otherwise ignore
         if let product = product, let listItem = listItems[product.id] {

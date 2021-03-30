@@ -72,8 +72,8 @@ struct LocationData:Decodable {
     let address_line3: String?
     let postcode: String
     
-    var latitude: Double
-    var longitude: Double
+    var latitude: Double?
+    var longitude: Double?
     
     func getLocationModel(storeID: Int) -> LocationModel {
         return LocationModel(

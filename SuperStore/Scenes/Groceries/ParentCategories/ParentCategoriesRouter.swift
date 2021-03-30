@@ -60,7 +60,11 @@ class ParentCategoriesRouter: BackToShowListRouter, ParentCategoriesRoutingLogic
     func passDataToChildCategories(source: ParentCategoriesDataStore, destination: inout ChildCategoriesDataStore)
     {
         let row = parentCategoriesViewController.categoriesTableView.indexPathForSelectedRow!.row
-        destination.parentCategoryID = source.categories[row].id
+        let selectedCategory = source.categories[row]
+        
+        destination.parentCategoryID = selectedCategory.id
+        destination.title = selectedCategory.name
+        
         destination.storeTypeID = source.storeTypeID
         
         destination.selectedListID = source.selectedListID

@@ -75,6 +75,8 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        displayTitle()
+        
         displayRightBarButton()
         setupBar()
         
@@ -82,10 +84,25 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
         getCategories()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if currentLoggedIn != loggedIn {
+            currentLoggedIn = loggedIn
+            reloadTableView()
+        }
+    }
+    
     var loading: Bool = true
     
     var selectedProduct: ProductModel?
     var selectedSection: Int?
+    
+    var userSession: UserSessionWorker = UserSessionWorker()
+    var loggedIn: Bool {
+        return userSession.isLoggedIn()
+    }
+    
+    var currentLoggedIn: Bool = false
     
     var viewcontrollers:[GroceryTableViewController] = [ GroceryTableViewController(nibName: nil, bundle: nil) ]
     var categories: [ChildCategoryModel] = []
@@ -146,6 +163,10 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
             showError(title: "List Error", error: error)
         }
     }
+    
+    func displayTitle(){
+        title = interactor?.title
+    }
 
 }
 
@@ -205,6 +226,8 @@ extension ChildCategoriesViewController:  TMBarDataSource, PageboyViewController
             viewController.section = index
             viewController.selectedListID = interactor?.selectedListID
             viewController.listItems = listItems
+            
+            viewController.loggedIn = loggedIn
             
             viewController.products = categories[index].products
             
@@ -295,6 +318,7 @@ extension ChildCategoriesViewController: SelectListProtocol {
     func reloadTableView(){
         for viewController in viewcontrollers {
             viewController.loading = loading
+            viewController.loggedIn = loggedIn
             viewController.tableView.reloadData()
         }
     }

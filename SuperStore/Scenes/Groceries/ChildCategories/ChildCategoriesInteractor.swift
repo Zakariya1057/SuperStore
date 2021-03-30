@@ -20,6 +20,7 @@ protocol ChildCategoriesBusinessLogic
     func createListItem(request: ChildCategories.CreateListItem.Request)
     func updateListItem(request: ChildCategories.UpdateListItem.Request)
     
+    var title: String { get set }
     var selectedListID: Int? { get set }
     var selectedProductStoreTypeID: Int? { get set }
 }
@@ -27,6 +28,8 @@ protocol ChildCategoriesBusinessLogic
 protocol ChildCategoriesDataStore
 {
     var parentCategoryID: Int { get set }
+    var title: String { get set }
+    
     var storeTypeID: Int { get set }
     var selectedListID: Int? { get set }
     var selectedProductStoreTypeID: Int? { get set }
@@ -43,7 +46,9 @@ class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDa
     
     var selectedListID: Int?
     
+    var title: String = ""
     var parentCategoryID: Int = 1
+    
     var storeTypeID: Int = 1
     
     var selectedProductStoreTypeID: Int?
@@ -51,7 +56,7 @@ class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDa
     func getCategories(request: ChildCategories.GetCategories.Request)
     {
         groceryWorker.getChildCategories(parentCategoryID: parentCategoryID) { (categories: [ChildCategoryModel], error: String?) in
-            var response = ChildCategories.GetCategories.Response(categories: categories, error: error)
+            var response = ChildCategories.GetCategories.Response(title: self.title, categories: categories, error: error)
             
             if error != nil {
                 response.offline = !self.userSession.isOnline()

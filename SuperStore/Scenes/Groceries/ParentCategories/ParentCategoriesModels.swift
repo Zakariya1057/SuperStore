@@ -16,20 +16,22 @@ enum ParentCategories
 {
     enum GetCategories
     {
-      struct Request
-      {
-      }
-      struct Response
-      {
-          var categories: [ParentCategoryModel]
-      }
-      struct ViewModel
-      {
-          struct DisplayedCategory {
-              var name: String
-          }
-          
-          var displayedCategories: [DisplayedCategory]
-      }
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var categories: [ParentCategoryModel]
+            var title: String
+        }
+        struct ViewModel
+        {
+            struct DisplayedCategory {
+                var name: String
+            }
+            
+            var title: String
+            var displayedCategories: [DisplayedCategory]
+        }
     }
 }

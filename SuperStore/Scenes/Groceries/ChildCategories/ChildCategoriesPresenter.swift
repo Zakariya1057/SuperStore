@@ -27,7 +27,13 @@ class ChildCategoriesPresenter: ChildCategoriesPresentationLogic
 
     func presentCategories(response: ChildCategories.GetCategories.Response)
     {
-        let viewModel = ChildCategories.GetCategories.ViewModel(categories: response.categories, error: response.error, offline: response.offline)
+        let viewModel = ChildCategories.GetCategories.ViewModel(
+            title: response.title,
+            categories: response.categories,
+            error: response.error,
+            offline: response.offline
+        )
+        
         viewController?.displayCategories(viewModel: viewModel)
     }
     
@@ -46,7 +52,13 @@ extension ChildCategoriesPresenter {
     }
     
     func presentListItemCreated(response: ChildCategories.CreateListItem.Response) {
-        let viewModel = ChildCategories.CreateListItem.ViewModel(section: response.section, listItem: response.listItem, error: response.error, offline: response.offline)
+        let viewModel = ChildCategories.CreateListItem.ViewModel(
+            section: response.section,
+            listItem: response.listItem,
+            error: response.error,
+            offline: response.offline
+        )
+        
         viewController?.displayListItemCreated(viewModel: viewModel)
     }
     

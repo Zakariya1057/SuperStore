@@ -23,13 +23,17 @@ enum ChildCategories
         }
         struct Response
         {
+            var title: String
             var categories: [ChildCategoryModel]
+            
             var error: String?
             var offline: Bool = false
         }
         struct ViewModel
         {
+            var title: String
             var categories: [ChildCategoryModel]
+            
             var error: String?
             var offline: Bool = false
         }

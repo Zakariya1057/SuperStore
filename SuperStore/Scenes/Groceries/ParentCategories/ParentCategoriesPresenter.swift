@@ -29,7 +29,7 @@ class ParentCategoriesPresenter: ParentCategoriesPresentationLogic
             displayedCategories.append(ParentCategories.GetCategories.ViewModel.DisplayedCategory(name: category.name))
         }
         
-        let viewModel = ParentCategories.GetCategories.ViewModel(displayedCategories: displayedCategories)
+        let viewModel = ParentCategories.GetCategories.ViewModel(title: response.title, displayedCategories: displayedCategories)
         viewController?.displayCategories(viewModel: viewModel)
     }
 }

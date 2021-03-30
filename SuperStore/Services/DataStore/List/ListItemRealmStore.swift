@@ -123,6 +123,8 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
     }
     
     func deleteListItem(listID: Int, productID: Int) {
+        print("Delete List ITem")
+        
         if let savedListItem = realm?.objects(ListItemObject.self).filter("productID = %@ AND listID = %@", productID, listID).first {
             
             try? realm?.write({

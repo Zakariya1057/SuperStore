@@ -69,8 +69,8 @@ class LocationObject: Object {
     
     @objc dynamic var postcode: String = ""
 
-    @objc dynamic var latitude: Double = 0
-    @objc dynamic var longitude: Double = 0
+    var latitude =  RealmOptional<Double>()
+    var longitude =  RealmOptional<Double>()
     
     func getLocationModel() -> LocationModel {
         return LocationModel(
@@ -80,8 +80,8 @@ class LocationObject: Object {
             addressLine2: addressLine2,
             addressLine3: addressLine3,
             postcode: postcode,
-            latitude: latitude,
-            longitude: longitude
+            latitude: latitude.value,
+            longitude: longitude.value
         )
     }
 }

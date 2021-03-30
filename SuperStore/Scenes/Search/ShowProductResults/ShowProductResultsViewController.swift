@@ -78,7 +78,8 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         getListItems()
         
         setupProductsTableView()
-        updateTitle()
+        displayTitle()
+        
         getResults()
     }
     
@@ -88,7 +89,13 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             getResults()
             getListItems()
         }
+        
+        if currentLoggedIn != loggedIn {
+            currentLoggedIn = loggedIn
+            productsTableView.reloadData()
+        }
     }
+    
     
     var uniqueProducts: [Int: Bool] = [:]
     
@@ -112,10 +119,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         return userSession.isLoggedIn()
     }
     
-    
-    func updateTitle(){
-        title = interactor!.searchQueryRequest.query
-    }
+    var currentLoggedIn: Bool = false
     
     func getResults(){
         loading = true
@@ -204,6 +208,10 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         if interactor?.selectedListID == nil {
             self.navigationItem.rightBarButtonItem = nil
         }
+    }
+    
+    func displayTitle(){
+        title = interactor!.searchQueryRequest.query
     }
 }
 

@@ -21,6 +21,8 @@ protocol ParentCategoriesBusinessLogic
 protocol ParentCategoriesDataStore
 {
     var categories: [ParentCategoryModel] { get set }
+    var title: String { get set }
+    
     var selectedListID: Int? { get set }
     var storeTypeID: Int { get set }
 }
@@ -33,11 +35,12 @@ class ParentCategoriesInteractor: ParentCategoriesBusinessLogic, ParentCategorie
     var selectedListID: Int?
     var storeTypeID: Int = 1
     
+    var title: String = ""
     var categories: [ParentCategoryModel] = []
 
     func getCategories(request: ParentCategories.GetCategories.Request)
     {
-        let response = ParentCategories.GetCategories.Response(categories: categories)
+        let response = ParentCategories.GetCategories.Response(categories: categories, title: title)
         presenter?.presentCategories(response: response)
     }
 }

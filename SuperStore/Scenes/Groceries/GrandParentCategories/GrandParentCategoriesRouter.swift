@@ -60,7 +60,11 @@ class GrandParentCategoriesRouter: BackToShowListRouter, GrandParentCategoriesRo
     func passDataToParentCatgories(source: GrandParentCategoriesDataStore, destination: inout ParentCategoriesDataStore)
     {
         let row = grandParentCategoriesViewController.categoriesTableView.indexPathForSelectedRow!.row
-        destination.categories = source.categories[row].parentCategories
+        let selectedCategory = source.categories[row]
+        
+        destination.title = selectedCategory.name
+        destination.categories = selectedCategory.parentCategories
+        
         destination.storeTypeID = source.storeTypeID
         
         destination.selectedListID = source.selectedListID

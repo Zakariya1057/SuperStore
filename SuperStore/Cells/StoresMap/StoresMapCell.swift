@@ -119,18 +119,22 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
         removeAllAnotations()
         
         for store in stores {
-            let annotation = MKPointAnnotation()
-            annotation.title = store.name
             
-            annotation.subtitle = store.getAddress()
-            annotation.coordinate = CLLocationCoordinate2D(
-                latitude: CLLocationDegrees(store.location.latitude),
-                longitude: CLLocationDegrees(store.location.longitude)
-            )
+            if let longitude = store.location.longitude, let latitude = store.location.latitude {
+                let annotation = MKPointAnnotation()
+                annotation.title = store.name
+                
+                annotation.subtitle = store.getAddress()
+                annotation.coordinate = CLLocationCoordinate2D(
+                    latitude: CLLocationDegrees(latitude),
+                    longitude: CLLocationDegrees(longitude)
+                )
+                
+                self.mapView.addAnnotation(annotation)
+                
+                storesDetails[store.name] = store.id
+            }
             
-            self.mapView.addAnnotation(annotation)
-            
-            storesDetails[store.name] = store.id
         }
         
     }

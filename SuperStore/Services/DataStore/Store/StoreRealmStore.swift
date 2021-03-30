@@ -112,8 +112,8 @@ extension StoreRealmStore {
         savedLocation.city = location.city
         savedLocation.postcode = location.postcode
         
-        savedLocation.latitude = location.latitude
-        savedLocation.longitude = location.longitude
+        savedLocation.latitude.value = location.latitude
+        savedLocation.longitude.value = location.longitude
         
         savedLocation.storeID = location.storeID
         
