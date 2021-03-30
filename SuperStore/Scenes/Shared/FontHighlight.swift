@@ -10,7 +10,7 @@ import UIKit
 
 extension NSMutableAttributedString {
     var fontSize:CGFloat { return 16 }
-    var boldFontSize: CGFloat { return 18 }
+    var boldFontSize: CGFloat { return 19 }
     
     var boldFont:UIFont { return UIFont(name: "System", size: boldFontSize) ?? UIFont.boldSystemFont(ofSize: boldFontSize) }
     var normalFont:UIFont { return UIFont(name: "System", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)}
