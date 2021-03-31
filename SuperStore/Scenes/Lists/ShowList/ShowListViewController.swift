@@ -112,8 +112,6 @@ class ShowListViewController: UIViewController, ShowListDisplayLogic
         loading = false
         self.refreshControl.endRefreshing()
         
-        print(viewModel)
-        
         if let error = viewModel.error, !viewModel.offline {
             showError(title: "List Error", error: error)
         } else {

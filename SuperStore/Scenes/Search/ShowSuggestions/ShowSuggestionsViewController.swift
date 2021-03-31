@@ -96,6 +96,8 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     var currentStoreTypeID: Int = 0
     var userSession: UserSessionWorker = UserSessionWorker()
     
+    var displayRecentSuggestions: Bool = false
+    
     func getRecentSuggestions(){
         let request = ShowSuggestions.GetRecentSuggestions.Request(limit: recentSuggestionsLimit)
         interactor?.getRecentSuggestions(request: request)
@@ -108,8 +110,10 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
         suggestionsTableView.reloadData()
         
         if searchText.replacingOccurrences(of: " ", with: "") == "" {
+            displayRecentSuggestions = true
             getRecentSuggestions()
         } else {
+            displayRecentSuggestions = false
             let request = ShowSuggestions.GetSuggestions.Request(query: searchText)
             interactor?.getSuggestions(request: request)
         }
@@ -123,7 +127,13 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
             }
         } else {
             loading = false
-            self.suggestions = viewModel.suggestions
+            
+            if viewModel.suggestions.count == 0 && displayRecentSuggestions {
+                print("Late loaded empty suggestions list not showing. Display recent suggestions instead")
+            } else {
+                self.suggestions = viewModel.suggestions
+            }
+           
             suggestionsTableView.reloadData()
         }
     }
