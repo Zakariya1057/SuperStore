@@ -41,6 +41,29 @@ enum ShowProductResults
         }
     }
     
+    enum GetCategoryProducts
+    {
+        struct Request
+        {
+            var page: Int = 1
+            var refine: Bool
+        }
+        struct Response
+        {
+            var category: ChildCategoryModel?
+            
+            var error: String?
+            var offline: Bool = false
+        }
+        struct ViewModel
+        {
+            var category: ChildCategoryModel?
+            
+            var error: String?
+            var offline: Bool = false
+        }
+    }
+    
     
     enum GetListItems
     {

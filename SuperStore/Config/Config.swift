@@ -142,21 +142,25 @@ struct Config {
                     return SearchResultsRoute + "/stores"
                 }
             }
-
+            
         }
         
-        public struct Grocery {
-            public static var GroceryRoute: String {
-                return Host + "/grocery"
+        public struct Groceries {
+            public static var GroceriesRoute: String {
+                return Host + "/groceries"
             }
             
             
             public static var GrandParentCategories: String {
-                return GroceryRoute + "/categories"
+                return GroceriesRoute + "/grand_parent_categories"
             }
             
             public static var ChildCategories: String {
-                return GroceryRoute + "/products"
+                return GroceriesRoute + "/child_categories"
+            }
+            
+            public static var CategoryProducts: String {
+                return GroceriesRoute + "/category_products"
             }
         }
         
@@ -178,11 +182,11 @@ struct Config {
             public static var Show: String {
                 return ListRoute + "/"
             }
-
+            
             public static var Restart: String {
                 return ListRoute + "/restart"
             }
-
+            
             public static var Update: String {
                 return ListRoute + "/update"
             }
@@ -195,7 +199,7 @@ struct Config {
                 private static var OfflineListRoute: String {
                     return Host + "/list/offline"
                 }
-
+                
                 
                 public static var Delete: String {
                     return OfflineListRoute + "/deleted"

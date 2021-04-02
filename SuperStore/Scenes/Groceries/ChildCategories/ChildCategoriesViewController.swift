@@ -17,12 +17,9 @@ import Pageboy
 protocol ChildCategoriesDisplayLogic: class
 {
     func displayCategories(viewModel: ChildCategories.GetCategories.ViewModel)
-    func displayListItems(viewModel: ChildCategories.GetListItems.ViewModel)
-    func displayListItemCreated(viewModel: ChildCategories.CreateListItem.ViewModel)
-    func displayListItemUpdated(viewModel: ChildCategories.UpdateListItem.ViewModel)
 }
 
-class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDisplayLogic
+class ChildCategoriesViewController: UIViewController, ChildCategoriesDisplayLogic
 {
 
     var interactor: ChildCategoriesBusinessLogic?
@@ -75,41 +72,17 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        displayTitle()
-        
         displayRightBarButton()
-        setupBar()
-        
-        getListItems()
+        setupCategoriesTableView()
+        displayTitle()
         getCategories()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if currentLoggedIn != loggedIn {
-            currentLoggedIn = loggedIn
-            reloadTableView()
-        }
     }
     
     var loading: Bool = true
     
-    var selectedProduct: ProductModel?
-    var selectedSection: Int?
+    @IBOutlet var categoriesTableView: UITableView!
     
-    var userSession: UserSessionWorker = UserSessionWorker()
-    var loggedIn: Bool {
-        return userSession.isLoggedIn()
-    }
-    
-    var currentLoggedIn: Bool = false
-    
-    var viewcontrollers:[GroceryTableViewController] = [ GroceryTableViewController(nibName: nil, bundle: nil) ]
-    var categories: [ChildCategoryModel] = []
-    
-    var listItems: [Int: ListItemModel] = [:]
-    
-    let bar = TMBar.ButtonBar()
+    var categories: [ChildCategories.GetCategories.ViewModel.DisplayedCategory] = []
     
     func getCategories()
     {
@@ -117,209 +90,64 @@ class ChildCategoriesViewController: TabmanViewController, ChildCategoriesDispla
         interactor?.getCategories(request: request)
     }
     
-    func getListItems(){
-        let request = ChildCategories.GetListItems.Request()
-        interactor?.getListItems(request: request)
-    }
-    
     func displayCategories(viewModel: ChildCategories.GetCategories.ViewModel)
     {
-
         if let error = viewModel.error {
             if !viewModel.offline {
                 showError(title: "Grocery Error", error: error)
             }
         } else {
             loading = false
-            
-            reloadTableView()
-            
-            self.categories = viewModel.categories
-            viewcontrollers = categories.map { _ in GroceryTableViewController(nibName: nil, bundle: nil) }
-            self.reloadData()
+            categories =  viewModel.displayedCategories
+            categoriesTableView.reloadData()
         }
     }
     
-    func displayListItems(viewModel: ChildCategories.GetListItems.ViewModel) {
-        self.listItems = viewModel.listItems
-    }
-    
-    func displayListItemCreated(viewModel: ChildCategories.CreateListItem.ViewModel) {
-        if let error = viewModel.error {
-            if !viewModel.offline {
-                showError(title: "List Error", error: error)
-            }
-        } else {
-            // If list item exists locally,
-            if let listItem = viewModel.listItem {
-                updateProductQuantity(section: viewModel.section, productID: listItem.productID, quantity: listItem.quantity)
-                reloadTableView()
-            }
-        }
-    }
-    
-    func displayListItemUpdated(viewModel: ChildCategories.UpdateListItem.ViewModel) {
-        if let error = viewModel.error, !viewModel.offline {
-            showError(title: "List Error", error: error)
-        }
-    }
-    
-    func displayTitle(){
-        title = interactor?.title
-    }
-
-}
-
-extension ChildCategoriesViewController {
     func displayRightBarButton(){
         if interactor?.selectedListID == nil {
             self.navigationItem.rightBarButtonItem = nil
         }
     }
+    
+    func displayTitle(){
+        self.title = interactor!.title
+    }
+
 }
 
-extension ChildCategoriesViewController {
-    func setupBar(){
-        self.dataSource = self
-        configureBar()
+extension ChildCategoriesViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return loading ? 7 : categories.count
     }
     
-    func configureBar(){
-        bar.tintColor = UIColor(named: "Label Color")
-        
-        bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 1.0, right: 16.0)
-        bar.layout.interButtonSpacing = 30.0
-        
-        bar.layout.showSeparators = true
-        bar.layout.separatorColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 1.00)
-        bar.layout.separatorWidth = 0.5
-        
-        bar.backgroundView.style = .flat(color:  UIColor(named: "LightGrey")!)
-        bar.backgroundColor = UIColor(named: "LightGrey")
-        
-        bar.indicator.weight = .medium
-        bar.indicator.cornerStyle = .square
-        bar.fadesContentEdges = true
-        bar.spacing = 30.0
-        
-        // Add to view
-        addBar(bar, dataSource: self, at: .top)
-    }
-}
-
-extension ChildCategoriesViewController:  TMBarDataSource, PageboyViewControllerDataSource {
-    func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        let title: String = loading ? "" : categories[index].name
-        return TMBarItem(title: title)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return configureCategoryCell(indexPath: indexPath)
     }
     
-    func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        return viewcontrollers.count
+    func configureCategoryCell(indexPath: IndexPath) -> CategoryTableViewCell {
+        let cell = categoriesTableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath) as! CategoryTableViewCell
+        
+        cell.nameLabel.text = loading ? nil : categories[indexPath.row].name
+        cell.loading = loading
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        return cell
     }
     
-    func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
-        let viewController: GroceryTableViewController = viewcontrollers[index]
+    func setupCategoriesTableView(){
+        let categoryCellNib = UINib(nibName: "CategoryTableViewCell", bundle: nil)
+        categoriesTableView.register(categoryCellNib, forCellReuseIdentifier: "CategoryTableViewCell")
         
-        viewController.loading = loading
-        
-        if !loading && categories.indices.contains(index) {
-            viewController.section = index
-            viewController.selectedListID = interactor?.selectedListID
-            viewController.listItems = listItems
-            
-            viewController.loggedIn = loggedIn
-            
-            viewController.products = categories[index].products
-            
-            viewController.productPressed = productPressed
-            viewController.addToListPressedCallBack = addToListPressed
-            viewController.updateQuantityPressedCallback = updateQuantityPressed
-        }
-        
-        return viewController
-    }
-    
-    func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return nil
+        categoriesTableView.delegate = self
+        categoriesTableView.dataSource = self
     }
 }
 
 extension ChildCategoriesViewController {
-    private func productPressed(productID: Int){
-        router?.selectedProductID = productID
-        router?.routeToShowProduct(segue: nil)
-    }
-}
-
-extension ChildCategoriesViewController: SelectListProtocol {
-    func addToListPressed(section: Int, product: ProductModel){
-        // Show lists, select one.
-        selectedProduct = product
-        selectedSection = section
-
-        if let listID = interactor?.selectedListID {
-            updateProductQuantity(section: selectedSection!, productID: product.id, quantity: 1, listID: listID)
-            createListItem(listID: listID)
-            reloadTableView()
-        } else {
-            interactor?.selectedProductStoreTypeID = product.storeTypeID
-            router?.routeToShowLists(segue: nil)
-        }
-        
-    }
-    
-    func listSelected(listID: Int) {
-        // Update Cell Quantity Button
-        updateProductQuantity(section: selectedSection!, productID: selectedProduct!.id, quantity: 1, listID: listID)
-        createListItem(listID: listID)
-        reloadTableView()
-    }
-    
-    func createListItem(listID: Int){
-        let request = ChildCategories.CreateListItem.Request(
-            listID: listID,
-            product: selectedProduct!,
-            section: selectedSection!
-        )
-
-        interactor?.createListItem(request: request)
-    }
-    
-    func updateQuantityPressed(section: Int, product: ProductModel){
-        // Update API/Realm Request
-        selectedProduct = product
-        let listID: Int =  product.listID!
-        
-        updateProductQuantity(section: section, productID: product.id, quantity: product.quantity)
-
-        let request = ChildCategories.UpdateListItem.Request(
-            listID: listID,
-            productID: product.id,
-            quantity: product.quantity
-        )
-
-        interactor?.updateListItem(request: request)
-    }
-
-    func updateProductQuantity(section: Int, productID: Int, quantity: Int, listID: Int? = nil){
-        for searchProduct in categories[section].products {
-            if searchProduct.id == productID {
-                searchProduct.quantity = quantity
-
-                if quantity == 0 {
-                    searchProduct.listID = nil
-                } else if listID != nil {
-                    searchProduct.listID = listID!
-                }
-            }
-        }
-    }
-    
-    func reloadTableView(){
-        for viewController in viewcontrollers {
-            viewController.loading = loading
-            viewController.loggedIn = loggedIn
-            viewController.tableView.reloadData()
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if !loading {
+            // Navigate To Parent Category
+            router?.routeToShowProductResults(segue: nil)
         }
     }
 }

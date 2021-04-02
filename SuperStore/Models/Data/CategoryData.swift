@@ -16,7 +16,11 @@ struct ChildCategoriesDataResponse: Decodable {
     var data: [ChildCategoryData]
 }
 
-struct GrandParentCategoryData:Decodable {
+struct CategoryProductsDataResponse: Decodable {
+    var data: ChildCategoryData?
+}
+
+struct GrandParentCategoryData: Decodable {
     var id: Int
     var name: String
     
@@ -34,7 +38,7 @@ struct GrandParentCategoryData:Decodable {
     }
 }
 
-struct ParentCategoryData:Decodable {
+struct ParentCategoryData: Decodable {
     var id: Int
     var name: String
     var parent_category_id: Int
@@ -61,7 +65,9 @@ struct ChildCategoryData:Decodable {
     
     var store_type_id: Int
     
-    var products: [ProductData]
+    var products: [ProductData]?
+    
+    let paginate: PaginateResultsData?
     
     func getChildCategoryModel() -> ChildCategoryModel {
         return ChildCategoryModel(
@@ -69,7 +75,7 @@ struct ChildCategoryData:Decodable {
             name: name,
             parentCategoryID: parent_category_id,
             storeTypeID: store_type_id,
-            products: products.map{ $0.getProductModel() }
+            products: products?.map{ $0.getProductModel() } ?? []
         )
     }
     

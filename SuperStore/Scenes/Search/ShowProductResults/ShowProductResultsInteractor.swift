@@ -23,9 +23,14 @@ protocol ShowProductResultsBusinessLogic
     var selectedListID: Int? { get set }
     var selectedProductStoreTypeID: Int? { get set }
     
+    var title: String { get set }
+    var childCategoryID: Int? { get set }
+    
     func getListItems(request: ShowProductResults.GetListItems.Request)
     func createListItem(request: ShowProductResults.CreateListItem.Request)
     func updateListItem(request: ShowProductResults.UpdateListItem.Request)
+    
+    func getCategoryProducts(request: ShowProductResults.GetCategoryProducts.Request)
 }
 
 protocol ShowProductResultsDataStore
@@ -36,12 +41,17 @@ protocol ShowProductResultsDataStore
     
     var selectedListID: Int? { get set }
     var selectedProductStoreTypeID: Int? { get set }
+    
+    var title: String { get set }
+    var childCategoryID: Int? { get set }
 }
 
 class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProductResultsDataStore
 {
+    
     var presenter: ShowProductResultsPresentationLogic?
     
+    var groceryWorker: GroceryWorker = GroceryWorker(groceryAPI: GroceryAPI())
     var searchWorker: SearchWorker = SearchWorker(searchAPI: SearchAPI())
     var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
     
@@ -49,6 +59,9 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     
     var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [])
     var searchQueryRequest: SearchQueryRequest = SearchQueryRequest(storeTypeID: 0, query: "", type: "")
+    
+    var title: String = ""
+    var childCategoryID: Int? = nil
     
     var selectedListID: Int?
     var selectedProductStoreTypeID: Int?
@@ -94,7 +107,6 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         }
     
     }
-    
 
     func refineResults(){
         
@@ -168,5 +180,23 @@ extension ShowProductResultsInteractor {
             
             self.presenter?.presentListItemUpdated(response: response)
         }
+    }
+}
+
+
+extension ShowProductResultsInteractor {
+    func getCategoryProducts(request: ShowProductResults.GetCategoryProducts.Request){
+        
+        groceryWorker.getCategoryProducts(childCategoryID: childCategoryID!) { (category: ChildCategoryModel?, error: String?) in
+            
+            var response = ShowProductResults.GetCategoryProducts.Response(category: category, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
+            self.presenter?.presentCategoryProducts(response: response)
+        }
+        
     }
 }

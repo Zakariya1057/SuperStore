@@ -14,7 +14,7 @@ class GroceryAPI: GroceryRequestProtocol {
     let requestWorker: RequestProtocol = RequestWorker()
     
     func getGrandParentCategories(storeTypeID: Int, completionHandler: @escaping ([GrandParentCategoryModel], String?) -> Void) {
-        let url: String = Config.Route.Grocery.GrandParentCategories + "/" + String(storeTypeID)
+        let url: String = Config.Route.Groceries.GrandParentCategories + "/" + String(storeTypeID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -33,7 +33,7 @@ class GroceryAPI: GroceryRequestProtocol {
     }
     
     func getChildCategories(parentCategoryID: Int, completionHandler: @escaping ([ChildCategoryModel], String?) -> Void){
-        let url: String = Config.Route.Grocery.ChildCategories + "/" + String(parentCategoryID)
+        let url: String = Config.Route.Groceries.ChildCategories + "/" + String(parentCategoryID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -47,6 +47,26 @@ class GroceryAPI: GroceryRequestProtocol {
             } catch {
                 print(error)
                 completionHandler([], "Failed to get categories. Decoding error, please try again later.")
+            }
+        }
+    }
+    
+    
+    func getCategoryProducts(childCategoryID: Int, completionHandler: @escaping (ChildCategoryModel?, String?) -> Void){
+        let url: String = Config.Route.Groceries.CategoryProducts + "/" + String(childCategoryID)
+        
+        requestWorker.get(url: url) { (response: () throws -> Data) in
+            do {
+                let data = try response()
+                let categoryProductsDataResponse =  try self.jsonDecoder.decode(CategoryProductsDataResponse.self, from: data)
+                let categoryProducts = self.createChildCategoriesModel(categoryProductsDataResponse: categoryProductsDataResponse)
+                completionHandler(categoryProducts, nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler(nil, errorMessage)
+            } catch {
+                print(error)
+                completionHandler(nil, "Failed to get category products. Decoding error, please try again later.")
             }
         }
     }
@@ -69,5 +89,13 @@ extension GroceryAPI {
         }
         
         return categories
+    }
+    
+    private func createChildCategoriesModel(categoryProductsDataResponse: CategoryProductsDataResponse) -> ChildCategoryModel? {
+        if let categoryProducts = categoryProductsDataResponse.data {
+            return categoryProducts.getChildCategoryModel()
+        }
+        
+        return nil
     }
 }

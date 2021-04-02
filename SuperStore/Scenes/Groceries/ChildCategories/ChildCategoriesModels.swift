@@ -14,8 +14,6 @@ import UIKit
 
 enum ChildCategories
 {
-    // MARK: Use cases
-    
     enum GetCategories
     {
         struct Request
@@ -31,68 +29,13 @@ enum ChildCategories
         }
         struct ViewModel
         {
+            struct DisplayedCategory {
+                var name: String
+            }
+            
             var title: String
-            var categories: [ChildCategoryModel]
+            var displayedCategories: [DisplayedCategory]
             
-            var error: String?
-            var offline: Bool = false
-        }
-    }
-    
-    enum GetListItems
-    {
-        struct Request
-        {
-        }
-        struct Response
-        {
-            var listItems: [ListItemModel]
-        }
-        struct ViewModel
-        {
-            var listItems: [Int: ListItemModel]
-        }
-    }
-    
-    enum CreateListItem {
-        struct Request
-        {
-            var listID: Int
-            var product: ProductModel
-            var section: Int
-        }
-        struct Response
-        {
-            var section: Int
-            var listItem: ListItemModel?
-            
-            var error: String?
-            var offline: Bool = false
-        }
-        struct ViewModel
-        {
-            var section: Int
-            var listItem: ListItemModel?
-            
-            var error: String?
-            var offline: Bool = false
-        }
-    }
-    
-    enum UpdateListItem {
-        struct Request
-        {
-            var listID: Int
-            var productID: Int
-            var quantity: Int
-        }
-        struct Response
-        {
-            var error: String?
-            var offline: Bool = false
-        }
-        struct ViewModel
-        {
             var error: String?
             var offline: Bool = false
         }

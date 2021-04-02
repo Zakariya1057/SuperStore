@@ -18,6 +18,8 @@ protocol ShowProductResultsDisplayLogic: class
     func displayListItems(viewModel: ShowProductResults.GetListItems.ViewModel)
     func displayListItemCreated(viewModel: ShowProductResults.CreateListItem.ViewModel)
     func displayListItemUpdated(viewModel: ShowProductResults.UpdateListItem.ViewModel)
+    
+    func displayCategoryProducts(viewModel: ShowProductResults.GetCategoryProducts.ViewModel)
 }
 
 class ShowProductResultsViewController: UIViewController, ShowProductResultsDisplayLogic
@@ -80,13 +82,13 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         setupProductsTableView()
         displayTitle()
         
-        getResults()
+        getProducts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if interactor?.selectedListID != nil {
-            getResults()
+            getProducts()
             getListItems()
         }
         
@@ -121,6 +123,16 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     var currentLoggedIn: Bool = false
     
+    
+    func getProducts(){
+        // If category products or search results
+        if interactor?.childCategoryID == nil {
+            getResults()
+        } else {
+            getCategoryProducts()
+        }
+    }
+    
     func getResults(){
         loading = true
         productsTableView.reloadData()
@@ -133,6 +145,15 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     func getListItems(){
         let request = ShowProductResults.GetListItems.Request()
         interactor?.getListItems(request: request)
+    }
+    
+    func getCategoryProducts(){
+        loading = true
+        productsTableView.reloadData()
+        totalProductsLabel.text = "Fetching Products"
+        
+        let request = ShowProductResults.GetCategoryProducts.Request(page: currentPage, refine: false)
+        interactor?.getCategoryProducts(request: request)
     }
     
     func refineResults(){
@@ -212,8 +233,50 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     }
     
     func displayTitle(){
-        title = interactor!.searchQueryRequest.query
+        title = interactor!.childCategoryID == nil ? interactor!.searchQueryRequest.query : interactor!.title
     }
+    
+    
+    // Child Category Products
+    func displayCategoryProducts(viewModel: ShowProductResults.GetCategoryProducts.ViewModel) {
+        refreshControl.endRefreshing()
+        
+        if let error = viewModel.error {
+            if !viewModel.offline {
+                showError(title: "Grocery Error", error: error)
+            }
+        } else {
+            if let category = viewModel.category {
+                
+                loading = false
+                paginate = category.paginate
+                
+                if let paginate = category.paginate, paginate.current > 1 {
+                    for product in category.products {
+                        if uniqueProducts[product.id] == nil {
+                            uniqueProducts[product.id] = true
+                            products.append(product)
+                        }
+                    }
+                } else {
+                    uniqueProducts = [:]
+                    products = []
+                    
+                    for product in category.products {
+                        products.append(product)
+                        uniqueProducts[product.id] = true
+                    }
+                }
+                
+                totalProductsLabel.text = "\(products.count) Products"
+                productsTableView.reloadData()
+                
+            }
+
+        }
+        
+    }
+    
 }
 
 extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -283,7 +346,7 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
     }
     
     @objc func refreshResults(){
-        getResults()
+        getProducts()
         getListItems()
     }
     

@@ -56,6 +56,10 @@ class GroceryRealmStore: DataStore, GroceryStoreProtocol {
         
         return categories
     }
+    
+    func getCategoryProducts(childCategoryID: Int) -> ChildCategoryModel? {
+        return realm?.objects(ChildCategoryObject.self).filter("id = %@", childCategoryID).first?.getChildCategoryModel()
+    }
 }
 
 extension GroceryRealmStore {
@@ -120,11 +124,6 @@ extension GroceryRealmStore {
         savedCategory.name = category.name
         savedCategory.storeTypeID = category.storeTypeID
         savedCategory.parentCategoryID = category.parentCategoryID
-
-        for product in category.products {
-            let savedProduct = productStore.createProductObject(product: product)
-            savedCategory.products.append(savedProduct)
-        }
         
         return savedCategory
     }

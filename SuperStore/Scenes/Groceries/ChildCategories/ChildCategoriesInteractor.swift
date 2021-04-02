@@ -16,10 +16,6 @@ protocol ChildCategoriesBusinessLogic
 {
     func getCategories(request: ChildCategories.GetCategories.Request)
     
-    func getListItems(request: ChildCategories.GetListItems.Request)
-    func createListItem(request: ChildCategories.CreateListItem.Request)
-    func updateListItem(request: ChildCategories.UpdateListItem.Request)
-    
     var title: String { get set }
     var selectedListID: Int? { get set }
     var selectedProductStoreTypeID: Int? { get set }
@@ -33,6 +29,8 @@ protocol ChildCategoriesDataStore
     var storeTypeID: Int { get set }
     var selectedListID: Int? { get set }
     var selectedProductStoreTypeID: Int? { get set }
+    
+    var categories: [ChildCategoryModel] { get set }
 }
 
 class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDataStore
@@ -52,6 +50,8 @@ class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDa
     var storeTypeID: Int = 1
     
     var selectedProductStoreTypeID: Int?
+    
+    var categories: [ChildCategoryModel] = []
 
     func getCategories(request: ChildCategories.GetCategories.Request)
     {
@@ -60,52 +60,11 @@ class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDa
             
             if error != nil {
                 response.offline = !self.userSession.isOnline()
+            } else {
+                self.categories = categories
             }
             
             self.presenter?.presentCategories(response: response)
-        }
-    }
-}
-
-extension ChildCategoriesInteractor {
-    func getListItems(request: ChildCategories.GetListItems.Request){
-        if let selectedListID = selectedListID {
-            listItemWorker.getItems(listID: selectedListID) { (listItems: [ListItemModel]) in
-                let response = ChildCategories.GetListItems.Response(listItems: listItems)
-                self.presenter?.presentListItems(response: response)
-            }
-        }
-    }
-    
-    func createListItem(request: ChildCategories.CreateListItem.Request){
-        let listID: Int = request.listID
-        let product: ProductModel = request.product
-        let section: Int = request.section
-        
-        listItemWorker.createItem(listID: listID, product: product) { (listItem: ListItemModel?, error: String?) in
-            var response = ChildCategories.CreateListItem.Response(section: section, listItem: listItem, error: error)
-            
-            if error != nil {
-                response.offline = !self.userSession.isOnline()
-            }
-            
-            self.presenter?.presentListItemCreated(response: response)
-        }
-    }
-    
-    func updateListItem(request: ChildCategories.UpdateListItem.Request){
-        let listID: Int = request.listID
-        let productID: Int = request.productID
-        let quantity: Int = request.quantity
-        
-        listItemWorker.updateItem(listID: listID, productID: productID, quantity: quantity, tickedOff: false) { (error: String?) in
-            var response = ChildCategories.UpdateListItem.Response(error: error)
-            
-            if error != nil {
-                response.offline = !self.userSession.isOnline()
-            }
-            
-            self.presenter?.presentListItemUpdated(response: response)
         }
     }
 }

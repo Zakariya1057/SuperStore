@@ -29,4 +29,6 @@ struct ChildCategoryModel {
     var parentCategoryID: Int
     var storeTypeID: Int
     var products: [ProductModel]
+    
+    var paginate: PaginateResultsModel?
 }

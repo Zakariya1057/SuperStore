@@ -1834,8 +1834,20 @@
                     <view key="view" contentMode="scaleToFill" id="xwO-xo-YL4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fu9-tg-whr">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="q30-JZ-fgK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fu9-tg-whr" firstAttribute="top" secondItem="q30-JZ-fgK" secondAttribute="top" id="HMW-el-SdQ"/>
+                            <constraint firstItem="fu9-tg-whr" firstAttribute="trailing" secondItem="q30-JZ-fgK" secondAttribute="trailing" id="QdK-IB-LdX"/>
+                            <constraint firstItem="fu9-tg-whr" firstAttribute="leading" secondItem="q30-JZ-fgK" secondAttribute="leading" id="Uxb-lO-kti"/>
+                            <constraint firstItem="q30-JZ-fgK" firstAttribute="bottom" secondItem="fu9-tg-whr" secondAttribute="bottom" id="jbv-6A-i84"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="FQO-F6-rtZ">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="rQv-2t-6pb">
@@ -1845,6 +1857,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="categoriesTableView" destination="fu9-tg-whr" id="Jcl-pu-z70"/>
                         <segue destination="blb-Wd-ZdE" kind="show" identifier="showGroceryItem" id="3yE-2U-5V3"/>
                     </connections>
                 </viewController>

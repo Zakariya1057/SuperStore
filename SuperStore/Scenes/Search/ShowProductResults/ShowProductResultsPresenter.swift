@@ -18,11 +18,13 @@ protocol ShowProductResultsPresentationLogic
     func presentListItems(response: ShowProductResults.GetListItems.Response)
     func presentListItemCreated(response: ShowProductResults.CreateListItem.Response)
     func presentListItemUpdated(response: ShowProductResults.UpdateListItem.Response)
+    
+    func presentCategoryProducts(response: ShowProductResults.GetCategoryProducts.Response)
 }
 
 class ShowProductResultsPresenter: ShowProductResultsPresentationLogic
 {
-    
+
     weak var viewController: ShowProductResultsDisplayLogic?
     
     func presentResults(response: ShowProductResults.GetResults.Response)
@@ -50,5 +52,17 @@ class ShowProductResultsPresenter: ShowProductResultsPresentationLogic
     func presentListItemUpdated(response: ShowProductResults.UpdateListItem.Response) {
         let viewModel = ShowProductResults.UpdateListItem.ViewModel(error: response.error, offline: response.offline)
         viewController?.displayListItemUpdated(viewModel: viewModel)
+    }
+}
+
+extension ShowProductResultsPresenter {
+    func presentCategoryProducts(response: ShowProductResults.GetCategoryProducts.Response) {
+        let viewModel = ShowProductResults.GetCategoryProducts.ViewModel(
+            category: response.category,
+            error: response.error,
+            offline: response.offline
+        )
+        
+        viewController?.displayCategoryProducts(viewModel: viewModel)
     }
 }

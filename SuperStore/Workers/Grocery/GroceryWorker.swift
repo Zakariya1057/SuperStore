@@ -12,6 +12,8 @@ class GroceryWorker {
     var groceryAPI: GroceryRequestProtocol
     var groceryStore: GroceryStoreProtocol
     
+    var userSession = UserSessionWorker()
+    
     init(groceryAPI: GroceryRequestProtocol) {
         self.groceryAPI = groceryAPI
         self.groceryStore = GroceryRealmStore()
@@ -48,11 +50,29 @@ class GroceryWorker {
             completionHandler(categories, error)
         }
     }
+    
+    func getCategoryProducts(childCategoryID: Int, completionHandler: @escaping (_ category: ChildCategoryModel?, _ error: String?) -> Void){
+        let category = groceryStore.getCategoryProducts(childCategoryID: childCategoryID)
+        if let category = category, category.products.count > 0 {
+            completionHandler(category, nil)
+        }
+        
+        groceryAPI.getCategoryProducts(childCategoryID: childCategoryID) { (category: ChildCategoryModel?, error: String?) in
+            if error == nil {
+                if let category = category {
+                    self.groceryStore.createCategories(categories: [category])
+                }
+            }
+            
+            completionHandler(category, error)
+        }
+    }
 }
 
 protocol GroceryRequestProtocol {
     func getGrandParentCategories(storeTypeID: Int, completionHandler: @escaping ( _ categories: [GrandParentCategoryModel], _ error: String?) -> Void)
     func getChildCategories(parentCategoryID: Int, completionHandler: @escaping (_ categories: [ChildCategoryModel], _ error: String?) -> Void)
+    func getCategoryProducts(childCategoryID: Int, completionHandler: @escaping (ChildCategoryModel?, String?) -> Void)
 }
 
 protocol GroceryStoreProtocol {
@@ -61,6 +81,7 @@ protocol GroceryStoreProtocol {
     
     func getGrandParentCategories(storeTypeID: Int) -> [GrandParentCategoryModel]
     func getChildCategories(parentCategoryID: Int) -> [ChildCategoryModel]
+    func getCategoryProducts(childCategoryID: Int) -> ChildCategoryModel?
     
     func createCategoryObject(category: ChildCategoryModel) -> ChildCategoryObject
     func createCategoryObject(category: ParentCategoryModel) -> ParentCategoryObject

@@ -66,15 +66,7 @@ extension HomeAPI {
         var categories: [ChildCategoryModel] = []
         
         for category in categoryData {
-            let childCategory = ChildCategoryModel(
-                id: category.id,
-                name: category.name,
-                parentCategoryID: category.parent_category_id,
-                storeTypeID: category.store_type_id,
-                products: category.products.map{ $0.getProductModel() }
-            )
-            
-            categories.append(childCategory)
+            categories.append(category.getChildCategoryModel())
         }
         
         return categories
