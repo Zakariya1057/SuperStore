@@ -86,6 +86,7 @@ extension ShowListPresenter {
             return ShowList.DisplayedListItem(
                 name: item.name, productID: item.productID,
                 quantity: item.quantity,
+                weight: item.weight,
                 totalPrice: item.getPrice(),
                 tickedOff: item.tickedOff
             )

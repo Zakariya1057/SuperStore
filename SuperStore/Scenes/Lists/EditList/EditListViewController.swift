@@ -129,6 +129,7 @@ extension EditListViewController {
     @IBAction func restartButtonPressed(_ sender: UIButton) {
         startLoading()
         hideRightBarButton()
+        dismissKeyboard()
 
         let request = EditList.RestartList.Request()
         interactor?.restartList(request: request)

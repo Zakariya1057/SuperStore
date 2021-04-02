@@ -162,7 +162,8 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             
             if let paginate = viewModel.paginate, paginate.current > 1 {
                 for product in viewModel.products {
-                    if uniqueProducts[product.id] != nil {
+                    if uniqueProducts[product.id] == nil {
+                        uniqueProducts[product.id] = true
                         products.append(product)
                     }
                 }
@@ -217,7 +218,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
 
 extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? 5 : products.count
+        return loading ? (products.count == 0 ? 5 : products.count) : products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -323,17 +324,18 @@ extension ShowProductResultsViewController: SelectListProtocol {
     func updateQuantityPressed(product: ProductModel){
         // Update API/Realm Request
         selectedProduct = product
-        let listID: Int = product.listID!
         
-        updateProductQuantity(productID: product.id, quantity: product.quantity)
-        
-        let request = ShowProductResults.UpdateListItem.Request(
-            listID: listID,
-            productID: product.id,
-            quantity: product.quantity
-        )
-        
-        interactor?.updateListItem(request: request)
+        if let listID = product.listID {
+            updateProductQuantity(productID: product.id, quantity: product.quantity)
+            
+            let request = ShowProductResults.UpdateListItem.Request(
+                listID: listID,
+                productID: product.id,
+                quantity: product.quantity
+            )
+            
+            interactor?.updateListItem(request: request)
+        }
     }
     
     func updateProductQuantity(productID: Int, quantity: Int, listID: Int? = nil){

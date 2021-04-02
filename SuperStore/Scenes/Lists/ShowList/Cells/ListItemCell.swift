@@ -39,10 +39,10 @@ class ListItemCell: UITableViewCell {
     }
     
     func displayName(){
-        let name = item.name
+        let itemName = item.name
         let quantity = String(item.quantity)
         
-        nameLabel.attributedText = NSMutableAttributedString().bold(quantity).normal(" x " + name)
+        nameLabel.attributedText =  NSMutableAttributedString().bold(quantity).normal(" x " + itemName)
     }
     
     @IBAction func checkBoxButtonPressed(_ sender: UIButton) {

@@ -23,6 +23,7 @@ enum ShowList
         var name: String
         var productID: Int
         var quantity: Int
+        var weight: String?
         var totalPrice: String
         var tickedOff: Bool
     }

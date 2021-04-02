@@ -106,7 +106,7 @@ extension ShowItemsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = items[indexPath.row]
-        cell.textLabel?.numberOfLines = 5
+        cell.textLabel?.numberOfLines = 50
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
