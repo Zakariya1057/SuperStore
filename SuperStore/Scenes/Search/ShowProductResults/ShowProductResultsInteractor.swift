@@ -74,9 +74,6 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     
     func getResults(request: ShowProductResults.GetResults.Request)
     {
-        // Unique Brands. Unique Categories
-        var uniqueBrands: [String: Int] = [:]
-        var uniqueCategories: [String: Int] = [:]
         
         let page: Int = request.page
         let refine: Bool = request.refine
@@ -86,17 +83,9 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         searchWorker.getProductResults(query: searchQueryRequest, page: page) { (results: ProductResultsModel?, error: String?) in
             
             if let results = results {
-                for product in results.products {
-                    if let brand = product.brand, brand != "" {
-                        uniqueBrands[brand] = 1
-                        uniqueCategories[product.childCategoryName!] = 1
-                    }
-                }
-                
-                self.searchRefine.brands = uniqueBrands.compactMap{$0.key}
-                self.searchRefine.categories = uniqueCategories.compactMap{$0.key}
+                self.setRefineOptions(products: results.products)
             }
-
+            
             var response = ShowProductResults.GetResults.Response(products: results?.products ?? [], paginate: results?.paginate, error: error)
             
             if error != nil {
@@ -186,10 +175,22 @@ extension ShowProductResultsInteractor {
 
 extension ShowProductResultsInteractor {
     func getCategoryProducts(request: ShowProductResults.GetCategoryProducts.Request){
+        let page: Int = request.page
+        let refine: Bool = request.refine
         
-        groceryWorker.getCategoryProducts(childCategoryID: childCategoryID!) { (category: ChildCategoryModel?, error: String?) in
+        searchQueryRequest.refine = refine
+        
+        groceryWorker.getCategoryProducts(
+            childCategoryID: childCategoryID!,
+            data: searchQueryRequest,
+            page: page
+        ) { (category: ChildCategoryModel?, error: String?) in
             
             var response = ShowProductResults.GetCategoryProducts.Response(category: category, error: error)
+            
+            if let category = category {
+                self.setRefineOptions(products: category.products)
+            }
             
             if error != nil {
                 response.offline = !self.userSession.isOnline()
@@ -198,5 +199,25 @@ extension ShowProductResultsInteractor {
             self.presenter?.presentCategoryProducts(response: response)
         }
         
+    }
+}
+
+extension ShowProductResultsInteractor {
+    private func setRefineOptions(products: [ProductModel]){
+        
+        // Unique Brands. Unique Categories
+        var uniqueBrands: [String: Int] = [:]
+        var uniqueCategories: [String: Int] = [:]
+
+        
+        for product in products {
+            if let brand = product.brand, brand != "" {
+                uniqueBrands[brand] = 1
+                uniqueCategories[product.childCategoryName!] = 1
+            }
+        }
+        
+        self.searchRefine.brands = uniqueBrands.compactMap{$0.key}
+        self.searchRefine.categories = uniqueCategories.compactMap{$0.key}
     }
 }

@@ -75,7 +75,8 @@ struct ChildCategoryData:Decodable {
             name: name,
             parentCategoryID: parent_category_id,
             storeTypeID: store_type_id,
-            products: products?.map{ $0.getProductModel() } ?? []
+            products: products?.map{ $0.getProductModel() } ?? [],
+            paginate: paginate?.getPaginateResultsModel()
         )
     }
     

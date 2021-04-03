@@ -63,6 +63,7 @@ class ChildCategoriesRouter: BackToShowListRouter, ChildCategoriesRoutingLogic, 
         let selectedCategory = source.categories[row]
         
         destination.childCategoryID = selectedCategory.id
+        destination.title = selectedCategory.name
         destination.selectedListID = source.selectedListID
     }
 }

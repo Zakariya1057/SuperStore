@@ -51,13 +51,16 @@ class GroceryWorker {
         }
     }
     
-    func getCategoryProducts(childCategoryID: Int, completionHandler: @escaping (_ category: ChildCategoryModel?, _ error: String?) -> Void){
-        let category = groceryStore.getCategoryProducts(childCategoryID: childCategoryID)
-        if let category = category, category.products.count > 0 {
-            completionHandler(category, nil)
-        }
+    func getCategoryProducts(childCategoryID: Int, data: SearchQueryRequest, page: Int, completionHandler: @escaping (_ category: ChildCategoryModel?, _ error: String?) -> Void){
         
-        groceryAPI.getCategoryProducts(childCategoryID: childCategoryID) { (category: ChildCategoryModel?, error: String?) in
+        if page == 1 && !data.refine {
+            let category = groceryStore.getCategoryProducts(childCategoryID: childCategoryID)
+            if let category = category, category.products.count > 0 {
+                completionHandler(category, nil)
+            }
+        }
+
+        groceryAPI.getCategoryProducts(childCategoryID: childCategoryID, data: data, page: page) { (category: ChildCategoryModel?, error: String?) in
             if error == nil {
                 if let category = category {
                     self.groceryStore.createCategories(categories: [category])
@@ -72,7 +75,7 @@ class GroceryWorker {
 protocol GroceryRequestProtocol {
     func getGrandParentCategories(storeTypeID: Int, completionHandler: @escaping ( _ categories: [GrandParentCategoryModel], _ error: String?) -> Void)
     func getChildCategories(parentCategoryID: Int, completionHandler: @escaping (_ categories: [ChildCategoryModel], _ error: String?) -> Void)
-    func getCategoryProducts(childCategoryID: Int, completionHandler: @escaping (ChildCategoryModel?, String?) -> Void)
+    func getCategoryProducts(childCategoryID: Int, data: SearchQueryRequest, page: Int, completionHandler: @escaping (ChildCategoryModel?, String?) -> Void)
 }
 
 protocol GroceryStoreProtocol {

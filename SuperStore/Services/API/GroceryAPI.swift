@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class GroceryAPI: GroceryRequestProtocol {
 
@@ -52,10 +53,17 @@ class GroceryAPI: GroceryRequestProtocol {
     }
     
     
-    func getCategoryProducts(childCategoryID: Int, completionHandler: @escaping (ChildCategoryModel?, String?) -> Void){
-        let url: String = Config.Route.Groceries.CategoryProducts + "/" + String(childCategoryID)
+    func getCategoryProducts(childCategoryID: Int, data: SearchQueryRequest, page: Int, completionHandler: @escaping (ChildCategoryModel?, String?) -> Void){
+        let url: String = Config.Route.Groceries.CategoryProducts + "/" + String(childCategoryID)  + "?page=\(page)"
         
-        requestWorker.get(url: url) { (response: () throws -> Data) in
+        let queryData: Parameters = [
+            "sort": data.sort,
+            "order": data.order,
+            "dietary": data.dietary,
+            "brand": data.brand
+        ]
+        
+        requestWorker.post(url: url, data: queryData) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let categoryProductsDataResponse =  try self.jsonDecoder.decode(CategoryProductsDataResponse.self, from: data)

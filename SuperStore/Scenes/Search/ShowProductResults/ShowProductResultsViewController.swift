@@ -124,21 +124,24 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     var currentLoggedIn: Bool = false
     
     
-    func getProducts(){
+    func getProducts(refine: Bool = false){
         // If category products or search results
         if interactor?.childCategoryID == nil {
-            getResults()
+            getResults(refine: refine)
         } else {
-            getCategoryProducts()
+            getCategoryProducts(refine: refine)
         }
     }
     
-    func getResults(){
+    func getResults(refine: Bool = false){
         loading = true
         productsTableView.reloadData()
-        totalProductsLabel.text = "Fetching Products"
         
-        let request = ShowProductResults.GetResults.Request(page: currentPage, refine: false)
+        if !refine {
+            totalProductsLabel.text = "Fetching Products"
+        }
+        
+        let request = ShowProductResults.GetResults.Request(page: currentPage, refine: refine)
         interactor?.getResults(request: request)
     }
     
@@ -147,12 +150,16 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         interactor?.getListItems(request: request)
     }
     
-    func getCategoryProducts(){
+    func getCategoryProducts(refine: Bool = false){
         loading = true
         productsTableView.reloadData()
-        totalProductsLabel.text = "Fetching Products"
         
-        let request = ShowProductResults.GetCategoryProducts.Request(page: currentPage, refine: false)
+        if !refine {
+            totalProductsLabel.text = "Fetching Products"
+        }
+        
+        
+        let request = ShowProductResults.GetCategoryProducts.Request(page: currentPage, refine: refine)
         interactor?.getCategoryProducts(request: request)
     }
     
@@ -162,9 +169,9 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         
         productsTableView.reloadData()
         
-        let request = ShowProductResults.GetResults.Request(refine: true)
-        totalProductsLabel.text = "Refining Search Results"
-        interactor?.getResults(request: request)
+        totalProductsLabel.text = "Refining Results"
+        
+        getProducts(refine: true)
     }
     
     //MARK: - Display
@@ -246,11 +253,11 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
                 showError(title: "Grocery Error", error: error)
             }
         } else {
+            
+            loading = false
+            paginate = viewModel.category?.paginate
+            
             if let category = viewModel.category {
-                
-                loading = false
-                paginate = category.paginate
-                
                 if let paginate = category.paginate, paginate.current > 1 {
                     for product in category.products {
                         if uniqueProducts[product.id] == nil {
@@ -267,11 +274,13 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
                         uniqueProducts[product.id] = true
                     }
                 }
-                
-                totalProductsLabel.text = "\(products.count) Products"
-                productsTableView.reloadData()
-                
+            } else {
+                uniqueProducts = [:]
+                products = []
             }
+            
+            totalProductsLabel.text = "\(products.count) Products"
+            productsTableView.reloadData()
 
         }
         
@@ -335,7 +344,7 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
         if !loading, let paginate = paginate, paginate.moreAvailable, indexPath.row == (products.count - 1) {
             loading = true
             currentPage = currentPage + 1
-            getResults()
+            getProducts()
         }
     }
     
@@ -402,7 +411,6 @@ extension ShowProductResultsViewController: SelectListProtocol {
     }
     
     func updateProductQuantity(productID: Int, quantity: Int, listID: Int? = nil){
-//        print("productID: \(productID), quantity: \(quantity), listID: \(listID) ")
         for searchProduct in products {
             if searchProduct.id == productID {
                 searchProduct.quantity = quantity
