@@ -79,18 +79,21 @@ class ListPriceWorker {
             }
 
             totalPrice += calculateItemPrice(listItem: product)
-            priceNoPromotion += ( Double(product.quantity) * product.price)
+            priceNoPromotion += ( Double(product.quantity) * product.price )
         }
 
+        var promotionTotalPrice: Double = 0
+        
         for promotion in promotions {
             let items = promotion.value["items"] as! [ListItemModel]
             let promotion = promotion.value["promotion"]![0] as! PromotionModel
-            var newTotalPrice: Double = 0
 
             var totalQuantity = 0
-
+            var totalItemsPrice: Double = 0
+            
             for product in items {
                 totalQuantity += product.quantity
+                totalItemsPrice += ( Double(product.quantity) * product.price )
             }
 
             if let promotionQuantity = promotion.quantity {
@@ -120,17 +123,25 @@ class ListPriceWorker {
                         newTotal = (Double(goesIntoFully) * promotion.price!) + (Double(remainder) * highestPrice)
                     }
 
-                    newTotalPrice = (totalPrice - previousTotalPrice) + newTotal
+                    promotionTotalPrice += newTotal
 
-                    if newTotalPrice != totalPrice && totalPrice > newTotalPrice {
-                        oldTotalPrice = priceNoPromotion
-                        totalPrice = newTotalPrice
-                    }
-
+                } else {
+                    promotionTotalPrice += totalItemsPrice
                 }
                 
+            } else if let promotionMinimumQuantity = promotion.minimum {
+                if(totalQuantity >= promotionMinimumQuantity){
+                    promotionTotalPrice += Double(totalQuantity) * promotion.price!
+                } else {
+                    promotionTotalPrice += totalItemsPrice
+                }
             }
 
+        }
+        
+        if promotionTotalPrice < totalPrice {
+            totalPrice = promotionTotalPrice
+            oldTotalPrice = priceNoPromotion
         }
         
         return (totalPrice, oldTotalPrice == 0 ? nil : oldTotalPrice)

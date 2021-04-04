@@ -156,8 +156,8 @@ extension ShowListViewController {
         if displayedList?.oldTotalPrice == nil {
             oldPriceView.alpha = 0
         } else {
-            oldPriceView.alpha = 1
-            oldPriceLabel.text = displayedList!.oldTotalPrice!
+//            oldPriceView.alpha = 1
+//            oldPriceLabel.text = displayedList!.oldTotalPrice!
         }
     }
     

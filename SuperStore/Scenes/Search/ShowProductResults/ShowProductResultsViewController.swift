@@ -167,6 +167,10 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         loading = true
         currentPage = 1
         
+        if products.count > 0 {
+            productsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        }
+        
         productsTableView.reloadData()
         
         totalProductsLabel.text = "Refining Results"
