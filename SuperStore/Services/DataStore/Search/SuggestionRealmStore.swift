@@ -49,6 +49,7 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
                 savedSuggestion.id = suggestion.id
                 savedSuggestion.name = suggestion.name
                 savedSuggestion.type = suggestion.type.rawValue
+                savedSuggestion.textSearch = suggestion.textSearch
                 savedSuggestion.storeTypeID = suggestion.storeTypeID ?? storeTypeID
                 
                 savedSuggestion.visited = suggestion.visited
@@ -76,14 +77,31 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
         let name: String = suggestion.name
         let type: String = suggestion.type.rawValue
         
-        let savedSuggestion = realm?.objects(SuggestionObject.self).filter("id  = %@ AND name = %@ AND type = %@", id, name, type).first
+        var savedSuggestion: SuggestionObject? = nil
         
+        if suggestion.textSearch {
+            if let savedSelectedSuggestion = getSuggestionObject(name: suggestion.name, type: suggestion.type.rawValue){
+                savedSuggestion = savedSelectedSuggestion
+            } else {
+                createSuggestion(suggestion: suggestion, storeTypeID: suggestion.storeTypeID!)
+                if let savedSelectedSuggestion = getSuggestionObject(name: suggestion.name, type: suggestion.type.rawValue){
+                    savedSuggestion = savedSelectedSuggestion
+                }
+            }
+            
+        }
+        
+        if savedSuggestion == nil {
+            savedSuggestion = realm?.objects(SuggestionObject.self).filter("id = %@ AND name = %@ AND type = %@", id, name, type).first
+        }
+       
         if let savedSuggestion = savedSuggestion {
             try? realm?.write({
                 savedSuggestion.visited = true
                 savedSuggestion.visitedAt = Date()
             })
         }
+        
     }
 }
 

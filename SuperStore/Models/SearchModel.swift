@@ -13,6 +13,7 @@ struct SuggestionModel {
     var name: String
     var type: SearchType
     
+    var textSearch: Bool = false
     var storeTypeID: Int? = nil
     
     var visited: Bool = false

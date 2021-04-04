@@ -102,7 +102,8 @@ class EditReviewViewController: UIViewController, EditReviewDisplayLogic
     
     func displayProduct(viewModel: EditReview.GetProduct.ViewModel){
         if let product = viewModel.displayedProduct {
-            productNameLabel.text = product.name
+//            productNameLabel.text = product.name
+            title = product.name
             
             if let image = product.image {
                 productImageView.downloaded(from: image)

@@ -16,13 +16,15 @@ class SuggestionObject: Object {
     
     @objc dynamic var storeTypeID: Int = 1
     
+    @objc dynamic var textSearch: Bool = false
+    
     @objc dynamic var visited: Bool = false
     
     @objc dynamic var visitedAt: Date? = nil
     
     func getSuggestionModel() -> SuggestionModel {
         let searchType: SearchType = SearchType.init(rawValue: type)!
-        return SuggestionModel(id: id, name: name, type: searchType)
+        return SuggestionModel(id: id, name: name, type: searchType, textSearch: textSearch, storeTypeID: storeTypeID)
     }
     
     override static func indexedProperties() -> [String] {

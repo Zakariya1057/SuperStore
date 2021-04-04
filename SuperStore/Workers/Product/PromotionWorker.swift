@@ -11,6 +11,7 @@ import Foundation
 class PromotionWorker {
     var promotionAPI: PromotionRequestProtocol
     var promotionStore: PromotionStoreProtocol
+    var userSession: UserSessionWorker = UserSessionWorker()
     
     init(promotionAPI: PromotionRequestProtocol) {
         self.promotionAPI = promotionAPI
@@ -21,7 +22,9 @@ class PromotionWorker {
         
         let promotion = self.promotionStore.getPromotion(promotionID: promotionID)
         if let promotion = promotion {
-            completionHandler(promotion, nil)
+            if promotion.products.count > 0 || !userSession.isOnline() {
+                completionHandler(promotion, nil)
+            }
         }
         
         promotionAPI.getPromotion(promotionID: promotionID) { (promotion: PromotionModel?, error: String?) in

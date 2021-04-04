@@ -74,12 +74,15 @@ extension ShowSuggestionsInteractor {
     func suggestionSelected(suggestion: SuggestionModel){
         let type: String = suggestion.type.rawValue
         
-        searchQueryRequest = SearchQueryRequest(storeTypeID: storeTypeID, query: suggestion.name, type: type)
+        searchQueryRequest = SearchQueryRequest(storeTypeID: storeTypeID, query: suggestion.name, type: type, textSearch: suggestion.textSearch)
         
         searchWorker.suggestionSelected(suggestion: suggestion)
     }
     
     func textSearch(query: String){
+        let suggestion = SuggestionModel(id: 0, name: query, type: .product, textSearch: true, storeTypeID: storeTypeID)
+        searchWorker.suggestionSelected(suggestion: suggestion)
+        
         searchQueryRequest = SearchQueryRequest(storeTypeID: storeTypeID, query: query, type: SearchType.product.rawValue, textSearch: true)
     }
 }

@@ -11,7 +11,7 @@ import Kingfisher
 
 extension UIImageView {
     func downloaded(from urlString: String, contentMode mode: UIView.ContentMode = .scaleAspectFit)  {
-        if let url  = URL(string: urlString) {
+        if let url = URL(string: urlString) {
             self.kf.indicatorType = .activity
             self.kf.setImage(
                 with: url,
