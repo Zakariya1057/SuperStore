@@ -80,6 +80,8 @@ class ListPriceWorker {
                     } else {
                         promotions[promotion.id] = ["items": [product], "promotion": [product.promotion!]]
                     }
+                } else {
+                    totalPriceWithoutPromotionItems += itemPrice
                 }
             } else {
                 totalPriceWithoutPromotionItems += itemPrice
@@ -109,11 +111,8 @@ class ListPriceWorker {
                 if totalQuantity >= promotionQuantity {
 
                     var highestPrice: Double = 0
-                    var previousTotalPrice: Double = 0
 
                     for product in items {
-                        previousTotalPrice = previousTotalPrice + calculateItemPrice(listItem: product)
-
                         if product.price > highestPrice {
                             highestPrice = product.price
                         }
@@ -142,8 +141,9 @@ class ListPriceWorker {
                 } else {
                     promotionTotalPrice += totalItemsPrice
                 }
+            } else {
+                promotionTotalPrice += totalItemsPrice
             }
-
         }
         
         if promotionTotalPrice < totalPrice {
