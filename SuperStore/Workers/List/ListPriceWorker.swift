@@ -64,22 +64,29 @@ class ListPriceWorker {
         var totalPrice: Double = 0.00
         var priceNoPromotion: Double = 0.00
         var oldTotalPrice: Double = 0.00
+        var totalPriceWithoutPromotionItems: Double = 0.0
 
         // Group products by promotion
         var promotions = [Int: Dictionary<String, [Any]>]()
 
         for product in items {
 
-            if let promotion = product.promotion, (promotion.quantity != nil || promotion.minimum != nil) {
-                if let _ = promotions[product.promotion!.id] {
-                    promotions[promotion.id]!["items"]!.append(product)
-                } else {
-                    promotions[promotion.id] = ["items": [product], "promotion": [product.promotion!]]
+            let itemPrice = ( Double(product.quantity) * product.price )
+            
+            if let promotion = product.promotion {
+                if promotion.quantity != nil || promotion.minimum != nil {
+                    if let _ = promotions[product.promotion!.id] {
+                        promotions[promotion.id]!["items"]!.append(product)
+                    } else {
+                        promotions[promotion.id] = ["items": [product], "promotion": [product.promotion!]]
+                    }
                 }
+            } else {
+                totalPriceWithoutPromotionItems += itemPrice
             }
-
+            
             totalPrice += calculateItemPrice(listItem: product)
-            priceNoPromotion += ( Double(product.quantity) * product.price )
+            priceNoPromotion += itemPrice
         }
 
         var promotionTotalPrice: Double = 0
@@ -140,7 +147,7 @@ class ListPriceWorker {
         }
         
         if promotionTotalPrice < totalPrice {
-            totalPrice = promotionTotalPrice
+            totalPrice = totalPriceWithoutPromotionItems + promotionTotalPrice
             oldTotalPrice = priceNoPromotion
         }
         
