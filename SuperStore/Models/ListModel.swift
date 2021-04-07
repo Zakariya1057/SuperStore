@@ -90,7 +90,7 @@ struct ListItemModel {
             if let endsAt = promotion.endsAt {
                 let dateWorker = DateWorker()
                 
-                if dateWorker.dateDiff(date: endsAt) > 0 {
+                if dateWorker.dateDiff(date: endsAt) <= 0 {
                     self.promotion = promotion
                 }
             } else {

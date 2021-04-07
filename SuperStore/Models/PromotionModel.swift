@@ -9,6 +9,8 @@
 import Foundation
 class PromotionModel {
     var id: Int
+    
+    var title: String?
     var name: String
     
     var quantity: Int?
@@ -27,6 +29,7 @@ class PromotionModel {
 
     init(
         id: Int,
+        title: String?,
         name: String,
         storeTypeID: Int,
         quantity: Int?,
@@ -40,6 +43,8 @@ class PromotionModel {
         endsAt: Date? = nil
     ) {
         self.id = id
+        
+        self.title = title
         self.name = name
         
         self.quantity = quantity

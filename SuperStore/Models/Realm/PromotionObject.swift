@@ -12,6 +12,8 @@ import RealmSwift
 
 class PromotionObject: Object {
     @objc dynamic var id: Int = 1
+    
+    @objc dynamic var title: String? = nil
     @objc dynamic var name: String = ""
     
     @objc dynamic var storeTypeID: Int = 0
@@ -36,6 +38,7 @@ class PromotionObject: Object {
     func getPromotionModel() -> PromotionModel {
         return PromotionModel(
             id: id,
+            title: title,
             name: name,
             storeTypeID: storeTypeID,
             quantity: quantity.value,

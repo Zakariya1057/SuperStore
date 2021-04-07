@@ -14,6 +14,8 @@ struct PromotionDataResponse: Decodable {
 
 struct PromotionData:Decodable {
     var id: Int
+    
+    var title: String?
     var name: String
     
     var quantity: Int?
@@ -35,6 +37,7 @@ struct PromotionData:Decodable {
         
         return PromotionModel(
             id: id,
+            title: title,
             name: name,
             storeTypeID: store_type_id,
             

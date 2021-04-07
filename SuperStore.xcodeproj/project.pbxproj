@@ -874,18 +874,18 @@
 		2C1476EB25E82BDC000E8F66 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				2C70825225F00B2200345147 /* UserObject.swift */,
+				2C5E388225FAB42D004298A1 /* HomeObject.swift */,
 				2C5C986A25F69B9200DF8B6D /* ProductObject.swift */,
 				2C5C988625F6B14000DF8B6D /* ReviewObject.swift */,
 				2C5C986E25F69BB200DF8B6D /* SearchObject.swift */,
 				2CC0ADEA25FA1E2D00373AC4 /* StoreObject.swift */,
 				2C5C987C25F6AA4000DF8B6D /* PromotionObject.swift */,
-				2C5E388225FAB42D004298A1 /* HomeObject.swift */,
 				2CAB2F0325FFF93B0014FE8D /* UserLocationObject.swift */,
 				2CF7A59425FA88C700172839 /* CategoryObject.swift */,
 				2CC72FFD25FD7CA1004E3987 /* ImageObject.swift */,
 				2C5C987225F69BC200DF8B6D /* ListObject.swift */,
 				2C5C987625F69BD300DF8B6D /* ListItemObject.swift */,
+				2C70825225F00B2200345147 /* UserObject.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -2793,7 +2793,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5FCM3X5N8A;
 				INFOPLIST_FILE = SuperStoreTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2814,7 +2814,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5FCM3X5N8A;
 				INFOPLIST_FILE = SuperStoreTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

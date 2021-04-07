@@ -52,7 +52,9 @@ extension PromotionRealmStore {
     func promotionExpired(promotion: PromotionModel) -> Bool {
         var expired: Bool = false
         
-        if let endsAt = promotion.endsAt, ( endsAt < Date() && !Calendar.current.isDate(Date(), inSameDayAs: endsAt) ) {
+        let dateWorker = DateWorker()
+
+        if let endsAt = promotion.endsAt, dateWorker.dateDiff(date: endsAt) < 0 {
            expired = true
         }
         
@@ -64,7 +66,9 @@ extension PromotionRealmStore {
     func updatePromotion(promotion: PromotionModel, savedPromotion: PromotionObject){
         try? realm?.write({
             
+            savedPromotion.title = promotion.title
             savedPromotion.name = promotion.name
+            
             savedPromotion.storeTypeID = promotion.storeTypeID
             
             let quantity = RealmOptional<Int>()
@@ -113,7 +117,10 @@ extension PromotionRealmStore {
         let savedPromotion = PromotionObject()
         
         savedPromotion.id = promotion.id
+        
+        savedPromotion.title = promotion.title
         savedPromotion.name = promotion.name
+        
         savedPromotion.storeTypeID = promotion.storeTypeID
         
         let quantity = RealmOptional<Int>()

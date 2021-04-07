@@ -94,7 +94,7 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="zakaria2011@live.no" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O2r-9v-Av2">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O2r-9v-Av2">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
@@ -150,7 +150,7 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password1234" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="N0s-kB-z5L">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="N0s-kB-z5L">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                         <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
@@ -369,7 +369,7 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="zakaria2011@live.no" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ivq-uM-tCO">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ivq-uM-tCO">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="send" textContentType="email"/>
@@ -3372,7 +3372,7 @@
             <objects>
                 <viewController id="HXj-j2-Hvf" customClass="ShowRefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wxa-Ye-bc0">
@@ -4030,7 +4030,7 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="A7e-lD-Dcs">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="A7e-lD-Dcs">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next" textContentType="name"/>
@@ -4083,7 +4083,7 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email@email.com" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hvJ-jW-Xy9">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hvJ-jW-Xy9">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
@@ -4189,7 +4189,7 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password123451" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZRB-4x-DZX">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZRB-4x-DZX">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                         <textInputTraits key="textInputTraits" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
@@ -4242,7 +4242,7 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password123451" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bUT-tR-kW2">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bUT-tR-kW2">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                         <textInputTraits key="textInputTraits" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
@@ -4415,7 +4415,7 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password1234" placeholder="New Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="que-dx-0R8">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="que-dx-0R8">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                         <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES" textContentType="password"/>
@@ -4468,7 +4468,7 @@
                                                                                             </view>
                                                                                         </subviews>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password4321" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8VG-Ap-8YD">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8VG-Ap-8YD">
                                                                                         <rect key="frame" x="51" y="0.0" width="333" height="45"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                         <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
@@ -4896,7 +4896,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="YcT-k9-dml"/>
+        <segue reference="LCl-dZ-pvm"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Asda2" width="133" height="133"/>

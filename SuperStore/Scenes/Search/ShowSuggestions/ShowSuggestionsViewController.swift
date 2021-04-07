@@ -213,10 +213,12 @@ extension ShowSuggestionsViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        search()
         let searchText = searchBar.text ?? ""
-        interactor?.textSearch(query: searchText)
-        router?.routeToShowProductResults(segue: nil)
+        
+        if searchText.replacingOccurrences(of: " ", with: "") != "" {
+            interactor?.textSearch(query: searchText)
+            router?.routeToShowProductResults(segue: nil)
+        }
     }
 }
 

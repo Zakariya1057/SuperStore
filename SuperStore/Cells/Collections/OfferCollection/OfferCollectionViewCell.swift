@@ -13,8 +13,8 @@ class OfferCollectionViewCell: UICollectionViewCell {
 
     var promotion: PromotionModel?
     
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var priceLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var detailLabel: UILabel!
     
     @IBOutlet var loadingViews: [UIView]!
     
@@ -29,22 +29,27 @@ class OfferCollectionViewCell: UICollectionViewCell {
     }
 
     func configureUI() {
-        if promotion != nil {
-            let details = promotion!.name.components(separatedBy: " - ")
+        
+        if let promotion = promotion {
+            let details = promotion.name.components(separatedBy: " - ")
             
-            var name: String = ""
-            var price: String = ""
+            var title: String = ""
+            var detail: String = ""
             
-            if details.count > 1 {
-                name = details[0]
-                price = details[1]
+            if let promotionTitle = promotion.title {
+                title = promotionTitle
+                detail = promotion.name
             } else {
-                name = promotion!.name
+                if details.count > 1 {
+                    title = details[0]
+                    detail = details[1]
+                } else {
+                    title = promotion.name
+                }
             }
-
             
-            nameLabel.text = name
-            priceLabel.text = price
+            titleLabel.text = title
+            detailLabel.text = detail
         }
     }
     

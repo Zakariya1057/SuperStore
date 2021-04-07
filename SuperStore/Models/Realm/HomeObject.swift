@@ -11,6 +11,8 @@ import RealmSwift
 
 class HomeObject: Object {
     
+    @objc dynamic var storeTypeID: Int = 0
+    
     var lists = List<ListObject>()
     var stores = List<StoreObject>()
     
@@ -22,5 +24,4 @@ class HomeObject: Object {
     var promotions = List<PromotionObject>()
     
     var categories = List<ChildCategoryObject>()
-    
 }

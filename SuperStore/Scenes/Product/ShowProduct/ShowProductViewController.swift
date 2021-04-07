@@ -467,6 +467,7 @@ extension ShowProductViewController: UITableViewDataSource, UITableViewDelegate 
     
     func configureProductsCell(indexPath: IndexPath) -> ProductsCell {
         let cell = recommendedTableView.dequeueReusableCell(withIdentifier: "ProductsCell", for: indexPath) as! ProductsCell
+        
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         
         let productElement = ProductsElementModel(products: recommendedProducts)
@@ -564,6 +565,8 @@ extension ShowProductViewController: SelectListProtocol {
     }
     
     func listSelected(listID: Int) {
+        displayQuantity(quantity: 1)
+        
         interactor?.selectedListID = listID
         createListItem(listID: listID)
     }

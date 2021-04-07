@@ -11,8 +11,8 @@ import RealmSwift
 
 class HomeRealmStore: DataStore, HomeStoreProtocol {
     
-    var homeObject: HomeObject? {
-        return realm?.objects(HomeObject.self).first
+    func getHomeObject(storeTypeID: Int) -> HomeObject? {
+        return realm?.objects(HomeObject.self).filter("storeTypeID = %@", storeTypeID).first
     }
     
     var productStore: ProductStoreProtocol = ProductRealmStore()
@@ -26,13 +26,13 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
         try? realm?.write({
             
             let savedHome = HomeObject()
+            savedHome.storeTypeID = storeTypeID
             
-            if let savedHome = homeObject {
+            if let savedHome = getHomeObject(storeTypeID: storeTypeID) {
                 realm?.delete(savedHome)
             }
             
             realm?.add(savedHome)
-            
             
             savedHome.featured.removeAll()
             for savedProduct in home.featured.map({ productStore.createProductObject(product: $0) }) {
@@ -65,16 +65,14 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
             }
             
             savedHome.promotions.removeAll()
-            for savedPromotion in home.promotions.map({ promotionStore.createPromotionObject(promotion: $0)}){
-                if !promotionStore.promotionExpired(promotion: savedPromotion.getPromotionModel()){
-                    savedHome.promotions.append(savedPromotion)
-                }
+            for promotion in home.promotions {
+                let savedPromotion = promotionStore.createPromotionObject(promotion: promotion)
+                savedHome.promotions.append(savedPromotion)
             }
 
             savedHome.categories.removeAll()
-            let savedCagegories = home.categories.map({ categoryStore.createCategoryObject(category: $0) })
-
-            for savedCategory in savedCagegories {
+            for category in home.categories {
+                let savedCategory =  categoryStore.createCategoryObject(category: category)
                 savedHome.categories.append(savedCategory)
             }
             
@@ -83,7 +81,9 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
     
     func getHome(storeTypeID: Int) -> HomeModel? {
         
-        if homeObject == nil {
+        let savedHome = getHomeObject(storeTypeID: storeTypeID)
+        
+        if savedHome == nil {
             return nil
         }
         
@@ -92,12 +92,12 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
         
         let lists: [ListModel] = getLists(storeTypeID: storeTypeID, limit: listLimit)
         let stores: [StoreModel] = getStores(storeTypeID: storeTypeID, limit: storeLimit)
-        let featured: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: homeObject?.featured)
-        let groceries: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: homeObject?.groceries)
-        let monitoring: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: homeObject?.monitoring)
-        let on_sale: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: homeObject?.on_sale)
-        let promotions: [PromotionModel] = getPromotions(storeTypeID: storeTypeID)
-        let categories: [ChildCategoryModel] = getCategories(storeTypeID: storeTypeID)
+        let featured: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: savedHome?.featured)
+        let groceries: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: savedHome?.groceries)
+        let monitoring: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: savedHome?.monitoring)
+        let on_sale: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: savedHome?.on_sale)
+        let promotions: [PromotionModel] = getPromotions(storeTypeID: storeTypeID, savedHome: savedHome)
+        let categories: [ChildCategoryModel] = getCategories(storeTypeID: storeTypeID, savedHome: savedHome)
         
         return HomeModel(
             lists: lists,
@@ -172,10 +172,10 @@ extension HomeRealmStore {
         return products
     }
     
-    func getPromotions(storeTypeID: Int) -> [PromotionModel]{
+    func getPromotions(storeTypeID: Int, savedHome: HomeObject?) -> [PromotionModel]{
         var promotions: [PromotionModel] = []
         
-        if let savedPromotions = homeObject?.promotions.filter("storeTypeID = %@", storeTypeID) {
+        if let savedPromotions = savedHome?.promotions.filter("storeTypeID = %@", storeTypeID) {
             savedPromotions.forEach { (promotion: PromotionObject) in
                 let promotionModel = promotion.getPromotionModel()
                 
@@ -189,10 +189,10 @@ extension HomeRealmStore {
         return promotions
     }
     
-    func getCategories(storeTypeID: Int) -> [ChildCategoryModel] {
+    func getCategories(storeTypeID: Int, savedHome: HomeObject?) -> [ChildCategoryModel] {
         var categories: [ChildCategoryModel] = []
         
-        if let savedCategories = homeObject?.categories.filter("storeTypeID = %@", storeTypeID) {
+        if let savedCategories = savedHome?.categories.filter("storeTypeID = %@", storeTypeID) {
             savedCategories.forEach { (category: ChildCategoryObject) in
                 categories.append( category.getChildCategoryModel() )
             }

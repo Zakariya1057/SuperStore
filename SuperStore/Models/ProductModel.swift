@@ -120,7 +120,7 @@ class ProductModel {
     private func setPromotion(dateWorker: DateWorker, promotion: PromotionModel?){
         if let promotion = promotion {
             if let endsAt = promotion.endsAt {
-                if dateWorker.dateDiff(date: endsAt) > 0 {
+                if dateWorker.dateDiff(date: endsAt) >= 0 {
                     self.promotion = promotion
                 }
             } else {
@@ -133,7 +133,7 @@ class ProductModel {
         // On model creation, check if sale, promotion expired. If has, then never set in the model.
         if let saleEndsAt = saleEndsAt, let oldPrice = oldPrice {
             
-            if dateWorker.dateDiff(date: saleEndsAt) < 0 {
+            if dateWorker.dateDiff(date: saleEndsAt) <= 0 {
                 self.price = oldPrice
                 self.isOnSale = false
                 self.oldPrice = nil
