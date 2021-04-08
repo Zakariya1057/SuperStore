@@ -12,7 +12,7 @@ class DateWorker {
     func formatDate(date: String) -> Date {
         let dateFormat: DateFormatter = DateFormatter()
         dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return dateFormat.date(from: date)!
+        return dateFormat.date(from: date) ?? Date()
     }
     
     func formatDate(date: Date) -> String {
