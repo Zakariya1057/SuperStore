@@ -131,23 +131,20 @@ class ProductModel {
     
     private func setSalePrices(dateWorker: DateWorker, oldPrice: Double?, isOnSale: Bool?, saleEndsAt: Date?){
         // On model creation, check if sale, promotion expired. If has, then never set in the model.
+        self.saleEndsAt = saleEndsAt
+        
         if let saleEndsAt = saleEndsAt, let oldPrice = oldPrice {
-            
-            if dateWorker.dateDiff(date: saleEndsAt) <= 0 {
+            if dateWorker.dateDiff(date: saleEndsAt) < 0 {
                 self.price = oldPrice
                 self.isOnSale = false
                 self.oldPrice = nil
-                self.saleEndsAt = nil
             } else {
                 self.oldPrice = oldPrice
                 self.isOnSale = isOnSale
-                self.saleEndsAt = saleEndsAt
             }
-            
         } else {
             self.oldPrice = oldPrice
             self.isOnSale = isOnSale
-            self.saleEndsAt = saleEndsAt
         }
     }
 
