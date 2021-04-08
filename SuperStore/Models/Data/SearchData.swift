@@ -20,6 +20,8 @@ struct SearchSuggestionsData: Decodable {
     let products: [SearchOptionData]
     let promotions: [SearchOptionData]
     let brands: [SearchOptionData]
+    
+    let corrections: [SearchOptionData]
 }
 
 struct SearchOptionData: Decodable {

@@ -93,14 +93,15 @@ extension SearchAPI {
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.child_categories, type: .childCategory))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.parent_categories, type: .parentCategory))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.brands, type: .brand))
+        suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.corrections, type: .product, textSearch: true))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.products, type: .product))
  
         return suggestions
     }
     
-    private func createSuggestionModel(suggestionsData: [SearchOptionData], type: SearchType) -> [SuggestionModel] {
+    private func createSuggestionModel(suggestionsData: [SearchOptionData], type: SearchType, textSearch: Bool = false) -> [SuggestionModel] {
         return suggestionsData.map { (suggestion: SearchOptionData) in
-            return SuggestionModel(id: suggestion.id, name: suggestion.name, type: type)
+            return SuggestionModel(id: suggestion.id, name: suggestion.name, type: type, textSearch: textSearch)
         }
     }
 }
