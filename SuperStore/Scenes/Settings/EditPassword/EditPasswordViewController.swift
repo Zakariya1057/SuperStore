@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol EditPasswordDisplayLogic: class
+protocol EditPasswordDisplayLogic: AnyObject
 {
     func displayPasswordUpdated(viewModel: EditPassword.UpdatePassword.ViewModel)
 }

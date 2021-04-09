@@ -13,7 +13,7 @@
 import UIKit
 import Cosmos
 
-protocol EditReviewDisplayLogic: class
+protocol EditReviewDisplayLogic: AnyObject
 {
     func displayReview(viewModel: EditReview.GetReview.ViewModel)
     func displayProduct(viewModel: EditReview.GetProduct.ViewModel)

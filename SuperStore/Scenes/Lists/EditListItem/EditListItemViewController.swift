@@ -14,7 +14,7 @@ import UIKit
 import ImageSlideshow
 import AFNetworking
 
-protocol EditListItemDisplayLogic: class
+protocol EditListItemDisplayLogic: AnyObject
 {
     func displayListItem(viewModel: EditListItem.GetListItem.ViewModel)
     func displayListItemDeleted(viewModel: EditListItem.DeleteListItem.ViewModel)

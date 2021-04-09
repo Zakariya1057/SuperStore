@@ -15,7 +15,7 @@ import Cosmos
 import ImageSlideshow
 import AFNetworking
 
-protocol ShowProductDisplayLogic: class
+protocol ShowProductDisplayLogic: AnyObject
 {
     func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
     func displayFavourite(viewModel: ShowProduct.UpdateFavourite.ViewModel)

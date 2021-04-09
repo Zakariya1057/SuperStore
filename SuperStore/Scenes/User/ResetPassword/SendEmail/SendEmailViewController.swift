@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol SendEmailDisplayLogic: class
+protocol SendEmailDisplayLogic: AnyObject
 {
     func displayEmail(viewModel: SendEmail.GetEmail.ViewModel)
     func displayEmailSent(viewModel: SendEmail.SendEmail.ViewModel)

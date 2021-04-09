@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol ShowSuggestionsDisplayLogic: class
+protocol ShowSuggestionsDisplayLogic: AnyObject
 {
     func displaySuggestions(viewModel: ShowSuggestions.GetSuggestions.ViewModel)
     func displayRecentSuggestions(viewModel: ShowSuggestions.GetRecentSuggestions.ViewModel)

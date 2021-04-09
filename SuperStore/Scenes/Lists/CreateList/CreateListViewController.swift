@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol CreateListDisplayLogic: class
+protocol CreateListDisplayLogic: AnyObject
 {
     func displayListCreated(viewModel: CreateList.CreateList.ViewModel)
 }

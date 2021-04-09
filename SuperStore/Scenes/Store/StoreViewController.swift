@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol StoreDisplayLogic: class
+protocol StoreDisplayLogic: AnyObject
 {
     func displayStore(viewModel: Store.GetStore.ViewModel)
 }

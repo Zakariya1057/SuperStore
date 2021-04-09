@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol ShowPromotionDisplayLogic: class
+protocol ShowPromotionDisplayLogic: AnyObject
 {
     func displayPromotion(viewModel: ShowPromotion.GetPromotion.ViewModel)
 }

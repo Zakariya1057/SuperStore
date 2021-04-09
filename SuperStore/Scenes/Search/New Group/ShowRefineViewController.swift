@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol ShowRefineDisplayLogic: class
+protocol ShowRefineDisplayLogic: AnyObject
 {
     func displaySelectedOptions(viewModel: ShowRefine.GetSelectedOptions.ViewModel)
     func displaySearchRefine(viewModel: ShowRefine.GetSearchRefine.ViewModel)

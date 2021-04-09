@@ -204,16 +204,17 @@ extension ShowProductResultsInteractor {
 
 extension ShowProductResultsInteractor {
     private func setRefineOptions(products: [ProductModel]){
-        
         // Unique Brands. Unique Categories
         var uniqueBrands: [String: Int] = [:]
         var uniqueCategories: [String: Int] = [:]
 
-        
         for product in products {
             if let brand = product.brand, brand != "" {
                 uniqueBrands[brand] = 1
-                uniqueCategories[product.childCategoryName!] = 1
+            }
+            
+            if let category = product.childCategoryName, category != "" {
+                uniqueCategories[category] = 1
             }
         }
         

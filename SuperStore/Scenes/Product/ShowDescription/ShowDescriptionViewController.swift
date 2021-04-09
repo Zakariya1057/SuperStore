@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol ShowDescriptionDisplayLogic: class
+protocol ShowDescriptionDisplayLogic: AnyObject
 {
     func displayDescription(viewModel: ShowDescription.GetDescription.ViewModel)
 }

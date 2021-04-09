@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol EditEmailDisplayLogic: class
+protocol EditEmailDisplayLogic: AnyObject
 {
     func displayEmail(viewModel: EditEmail.GetEmail.ViewModel)
     func displayEmailUpdated(viewModel: EditEmail.UpdateEmail.ViewModel)

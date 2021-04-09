@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol ParentCategoriesDisplayLogic: class
+protocol ParentCategoriesDisplayLogic: AnyObject
 {
     func displayCategories(viewModel: ParentCategories.GetCategories.ViewModel)
 }

@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol ShowItemsDisplayLogic: class
+protocol ShowItemsDisplayLogic: AnyObject
 {
     func displayItems(viewModel: ShowItems.GetItems.ViewModel)
 }

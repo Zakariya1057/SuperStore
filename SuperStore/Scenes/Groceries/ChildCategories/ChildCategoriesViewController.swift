@@ -14,7 +14,7 @@ import UIKit
 import Tabman
 import Pageboy
 
-protocol ChildCategoriesDisplayLogic: class
+protocol ChildCategoriesDisplayLogic: AnyObject
 {
     func displayCategories(viewModel: ChildCategories.GetCategories.ViewModel)
 }

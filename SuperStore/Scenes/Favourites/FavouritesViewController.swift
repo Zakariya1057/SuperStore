@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol FavouritesDisplayLogic: class
+protocol FavouritesDisplayLogic: AnyObject
 {
     func displayFavourites(viewModel: Favourites.GetFavourites.ViewModel)
     func displayDeleteFavourite(viewModel: Favourites.DeleteFavourite.ViewModel)

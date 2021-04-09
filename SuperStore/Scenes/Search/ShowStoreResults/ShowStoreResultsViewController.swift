@@ -14,7 +14,7 @@ import UIKit
 import MapKit
 import NotificationBannerSwift
 
-protocol ShowStoreResultsDisplayLogic: class
+protocol ShowStoreResultsDisplayLogic: AnyObject
 {
     func displayStores(viewModel: ShowStoreResults.GetStores.ViewModel)
 }

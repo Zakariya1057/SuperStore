@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol ShowListDisplayLogic: class
+protocol ShowListDisplayLogic: AnyObject
 {
     func displayList(viewModel: ShowList.GetList.ViewModel)
     func displayListItemDeleted(viewModel: ShowList.DeleteListItem.ViewModel)

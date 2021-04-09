@@ -13,7 +13,7 @@
 import UIKit
 import AuthenticationServices
 
-protocol LoginDisplayLogic: class
+protocol LoginDisplayLogic: AnyObject
 {
     func displayLoggedInUser(viewModel: Login.Login.ViewModel)
 }

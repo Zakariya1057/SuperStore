@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol EditListDisplayLogic: class
+protocol EditListDisplayLogic: AnyObject
 {
     func displayList(viewModel: EditList.GetList.ViewModel)
     func displayListRestarted(viewModel: EditList.RestartList.ViewModel)

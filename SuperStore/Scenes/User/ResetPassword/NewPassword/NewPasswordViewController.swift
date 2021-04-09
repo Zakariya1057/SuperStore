@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol NewPasswordDisplayLogic: class
+protocol NewPasswordDisplayLogic: AnyObject
 {
     func displayNewPassword(viewModel: NewPassword.NewPassword.ViewModel)
 }

@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol EditStoreDisplayLogic: class
+protocol EditStoreDisplayLogic: AnyObject
 {
     func displayUpdatedStore(viewModel: EditStore.UpdateStore.ViewModel)
 }

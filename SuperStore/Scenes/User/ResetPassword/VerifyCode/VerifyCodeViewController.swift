@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol VerifyCodeDisplayLogic: class
+protocol VerifyCodeDisplayLogic: AnyObject
 {
     func displayVerifiedCode(viewModel: VerifyCode.VerifyCode.ViewModel)
 }

@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol ShowReviewsDisplayLogic: class
+protocol ShowReviewsDisplayLogic: AnyObject
 {
     func displayReviews(viewModel: ShowReviews.GetReviews.ViewModel)
 }

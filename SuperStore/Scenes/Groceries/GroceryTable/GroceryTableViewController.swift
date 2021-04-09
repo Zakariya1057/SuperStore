@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol GroceryTableDisplayLogic: class
+protocol GroceryTableDisplayLogic: AnyObject
 {
     func displaySomething(viewModel: GroceryTable.Something.ViewModel)
 }

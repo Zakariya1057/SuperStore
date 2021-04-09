@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol RegisterDisplayLogic: class
+protocol RegisterDisplayLogic: AnyObject
 {
     func displayUserEmail(viewModel: Register.GetEmail.ViewModel)
     func displayStore(viewModel: Register.GetStore.ViewModel)

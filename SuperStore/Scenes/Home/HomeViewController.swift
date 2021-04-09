@@ -15,7 +15,7 @@ import MapKit
 import NotificationBannerSwift
 import Kingfisher
 
-protocol HomeDisplayLogic: class
+protocol HomeDisplayLogic: AnyObject
 {
     func displayHome(viewModel: Home.GetHome.ViewModel)
 }
@@ -145,7 +145,7 @@ extension HomeViewController {
             
             setupHomeCells()
             
-            for (index, element) in homeCells.enumerated() {
+            for element in homeCells {
                 
                 switch element {
                 
@@ -191,7 +191,7 @@ extension HomeViewController {
                     break
 
                 default:
-                    print("Unknown Type Encountered: \(element.type)")
+                    print("Unknown Cell Type Encountered: \(element.type)")
                 }
                 
             }
@@ -448,18 +448,18 @@ extension HomeViewController {
     }
 }
 
-protocol HomeElementGroupModel: class {
+protocol HomeElementGroupModel: AnyObject {
     var title: String { get }
     var type: HomeElementType { get }
     var items: [HomeElementItemModel] { get }
     var loading: Bool { get set }
 }
 
-protocol HomeElementItemModel: class {
+protocol HomeElementItemModel: AnyObject {
     var loading: Bool { get set }
 }
 
-protocol HomeElementCell: class {
+protocol HomeElementCell: AnyObject {
     func configure(model: HomeElementItemModel)
 }
 

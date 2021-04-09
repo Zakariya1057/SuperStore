@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol SettingsDisplayLogic: class
+protocol SettingsDisplayLogic: AnyObject
 {
     func displayUserStore(viewModel: Settings.GetStore.ViewModel)
     func displayUserDetails(viewModel: Settings.GetUserDetails.ViewModel)

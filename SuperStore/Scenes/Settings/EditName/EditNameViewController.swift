@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol EditNameDisplayLogic: class
+protocol EditNameDisplayLogic: AnyObject
 {
     func displayName(viewModel: EditName.GetName.ViewModel)
     func displayNameUpdated(viewModel: EditName.UpdateName.ViewModel)
