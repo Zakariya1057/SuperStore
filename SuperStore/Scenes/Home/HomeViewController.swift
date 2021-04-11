@@ -105,6 +105,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     var homeCells: [HomeElementGroupModel] = []
     
+    var errorMessageDisplayed: Bool = false
     var homeModel: HomeModel?
     
     var latitude: Double? = nil
@@ -128,12 +129,14 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         refreshControl.endRefreshing()
         
         if let error = viewModel.error {
-            if !viewModel.offline {
+            if !errorMessageDisplayed && !viewModel.offline {
+                errorMessageDisplayed = true
                 showError(title: "Home Error", error: error)
             }
         } else {
             homeModel = viewModel.home
             loading = false
+            errorMessageDisplayed = false
             populateCells()
         }
     }

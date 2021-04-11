@@ -34,6 +34,8 @@ class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
             if store.openingHours.count == 1 {
                 if let storeHour = store.openingHours.first, storeHour.opensAt != nil {
                     openingHour = "\(storeHour.opensAt!.lowercased()) - \(storeHour.closesAt!.lowercased())"
+                } else {
+                    openingHour = "Closed Today"
                 }
             } else if store.openingHours.count > 1 {
             
@@ -45,7 +47,7 @@ class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
                     if storeHour.opensAt != nil, storeHour.closesAt != nil {
                         openingHour = "\(storeHour.opensAt!.lowercased()) - \(storeHour.closesAt!.lowercased())"
                     } else {
-                        openingHour = "Closed"
+                        openingHour = "Closed Today"
                     }
                 }
             }
