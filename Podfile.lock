@@ -30,7 +30,6 @@ PODS:
   - NotificationBannerSwift (3.0.5):
     - MarqueeLabel (~> 4.0.5)
     - SnapKit (~> 5.0.1)
-  - Pageboy (3.6.2)
   - Realm (5.5.0):
     - Realm/Headers (= 5.5.0)
   - Realm/Headers (5.5.0)
@@ -39,8 +38,6 @@ PODS:
   - SkeletonView (1.10.0)
   - SnapKit (5.0.1)
   - SwiftKeychainWrapper (4.0.1)
-  - Tabman (2.9.1):
-    - Pageboy (~> 3.6.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.3)
@@ -53,7 +50,6 @@ DEPENDENCIES:
   - RealmSwift (~> 5.0)
   - SkeletonView (~> 1.10.0)
   - SwiftKeychainWrapper
-  - Tabman (~> 2.9)
 
 SPEC REPOS:
   trunk:
@@ -65,13 +61,11 @@ SPEC REPOS:
     - Kingfisher
     - MarqueeLabel
     - NotificationBannerSwift
-    - Pageboy
     - Realm
     - RealmSwift
     - SkeletonView
     - SnapKit
     - SwiftKeychainWrapper
-    - Tabman
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -82,14 +76,12 @@ SPEC CHECKSUMS:
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
   NotificationBannerSwift: 7642b11ee9c2ac8a0abda33f9a5b4cb665f068b1
-  Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
   Realm: fb399d76f44042e5cdfc630f33828fdb4d077345
   RealmSwift: 3b7e62356207ef16d34de4e55d475163bd2062bb
   SkeletonView: 14fbe9702c7fb5c5f011b44ac3ae99fc73155726
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
-  Tabman: 085d89c65be9e883629bdaf5b1453a6397e57846
 
-PODFILE CHECKSUM: 54aea7037ab2ce6f1e2311b31bda6e1ed159702b
+PODFILE CHECKSUM: 6ae033aae98ed2d609054c87557856c066f4deee
 
 COCOAPODS: 1.10.1

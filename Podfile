@@ -6,7 +6,6 @@ target 'SuperStore' do
   use_frameworks!
 
   # Pods for SuperStore
-  pod 'Tabman', '~> 2.9'
   pod 'Cosmos', '~> 22.1'
   pod 'IQKeyboardManagerSwift'
   pod 'Alamofire', '~> 5.3'

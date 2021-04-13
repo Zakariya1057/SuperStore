@@ -11,8 +11,6 @@
 //
 
 import UIKit
-import Tabman
-import Pageboy
 
 protocol ChildCategoriesDisplayLogic: AnyObject
 {

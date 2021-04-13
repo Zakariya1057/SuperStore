@@ -332,12 +332,6 @@
 		2CB911BB25F11B6100A8FC66 /* ShowListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB911B525F11B6100A8FC66 /* ShowListInteractor.swift */; };
 		2CB911DB25F11D5000A8FC66 /* ListWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB911DA25F11D5000A8FC66 /* ListWorker.swift */; };
 		2CB911E525F11DDD00A8FC66 /* ListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB911E425F11DDD00A8FC66 /* ListAPI.swift */; };
-		2CBF020525EFDE0C003AD5DF /* GroceryTableInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF01FF25EFDE0C003AD5DF /* GroceryTableInteractor.swift */; };
-		2CBF020625EFDE0C003AD5DF /* GroceryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF020025EFDE0C003AD5DF /* GroceryTableViewController.swift */; };
-		2CBF020725EFDE0C003AD5DF /* GroceryTablePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF020125EFDE0C003AD5DF /* GroceryTablePresenter.swift */; };
-		2CBF020825EFDE0C003AD5DF /* GroceryTableWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF020225EFDE0C003AD5DF /* GroceryTableWorker.swift */; };
-		2CBF020925EFDE0C003AD5DF /* GroceryTableRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF020325EFDE0C003AD5DF /* GroceryTableRouter.swift */; };
-		2CBF020A25EFDE0C003AD5DF /* GroceryTableModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF020425EFDE0C003AD5DF /* GroceryTableModels.swift */; };
 		2CBFFBD825F7D14800F27917 /* BackToShowListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFFBD725F7D14800F27917 /* BackToShowListRouter.swift */; };
 		2CC0ADDC25F9243500373AC4 /* ReviewRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADDB25F9243500373AC4 /* ReviewRealmStore.swift */; };
 		2CC0ADE025F969BD00373AC4 /* PromotionRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADDF25F969BD00373AC4 /* PromotionRealmStore.swift */; };
@@ -733,12 +727,6 @@
 		2CB911B525F11B6100A8FC66 /* ShowListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListInteractor.swift; sourceTree = "<group>"; };
 		2CB911DA25F11D5000A8FC66 /* ListWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWorker.swift; sourceTree = "<group>"; };
 		2CB911E425F11DDD00A8FC66 /* ListAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAPI.swift; sourceTree = "<group>"; };
-		2CBF01FF25EFDE0C003AD5DF /* GroceryTableInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTableInteractor.swift; sourceTree = "<group>"; };
-		2CBF020025EFDE0C003AD5DF /* GroceryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTableViewController.swift; sourceTree = "<group>"; };
-		2CBF020125EFDE0C003AD5DF /* GroceryTablePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTablePresenter.swift; sourceTree = "<group>"; };
-		2CBF020225EFDE0C003AD5DF /* GroceryTableWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTableWorker.swift; sourceTree = "<group>"; };
-		2CBF020325EFDE0C003AD5DF /* GroceryTableRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTableRouter.swift; sourceTree = "<group>"; };
-		2CBF020425EFDE0C003AD5DF /* GroceryTableModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryTableModels.swift; sourceTree = "<group>"; };
 		2CBFFBD725F7D14800F27917 /* BackToShowListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackToShowListRouter.swift; sourceTree = "<group>"; };
 		2CC0ADDB25F9243500373AC4 /* ReviewRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRealmStore.swift; sourceTree = "<group>"; };
 		2CC0ADDF25F969BD00373AC4 /* PromotionRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionRealmStore.swift; sourceTree = "<group>"; };
@@ -1660,7 +1648,6 @@
 				2CA11F5E25EF8DF10054AE19 /* GrandParentCategories */,
 				2CA11F5F25EF8DFB0054AE19 /* ParentCategories */,
 				2CA11F6025EF8E010054AE19 /* ChildCategories */,
-				2CBF01FE25EFDE0C003AD5DF /* GroceryTable */,
 			);
 			path = Groceries;
 			sourceTree = "<group>";
@@ -1853,19 +1840,6 @@
 				2CB15C8124D2D7FE00461AFE /* ListCell.xib */,
 			);
 			path = List;
-			sourceTree = "<group>";
-		};
-		2CBF01FE25EFDE0C003AD5DF /* GroceryTable */ = {
-			isa = PBXGroup;
-			children = (
-				2CBF01FF25EFDE0C003AD5DF /* GroceryTableInteractor.swift */,
-				2CBF020125EFDE0C003AD5DF /* GroceryTablePresenter.swift */,
-				2CBF020225EFDE0C003AD5DF /* GroceryTableWorker.swift */,
-				2CBF020325EFDE0C003AD5DF /* GroceryTableRouter.swift */,
-				2CBF020025EFDE0C003AD5DF /* GroceryTableViewController.swift */,
-				2CBF020425EFDE0C003AD5DF /* GroceryTableModels.swift */,
-			);
-			path = GroceryTable;
 			sourceTree = "<group>";
 		};
 		2CBFFBD525F7D11900F27917 /* Routes */ = {
@@ -2339,7 +2313,6 @@
 				2C1429A025F2C7F1007D1EB7 /* ListPriceWorker.swift in Sources */,
 				2CA11F7925EF8E5C0054AE19 /* ParentCategoriesViewController.swift in Sources */,
 				2C2BC80525EBBF040038882B /* ShowReviewsInteractor.swift in Sources */,
-				2CBF020525EFDE0C003AD5DF /* GroceryTableInteractor.swift in Sources */,
 				2C70829D25F013A700345147 /* EditNameWorker.swift in Sources */,
 				2C14299B25F2C282007D1EB7 /* EditListItemViewController.swift in Sources */,
 				2CAB2EFF25FFF90D0014FE8D /* LocationRealmStore.swift in Sources */,
@@ -2355,7 +2328,6 @@
 				2C2BC81E25EBBF2E0038882B /* ShowDescriptionRouter.swift in Sources */,
 				2C70824925F009ED00345147 /* NewPasswordViewController.swift in Sources */,
 				2C55F9C825EE3B62007BBFA8 /* ShowSuggestionsModels.swift in Sources */,
-				2CBF020825EFDE0C003AD5DF /* GroceryTableWorker.swift in Sources */,
 				2C14773025E90246000E8F66 /* RegisterWorker.swift in Sources */,
 				2C6146B325F14D0500D92CB7 /* ListValidationWorker.swift in Sources */,
 				2C70824B25F009ED00345147 /* NewPasswordModels.swift in Sources */,
@@ -2369,7 +2341,6 @@
 				2CAC05FC252E314F00561509 /* FeaturedProductCollectionViewCell.swift in Sources */,
 				2CA11EEF25EE84620054AE19 /* ShowRefineInteractor.swift in Sources */,
 				2C2BC7D825EAF9220038882B /* ShowProductPresenter.swift in Sources */,
-				2CBF020625EFDE0C003AD5DF /* GroceryTableViewController.swift in Sources */,
 				2CAB2F0425FFF93B0014FE8D /* UserLocationObject.swift in Sources */,
 				2C70824825F009ED00345147 /* NewPasswordWorker.swift in Sources */,
 				2C1567BA24C77FD800B8DCB5 /* AppDelegate.swift in Sources */,
@@ -2406,7 +2377,6 @@
 				2C7294C825ECF19C00D280B3 /* FavouritesViewController.swift in Sources */,
 				2C1476C925E7AEEB000E8F66 /* UserValidationWorker.swift in Sources */,
 				2C55F9CE25EE3B9C007BBFA8 /* SearchAPI.swift in Sources */,
-				2CBF020725EFDE0C003AD5DF /* GroceryTablePresenter.swift in Sources */,
 				2C70828A25F0108500345147 /* SettingsModels.swift in Sources */,
 				2C48E7D125EAA06E001A5702 /* StoreModel.swift in Sources */,
 				2C7294A225ECEAEB00D280B3 /* FavouriteWorker.swift in Sources */,
@@ -2443,7 +2413,6 @@
 				2C7082A025F013A700345147 /* EditNameViewController.swift in Sources */,
 				2C2BC83125EBBFD40038882B /* ShowPromotionViewController.swift in Sources */,
 				2C05901125F6265F00B4A16B /* RequestLoginCell.swift in Sources */,
-				2CBF020A25EFDE0C003AD5DF /* GroceryTableModels.swift in Sources */,
 				2CB15C9424D2FB8900461AFE /* ListItemCell.swift in Sources */,
 				2C4615052604B7E30009D0E7 /* NetworkWorker.swift in Sources */,
 				2C2BC7E825EAFCFB0038882B /* ProductAPI.swift in Sources */,
@@ -2459,7 +2428,6 @@
 				2C5C986725F69B3400DF8B6D /* GroceryRealmStore.swift in Sources */,
 				2CA11F6725EF8E490054AE19 /* GrandParentCategoriesPresenter.swift in Sources */,
 				2C14299A25F2C282007D1EB7 /* EditListItemModels.swift in Sources */,
-				2CBF020925EFDE0C003AD5DF /* GroceryTableRouter.swift in Sources */,
 				2C2BC82D25EBBFD40038882B /* ShowPromotionPresenter.swift in Sources */,
 				2C2BC84125EBC0680038882B /* ShowItemsInteractor.swift in Sources */,
 				2C70824A25F009ED00345147 /* NewPasswordPresenter.swift in Sources */,
@@ -2757,7 +2725,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.91;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2781,7 +2749,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.91;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2845,7 +2813,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.91;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore.PayloadModification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2867,7 +2835,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.91;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore.PayloadModification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
