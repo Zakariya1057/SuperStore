@@ -2084,17 +2084,17 @@
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="25"/>
                                                                                                 <subviews>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$14.50" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPG-bQ-ctB">
-                                                                                                        <rect key="frame" x="0.0" y="2.5" width="70" height="20.5"/>
-                                                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                                                                        <rect key="frame" x="0.0" y="3" width="70" height="19.5"/>
+                                                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
                                                                                                     <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z3t-B8-E9c">
-                                                                                                        <rect key="frame" x="0.0" y="11" width="55" height="3"/>
+                                                                                                        <rect key="frame" x="0.0" y="11.5" width="55" height="2"/>
                                                                                                         <color key="backgroundColor" red="0.61682485080000005" green="0.22140261450000001" blue="0.033802555550000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                                         <color key="tintColor" systemColor="labelColor"/>
                                                                                                         <constraints>
                                                                                                             <constraint firstAttribute="width" constant="55" id="3tt-LH-AhM"/>
-                                                                                                            <constraint firstAttribute="height" constant="3" id="XbT-Ln-lYO"/>
+                                                                                                            <constraint firstAttribute="height" constant="2" id="XbT-Ln-lYO"/>
                                                                                                         </constraints>
                                                                                                     </view>
                                                                                                 </subviews>
@@ -3372,7 +3372,7 @@
             <objects>
                 <viewController id="HXj-j2-Hvf" customClass="ShowRefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wxa-Ye-bc0">
