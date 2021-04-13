@@ -329,7 +329,7 @@ extension ShowProductViewController {
 extension ShowProductViewController {
     func updateMonitorButton(monitor: Bool){
         if monitor {
-            monitorButton.setTitle("Stop Monitoring Price", for: .normal)
+            monitorButton.setTitle("Stop Monitoring", for: .normal)
         } else {
             monitorButton.setTitle("Monitor Price", for: .normal)
         }

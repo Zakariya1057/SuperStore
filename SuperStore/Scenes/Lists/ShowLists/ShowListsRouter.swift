@@ -71,8 +71,8 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
             
             let destinationVC = navigationViewController.viewControllers.last as! SelectListProtocol
 
-            navigateToBackListSelected(source: viewController!, destination: destinationVC)
             callListSelected(source: viewController!, destination: destinationVC)
+            navigateToBackListSelected(source: viewController!, destination: destinationVC)
         }
     }
     
