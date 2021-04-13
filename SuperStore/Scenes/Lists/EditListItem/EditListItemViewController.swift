@@ -12,7 +12,7 @@
 
 import UIKit
 import ImageSlideshow
-import AFNetworking
+import AlamofireImage
 
 protocol EditListItemDisplayLogic: AnyObject
 {
@@ -245,7 +245,7 @@ extension EditListItemViewController: ImageSlideshowDelegate {
     func createSlideShowImages(image: String?){
         var sources: [InputSource] = []
         
-        if let image = image, let imageSource = AFURLSource(urlString: image) {
+        if let image = image, let imageSource = AlamofireSource(urlString: image) {
             sources.append(imageSource)
         } else {
             sources.append(ImageSource(image: UIImage(named: "No Image")!))

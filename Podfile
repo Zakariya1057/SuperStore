@@ -8,12 +8,12 @@ target 'SuperStore' do
   # Pods for SuperStore
   pod 'Cosmos', '~> 22.1'
   pod 'IQKeyboardManagerSwift'
-  pod 'Alamofire', '~> 5.3'
+  pod 'Alamofire'
   pod 'Kingfisher', '~> 5.0'
   pod 'SkeletonView', '~> 1.10.0'
   pod 'RealmSwift', '~> 5.0'
   pod 'ImageSlideshow', '~> 1.9.0'
-  pod 'ImageSlideshow/AFURL'
+  pod 'ImageSlideshow/Alamofire'
   pod 'SwiftKeychainWrapper'
   pod 'NotificationBannerSwift', '~> 3.0.0'
   

@@ -13,7 +13,7 @@
 import UIKit
 import Cosmos
 import ImageSlideshow
-import AFNetworking
+import AlamofireImage
 
 protocol ShowProductDisplayLogic: AnyObject
 {
@@ -600,7 +600,7 @@ extension ShowProductViewController: ImageSlideshowDelegate {
         
         if images.count > 0 {
             for image in images {
-                if let imageSource = AFURLSource(urlString: image) {
+                if let imageSource = AlamofireSource(urlString: image) {
                     sources.append(imageSource)
                 } else {
                     sources.append(ImageSource(image: UIImage(named: "No Image")!))
