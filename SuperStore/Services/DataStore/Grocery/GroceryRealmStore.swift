@@ -13,13 +13,41 @@ class GroceryRealmStore: DataStore, GroceryStoreProtocol {
 
     var productStore: ProductRealmStore = ProductRealmStore()
 
+    func getCategoryObject(category: GrandParentCategoryModel) -> GrandParentCategoryObject? {
+        return realm?.objects(GrandParentCategoryObject.self).filter("id = %@", category.id).first
+    }
+    
+    func getCategoryObject(category: ParentCategoryModel) -> ParentCategoryObject? {
+        return realm?.objects(ParentCategoryObject.self).filter("id = %@", category.id).first
+    }
+    
+    func getCategoryObject(category: ChildCategoryModel) -> ChildCategoryObject? {
+        return realm?.objects(ChildCategoryObject.self).filter("id = %@", category.id).first
+    }
+    
+    func getAllGrandParentCategoriesByStoreType(storeTypeID: Int) -> Results<GrandParentCategoryObject>? {
+        return realm?.objects(GrandParentCategoryObject.self).filter("storeTypeID = %@", storeTypeID)
+    }
+    
+    func getAllChildCategoriesByStoreType(storeTypeID: Int) -> Results<ChildCategoryObject>? {
+        return realm?.objects(ChildCategoryObject.self).filter("storeTypeID = %@", storeTypeID)
+    }
+
     func createCategories(categories: [GrandParentCategoryModel]) {
+        if let storeTypeID = categories.first?.storeTypeID {
+            disableAllGrandParentCategories(storeTypeID: storeTypeID)
+        }
+
         for category in categories {
             createCategory(category: category)
         }
     }
     
     func createCategories(categories: [ChildCategoryModel]) {
+        if let storeTypeID = categories.first?.storeTypeID {
+            disableAllChildCategories(storeTypeID: storeTypeID)
+        }
+
         for category in categories {
             createCategory(category: category)
         }
@@ -29,7 +57,7 @@ class GroceryRealmStore: DataStore, GroceryStoreProtocol {
         // Only get grand parent and direct children only. No products
         var categories: [GrandParentCategoryModel] = []
         
-        let savedCategories = realm?.objects(GrandParentCategoryObject.self).filter("storeTypeID = %@", storeTypeID)
+        let savedCategories = realm?.objects(GrandParentCategoryObject.self).filter("enabled = true AND storeTypeID = %@", storeTypeID)
         
         if let savedCategories = savedCategories {
             for category in savedCategories {
@@ -45,7 +73,7 @@ class GroceryRealmStore: DataStore, GroceryStoreProtocol {
         // Child and products, no recommeneded
         var categories: [ChildCategoryModel] = []
         
-        let savedCategories = realm?.objects(ChildCategoryObject.self).filter("parentCategoryID = %@", parentCategoryID)
+        let savedCategories = realm?.objects(ChildCategoryObject.self).filter("enabled = true AND parentCategoryID = %@", parentCategoryID)
         
         if let savedCategories = savedCategories {
             for category in savedCategories {
@@ -58,21 +86,29 @@ class GroceryRealmStore: DataStore, GroceryStoreProtocol {
     }
     
     func getCategoryProducts(childCategoryID: Int) -> ChildCategoryModel? {
-        return realm?.objects(ChildCategoryObject.self).filter("id = %@", childCategoryID).first?.getChildCategoryModel()
+        return realm?.objects(ChildCategoryObject.self).filter("enabled = true AND id = %@", childCategoryID).first?.getChildCategoryModel()
     }
 }
 
 extension GroceryRealmStore {
-    func getCategoryObject(category: GrandParentCategoryModel) -> GrandParentCategoryObject? {
-        return realm?.objects(GrandParentCategoryObject.self).filter("id = %@", category.id).first
+    private func disableAllGrandParentCategories(storeTypeID: Int){
+        if let savedCategories = getAllGrandParentCategoriesByStoreType(storeTypeID: storeTypeID) {
+            for savedCategory in savedCategories {
+                try? realm?.write({
+                    savedCategory.enabled = false
+                })
+            }
+        }
     }
     
-    func getCategoryObject(category: ParentCategoryModel) -> ParentCategoryObject? {
-        return realm?.objects(ParentCategoryObject.self).filter("id = %@", category.id).first
-    }
-    
-    func getCategoryObject(category: ChildCategoryModel) -> ChildCategoryObject? {
-        return realm?.objects(ChildCategoryObject.self).filter("id = %@", category.id).first
+    private func disableAllChildCategories(storeTypeID: Int){
+        if let savedCategories = getAllChildCategoriesByStoreType(storeTypeID: storeTypeID) {
+            for savedCategory in savedCategories {
+                try? realm?.write({
+                    savedCategory.enabled = false
+                })
+            }
+        }
     }
 }
 
@@ -125,6 +161,8 @@ extension GroceryRealmStore {
         savedCategory.storeTypeID = category.storeTypeID
         savedCategory.parentCategoryID = category.parentCategoryID
         
+        savedCategory.enabled = true
+        
         for product in category.products {
             let savedProduct = productStore.createProductObject(product: product)
             savedCategory.products.append(savedProduct)
@@ -144,6 +182,8 @@ extension GroceryRealmStore {
         savedCategory.id = category.id
         savedCategory.name = category.name
         savedCategory.storeTypeID = category.storeTypeID
+        
+        savedCategory.enabled = true
         
         for categoryItem in category.childCategories {
             let savedChildCategory = createCategoryObject(category: categoryItem)
@@ -165,6 +205,8 @@ extension GroceryRealmStore {
         savedCategory.name = category.name
         savedCategory.storeTypeID = category.storeTypeID
         
+        savedCategory.enabled = true
+        
         for category in category.parentCategories {
             let savedChildCategory = createCategoryObject(category: category)
             savedCategory.parentCategories.append(savedChildCategory)
@@ -178,6 +220,7 @@ extension GroceryRealmStore {
     func updateGrandParentCategory(category: GrandParentCategoryModel, savedCategory: GrandParentCategoryObject){
         try? realm?.write({
             savedCategory.name = category.name
+            savedCategory.enabled = true
             savedCategory.updatedAt = Date()
             
             savedCategory.parentCategories.removeAll()
@@ -191,6 +234,7 @@ extension GroceryRealmStore {
     func updateParentCategory(category: ParentCategoryModel, savedCategory: ParentCategoryObject){
         try? realm?.write({
             savedCategory.name = category.name
+            savedCategory.enabled = true
             savedCategory.updatedAt = Date()
             
             savedCategory.childCategories.removeAll()
@@ -204,6 +248,7 @@ extension GroceryRealmStore {
     func updateChildCategory(category: ChildCategoryModel, savedCategory: ChildCategoryObject){
         try? realm?.write({
             savedCategory.name = category.name
+            savedCategory.enabled = true
             savedCategory.updatedAt = Date()
             
             savedCategory.products.removeAll()

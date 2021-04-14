@@ -16,6 +16,8 @@ class GrandParentCategoryObject: Object {
     
     var parentCategories = List<ParentCategoryObject>()
     
+    @objc dynamic var enabled: Bool = true
+    
     @objc dynamic var updatedAt: Date = Date()
     @objc dynamic var createdAt: Date = Date()
     
@@ -41,6 +43,8 @@ class ParentCategoryObject: Object {
     @objc dynamic var grandParentCategoryID: Int = 1
     
     var childCategories = List<ChildCategoryObject>()
+    
+    @objc dynamic var enabled: Bool = true
     
     @objc dynamic var updatedAt: Date = Date()
     @objc dynamic var createdAt: Date = Date()
@@ -69,6 +73,8 @@ class ChildCategoryObject: Object {
     @objc dynamic var parentCategoryID: Int = 1
     
     var products = List<ProductObject>()
+    
+    @objc dynamic var enabled: Bool = true
     
     @objc dynamic var updatedAt: Date = Date()
     @objc dynamic var createdAt: Date = Date()
