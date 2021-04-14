@@ -28,7 +28,7 @@ import RealmSwift
 
         Realm.Configuration.defaultConfiguration = config
         
-        try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
+//        try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
         configureNotification(application: application)
