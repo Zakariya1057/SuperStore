@@ -62,6 +62,8 @@ class ProductObject: Object {
 
     var recommended = List<ProductObject>()
     
+    @objc dynamic var enabled: Bool = true
+    
     @objc dynamic var updatedAt: Date = Date()
     @objc dynamic var createdAt: Date = Date()
     

@@ -32,6 +32,8 @@ class PromotionObject: Object {
     
     @objc dynamic var expires: Bool = false
     
+    @objc dynamic var enabled: Bool = true
+    
     @objc dynamic var createdAt: Date = Date()
     @objc dynamic var updatedAt: Date = Date()
     

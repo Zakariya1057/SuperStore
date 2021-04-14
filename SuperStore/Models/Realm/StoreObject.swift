@@ -22,6 +22,8 @@ class StoreObject: Object {
     
     @objc dynamic var storeTypeID: Int = 1
     
+    @objc dynamic var enabled: Bool = true
+    
     @objc dynamic var createdAt: Date = Date()
     @objc dynamic var updatedAt: Date = Date()
     

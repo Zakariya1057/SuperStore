@@ -29,6 +29,8 @@ class ListItemObject: Object {
     
     @objc dynamic var tickedOff: Bool = false
     
+    @objc dynamic var enabled: Bool = true
+    
     func getListItemModel() -> ListItemModel {
         return ListItemModel(
             id: id,

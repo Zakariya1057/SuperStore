@@ -14,6 +14,8 @@ class ImageObject: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var size: String = ""
     
+    @objc dynamic var enabled: Bool = true
+    
     func getImageModel() -> ImageModel {
         return ImageModel(productID: productID, name: name, size: size)
     }
