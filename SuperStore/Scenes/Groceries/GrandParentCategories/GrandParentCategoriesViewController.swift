@@ -110,7 +110,7 @@ class GrandParentCategoriesViewController: UIViewController, GrandParentCategori
 
 extension GrandParentCategoriesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? 7 : categories.count
+        return loading ? 12 : categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

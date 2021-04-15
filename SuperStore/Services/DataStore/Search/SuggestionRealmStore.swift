@@ -31,7 +31,9 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
         
         SuggestionModel(id: 1, name: "Asda", type: .store, storeTypeID: 1, visited: true, visitedAt: Date()),
         SuggestionModel(id: 1, name: "Fruit", type: .parentCategory, storeTypeID: 1, visited: true, visitedAt: Date()),
-        SuggestionModel(id: 1, name: "Apples", type: .childCategory, storeTypeID: 1, visited: true, visitedAt: Date()),
+        SuggestionModel(id: 1, name: "Coffee, Tea & Hot Chocolate", type: .parentCategory, storeTypeID: 1, visited: true, visitedAt: Date()),
+        SuggestionModel(id: 1, name: "Rice, Pasta & Noodles", type: .parentCategory, storeTypeID: 1, visited: true, visitedAt: Date()),
+        SuggestionModel(id: 1, name: "Laundry", type: .parentCategory, storeTypeID: 1, visited: true, visitedAt: Date()),
     ]
     
     
