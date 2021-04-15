@@ -290,9 +290,11 @@ extension HomeViewController {
         if !loggedIn {
             removeLoggedOutCells()
         }
+        
+        hideEmptyCells()
     }
     
-    func removeLoggedOutCells(){
+    private func removeLoggedOutCells(){
         homeCells.removeAll { (element: HomeElementGroupModel) -> Bool in
             if element is ListGroupProgressElement
                 || element is GroceryProductGroupElement
@@ -302,6 +304,26 @@ extension HomeViewController {
             }
             
             return false
+        }
+    }
+    
+    private func hideEmptyCells(){
+        if homeModel?.monitoring.count == 0 {
+            homeCells.removeAll { (element: HomeElementGroupModel) -> Bool in
+                return element is MonitoringProductGroupElement
+            }
+        }
+        
+        if homeModel?.groceries.count == 0 {
+            homeCells.removeAll { (element: HomeElementGroupModel) -> Bool in
+                return element is GroceryProductGroupElement
+            }
+        }
+        
+        if homeModel?.lists.count == 0 {
+            homeCells.removeAll { (element: HomeElementGroupModel) -> Bool in
+                return element is ListGroupProgressElement
+            }
         }
     }
 }
