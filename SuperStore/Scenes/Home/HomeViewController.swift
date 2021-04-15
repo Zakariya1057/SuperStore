@@ -276,7 +276,7 @@ extension HomeViewController {
             StoreMapGroupElement(title: "Stores", stores: [], storePressed: storePressed, userLocationFetched: userLocationFetched),
             GroceryProductGroupElement(title: "Grocery Items", products: [], productPressed: productPressed),
             MonitoringProductGroupElement(title: "Monitoring", products: [], productPressed: productPressed),
-            PromotionGroupElement(title: "Promotions", promotions: [], promotionPressed: promotionPressed),
+            PromotionGroupElement(title: "Offers", promotions: [], promotionPressed: promotionPressed),
             FeaturedProductGroupElement(title: "Featured", products: [], productPressed: productPressed),
         ]
         

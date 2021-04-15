@@ -30,28 +30,11 @@ class SearchWorker {
         }
 
         searchAPI.getSuggestions(storeTypeID: storeTypeID, query: query) { (suggestions: [SuggestionModel], error: String?) in
-            
-            var suggestionsList = suggestions
-            
             if error == nil {
-                self.searchSuggestionStore.createSuggestions(suggestions: suggestionsList, storeTypeID: storeTypeID)
-                
-                let duplicateFound: Bool = suggestionsList.first {
-                    $0.name.lowercased() == query.lowercased()
-                        ||
-                    $0.name.lowercased() + "s" == query.lowercased()
-                        ||
-                    $0.name.lowercased() == query.lowercased() + "s"
-                        ||
-                    $0.name.lowercased() == query.lowercased() + "s"
-                } != nil
-                
-                if !offline && !duplicateFound {
-                    suggestionsList.append(SuggestionModel(id: 1, name: query, type: .product, textSearch: true, storeTypeID: storeTypeID))
-                }
+                self.searchSuggestionStore.createSuggestions(suggestions: suggestions, storeTypeID: storeTypeID)
             }
 
-            completionHandler(suggestionsList, error)
+            completionHandler(suggestions, error)
         }
     }
     
