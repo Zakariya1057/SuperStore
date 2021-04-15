@@ -187,9 +187,5 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             showError(title: "Apple Login Error", error: "Error occured please try again later.")
         }
     }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        showError(title: "Apple Login Error", error: error.localizedDescription)
-    }
 }
 

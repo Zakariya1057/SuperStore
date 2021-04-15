@@ -69,6 +69,11 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
     func deleteList(request: ShowLists.DeleteList.Request)
     {
         let listID = request.listID
+        
+        lists.removeAll { (list: ListModel) -> Bool in
+            return list.id == listID
+        }
+        
         listWorker.deleteList(listID: listID) { (error: String?) in
             var response = ShowLists.DeleteList.Response(indexPath: request.indexPath, error: error)
             
