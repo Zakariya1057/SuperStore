@@ -79,6 +79,10 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
     }
     
     @IBOutlet var searchBar: UISearchBar!
+    var searchText: String {
+        return (searchBar.text ?? "").replacingOccurrences(of: " ", with: "")
+    }
+    
     @IBOutlet var listsTableView: UITableView!
     
     var lists: [ListModel] = []
@@ -99,8 +103,6 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
     {
         syncDeletedLists()
         syncEditedLists()
-        
-        let searchText = searchBar.text ?? ""
         
         if loggedIn {
             
@@ -130,7 +132,18 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
             }
         } else {
             loading = false
-            lists = viewModel.lists
+            lists = []
+            
+            if searchText != "" {
+                for list in viewModel.lists {
+                    if list.name.lowercased().contains(searchText.lowercased()){
+                        lists.append(list)
+                    }
+                }
+            } else {
+                lists = viewModel.lists
+            }
+
             listsTableView.reloadData()
         }
     }
@@ -337,9 +350,7 @@ extension ShowListsViewController: UISearchBarDelegate {
     }
     
     func listSearch(){
-        let searchText = searchBar.text ?? ""
-        
-        if searchText.replacingOccurrences(of: " ", with: "") == "" {
+        if searchText == "" {
             // Show all Lists
             getLists()
         } else {
