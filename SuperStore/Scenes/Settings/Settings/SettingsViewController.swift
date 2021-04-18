@@ -203,8 +203,33 @@ extension SettingsViewController {
     
     @IBAction func notificationSwitchPressed(_ sender: Any) {
         let sendNotifications = notificationSwitch.isOn
-        let request = Settings.UpdateNotifications.Request(sendNotifications: sendNotifications)
-        interactor?.updateNotification(request: request)
+        
+        if sendNotifications {
+            var errorMessage: String? = nil
+            
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                // Enable or disable features based on the authorization.
+                if !granted {
+                    errorMessage = "Please enable notifications from your apple settings."
+                } else if let error = error {
+                    errorMessage = error.localizedDescription
+                }
+                
+                DispatchQueue.main.async {
+                    if let errorMessage = errorMessage {
+                        self.notificationSwitch.setOn(false, animated: true)
+                        self.showError(title: "Notification Error", error: errorMessage)
+                    } else {
+                        let request = Settings.UpdateNotifications.Request(sendNotifications: sendNotifications)
+                        self.interactor?.updateNotification(request: request)
+                    }
+                }
+
+            }
+
+        }
+
     }
     
     @IBAction func logoutButtonPressed(_ sender: Any) {

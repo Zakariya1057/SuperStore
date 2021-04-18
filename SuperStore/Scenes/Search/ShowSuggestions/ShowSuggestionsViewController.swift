@@ -264,7 +264,7 @@ extension ShowSuggestionsViewController {
     
     private func getMatchingSuggestions(searchText: String) -> (SuggestionModel?, SuggestionModel?, SuggestionModel?){
         
-        var mostSimilar: Int? = nil
+        var mostDifference: Int? = nil
         var mostConfidence: Double? = nil
         var exactMatchDifference: Int? = nil
         
@@ -274,13 +274,26 @@ extension ShowSuggestionsViewController {
         
         for suggestion in suggestions {
             
-            let similarity = similarWorker.textDifference(searchText, suggestion.name)
+            let textDifference = similarWorker.textDifference(searchText, suggestion.name)
+            print("\(suggestion.name): \(textDifference)")
             
-            if suggestion.name.lowercased().contains(searchText.lowercased())  {
-                if exactMatchDifference == nil || similarity < exactMatchDifference! {
+            if textDifference < 7 && suggestion.name.lowercased().contains(searchText.lowercased())  {
+                
+                if let difference = exactMatchDifference {
+                    if textDifference == exactMatchDifference && suggestion.name.lowercased() == searchText.lowercased() {
+                        exactSuggestionMatch = suggestion
+                        exactMatchDifference = 0
+                    } else {
+                        if textDifference < difference {
+                            exactSuggestionMatch = suggestion
+                            exactMatchDifference = textDifference
+                        }
+                    }
+                } else {
                     exactSuggestionMatch = suggestion
-                    exactMatchDifference = similarity
+                    exactMatchDifference = textDifference
                 }
+                
             }
             
             if isOverrideSuggestionType(type: suggestion.type) {
@@ -293,8 +306,8 @@ extension ShowSuggestionsViewController {
                     }
                 }
 
-                if mostSimilar == nil || similarity < mostSimilar! {
-                    mostSimilar = similarity
+                if mostDifference == nil || textDifference < mostDifference! {
+                    mostDifference = textDifference
                     mostSimilarSuggestion = suggestion
                 }
             }
@@ -315,7 +328,7 @@ extension ShowSuggestionsViewController {
                 print("Only one suggestion found")
                 print(confidentSuggestion)
                 
-                if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 5 {
+                if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 7 {
                     suggestionSelected(suggestion: similarSuggestion)
                 } else {
                     interactor?.textSearch(query: searchText)
