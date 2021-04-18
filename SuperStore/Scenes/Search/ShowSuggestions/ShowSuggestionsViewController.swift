@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import FuzzyMatchingSwift
 
 protocol ShowSuggestionsDisplayLogic: AnyObject
 {
@@ -85,6 +86,8 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     }
     
     var loading: Bool = true
+    
+    let similarWorker = SimilarWorker()
     
     var recentSuggestionsLimit: Int = 7
     
@@ -190,7 +193,10 @@ extension ShowSuggestionsViewController: UITableViewDataSource, UITableViewDeleg
 extension ShowSuggestionsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let suggestion: SuggestionModel = suggestions[indexPath.row]
-        
+        suggestionSelected(suggestion: suggestion)
+    }
+    
+    private func suggestionSelected(suggestion: SuggestionModel){
         interactor?.suggestionSelected(suggestion: suggestion)
         
         if suggestion.type == .store {
@@ -213,13 +219,142 @@ extension ShowSuggestionsViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let searchText = searchBar.text ?? ""
+        textSearch(searchText: searchBar.text ?? "")
+    }
+}
+
+extension ShowSuggestionsViewController {
+    private func textSearch(searchText: String){
         
-        if searchText.replacingOccurrences(of: " ", with: "") != "" {
+        if searchText.replacingOccurrences(of: " ", with: "") == "" {
+            print("Empty Search")
+        }
+        
+        // Check if the search term exists in suggestion. If it does, then user was trying to search for that instead.
+
+        // 1. If in suggestion then use contains to find the correct suggestion
+        // 2. If in suggestion but has a speeling mistake
+        // 3. Not in suggestions. Just use text search as normal.
+        
+        // If no brand, store, category, or promotion then go straight for text search.
+        let wantedSuggestionTypesFound: Bool = suggestions.first{  return isOverrideSuggestionType(type: $0.type)  } != nil
+        
+        if !loading && wantedSuggestionTypesFound {
+            
+            let (exactSuggestionMatch, mostSimilarSuggestion, mostConfidenceSuggestion) = getMatchingSuggestions(searchText: searchText)
+            
+            textSearchSelectSuggestion(
+                searchText: searchText,
+                exactSuggestionMatch: exactSuggestionMatch,
+                mostSimilarSuggestion: mostSimilarSuggestion,
+                mostConfidenceSuggestion: mostConfidenceSuggestion
+            )
+            
+        } else {
+            
+            print("No Wanted Suggestions Options Found")
+            
+            if searchText.replacingOccurrences(of: " ", with: "") != "" {
+                interactor?.textSearch(query: searchText)
+                router?.routeToShowProductResults(segue: nil)
+            }
+            
+        }
+    }
+    
+    private func getMatchingSuggestions(searchText: String) -> (SuggestionModel?, SuggestionModel?, SuggestionModel?){
+        
+        var mostSimilar: Int? = nil
+        var mostConfidence: Double? = nil
+        var exactMatchDifference: Int? = nil
+        
+        var exactSuggestionMatch: SuggestionModel? = nil
+        var mostSimilarSuggestion: SuggestionModel? = nil
+        var mostConfidenceSuggestion: SuggestionModel? = nil
+        
+        for suggestion in suggestions {
+            
+            let similarity = similarWorker.textDifference(searchText, suggestion.name)
+            
+            if suggestion.name.lowercased().contains(searchText.lowercased())  {
+                if exactMatchDifference == nil || similarity < exactMatchDifference! {
+                    exactSuggestionMatch = suggestion
+                    exactMatchDifference = similarity
+                }
+            }
+            
+            if isOverrideSuggestionType(type: suggestion.type) {
+                let confidence = searchText.confidenceScore(suggestion.name)
+               
+                if let confidence = confidence {
+                    if mostConfidence == nil || confidence < mostConfidence! {
+                        mostConfidence = confidence
+                        mostConfidenceSuggestion = suggestion
+                    }
+                }
+
+                if mostSimilar == nil || similarity < mostSimilar! {
+                    mostSimilar = similarity
+                    mostSimilarSuggestion = suggestion
+                }
+            }
+        }
+        
+        return (exactSuggestionMatch, mostSimilarSuggestion, mostConfidenceSuggestion)
+    }
+    
+    private func textSearchSelectSuggestion(searchText: String, exactSuggestionMatch: SuggestionModel?, mostSimilarSuggestion: SuggestionModel?, mostConfidenceSuggestion: SuggestionModel?){
+        
+        if let exactSuggestionMatch = exactSuggestionMatch {
+            print(exactSuggestionMatch)
+            suggestionSelected(suggestion: exactSuggestionMatch)
+            print("Exact Suggestion Match Found")
+        } else if let confidentSuggestion = mostConfidenceSuggestion, let similarSuggestion = mostSimilarSuggestion {
+            
+            if confidentSuggestion.id == similarSuggestion.id && confidentSuggestion.type == similarSuggestion.type {
+                print("Only one suggestion found")
+                print(confidentSuggestion)
+                
+                if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 5 {
+                    suggestionSelected(suggestion: similarSuggestion)
+                } else {
+                    interactor?.textSearch(query: searchText)
+                    router?.routeToShowProductResults(segue: nil)
+                }
+            } else if confidentSuggestion.type != .brand && similarSuggestion.type == .brand {
+                print("Use most confidence suggestion")
+                suggestionSelected(suggestion: confidentSuggestion)
+            } else if confidentSuggestion.type == .brand && similarSuggestion.type != .brand {
+                print("Use most similar suggestion")
+                suggestionSelected(suggestion: similarSuggestion)
+            } else {
+                
+                if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) > similarWorker.textDifference(similarSuggestion.name.lowercased(), searchText.lowercased()) {
+                    suggestionSelected(suggestion: similarSuggestion)
+                    print("Similar Is Closer To What Searched For")
+                } else {
+                    suggestionSelected(suggestion: confidentSuggestion)
+                    print("Confidence Is Closer To What Searched For")
+                }
+                
+            }
+            
+        } else {
             interactor?.textSearch(query: searchText)
             router?.routeToShowProductResults(segue: nil)
         }
     }
+    
+    private func isOverrideSuggestionType(type: SearchType) -> Bool {
+        return
+            type == .store ||
+            type == .parentCategory ||
+            type == .childCategory ||
+            type == .promotion ||
+            type == .brand ||
+            type == .storeSale
+    }
+
 }
 
 extension ShowSuggestionsViewController {

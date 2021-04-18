@@ -17,11 +17,11 @@ class SelectedRefineOptions {
 
 class RefineSearchModel {
     var sort: RefineSortGroupModel
-    var brand: RefineBrandGroupModel
     var category: RefineCategoryGroupModel
+    var brand: RefineBrandGroupModel
     var dietary: RefineDietaryGroupModel
     
-    init(sort: RefineSortGroupModel, brand: RefineBrandGroupModel, category: RefineCategoryGroupModel, dietary: RefineDietaryGroupModel) {
+    init(sort: RefineSortGroupModel, category: RefineCategoryGroupModel, brand: RefineBrandGroupModel, dietary: RefineDietaryGroupModel) {
         self.sort = sort
         self.brand = brand
         self.category = category

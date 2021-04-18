@@ -14,7 +14,7 @@ import UIKit
 import Foundation
 
 struct SimilarWorker {
-    func similarText(_ w1: String, _ w2: String) -> Int {
+    func textDifference(_ w1: String, _ w2: String) -> Int {
         let empty = [Int](repeating:0, count: w2.count)
         var last = [Int](0...w2.count)
 

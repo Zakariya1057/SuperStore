@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import Foundation
 
 protocol ShowProductResultsBusinessLogic
 {
@@ -107,11 +108,11 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         }
         
         if let selectedCategory = selectedRefineOptions.category.first {
-            searchQueryRequest.childCategory = selectedCategory.name
+            searchQueryRequest.childCategory = removeCountFromString(text: selectedCategory.name)
         }
         
         if let selectedBrand = selectedRefineOptions.brand.first {
-            searchQueryRequest.brand = selectedBrand.name
+            searchQueryRequest.brand = removeCountFromString(text: selectedBrand.name)
         }
 
         searchQueryRequest.refine = true
@@ -210,15 +211,36 @@ extension ShowProductResultsInteractor {
 
         for product in products {
             if let brand = product.brand, brand != "" {
-                uniqueBrands[brand] = 1
+                if uniqueBrands[brand] != nil {
+                    uniqueBrands[brand]! += 1
+                } else {
+                    uniqueBrands[brand] = 1
+                }
             }
             
             if let category = product.childCategoryName, category != "" {
-                uniqueCategories[category] = 1
+                if uniqueCategories[category] != nil {
+                    uniqueCategories[category]! += 1
+                } else {
+                    uniqueCategories[category] = 1
+                }
             }
         }
         
-        self.searchRefine.brands = uniqueBrands.compactMap{$0.key}
-        self.searchRefine.categories = uniqueCategories.compactMap{$0.key}
+        self.searchRefine.brands = uniqueBrands.sorted(by: { brand1, brand2 in brand1.value > brand2.value }).compactMap{ "\($0.key) (\($0.value))" }
+        
+        self.searchRefine.categories = uniqueCategories.sorted(by: { category1, category2 in category1.value > category2.value }).compactMap{ "\($0.key) (\($0.value))"}
+        
+    }
+}
+
+extension ShowProductResultsInteractor {
+    private func removeCountFromString(text: String) -> String{
+        return text.replacingOccurrences(
+            of: "(\\s+\\(\\d+\\)$)",
+            with: "",
+            options: .regularExpression,
+            range: text.startIndex ..< text.endIndex
+        )
     }
 }

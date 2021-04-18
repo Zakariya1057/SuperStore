@@ -91,9 +91,9 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
             ]
         ),
         
-        brand: RefineBrandGroupModel(name: "Brands", selectionType: .single, options: []),
-        
         category: RefineCategoryGroupModel(name: "Categories", selectionType: .single, options: []),
+        
+        brand: RefineBrandGroupModel(name: "Brands", selectionType: .single, options: []),
         
         dietary: RefineDietaryGroupModel(
             name: "Dietary & Lifestyle", selectionType: .multiple,
@@ -126,8 +126,8 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     
     func setRefineDetails(){
         refineData[0] = refineGroups.sort
-        refineData[1] = refineGroups.brand
-        refineData[2] = refineGroups.category
+        refineData[1] = refineGroups.category
+        refineData[2] = refineGroups.brand
         refineData[3] = refineGroups.dietary
     }
     
