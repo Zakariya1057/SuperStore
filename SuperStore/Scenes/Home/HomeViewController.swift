@@ -451,7 +451,14 @@ extension HomeViewController {
 extension HomeViewController {
     private func userLocationFetched(location: CLLocationCoordinate2D?){
         
+        var requestHome: Bool = false
+        
         if let location = location {
+            
+            if longitude == nil {
+                requestHome = true
+            }
+            
             longitude = Double(location.longitude)
             latitude = Double(location.latitude)
             
@@ -467,7 +474,7 @@ extension HomeViewController {
             }
         }
 
-        if homeModel == nil {
+        if requestHome || homeModel == nil {
             getHome()
         }
     }
