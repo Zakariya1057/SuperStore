@@ -32,6 +32,7 @@ protocol ShowProductResultsBusinessLogic
     func updateListItem(request: ShowProductResults.UpdateListItem.Request)
     
     func getCategoryProducts(request: ShowProductResults.GetCategoryProducts.Request)
+    func refineOptionsNotSet() -> Bool
 }
 
 protocol ShowProductResultsDataStore
@@ -66,6 +67,8 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     
     var selectedListID: Int?
     var selectedProductStoreTypeID: Int?
+    
+    var refineOptionsSet: Bool = false
     
     var selectedRefineOptions: SelectedRefineOptions = SelectedRefineOptions() {
         didSet {
@@ -128,6 +131,15 @@ extension ShowProductResultsInteractor {
         searchQueryRequest.dietary = ""
         searchQueryRequest.brand = ""
         searchQueryRequest.childCategory = ""
+    }
+    
+    func refineOptionsNotSet() -> Bool {
+        return
+            searchQueryRequest.sort == "" &&
+            searchQueryRequest.order == "" &&
+            searchQueryRequest.dietary == "" &&
+            searchQueryRequest.brand == "" &&
+            searchQueryRequest.childCategory == ""
     }
 }
 

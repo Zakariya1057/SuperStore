@@ -3297,11 +3297,12 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ATj-ed-dZ1">
                                                         <rect key="frame" x="276" y="0.0" width="138" height="50"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfe-Rh-pcu" userLabel="RefineButton">
-                                                                <rect key="frame" x="54" y="8" width="69" height="34"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                                                <state key="normal" title="Filter By">
-                                                                    <color key="titleColor" name="LogoBlue.Light"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfe-Rh-pcu" userLabel="RefineButton">
+                                                                <rect key="frame" x="90" y="9" width="33" height="32"/>
+                                                                <color key="tintColor" name="Yellow"/>
+                                                                <state key="normal" image="line.horizontal.3.decrease.circle" catalog="system">
+                                                                    <color key="titleColor" name="Yellow"/>
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
                                                                 </state>
                                                                 <connections>
                                                                     <segue destination="HXj-j2-Hvf" kind="presentation" identifier="ShowRefine" id="Uew-lh-GwD"/>
@@ -3360,6 +3361,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="productsTableView" destination="aSa-81-33v" id="cEA-Zn-cJp"/>
+                        <outlet property="refineButton" destination="jfe-Rh-pcu" id="H8X-AC-k1r"/>
                         <outlet property="totalProductsLabel" destination="yIu-L1-2uc" id="UrZ-Iy-kpc"/>
                     </connections>
                 </viewController>
@@ -3372,7 +3374,7 @@
             <objects>
                 <viewController id="HXj-j2-Hvf" customClass="ShowRefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wxa-Ye-bc0">
@@ -4907,6 +4909,7 @@
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="envelope" catalog="system" width="128" height="93"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="lock" catalog="system" width="128" height="128"/>
         <image name="person" catalog="system" width="128" height="117"/>
@@ -4941,6 +4944,9 @@
         </namedColor>
         <namedColor name="White.LogoBlue">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="Yellow">
+            <color red="0.20025966474555607" green="0.50133179015118967" blue="0.86593547195353837" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

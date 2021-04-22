@@ -227,7 +227,7 @@ extension ShowSuggestionsViewController {
     private func textSearch(searchText: String){
         
         if searchText.replacingOccurrences(of: " ", with: "") == "" {
-            print("Empty Search")
+            return
         }
         
         // Check if the search term exists in suggestion. If it does, then user was trying to search for that instead.

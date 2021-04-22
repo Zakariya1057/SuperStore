@@ -106,9 +106,13 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     var currentPage: Int = 1
     
+    @IBOutlet weak var refineButton: UIButton!
+    
     @IBOutlet var totalProductsLabel: UILabel!
     @IBOutlet var productsTableView: UITableView!
     
+    @IBAction func refineButton(_ sender: Any) {
+    }
     var paginate: PaginateResultsModel?
     
     var products: [ProductModel] = []
@@ -123,8 +127,9 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     var currentLoggedIn: Bool = false
     
-    
     func getProducts(refine: Bool = false){
+        showRefineButton(refine: refine)
+        
         // If category products or search results
         if interactor?.childCategoryID == nil {
             getResults(refine: refine)
@@ -138,11 +143,19 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         productsTableView.reloadData()
         
         if !refine {
-            totalProductsLabel.text = "Fetching Products"
+            refineButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle"), for: .normal)
         }
         
         let request = ShowProductResults.GetResults.Request(page: currentPage, refine: refine)
         interactor?.getResults(request: request)
+    }
+    
+    func showRefineButton(refine: Bool = false){
+        if !interactor!.refineOptionsNotSet() {
+            refineButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), for: .normal)
+        } else {
+            refineButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle"), for: .normal)
+        }
     }
     
     func getListItems(){

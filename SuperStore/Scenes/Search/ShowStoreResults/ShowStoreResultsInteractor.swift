@@ -37,7 +37,6 @@ class ShowStoreResultsInteractor: ShowStoreResultsBusinessLogic, ShowStoreResult
     var storeTypeID: Int = 1
     var stores: [StoreModel] = []
 
-    
     func getStores(request: ShowStoreResults.GetStores.Request)
     {
         let latitude: Double? = request.latitude
