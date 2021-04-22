@@ -14,6 +14,7 @@ struct SearchQueryRequest {
     var type: String
     var sort: String = ""
     var order: String = ""
+    var promotion: String = ""
     var dietary: String = ""
     var brand: String = ""
     var childCategory: String = ""

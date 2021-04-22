@@ -59,7 +59,7 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     
     var userSession = UserSessionWorker()
     
-    var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [])
+    var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [], promotions: [])
     var searchQueryRequest: SearchQueryRequest = SearchQueryRequest(storeTypeID: 0, query: "", type: "")
     
     var title: String = ""
@@ -117,6 +117,10 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         if let selectedBrand = selectedRefineOptions.brand.first {
             searchQueryRequest.brand = removeCountFromString(text: selectedBrand.name)
         }
+        
+        if let selectedPromotion = selectedRefineOptions.promotion.first {
+            searchQueryRequest.promotion = removeCountFromString(text: selectedPromotion.name)
+        }
 
         searchQueryRequest.refine = true
         searchQueryRequest.dietary = selectedRefineOptions.dietary.compactMap({ $0.name }).joined(separator: ",")
@@ -130,6 +134,7 @@ extension ShowProductResultsInteractor {
         searchQueryRequest.order = ""
         searchQueryRequest.dietary = ""
         searchQueryRequest.brand = ""
+        searchQueryRequest.promotion = ""
         searchQueryRequest.childCategory = ""
     }
     
@@ -139,7 +144,8 @@ extension ShowProductResultsInteractor {
             searchQueryRequest.order == "" &&
             searchQueryRequest.dietary == "" &&
             searchQueryRequest.brand == "" &&
-            searchQueryRequest.childCategory == ""
+            searchQueryRequest.childCategory == "" &&
+            searchQueryRequest.promotion == ""
     }
 }
 
@@ -220,6 +226,7 @@ extension ShowProductResultsInteractor {
         // Unique Brands. Unique Categories
         var uniqueBrands: [String: Int] = [:]
         var uniqueCategories: [String: Int] = [:]
+        var uniquePromotions: [String: Int] = [:]
 
         for product in products {
             if let brand = product.brand, brand != "" {
@@ -237,12 +244,19 @@ extension ShowProductResultsInteractor {
                     uniqueCategories[category] = 1
                 }
             }
+            
+            if let promotion = product.promotion, promotion.name != "" {
+                if uniquePromotions[promotion.name] != nil {
+                    uniquePromotions[promotion.name]! += 1
+                } else {
+                    uniquePromotions[promotion.name] = 1
+                }
+            }
         }
         
-        self.searchRefine.brands = uniqueBrands.sorted(by: { brand1, brand2 in brand1.value > brand2.value }).compactMap{ "\($0.key) (\($0.value))" }
-        
-        self.searchRefine.categories = uniqueCategories.sorted(by: { category1, category2 in category1.value > category2.value }).compactMap{ "\($0.key) (\($0.value))"}
-        
+        self.searchRefine.brands = uniqueBrands.sorted(by: { brand1, brand2 in brand1.value > brand2.value }).compactMap{ "\($0.key)" }
+        self.searchRefine.categories = uniqueCategories.sorted(by: { category1, category2 in category1.value > category2.value }).compactMap{ "\($0.key)"}
+        self.searchRefine.promotions = uniquePromotions.sorted(by: { promotion1, promotion2 in promotion1.value > promotion2.value }).compactMap{ "\($0.key)"}
     }
 }
 

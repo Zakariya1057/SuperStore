@@ -31,8 +31,9 @@ class ShowRefinePresenter: ShowRefinePresentationLogic
     func presentSearchRefine(response: ShowRefine.GetSearchRefine.Response) {
         let refineBrands: [RefineBrandOptionModel] = response.searchRefine.brands.compactMap({RefineBrandOptionModel(name: $0, checked: false)})
         let refineCategories: [RefineCategoryOptionModel] = response.searchRefine.categories.compactMap({RefineCategoryOptionModel(name: $0, checked: false)})
+        let refinePromotions: [RefinePromotionOptionModel] = response.searchRefine.promotions.compactMap({RefinePromotionOptionModel(name: $0, checked: false)})
         
-        let viewModel = ShowRefine.GetSearchRefine.ViewModel(brands: refineBrands, categories: refineCategories)
+        let viewModel = ShowRefine.GetSearchRefine.ViewModel(brands: refineBrands, categories: refineCategories, promotions: refinePromotions)
         viewController?.displaySearchRefine(viewModel: viewModel)
     }
 }

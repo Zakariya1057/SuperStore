@@ -143,6 +143,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         productsTableView.reloadData()
         
         if !refine {
+            totalProductsLabel.text = "Fetching Products"
             refineButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle"), for: .normal)
         }
         
@@ -171,8 +172,9 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         
         if !refine {
             totalProductsLabel.text = "Fetching Products"
+        } else {
+            totalProductsLabel.text = "Refining Results"
         }
-        
         
         let request = ShowProductResults.GetCategoryProducts.Request(page: currentPage, refine: refine)
         interactor?.getCategoryProducts(request: request)
@@ -206,7 +208,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         } else {
             loading = false
             paginate = viewModel.paginate
-            
+
             if let paginate = viewModel.paginate, paginate.current > 1 {
                 for product in viewModel.products {
                     if uniqueProducts[product.id] == nil {
@@ -217,17 +219,16 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             } else {
                 uniqueProducts = [:]
                 products = []
-                
+
                 for product in viewModel.products {
                     products.append(product)
                     uniqueProducts[product.id] = true
                 }
             }
-            
+
             totalProductsLabel.text = "\(products.count) Products"
             productsTableView.reloadData()
         }
-        
     }
     
     func displayListItems(viewModel: ShowProductResults.GetListItems.ViewModel) {

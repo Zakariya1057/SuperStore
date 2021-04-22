@@ -60,7 +60,8 @@ class GroceryAPI: GroceryRequestProtocol {
             "sort": data.sort,
             "order": data.order,
             "dietary": data.dietary,
-            "brand": data.brand
+            "brand": data.brand,
+            "promotion": data.promotion
         ]
         
         requestWorker.post(url: url, data: queryData) { (response: () throws -> Data) in

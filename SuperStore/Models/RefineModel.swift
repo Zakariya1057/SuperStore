@@ -13,16 +13,19 @@ class SelectedRefineOptions {
     var brand: [RefineBrandOptionModel] = []
     var category: [RefineCategoryOptionModel] = []
     var dietary: [RefineDietaryOptionModel] = []
+    var promotion: [RefinePromotionOptionModel] = []
 }
 
 class RefineSearchModel {
     var sort: RefineSortGroupModel
     var category: RefineCategoryGroupModel
     var brand: RefineBrandGroupModel
+    var promotion: RefinePromotionGroupModel
     var dietary: RefineDietaryGroupModel
     
-    init(sort: RefineSortGroupModel, category: RefineCategoryGroupModel, brand: RefineBrandGroupModel, dietary: RefineDietaryGroupModel) {
+    init(sort: RefineSortGroupModel, promotion: RefinePromotionGroupModel, category: RefineCategoryGroupModel, brand: RefineBrandGroupModel,dietary: RefineDietaryGroupModel) {
         self.sort = sort
+        self.promotion = promotion
         self.brand = brand
         self.category = category
         self.dietary = dietary
@@ -53,6 +56,9 @@ class RefineCategoryGroupModel: RefineGroupModel { }
 
 // Dietary Model
 class RefineDietaryGroupModel: RefineGroupModel { }
+
+// Promotion Model
+class RefinePromotionGroupModel: RefineGroupModel { }
 
 // Selection Type. Multiple Option In Groups
 enum RefineSelctionType {
@@ -149,4 +155,6 @@ class RefineBrandOptionModel: RefineOptionModel { }
 
 class RefineCategoryOptionModel: RefineOptionModel { }
 
+//MARK: - Promotion Option Model
 
+class RefinePromotionOptionModel: RefineOptionModel { }

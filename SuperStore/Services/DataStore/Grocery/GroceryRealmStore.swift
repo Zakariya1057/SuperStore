@@ -163,6 +163,14 @@ extension GroceryRealmStore {
         
         savedCategory.enabled = true
         
+        if let realm = realm, realm.isInWriteTransaction {
+            realm.add(savedCategory)
+        } else {
+            try? realm?.write({
+                realm?.add(savedCategory)
+            })
+        }
+
         for product in category.products {
             let savedProduct = productStore.createProductObject(product: product)
             savedCategory.products.append(savedProduct)

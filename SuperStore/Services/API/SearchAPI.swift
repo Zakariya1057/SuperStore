@@ -47,6 +47,7 @@ class SearchAPI: SearchRequestProtocol {
             "dietary": data.dietary,
             "child_category": data.childCategory,
             "brand": data.brand,
+            "promotion": data.promotion,
             "text_search": data.textSearch
         ]
         

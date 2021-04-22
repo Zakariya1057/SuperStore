@@ -34,7 +34,7 @@ class ShowRefineInteractor: ShowRefineBusinessLogic, ShowRefineDataStore
     var worker: ShowRefineWorker?
     var selectedRefineOptions: SelectedRefineOptions = SelectedRefineOptions()
     
-    var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [])
+    var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [], promotions: [])
     
     func getSelectedOptions(request: ShowRefine.GetSelectedOptions.Request)
     {
@@ -59,6 +59,9 @@ class ShowRefineInteractor: ShowRefineBusinessLogic, ShowRefineDataStore
             
         case is RefineCategoryOptionModel:
             selectedRefineOptions.category = checked ? [option as! RefineCategoryOptionModel] : []
+            
+        case is RefinePromotionOptionModel:
+            selectedRefineOptions.promotion = checked ? [option as! RefinePromotionOptionModel] : []
             
         case is RefineDietaryOptionModel:
             // Multiple Dietary Options

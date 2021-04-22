@@ -29,6 +29,7 @@ enum ShowRefine
         {
             var brands: [RefineBrandOptionModel]
             var categories: [RefineCategoryOptionModel]
+            var promotions: [RefinePromotionOptionModel]
         }
     }
     

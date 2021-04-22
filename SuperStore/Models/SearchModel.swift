@@ -46,6 +46,7 @@ struct PaginateResultsModel {
 struct SearchRefine {
     var brands: [String]
     var categories: [String]
+    var promotions: [String]
 }
 
 enum SearchType: String {

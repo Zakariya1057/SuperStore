@@ -91,6 +91,8 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
             ]
         ),
         
+        promotion: RefinePromotionGroupModel(name: "Offers", selectionType: .single, options: []),
+        
         category: RefineCategoryGroupModel(name: "Categories", selectionType: .single, options: []),
         
         brand: RefineBrandGroupModel(name: "Brands", selectionType: .single, options: []),
@@ -126,9 +128,10 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     
     func setRefineDetails(){
         refineData[0] = refineGroups.sort
-        refineData[1] = refineGroups.category
-        refineData[2] = refineGroups.brand
-        refineData[3] = refineGroups.dietary
+        refineData[1] = refineGroups.promotion
+        refineData[2] = refineGroups.category
+        refineData[3] = refineGroups.brand
+        refineData[4] = refineGroups.dietary
     }
     
     func getSearchRefine(){
@@ -142,12 +145,14 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     }
     
     func displaySearchRefine(viewModel: ShowRefine.GetSearchRefine.ViewModel){
-        // Add To Categories + Brands.
+        // Add To Categories + Brands + Promotions
         let brands = viewModel.brands
         let categories = viewModel.categories
+        let promotions = viewModel.promotions
         
         refineGroups.brand.options = brands
         refineGroups.category.options = categories
+        refineGroups.promotion.options = promotions
     }
     
     func displaySelectedOptions(viewModel: ShowRefine.GetSelectedOptions.ViewModel) {
@@ -156,6 +161,7 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
         setRefineCheckedOptions(selectedOptions: selectedRefineOptions.sort, options: refineGroups.sort.options)
         setRefineCheckedOptions(selectedOptions: selectedRefineOptions.brand, options: refineGroups.brand.options)
         setRefineCheckedOptions(selectedOptions: selectedRefineOptions.category, options: refineGroups.category.options)
+        setRefineCheckedOptions(selectedOptions: selectedRefineOptions.promotion, options: refineGroups.promotion.options)
         setRefineCheckedOptions(selectedOptions: selectedRefineOptions.dietary, options: refineGroups.dietary.options)
         
         refineTableView.reloadData()
