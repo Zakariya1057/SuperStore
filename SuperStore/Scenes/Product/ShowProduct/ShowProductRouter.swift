@@ -321,7 +321,8 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
             if let categoryName = product.childCategoryName, let categoryID = product.childCategoryID {
                 destination.childCategoryID = categoryID
                 destination.title = categoryName
-                destination.selectedListID = source.selectedListID
+                
+                destination.selectedListID = source.listSelectedFromProduct ? nil : source.selectedListID
             }
         }
     }

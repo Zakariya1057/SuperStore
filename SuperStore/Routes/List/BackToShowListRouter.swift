@@ -24,7 +24,12 @@ class BackToShowListRouter: NSObject {
                 }
             }
             
-            navigateToShowList(source: viewController!, destination: destinationVC!)
+            if let destinationVC = destinationVC {
+                navigateToShowList(source: viewController!, destination: destinationVC)
+            } else {
+                navigateBack(source: viewController!, destination: viewController!)
+            }
+           
         }
     }
     
@@ -33,6 +38,11 @@ class BackToShowListRouter: NSObject {
     func navigateToShowList(source: UIViewController, destination: ShowListViewController)
     {
         source.navigationController!.popToViewController(destination, animated: true)
+    }
+    
+    func navigateBack(source: UIViewController, destination: UIViewController)
+    {
+        source.navigationController?.popViewController(animated: true)
     }
 
 }

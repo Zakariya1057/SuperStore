@@ -25,7 +25,7 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
         SuggestionModel(id: 1, name: "Bakery", type: .parentCategory, storeTypeID: 2, visited: true, visitedAt: Date()),
         SuggestionModel(id: 1, name: "Dairy & Eggs", type: .parentCategory, storeTypeID: 2, visited: true, visitedAt: Date()),
         SuggestionModel(id: 1, name: "Fruits & Vegetables", type: .parentCategory, storeTypeID: 2, visited: true, visitedAt: Date()),
-        SuggestionModel(id: 2, name: "Real Canadian Superstore Sales", type: .storeSale, storeTypeID: 2, visited: true, visitedAt: Date()),
+        SuggestionModel(id: 2, name: "Real Canadian Superstore Offers", type: .storeSale, storeTypeID: 2, visited: true, visitedAt: Date()),
         SuggestionModel(id: 2, name: "Real Canadian Superstore", type: .store, storeTypeID: 2, visited: true, visitedAt: Date()),
 
         

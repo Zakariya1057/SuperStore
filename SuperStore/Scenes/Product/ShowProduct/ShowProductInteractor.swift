@@ -24,13 +24,16 @@ protocol ShowProductBusinessLogic
     
     var productID: Int { get set }
     var selectedListID: Int? { get set }
+    var listSelectedFromProduct: Bool { get set }
 }
 
 protocol ShowProductDataStore
 {
     var productID: Int { get set }
     var product: ProductModel? { get set }
+    
     var selectedListID: Int? { get set }
+    var listSelectedFromProduct: Bool { get set }
 }
 
 class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
@@ -44,6 +47,7 @@ class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
     var listItemWorker: ListItemWorker = ListItemWorker(listItemAPI: ListItemAPI())
     
     var selectedListID: Int?
+    var listSelectedFromProduct: Bool = false
     
     var productID: Int = 1
     var product: ProductModel?

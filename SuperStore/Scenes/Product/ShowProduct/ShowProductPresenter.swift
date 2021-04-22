@@ -104,13 +104,19 @@ extension ShowProductPresenter {
         return promotion == nil ? nil : ShowProduct.DisplayedPromotion(id: promotion!.id, name: promotion!.name)
     }
     
-    func createChildCategory(childCategoryName: String?) -> ShowProduct.DisplayedCategory {
-        var categoryName: String = childCategoryName ?? ""
+    func createChildCategory(childCategoryName: String?) -> ShowProduct.DisplayedCategory? {
         
-        if !categoryName.lowercased().contains("view all"){
-            categoryName = "View All " + categoryName
+        if let childCategoryName = childCategoryName {
+            var categoryName: String = childCategoryName
+            
+            if !categoryName.lowercased().contains("view all"){
+                categoryName = "View All " + categoryName
+            }
+            
+            return ShowProduct.DisplayedCategory(name: categoryName)
+        } else {
+            return nil
         }
-        
-        return ShowProduct.DisplayedCategory(name: categoryName)
+
     }
 }

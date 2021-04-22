@@ -155,12 +155,7 @@ extension ProductRealmStore {
         savedProduct.avgRating = product.avgRating
         savedProduct.totalReviewsCount = product.totalReviewsCount
         
-        let parentCategoryID = RealmOptional<Int>()
-        parentCategoryID.value = 1
-        
-        savedProduct.parentCategoryID = parentCategoryID
-        savedProduct.parentCategoryName = product.parentCategoryName
-        savedProduct.childCategoryName = product.childCategoryName
+        updateCategory(product: product, savedProduct: savedProduct)
         
         savedProduct.storage = product.storage
         savedProduct.weight = product.weight
@@ -220,7 +215,7 @@ extension ProductRealmStore {
             
             updateRatings(product: product, savedProduct: savedProduct)
             
-            updateParentCategory(product: product, savedProduct: savedProduct)
+            updateCategory(product: product, savedProduct: savedProduct)
             
             if product.childCategoryName != nil {
                 savedProduct.childCategoryName = product.childCategoryName
@@ -329,18 +324,12 @@ extension ProductRealmStore {
         }
     }
     
-    func updateParentCategory(product: ProductModel, savedProduct: ProductObject){
+    func updateCategory(product: ProductModel, savedProduct: ProductObject){
+        savedProduct.parentCategoryID.value = product.parentCategoryID
+        savedProduct.parentCategoryName = product.parentCategoryName
         
-        if product.parentCategoryName != nil {
-            savedProduct.parentCategoryName = product.parentCategoryName
-        }
-        
-        if product.parentCategoryID != nil {
-            let parentCategoryID = RealmOptional<Int>()
-            parentCategoryID.value = 1
-            
-            savedProduct.parentCategoryID = parentCategoryID
-        }
+        savedProduct.childCategoryID.value = product.childCategoryID
+        savedProduct.childCategoryName = product.childCategoryName
     }
     
     func updateRecommended(product: ProductModel, savedProduct: ProductObject){

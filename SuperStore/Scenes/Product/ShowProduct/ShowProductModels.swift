@@ -48,7 +48,7 @@ enum ShowProduct
 
         var ingredients: [String]
         
-        var category: DisplayedCategory
+        var category: DisplayedCategory?
 
         var recommended: [ProductModel]
     }

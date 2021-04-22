@@ -234,7 +234,9 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 displayAllergen(product: displayedProduct)
                 displaydietary(product: displayedProduct)
                 
-                categoriesNameLabel.text = displayedProduct.category.name
+                if let category = displayedProduct.category {
+                    categoriesNameLabel.text = category.name
+                }
                 
                 recommendedProducts = displayedProduct.recommended
                 recommendedTableView.reloadData()
@@ -579,6 +581,8 @@ extension ShowProductViewController: SelectListProtocol {
         displayQuantity(quantity: 1)
         
         interactor?.selectedListID = listID
+        interactor?.listSelectedFromProduct = true
+        
         createListItem(listID: listID)
     }
 }

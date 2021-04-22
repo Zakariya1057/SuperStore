@@ -83,11 +83,11 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
         sort: RefineSortGroupModel(
             name: "Sort By", selectionType: .single,
             options: [
-                RefineSortOptionModel(name: "Rating - High To Low", checked: false, order: .desc, type: .rating),
-                RefineSortOptionModel(name: "Rating - Low To High", checked: false, order: .asc, type: .rating),
-                
                 RefineSortOptionModel(name: "Price - High To Low", checked: false, order: .desc, type: .price),
-                RefineSortOptionModel(name: "Price - Low To High", checked: false, order: .asc, type: .price)
+                RefineSortOptionModel(name: "Price - Low To High", checked: false, order: .asc, type: .price),
+                
+                RefineSortOptionModel(name: "Rating - High To Low", checked: false, order: .desc, type: .rating),
+                RefineSortOptionModel(name: "Rating - Low To High", checked: false, order: .asc, type: .rating)
             ]
         ),
         
@@ -127,11 +127,21 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     @IBOutlet var refineTableView: UITableView!
     
     func setRefineDetails(){
-        refineData[0] = refineGroups.sort
-        refineData[1] = refineGroups.promotion
-        refineData[2] = refineGroups.category
-        refineData[3] = refineGroups.brand
-        refineData[4] = refineGroups.dietary
+        refineData = [:]
+        
+        let groups: [RefineGroupModel] = [
+            refineGroups.sort,
+            refineGroups.promotion,
+            refineGroups.category,
+            refineGroups.brand,
+            refineGroups.dietary
+        ]
+        
+        for group in groups {
+            if group.options.count > 0 {
+                refineData[refineData.count] = group
+            }
+        }
     }
     
     func getSearchRefine(){
@@ -153,6 +163,8 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
         refineGroups.brand.options = brands
         refineGroups.category.options = categories
         refineGroups.promotion.options = promotions
+        
+        setRefineDetails()
     }
     
     func displaySelectedOptions(viewModel: ShowRefine.GetSelectedOptions.ViewModel) {
@@ -195,7 +207,7 @@ extension ShowRefineViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  refineData[section]!.options.count
+        return refineData[section]!.options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
