@@ -45,8 +45,9 @@ class ProductObject: Object {
     @objc dynamic var totalReviewsCount: Int = 0
 
     var parentCategoryID = RealmOptional<Int>()
-    
     @objc dynamic var parentCategoryName: String? = nil
+    
+    var childCategoryID = RealmOptional<Int>()
     @objc dynamic var childCategoryName: String? = nil
 
     @objc dynamic var storage: String? = nil
@@ -99,9 +100,10 @@ class ProductObject: Object {
             promotion: nil,
             storage: storage,
             weight: weight,
-            parentCategoryID: parentCategoryID.value,
-            parentCategoryName: parentCategoryName,
-            childCategoryName: childCategoryName,
+            
+            parentCategoryID: parentCategoryID.value, parentCategoryName: parentCategoryName,
+            childCategoryID: childCategoryID.value, childCategoryName: childCategoryName,
+            
             dietaryInfo: dietaryInfo,
             allergenInfo: allergenInfo,
             brand: brand,

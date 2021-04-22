@@ -151,11 +151,13 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     }
     
     func showRefineButton(refine: Bool = false){
+        var imageName: String = "line.horizontal.3.decrease.circle"
+        
         if !interactor!.refineOptionsNotSet() {
-            refineButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), for: .normal)
-        } else {
-            refineButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle"), for: .normal)
+            imageName += ".fill"
         }
+        
+        refineButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
     
     func getListItems(){

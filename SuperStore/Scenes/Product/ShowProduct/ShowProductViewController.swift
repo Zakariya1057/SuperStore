@@ -100,6 +100,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet var featuresView: UIView!
     @IBOutlet var dimensionsView: UIView!
     @IBOutlet weak var ingredientsView: UIView!
+    @IBOutlet weak var categoriesView: UIView!
     
     @IBOutlet weak var reviewsStackView: UIStackView!
     @IBOutlet weak var allReviewsView: UIView!
@@ -120,6 +121,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet weak var lifeStyleLabel: UILabel!
     @IBOutlet weak var allergenLabel: UILabel!
     
+    @IBOutlet weak var categoriesNameLabel: UILabel!
     @IBOutlet weak var promotionLabel: UILabel!
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var parentRatingView: UIView!
@@ -231,6 +233,8 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 
                 displayAllergen(product: displayedProduct)
                 displaydietary(product: displayedProduct)
+                
+                categoriesNameLabel.text = displayedProduct.category.name
                 
                 recommendedProducts = displayedProduct.recommended
                 recommendedTableView.reloadData()
@@ -416,6 +420,9 @@ extension ShowProductViewController {
         
         let dimensionsPressedGesture = UITapGestureRecognizer(target: self, action: #selector(dimensionsButtonPressed))
         dimensionsView.addGestureRecognizer(dimensionsPressedGesture)
+        
+        let categoriesPressedGesture = UITapGestureRecognizer(target: self, action: #selector(categoriesButtonPressed))
+        categoriesView.addGestureRecognizer(categoriesPressedGesture)
     }
     
     @objc func promotionButtonPressed(){
@@ -424,6 +431,10 @@ extension ShowProductViewController {
     
     @objc func ingredientsButtonPressed(){
         router?.routeToShowIngredients(segue: nil)
+    }
+    
+    @objc func categoriesButtonPressed(){
+        router?.routeToChildCategories(segue: nil)
     }
     
     @objc func descriptionButtonPressed(){

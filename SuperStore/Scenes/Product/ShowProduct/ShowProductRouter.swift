@@ -16,13 +16,15 @@ import UIKit
 {
     func routeToShowProduct(segue: UIStoryboardSegue?)
     func routeToShowPromotion(segue: UIStoryboardSegue?)
-    func routeToShowReviews(segue: UIStoryboardSegue?)
     func routeToShowDescription(segue: UIStoryboardSegue?)
-    func routeToEditReview(segue: UIStoryboardSegue?)
-    
     func routeToShowIngredients(segue: UIStoryboardSegue?)
+    func routeToChildCategories(segue: UIStoryboardSegue?)
+    
     func routeToShowFeatures(segue: UIStoryboardSegue?)
     func routeToShowDimensions(segue: UIStoryboardSegue?)
+    
+    func routeToShowReviews(segue: UIStoryboardSegue?)
+    func routeToEditReview(segue: UIStoryboardSegue?)
     
     func routeToShowLists(segue: UIStoryboardSegue?)
     func routeToLogin(segue: UIStoryboardSegue?)
@@ -196,6 +198,21 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
         }
     }
     
+    func routeToChildCategories(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowProductResultsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowProductResults(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowProductResultsViewController") as! ShowProductResultsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowProductResults(source: dataStore!, destination: &destinationDS)
+            navigateToShowProductResults(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     // MARK: Navigation
     
     func navigateToLogin(source: ShowProductViewController, destination: LoginViewController)
@@ -238,6 +255,10 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
         source.show(destination, sender: nil)
     }
     
+    func navigateToShowProductResults(source: ShowProductViewController, destination: ShowProductResultsViewController)
+    {
+      source.show(destination, sender: nil)
+    }
     
     // MARK: - Passing Data
     
@@ -292,5 +313,16 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     {
         destination.storeTypeID = source.product!.storeTypeID
         destination.addToList = true
+    }
+    
+    func passDataToShowProductResults(source: ShowProductDataStore, destination: inout ShowProductResultsDataStore)
+    {
+        if let product = source.product {
+            if let categoryName = product.childCategoryName, let categoryID = product.childCategoryID {
+                destination.childCategoryID = categoryID
+                destination.title = categoryName
+                destination.selectedListID = source.selectedListID
+            }
+        }
     }
 }

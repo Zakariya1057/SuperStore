@@ -93,11 +93,24 @@ extension ShowProductPresenter {
             allergenInfo: product.allergenInfo,
             review: product.reviews.first,
             ingredients: product.ingredients,
+            
+            category: createChildCategory(childCategoryName: product.childCategoryName),
+            
             recommended: product.recommended
         )
     }
     
     func createDisplayedPromotion(promotion: PromotionModel?) -> ShowProduct.DisplayedPromotion? {
         return promotion == nil ? nil : ShowProduct.DisplayedPromotion(id: promotion!.id, name: promotion!.name)
+    }
+    
+    func createChildCategory(childCategoryName: String?) -> ShowProduct.DisplayedCategory {
+        var categoryName: String = childCategoryName ?? ""
+        
+        if !categoryName.lowercased().contains("view all"){
+            categoryName = "View All " + categoryName
+        }
+        
+        return ShowProduct.DisplayedCategory(name: categoryName)
     }
 }

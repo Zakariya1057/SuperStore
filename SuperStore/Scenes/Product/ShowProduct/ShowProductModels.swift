@@ -47,8 +47,14 @@ enum ShowProduct
         var review: ReviewModel?
 
         var ingredients: [String]
+        
+        var category: DisplayedCategory
 
         var recommended: [ProductModel]
+    }
+    
+    struct DisplayedCategory {
+        var name: String
     }
     
     struct DisplayedPromotion {

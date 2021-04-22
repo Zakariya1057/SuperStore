@@ -54,6 +54,8 @@ struct ProductData:Decodable {
     
     var parent_category_id: Int?
     var parent_category_name: String?
+    
+    var child_category_id: Int?
     var child_category_name: String?
     
     var promotion: PromotionData?
@@ -81,9 +83,10 @@ struct ProductData:Decodable {
             promotion: promotion?.getPromotionModel(),
             storage: storage,
             weight: weight,
-            parentCategoryID: parent_category_id,
-            parentCategoryName: parent_category_name,
-            childCategoryName: child_category_name,
+            
+            parentCategoryID: parent_category_id, parentCategoryName: parent_category_name,
+            childCategoryID: child_category_id, childCategoryName: child_category_name,
+            
             dietaryInfo: dietary_info,
             allergenInfo: allergen_info,
             brand: brand,

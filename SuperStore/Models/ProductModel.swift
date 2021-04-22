@@ -40,6 +40,8 @@ class ProductModel {
 
     var parentCategoryID: Int?
     var parentCategoryName: String?
+
+    var childCategoryID: Int?
     var childCategoryName: String?
 
     var storage: String?
@@ -66,8 +68,12 @@ class ProductModel {
         currency: String,
         avgRating: Double?, totalReviewsCount: Int?,
         promotion: PromotionModel?, storage: String?,
-        weight: String?,parentCategoryID: Int?, parentCategoryName: String?,
-        childCategoryName: String?, dietaryInfo: String?,
+        weight: String?,
+        
+        parentCategoryID: Int?, parentCategoryName: String?,
+        childCategoryID: Int?, childCategoryName: String?,
+        
+        dietaryInfo: String?,
         allergenInfo: String?, brand: String?, reviews: [ReviewModel],
         favourite: Bool, monitoring: Bool, ingredients: [String],
         recommended: [ProductModel]
@@ -86,6 +92,8 @@ class ProductModel {
 
         self.parentCategoryID = parentCategoryID
         self.parentCategoryName = parentCategoryName
+        
+        self.childCategoryID = childCategoryID
         self.childCategoryName = childCategoryName
 
         self.weight = weight
