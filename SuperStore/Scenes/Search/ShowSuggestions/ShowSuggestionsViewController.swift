@@ -272,47 +272,59 @@ extension ShowSuggestionsViewController {
         var mostSimilarSuggestion: SuggestionModel? = nil
         var mostConfidenceSuggestion: SuggestionModel? = nil
         
-        for suggestion in suggestions {
-            
-            let textDifference = similarWorker.textDifference(searchText, suggestion.name)
-            print("\(suggestion.name): \(textDifference)")
-            
-            if textDifference < 7 && suggestion.name.lowercased().contains(searchText.lowercased())  {
-                
-                if let difference = exactMatchDifference {
-                    if textDifference == exactMatchDifference && suggestion.name.lowercased() == searchText.lowercased() {
-                        exactSuggestionMatch = suggestion
-                        exactMatchDifference = 0
-                    } else {
-                        if textDifference < difference {
+        let exactMatch = suggestions.first { (suggestion) -> Bool in
+            return
+                suggestion.name.lowercased() == searchText.lowercased() ||
+                suggestion.name.lowercased() == searchText.lowercased() + "s" ||
+                suggestion.name.lowercased() + "s" == searchText.lowercased() + "s" 
+        }
+        
+        if exactMatch == nil {
+            for suggestion in suggestions {
+                if isOverrideSuggestionType(type: suggestion.type) {
+                    
+                    let textDifference = similarWorker.textDifference(searchText, suggestion.name)
+                    print("\(suggestion.name): \(textDifference)")
+                    
+                    if textDifference < 7 && suggestion.name.lowercased().contains(searchText.lowercased())  {
+                        
+                        if let difference = exactMatchDifference {
+                            if textDifference == exactMatchDifference && suggestion.name.lowercased() == searchText.lowercased() {
+                                exactSuggestionMatch = suggestion
+                                exactMatchDifference = 0
+                            } else {
+                                if textDifference < difference {
+                                    exactSuggestionMatch = suggestion
+                                    exactMatchDifference = textDifference
+                                }
+                            }
+                        } else {
                             exactSuggestionMatch = suggestion
                             exactMatchDifference = textDifference
                         }
+                        
+                    } else {
+                        let confidence = searchText.confidenceScore(suggestion.name)
+                       
+                        if let confidence = confidence {
+                            if mostConfidence == nil || confidence < mostConfidence! {
+                                mostConfidence = confidence
+                                mostConfidenceSuggestion = suggestion
+                            }
+                        }
+
+                        if mostDifference == nil || textDifference < mostDifference! {
+                            mostDifference = textDifference
+                            mostSimilarSuggestion = suggestion
+                        }
                     }
-                } else {
-                    exactSuggestionMatch = suggestion
-                    exactMatchDifference = textDifference
+                    
                 }
-                
+                    
             }
             
-            if isOverrideSuggestionType(type: suggestion.type) {
-                let confidence = searchText.confidenceScore(suggestion.name)
-               
-                if let confidence = confidence {
-                    if mostConfidence == nil || confidence < mostConfidence! {
-                        mostConfidence = confidence
-                        mostConfidenceSuggestion = suggestion
-                    }
-                }
-
-                if mostDifference == nil || textDifference < mostDifference! {
-                    mostDifference = textDifference
-                    mostSimilarSuggestion = suggestion
-                }
-            }
         }
-        
+
         return (exactSuggestionMatch, mostSimilarSuggestion, mostConfidenceSuggestion)
     }
     
@@ -330,28 +342,21 @@ extension ShowSuggestionsViewController {
                 
                 if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 7 {
                     suggestionSelected(suggestion: similarSuggestion)
+                    
+                    suggestions.append(SuggestionModel(id: 1, name: searchText, type: .product, textSearch: true, storeTypeID: currentStoreTypeID))
+                    suggestionsTableView.reloadData()
                 } else {
                     interactor?.textSearch(query: searchText)
                     router?.routeToShowProductResults(segue: nil)
                 }
-            } else if confidentSuggestion.type != .brand && similarSuggestion.type == .brand {
-                print("Use most confidence suggestion")
+            } else if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 7 {
                 suggestionSelected(suggestion: confidentSuggestion)
-            } else if confidentSuggestion.type == .brand && similarSuggestion.type != .brand {
-                print("Use most similar suggestion")
+            } else if similarWorker.textDifference(similarSuggestion.name.lowercased(), searchText.lowercased()) < 7 {
                 suggestionSelected(suggestion: similarSuggestion)
             } else {
-                
-                if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) > similarWorker.textDifference(similarSuggestion.name.lowercased(), searchText.lowercased()) {
-                    suggestionSelected(suggestion: similarSuggestion)
-                    print("Similar Is Closer To What Searched For")
-                } else {
-                    suggestionSelected(suggestion: confidentSuggestion)
-                    print("Confidence Is Closer To What Searched For")
-                }
-                
+                interactor?.textSearch(query: searchText)
+                router?.routeToShowProductResults(segue: nil)
             }
-            
         } else {
             interactor?.textSearch(query: searchText)
             router?.routeToShowProductResults(segue: nil)

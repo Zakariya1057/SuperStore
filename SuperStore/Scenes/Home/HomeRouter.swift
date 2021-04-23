@@ -18,28 +18,18 @@ import UIKit
     func routeToShowProduct(segue: UIStoryboardSegue?)
     func routeToStore(segue: UIStoryboardSegue?)
     func routeToShowList(segue: UIStoryboardSegue?)
+    func routeToGrandParentCategories(segue: UIStoryboardSegue?)
 }
 
 protocol HomeDataPassing
 {
     var dataStore: HomeDataStore? { get }
-    
-    var selectedList: ListModel? { get set }
-    var selectedProductID: Int? { get set }
-    var selectedPromotionID: Int? { get set }
-    var selectedStoreID: Int? { get set }
 }
 
 class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
 {
     weak var viewController: HomeViewController?
     var dataStore: HomeDataStore?
-    
-    var selectedList: ListModel?
-    
-    var selectedProductID: Int?
-    var selectedPromotionID: Int?
-    var selectedStoreID: Int?
     
     // MARK: Routing
     
@@ -101,6 +91,20 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
         }
     }
     
+    func routeToGrandParentCategories(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! GrandParentCategoriesViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToGrandParentCategories(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "GrandParentCategoriesViewController") as! GrandParentCategoriesViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToGrandParentCategories(source: dataStore!, destination: &destinationDS)
+            navigateToGrandParentCategories(source: viewController!, destination: destinationVC)
+        }
+    }
     //    MARK: Navigation
     
     func navigateToShowList(source: HomeViewController, destination: ShowListViewController)
@@ -123,25 +127,35 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
         source.show(destination, sender: nil)
     }
     
+    func navigateToGrandParentCategories(source: HomeViewController, destination: GrandParentCategoriesViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
     //    MARK: Passing data
     
     func passDataToShowList(source: HomeDataStore, destination: inout ShowListDataStore)
     {
-        destination.list = selectedList
+        destination.list = source.selectedList
     }
     
     func passDataToShowProduct(source: HomeDataStore, destination: inout ShowProductDataStore)
     {
-        destination.productID = selectedProductID!
+        destination.productID = source.selectedProductID!
     }
     
     func passDataToShowPromotion(source: HomeDataStore, destination: inout ShowPromotionDataStore)
     {
-        destination.promotionID = selectedPromotionID!
+        destination.promotionID = source.selectedPromotionID!
     }
     
     func passDataToStore(source: HomeDataStore, destination: inout StoreDataStore)
     {
-        destination.storeID = selectedStoreID!
+        destination.storeID = source.selectedStoreID!
+    }
+    
+    func passDataToGrandParentCategories(source: HomeDataStore, destination: inout GrandParentCategoriesDataStore)
+    {
+        destination.storeTypeID = source.storeTypeID
     }
 }

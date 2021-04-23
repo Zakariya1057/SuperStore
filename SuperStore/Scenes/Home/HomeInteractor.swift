@@ -16,14 +16,28 @@ protocol HomeBusinessLogic
 {
     func getHome(request: Home.GetHome.Request)
     func updateLocation(request: Home.UpdateLocation.Request)
+    
+    var selectedList: ListModel? { get set }
+    var selectedProductID: Int? { get set }
+    var selectedPromotionID: Int? { get set }
+    var selectedStoreID: Int? { get set }
+    
+    var storeTypeID: Int { get }
 }
 
 protocol HomeDataStore
 {
+    var selectedList: ListModel? { get set }
+    var selectedProductID: Int? { get set }
+    var selectedPromotionID: Int? { get set }
+    var selectedStoreID: Int? { get set }
+    
+    var storeTypeID: Int { get }
 }
 
 class HomeInteractor: HomeBusinessLogic, HomeDataStore
 {
+
     var presenter: HomePresentationLogic?
     
     var worker: HomeWorker? = HomeWorker(homeAPI: HomeAPI())
@@ -31,12 +45,19 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     
     var userSession: UserSessionWorker = UserSessionWorker()
     
+    var selectedList: ListModel?
+    var selectedProductID: Int?
+    var selectedPromotionID: Int?
+    var selectedStoreID: Int?
+    
+    var storeTypeID: Int {
+        return userSession.getStore()
+    }
+    
     func getHome(request: Home.GetHome.Request)
     {
         let latitude: Double? = request.latitude
         let longitude: Double? = request.longitude
-        
-        let storeTypeID: Int = userSession.getStore()
         
         worker?.getHome(storeTypeID: storeTypeID,latitude: latitude, longitude: longitude, completionHandler: { (home: HomeModel?, error: String?) in
             var response = Home.GetHome.Response(home: home, error: error)

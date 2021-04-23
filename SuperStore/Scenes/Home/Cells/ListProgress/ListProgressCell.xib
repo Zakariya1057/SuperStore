@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -20,10 +20,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxM-zD-eEG">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="EKH-z8-aLW">
-                                <rect key="frame" x="15" y="10" width="290" height="37"/>
+                                <rect key="frame" x="15" y="0.0" width="290" height="37"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xLI-zt-ewA">
                                         <rect key="frame" x="0.0" y="0.0" width="247" height="37"/>
@@ -104,8 +104,8 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="EKH-z8-aLW" secondAttribute="trailing" constant="15" id="6y8-Et-E9k"/>
                             <constraint firstItem="EKH-z8-aLW" firstAttribute="leading" secondItem="hxM-zD-eEG" secondAttribute="leading" constant="15" id="90a-Z2-9Xt"/>
-                            <constraint firstAttribute="bottom" secondItem="EKH-z8-aLW" secondAttribute="bottom" constant="10" id="Ra3-Ro-ECU"/>
-                            <constraint firstItem="EKH-z8-aLW" firstAttribute="top" secondItem="hxM-zD-eEG" secondAttribute="top" constant="10" id="fu9-M9-EN3"/>
+                            <constraint firstAttribute="bottom" secondItem="EKH-z8-aLW" secondAttribute="bottom" constant="15" id="Ra3-Ro-ECU"/>
+                            <constraint firstItem="EKH-z8-aLW" firstAttribute="top" secondItem="hxM-zD-eEG" secondAttribute="top" id="fu9-M9-EN3"/>
                         </constraints>
                     </view>
                 </subviews>

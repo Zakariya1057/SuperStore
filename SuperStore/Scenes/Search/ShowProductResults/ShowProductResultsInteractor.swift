@@ -62,6 +62,8 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [], promotions: [])
     var searchQueryRequest: SearchQueryRequest = SearchQueryRequest(storeTypeID: 0, query: "", type: "")
     
+    var products: [ProductModel] = []
+    
     var title: String = ""
     var childCategoryID: Int? = nil
     
@@ -87,7 +89,15 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         searchWorker.getProductResults(query: searchQueryRequest, page: page) { (results: ProductResultsModel?, error: String?) in
             
             if let results = results {
-                self.setRefineOptions(products: results.products)
+                if page > 1 {
+                    // Append To Current Products.
+                    self.products.append(contentsOf: results.products)
+                } else {
+                    // New Products Set. Override.
+                    self.products = results.products
+                }
+                
+                self.setRefineOptions(products:  self.products)
             }
             
             var response = ShowProductResults.GetResults.Response(products: results?.products ?? [], paginate: results?.paginate, error: error)

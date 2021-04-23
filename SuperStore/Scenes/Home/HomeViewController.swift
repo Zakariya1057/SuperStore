@@ -152,6 +152,9 @@ extension HomeViewController {
                 
                 switch element {
                 
+                case is GroceriesGroupElement:
+                    break
+                    
                 case is ListGroupProgressElement:
                     let listProgressElement = element as! ListGroupProgressElement
                     listProgressElement.items = homeModel.lists.map { ListProgressElement(list: $0) }
@@ -248,6 +251,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let listsProgressCell = UINib(nibName: "ListProgressCell", bundle: nil)
         tableView.register(listsProgressCell, forCellReuseIdentifier: "ListProgressCell")
         
+        let groceriesCell = UINib(nibName: "GroceriesCell", bundle: nil)
+        tableView.register(groceriesCell, forCellReuseIdentifier: "GroceriesCell")
+        
         setUpTableView()
         setupRefreshControl()
     }
@@ -273,6 +279,7 @@ extension HomeViewController {
     private func setupHomeCells(){
         homeCells = [
             ListGroupProgressElement(title: "List Progress", lists: [], listPressed: listPressed),
+            GroceriesGroupElement(title: "", groceriesPressed: groceriesPressed),
             StoreMapGroupElement(title: "Stores", stores: [], storePressed: storePressed, userLocationFetched: userLocationFetched),
             GroceryProductGroupElement(title: "Grocery Items", products: [], productPressed: productPressed),
             MonitoringProductGroupElement(title: "Monitoring", products: [], productPressed: productPressed),
@@ -335,14 +342,17 @@ extension HomeViewController {
         return homeCells.count
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return homeCells[section].title == "" ? 0 : 55
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SectionHeader") as! SectionHeader
+        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SectionHeader") as! SectionHeader
+        let title: String = homeCells[section].title
         
-        if section < homeCells.count {
-            header.headingLabel.text = homeCells[section].title
-        }
-
-        return header
+        sectionHeader.headingLabel.text = title
+        
+        return sectionHeader
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -361,7 +371,7 @@ extension HomeViewController {
         } else {
             cellModel = createElementModel(group: group)
         }
-
+        
         customCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! HomeElementCell
         customCell.configure(model: cellModel)
         
@@ -424,23 +434,27 @@ extension HomeViewController {
 
 extension HomeViewController {
     private func promotionPressed(promotionID: Int){
-        router?.selectedPromotionID = promotionID
+        interactor?.selectedPromotionID = promotionID
         router?.routeToShowPromotion(segue: nil)
     }
     
     private func storePressed(storeID: Int){
-        router?.selectedStoreID = storeID
+        interactor?.selectedStoreID = storeID
         router?.routeToStore(segue: nil)
     }
     
     private func listPressed(list: ListModel){
-        router?.selectedList = list
+        interactor?.selectedList = list
         router?.routeToShowList(segue: nil)
     }
     
     private func productPressed(productID: Int){
-        router?.selectedProductID = productID
+        interactor?.selectedProductID = productID
         router?.routeToShowProduct(segue: nil)
+    }
+    
+    private func groceriesPressed(){
+        router?.routeToGrandParentCategories(segue: nil)
     }
     
     private func cellScroll(title: String, position: CGFloat){
@@ -502,4 +516,5 @@ enum HomeElementType: String {
     case offers           = "OffersCell"
     case featuredProducts = "FeaturedProductCell"
     case listPriceUpdate  = "ListPriceUpdate"
+    case groceries        = "GroceriesCell"
 }

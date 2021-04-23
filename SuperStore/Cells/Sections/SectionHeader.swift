@@ -9,5 +9,6 @@
 import UIKit
 
 class SectionHeader: UITableViewHeaderFooterView {
+    @IBOutlet weak var headingView: UIView!
     @IBOutlet weak var headingLabel: UILabel!
 }
