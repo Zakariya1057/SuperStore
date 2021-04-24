@@ -323,6 +323,9 @@ extension ShowSuggestionsViewController {
                     
             }
             
+        } else {
+            exactSuggestionMatch = exactMatch
+            exactMatchDifference = 0
         }
 
         return (exactSuggestionMatch, mostSimilarSuggestion, mostConfidenceSuggestion)
