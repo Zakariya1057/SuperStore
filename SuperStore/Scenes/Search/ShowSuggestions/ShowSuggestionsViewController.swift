@@ -286,7 +286,7 @@ extension ShowSuggestionsViewController {
                     let textDifference = similarWorker.textDifference(searchText, suggestion.name)
                     print("\(suggestion.name): \(textDifference)")
                     
-                    if textDifference < 7 && suggestion.name.lowercased().contains(searchText.lowercased())  {
+                    if textDifference < 6 && suggestion.name.lowercased().contains(searchText.lowercased())  {
                         
                         if let difference = exactMatchDifference {
                             if textDifference == exactMatchDifference && suggestion.name.lowercased() == searchText.lowercased() {
@@ -343,7 +343,7 @@ extension ShowSuggestionsViewController {
                 print("Only one suggestion found")
                 print(confidentSuggestion)
                 
-                if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 7 {
+                if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 6 {
                     suggestionSelected(suggestion: similarSuggestion)
                     
                     suggestions.append(SuggestionModel(id: 1, name: searchText, type: .product, textSearch: true, storeTypeID: currentStoreTypeID))
@@ -352,9 +352,9 @@ extension ShowSuggestionsViewController {
                     interactor?.textSearch(query: searchText)
                     router?.routeToShowProductResults(segue: nil)
                 }
-            } else if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 7 {
+            } else if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 6 {
                 suggestionSelected(suggestion: confidentSuggestion)
-            } else if similarWorker.textDifference(similarSuggestion.name.lowercased(), searchText.lowercased()) < 7 {
+            } else if similarWorker.textDifference(similarSuggestion.name.lowercased(), searchText.lowercased()) < 6 {
                 suggestionSelected(suggestion: similarSuggestion)
             } else {
                 interactor?.textSearch(query: searchText)
