@@ -286,7 +286,7 @@ extension ShowSuggestionsViewController {
                     let textDifference = similarWorker.textDifference(searchText, suggestion.name)
                     print("\(suggestion.name): \(textDifference)")
                     
-                    if textDifference < 6 && suggestion.name.lowercased().contains(searchText.lowercased())  {
+                    if textDifference < 5 && suggestion.name.lowercased().contains(searchText.lowercased())  {
                         
                         if let difference = exactMatchDifference {
                             if textDifference == exactMatchDifference && suggestion.name.lowercased() == searchText.lowercased() {
@@ -338,24 +338,20 @@ extension ShowSuggestionsViewController {
             suggestionSelected(suggestion: exactSuggestionMatch)
             print("Exact Suggestion Match Found")
         } else if let confidentSuggestion = mostConfidenceSuggestion, let similarSuggestion = mostSimilarSuggestion {
-            
             if confidentSuggestion.id == similarSuggestion.id && confidentSuggestion.type == similarSuggestion.type {
-                print("Only one suggestion found")
-                print(confidentSuggestion)
-                
-                if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 6 {
+                if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 5 {
                     suggestionSelected(suggestion: similarSuggestion)
-                    
-                    suggestions.append(SuggestionModel(id: 1, name: searchText, type: .product, textSearch: true, storeTypeID: currentStoreTypeID))
-                    suggestionsTableView.reloadData()
+                    addChangedSuggestion(searchText: searchText)
                 } else {
                     interactor?.textSearch(query: searchText)
                     router?.routeToShowProductResults(segue: nil)
                 }
-            } else if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 6 {
+            } else if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 5 {
                 suggestionSelected(suggestion: confidentSuggestion)
-            } else if similarWorker.textDifference(similarSuggestion.name.lowercased(), searchText.lowercased()) < 6 {
+                addChangedSuggestion(searchText: searchText)
+            } else if similarWorker.textDifference(similarSuggestion.name.lowercased(), searchText.lowercased()) < 5 {
                 suggestionSelected(suggestion: similarSuggestion)
+                addChangedSuggestion(searchText: searchText)
             } else {
                 interactor?.textSearch(query: searchText)
                 router?.routeToShowProductResults(segue: nil)
@@ -374,6 +370,11 @@ extension ShowSuggestionsViewController {
             type == .promotion ||
             type == .brand ||
             type == .storeSale
+    }
+    
+    private func addChangedSuggestion(searchText: String){
+        suggestions.append(SuggestionModel(id: 1, name: searchText, type: .product, textSearch: true, storeTypeID: currentStoreTypeID))
+        suggestionsTableView.reloadData()
     }
 
 }
