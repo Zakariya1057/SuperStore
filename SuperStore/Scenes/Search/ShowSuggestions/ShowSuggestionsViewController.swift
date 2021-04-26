@@ -273,20 +273,36 @@ extension ShowSuggestionsViewController {
         var mostConfidenceSuggestion: SuggestionModel? = nil
         
         let exactMatch = suggestions.first { (suggestion) -> Bool in
+            
+            let suggestionName: String = suggestion.name.lowercased()
+            let searchText: String = searchText.lowercased()
+            
             return
-                suggestion.name.lowercased() == searchText.lowercased() ||
-                suggestion.name.lowercased() == searchText.lowercased() + "s" ||
-                suggestion.name.lowercased() + "s" == searchText.lowercased() + "s" 
+                suggestionName == searchText ||
+                    
+                suggestionName.replacingOccurrences(of: " ", with: "") == searchText.replacingOccurrences(of: " ", with: "") ||
+                
+                suggestionName.replacingOccurrences(of: "'", with: "") == searchText ||
+                suggestionName.replacingOccurrences(of: "'s", with: "") == searchText ||
+            
+                suggestionName == searchText + "s" ||
+                suggestionName + "s" == searchText ||
+            
+                suggestionName == searchText + "es" ||
+                suggestionName + "es" == searchText ||
+            
+                suggestionName.replacingOccurrences(of: " and ", with: " & ") == searchText ||
+                suggestionName == searchText.replacingOccurrences(of: " and ", with: " & ")
         }
         
         if exactMatch == nil {
             for suggestion in suggestions {
-                if isOverrideSuggestionType(type: suggestion.type) {
+                if isOverrideSuggestionType(type: suggestion.type) && (searchText.count > suggestion.name.count || suggestion.name.count < 15) {
                     
                     let textDifference = similarWorker.textDifference(searchText, suggestion.name)
                     print("\(suggestion.name): \(textDifference)")
                     
-                    if textDifference < 5 && suggestion.name.lowercased().contains(searchText.lowercased())  {
+                    if textDifference < 2 && suggestion.name.lowercased().contains(searchText.lowercased())  {
                         
                         if let difference = exactMatchDifference {
                             if textDifference == exactMatchDifference && suggestion.name.lowercased() == searchText.lowercased() {
@@ -339,17 +355,17 @@ extension ShowSuggestionsViewController {
             print("Exact Suggestion Match Found")
         } else if let confidentSuggestion = mostConfidenceSuggestion, let similarSuggestion = mostSimilarSuggestion {
             if confidentSuggestion.id == similarSuggestion.id && confidentSuggestion.type == similarSuggestion.type {
-                if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 5 {
+                if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 2 {
                     suggestionSelected(suggestion: similarSuggestion)
                     addChangedSuggestion(searchText: searchText)
                 } else {
                     interactor?.textSearch(query: searchText)
                     router?.routeToShowProductResults(segue: nil)
                 }
-            } else if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 5 {
+            } else if similarWorker.textDifference(confidentSuggestion.name.lowercased(), searchText.lowercased()) < 2 {
                 suggestionSelected(suggestion: confidentSuggestion)
                 addChangedSuggestion(searchText: searchText)
-            } else if similarWorker.textDifference(similarSuggestion.name.lowercased(), searchText.lowercased()) < 5 {
+            } else if similarWorker.textDifference(similarSuggestion.name.lowercased(), searchText.lowercased()) < 2 {
                 suggestionSelected(suggestion: similarSuggestion)
                 addChangedSuggestion(searchText: searchText)
             } else {

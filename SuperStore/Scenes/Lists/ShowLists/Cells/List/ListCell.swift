@@ -40,7 +40,7 @@ class ListCell: UITableViewCell {
             listNameLabel.text = list.name
             totalLabel.text = list.getTotalPrice()
 
-            createdLabel.text = dateWorker.formatDate(date: list.createdAt)
+            createdLabel.text = dateWorker.formatDate(date: list.updatedAt)
 
             if status == .notStarted {
                 statusLabel.textColor =  UIColor(red: 0.44, green: 0.44, blue: 0.47, alpha: 1.00)

@@ -129,6 +129,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     func getProducts(refine: Bool = false){
         showRefineButton(refine: refine)
+        changeRefineButtonState(enabled: false)
         
         // If category products or search results
         if interactor?.childCategoryID == nil {
@@ -151,16 +152,6 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         interactor?.getResults(request: request)
     }
     
-    func showRefineButton(refine: Bool = false){
-        var imageName: String = "line.horizontal.3.decrease.circle"
-        
-        if !interactor!.refineOptionsNotSet() {
-            imageName += ".fill"
-        }
-        
-        refineButton.setImage(UIImage(systemName: imageName), for: .normal)
-    }
-    
     func getListItems(){
         let request = ShowProductResults.GetListItems.Request()
         interactor?.getListItems(request: request)
@@ -169,6 +160,8 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     func getCategoryProducts(refine: Bool = false){
         loading = true
         productsTableView.reloadData()
+        
+        changeRefineButtonState(enabled: false)
         
         if !refine {
             totalProductsLabel.text = "Fetching Products"
@@ -200,6 +193,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     func displayResults(viewModel: ShowProductResults.GetResults.ViewModel)
     {
         refreshControl.endRefreshing()
+        changeRefineButtonState(enabled: true)
         
         if let error = viewModel.error {
             if !viewModel.offline {
@@ -267,6 +261,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     // Child Category Products
     func displayCategoryProducts(viewModel: ShowProductResults.GetCategoryProducts.ViewModel) {
         refreshControl.endRefreshing()
+        changeRefineButtonState(enabled: true)
         
         if let error = viewModel.error {
             if !viewModel.offline {
@@ -380,6 +375,25 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
     }
     
 }
+
+extension ShowProductResultsViewController {
+    
+    func changeRefineButtonState(enabled: Bool){
+        refineButton.isEnabled = enabled
+    }
+
+    func showRefineButton(refine: Bool = false){
+        var imageName: String = "line.horizontal.3.decrease.circle"
+        
+        if !interactor!.refineOptionsNotSet() {
+            imageName += ".fill"
+        }
+        
+        refineButton.setImage(UIImage(systemName: imageName), for: .normal)
+    }
+    
+}
+
 
 extension ShowProductResultsViewController: SelectListProtocol {
     
