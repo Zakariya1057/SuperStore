@@ -80,17 +80,7 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     var refineData: [Int: RefineGroupModel] = [:]
     
     var refineGroups: RefineSearchModel = RefineSearchModel(
-        sort: RefineSortGroupModel(
-            name: "Sort By", selectionType: .single,
-            options: [
-                RefineSortOptionModel(name: "Price - High To Low", checked: false, order: .desc, type: .price),
-                RefineSortOptionModel(name: "Price - Low To High", checked: false, order: .asc, type: .price),
-                
-                RefineSortOptionModel(name: "Rating - High To Low", checked: false, order: .desc, type: .rating),
-                RefineSortOptionModel(name: "Rating - Low To High", checked: false, order: .asc, type: .rating)
-            ]
-        ),
-        
+
         promotion: RefinePromotionGroupModel(name: "Offers", selectionType: .single, options: []),
         
         category: RefineCategoryGroupModel(name: "Categories", selectionType: .single, options: []),
@@ -129,13 +119,18 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     func setRefineDetails(){
         refineData = [:]
         
-        let groups: [RefineGroupModel] = [
-            refineGroups.sort,
+        // If Not Asda. Then Hide Dietary.
+        let storeTypeID: Int = interactor!.getStoreTypeID()
+        
+        var groups: [RefineGroupModel] = [
             refineGroups.promotion,
             refineGroups.category,
             refineGroups.brand,
-            refineGroups.dietary
         ]
+        
+        if storeTypeID == 1 {
+            groups.append(refineGroups.dietary)
+        }
         
         for group in groups {
             if group.options.count > 0 {
@@ -170,7 +165,6 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     func displaySelectedOptions(viewModel: ShowRefine.GetSelectedOptions.ViewModel) {
         let selectedRefineOptions = viewModel.selectedRefineOptions
 
-        setRefineCheckedOptions(selectedOptions: selectedRefineOptions.sort, options: refineGroups.sort.options)
         setRefineCheckedOptions(selectedOptions: selectedRefineOptions.brand, options: refineGroups.brand.options)
         setRefineCheckedOptions(selectedOptions: selectedRefineOptions.category, options: refineGroups.category.options)
         setRefineCheckedOptions(selectedOptions: selectedRefineOptions.promotion, options: refineGroups.promotion.options)

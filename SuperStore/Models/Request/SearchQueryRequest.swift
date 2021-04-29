@@ -20,5 +20,5 @@ struct SearchQueryRequest {
     var childCategory: String = ""
     var textSearch: Bool = false
     
-    var refine: Bool = false
+    var refineSort: Bool = false
 }

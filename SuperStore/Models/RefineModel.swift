@@ -9,7 +9,6 @@
 import Foundation
 
 class SelectedRefineOptions {
-    var sort: [RefineSortOptionModel] = []
     var brand: [RefineBrandOptionModel] = []
     var category: [RefineCategoryOptionModel] = []
     var dietary: [RefineDietaryOptionModel] = []
@@ -17,14 +16,12 @@ class SelectedRefineOptions {
 }
 
 class RefineSearchModel {
-    var sort: RefineSortGroupModel
     var category: RefineCategoryGroupModel
     var brand: RefineBrandGroupModel
     var promotion: RefinePromotionGroupModel
     var dietary: RefineDietaryGroupModel
     
-    init(sort: RefineSortGroupModel, promotion: RefinePromotionGroupModel, category: RefineCategoryGroupModel, brand: RefineBrandGroupModel,dietary: RefineDietaryGroupModel) {
-        self.sort = sort
+    init(promotion: RefinePromotionGroupModel, category: RefineCategoryGroupModel, brand: RefineBrandGroupModel,dietary: RefineDietaryGroupModel) {
         self.promotion = promotion
         self.brand = brand
         self.category = category
@@ -44,10 +41,6 @@ class RefineGroupModel {
     }
 }
 
-
-// Sort Model
-class RefineSortGroupModel: RefineGroupModel { }
-
 // Brand Model
 class RefineBrandGroupModel: RefineGroupModel { }
 
@@ -66,7 +59,7 @@ enum RefineSelctionType {
     case multiple
 }
 
-// Options Within Group
+//MARK: - Options Within Group
 class RefineOptionModel: Equatable {
     var name: String
     var checked: Bool
@@ -84,13 +77,13 @@ class RefineOptionModel: Equatable {
 
 //MARK: - Sort Option Model
 class RefineSortOptionModel: RefineOptionModel {
-    var order: RefineOrderType
     var type: RefineSortType
+    var order: RefineOrderType?
     
-    init(name: String, checked: Bool, order: RefineOrderType, type: RefineSortType) {
-        self.order = order
+    init(name: String, type: RefineSortType, order: RefineOrderType? = nil) {
         self.type = type
-        super.init(name: name, checked: checked)
+        self.order = order
+        super.init(name: name, checked: false)
     }
     
     static func == (lhs: RefineSortOptionModel, rhs: RefineSortOptionModel) -> Bool {
@@ -109,6 +102,7 @@ enum RefineOrderType: String {
 enum RefineSortType: String {
     case price = "price"
     case rating = "rating"
+    case relevance = "relevance"
 }
 
 

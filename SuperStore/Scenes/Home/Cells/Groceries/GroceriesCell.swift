@@ -32,6 +32,7 @@ class GroceriesElementModel: HomeElementItemModel {
 
 class GroceriesCell: UITableViewCell, HomeElementCell {
     
+    @IBOutlet weak var browseButtonView: UIView!
     var groceriesPressed: (() -> Void)? = nil
     
     func configure(model elementModel: HomeElementItemModel) {
@@ -45,7 +46,7 @@ class GroceriesCell: UITableViewCell, HomeElementCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        setupViewGesture()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -54,7 +55,12 @@ class GroceriesCell: UITableViewCell, HomeElementCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func groceriesButtonPressed(_ sender: Any) {
+    func setupViewGesture(){
+        let browseButtonPressed = UITapGestureRecognizer(target: self, action: #selector(groceriesButtonPressed))
+        browseButtonView.addGestureRecognizer(browseButtonPressed)
+    }
+    
+    @objc func groceriesButtonPressed() {
         if let groceriesPressed = groceriesPressed {
             groceriesPressed()
         }

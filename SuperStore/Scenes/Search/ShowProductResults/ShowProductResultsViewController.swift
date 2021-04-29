@@ -127,28 +127,21 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     
     var currentLoggedIn: Bool = false
     
-    func getProducts(refine: Bool = false){
-        showRefineButton(refine: refine)
-        changeRefineButtonState(enabled: false)
-        
+    func getProducts(refineSort: Bool = false){
         // If category products or search results
         if interactor?.childCategoryID == nil {
-            getResults(refine: refine)
+            getResults(refineSort: refineSort)
         } else {
-            getCategoryProducts(refine: refine)
+            getCategoryProducts(refineSort: refineSort)
         }
     }
     
-    func getResults(refine: Bool = false){
-        loading = true
-        productsTableView.reloadData()
-        
-        if !refine {
+    func getResults(refineSort: Bool = false){
+        if !refineSort {
             totalProductsLabel.text = "Fetching Products"
-            refineButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle"), for: .normal)
         }
         
-        let request = ShowProductResults.GetResults.Request(page: currentPage, refine: refine)
+        let request = ShowProductResults.GetResults.Request(page: currentPage, refineSort: refineSort)
         interactor?.getResults(request: request)
     }
     
@@ -157,24 +150,20 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         interactor?.getListItems(request: request)
     }
     
-    func getCategoryProducts(refine: Bool = false){
-        loading = true
-        productsTableView.reloadData()
-        
-        changeRefineButtonState(enabled: false)
-        
-        if !refine {
+    func getCategoryProducts(refineSort: Bool = false){
+        if !refineSort {
             totalProductsLabel.text = "Fetching Products"
         } else {
             totalProductsLabel.text = "Refining Results"
         }
         
-        let request = ShowProductResults.GetCategoryProducts.Request(page: currentPage, refine: refine)
+        let request = ShowProductResults.GetCategoryProducts.Request(page: currentPage, refineSort: refineSort)
         interactor?.getCategoryProducts(request: request)
     }
     
-    func refineResults(){
+    func refineSortResults(title: String){
         loading = true
+        products = []
         currentPage = 1
         
         if products.count > 0 {
@@ -182,10 +171,10 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
         }
         
         productsTableView.reloadData()
+
+        totalProductsLabel.text = title
         
-        totalProductsLabel.text = "Refining Results"
-        
-        getProducts(refine: true)
+        getProducts(refineSort: true)
     }
     
     //MARK: - Display
@@ -193,7 +182,6 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     func displayResults(viewModel: ShowProductResults.GetResults.ViewModel)
     {
         refreshControl.endRefreshing()
-        changeRefineButtonState(enabled: true)
         
         if let error = viewModel.error {
             if !viewModel.offline {
@@ -261,7 +249,6 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     // Child Category Products
     func displayCategoryProducts(viewModel: ShowProductResults.GetCategoryProducts.ViewModel) {
         refreshControl.endRefreshing()
-        changeRefineButtonState(enabled: true)
         
         if let error = viewModel.error {
             if !viewModel.offline {
@@ -357,7 +344,6 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
     private func loadMoreProducts(indexPath: IndexPath){
         // If last row, not loading and more products avaialable. Then load more products.
         if !loading, let paginate = paginate, paginate.moreAvailable, indexPath.row == (products.count - 1) {
-            loading = true
             currentPage = currentPage + 1
             getProducts()
         }
@@ -375,25 +361,6 @@ extension ShowProductResultsViewController: UITableViewDataSource, UITableViewDe
     }
     
 }
-
-extension ShowProductResultsViewController {
-    
-    func changeRefineButtonState(enabled: Bool){
-        refineButton.isEnabled = enabled
-    }
-
-    func showRefineButton(refine: Bool = false){
-        var imageName: String = "line.horizontal.3.decrease.circle"
-        
-        if !interactor!.refineOptionsNotSet() {
-            imageName += ".fill"
-        }
-        
-        refineButton.setImage(UIImage(systemName: imageName), for: .normal)
-    }
-    
-}
-
 
 extension ShowProductResultsViewController: SelectListProtocol {
     
@@ -464,4 +431,46 @@ extension ShowProductResultsViewController {
     }
 }
 
+extension ShowProductResultsViewController {
+    @IBAction func showAlert(sender: AnyObject) {
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let sortOptions: [RefineSortOptionModel] = [
+            RefineSortOptionModel(name: "Relevance", type: .relevance),
+            
+            RefineSortOptionModel(name: "Price - High To Low", type: .price, order: .desc),
+            RefineSortOptionModel(name: "Price - Low To High", type: .price, order: .asc),
+            
+            RefineSortOptionModel(name: "Rating - High To Low", type: .rating, order: .desc),
+            RefineSortOptionModel(name: "Rating - Low To High", type: .rating, order: .asc)
+        ]
+        
+        for option in sortOptions {
+            alert.addAction(UIAlertAction(title: option.name, style: .default , handler:{ _ in self.sortOptionSelected(option: option) }))
+        }
 
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:{ (UIAlertAction)in
+            print("User click Dismiss button")
+        }))
+
+        if let viewRect = sender as? UIView {
+            
+            alert.modalPresentationStyle = .popover
+            
+            if let presenter = alert.popoverPresentationController {
+                presenter.sourceView = viewRect;
+                presenter.sourceRect = viewRect.bounds;
+            }
+
+            self.present(alert, animated: true, completion: {
+                print("completion block")
+            })
+        }
+    }
+    
+    private func sortOptionSelected(option: RefineSortOptionModel){
+        interactor?.sortOptionSelected(option: option)
+        refineSortResults(title: "Sorting Results")
+    }
+}

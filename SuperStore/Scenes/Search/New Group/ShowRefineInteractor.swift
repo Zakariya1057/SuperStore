@@ -20,6 +20,8 @@ protocol ShowRefineBusinessLogic
     
     var selectedRefineOptions: SelectedRefineOptions { get set }
     var searchRefine: SearchRefine { get set }
+    
+    func getStoreTypeID() -> Int
 }
 
 protocol ShowRefineDataStore
@@ -54,9 +56,6 @@ class ShowRefineInteractor: ShowRefineBusinessLogic, ShowRefineDataStore
         
         switch option {
         
-        case is RefineSortOptionModel:
-            selectedRefineOptions.sort = checked ? [option as! RefineSortOptionModel] : []
-            
         case is RefineCategoryOptionModel:
             selectedRefineOptions.category = checked ? [option as! RefineCategoryOptionModel] : []
             
@@ -87,5 +86,12 @@ class ShowRefineInteractor: ShowRefineBusinessLogic, ShowRefineDataStore
             
         }
         
+    }
+}
+
+extension ShowRefineInteractor {
+    func getStoreTypeID() -> Int {
+        let userSession: UserSessionWorker = UserSessionWorker()
+        return userSession.getStore()
     }
 }

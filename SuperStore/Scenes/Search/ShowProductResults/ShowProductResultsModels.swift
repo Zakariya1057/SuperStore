@@ -21,7 +21,7 @@ enum ShowProductResults
         struct Request
         {
             var page: Int = 1
-            var refine: Bool
+            var refineSort: Bool
         }
         struct Response
         {
@@ -46,7 +46,7 @@ enum ShowProductResults
         struct Request
         {
             var page: Int = 1
-            var refine: Bool
+            var refineSort: Bool
         }
         struct Response
         {

@@ -53,7 +53,7 @@ class GroceryWorker {
     
     func getCategoryProducts(childCategoryID: Int, data: SearchQueryRequest, page: Int, completionHandler: @escaping (_ category: ChildCategoryModel?, _ error: String?) -> Void){
         
-        if page == 1 && !data.refine {
+        if page == 1 && !data.refineSort {
             let category = groceryStore.getCategoryProducts(childCategoryID: childCategoryID)
             if let category = category, category.products.count > 0 {
                 completionHandler(category, nil)

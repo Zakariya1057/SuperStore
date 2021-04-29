@@ -234,8 +234,12 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 displayAllergen(product: displayedProduct)
                 displaydietary(product: displayedProduct)
                 
+                
                 if let category = displayedProduct.category {
+                    categoriesView.isHidden = false
                     categoriesNameLabel.text = category.name
+                } else {
+                    categoriesView.isHidden = true
                 }
                 
                 recommendedProducts = displayedProduct.recommended

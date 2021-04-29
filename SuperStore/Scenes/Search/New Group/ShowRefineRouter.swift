@@ -74,6 +74,6 @@ class ShowRefineRouter: NSObject, ShowRefineRoutingLogic, ShowRefineDataPassing
     
     func callRefineOnShowProductResults(source: ShowRefineViewController, destination: ShowProductResultsViewController)
     {
-        destination.refineResults()
+        destination.refineSortResults(title: "Refining Results")
     }
 }

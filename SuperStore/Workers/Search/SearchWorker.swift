@@ -40,7 +40,7 @@ class SearchWorker {
     
     func getProductResults(query: SearchQueryRequest, page: Int, completionHandler: @escaping (_ ResultsModel: ProductResultsModel?, _ error: String?) -> Void){
         
-        if page == 1 && !query.refine {
+        if page == 1 && !query.refineSort {
             let results = searchResultsStore.searchResults(query: query)
             if results.products.count > 0 {
                 completionHandler(results, nil)

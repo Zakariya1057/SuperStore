@@ -32,7 +32,7 @@ protocol ShowProductResultsBusinessLogic
     func updateListItem(request: ShowProductResults.UpdateListItem.Request)
     
     func getCategoryProducts(request: ShowProductResults.GetCategoryProducts.Request)
-    func refineOptionsNotSet() -> Bool
+    func sortOptionSelected(option: RefineSortOptionModel)
 }
 
 protocol ShowProductResultsDataStore
@@ -72,6 +72,8 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     
     var refineOptionsSet: Bool = false
     
+    var selectedSortOption: RefineSortOptionModel = RefineSortOptionModel(name: "Relevance", type: .relevance)
+    
     var selectedRefineOptions: SelectedRefineOptions = SelectedRefineOptions() {
         didSet {
             refineResults()
@@ -82,9 +84,9 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     {
         
         let page: Int = request.page
-        let refine: Bool = request.refine
+        let refine: Bool = request.refineSort
         
-        searchQueryRequest.refine = refine
+        searchQueryRequest.refineSort = refine
         
         searchWorker.getProductResults(query: searchQueryRequest, page: page) { (results: ProductResultsModel?, error: String?) in
             
@@ -115,11 +117,6 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         
         resetRefineResults()
         
-        if let selectedSort = selectedRefineOptions.sort.first {
-            searchQueryRequest.order = selectedSort.order.rawValue
-            searchQueryRequest.sort = selectedSort.type.rawValue
-        }
-        
         if let selectedCategory = selectedRefineOptions.category.first {
             searchQueryRequest.childCategory = removeCountFromString(text: selectedCategory.name)
         }
@@ -132,7 +129,7 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
             searchQueryRequest.promotion = removeCountFromString(text: selectedPromotion.name)
         }
 
-        searchQueryRequest.refine = true
+        searchQueryRequest.refineSort = true
         searchQueryRequest.dietary = selectedRefineOptions.dietary.compactMap({ $0.name }).joined(separator: ",")
     }
 
@@ -146,16 +143,6 @@ extension ShowProductResultsInteractor {
         searchQueryRequest.brand = ""
         searchQueryRequest.promotion = ""
         searchQueryRequest.childCategory = ""
-    }
-    
-    func refineOptionsNotSet() -> Bool {
-        return
-            searchQueryRequest.sort == "" &&
-            searchQueryRequest.order == "" &&
-            searchQueryRequest.dietary == "" &&
-            searchQueryRequest.brand == "" &&
-            searchQueryRequest.childCategory == "" &&
-            searchQueryRequest.promotion == ""
     }
 }
 
@@ -205,9 +192,9 @@ extension ShowProductResultsInteractor {
 extension ShowProductResultsInteractor {
     func getCategoryProducts(request: ShowProductResults.GetCategoryProducts.Request){
         let page: Int = request.page
-        let refine: Bool = request.refine
+        let refineSort: Bool = request.refineSort
         
-        searchQueryRequest.refine = refine
+        searchQueryRequest.refineSort = refineSort
         
         groceryWorker.getCategoryProducts(
             childCategoryID: childCategoryID!,
@@ -228,6 +215,14 @@ extension ShowProductResultsInteractor {
             self.presenter?.presentCategoryProducts(response: response)
         }
         
+    }
+}
+
+extension ShowProductResultsInteractor {
+    func sortOptionSelected(option: RefineSortOptionModel){
+        self.selectedSortOption = option
+        searchQueryRequest.order = selectedSortOption.order?.rawValue ?? ""
+        searchQueryRequest.sort = selectedSortOption.type.rawValue
     }
 }
 
