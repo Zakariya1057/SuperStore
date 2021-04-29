@@ -174,6 +174,7 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
 
         totalProductsLabel.text = title
         
+        getListItems()
         getProducts(refineSort: true)
     }
     
