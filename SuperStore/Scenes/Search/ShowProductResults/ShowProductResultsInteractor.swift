@@ -117,6 +117,8 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         
         resetRefineResults()
         
+
+        
         if let selectedCategory = selectedRefineOptions.category.first {
             searchQueryRequest.childCategory = removeCountFromString(text: selectedCategory.name)
         }
@@ -131,6 +133,13 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
 
         searchQueryRequest.refineSort = true
         searchQueryRequest.dietary = selectedRefineOptions.dietary.compactMap({ $0.name }).joined(separator: ",")
+        
+        if refineOptionsNotSet() {
+            selectedSortOption = RefineSortOptionModel(name: "Relevance", type: .relevance)
+        }
+        
+        searchQueryRequest.order = selectedSortOption.order?.rawValue ?? ""
+        searchQueryRequest.sort = selectedSortOption.type.rawValue
     }
 
 }
@@ -143,6 +152,14 @@ extension ShowProductResultsInteractor {
         searchQueryRequest.brand = ""
         searchQueryRequest.promotion = ""
         searchQueryRequest.childCategory = ""
+    }
+    
+    func refineOptionsNotSet() -> Bool {
+        return
+            searchQueryRequest.dietary == "" &&
+            searchQueryRequest.brand == "" &&
+            searchQueryRequest.childCategory == "" &&
+            searchQueryRequest.promotion == ""
     }
 }
 

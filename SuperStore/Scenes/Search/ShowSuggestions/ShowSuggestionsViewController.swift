@@ -194,6 +194,7 @@ extension ShowSuggestionsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let suggestion: SuggestionModel = suggestions[indexPath.row]
         suggestionSelected(suggestion: suggestion)
+        search()
     }
     
     private func suggestionSelected(suggestion: SuggestionModel){

@@ -2083,7 +2083,7 @@
                                                                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="35"/>
                                                                                                         <subviews>
                                                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
-                                                                                                                <rect key="frame" x="72" y="1.5" width="240" height="32"/>
+                                                                                                                <rect key="frame" x="74.5" y="2" width="235" height="31"/>
                                                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                                                 <userDefinedRuntimeAttributes>
                                                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="rating">
@@ -2093,7 +2093,7 @@
                                                                                                                         <integer key="value" value="5"/>
                                                                                                                     </userDefinedRuntimeAttribute>
                                                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="starSize">
-                                                                                                                        <real key="value" value="32"/>
+                                                                                                                        <real key="value" value="31"/>
                                                                                                                     </userDefinedRuntimeAttribute>
                                                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
                                                                                                                         <integer key="value" value="1"/>
@@ -3451,7 +3451,7 @@
             <objects>
                 <viewController id="HXj-j2-Hvf" customClass="ShowRefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wxa-Ye-bc0">
@@ -4971,7 +4971,7 @@
             <size key="intrinsicContentSize" width="255" height="35"/>
         </designable>
         <designable name="tFG-eX-umO">
-            <size key="intrinsicContentSize" width="239.849609375" height="32"/>
+            <size key="intrinsicContentSize" width="234.849609375" height="31"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
