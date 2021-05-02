@@ -13,6 +13,7 @@ class GroceriesGroupElement: HomeElementGroupModel {
     var type: HomeElementType = .groceries
     var items: [HomeElementItemModel] = [GroceriesElementModel()]
     var groceriesPressed: () -> Void
+    var showViewAllButton: Bool = false
     
     var loading: Bool = true
     

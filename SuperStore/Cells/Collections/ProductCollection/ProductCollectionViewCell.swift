@@ -44,13 +44,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
             
             oldPriceView.isHidden = true
             
-//            if product.oldPrice != nil {
-//                oldPriceView.isHidden = false
-//                oldPriceLabel.text = product.getOldPrice()
-//            } else {
-//                oldPriceView.isHidden = true
-//            }
-            
             priceLabel.text = product.getPrice()
         }
     }

@@ -18,7 +18,11 @@ import UIKit
     func routeToShowProduct(segue: UIStoryboardSegue?)
     func routeToStore(segue: UIStoryboardSegue?)
     func routeToShowList(segue: UIStoryboardSegue?)
+    
+    func routeToShowStoreResults(segue: UIStoryboardSegue?)
+    
     func routeToGrandParentCategories(segue: UIStoryboardSegue?)
+    func routeToChildCategories(segue: UIStoryboardSegue?)
 }
 
 protocol HomeDataPassing
@@ -105,6 +109,37 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
             navigateToGrandParentCategories(source: viewController!, destination: destinationVC)
         }
     }
+    
+    func routeToChildCategories(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ChildCategoriesViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToChildCategories(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChildCategoriesViewController") as! ChildCategoriesViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToChildCategories(source: dataStore!, destination: &destinationDS)
+            navigateToChildCategories(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    func routeToShowStoreResults(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowStoreResultsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowStoreResults(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowStoreResultsViewController") as! ShowStoreResultsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowStoreResults(source: dataStore!, destination: &destinationDS)
+            navigateToShowStoreResults(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     //    MARK: Navigation
     
     func navigateToShowList(source: HomeViewController, destination: ShowListViewController)
@@ -132,6 +167,15 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
         source.show(destination, sender: nil)
     }
     
+    func navigateToChildCategories(source: HomeViewController, destination: ChildCategoriesViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    func navigateToShowStoreResults(source: HomeViewController, destination: ShowStoreResultsViewController)
+    {
+      source.show(destination, sender: nil)
+    }
     //    MARK: Passing data
     
     func passDataToShowList(source: HomeDataStore, destination: inout ShowListDataStore)
@@ -155,6 +199,21 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     }
     
     func passDataToGrandParentCategories(source: HomeDataStore, destination: inout GrandParentCategoriesDataStore)
+    {
+        destination.storeTypeID = source.storeTypeID
+    }
+    
+    func passDataToChildCategories(source: HomeDataStore, destination: inout ChildCategoriesDataStore)
+    {
+        if let parentCategoryID = source.viewAllSelectedParentCategoryID, let parentCategoryName = source.viewAllSelectedParentCategoryName {
+            destination.parentCategoryID = parentCategoryID
+            destination.title = parentCategoryName
+        }
+
+        destination.storeTypeID = source.storeTypeID
+    }
+    
+    func passDataToShowStoreResults(source: HomeDataStore, destination: inout ShowStoreResultsDataStore)
     {
         destination.storeTypeID = source.storeTypeID
     }

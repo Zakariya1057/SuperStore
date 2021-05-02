@@ -14,6 +14,7 @@ class ListGroupProgressElement: HomeElementGroupModel {
     var items: [HomeElementItemModel]
     var listPressed: ((ListModel) -> Void)?
     var loading: Bool = true
+    var showViewAllButton: Bool = false
     
     init(title: String, lists: [ListProgressElement], listPressed: @escaping (ListModel) -> Void) {
         self.title = title

@@ -23,6 +23,8 @@ protocol HomeBusinessLogic
     var selectedStoreID: Int? { get set }
     
     var storeTypeID: Int { get }
+    
+    func setViewAllSelectedCategory(parentCategoryID: Int, parentCategoryName: String)
 }
 
 protocol HomeDataStore
@@ -33,11 +35,13 @@ protocol HomeDataStore
     var selectedStoreID: Int? { get set }
     
     var storeTypeID: Int { get }
+    
+    var viewAllSelectedParentCategoryName: String? { get set }
+    var viewAllSelectedParentCategoryID: Int? { get set }
 }
 
 class HomeInteractor: HomeBusinessLogic, HomeDataStore
 {
-
     var presenter: HomePresentationLogic?
     
     var worker: HomeWorker? = HomeWorker(homeAPI: HomeAPI())
@@ -49,6 +53,9 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     var selectedProductID: Int?
     var selectedPromotionID: Int?
     var selectedStoreID: Int?
+    
+    var viewAllSelectedParentCategoryName: String? = nil
+    var viewAllSelectedParentCategoryID: Int? = nil
     
     var storeTypeID: Int {
         return userSession.getStore()
@@ -76,7 +83,14 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
         let loggedIn: Bool = userSession.isLoggedIn()
         
         locationWorker.updateLocation(loggedIn: loggedIn, latitude: latitude, longitude: longitude) { (error: String?) in
-            print(error)
+//            print(error)
         }
+    }
+}
+
+extension HomeInteractor {
+    func setViewAllSelectedCategory(parentCategoryID: Int, parentCategoryName: String){
+        self.viewAllSelectedParentCategoryID = parentCategoryID
+        self.viewAllSelectedParentCategoryName = parentCategoryName
     }
 }

@@ -14,8 +14,12 @@ class StoreMapGroupElement: HomeElementGroupModel {
     var type: HomeElementType = .storesMap
     var items: [HomeElementItemModel]
     var storePressed: ((Int) -> Void)? = nil
+    
     var userLocationFetched: ((CLLocationCoordinate2D?) -> Void)?
+    
     var loading: Bool = true
+    
+    var showViewAllButton: Bool = true
     
     init(title: String, stores: [StoresMapElementModel], storePressed: ((Int) -> Void)?, userLocationFetched: ((CLLocationCoordinate2D?) -> Void)?) {
         self.title = title

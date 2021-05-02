@@ -46,7 +46,6 @@ class FeaturedProductCollectionViewCell: UICollectionViewCell {
             }
             
             nameLabel.text = product.name
-            
             priceLabel.text = product.getPrice()
             
             ratingView.rating = Double(product.avgRating)

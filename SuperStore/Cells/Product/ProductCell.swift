@@ -41,6 +41,8 @@ class ProductCell: UITableViewCell {
         if !loading {
             nameLabel.text = product.name
             
+//            nameLabel.font = UIFont(name:"Roboto-Regular", size:15)
+            
             if let image = product.smallImage {
                 productImageView.downloaded(from: image)
             } else {

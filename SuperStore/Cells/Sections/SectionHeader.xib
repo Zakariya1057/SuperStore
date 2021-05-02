@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,15 +21,29 @@
                     <rect key="frame" x="0.0" y="88" width="414" height="55"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euY-YM-d53">
-                            <rect key="frame" x="15" y="17.5" width="52" height="20.5"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <rect key="frame" x="15" y="17" width="52.5" height="21"/>
+                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aN-6b-A7e">
+                            <rect key="frame" x="339" y="19" width="60" height="17"/>
+                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
+                            <color key="tintColor" name="LogoBlue.Light"/>
+                            <state key="normal" title="View All">
+                                <color key="titleColor" name="LogoBlue.Light"/>
+                                <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
+                            </state>
+                            <connections>
+                                <action selector="viewAllButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="EbL-lE-WXd"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="PUN-QY-rIx"/>
                         <constraint firstItem="euY-YM-d53" firstAttribute="centerY" secondItem="4od-DQ-BzS" secondAttribute="centerY" id="iou-J5-MWu"/>
+                        <constraint firstAttribute="trailing" secondItem="4aN-6b-A7e" secondAttribute="trailing" constant="15" id="nHU-wQ-eD4"/>
+                        <constraint firstItem="4aN-6b-A7e" firstAttribute="centerY" secondItem="4od-DQ-BzS" secondAttribute="centerY" id="sOk-G2-QxI"/>
                         <constraint firstItem="euY-YM-d53" firstAttribute="leading" secondItem="4od-DQ-BzS" secondAttribute="leading" constant="15" id="wM7-3E-aEg"/>
                     </constraints>
                 </view>
@@ -42,11 +58,16 @@
             <connections>
                 <outlet property="headingLabel" destination="euY-YM-d53" id="JZB-G2-IVZ"/>
                 <outlet property="headingView" destination="4od-DQ-BzS" id="igY-Bs-U65"/>
+                <outlet property="viewAllButton" destination="4aN-6b-A7e" id="RTc-MA-HGm"/>
             </connections>
             <point key="canvasLocation" x="25" y="94"/>
         </view>
     </objects>
     <resources>
+        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <namedColor name="LogoBlue.Light">
+            <color red="0.097999997437000275" green="0.46299999952316284" blue="0.80400002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

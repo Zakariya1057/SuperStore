@@ -13,7 +13,10 @@ class PromotionGroupElement: HomeElementGroupModel {
     var type: HomeElementType = .offers
     var items: [HomeElementItemModel]
     var promotionPressed: (Int) -> Void
+    
     var loading: Bool = true
+    
+    var showViewAllButton: Bool = true
     
     init(title: String, promotions: [PromotionsElementModel], promotionPressed: @escaping (Int) -> Void) {
         self.title = title

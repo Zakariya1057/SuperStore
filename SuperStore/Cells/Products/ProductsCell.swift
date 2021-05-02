@@ -13,7 +13,12 @@ class ProductGroupElement: HomeElementGroupModel {
     var type: HomeElementType = .products
     var items: [HomeElementItemModel]
     var productPressed: ((Int) -> Void)? = nil
+    
     var loading: Bool = true
+    
+    var categoryID: Int? = nil
+    
+    var showViewAllButton: Bool = true
     
     init(title: String, products: [ProductsElementModel], productPressed: @escaping (Int) -> Void) {
         self.title = title
@@ -53,6 +58,7 @@ class ProductsElementModel: HomeElementItemModel {
     var loading: Bool = true
     
     var index: Int = 0
+    
     var title: String = ""
     
     var scrollPosition: CGFloat = 0
@@ -111,7 +117,6 @@ class ProductsCell: UITableViewCell, HomeElementCell {
     }
     
     override func awakeFromNib() {
-        
         super.awakeFromNib()
         productCollection.register(UINib(nibName: "ProductCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ProductCollectionViewCell")
         

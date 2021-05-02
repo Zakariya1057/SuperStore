@@ -201,30 +201,40 @@ extension HomeViewController {
                 }
                 
             }
-            
-            for category in homeModel.categories {
-                let name = category.name
-                let products = category.products
+                
+            addHomeCategories(homeModel: homeModel)
 
-                let productCell = ProductsElementModel(products: products)
-                
-                productCell.title = name
-                
-                let categoryCell = CategoryProductGroupElement(title: name, products: [productCell], productPressed: productPressed)
-                
-                categoryCell.setLoading(loading: loading)
-                
-                productCell.parentScrolled = cellScroll
-                
-                if let position = scrollPositions[name] {
-                    productCell.scrollPosition = position
-                }
-                
-                homeCells.append(categoryCell)
-            }
-            
             tableView.reloadData()
             
+        }
+        
+    }
+    
+    private func addHomeCategories(homeModel: HomeModel){
+        
+        for category in homeModel.categories {
+            let categoryID = category.id
+            
+            let name = category.name
+            let products = category.products
+
+            let productCell = ProductsElementModel(products: products)
+            
+            productCell.title = name
+            
+            let categoryCell = CategoryProductGroupElement(title: name, products: [productCell], productPressed: productPressed)
+            
+            categoryCell.categoryID = categoryID
+            
+            categoryCell.setLoading(loading: loading)
+            
+            productCell.parentScrolled = cellScroll
+            
+            if let position = scrollPositions[name] {
+                productCell.scrollPosition = position
+            }
+            
+            homeCells.append(categoryCell)
         }
         
     }
@@ -336,6 +346,7 @@ extension HomeViewController {
 }
 
 
+//MARK: - TableView Setup
 extension HomeViewController {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -348,9 +359,30 @@ extension HomeViewController {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SectionHeader") as! SectionHeader
-        let title: String = homeCells[section].title
         
+        let homeSection: HomeElementGroupModel = homeCells[section]
+        
+        let title: String = homeSection.title
+        let showViewAllButton = homeSection is GroceryProductGroupElement ? false : homeSection.showViewAllButton
+
         sectionHeader.headingLabel.text = title
+
+        sectionHeader.viewAllButtonPressed = {
+            if homeSection is StoreMapGroupElement {
+                self.viewAllStoresButtonPressed()
+            } else if homeSection is PromotionGroupElement {
+                self.viewAllPromotionsButtonPressed()
+            } else if homeSection is CategoryProductGroupElement {
+                let homeSection = homeSection as! CategoryProductGroupElement
+                self.viewAllCategoryProductsButtonPressed(categoryID: homeSection.categoryID!, categoryName: title)
+            } else if homeSection is MonitoringProductGroupElement {
+                self.viewAllMonitoredProductsButtonPressed()
+            }
+        }
+        
+        sectionHeader.showViewAllButton = showViewAllButton
+        
+        sectionHeader.configureUI()
         
         return sectionHeader
     }
@@ -457,8 +489,34 @@ extension HomeViewController {
         router?.routeToGrandParentCategories(segue: nil)
     }
     
-    private func cellScroll(title: String, position: CGFloat){
+    private func cellScroll(_ title: String, _ position: CGFloat){
         scrollPositions[title] = position
+    }
+}
+
+//MARK: - View All Buttons Callbacks
+extension HomeViewController {
+    private func viewAllStoresButtonPressed(){
+        // Navigate To Store Results
+        print("View All Stores")
+        router?.routeToShowStoreResults(segue: nil)
+    }
+    
+    private func viewAllPromotionsButtonPressed(){
+        // Navigate To Page - All Offers. Paginated
+        print("View All Offers")
+    }
+    
+    private func viewAllMonitoredProductsButtonPressed(){
+        // Navigate To Page - All Offers. Paginated
+        print("View All Monitors")
+    }
+    
+    private func viewAllCategoryProductsButtonPressed(categoryID: Int, categoryName: String){
+        // Navigate To Child Categories - View All Product Categories
+        print("\(categoryID) \(categoryName)")
+        interactor?.setViewAllSelectedCategory(parentCategoryID: categoryID, parentCategoryName: categoryName)
+        router?.routeToChildCategories(segue: nil)
     }
 }
 
@@ -498,7 +556,10 @@ protocol HomeElementGroupModel: AnyObject {
     var title: String { get }
     var type: HomeElementType { get }
     var items: [HomeElementItemModel] { get }
+
     var loading: Bool { get set }
+    
+    var showViewAllButton: Bool { get set }
 }
 
 protocol HomeElementItemModel: AnyObject {

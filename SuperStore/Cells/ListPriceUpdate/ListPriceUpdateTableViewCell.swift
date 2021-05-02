@@ -13,6 +13,7 @@ class ListPriceUpdateGroupElement: HomeElementGroupModel {
     var type: HomeElementType = .products
     var items: [HomeElementItemModel]
     var loading: Bool = true
+    var showViewAllButton: Bool = false
     
     init(title: String, stores: [ListPriceUpdateElementModel]) {
         self.title = title

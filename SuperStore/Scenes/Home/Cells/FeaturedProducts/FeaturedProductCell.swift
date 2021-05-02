@@ -13,6 +13,7 @@ class FeaturedProductGroupElement: HomeElementGroupModel {
     var type: HomeElementType = .featuredProducts
     var items: [HomeElementItemModel]
     var productPressed: (Int) -> Void
+    var showViewAllButton: Bool = false
     
     var loading: Bool = true
     
