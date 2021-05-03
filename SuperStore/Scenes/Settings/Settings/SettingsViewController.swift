@@ -89,6 +89,8 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     @IBOutlet var storeLoggedInStackView: UIStackView!
     @IBOutlet var storeLoggedOutStackView: UIStackView!
     
+    @IBOutlet var logoutStackView: UIStackView!
+    
     @IBOutlet var storeLoggedInNameLabel: UILabel!
     @IBOutlet var storeLoggedOutNameLabel: UILabel!
     
@@ -96,8 +98,6 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     @IBOutlet weak var emailLabel: UILabel!
     
     @IBOutlet var notificationSwitch: UISwitch!
-    
-    @IBOutlet var logoutButton: UIButton!
 
     var userSession: UserSessionWorker = UserSessionWorker()
     var loggedIn: Bool {
@@ -176,18 +176,11 @@ extension SettingsViewController {
     func displayUserViews(loggedIn: Bool){
         if loggedIn {
             showRightBarButton()
-            
             loggedInView.isHidden = false
-            logoutButton.isHidden = false
-            
             loggedOutView.isHidden = true
         } else {
-            
             hideRightBarButton()
-            
             loggedInView.isHidden = true
-            logoutButton.isHidden = true
-            
             loggedOutView.isHidden = false
         }
     }
@@ -195,10 +188,21 @@ extension SettingsViewController {
 
 extension SettingsViewController {
     @IBAction func deleteButtonPressed(_ sender: Any) {
-        startLoading()
-        
-        let request = Settings.Delete.Request()
-        interactor?.delete(request: request)
+       
+        let refreshAlert = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account. All your data will be permanently lost.", preferredStyle: UIAlertController.Style.alert)
+
+        refreshAlert.addAction(UIAlertAction(title: "Yes, delete", style: .default, handler: { (action: UIAlertAction!) in
+            self.startLoading()
+            
+            let request = Settings.Delete.Request()
+            self.interactor?.delete(request: request)
+        }))
+
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Cancel Delete")
+        }))
+
+        present(refreshAlert, animated: true, completion: nil)
     }
     
     @IBAction func notificationSwitchPressed(_ sender: Any) {
@@ -232,12 +236,6 @@ extension SettingsViewController {
 
     }
     
-    @IBAction func logoutButtonPressed(_ sender: Any) {
-        startLoading()
-        
-        let request = Settings.Logout.Request()
-        interactor?.logout(request: request)
-    }
 }
 
 extension SettingsViewController {
@@ -256,6 +254,9 @@ extension SettingsViewController {
         
         storeLoggedOutStackView.addGestureRecognizer(storeGestureLoggedOut)
         storeLoggedInStackView.addGestureRecognizer(storeGestureLoggedIn)
+        
+        let logoutGesture = UITapGestureRecognizer(target: self, action: #selector(logoutPressed))
+        logoutStackView.addGestureRecognizer(logoutGesture)
     }
 }
 
@@ -300,6 +301,22 @@ extension SettingsViewController {
     
     @objc func storePressed(){
         router?.routeToEditStore(segue: nil)
+    }
+    
+    @objc func logoutPressed(){
+        let refreshAlert = UIAlertController(title: "Logout", message: "Are you sure you want to logout? Your data won't be lost.", preferredStyle: UIAlertController.Style.alert)
+
+        refreshAlert.addAction(UIAlertAction(title: "Yes, logout", style: .default, handler: { (action: UIAlertAction!) in
+            self.startLoading()
+            let request = Settings.Logout.Request()
+            self.interactor?.logout(request: request)
+        }))
+
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Cancel Delete")
+        }))
+        
+        present(refreshAlert, animated: true, completion: nil)
     }
 }
 

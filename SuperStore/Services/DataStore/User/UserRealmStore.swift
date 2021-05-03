@@ -77,11 +77,7 @@ class UserRealmStore: DataStore, UserStoreProtocol {
     }
     
     func deleteUser() {
-        try? realm?.write({
-            if let users = realm?.objects(UserObject.self) {
-                realm?.delete(users)
-            }
-        })
+        deleteAllData()
     }
 }
 
