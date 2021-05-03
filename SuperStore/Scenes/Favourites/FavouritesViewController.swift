@@ -117,7 +117,7 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
             products = viewModel.products
             favouriteTableView.reloadData()
         }
-        
+
     }
     
     func displayDeleteFavourite(viewModel: Favourites.DeleteFavourite.ViewModel){

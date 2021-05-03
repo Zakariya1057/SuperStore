@@ -667,7 +667,7 @@
                     <connections>
                         <outlet property="listsTableView" destination="4f9-RG-A9C" id="tMJ-k6-jnA"/>
                         <outlet property="searchBar" destination="CVn-Hd-pPy" id="tst-Z1-y9s"/>
-                        <segue destination="Lah-o7-jyx" kind="show" identifier="list_to_items" id="IsU-Le-ax2"/>
+                        <segue destination="Lah-o7-jyx" kind="show" identifier="" id="IsU-Le-ax2"/>
                         <segue destination="ZAM-DR-R8x" kind="show" identifier="EditList" id="xPQ-AN-X0l"/>
                     </connections>
                 </viewController>
@@ -700,11 +700,60 @@
                     <navigationItem key="navigationItem" title="Home" id="gXb-Eq-fSq"/>
                     <connections>
                         <outlet property="tableView" destination="Eof-vc-QCj" id="PFB-7w-4IE"/>
+                        <segue destination="pbg-V5-OLc" kind="show" identifier="" id="Md2-nX-xL7"/>
+                        <segue destination="Jzw-A6-sfX" kind="show" id="iRX-lr-kgq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5il-zc-Jag" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3929" y="-763"/>
+        </scene>
+        <!--Monitored Products-->
+        <scene sceneID="JsK-qh-FyS">
+            <objects>
+                <viewController storyboardIdentifier="MonitoredProductsViewController" id="pbg-V5-OLc" customClass="MonitoredProductsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wh5-cT-alh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Y3s-9v-3Pw">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tfH-SF-Kdh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Y3s-9v-3Pw" firstAttribute="leading" secondItem="tfH-SF-Kdh" secondAttribute="leading" id="7Fl-UX-EP4"/>
+                            <constraint firstItem="Y3s-9v-3Pw" firstAttribute="top" secondItem="tfH-SF-Kdh" secondAttribute="top" id="Nk6-xL-v3k"/>
+                            <constraint firstItem="tfH-SF-Kdh" firstAttribute="bottom" secondItem="Y3s-9v-3Pw" secondAttribute="bottom" id="kSJ-Un-5He"/>
+                            <constraint firstItem="tfH-SF-Kdh" firstAttribute="trailing" secondItem="Y3s-9v-3Pw" secondAttribute="trailing" id="pPr-lz-csC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Monitored Products" id="uEa-UQ-2pj"/>
+                    <connections>
+                        <outlet property="monitorTableView" destination="Y3s-9v-3Pw" id="IvV-CM-aNg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EOf-Ow-H1u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5030" y="-763"/>
+        </scene>
+        <!--Offers-->
+        <scene sceneID="3Pt-SX-bot">
+            <objects>
+                <viewController id="Jzw-A6-sfX" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eMN-s0-Iny">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="xay-Jg-oe5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Offers" id="XYs-JU-W06"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fld-X1-Y2Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5942" y="-1201"/>
         </scene>
         <!--Settings-->
         <scene sceneID="wP0-tL-jXO">

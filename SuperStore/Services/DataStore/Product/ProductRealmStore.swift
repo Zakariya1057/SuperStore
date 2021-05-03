@@ -18,6 +18,9 @@ class ProductRealmStore: DataStore, ProductStoreProtocol {
         return realm?.objects(ProductObject.self).filter("id = %@", productID).first
     }
     
+    private func getMonitoredProductObjects(storeTypeID: Int) -> Results<ProductObject>? {
+        return realm?.objects(ProductObject.self).filter("monitoring = true AND storeTypeID = %@", storeTypeID).sorted(byKeyPath: "monitoredUpdatedAt", ascending: true)
+    }
     
     func getProduct(productID: Int) -> ProductModel? {
         
@@ -64,9 +67,35 @@ class ProductRealmStore: DataStore, ProductStoreProtocol {
         })
     }
     
+
+    
+}
+
+//MARK: - Monitored Products
+extension ProductRealmStore {
+    
+    func unmonitorAllProducts(storeTypeID: Int){
+        if let savedProducts = getMonitoredProductObjects(storeTypeID: storeTypeID){
+            try? realm?.write({
+                for product in savedProducts {
+                    product.monitoring = false
+                }
+            })
+        }
+    }
+    
+    func getMonitoredProducts(storeTypeID: Int) -> [ProductModel] {
+        if let savedProducts = getMonitoredProductObjects(storeTypeID: storeTypeID){
+            return savedProducts.map{ $0.getProductModel() }
+        }
+        
+        return []
+    }
+    
     func updateProductMonitor(productID: Int, monitor: Bool) {
         if let savedProduct = getProductObject(productID: productID) {
             try? realm?.write({
+                savedProduct.monitoredUpdatedAt = Date()
                 savedProduct.monitoring = monitor
             })
         }
@@ -211,7 +240,8 @@ extension ProductRealmStore {
             savedProduct.productDescription = product.description
             
             savedProduct.favourite = product.favourite
-            savedProduct.monitoring = product.monitoring
+
+            updateMonitoring(product: product, savedProduct: savedProduct)
             
             updateRatings(product: product, savedProduct: savedProduct)
             
@@ -362,5 +392,13 @@ extension ProductRealmStore {
             }
             
         }
+    }
+    
+    func updateMonitoring(product: ProductModel, savedProduct: ProductObject){
+        if product.monitoring != savedProduct.monitoring {
+            savedProduct.monitoredUpdatedAt = Date()
+        }
+        
+        savedProduct.monitoring = product.monitoring
     }
 }

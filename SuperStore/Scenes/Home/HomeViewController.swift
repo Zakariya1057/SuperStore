@@ -510,6 +510,7 @@ extension HomeViewController {
     private func viewAllMonitoredProductsButtonPressed(){
         // Navigate To Page - All Offers. Paginated
         print("View All Monitors")
+        router?.routeToMonitoredProducts(segue: nil)
     }
     
     private func viewAllCategoryProductsButtonPressed(categoryID: Int, categoryName: String){

@@ -65,6 +65,8 @@ class ProductObject: Object {
     
     @objc dynamic var enabled: Bool = true
     
+    @objc dynamic var monitoredUpdatedAt: Date = Date()
+    
     @objc dynamic var updatedAt: Date = Date()
     @objc dynamic var createdAt: Date = Date()
     

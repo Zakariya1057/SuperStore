@@ -33,6 +33,27 @@ class ProductWorker {
             completionHandler(product, error)
         }
     }
+
+}
+
+extension ProductWorker {
+    
+    func getMonitoredProducts(storeTypeID: Int, completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void){
+        let products = productStore.getMonitoredProducts(storeTypeID: storeTypeID)
+        
+        if products.count > 0 {
+            completionHandler(products, nil)
+        }
+        
+        productAPI.getMonitoredProducts(storeTypeID: storeTypeID) { (products: [ProductModel], error: String?) in
+            if error == nil {
+                self.productStore.unmonitorAllProducts(storeTypeID: storeTypeID)
+                self.productStore.createProducts(products: products)
+            }
+            
+            completionHandler(products, nil)
+        }
+    }
     
     func updateMonitor(productID: Int, monitor: Bool, completionHandler: @escaping (String?) -> Void){
         productAPI.updateMonitor(productID: productID, monitor: monitor) { (error: String?) in
@@ -47,6 +68,8 @@ class ProductWorker {
 
 protocol ProductRequestProtocol {
     func getProduct(productID: Int, completionHandler: @escaping (_ product: ProductModel?, _ error: String?) -> Void)
+    
+    func getMonitoredProducts(storeTypeID: Int, completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void)
     func updateMonitor(productID: Int, monitor: Bool, completionHandler: @escaping (String?) -> Void)
 }
 
@@ -56,6 +79,9 @@ protocol ProductStoreProtocol {
     
     func getProduct(productID: Int) -> ProductModel?
     func getFavouriteProducts() -> [ProductModel]
+    
+    func getMonitoredProducts(storeTypeID: Int) -> [ProductModel]
+    func unmonitorAllProducts(storeTypeID: Int)
     
     func createProduct(product: ProductModel)
     func createProducts(products: [ProductModel])

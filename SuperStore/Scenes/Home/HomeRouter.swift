@@ -23,6 +23,8 @@ import UIKit
     
     func routeToGrandParentCategories(segue: UIStoryboardSegue?)
     func routeToChildCategories(segue: UIStoryboardSegue?)
+    
+    func routeToMonitoredProducts(segue: UIStoryboardSegue?)
 }
 
 protocol HomeDataPassing
@@ -140,6 +142,20 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
         }
     }
     
+    func routeToMonitoredProducts(segue: UIStoryboardSegue?) {
+        if let segue = segue {
+            let destinationVC = segue.destination as! MonitoredProductsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToMonitoredProducts(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "MonitoredProductsViewController") as! MonitoredProductsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToMonitoredProducts(source: dataStore!, destination: &destinationDS)
+            navigateToMonitoredProducts(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     //    MARK: Navigation
     
     func navigateToShowList(source: HomeViewController, destination: ShowListViewController)
@@ -176,6 +192,12 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     {
       source.show(destination, sender: nil)
     }
+    
+    func navigateToMonitoredProducts(source: HomeViewController, destination: MonitoredProductsViewController)
+    {
+      source.show(destination, sender: nil)
+    }
+    
     //    MARK: Passing data
     
     func passDataToShowList(source: HomeDataStore, destination: inout ShowListDataStore)
@@ -216,5 +238,10 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     func passDataToShowStoreResults(source: HomeDataStore, destination: inout ShowStoreResultsDataStore)
     {
         destination.storeTypeID = source.storeTypeID
+    }
+    
+    func passDataToMonitoredProducts(source: HomeDataStore, destination: inout MonitoredProductsDataStore)
+    {
+//        destination.storeTypeID = source.storeTypeID
     }
 }
