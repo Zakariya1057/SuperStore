@@ -85,9 +85,12 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
     let spinner: SpinnerViewController = SpinnerViewController()
     
     @IBOutlet var nameLabel: UILabel!
+    
+    var quantity: Int = 1
+    
     @IBOutlet var quantityLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
-    @IBOutlet var quantityStepper: UIStepper!
+//    @IBOutlet var quantityStepper: UIStepper!
     
     @IBOutlet var weightLabel: UILabel!
     @IBOutlet var promotionButton: UIButton!
@@ -114,7 +117,8 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
         displayedListItem = viewModel.displayedListItem
         
         nameLabel.text = displayedListItem.name
-
+        quantity = displayedListItem.quantity
+        
         createSlideShowImages(image: displayedListItem.image)
         
         displayWeight()
@@ -169,9 +173,6 @@ extension EditListItemViewController {
     }
     
     func displayQuantity(){
-        let quantity = displayedListItem.quantity
-        
-        quantityStepper.value = Double(quantity)
         quantityLabel.text = String(quantity)
     }
 }
@@ -193,13 +194,6 @@ extension EditListItemViewController {
         
         let request = EditListItem.DeleteListItem.Request()
         interactor?.deleteListItem(request: request)
-    }
-    
-    @IBAction func quantityStepperPressed(_ stepper: UIStepper) {
-        let quantity = Int(stepper.value)
-        
-        let request = EditListItem.UpdateQuantity.Request(quantity: quantity)
-        interactor?.updateQuantity(request: request)
     }
 }
 
@@ -263,4 +257,25 @@ extension EditListItemViewController: ImageSlideshowDelegate {
         slideshow.presentFullScreenController(from: self)
     }
     
+}
+
+extension EditListItemViewController {
+    @IBAction func addButtonPressed(_ sender: UIButton) {
+        quantity += 1
+        updateQuantity()
+    }
+    
+    @IBAction func minusButtonPressed(_ sender: UIButton) {
+        if quantity > 0 {
+            quantity -= 1
+            updateQuantity()
+        }
+    }
+    
+    private func updateQuantity(){
+        displayQuantity()
+        
+        let request = EditListItem.UpdateQuantity.Request(quantity: quantity)
+        interactor?.updateQuantity(request: request)
+    }
 }
