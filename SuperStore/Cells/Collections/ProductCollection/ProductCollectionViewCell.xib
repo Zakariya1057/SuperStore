@@ -29,7 +29,6 @@
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" translatesAutoresizingMaskIntoConstraints="NO" id="1Lg-dC-we0" userLabel="Food">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="120"/>
-                                                <color key="backgroundColor" systemColor="labelColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="120" id="Ten-rD-WCg"/>
                                                 </constraints>
