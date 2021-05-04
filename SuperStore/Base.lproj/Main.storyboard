@@ -1535,10 +1535,10 @@
                         <outlet property="loggedInView" destination="Vxc-jk-Y9y" id="juS-J1-L9q"/>
                         <outlet property="loggedOutView" destination="yFJ-Fz-ebz" id="9KK-7k-6dM"/>
                         <outlet property="logoutStackView" destination="Ove-Op-477" id="7TJ-St-Q88"/>
-                        <outlet property="nameLabel" destination="SU0-Sm-Eox" id="m7J-oF-8rH"/>
+                        <outlet property="nameLabel" destination="jSl-KX-ZyN" id="ovU-n6-MSR"/>
                         <outlet property="notificationSwitch" destination="vou-Fe-23S" id="KkC-wy-MPV"/>
                         <outlet property="passwordStackView" destination="cZt-jF-u3P" id="ufb-WD-LIy"/>
-                        <outlet property="storeLoggedInNameLabel" destination="SU0-Sm-Eox" id="1QV-Wx-UE6"/>
+                        <outlet property="storeLoggedInNameLabel" destination="6Ab-1O-N5d" id="aFz-6P-oKA"/>
                         <outlet property="storeLoggedInStackView" destination="V0e-9C-XAH" id="ZQZ-Zh-XWe"/>
                         <outlet property="storeLoggedOutNameLabel" destination="SU0-Sm-Eox" id="dtK-4g-OMi"/>
                         <outlet property="storeLoggedOutStackView" destination="jp6-9C-vSI" id="pAt-iJ-iao"/>

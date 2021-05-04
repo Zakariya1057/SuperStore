@@ -125,11 +125,15 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
         } else {
             if let user = viewModel.displayedUser {
                 
+                print(user)
+                
                 displayUserViews(loggedIn: true)
                 
                 nameLabel.text = user.name
                 emailLabel.text = user.email
+                
                 storeLoggedInNameLabel!.text = user.storeName
+                storeLoggedOutNameLabel!.text = user.storeName
                 
                 notificationSwitch.isOn = user.sendNotifications
             }

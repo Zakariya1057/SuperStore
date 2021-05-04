@@ -242,6 +242,6 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     
     func passDataToMonitoredProducts(source: HomeDataStore, destination: inout MonitoredProductsDataStore)
     {
-//        destination.storeTypeID = source.storeTypeID
+        destination.storeTypeID = source.storeTypeID
     }
 }
