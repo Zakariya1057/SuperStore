@@ -23,7 +23,7 @@ protocol SettingsDisplayLogic: AnyObject
 
 class SettingsViewController: UIViewController, SettingsDisplayLogic
 {
-
+    
     var interactor: SettingsBusinessLogic?
     var router: (NSObjectProtocol & SettingsRoutingLogic & SettingsDataPassing)?
     
@@ -79,27 +79,27 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
-//    @IBOutlet var loggedInView: UIView!
-//    @IBOutlet var loggedOutView: UIView!
-//
-//    @IBOutlet weak var usernameStackView: UIStackView!
-//    @IBOutlet weak var emailStackView: UIStackView!
-//    @IBOutlet weak var passwordStackView: UIStackView!
-//
-//    @IBOutlet var storeLoggedInStackView: UIStackView!
-//    @IBOutlet var storeLoggedOutStackView: UIStackView!
-//
-//    @IBOutlet var logoutStackView: UIStackView!
-//
-//    @IBOutlet var storeLoggedInNameLabel: UILabel!
-//    @IBOutlet var storeLoggedOutNameLabel: UILabel!
-//
-//    @IBOutlet weak var nameLabel: UILabel!
-//    @IBOutlet weak var emailLabel: UILabel!
-//
-//    @IBOutlet var notificationSwitch: UISwitch!
-
-//    var displayUserFields: [Settings.DisplayUserField] = []
+    //    @IBOutlet var loggedInView: UIView!
+    //    @IBOutlet var loggedOutView: UIView!
+    //
+    //    @IBOutlet weak var usernameStackView: UIStackView!
+    //    @IBOutlet weak var emailStackView: UIStackView!
+    //    @IBOutlet weak var passwordStackView: UIStackView!
+    //
+    //    @IBOutlet var storeLoggedInStackView: UIStackView!
+    //    @IBOutlet var storeLoggedOutStackView: UIStackView!
+    //
+    //    @IBOutlet var logoutStackView: UIStackView!
+    //
+    //    @IBOutlet var storeLoggedInNameLabel: UILabel!
+    //    @IBOutlet var storeLoggedOutNameLabel: UILabel!
+    //
+    //    @IBOutlet weak var nameLabel: UILabel!
+    //    @IBOutlet weak var emailLabel: UILabel!
+    //
+    //    @IBOutlet var notificationSwitch: UISwitch!
+    
+    //    var displayUserFields: [Settings.DisplayUserField] = []
     
     var displayUserSections: [Settings.DisplayUserSection] = []
     
@@ -119,7 +119,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
             interactor?.getSettings(request: request)
         } else {
             // Get User Store. Show Store
-//            displayUserViews(loggedIn: false)
+            //            displayUserViews(loggedIn: false)
             getUserStore()
         }
     }
@@ -128,24 +128,11 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     {
         if viewModel.error != nil {
             // User not logged in.
-//            displayUserViews(loggedIn: false)
+            //            displayUserViews(loggedIn: false)
             getUserStore()
         } else {
             displayUserSections = viewModel.displayUserSections
             settingsTableView.reloadData()
-            
-//            if let user = viewModel.displayedUser {
-                
-//                displayUserViews(loggedIn: true)
-//
-//                nameLabel.text = user.name
-//                emailLabel.text = user.email
-//
-//                storeLoggedInNameLabel!.text = user.storeName
-//                storeLoggedOutNameLabel!.text = user.storeName
-//
-//                notificationSwitch.isOn = user.sendNotifications
-//            }
         }
     }
     
@@ -155,7 +142,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     }
     
     func displayUserStore(viewModel: Settings.GetStore.ViewModel) {
-//        storeLoggedOutNameLabel!.text = viewModel.storeName
+        //        storeLoggedOutNameLabel!.text = viewModel.storeName
     }
     
     func displayedLogout(viewModel: Settings.Logout.ViewModel) {
@@ -186,68 +173,54 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
 }
 
 extension SettingsViewController {
-//    func displayUserViews(loggedIn: Bool){
-//        if loggedIn {
-//            showRightBarButton()
-//            loggedInView.isHidden = false
-//            loggedOutView.isHidden = true
-//        } else {
-//            hideRightBarButton()
-//            loggedInView.isHidden = true
-//            loggedOutView.isHidden = false
-//        }
-//    }
-}
-
-extension SettingsViewController {
     @IBAction func deleteButtonPressed(_ sender: Any) {
-       
+        
         let refreshAlert = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account. All your data will be permanently lost.", preferredStyle: UIAlertController.Style.alert)
-
+        
         refreshAlert.addAction(UIAlertAction(title: "Yes, delete", style: .default, handler: { (action: UIAlertAction!) in
             self.startLoading()
             
             let request = Settings.Delete.Request()
             self.interactor?.delete(request: request)
         }))
-
+        
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-              print("Cancel Delete")
+            print("Cancel Delete")
         }))
-
+        
         present(refreshAlert, animated: true, completion: nil)
     }
     
-//    @IBAction func notificationSwitchPressed(_ sender: Any) {
-//        let sendNotifications = notificationSwitch.isOn
-//
-//        if sendNotifications {
-//            var errorMessage: String? = nil
-//
-//            let center = UNUserNotificationCenter.current()
-//            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-//                // Enable or disable features based on the authorization.
-//                if !granted {
-//                    errorMessage = "Please enable notifications from your apple settings."
-//                } else if let error = error {
-//                    errorMessage = error.localizedDescription
-//                }
-//
-//                DispatchQueue.main.async {
-//                    if let errorMessage = errorMessage {
-//                        self.notificationSwitch.setOn(false, animated: true)
-//                        self.showError(title: "Notification Error", error: errorMessage)
-//                    } else {
-//                        let request = Settings.UpdateNotifications.Request(sendNotifications: sendNotifications)
-//                        self.interactor?.updateNotification(request: request)
-//                    }
-//                }
-//
-//            }
-//
-//        }
-//
-//    }
+    //    @IBAction func notificationSwitchPressed(_ sender: Any) {
+    //        let sendNotifications = notificationSwitch.isOn
+    //
+    //        if sendNotifications {
+    //            var errorMessage: String? = nil
+    //
+    //            let center = UNUserNotificationCenter.current()
+    //            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+    //                // Enable or disable features based on the authorization.
+    //                if !granted {
+    //                    errorMessage = "Please enable notifications from your apple settings."
+    //                } else if let error = error {
+    //                    errorMessage = error.localizedDescription
+    //                }
+    //
+    //                DispatchQueue.main.async {
+    //                    if let errorMessage = errorMessage {
+    //                        self.notificationSwitch.setOn(false, animated: true)
+    //                        self.showError(title: "Notification Error", error: errorMessage)
+    //                    } else {
+    //                        let request = Settings.UpdateNotifications.Request(sendNotifications: sendNotifications)
+    //                        self.interactor?.updateNotification(request: request)
+    //                    }
+    //                }
+    //
+    //            }
+    //
+    //        }
+    //
+    //    }
     
 }
 
@@ -265,8 +238,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         
         let field = displayUserSections[indexPath.section].fields[indexPath.row]
         
-        cell.keyLabel.text = field.name
-        cell.valueLabel.text = field.value
+        cell.field = field
+        cell.notificationSwitchPressedCallback = notificationSwitchPressed
         
         cell.configureUI()
         
@@ -281,12 +254,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         
         settingsTableView.delegate = self
         settingsTableView.dataSource = self
-        
-        displayTableViewSeperator()
-    }
-    
-    func displayTableViewSeperator(){
-        settingsTableView.separatorStyle = .none
     }
     
     //MARK: - Section Header
@@ -296,12 +263,39 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor =  .systemGray6
+        view.backgroundColor = UIColor(named: "Grey.Clear")
         return view
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? 0 : 40
+    }
+    
+    
+    //MARK: - Row Selected
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let field: Settings.DisplayUserField = displayUserSections[indexPath.section].fields[indexPath.row]
+        fieldPressed(field: field)
+    }
+    
+    func fieldPressed(field: Settings.DisplayUserField){
+        switch field.type {
+        case .name:
+            namePressed()
+        case .email:
+            emailPressed()
+        case .password:
+            passwordPressed()
+        case .store:
+            storePressed()
+        case .logout:
+            logoutPressed()
+        case .notification:
+            print("Notification Pressed")
+        default:
+            print("No function for type")
+        }
     }
 }
 
@@ -309,7 +303,7 @@ extension SettingsViewController {
     func showRightBarButton(){
         navigationItem.rightBarButtonItem?.isEnabled = true
     }
-
+    
     func hideRightBarButton(){
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
@@ -350,20 +344,65 @@ extension SettingsViewController {
     
     @objc func logoutPressed(){
         let refreshAlert = UIAlertController(title: "Logout", message: "Are you sure you want to logout? Your data won't be lost.", preferredStyle: UIAlertController.Style.alert)
-
+        
         refreshAlert.addAction(UIAlertAction(title: "Yes, logout", style: .default, handler: { (action: UIAlertAction!) in
             self.startLoading()
             let request = Settings.Logout.Request()
             self.interactor?.logout(request: request)
         }))
-
+        
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-              print("Cancel Delete")
+            print("Cancel Delete")
         }))
         
         present(refreshAlert, animated: true, completion: nil)
     }
 }
+
+extension SettingsViewController {
+    func notificationSwitchPressed(sendNotifications: Bool) {
+        
+        if sendNotifications {
+            var errorMessage: String? = nil
+            
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                // Enable or disable features based on the authorization.
+                if !granted {
+                    errorMessage = "Please enable notifications from your apple settings."
+                } else if let error = error {
+                    errorMessage = error.localizedDescription
+                }
+                
+                DispatchQueue.main.async {
+                    if let errorMessage = errorMessage {
+                        self.setNotification(enabled: false)
+                        self.showError(title: "Notification Error", error: errorMessage)
+                    } else {
+                        let request = Settings.UpdateNotifications.Request(sendNotifications: sendNotifications)
+                        self.interactor?.updateNotification(request: request)
+                    }
+                }
+            }
+            
+        } else {
+            let request = Settings.UpdateNotifications.Request(sendNotifications: sendNotifications)
+            self.interactor?.updateNotification(request: request)
+        }
+    }
+    
+    func setNotification(enabled: Bool){
+        for (section, userSection) in displayUserSections.enumerated() {
+            for (row, field) in userSection.fields.enumerated() {
+                if field.type == .notification {
+                    let row = settingsTableView.cellForRow(at: IndexPath(row: row, section: section)) as! SettingCell
+                    row.setNotification(enabled: enabled)
+                }
+            }
+        }
+    }
+}
+
 
 extension SettingsViewController: UserLoggedInProtocol {
     @IBAction func loginButtonPressed(_ sender: UIButton) {

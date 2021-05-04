@@ -675,7 +675,7 @@
             </objects>
             <point key="canvasLocation" x="3929" y="-1649"/>
         </scene>
-        <!--Home-->
+        <!--Home View Controller-->
         <scene sceneID="XQc-FC-O3f">
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" id="prj-rm-qu0" customClass="HomeViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -684,7 +684,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="55" estimatedSectionHeaderHeight="55" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Eof-vc-QCj">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -697,7 +697,7 @@
                             <constraint firstItem="8Ky-ML-CFw" firstAttribute="trailing" secondItem="Eof-vc-QCj" secondAttribute="trailing" id="u2S-2v-8gz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" largeTitleDisplayMode="always" id="gXb-Eq-fSq"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="gXb-Eq-fSq"/>
                     <connections>
                         <outlet property="tableView" destination="Eof-vc-QCj" id="PFB-7w-4IE"/>
                         <segue destination="pbg-V5-OLc" kind="show" identifier="" id="Md2-nX-xL7"/>
@@ -772,9 +772,9 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NiJ-rv-zt5">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="673"/>
                                                 <subviews>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ujy-l4-pJO">
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ujy-l4-pJO">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="673"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                                                     </tableView>
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XNn-yR-Crb">
                                                         <rect key="frame" x="0.0" y="140" width="384" height="0.0"/>
@@ -5442,6 +5442,9 @@
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

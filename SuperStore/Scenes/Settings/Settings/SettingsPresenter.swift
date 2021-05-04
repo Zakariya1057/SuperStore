@@ -46,7 +46,7 @@ class SettingsPresenter: SettingsPresentationLogic
                     Settings.DisplayUserField(name: "Email", value: user.email, type: .email),
                     Settings.DisplayUserField(name: "Password", value: "••••••••••", type: .password),
                     Settings.DisplayUserField(name: "Store", value: storeName, type: .store),
-                    Settings.DisplayUserField(name: "Notification", type: .notification),  
+                    Settings.DisplayUserField(name: "Notifications", on: user.sendNotifications, type: .notification),
                 ])
             )
             

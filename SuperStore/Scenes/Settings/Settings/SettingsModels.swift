@@ -24,6 +24,7 @@ enum Settings
     struct DisplayUserField {
         var name: String
         var value: String? = nil
+        var on: Bool = false
         var type: DisplayUserFieldType
     }
     

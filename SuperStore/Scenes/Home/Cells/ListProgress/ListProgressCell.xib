@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -26,16 +26,16 @@
                                 <rect key="frame" x="15" y="0.0" width="290" height="37"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xLI-zt-ewA">
-                                        <rect key="frame" x="0.0" y="0.0" width="247" height="37"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="251" height="37"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ywq-kw-yyy">
-                                                <rect key="frame" x="0.0" y="0.0" width="247" height="27"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="251" height="27"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgw-T5-nfo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="187" height="27"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="191" height="27"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopping List 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1I-Tc-Htq">
-                                                                <rect key="frame" x="0.0" y="4.5" width="187" height="18"/>
+                                                                <rect key="frame" x="0.0" y="4.5" width="191" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -49,7 +49,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xp4-gG-wHz">
-                                                        <rect key="frame" x="197" y="0.0" width="50" height="27"/>
+                                                        <rect key="frame" x="201" y="0.0" width="50" height="27"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20/20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhS-7O-R5s">
                                                                 <rect key="frame" x="0.0" y="5" width="50" height="17"/>
@@ -69,7 +69,7 @@
                                                 </subviews>
                                             </stackView>
                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Upe-9I-Ewd">
-                                                <rect key="frame" x="0.0" y="32" width="247" height="5"/>
+                                                <rect key="frame" x="0.0" y="32" width="251" height="5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="5" id="B9b-aS-gJj"/>
                                                 </constraints>
@@ -77,10 +77,10 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xjn-sq-RBo">
-                                        <rect key="frame" x="255" y="0.0" width="35" height="37"/>
+                                        <rect key="frame" x="259" y="0.0" width="31" height="37"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ar1-Nm-dhM">
-                                                <rect key="frame" x="0.0" y="4" width="35" height="29"/>
+                                                <rect key="frame" x="0.0" y="4" width="31" height="29"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="4Yg-w4-std"/>
                                                 </constraints>
@@ -89,7 +89,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="ar1-Nm-dhM" secondAttribute="trailing" id="9Ou-tT-DQG"/>
-                                            <constraint firstAttribute="width" constant="35" id="Vxm-O7-l8R"/>
+                                            <constraint firstAttribute="width" constant="31" id="Vxm-O7-l8R"/>
                                             <constraint firstItem="ar1-Nm-dhM" firstAttribute="leading" secondItem="Xjn-sq-RBo" secondAttribute="leading" id="W2B-7l-BE3"/>
                                             <constraint firstItem="ar1-Nm-dhM" firstAttribute="centerY" secondItem="Xjn-sq-RBo" secondAttribute="centerY" id="nJ7-30-Xqw"/>
                                         </constraints>
