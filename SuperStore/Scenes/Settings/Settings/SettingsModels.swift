@@ -16,25 +16,48 @@ enum Settings
 {
     // MARK: Use cases
     
+    struct DisplayUserSection {
+        var title: String = ""
+        var fields: [DisplayUserField]
+    }
+    
+    struct DisplayUserField {
+        var name: String
+        var value: String? = nil
+        var type: DisplayUserFieldType
+    }
+    
+    enum DisplayUserFieldType {
+        case name, email, store, password, notification, logout, feedback, issue
+    }
+    
     enum GetUserDetails
     {
         struct Request
         {
         }
+        
         struct Response
         {
             var user: UserModel?
         }
+        
         struct ViewModel
         {
-            struct DisplayedUser {
-                var name: String
-                var email: String
-                var storeName: String
-                var sendNotifications: Bool
-            }
+
+            var displayUserSections: [DisplayUserSection]
             
-            var displayedUser: DisplayedUser?
+//            var displayUserFields: [DisplayUserField]
+//            struct DisplayedUser {
+//                var name: String
+//                var email: String
+//                var storeName: String
+//                var sendNotifications: Bool
+//            }
+//
+//            var displayedUser: DisplayedUser?
+            
+            var loggedIn: Bool
             var error: String?
         }
     }

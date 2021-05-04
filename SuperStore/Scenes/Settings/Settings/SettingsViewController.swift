@@ -73,32 +73,40 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupUserFieldGesture()
+        setupSettingsTableView()
         getSettings()
     }
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
-    @IBOutlet var loggedInView: UIView!
-    @IBOutlet var loggedOutView: UIView!
-    
-    @IBOutlet weak var usernameStackView: UIStackView!
-    @IBOutlet weak var emailStackView: UIStackView!
-    @IBOutlet weak var passwordStackView: UIStackView!
-    
-    @IBOutlet var storeLoggedInStackView: UIStackView!
-    @IBOutlet var storeLoggedOutStackView: UIStackView!
-    
-    @IBOutlet var logoutStackView: UIStackView!
-    
-    @IBOutlet var storeLoggedInNameLabel: UILabel!
-    @IBOutlet var storeLoggedOutNameLabel: UILabel!
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
-    
-    @IBOutlet var notificationSwitch: UISwitch!
+//    @IBOutlet var loggedInView: UIView!
+//    @IBOutlet var loggedOutView: UIView!
+//
+//    @IBOutlet weak var usernameStackView: UIStackView!
+//    @IBOutlet weak var emailStackView: UIStackView!
+//    @IBOutlet weak var passwordStackView: UIStackView!
+//
+//    @IBOutlet var storeLoggedInStackView: UIStackView!
+//    @IBOutlet var storeLoggedOutStackView: UIStackView!
+//
+//    @IBOutlet var logoutStackView: UIStackView!
+//
+//    @IBOutlet var storeLoggedInNameLabel: UILabel!
+//    @IBOutlet var storeLoggedOutNameLabel: UILabel!
+//
+//    @IBOutlet weak var nameLabel: UILabel!
+//    @IBOutlet weak var emailLabel: UILabel!
+//
+//    @IBOutlet var notificationSwitch: UISwitch!
 
+//    var displayUserFields: [Settings.DisplayUserField] = []
+    
+    var displayUserSections: [Settings.DisplayUserSection] = []
+    
+    var refreshControl = UIRefreshControl()
+    
+    @IBOutlet var settingsTableView: UITableView!
+    
     var userSession: UserSessionWorker = UserSessionWorker()
     var loggedIn: Bool {
         return userSession.isLoggedIn()
@@ -111,7 +119,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
             interactor?.getSettings(request: request)
         } else {
             // Get User Store. Show Store
-            displayUserViews(loggedIn: false)
+//            displayUserViews(loggedIn: false)
             getUserStore()
         }
     }
@@ -120,23 +128,24 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     {
         if viewModel.error != nil {
             // User not logged in.
-            displayUserViews(loggedIn: false)
+//            displayUserViews(loggedIn: false)
             getUserStore()
         } else {
-            if let user = viewModel.displayedUser {
+            displayUserSections = viewModel.displayUserSections
+            settingsTableView.reloadData()
+            
+//            if let user = viewModel.displayedUser {
                 
-                print(user)
-                
-                displayUserViews(loggedIn: true)
-                
-                nameLabel.text = user.name
-                emailLabel.text = user.email
-                
-                storeLoggedInNameLabel!.text = user.storeName
-                storeLoggedOutNameLabel!.text = user.storeName
-                
-                notificationSwitch.isOn = user.sendNotifications
-            }
+//                displayUserViews(loggedIn: true)
+//
+//                nameLabel.text = user.name
+//                emailLabel.text = user.email
+//
+//                storeLoggedInNameLabel!.text = user.storeName
+//                storeLoggedOutNameLabel!.text = user.storeName
+//
+//                notificationSwitch.isOn = user.sendNotifications
+//            }
         }
     }
     
@@ -146,7 +155,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     }
     
     func displayUserStore(viewModel: Settings.GetStore.ViewModel) {
-        storeLoggedOutNameLabel!.text = viewModel.storeName
+//        storeLoggedOutNameLabel!.text = viewModel.storeName
     }
     
     func displayedLogout(viewModel: Settings.Logout.ViewModel) {
@@ -177,17 +186,17 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
 }
 
 extension SettingsViewController {
-    func displayUserViews(loggedIn: Bool){
-        if loggedIn {
-            showRightBarButton()
-            loggedInView.isHidden = false
-            loggedOutView.isHidden = true
-        } else {
-            hideRightBarButton()
-            loggedInView.isHidden = true
-            loggedOutView.isHidden = false
-        }
-    }
+//    func displayUserViews(loggedIn: Bool){
+//        if loggedIn {
+//            showRightBarButton()
+//            loggedInView.isHidden = false
+//            loggedOutView.isHidden = true
+//        } else {
+//            hideRightBarButton()
+//            loggedInView.isHidden = true
+//            loggedOutView.isHidden = false
+//        }
+//    }
 }
 
 extension SettingsViewController {
@@ -209,58 +218,90 @@ extension SettingsViewController {
         present(refreshAlert, animated: true, completion: nil)
     }
     
-    @IBAction func notificationSwitchPressed(_ sender: Any) {
-        let sendNotifications = notificationSwitch.isOn
-        
-        if sendNotifications {
-            var errorMessage: String? = nil
-            
-            let center = UNUserNotificationCenter.current()
-            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-                // Enable or disable features based on the authorization.
-                if !granted {
-                    errorMessage = "Please enable notifications from your apple settings."
-                } else if let error = error {
-                    errorMessage = error.localizedDescription
-                }
-                
-                DispatchQueue.main.async {
-                    if let errorMessage = errorMessage {
-                        self.notificationSwitch.setOn(false, animated: true)
-                        self.showError(title: "Notification Error", error: errorMessage)
-                    } else {
-                        let request = Settings.UpdateNotifications.Request(sendNotifications: sendNotifications)
-                        self.interactor?.updateNotification(request: request)
-                    }
-                }
-
-            }
-
-        }
-
-    }
+//    @IBAction func notificationSwitchPressed(_ sender: Any) {
+//        let sendNotifications = notificationSwitch.isOn
+//
+//        if sendNotifications {
+//            var errorMessage: String? = nil
+//
+//            let center = UNUserNotificationCenter.current()
+//            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+//                // Enable or disable features based on the authorization.
+//                if !granted {
+//                    errorMessage = "Please enable notifications from your apple settings."
+//                } else if let error = error {
+//                    errorMessage = error.localizedDescription
+//                }
+//
+//                DispatchQueue.main.async {
+//                    if let errorMessage = errorMessage {
+//                        self.notificationSwitch.setOn(false, animated: true)
+//                        self.showError(title: "Notification Error", error: errorMessage)
+//                    } else {
+//                        let request = Settings.UpdateNotifications.Request(sendNotifications: sendNotifications)
+//                        self.interactor?.updateNotification(request: request)
+//                    }
+//                }
+//
+//            }
+//
+//        }
+//
+//    }
     
 }
 
-extension SettingsViewController {
-    func setupUserFieldGesture(){
-        let usernanmeGesture = UITapGestureRecognizer(target: self, action: #selector(namePressed))
-        usernameStackView.addGestureRecognizer(usernanmeGesture)
+extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return displayUserSections[section].fields.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return configureSettingCell(indexPath: indexPath)
+    }
+    
+    func configureSettingCell(indexPath: IndexPath) -> SettingCell {
+        let cell = settingsTableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingCell
         
-        let emailGesture = UITapGestureRecognizer(target: self, action: #selector(emailPressed))
-        emailStackView.addGestureRecognizer(emailGesture)
+        let field = displayUserSections[indexPath.section].fields[indexPath.row]
         
-        let passwordGesture = UITapGestureRecognizer(target: self, action: #selector(passwordPressed))
-        passwordStackView.addGestureRecognizer(passwordGesture)
+        cell.keyLabel.text = field.name
+        cell.valueLabel.text = field.value
         
-        let storeGestureLoggedIn = UITapGestureRecognizer(target: self, action: #selector(storePressed))
-        let storeGestureLoggedOut = UITapGestureRecognizer(target: self, action: #selector(storePressed))
+        cell.configureUI()
         
-        storeLoggedOutStackView.addGestureRecognizer(storeGestureLoggedOut)
-        storeLoggedInStackView.addGestureRecognizer(storeGestureLoggedIn)
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         
-        let logoutGesture = UITapGestureRecognizer(target: self, action: #selector(logoutPressed))
-        logoutStackView.addGestureRecognizer(logoutGesture)
+        return cell
+    }
+    
+    func setupSettingsTableView(){
+        let settingCellNib = UINib(nibName: "SettingCell", bundle: nil)
+        settingsTableView.register(settingCellNib, forCellReuseIdentifier: "SettingCell")
+        
+        settingsTableView.delegate = self
+        settingsTableView.dataSource = self
+        
+        displayTableViewSeperator()
+    }
+    
+    func displayTableViewSeperator(){
+        settingsTableView.separatorStyle = .none
+    }
+    
+    //MARK: - Section Header
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return displayUserSections.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor =  .systemGray6
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 0 ? 0 : 40
     }
 }
 

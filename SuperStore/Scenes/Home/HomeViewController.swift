@@ -290,7 +290,7 @@ extension HomeViewController {
         homeCells = [
             ListGroupProgressElement(title: "List Progress", lists: [], listPressed: listPressed),
             GroceriesGroupElement(title: "", groceriesPressed: groceriesPressed),
-            StoreMapGroupElement(title: "Stores", stores: [], storePressed: storePressed, userLocationFetched: userLocationFetched),
+            StoreMapGroupElement(title: "Nearby Stores", stores: [], storePressed: storePressed, userLocationFetched: userLocationFetched),
             GroceryProductGroupElement(title: "Grocery Items", products: [], productPressed: productPressed),
             MonitoringProductGroupElement(title: "Monitored Products", products: [], productPressed: productPressed),
             PromotionGroupElement(title: "Offers", promotions: [], promotionPressed: promotionPressed),
@@ -367,18 +367,7 @@ extension HomeViewController {
 
         sectionHeader.headingLabel.text = title
 
-        sectionHeader.viewAllButtonPressed = {
-            if homeSection is StoreMapGroupElement {
-                self.viewAllStoresButtonPressed()
-            } else if homeSection is PromotionGroupElement {
-                self.viewAllPromotionsButtonPressed()
-            } else if homeSection is CategoryProductGroupElement {
-                let homeSection = homeSection as! CategoryProductGroupElement
-                self.viewAllCategoryProductsButtonPressed(categoryID: homeSection.categoryID!, categoryName: title)
-            } else if homeSection is MonitoringProductGroupElement {
-                self.viewAllMonitoredProductsButtonPressed()
-            }
-        }
+        sectionHeader.viewAllButtonPressed = setupHomeViewAllPressed(homeSection: homeSection, categoryTitle: title)
         
         sectionHeader.showViewAllButton = showViewAllButton
         
@@ -425,6 +414,24 @@ extension HomeViewController {
                 }
             }
         }
+    }
+}
+
+extension HomeViewController {
+    private func setupHomeViewAllPressed(homeSection: HomeElementGroupModel, categoryTitle: String) -> () -> Void {
+        return {
+            if homeSection is StoreMapGroupElement {
+                self.viewAllStoresButtonPressed()
+            } else if homeSection is PromotionGroupElement {
+                self.viewAllPromotionsButtonPressed()
+            } else if homeSection is CategoryProductGroupElement {
+                let homeSection = homeSection as! CategoryProductGroupElement
+                self.viewAllCategoryProductsButtonPressed(categoryID: homeSection.categoryID!, categoryName: categoryTitle)
+            } else if homeSection is MonitoringProductGroupElement {
+                self.viewAllMonitoredProductsButtonPressed()
+            }
+        }
+        
     }
 }
 

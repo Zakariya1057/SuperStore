@@ -17,5 +17,4 @@ target 'SuperStore' do
   pod 'SwiftKeychainWrapper'
   pod 'NotificationBannerSwift', '~> 3.0.0'
   pod "FuzzyMatchingSwift"
-  
 end

@@ -32,20 +32,42 @@ class SettingsPresenter: SettingsPresentationLogic
     
     func presentUserDetails(response: Settings.GetUserDetails.Response)
     {
-        var displayedUser: Settings.GetUserDetails.ViewModel.DisplayedUser?
+//        var displayUserFields: [Settings.DisplayUserField] = []
+        var displayUserSections: [Settings.DisplayUserSection] = []
+        
         var error: String?
         
         if let user = response.user {
             let storeName: String = storeDetails[user.storeTypeID]!
             
-            displayedUser = Settings.GetUserDetails.ViewModel.DisplayedUser(
-                name: user.name, email: user.email, storeName: storeName, sendNotifications: user.sendNotifications
+            displayUserSections.append(
+                Settings.DisplayUserSection(fields: [
+                    Settings.DisplayUserField(name: "Name", value: user.name, type: .name),
+                    Settings.DisplayUserField(name: "Email", value: user.email, type: .email),
+                    Settings.DisplayUserField(name: "Password", value: "••••••••••", type: .password),
+                    Settings.DisplayUserField(name: "Store", value: storeName, type: .store),
+                    Settings.DisplayUserField(name: "Notification", type: .notification),  
+                ])
             )
+            
+            displayUserSections.append(
+                Settings.DisplayUserSection(fields: [
+                    Settings.DisplayUserField(name: "Feedback", type: .feedback),
+                    Settings.DisplayUserField(name: "Report Issues", type: .issue)
+                ])
+            )
+            
+            displayUserSections.append(
+                Settings.DisplayUserSection(fields: [
+                    Settings.DisplayUserField(name: "Logout", type: .logout)
+                ])
+            )
+            
         } else {
             error = "Failed to find saved user details."
         }
         
-        let viewModel = Settings.GetUserDetails.ViewModel(displayedUser: displayedUser, error: error)
+        let viewModel = Settings.GetUserDetails.ViewModel(displayUserSections: displayUserSections, loggedIn: true, error: error)
         viewController?.displayUserDetails(viewModel: viewModel)
     }
     
