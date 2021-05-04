@@ -14,6 +14,7 @@ struct UserModel {
     var token: String
     var email: String
     var storeTypeID: Int
+    var storeName: String?
     var sendNotifications: Bool
 }
 

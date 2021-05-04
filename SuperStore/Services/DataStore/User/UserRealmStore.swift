@@ -31,7 +31,12 @@ class UserRealmStore: DataStore, UserStoreProtocol {
     }
     
     func getUser() -> UserModel? {
-        return user?.getUserModel()
+        // If no user found, then create a empty one.
+        if let savedUser = user {
+            return savedUser.getUserModel()
+        } else {
+            return createEmptyUser()?.getUserModel()
+        }
     }
     
     func updateName(name: String){
@@ -54,11 +59,6 @@ class UserRealmStore: DataStore, UserStoreProtocol {
         try? realm?.write({
             if let savedUser: UserObject = self.user {
                 savedUser.storeTypeID = storeTypeID
-            } else {
-                // User not logged in. Create empty user with store type id
-                let savedUser = UserObject()
-                savedUser.storeTypeID = storeTypeID
-                realm?.add(savedUser)
             }
         })
     }
@@ -101,5 +101,19 @@ extension UserRealmStore {
     
     func getUserID() -> Int? {
         return user?.id
+    }
+}
+
+extension UserRealmStore {
+    func createEmptyUser() -> UserObject? {
+        let savedUser = UserObject()
+        
+        savedUser.storeTypeID = 2
+        
+        try? realm?.write({
+            realm?.add(savedUser)
+        })
+        
+        return savedUser
     }
 }

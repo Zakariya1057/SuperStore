@@ -1642,14 +1642,7 @@
                             <constraint firstItem="4Mf-3U-8FS" firstAttribute="leading" secondItem="ZXh-uF-1Xc" secondAttribute="leading" id="rdZ-Xe-nCi"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Settings" id="Kbr-bB-h5c">
-                        <barButtonItem key="rightBarButtonItem" title="Delete" id="mEp-bl-jOr">
-                            <color key="tintColor" red="0.61682485080000005" green="0.22140261450000001" blue="0.033802555550000002" alpha="0.95355224609375" colorSpace="custom" customColorSpace="displayP3"/>
-                            <connections>
-                                <action selector="deleteButtonPressed:" destination="sIM-J9-Ju3" id="KaH-gm-3w8"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Settings" id="Kbr-bB-h5c"/>
                     <connections>
                         <outlet property="settingsTableView" destination="ujy-l4-pJO" id="2IX-7X-Iey"/>
                         <segue destination="EIN-HB-Uy4" kind="show" identifier="settingsToChangePassword" id="06b-UV-g00"/>
@@ -3795,7 +3788,7 @@
             <objects>
                 <viewController id="HXj-j2-Hvf" customClass="ShowRefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wxa-Ye-bc0">

@@ -25,55 +25,77 @@ class SettingsPresenter: SettingsPresentationLogic
 {
     weak var viewController: SettingsDisplayLogic?
     
-    var storeDetails: [Int: String] = [
-        1: "Asda",
-        2: "Real Canadian Superstore"
-    ]
+//    var storeDetails: [Int: String] = [
+//        1: "Asda",
+//        2: "Real Canadian Superstore"
+//    ]
     
     func presentUserDetails(response: Settings.GetUserDetails.Response)
     {
-//        var displayUserFields: [Settings.DisplayUserField] = []
         var displayUserSections: [Settings.DisplayUserSection] = []
         
-        var error: String?
+        var loggedIn: Bool = false
         
         if let user = response.user {
-            let storeName: String = storeDetails[user.storeTypeID]!
             
-            displayUserSections.append(
-                Settings.DisplayUserSection(fields: [
-                    Settings.DisplayUserField(name: "Name", value: user.name, type: .name),
-                    Settings.DisplayUserField(name: "Email", value: user.email, type: .email),
-                    Settings.DisplayUserField(name: "Password", value: "••••••••••", type: .password),
-                    Settings.DisplayUserField(name: "Store", value: storeName, type: .store),
-                    Settings.DisplayUserField(name: "Notifications", on: user.sendNotifications, type: .notification),
-                ])
-            )
+            let storeName: String = user.storeName!
             
-            displayUserSections.append(
-                Settings.DisplayUserSection(fields: [
-                    Settings.DisplayUserField(name: "Feedback", type: .feedback),
-                    Settings.DisplayUserField(name: "Report Issues", type: .issue)
-                ])
-            )
-            
-            displayUserSections.append(
-                Settings.DisplayUserSection(fields: [
-                    Settings.DisplayUserField(name: "Logout", type: .logout)
-                ])
-            )
-            
-        } else {
-            error = "Failed to find saved user details."
+            if user.token != "" {
+                
+                loggedIn = true
+                
+                displayUserSections.append(
+                    Settings.DisplayUserSection(fields: [
+                        Settings.DisplayUserField(name: "Name", value: user.name, type: .name),
+                        Settings.DisplayUserField(name: "Email", value: user.email, type: .email),
+                        Settings.DisplayUserField(name: "Password", value: "••••••••••", type: .password),
+                        Settings.DisplayUserField(name: "Store", value: storeName, type: .store),
+                        Settings.DisplayUserField(name: "Notifications", on: user.sendNotifications, type: .notification),
+                    ])
+                )
+                
+                displayUserSections.append(
+                    Settings.DisplayUserSection(fields: [
+                        Settings.DisplayUserField(name: "Feedback", type: .feedback),
+                        Settings.DisplayUserField(name: "Report Issues", type: .issue)
+                    ])
+                )
+                
+                displayUserSections.append(
+                    Settings.DisplayUserSection(fields: [
+                        Settings.DisplayUserField(name: "Logout", type: .logout)
+                    ])
+                )
+            } else {
+                displayUserSections.append(
+                    Settings.DisplayUserSection(fields: [
+                        Settings.DisplayUserField(name: "Store", value: storeName, type: .store),
+                    ])
+                )
+                
+                displayUserSections.append(
+                    Settings.DisplayUserSection(fields: [
+                        Settings.DisplayUserField(name: "Login", type: .login)
+                    ])
+                )
+                
+                displayUserSections.append(
+                    Settings.DisplayUserSection(fields: [
+                        Settings.DisplayUserField(name: "Feedback", type: .feedback),
+                        Settings.DisplayUserField(name: "Report Issues", type: .issue)
+                    ])
+                )
+
+            }
         }
         
-        let viewModel = Settings.GetUserDetails.ViewModel(displayUserSections: displayUserSections, loggedIn: true, error: error)
+        let viewModel = Settings.GetUserDetails.ViewModel(displayUserSections: displayUserSections, loggedIn: loggedIn)
+        
         viewController?.displayUserDetails(viewModel: viewModel)
     }
     
     func presentUserStore(response: Settings.GetStore.Response) {
-        let storeName: String = storeDetails[response.storeTypeID]!
-        let viewModel = Settings.GetStore.ViewModel(storeName: storeName)
+        let viewModel = Settings.GetStore.ViewModel(storeName: response.storeName)
         viewController?.displayUserStore(viewModel: viewModel)
     }
     

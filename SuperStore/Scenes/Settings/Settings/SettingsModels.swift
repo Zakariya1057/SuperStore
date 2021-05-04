@@ -29,7 +29,9 @@ enum Settings
     }
     
     enum DisplayUserFieldType {
-        case name, email, store, password, notification, logout, feedback, issue
+        case name, email, store, password, notification
+        case feedback, issue
+        case logout, login
     }
     
     enum GetUserDetails
@@ -45,21 +47,8 @@ enum Settings
         
         struct ViewModel
         {
-
             var displayUserSections: [DisplayUserSection]
-            
-//            var displayUserFields: [DisplayUserField]
-//            struct DisplayedUser {
-//                var name: String
-//                var email: String
-//                var storeName: String
-//                var sendNotifications: Bool
-//            }
-//
-//            var displayedUser: DisplayedUser?
-            
             var loggedIn: Bool
-            var error: String?
         }
     }
     
@@ -70,7 +59,7 @@ enum Settings
         }
         struct Response
         {
-            var storeTypeID: Int
+            var storeName: String
         }
         struct ViewModel
         {

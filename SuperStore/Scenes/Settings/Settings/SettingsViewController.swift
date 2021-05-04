@@ -74,32 +74,11 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSettingsTableView()
+        displayBarButton()
         getSettings()
     }
     
     let spinner: SpinnerViewController = SpinnerViewController()
-    
-    //    @IBOutlet var loggedInView: UIView!
-    //    @IBOutlet var loggedOutView: UIView!
-    //
-    //    @IBOutlet weak var usernameStackView: UIStackView!
-    //    @IBOutlet weak var emailStackView: UIStackView!
-    //    @IBOutlet weak var passwordStackView: UIStackView!
-    //
-    //    @IBOutlet var storeLoggedInStackView: UIStackView!
-    //    @IBOutlet var storeLoggedOutStackView: UIStackView!
-    //
-    //    @IBOutlet var logoutStackView: UIStackView!
-    //
-    //    @IBOutlet var storeLoggedInNameLabel: UILabel!
-    //    @IBOutlet var storeLoggedOutNameLabel: UILabel!
-    //
-    //    @IBOutlet weak var nameLabel: UILabel!
-    //    @IBOutlet weak var emailLabel: UILabel!
-    //
-    //    @IBOutlet var notificationSwitch: UISwitch!
-    
-    //    var displayUserFields: [Settings.DisplayUserField] = []
     
     var displayUserSections: [Settings.DisplayUserSection] = []
     
@@ -114,26 +93,14 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     
     func getSettings()
     {
-        if loggedIn {
-            let request = Settings.GetUserDetails.Request()
-            interactor?.getSettings(request: request)
-        } else {
-            // Get User Store. Show Store
-            //            displayUserViews(loggedIn: false)
-            getUserStore()
-        }
+        let request = Settings.GetUserDetails.Request()
+        interactor?.getSettings(request: request)
     }
     
     func displayUserDetails(viewModel: Settings.GetUserDetails.ViewModel)
     {
-        if viewModel.error != nil {
-            // User not logged in.
-            //            displayUserViews(loggedIn: false)
-            getUserStore()
-        } else {
-            displayUserSections = viewModel.displayUserSections
-            settingsTableView.reloadData()
-        }
+        displayUserSections = viewModel.displayUserSections
+        settingsTableView.reloadData()
     }
     
     func getUserStore(){
@@ -190,37 +157,6 @@ extension SettingsViewController {
         
         present(refreshAlert, animated: true, completion: nil)
     }
-    
-    //    @IBAction func notificationSwitchPressed(_ sender: Any) {
-    //        let sendNotifications = notificationSwitch.isOn
-    //
-    //        if sendNotifications {
-    //            var errorMessage: String? = nil
-    //
-    //            let center = UNUserNotificationCenter.current()
-    //            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-    //                // Enable or disable features based on the authorization.
-    //                if !granted {
-    //                    errorMessage = "Please enable notifications from your apple settings."
-    //                } else if let error = error {
-    //                    errorMessage = error.localizedDescription
-    //                }
-    //
-    //                DispatchQueue.main.async {
-    //                    if let errorMessage = errorMessage {
-    //                        self.notificationSwitch.setOn(false, animated: true)
-    //                        self.showError(title: "Notification Error", error: errorMessage)
-    //                    } else {
-    //                        let request = Settings.UpdateNotifications.Request(sendNotifications: sendNotifications)
-    //                        self.interactor?.updateNotification(request: request)
-    //                    }
-    //                }
-    //
-    //            }
-    //
-    //        }
-    //
-    //    }
     
 }
 
@@ -291,6 +227,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             storePressed()
         case .logout:
             logoutPressed()
+        case .login:
+            loginButtonPressed()
         case .notification:
             print("Notification Pressed")
         default:
@@ -300,6 +238,11 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension SettingsViewController {
+    
+    func displayBarButton(){
+        loggedIn ? showRightBarButton() : hideRightBarButton()
+    }
+    
     func showRightBarButton(){
         navigationItem.rightBarButtonItem?.isEnabled = true
     }
@@ -351,9 +294,7 @@ extension SettingsViewController {
             self.interactor?.logout(request: request)
         }))
         
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-            print("Cancel Delete")
-        }))
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         present(refreshAlert, animated: true, completion: nil)
     }
@@ -405,7 +346,7 @@ extension SettingsViewController {
 
 
 extension SettingsViewController: UserLoggedInProtocol {
-    @IBAction func loginButtonPressed(_ sender: UIButton) {
+    @IBAction func loginButtonPressed() {
         router?.routeToLogin(segue: nil)
     }
     

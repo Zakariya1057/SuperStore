@@ -16,8 +16,11 @@ class SettingCell: UITableViewCell {
         "Password": UIImage(systemName: "lock"),
         "Store": UIImage(systemName: "cart"),
         "Notifications": UIImage(systemName: "bell"),
+        
         "Feedback": UIImage(systemName: "bubble.left.and.bubble.right"),
         "Report Issues": UIImage(systemName: "pencil.circle"),
+        
+        "Login": UIImage(systemName: "person.crop.circle"),
         "Logout": UIImage(named: "Logout")
     ]
     

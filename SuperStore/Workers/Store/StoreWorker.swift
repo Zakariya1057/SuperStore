@@ -48,6 +48,15 @@ class StoreWorker
             completionHandler(store, error)
         }
     }
+    
+    func getStoreName(storeTypeID: Int) -> String? {
+        let storeNames: [Int: String] = [
+            1: "Asda",
+            2: "Real Canadian Superstore"
+        ]
+        
+        return storeNames[storeTypeID]
+    }
 }
 
 protocol StoreRequestProtocol {
