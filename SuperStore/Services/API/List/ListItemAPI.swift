@@ -9,10 +9,7 @@
 import Foundation
 import Alamofire
 
-class ListItemAPI: ListItemRequestProtocol {
-
-    let jsonDecoder = JSONDecoder()
-    let requestWorker: RequestProtocol = RequestWorker()
+class ListItemAPI: API, ListItemRequestProtocol {
 
     func updateItem(listID: Int, productID: Int, quanity: Int, tickedOff: Bool, completionHandler: @escaping ( _ error: String?) -> Void){
         let url: String = Config.Route.List.ListRoute + "/" + String(listID) + Config.Route.List.Item.Update

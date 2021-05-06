@@ -9,8 +9,8 @@
 import Foundation
 
 class ReviewWorker {
-    var reviewAPI: ReviewRequestProtocol
-    var reviewStore: ReviewSaveProtocol
+    private var reviewAPI: ReviewRequestProtocol
+    private var reviewStore: ReviewSaveProtocol
     
     init(reviewAPI: ReviewRequestProtocol) {
         self.reviewAPI = reviewAPI

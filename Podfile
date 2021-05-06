@@ -16,5 +16,6 @@ target 'SuperStore' do
   pod 'ImageSlideshow/Alamofire'
   pod 'SwiftKeychainWrapper'
   pod 'NotificationBannerSwift', '~> 3.0.0'
-  pod "FuzzyMatchingSwift"
+  pod 'FuzzyMatchingSwift'
+  pod 'SCLAlertView'
 end

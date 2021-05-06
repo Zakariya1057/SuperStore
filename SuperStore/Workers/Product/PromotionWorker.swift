@@ -9,9 +9,9 @@
 import Foundation
 
 class PromotionWorker {
-    var promotionAPI: PromotionRequestProtocol
-    var promotionStore: PromotionStoreProtocol
-    var userSession: UserSessionWorker = UserSessionWorker()
+    private var promotionAPI: PromotionRequestProtocol
+    private var promotionStore: PromotionStoreProtocol
+    private var userSession: UserSessionWorker = UserSessionWorker()
     
     init(promotionAPI: PromotionRequestProtocol) {
         self.promotionAPI = promotionAPI

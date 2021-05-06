@@ -9,10 +9,7 @@
 import Foundation
 import Alamofire
 
-struct UserAuthAPI: UserAuthProtocol {
-
-    let jsonDecoder = JSONDecoder()
-    let requestWorker: RequestProtocol = RequestWorker()
+class UserAuthAPI: API, UserAuthProtocol {
 
     func login(
         email: String,
@@ -31,8 +28,8 @@ struct UserAuthAPI: UserAuthProtocol {
             do {
                 let data = try response()
                 
-                let userDataResponse =  try jsonDecoder.decode(UserDataResponse.self, from: data)
-                let user = createUserLogin(userDataResponse: userDataResponse)
+                let userDataResponse =  try self.jsonDecoder.decode(UserDataResponse.self, from: data)
+                let user = self.createUserLogin(userDataResponse: userDataResponse)
                 
                 completionHandler(user, nil)
             } catch RequestError.Error(let errorMessage){
@@ -72,8 +69,8 @@ struct UserAuthAPI: UserAuthProtocol {
             do {
                 let data = try response()
                 
-                let userDataResponse =  try jsonDecoder.decode(UserDataResponse.self, from: data)
-                let user = createUserLogin(userDataResponse: userDataResponse)
+                let userDataResponse =  try self.jsonDecoder.decode(UserDataResponse.self, from: data)
+                let user = self.createUserLogin(userDataResponse: userDataResponse)
                 
                 completionHandler(user, nil)
             } catch RequestError.Error(let errorMessage){

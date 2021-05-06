@@ -179,7 +179,6 @@ struct Config {
             }
             
             
-            
             public static var Create: String {
                 return ListRoute + "/create"
             }
@@ -240,6 +239,26 @@ struct Config {
             }
         }
         
+        public struct Feedback {
+            private static var FeedbackRoute: String {
+                return Host + "/feedback"
+            }
+            
+            public static var Create: String {
+                return FeedbackRoute + "/create"
+            }
+        }
+        
+        public struct Report {
+            private static var ReportRoute: String {
+                return Host + "/report"
+            }
+            
+            public static var Issue: String {
+                return ReportRoute + "/issue"
+            }
+        }
+        
         public static var Store: String {
             return Host + "/store"
         }
@@ -251,7 +270,6 @@ struct Config {
         public static var Promotion: String {
             return Host + "/promotion"
         }
-        
     }
     
 }

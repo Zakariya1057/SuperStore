@@ -9,10 +9,10 @@
 import Foundation
 
 class ListItemWorker {
-    var listItemAPI: ListItemRequestProtocol
-    var listItemStore: ListItemStoreProtocol
+    private var listItemAPI: ListItemRequestProtocol
+    private var listItemStore: ListItemStoreProtocol
     
-    var userSession = UserSessionWorker()
+    private var userSession = UserSessionWorker()
     
     init(listItemAPI: ListItemRequestProtocol) {
         self.listItemAPI = listItemAPI

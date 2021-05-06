@@ -9,10 +9,7 @@
 import Foundation
 import Alamofire
 
-class StoreAPI: StoreRequestProtocol {
-
-    let jsonDecoder = JSONDecoder()
-    let requestWorker: RequestProtocol = RequestWorker()
+class StoreAPI: API, StoreRequestProtocol {
     
     func getStores(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void){
         

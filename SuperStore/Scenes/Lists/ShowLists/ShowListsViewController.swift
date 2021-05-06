@@ -195,7 +195,7 @@ extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = listsTableView.dequeueReusableCell(withIdentifier: "RequestLoginCell", for: indexPath) as! RequestLoginCell
         
         cell.titleLabel.text = "Lists"
-        cell.descriptionLabel.text = "Login to create your own shopping list"
+        cell.descriptionLabel.text = "Login to create your own shopping list."
         cell.iconImageView.image = UIImage(systemName: "list.dash")
         
         cell.loginButtonPressed = loginButtonPressed

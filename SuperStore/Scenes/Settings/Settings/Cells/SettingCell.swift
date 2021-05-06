@@ -17,6 +17,8 @@ class SettingCell: UITableViewCell {
         "Store": UIImage(systemName: "cart"),
         "Notifications": UIImage(systemName: "bell"),
         
+        "Clear Cache": UIImage(systemName: "trash"),
+        
         "Feedback": UIImage(systemName: "bubble.left.and.bubble.right"),
         "Report Issues": UIImage(systemName: "pencil.circle"),
         

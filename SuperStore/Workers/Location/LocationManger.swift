@@ -11,8 +11,8 @@ import MapKit
 
 class LocationWorker
 {
-    var locationAPI: LocationRequestProtocol
-    var locationStore: LocationStoreProtocol
+    private var locationAPI: LocationRequestProtocol
+    private var locationStore: LocationStoreProtocol
     
     init(locationAPI: LocationRequestProtocol) {
         self.locationAPI = locationAPI

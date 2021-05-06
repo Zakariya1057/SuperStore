@@ -9,8 +9,8 @@
 import Foundation
 
 class ResetPasswordWorker {
-    var passwordReset: ResetPasswordProtocol
-    var userSession: UserSessionWorker
+    private var passwordReset: ResetPasswordProtocol
+    private var userSession: UserSessionWorker
     
     init(passwordReset: ResetPasswordProtocol) {
         self.passwordReset = passwordReset

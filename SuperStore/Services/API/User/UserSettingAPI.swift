@@ -9,10 +9,7 @@
 import Foundation
 import Alamofire
 
-class UserSettingAPI: UserRequestProtocol {
-    
-    let jsonDecoder = JSONDecoder()
-    let requestWorker: RequestProtocol = RequestWorker()
+class UserSettingAPI: API, UserRequestProtocol {
         
     func updatePassword(currentPassword: String, newPassword: String, confirmPassword: String, completionHandler: @escaping (String?) -> Void) {
         let updateData: Parameters = [

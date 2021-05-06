@@ -9,9 +9,9 @@
 import Foundation
 
 class FavouriteWorker {
-    var favouriteAPI: FavouriteRequestProtocol
-    var productStore: ProductStoreProtocol
-    var userSession: UserSessionWorker = UserSessionWorker()
+    private var favouriteAPI: FavouriteRequestProtocol
+    private var productStore: ProductStoreProtocol
+    private var userSession: UserSessionWorker = UserSessionWorker()
     
     init(favouriteAPI: FavouriteRequestProtocol) {
         self.favouriteAPI = favouriteAPI

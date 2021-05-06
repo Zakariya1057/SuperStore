@@ -9,8 +9,8 @@
 import Foundation
 
 class UserSettingsWorker {
-    var userStore: UserStoreProtocol
-    var userAPI: UserRequestProtocol
+    private var userStore: UserStoreProtocol
+    private var userAPI: UserRequestProtocol
     
     init(userStore: UserStoreProtocol) {
         self.userStore = userStore

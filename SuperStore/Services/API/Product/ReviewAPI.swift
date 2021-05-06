@@ -9,10 +9,7 @@
 import Foundation
 import Alamofire
 
-class ReviewAPI: ReviewRequestProtocol {
-
-    let jsonDecoder = JSONDecoder()
-    let requestWorker: RequestProtocol = RequestWorker()
+class ReviewAPI: API, ReviewRequestProtocol {
     
     func getReview(productID: Int, completionHandler: @escaping (ReviewModel?, String?) -> Void) {
         let url = Config.Route.Review.ReviewRoute + "/" + String(productID) + Config.Route.Review.Show

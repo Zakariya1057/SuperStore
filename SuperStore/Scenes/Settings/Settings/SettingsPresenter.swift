@@ -57,7 +57,7 @@ class SettingsPresenter: SettingsPresentationLogic
                 displayUserSections.append(
                     Settings.DisplayUserSection(fields: [
                         Settings.DisplayUserField(name: "Feedback", type: .feedback),
-                        Settings.DisplayUserField(name: "Report Issues", type: .issue)
+                        Settings.DisplayUserField(name: "Report Issues", type: .reportIssue)
                     ])
                 )
                 
@@ -82,10 +82,9 @@ class SettingsPresenter: SettingsPresentationLogic
                 displayUserSections.append(
                     Settings.DisplayUserSection(fields: [
                         Settings.DisplayUserField(name: "Feedback", type: .feedback),
-                        Settings.DisplayUserField(name: "Report Issues", type: .issue)
+                        Settings.DisplayUserField(name: "Report Issues", type: .reportIssue)
                     ])
                 )
-
             }
         }
         

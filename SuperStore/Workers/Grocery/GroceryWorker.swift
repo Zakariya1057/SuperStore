@@ -9,8 +9,8 @@
 import Foundation
 
 class GroceryWorker {
-    var groceryAPI: GroceryRequestProtocol
-    var groceryStore: GroceryStoreProtocol
+    private var groceryAPI: GroceryRequestProtocol
+    private var groceryStore: GroceryStoreProtocol
     
     var userSession = UserSessionWorker()
     

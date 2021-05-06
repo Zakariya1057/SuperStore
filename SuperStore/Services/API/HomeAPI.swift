@@ -9,11 +9,7 @@
 import Foundation
 import Alamofire
 
-class HomeAPI: HomeRequestProtocol {
-
-    let jsonDecoder = JSONDecoder()
-    
-    let requestWorker: RequestProtocol = RequestWorker()
+class HomeAPI: API, HomeRequestProtocol {
 
     func getHome(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void) {
         

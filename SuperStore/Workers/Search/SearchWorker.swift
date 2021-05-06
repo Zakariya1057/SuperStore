@@ -9,9 +9,9 @@
 import Foundation
 
 class SearchWorker {
-    var searchAPI: SearchRequestProtocol
-    var searchSuggestionStore: SuggestionStoreProtocol
-    var searchResultsStore: ProductResultsStoreProtocol
+    private var searchAPI: SearchRequestProtocol
+    private var searchSuggestionStore: SuggestionStoreProtocol
+    private var searchResultsStore: ProductResultsStoreProtocol
     
     init(searchAPI: SearchRequestProtocol) {
         self.searchAPI = searchAPI

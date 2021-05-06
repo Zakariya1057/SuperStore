@@ -9,8 +9,8 @@
 import Foundation
 
 class UserAuthWorker {
-    var userAuth: UserAuthProtocol
-    var userSession: UserSessionWorker
+    private var userAuth: UserAuthProtocol
+    private var userSession: UserSessionWorker
     
     init(userAuth: UserAuthProtocol) {
         self.userAuth = userAuth

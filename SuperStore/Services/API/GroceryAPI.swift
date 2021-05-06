@@ -9,10 +9,7 @@
 import Foundation
 import Alamofire
 
-class GroceryAPI: GroceryRequestProtocol {
-
-    let jsonDecoder = JSONDecoder()
-    let requestWorker: RequestProtocol = RequestWorker()
+class GroceryAPI: API, GroceryRequestProtocol {
     
     func getGrandParentCategories(storeTypeID: Int, completionHandler: @escaping ([GrandParentCategoryModel], String?) -> Void) {
         let url: String = Config.Route.Groceries.GrandParentCategories + "/" + String(storeTypeID)

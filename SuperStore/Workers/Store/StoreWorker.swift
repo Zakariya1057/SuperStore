@@ -10,8 +10,8 @@ import Foundation
 
 class StoreWorker
 {
-    var storeAPI: StoreRequestProtocol
-    var storeStore: StoreStoreProtocol
+    private var storeAPI: StoreRequestProtocol
+    private var storeStore: StoreStoreProtocol
     
     init(storeAPI: StoreRequestProtocol) {
         self.storeAPI = storeAPI

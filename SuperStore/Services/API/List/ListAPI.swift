@@ -9,10 +9,7 @@
 import Foundation
 import Alamofire
 
-class ListAPI: ListRequestProtocol {
-    
-    let jsonDecoder = JSONDecoder()
-    let requestWorker: RequestProtocol = RequestWorker()
+class ListAPI: API, ListRequestProtocol {
     
     func getLists(storeTypeID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
         let url: String = Config.Route.List.All + "/" + String(storeTypeID)

@@ -99,6 +99,15 @@
 		2C322699263EB7C6007139FE /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C322696263EB7C6007139FE /* Roboto-Bold.ttf */; };
 		2C3F537E24D184C80095C4B1 /* SearchSuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F537C24D184C80095C4B1 /* SearchSuggestionCell.swift */; };
 		2C3F537F24D184C80095C4B1 /* SearchSuggestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C3F537D24D184C80095C4B1 /* SearchSuggestionCell.xib */; };
+		2C45E2C92643EFF40047887A /* FeedbackAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2C82643EFF40047887A /* FeedbackAPI.swift */; };
+		2C45E2CB2643F0220047887A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2CA2643F0220047887A /* API.swift */; };
+		2C45E2D3264440060047887A /* ReportIssuePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2CD264440060047887A /* ReportIssuePresenter.swift */; };
+		2C45E2D5264440060047887A /* ReportIssueRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2CF264440060047887A /* ReportIssueRouter.swift */; };
+		2C45E2D6264440060047887A /* ReportIssueModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2D0264440060047887A /* ReportIssueModels.swift */; };
+		2C45E2D7264440060047887A /* ReportIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2D1264440060047887A /* ReportIssueViewController.swift */; };
+		2C45E2D8264440060047887A /* ReportIssueInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2D2264440060047887A /* ReportIssueInteractor.swift */; };
+		2C45E2DB2644882C0047887A /* ReportWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2DA2644882C0047887A /* ReportWorker.swift */; };
+		2C45E2DD2644886B0047887A /* ReportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2DC2644886B0047887A /* ReportAPI.swift */; };
 		2C4615052604B7E30009D0E7 /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4615042604B7E30009D0E7 /* NetworkWorker.swift */; };
 		2C48E7A625EA99D4001A5702 /* StoresMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C48E7A425EA99D4001A5702 /* StoresMapCell.xib */; };
 		2C48E7A725EA99D4001A5702 /* StoresMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7A525EA99D4001A5702 /* StoresMapCell.swift */; };
@@ -353,6 +362,12 @@
 		2CC0ADE525FA1D6500373AC4 /* StoreRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADE425FA1D6500373AC4 /* StoreRealmStore.swift */; };
 		2CC0ADEB25FA1E2D00373AC4 /* StoreObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADEA25FA1E2D00373AC4 /* StoreObject.swift */; };
 		2CC0ADEF25FA3DC300373AC4 /* ResultsRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0ADEE25FA3DC300373AC4 /* ResultsRealmStore.swift */; };
+		2CC600352643EA7900A1F7BE /* FeedbackPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6002F2643EA7800A1F7BE /* FeedbackPresenter.swift */; };
+		2CC600372643EA7900A1F7BE /* FeedbackRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC600312643EA7800A1F7BE /* FeedbackRouter.swift */; };
+		2CC600382643EA7900A1F7BE /* FeedbackModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC600322643EA7800A1F7BE /* FeedbackModels.swift */; };
+		2CC600392643EA7900A1F7BE /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC600332643EA7800A1F7BE /* FeedbackViewController.swift */; };
+		2CC6003A2643EA7900A1F7BE /* FeedbackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC600342643EA7800A1F7BE /* FeedbackInteractor.swift */; };
+		2CC6003D2643EECE00A1F7BE /* FeedbackWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6003C2643EECE00A1F7BE /* FeedbackWorker.swift */; };
 		2CC72FF625FD7BFF004E3987 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC72FF525FD7BFF004E3987 /* ImageData.swift */; };
 		2CC72FFA25FD7C68004E3987 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC72FF925FD7C68004E3987 /* ImageModel.swift */; };
 		2CC72FFE25FD7CA1004E3987 /* ImageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC72FFD25FD7CA1004E3987 /* ImageObject.swift */; };
@@ -500,6 +515,15 @@
 		2C322696263EB7C6007139FE /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		2C3F537C24D184C80095C4B1 /* SearchSuggestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionCell.swift; sourceTree = "<group>"; };
 		2C3F537D24D184C80095C4B1 /* SearchSuggestionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSuggestionCell.xib; sourceTree = "<group>"; };
+		2C45E2C82643EFF40047887A /* FeedbackAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAPI.swift; sourceTree = "<group>"; };
+		2C45E2CA2643F0220047887A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		2C45E2CD264440060047887A /* ReportIssuePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIssuePresenter.swift; sourceTree = "<group>"; };
+		2C45E2CF264440060047887A /* ReportIssueRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIssueRouter.swift; sourceTree = "<group>"; };
+		2C45E2D0264440060047887A /* ReportIssueModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIssueModels.swift; sourceTree = "<group>"; };
+		2C45E2D1264440060047887A /* ReportIssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIssueViewController.swift; sourceTree = "<group>"; };
+		2C45E2D2264440060047887A /* ReportIssueInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIssueInteractor.swift; sourceTree = "<group>"; };
+		2C45E2DA2644882C0047887A /* ReportWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportWorker.swift; sourceTree = "<group>"; };
+		2C45E2DC2644886B0047887A /* ReportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAPI.swift; sourceTree = "<group>"; };
 		2C4615042604B7E30009D0E7 /* NetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
 		2C48E7A425EA99D4001A5702 /* StoresMapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoresMapCell.xib; sourceTree = "<group>"; };
 		2C48E7A525EA99D4001A5702 /* StoresMapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresMapCell.swift; sourceTree = "<group>"; };
@@ -763,6 +787,12 @@
 		2CC0ADE425FA1D6500373AC4 /* StoreRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRealmStore.swift; sourceTree = "<group>"; };
 		2CC0ADEA25FA1E2D00373AC4 /* StoreObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObject.swift; sourceTree = "<group>"; };
 		2CC0ADEE25FA3DC300373AC4 /* ResultsRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsRealmStore.swift; sourceTree = "<group>"; };
+		2CC6002F2643EA7800A1F7BE /* FeedbackPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPresenter.swift; sourceTree = "<group>"; };
+		2CC600312643EA7800A1F7BE /* FeedbackRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackRouter.swift; sourceTree = "<group>"; };
+		2CC600322643EA7800A1F7BE /* FeedbackModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackModels.swift; sourceTree = "<group>"; };
+		2CC600332643EA7800A1F7BE /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		2CC600342643EA7800A1F7BE /* FeedbackInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackInteractor.swift; sourceTree = "<group>"; };
+		2CC6003C2643EECE00A1F7BE /* FeedbackWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackWorker.swift; sourceTree = "<group>"; };
 		2CC72FF525FD7BFF004E3987 /* ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
 		2CC72FF925FD7C68004E3987 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		2CC72FFD25FD7CA1004E3987 /* ImageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageObject.swift; sourceTree = "<group>"; };
@@ -1180,6 +1210,26 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		2C45E2CC26443FE10047887A /* ReportIssue */ = {
+			isa = PBXGroup;
+			children = (
+				2C45E2CD264440060047887A /* ReportIssuePresenter.swift */,
+				2C45E2CF264440060047887A /* ReportIssueRouter.swift */,
+				2C45E2D0264440060047887A /* ReportIssueModels.swift */,
+				2C45E2D1264440060047887A /* ReportIssueViewController.swift */,
+				2C45E2D2264440060047887A /* ReportIssueInteractor.swift */,
+			);
+			path = ReportIssue;
+			sourceTree = "<group>";
+		};
+		2C45E2D9264488180047887A /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				2C45E2DA2644882C0047887A /* ReportWorker.swift */,
+			);
+			path = Report;
+			sourceTree = "<group>";
+		};
 		2C46150A2604BB360009D0E7 /* Date */ = {
 			isa = PBXGroup;
 			children = (
@@ -1206,8 +1256,11 @@
 				2CA11F4625EEB92E0054AE19 /* StoreAPI.swift */,
 				2C55F9CD25EE3B9C007BBFA8 /* SearchAPI.swift */,
 				2CA11F9125EF90280054AE19 /* GroceryAPI.swift */,
+				2C45E2C82643EFF40047887A /* FeedbackAPI.swift */,
+				2C45E2DC2644886B0047887A /* ReportAPI.swift */,
 				2CAB2EFA25FFF7C40014FE8D /* LocationAPI.swift */,
 				2C72949D25ECEAC300D280B3 /* FavouriteAPI.swift */,
+				2C45E2CA2643F0220047887A /* API.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1416,6 +1469,8 @@
 			isa = PBXGroup;
 			children = (
 				2C70828025F0105F00345147 /* Settings */,
+				2CC6002E2643EA6100A1F7BE /* Feedback */,
+				2C45E2CC26443FE10047887A /* ReportIssue */,
 				2C70825D25F00F9400345147 /* EditName */,
 				2C70829525F0137A00345147 /* EditEmail */,
 				2C70825C25F00E3A00345147 /* EditPassword */,
@@ -1606,6 +1661,8 @@
 			isa = PBXGroup;
 			children = (
 				2C1477A725E96E06000E8F66 /* User */,
+				2CC6003B2643EEB500A1F7BE /* Feedback */,
+				2C45E2D9264488180047887A /* Report */,
 				2C2BC7E025EAFCD30038882B /* Product */,
 				2C55F9D525EE4077007BBFA8 /* Search */,
 				2CA11F9525EF90410054AE19 /* Grocery */,
@@ -1940,6 +1997,26 @@
 				2CC0ADE425FA1D6500373AC4 /* StoreRealmStore.swift */,
 			);
 			path = Store;
+			sourceTree = "<group>";
+		};
+		2CC6002E2643EA6100A1F7BE /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				2CC6002F2643EA7800A1F7BE /* FeedbackPresenter.swift */,
+				2CC600312643EA7800A1F7BE /* FeedbackRouter.swift */,
+				2CC600322643EA7800A1F7BE /* FeedbackModels.swift */,
+				2CC600332643EA7800A1F7BE /* FeedbackViewController.swift */,
+				2CC600342643EA7800A1F7BE /* FeedbackInteractor.swift */,
+			);
+			path = Feedback;
+			sourceTree = "<group>";
+		};
+		2CC6003B2643EEB500A1F7BE /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				2CC6003C2643EECE00A1F7BE /* FeedbackWorker.swift */,
+			);
+			path = Feedback;
 			sourceTree = "<group>";
 		};
 		2CCBEB8625FF8DBC0068FFAF /* Cells */ = {
@@ -2326,6 +2403,7 @@
 				2C5C988725F6B14000DF8B6D /* ReviewObject.swift in Sources */,
 				2CA11F4025EEB6A50054AE19 /* StoreViewController.swift in Sources */,
 				2C2BC83C25EBC0680038882B /* ShowItemsPresenter.swift in Sources */,
+				2CC600352643EA7900A1F7BE /* FeedbackPresenter.swift in Sources */,
 				2C2BC83025EBBFD40038882B /* ShowPromotionModels.swift in Sources */,
 				2C1476F625E82FF6000E8F66 /* UserRealmStore.swift in Sources */,
 				2CA11F3E25EEB6A50054AE19 /* StoreRouter.swift in Sources */,
@@ -2345,6 +2423,7 @@
 				2CCBEB8225FF8CEC0068FFAF /* FacilityTableViewCell.swift in Sources */,
 				2CA11F7625EF8E5C0054AE19 /* ParentCategoriesWorker.swift in Sources */,
 				2C55FA1125EE4BF9007BBFA8 /* ShowProductResultsViewController.swift in Sources */,
+				2C45E2C92643EFF40047887A /* FeedbackAPI.swift in Sources */,
 				2C910B4025E7AABF00BCEACC /* LoginPresenter.swift in Sources */,
 				2C5C984825F69A6000DF8B6D /* ListItemRealmStore.swift in Sources */,
 				2C55F9CA25EE3B62007BBFA8 /* ShowSuggestionsInteractor.swift in Sources */,
@@ -2370,6 +2449,7 @@
 				2CA11F7A25EF8E5C0054AE19 /* ParentCategoriesInteractor.swift in Sources */,
 				2C910B4525E7AABF00BCEACC /* LoginInteractor.swift in Sources */,
 				2C48E7D525EAA078001A5702 /* ListModel.swift in Sources */,
+				2CC600372643EA7900A1F7BE /* FeedbackRouter.swift in Sources */,
 				2CA11F9C25EF90F00054AE19 /* CategoryModel.swift in Sources */,
 				2C058FF425F52AE100B4A16B /* EditStorePresenter.swift in Sources */,
 				2C70827525F0100700345147 /* EditPasswordWorker.swift in Sources */,
@@ -2396,6 +2476,7 @@
 				2C48E7CD25EAA064001A5702 /* UserModel.swift in Sources */,
 				2C55FA2625EE4C7C007BBFA8 /* ShowStoreResultsViewController.swift in Sources */,
 				2C1429A025F2C7F1007D1EB7 /* ListPriceWorker.swift in Sources */,
+				2C45E2D8264440060047887A /* ReportIssueInteractor.swift in Sources */,
 				2CA11F7925EF8E5C0054AE19 /* ParentCategoriesViewController.swift in Sources */,
 				2C2BC80525EBBF040038882B /* ShowReviewsInteractor.swift in Sources */,
 				2C70829D25F013A700345147 /* EditNameWorker.swift in Sources */,
@@ -2407,6 +2488,7 @@
 				2C7294CF25ECF4A000D280B3 /* FavouriteData.swift in Sources */,
 				2C5C986F25F69BB200DF8B6D /* SearchObject.swift in Sources */,
 				2C5C986B25F69B9200DF8B6D /* ProductObject.swift in Sources */,
+				2C45E2DD2644886B0047887A /* ReportAPI.swift in Sources */,
 				2C14773125E90246000E8F66 /* RegisterRouter.swift in Sources */,
 				2CA11F8425EF8E6D0054AE19 /* ChildCategoriesWorker.swift in Sources */,
 				2CB911B625F11B6100A8FC66 /* ShowListPresenter.swift in Sources */,
@@ -2454,6 +2536,7 @@
 				2C9C1B9124CEEF90001ACA35 /* ListPriceUpdateTableViewCell.swift in Sources */,
 				2C48E7A725EA99D4001A5702 /* StoresMapCell.swift in Sources */,
 				2C058FF825F52AE100B4A16B /* EditStoreViewController.swift in Sources */,
+				2CC6003A2643EA7900A1F7BE /* FeedbackInteractor.swift in Sources */,
 				2C55F9D725EE4085007BBFA8 /* SearchWorker.swift in Sources */,
 				2CA11EEA25EE84620054AE19 /* ShowRefinePresenter.swift in Sources */,
 				2C2BC80E25EBBF180038882B /* EditReviewPresenter.swift in Sources */,
@@ -2518,6 +2601,7 @@
 				2CB2CFE025EAB15A00A00F7F /* ReviewData.swift in Sources */,
 				2C5C986725F69B3400DF8B6D /* GroceryRealmStore.swift in Sources */,
 				2CA11F6725EF8E490054AE19 /* GrandParentCategoriesPresenter.swift in Sources */,
+				2C45E2D7264440060047887A /* ReportIssueViewController.swift in Sources */,
 				2C14299A25F2C282007D1EB7 /* EditListItemModels.swift in Sources */,
 				2C2BC82D25EBBFD40038882B /* ShowPromotionPresenter.swift in Sources */,
 				2C2BC84125EBC0680038882B /* ShowItemsInteractor.swift in Sources */,
@@ -2549,6 +2633,7 @@
 				2C70827925F0100700345147 /* EditPasswordInteractor.swift in Sources */,
 				2C2BC7DA25EAF9220038882B /* ShowProductRouter.swift in Sources */,
 				2CA11F4725EEB92E0054AE19 /* StoreAPI.swift in Sources */,
+				2C45E2D3264440060047887A /* ReportIssuePresenter.swift in Sources */,
 				2C70829F25F013A700345147 /* EditNameModels.swift in Sources */,
 				2C1476BF25E7ADAC000E8F66 /* UserAuthWorker.swift in Sources */,
 				2CA11F7825EF8E5C0054AE19 /* ParentCategoriesModels.swift in Sources */,
@@ -2565,6 +2650,7 @@
 				2C70822F25F009BE00345147 /* VerifyCodePresenter.swift in Sources */,
 				2CA11F8725EF8E6D0054AE19 /* ChildCategoriesViewController.swift in Sources */,
 				2CBFFBD825F7D14800F27917 /* BackToShowListRouter.swift in Sources */,
+				2C45E2D5264440060047887A /* ReportIssueRouter.swift in Sources */,
 				2C72943925EBE75500D280B3 /* ResetPasswordAPI.swift in Sources */,
 				2C7294C625ECF19C00D280B3 /* FavouritesRouter.swift in Sources */,
 				2CA11F3F25EEB6A50054AE19 /* StoreModels.swift in Sources */,
@@ -2578,6 +2664,7 @@
 				2CB911A925F11B5500A8FC66 /* EditListWorker.swift in Sources */,
 				2CC72FFA25FD7C68004E3987 /* ImageModel.swift in Sources */,
 				2CB9119F25F11B4500A8FC66 /* ShowListsInteractor.swift in Sources */,
+				2C45E2DB2644882C0047887A /* ReportWorker.swift in Sources */,
 				2C2BC84925EBC1D70038882B /* ReviewWorker.swift in Sources */,
 				2C7CAC56264056B40024FDD8 /* MonitoredProductsWorker.swift in Sources */,
 				2C1477A025E94CEE000E8F66 /* ErrorViewController.swift in Sources */,
@@ -2585,6 +2672,7 @@
 				2C55F9E825EE478F007BBFA8 /* SearchData.swift in Sources */,
 				2C6146A425F1266400D92CB7 /* CreateListInteractor.swift in Sources */,
 				2CA11F9225EF90280054AE19 /* GroceryAPI.swift in Sources */,
+				2C45E2D6264440060047887A /* ReportIssueModels.swift in Sources */,
 				2C058FE225F5098300B4A16B /* UserLoggedInRouter.swift in Sources */,
 				2C14773225E90246000E8F66 /* RegisterModels.swift in Sources */,
 				2C6146A025F1266400D92CB7 /* CreateListWorker.swift in Sources */,
@@ -2606,6 +2694,7 @@
 				2CC0ADEB25FA1E2D00373AC4 /* StoreObject.swift in Sources */,
 				2C7082AC25F013B200345147 /* EditEmailRouter.swift in Sources */,
 				2C55FA2425EE4C7C007BBFA8 /* ShowStoreResultsRouter.swift in Sources */,
+				2CC600392643EA7900A1F7BE /* FeedbackViewController.swift in Sources */,
 				2CAC05EC252B83FF00561509 /* OffersCell.swift in Sources */,
 				2C7082AE25F013B200345147 /* EditEmailViewController.swift in Sources */,
 				2C70828C25F0108500345147 /* SettingsInteractor.swift in Sources */,
@@ -2614,9 +2703,12 @@
 				2C70822A25F009BE00345147 /* VerifyCodeWorker.swift in Sources */,
 				2C70825325F00B2200345147 /* UserObject.swift in Sources */,
 				2C72945425EBE77900D280B3 /* PromotionAPI.swift in Sources */,
+				2CC600382643EA7900A1F7BE /* FeedbackModels.swift in Sources */,
 				2C2BC84025EBC0680038882B /* ShowItemsViewController.swift in Sources */,
 				2CDFB63A25EA6359002CE30D /* HomeInteractor.swift in Sources */,
 				2C910B4325E7AABF00BCEACC /* LoginModels.swift in Sources */,
+				2C45E2CB2643F0220047887A /* API.swift in Sources */,
+				2CC6003D2643EECE00A1F7BE /* FeedbackWorker.swift in Sources */,
 				2C48E7B725EA9DCF001A5702 /* ProductModel.swift in Sources */,
 				2CB911AD25F11B5500A8FC66 /* EditListInteractor.swift in Sources */,
 				2CA11F8625EF8E6D0054AE19 /* ChildCategoriesModels.swift in Sources */,

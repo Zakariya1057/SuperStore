@@ -231,6 +231,10 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             loginButtonPressed()
         case .notification:
             print("Notification Pressed")
+        case .feedback:
+            feedbackPressed()
+        case .reportIssue:
+            reportIssuePressed()
         default:
             print("No function for type")
         }
@@ -298,6 +302,17 @@ extension SettingsViewController {
         
         present(refreshAlert, animated: true, completion: nil)
     }
+    
+    
+    
+    @objc func feedbackPressed(){
+        router?.routeToFeedback(segue: nil)
+    }
+    
+    @objc func reportIssuePressed(){
+        router?.routeToReportIssue(segue: nil)
+    }
+    
 }
 
 extension SettingsViewController {

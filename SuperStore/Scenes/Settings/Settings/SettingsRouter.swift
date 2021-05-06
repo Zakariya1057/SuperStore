@@ -19,6 +19,9 @@ import UIKit
     func routeToEditPassword(segue: UIStoryboardSegue?)
     func routeToEditStore(segue: UIStoryboardSegue?)
     
+    func routeToFeedback(segue: UIStoryboardSegue?)
+    func routeToReportIssue(segue: UIStoryboardSegue?)
+    
     func routeToLogin(segue: UIStoryboardSegue?)
 }
 
@@ -29,11 +32,12 @@ protocol SettingsDataPassing
 
 class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
 {
+    
     weak var viewController: SettingsViewController?
     var dataStore: SettingsDataStore?
     
     // MARK: Routing
-
+    
     func routeToEditStore(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
@@ -81,34 +85,62 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
     
     func routeToEditEmail(segue: UIStoryboardSegue?)
     {
-      if let segue = segue {
-        let destinationVC = segue.destination as! EditEmailViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToEditEmail(source: dataStore!, destination: &destinationDS)
-      } else {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditEmailViewController") as! EditEmailViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToEditEmail(source: dataStore!, destination: &destinationDS)
-        navigateToEditEmail(source: viewController!, destination: destinationVC)
-      }
+        if let segue = segue {
+            let destinationVC = segue.destination as! EditEmailViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToEditEmail(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditEmailViewController") as! EditEmailViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToEditEmail(source: dataStore!, destination: &destinationDS)
+            navigateToEditEmail(source: viewController!, destination: destinationVC)
+        }
     }
     
     func routeToEditPassword(segue: UIStoryboardSegue?)
     {
-      if let segue = segue {
-        let destinationVC = segue.destination as! EditPasswordViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToEditPassword(source: dataStore!, destination: &destinationDS)
-      } else {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditPasswordViewController") as! EditPasswordViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToEditPassword(source: dataStore!, destination: &destinationDS)
-        navigateToEditPassword(source: viewController!, destination: destinationVC)
-      }
+        if let segue = segue {
+            let destinationVC = segue.destination as! EditPasswordViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToEditPassword(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditPasswordViewController") as! EditPasswordViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToEditPassword(source: dataStore!, destination: &destinationDS)
+            navigateToEditPassword(source: viewController!, destination: destinationVC)
+        }
     }
     
+    func routeToFeedback(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! FeedbackViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToFeedback(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedbackViewController") as! FeedbackViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToFeedback(source: dataStore!, destination: &destinationDS)
+            navigateToFeedback(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    func routeToReportIssue(segue: UIStoryboardSegue?) {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ReportIssueViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToReportIssue(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ReportIssueViewController") as! ReportIssueViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToReportIssue(source: dataStore!, destination: &destinationDS)
+            navigateToReportIssue(source: viewController!, destination: destinationVC)
+        }
+    }
     // MARK: Navigation
     
     func navigateToEditStore(source: SettingsViewController, destination: EditStoreViewController)
@@ -136,16 +168,26 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
         source.show(destination, sender: nil)
     }
     
+    func navigateToFeedback(source: SettingsViewController, destination: FeedbackViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    func navigateToReportIssue(source: SettingsViewController, destination: ReportIssueViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
     // MARK: Passing data
     
     func passDataToEditStore(source: SettingsDataStore, destination: inout EditStoreDataStore)
     {
-
+        
     }
     
     func passDataToLogin(source: SettingsDataStore, destination: inout LoginDataStore)
     {
-
+        
     }
     
     func passDataToEditName(source: SettingsDataStore, destination: inout EditNameDataStore)
@@ -160,7 +202,16 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
     
     func passDataToEditPassword(source: SettingsDataStore, destination: inout EditPasswordDataStore)
     {
-
+        
     }
-
+    
+    func passDataToFeedback(source: SettingsDataStore, destination: inout FeedbackDataStore)
+    {
+        
+    }
+    
+    func passDataToReportIssue(source: SettingsDataStore, destination: inout ReportIssueDataStore)
+    {
+        
+    }
 }

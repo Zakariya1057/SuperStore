@@ -36,10 +36,17 @@ class MonitoredProductsInteractor: MonitoredProductsBusinessLogic, MonitoredProd
     
     var selectedProductID: Int? = nil
     
+    var userSession: UserSessionWorker = UserSessionWorker()
+    
     func getMonitoredProducts(request: MonitoredProducts.GetMonitoredProducts.Request)
     {
         productWorker.getMonitoredProducts(storeTypeID: storeTypeID, completionHandler: { (products: [ProductModel], error: String?) in
-            let response = MonitoredProducts.GetMonitoredProducts.Response(products: products, error: error, offline: false)
+            var response = MonitoredProducts.GetMonitoredProducts.Response(products: products, error: error)
+            
+            if error != nil {
+                response.offline = !self.userSession.isOnline()
+            }
+            
             self.presenter?.presentMonitoredProducts(response: response)
         })
     }

@@ -30,7 +30,7 @@ enum Settings
     
     enum DisplayUserFieldType {
         case name, email, store, password, notification
-        case feedback, issue
+        case feedback, reportIssue
         case logout, login
     }
     

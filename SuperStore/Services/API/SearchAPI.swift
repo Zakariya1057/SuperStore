@@ -9,11 +9,7 @@
 import Foundation
 import Alamofire
 
-class SearchAPI: SearchRequestProtocol {
-    
-    let jsonDecoder = JSONDecoder()
-    
-    let requestWorker: RequestProtocol = RequestWorker()
+class SearchAPI: API, SearchRequestProtocol {
     
     func getSuggestions(storeTypeID: Int, query: String, completionHandler: @escaping ([SuggestionModel], String?) -> Void) {
         let url = Config.Route.Search.Suggestions

@@ -8,10 +8,7 @@
 
 import Foundation
 
-class FavouriteAPI: FavouriteRequestProtocol {
-    
-    let jsonDecoder = JSONDecoder()
-    let requestWorker: RequestProtocol = RequestWorker()
+class FavouriteAPI: API, FavouriteRequestProtocol {
     
     func getFavourites(completionHandler: @escaping ([ProductModel], String?) -> Void) {
         requestWorker.get(url: Config.Route.Favourites) { (response: () throws -> Data) in

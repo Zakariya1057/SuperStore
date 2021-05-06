@@ -1649,6 +1649,8 @@
                         <segue destination="SzX-4m-Fpe" kind="show" id="C7z-JW-Rzr"/>
                         <segue destination="nph-2y-VSK" kind="show" id="xk2-3c-8X5"/>
                         <segue destination="0I5-2D-5uz" kind="show" id="JQJ-3Y-fu1"/>
+                        <segue destination="fIe-Ia-vcg" kind="show" id="wkV-yz-5e0"/>
+                        <segue destination="1ya-Bg-0MF" kind="show" id="G57-xG-LTM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G22-dA-1Vk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3534,7 +3536,7 @@
             </objects>
             <point key="canvasLocation" x="12976.8115942029" y="-374.33035714285711"/>
         </scene>
-        <!--Offers-->
+        <!--Show Promotion View Controller-->
         <scene sceneID="VyZ-9z-UuA">
             <objects>
                 <viewController storyboardIdentifier="ShowPromotionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NiB-m5-sPY" customClass="ShowPromotionViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -3605,7 +3607,7 @@
                             <constraint firstItem="Vkl-XQ-FkG" firstAttribute="leading" secondItem="GkX-gK-9e7" secondAttribute="leading" id="wQ1-IB-bCj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Offers" largeTitleDisplayMode="always" id="pkH-zn-Fpe"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="pkH-zn-Fpe"/>
                     <connections>
                         <outlet property="expiresStackView" destination="Wzx-F7-brg" id="HJw-5K-e9a"/>
                         <outlet property="promotionExpiresLabel" destination="fVf-FN-EsO" id="Ihy-2w-09p"/>
@@ -3788,7 +3790,7 @@
             <objects>
                 <viewController id="HXj-j2-Hvf" customClass="ShowRefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wxa-Ye-bc0">
@@ -4226,7 +4228,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2d2-af-2Cu">
-                                <rect key="frame" x="0.0" y="88" width="414" height="505.5"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="545.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ne-tu-j5D">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
@@ -4243,15 +4245,15 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="PiX-Ug-792">
-                                        <rect key="frame" x="0.0" y="40" width="414" height="465.5"/>
+                                        <rect key="frame" x="0.0" y="40" width="414" height="505.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Q5-R1-K2p">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="230"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="270"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mVh-vT-QS3" customClass="ImageSlideshow" customModule="ImageSlideshow">
-                                                        <rect key="frame" x="15" y="30" width="384" height="200"/>
+                                                        <rect key="frame" x="15" y="30" width="384" height="240"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="200" id="dKg-t6-aDG"/>
+                                                            <constraint firstAttribute="height" constant="240" id="dKg-t6-aDG"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -4264,7 +4266,7 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="RYh-2R-aMF">
-                                                <rect key="frame" x="0.0" y="230" width="414" height="235.5"/>
+                                                <rect key="frame" x="0.0" y="270" width="414" height="235.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xiR-zY-82R">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="105.5"/>
@@ -4314,10 +4316,10 @@
                                                                 <rect key="frame" x="132" y="0.0" width="50" height="50"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rvH-di-4Y2">
-                                                                        <rect key="frame" x="-15" y="2.5" width="50" height="45"/>
+                                                                        <rect key="frame" x="-25" y="0.0" width="55" height="50"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" constant="50" id="Nau-an-JKb"/>
-                                                                            <constraint firstAttribute="height" constant="45" id="dIK-E3-4ZI"/>
+                                                                            <constraint firstAttribute="width" constant="55" id="Nau-an-JKb"/>
+                                                                            <constraint firstAttribute="height" constant="50" id="dIK-E3-4ZI"/>
                                                                         </constraints>
                                                                         <state key="normal">
                                                                             <imageReference key="image" image="minus.square" catalog="system" symbolScale="large"/>
@@ -4330,7 +4332,7 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="trailing" secondItem="rvH-di-4Y2" secondAttribute="trailing" constant="15" id="gYo-Ni-HwF"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="rvH-di-4Y2" secondAttribute="trailing" constant="20" id="gYo-Ni-HwF"/>
                                                                     <constraint firstAttribute="width" constant="50" id="oKv-W2-wSx"/>
                                                                     <constraint firstItem="rvH-di-4Y2" firstAttribute="centerY" secondItem="u1A-vk-iMu" secondAttribute="centerY" id="pM4-O3-QKD"/>
                                                                 </constraints>
@@ -4356,10 +4358,10 @@
                                                                 <rect key="frame" x="232" y="0.0" width="50" height="50"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Tf-xO-BZu">
-                                                                        <rect key="frame" x="15" y="2.5" width="50" height="45"/>
+                                                                        <rect key="frame" x="20" y="0.0" width="55" height="50"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" constant="50" id="Fvz-1h-UNA"/>
-                                                                            <constraint firstAttribute="height" constant="45" id="NkO-gR-wEP"/>
+                                                                            <constraint firstAttribute="width" constant="55" id="Fvz-1h-UNA"/>
+                                                                            <constraint firstAttribute="height" constant="50" id="NkO-gR-wEP"/>
                                                                         </constraints>
                                                                         <state key="normal">
                                                                             <imageReference key="image" image="plus.square" catalog="system" symbolScale="large"/>
@@ -4373,7 +4375,7 @@
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="3Tf-xO-BZu" firstAttribute="centerY" secondItem="K2S-dn-GMP" secondAttribute="centerY" id="D6T-zD-vCl"/>
-                                                                    <constraint firstItem="3Tf-xO-BZu" firstAttribute="leading" secondItem="K2S-dn-GMP" secondAttribute="leading" constant="15" id="cOY-Vf-hwB"/>
+                                                                    <constraint firstItem="3Tf-xO-BZu" firstAttribute="leading" secondItem="K2S-dn-GMP" secondAttribute="leading" constant="20" id="cOY-Vf-hwB"/>
                                                                     <constraint firstAttribute="width" constant="50" id="ssM-sW-ZZ0"/>
                                                                 </constraints>
                                                             </view>
@@ -5362,7 +5364,136 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DOQ-co-ax9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6188" y="2573"/>
+            <point key="canvasLocation" x="6193" y="2750"/>
+        </scene>
+        <!--Feedback-->
+        <scene sceneID="EH0-fx-LAd">
+            <objects>
+                <viewController storyboardIdentifier="FeedbackViewController" id="fIe-Ia-vcg" customClass="FeedbackViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oEC-7L-HDC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bhc-nK-ayu">
+                                <rect key="frame" x="15" y="155" width="384" height="300"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HfM-tZ-8wb">
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="300"/>
+                                        <subviews>
+                                            <textView multipleTouchEnabled="YES" contentMode="scaleToFill" canCancelContentTouches="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ury-o8-jBR">
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="300"/>
+                                                <color key="backgroundColor" name="LightGrey"/>
+                                                <color key="tintColor" name="LogoBlue"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="send"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Ury-o8-jBR" firstAttribute="leading" secondItem="HfM-tZ-8wb" secondAttribute="leading" id="D0t-8a-v2U"/>
+                                            <constraint firstAttribute="height" constant="300" id="kIS-Q8-o4m"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ury-o8-jBR" secondAttribute="trailing" id="vx1-wp-e0F"/>
+                                            <constraint firstItem="Ury-o8-jBR" firstAttribute="top" secondItem="HfM-tZ-8wb" secondAttribute="top" id="yhk-sn-VFZ"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ury-o8-jBR" secondAttribute="bottom" id="zrs-NT-c2h"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="HfM-tZ-8wb" firstAttribute="leading" secondItem="bhc-nK-ayu" secondAttribute="leading" id="I4m-2f-Kqm"/>
+                                    <constraint firstAttribute="bottom" secondItem="HfM-tZ-8wb" secondAttribute="bottom" id="Vef-aX-XwO"/>
+                                    <constraint firstItem="HfM-tZ-8wb" firstAttribute="top" secondItem="bhc-nK-ayu" secondAttribute="top" id="e87-oU-lFV"/>
+                                    <constraint firstAttribute="trailing" secondItem="HfM-tZ-8wb" secondAttribute="trailing" id="llG-47-bRL"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="TEC-Vk-JDd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bhc-nK-ayu" firstAttribute="leading" secondItem="TEC-Vk-JDd" secondAttribute="leading" constant="15" id="BI1-VT-bvs"/>
+                            <constraint firstItem="TEC-Vk-JDd" firstAttribute="trailing" secondItem="bhc-nK-ayu" secondAttribute="trailing" constant="15" id="JaY-D0-59B"/>
+                            <constraint firstItem="bhc-nK-ayu" firstAttribute="top" secondItem="TEC-Vk-JDd" secondAttribute="top" constant="15" id="Zo7-tB-EYc"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Feedback" id="Eqe-yU-R0K">
+                        <barButtonItem key="rightBarButtonItem" title="Send" id="Yz9-u2-vn8">
+                            <connections>
+                                <action selector="sendButtonPressed:" destination="fIe-Ia-vcg" id="j3D-nv-XdL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="feedbackTextView" destination="Ury-o8-jBR" id="fnp-1p-Acz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NZF-Ho-cMk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6193" y="1870"/>
+        </scene>
+        <!--Report Issues-->
+        <scene sceneID="s4l-3R-ChX">
+            <objects>
+                <viewController storyboardIdentifier="ReportIssueViewController" id="1ya-Bg-0MF" customClass="ReportIssueViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wR9-e3-qUX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dtk-eb-LPZ">
+                                <rect key="frame" x="15" y="155" width="384" height="300"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KfJ-3u-egV">
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="300"/>
+                                        <subviews>
+                                            <textView multipleTouchEnabled="YES" contentMode="scaleToFill" canCancelContentTouches="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="v5B-xO-m0J">
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="300"/>
+                                                <color key="backgroundColor" name="LightGrey"/>
+                                                <color key="tintColor" name="LogoBlue"/>
+                                                <string key="text">Samsung is second most profitable Smartphone manufacturer. But that’s not a good fit either. An Apple owned Samsung would what? Compete with the iPhone? Or become part of a unified product line? Neither option is in Apple’s interest. Owning 100% of the profitable smartphone market might actually be bad for the company. Samsung is second most profitable Smartphone manufacturer. </string>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="send"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="v5B-xO-m0J" secondAttribute="bottom" id="30m-p4-WrA"/>
+                                            <constraint firstItem="v5B-xO-m0J" firstAttribute="top" secondItem="KfJ-3u-egV" secondAttribute="top" id="5uI-yR-lhU"/>
+                                            <constraint firstAttribute="trailing" secondItem="v5B-xO-m0J" secondAttribute="trailing" id="F3A-Tv-v1r"/>
+                                            <constraint firstItem="v5B-xO-m0J" firstAttribute="leading" secondItem="KfJ-3u-egV" secondAttribute="leading" id="fxE-KY-p7G"/>
+                                            <constraint firstAttribute="height" constant="300" id="yY2-5A-Pqh"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="KfJ-3u-egV" firstAttribute="leading" secondItem="dtk-eb-LPZ" secondAttribute="leading" id="EXT-FA-IW5"/>
+                                    <constraint firstAttribute="bottom" secondItem="KfJ-3u-egV" secondAttribute="bottom" id="Rsu-xm-Vel"/>
+                                    <constraint firstAttribute="trailing" secondItem="KfJ-3u-egV" secondAttribute="trailing" id="bNc-iI-bxM"/>
+                                    <constraint firstItem="KfJ-3u-egV" firstAttribute="top" secondItem="dtk-eb-LPZ" secondAttribute="top" id="dYk-Ef-F91"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dBR-FP-M1f"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dtk-eb-LPZ" firstAttribute="top" secondItem="dBR-FP-M1f" secondAttribute="top" constant="15" id="5Zj-RQ-CcX"/>
+                            <constraint firstItem="dBR-FP-M1f" firstAttribute="trailing" secondItem="dtk-eb-LPZ" secondAttribute="trailing" constant="15" id="8Ib-oh-6l8"/>
+                            <constraint firstItem="dtk-eb-LPZ" firstAttribute="leading" secondItem="dBR-FP-M1f" secondAttribute="leading" constant="15" id="eS5-P5-8g3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Report Issues" id="ORR-c7-NUP">
+                        <barButtonItem key="rightBarButtonItem" title="Send" id="LQm-eU-7iM">
+                            <connections>
+                                <action selector="sendButtonPressed:" destination="1ya-Bg-0MF" id="ncG-GT-ffM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="issueTextView" destination="v5B-xO-m0J" id="y4H-yd-PAJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S5H-s1-wgO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7248" y="2290"/>
         </scene>
     </scenes>
     <designables>

@@ -8,10 +8,7 @@
 
 import Foundation
 
-class ProductAPI: ProductRequestProtocol {
-    
-    let jsonDecoder = JSONDecoder()
-    let requestWorker: RequestProtocol = RequestWorker()
+class ProductAPI: API, ProductRequestProtocol {
     
     func getProduct(productID: Int, completionHandler: @escaping (ProductModel?, String?) -> Void) {
         let url = Config.Route.Product.Show + String(productID)

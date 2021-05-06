@@ -9,8 +9,8 @@
 import Foundation
 
 class ProductWorker {
-    var productAPI: ProductRequestProtocol
-    var productStore: ProductStoreProtocol
+    private var productAPI: ProductRequestProtocol
+    private var productStore: ProductStoreProtocol
     
     init(productAPI: ProductRequestProtocol) {
         self.productAPI = productAPI

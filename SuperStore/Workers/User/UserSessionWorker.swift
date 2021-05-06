@@ -13,8 +13,8 @@ class UserSessionWorker {
     static var online: Bool = false
     static var notificationToken: String?
     
-    var networkManager: NetworkWorker = NetworkWorker()
-    var userStore: UserStoreProtocol = UserRealmStore()
+    private var networkManager: NetworkWorker = NetworkWorker()
+    private var userStore: UserStoreProtocol = UserRealmStore()
     
     func getUserToken() -> String? {
         return userStore.getToken()

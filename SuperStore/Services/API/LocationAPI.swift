@@ -8,10 +8,7 @@
 
 import Foundation
 
-class LocationAPI: LocationRequestProtocol {
-    
-    let jsonDecoder = JSONDecoder()
-    let requestWorker: RequestProtocol = RequestWorker()
+class LocationAPI: API, LocationRequestProtocol {
 
     func updateLocation(latitude: Double, longitude: Double, completionHandler: @escaping ( _ error: String?) -> Void){
         requestWorker.post(url: Config.Route.User.Location, data: ["latitude": latitude, "longitude": longitude]) { (response: () throws -> Data) in

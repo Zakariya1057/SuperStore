@@ -8,10 +8,7 @@
 
 import Foundation
 
-class PromotionAPI: PromotionRequestProtocol {
-    
-    let jsonDecoder = JSONDecoder()
-    let requestWorker: RequestProtocol = RequestWorker()
+class PromotionAPI: API, PromotionRequestProtocol {
     
     func getPromotion(promotionID: Int, completionHandler: @escaping (PromotionModel?, String?) -> Void) {
         let url = Config.Route.Promotion + "/" + String(promotionID)
