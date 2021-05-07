@@ -25,6 +25,7 @@ import UIKit
     func routeToChildCategories(segue: UIStoryboardSegue?)
     
     func routeToMonitoredProducts(segue: UIStoryboardSegue?)
+    func routeToAllOffers(segue: UIStoryboardSegue?)
 }
 
 protocol HomeDataPassing
@@ -156,6 +157,20 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
         }
     }
     
+    func routeToAllOffers(segue: UIStoryboardSegue?) {
+        if let segue = segue {
+            let destinationVC = segue.destination as! AllPromotionsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToAllOffers(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "AllPromotionsViewController") as! AllPromotionsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToAllOffers(source: dataStore!, destination: &destinationDS)
+            navigateToAllOffers(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     //    MARK: Navigation
     
     func navigateToShowList(source: HomeViewController, destination: ShowListViewController)
@@ -194,6 +209,11 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     }
     
     func navigateToMonitoredProducts(source: HomeViewController, destination: MonitoredProductsViewController)
+    {
+      source.show(destination, sender: nil)
+    }
+    
+    func navigateToAllOffers(source: HomeViewController, destination: AllPromotionsViewController)
     {
       source.show(destination, sender: nil)
     }
@@ -241,6 +261,11 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     }
     
     func passDataToMonitoredProducts(source: HomeDataStore, destination: inout MonitoredProductsDataStore)
+    {
+        destination.storeTypeID = source.storeTypeID
+    }
+    
+    func passDataToAllOffers(source: HomeDataStore, destination: inout AllPromotionsDataStore)
     {
         destination.storeTypeID = source.storeTypeID
     }

@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct AllPromotionsDataResponse: Decodable {
+    var data: [PromotionData]
+}
+
 struct PromotionDataResponse: Decodable {
     var data: PromotionData
 }

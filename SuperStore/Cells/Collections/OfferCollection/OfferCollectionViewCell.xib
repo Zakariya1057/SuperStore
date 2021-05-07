@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,14 +31,15 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="205" height="18.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Pizzas, 1 Side, 1 Drink" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hf1-sK-GsW" userLabel="Title Label">
-                                                        <rect key="frame" x="5" y="-0.5" width="195.5" height="20"/>
-                                                        <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
+                                                        <rect key="frame" x="0.0" y="-0.5" width="205" height="20"/>
+                                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="17"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="hf1-sK-GsW" firstAttribute="centerX" secondItem="llk-b4-gVL" secondAttribute="centerX" id="5qA-us-Tsv"/>
+                                                    <constraint firstAttribute="trailing" secondItem="hf1-sK-GsW" secondAttribute="trailing" id="HsN-4D-1ov"/>
+                                                    <constraint firstItem="hf1-sK-GsW" firstAttribute="leading" secondItem="llk-b4-gVL" secondAttribute="leading" id="KdD-gs-WfH"/>
                                                     <constraint firstItem="hf1-sK-GsW" firstAttribute="centerY" secondItem="llk-b4-gVL" secondAttribute="centerY" id="gaR-74-PN7"/>
                                                 </constraints>
                                             </view>
@@ -45,8 +47,8 @@
                                                 <rect key="frame" x="0.0" y="27.5" width="205" height="18.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£7 Meal Deal" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lU6-Oq-FSe" userLabel="Detail Label">
-                                                        <rect key="frame" x="56" y="0.5" width="93" height="17.5"/>
-                                                        <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="15"/>
+                                                        <rect key="frame" x="58.5" y="0.5" width="88" height="17.5"/>
+                                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="15"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -61,7 +63,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.76862745098039209" green="0.043137254901960784" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="LogoBlue"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="HeC-xt-5j2" secondAttribute="bottom" constant="8" id="0Ly-yM-423"/>
                             <constraint firstAttribute="trailing" secondItem="HeC-xt-5j2" secondAttribute="trailing" constant="5" id="7AW-vl-6BO"/>
@@ -87,4 +89,9 @@
             <point key="canvasLocation" x="244.20289855072465" y="97.098214285714278"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <namedColor name="LogoBlue">
+            <color red="0.097999997437000275" green="0.46299999952316284" blue="0.80400002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

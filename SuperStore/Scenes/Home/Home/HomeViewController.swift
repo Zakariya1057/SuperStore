@@ -504,25 +504,18 @@ extension HomeViewController {
 //MARK: - View All Buttons Callbacks
 extension HomeViewController {
     private func viewAllStoresButtonPressed(){
-        // Navigate To Store Results
-        print("View All Stores")
         router?.routeToShowStoreResults(segue: nil)
     }
     
     private func viewAllPromotionsButtonPressed(){
-        // Navigate To Page - All Offers. Paginated
-        print("View All Offers")
+        router?.routeToAllOffers(segue: nil)
     }
     
     private func viewAllMonitoredProductsButtonPressed(){
-        // Navigate To Page - All Offers. Paginated
-        print("View All Monitors")
         router?.routeToMonitoredProducts(segue: nil)
     }
     
     private func viewAllCategoryProductsButtonPressed(categoryID: Int, categoryName: String){
-        // Navigate To Child Categories - View All Product Categories
-        print("\(categoryID) \(categoryName)")
         interactor?.setViewAllSelectedCategory(parentCategoryID: categoryID, parentCategoryName: categoryName)
         router?.routeToChildCategories(segue: nil)
     }

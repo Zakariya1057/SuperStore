@@ -11,7 +11,7 @@ import Foundation
 class PromotionAPI: API, PromotionRequestProtocol {
     
     func getPromotion(promotionID: Int, completionHandler: @escaping (PromotionModel?, String?) -> Void) {
-        let url = Config.Route.Promotion + "/" + String(promotionID)
+        let url = Config.Route.Promotion.Show + "/" + String(promotionID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -29,9 +29,37 @@ class PromotionAPI: API, PromotionRequestProtocol {
         }
     }
     
+    func getAllPromotions(storeTypeID: Int, completionHandler: @escaping (_ promotions: [PromotionModel], _ error: String?) -> Void){
+        let url = Config.Route.Promotion.All + "/" + String(storeTypeID)
+        
+        requestWorker.get(url: url) { (response: () throws -> Data) in
+            do {
+                let data = try response()
+                let promotionsDataResponse =  try self.jsonDecoder.decode(AllPromotionsDataResponse.self, from: data)
+                let promotion = self.createPromotionsModel(promotionsDataResponse: promotionsDataResponse)
+                completionHandler(promotion, nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler([], errorMessage)
+            } catch {
+                print(error)
+                completionHandler([], "Failed to get offers. Decoding error, please try again later.")
+            }
+        }
+    }
+    
 }
 
 extension PromotionAPI {
+    
+    private func createPromotionsModel(promotionsDataResponse: AllPromotionsDataResponse?) -> [PromotionModel] {
+        if let promotionsDataResponse = promotionsDataResponse {
+            let promotions = promotionsDataResponse.data
+            return promotions.map{ $0.getPromotionModel() }
+        }
+        
+        return []
+    }
     
     private func createPromotionModel(promotionDataResponse: PromotionDataResponse?) -> PromotionModel? {
         

@@ -267,8 +267,22 @@ struct Config {
             return Host + "/favourites"
         }
         
-        public static var Promotion: String {
-            return Host + "/promotion"
+//        public static var Promotion: String {
+//            return Host + "/promotion"
+//        }
+        
+        public struct Promotion {
+            private static var PromotionRoute: String {
+                return Host + "/promotion"
+            }
+            
+            public static var Show: String {
+                return PromotionRoute
+            }
+            
+            public static var All: String {
+                return PromotionRoute + "/all"
+            }
         }
     }
     

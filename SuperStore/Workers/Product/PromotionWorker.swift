@@ -30,21 +30,28 @@ class PromotionWorker {
         promotionAPI.getPromotion(promotionID: promotionID) { (promotion: PromotionModel?, error: String?) in
             let promotionModel = promotion
             
-            if promotionModel != nil {
-                if self.promotionStore.promotionExpired(promotion: promotionModel!){
-                    promotionModel?.products = []
-                }
-                
-                self.promotionStore.createPromotion(promotion: promotionModel!)
-            }
+//            if promotionModel != nil {
+//                if self.promotionStore.promotionExpired(promotion: promotionModel!){
+//                    promotionModel?.products = []
+//                }
+//
+//                self.promotionStore.createPromotion(promotion: promotionModel!)
+//            }
             
             completionHandler(promotionModel, error)
+        }
+    }
+    
+    func getAllPromotions(storeTypeID: Int, completionHandler: @escaping (_ promotions: [PromotionModel], _ error: String?) -> Void){
+        promotionAPI.getAllPromotions(storeTypeID: storeTypeID) { (promotions: [PromotionModel], error: String?) in
+            completionHandler(promotions, error)
         }
     }
 }
 
 protocol PromotionRequestProtocol {
     func getPromotion(promotionID: Int, completionHandler: @escaping (_ promotion: PromotionModel?, _ error: String?) -> Void)
+    func getAllPromotions(storeTypeID: Int, completionHandler: @escaping (_ promotions: [PromotionModel], _ error: String?) -> Void)
 }
 
 protocol PromotionStoreProtocol {
