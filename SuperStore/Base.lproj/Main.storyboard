@@ -4003,17 +4003,16 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="673"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rZi-NX-NXS">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="260"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="260" id="qwD-2a-ddb"/>
-                                                </constraints>
-                                            </tableView>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Gyf-aM-zrZ">
-                                                <rect key="frame" x="0.0" y="260" width="414" height="413"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="673"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="rZi-NX-NXS" secondAttribute="trailing" id="5cT-Ky-Otz"/>
+                                            <constraint firstAttribute="bottom" secondItem="rZi-NX-NXS" secondAttribute="bottom" id="QTc-kC-M0X"/>
+                                            <constraint firstItem="rZi-NX-NXS" firstAttribute="top" secondItem="qxP-hf-ryr" secondAttribute="top" id="UW2-5d-dJq"/>
+                                            <constraint firstItem="rZi-NX-NXS" firstAttribute="leading" secondItem="qxP-hf-ryr" secondAttribute="leading" id="YNk-kV-GJs"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -4043,7 +4042,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapTableView" destination="rZi-NX-NXS" id="ovn-hU-5ZR"/>
-                        <outlet property="storesTableView" destination="Gyf-aM-zrZ" id="scg-0v-G1a"/>
                         <segue destination="hXH-95-1lc" kind="show" identifier="storeResultsToStore" id="OlX-E6-gV2"/>
                     </connections>
                 </viewController>
@@ -5344,10 +5342,10 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TCi-74-C52">
-                                                        <rect key="frame" x="0.0" y="-2.5" width="384" height="45"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                                                         <color key="backgroundColor" red="0.098039215686274508" green="0.29411764705882354" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="YEe-So-NeY"/>
+                                                            <constraint firstAttribute="height" constant="40" id="YEe-So-NeY"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                                         <state key="normal" title="Real Canadian Superstore">
@@ -5370,10 +5368,10 @@
                                                 <rect key="frame" x="0.0" y="70" width="384" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLy-V6-5yq">
-                                                        <rect key="frame" x="0.0" y="-2.5" width="384" height="45"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                                                         <color key="backgroundColor" red="0.51139969037448085" green="0.67349547431582502" blue="0.23744052497391505" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="y87-gq-lDL"/>
+                                                            <constraint firstAttribute="height" constant="40" id="y87-gq-lDL"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                                         <state key="normal" title="Asda">

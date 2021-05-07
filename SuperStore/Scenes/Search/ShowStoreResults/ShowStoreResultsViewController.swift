@@ -13,6 +13,7 @@
 import UIKit
 import MapKit
 import NotificationBannerSwift
+import FloatingPanel
 
 protocol ShowStoreResultsDisplayLogic: AnyObject
 {
@@ -73,7 +74,10 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
         super.viewDidLoad()
         displayRightBarButton()
         setupStoresTableView()
-//        getStores()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        
     }
     
     var fetchingStores: Bool = false
@@ -86,8 +90,11 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
     var displayedStores: [ShowStoreResults.DisplayedStore] = []
     var stores: [StoreModel] = []
     
+    var showingSlider: Bool = false
+    
     @IBOutlet var mapTableView: UITableView!
-    @IBOutlet var storesTableView: UITableView!
+    
+    var storesViewController = StoresTableViewController()
     
     func getStores()
     {
@@ -116,23 +123,54 @@ class ShowStoreResultsViewController: UIViewController, ShowStoreResultsDisplayL
             
             loading = false
             
+            storesViewController.stores = stores
+            storesViewController.displayedStores = displayedStores
+            
+            storesViewController.tableView.reloadData()
+            
+            setupSlider()
+            
             mapTableView.reloadData()
-            storesTableView.reloadData()
         }
+    }
+    
+    func setupSlider(){
+        if showingSlider {
+            return
+        }
+        // Initialize a `FloatingPanelController` object.
+        let fpc = FloatingPanelController()
+
+        // Set a content view controller.
+
+        storesViewController.storePressed = storePressed
+        fpc.set(contentViewController: storesViewController)
+
+        // Track a scroll view(or the siblings) in the content view controller.
+        fpc.track(scrollView: storesViewController.tableView)
+
+        // Add and show the views managed by the `FloatingPanelController` object to self.view.
+        fpc.addPanel(toParent: self)
+        
+        showingSlider = true
+        
     }
 }
 
 extension ShowStoreResultsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? 5 : ( tableView == mapTableView ? 1 : stores.count)
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView == storesTableView ? configureStoreResultsCell(indexPath: indexPath) : configureStoreMapCell(indexPath: indexPath)
+        return configureStoreMapCell(indexPath: indexPath)
     }
     
     func configureStoreMapCell(indexPath: IndexPath) -> StoresMapCell {
         let cell = mapTableView.dequeueReusableCell(withIdentifier: "StoresMapCell", for: indexPath) as! StoresMapCell
+
+        cell.mapHeight.constant = mapTableView.frame.height
+        cell.mapView.layoutIfNeeded()
         
         cell.storeHighlighted = storeMapHighlighted
         cell.storePressed = storePressed
@@ -145,27 +183,10 @@ extension ShowStoreResultsViewController: UITableViewDataSource, UITableViewDele
         return cell
     }
     
-    func configureStoreResultsCell(indexPath: IndexPath) -> StoreResultCell {
-        let cell = storesTableView.dequeueReusableCell(withIdentifier: "StoreResultCell", for: indexPath) as! StoreResultCell
-        
-        cell.loading = loading
-        cell.store = loading ? nil : displayedStores[indexPath.row]
-        cell.configureUI()
-        
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
-        
-        return cell
-    }
-    
     func setupStoresTableView(){
-        let storeResultCellNib = UINib(nibName: "StoreResultCell", bundle: nil)
-        storesTableView.register(storeResultCellNib, forCellReuseIdentifier: "StoreResultCell")
         
         let storesMapcellNib = UINib(nibName: "StoresMapCell", bundle: nil)
         mapTableView.register(storesMapcellNib, forCellReuseIdentifier: "StoresMapCell")
-        
-        storesTableView.delegate = self
-        storesTableView.dataSource = self
         
         mapTableView.delegate = self
         mapTableView.dataSource = self
@@ -200,7 +221,7 @@ extension ShowStoreResultsViewController {
         // Scroll To that Row
         for (index, store) in stores.enumerated() {
             if store.id == storeID {
-                storesTableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .top, animated: true)
+                storesViewController.tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .top, animated: true)
                 break
             }
         }
@@ -208,22 +229,11 @@ extension ShowStoreResultsViewController {
 }
 
 extension ShowStoreResultsViewController {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if !loading {
-            if tableView == storesTableView {
-                let store = stores[indexPath.row]
-                storePressed(storeID: store.id)
-            }
-        }
-    }
-    
     func storePressed(storeID: Int){
         router?.selectedStoreID = storeID
         router?.routeToStore(segue: nil)
     }
-}
-
-extension ShowStoreResultsViewController {
+    
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
         router?.routeToShowList(segue: nil)
     }

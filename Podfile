@@ -18,4 +18,5 @@ target 'SuperStore' do
   pod 'NotificationBannerSwift', '~> 3.0.0'
   pod 'FuzzyMatchingSwift'
   pod 'SCLAlertView'
+  pod 'FloatingPanel'
 end

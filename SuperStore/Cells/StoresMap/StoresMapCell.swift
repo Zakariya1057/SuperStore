@@ -70,6 +70,8 @@ class StoresMapCell: UITableViewCell, HomeElementCell, CLLocationManagerDelegate
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
     
+    @IBOutlet var mapHeight: NSLayoutConstraint!
+    
     var storesDetails: [String: Int] = [:]
     
     func configure(model elementModel: HomeElementItemModel) {
