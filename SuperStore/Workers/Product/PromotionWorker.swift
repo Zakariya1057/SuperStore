@@ -30,13 +30,13 @@ class PromotionWorker {
         promotionAPI.getPromotion(promotionID: promotionID) { (promotion: PromotionModel?, error: String?) in
             let promotionModel = promotion
             
-//            if promotionModel != nil {
+            if promotionModel != nil {
 //                if self.promotionStore.promotionExpired(promotion: promotionModel!){
 //                    promotionModel?.products = []
 //                }
-//
-//                self.promotionStore.createPromotion(promotion: promotionModel!)
-//            }
+
+                self.promotionStore.createPromotion(promotion: promotionModel!)
+            }
             
             completionHandler(promotionModel, error)
         }
