@@ -23,7 +23,7 @@ class AllPromotionsPresenter: AllPromotionsPresentationLogic
     
     func presentAllPromotions(response: AllPromotions.GetAllPromotions.Response)
     {
-        let viewModel = AllPromotions.GetAllPromotions.ViewModel(promotions: response.promotions, error: response.error, offline: response.offline)
+        let viewModel = AllPromotions.GetAllPromotions.ViewModel(promotionGroups: response.promotionGroups, error: response.error, offline: response.offline)
         viewController?.displayPromotions(viewModel: viewModel)
     }
 }

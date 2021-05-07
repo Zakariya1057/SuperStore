@@ -8,7 +8,6 @@
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -748,39 +747,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="w3f-Fp-gD8">
-                                <rect key="frame" x="15" y="103" width="384" height="710"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kbo-4e-64f">
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cVM-La-Qy1">
-                                    <size key="itemSize" width="120" height="80"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hIm-zq-PTI">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="VZw-o6-MWk">
-                                            <rect key="frame" x="0.0" y="0.0" width="120" height="80"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xay-Jg-oe5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="w3f-Fp-gD8" firstAttribute="leading" secondItem="xay-Jg-oe5" secondAttribute="leading" constant="15" id="Lr0-2m-lDn"/>
-                            <constraint firstItem="xay-Jg-oe5" firstAttribute="trailing" secondItem="w3f-Fp-gD8" secondAttribute="trailing" constant="15" id="XB3-ra-vMN"/>
-                            <constraint firstItem="w3f-Fp-gD8" firstAttribute="top" secondItem="xay-Jg-oe5" secondAttribute="top" constant="15" id="iAE-lI-1kf"/>
-                            <constraint firstItem="xay-Jg-oe5" firstAttribute="bottom" secondItem="w3f-Fp-gD8" secondAttribute="bottom" id="jZQ-3q-guJ"/>
+                            <constraint firstItem="xay-Jg-oe5" firstAttribute="trailing" secondItem="Kbo-4e-64f" secondAttribute="trailing" id="M97-Nb-7c6"/>
+                            <constraint firstItem="Kbo-4e-64f" firstAttribute="leading" secondItem="xay-Jg-oe5" secondAttribute="leading" id="b6v-tZ-8AF"/>
+                            <constraint firstItem="Kbo-4e-64f" firstAttribute="top" secondItem="xay-Jg-oe5" secondAttribute="top" id="bIr-4l-qmI"/>
+                            <constraint firstItem="xay-Jg-oe5" firstAttribute="bottom" secondItem="Kbo-4e-64f" secondAttribute="bottom" id="qhC-fe-Jqw"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="All Offers" largeTitleDisplayMode="always" id="XYs-JU-W06"/>
                     <connections>
-                        <outlet property="offersCollectionView" destination="w3f-Fp-gD8" id="711-fv-rfJ"/>
+                        <outlet property="groupsTableView" destination="Kbo-4e-64f" id="3Jq-Km-ejC"/>
+                        <segue destination="lsE-Uh-Y9C" kind="show" id="IQp-ev-FLS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fld-X1-Y2Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -5525,6 +5509,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S5H-s1-wgO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="7248" y="2290"/>
+        </scene>
+        <!--Promotion Group View Controller-->
+        <scene sceneID="MV9-xv-JOs">
+            <objects>
+                <viewController storyboardIdentifier="PromotionGroupViewController" id="lsE-Uh-Y9C" customClass="PromotionGroupViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Sij-OF-RQk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="43" estimatedSectionHeaderHeight="43" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iO2-ue-HlY">
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="wnY-ho-gdc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="wnY-ho-gdc" firstAttribute="trailing" secondItem="iO2-ue-HlY" secondAttribute="trailing" id="AZR-Bc-2qk"/>
+                            <constraint firstItem="iO2-ue-HlY" firstAttribute="leading" secondItem="wnY-ho-gdc" secondAttribute="leading" id="EYh-rJ-RJK"/>
+                            <constraint firstItem="wnY-ho-gdc" firstAttribute="bottom" secondItem="iO2-ue-HlY" secondAttribute="bottom" id="OTa-LM-iHl"/>
+                            <constraint firstItem="iO2-ue-HlY" firstAttribute="top" secondItem="wnY-ho-gdc" secondAttribute="top" id="rqN-h2-NfA"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="tKo-CR-AnX"/>
+                    <connections>
+                        <outlet property="promotionsTableView" destination="iO2-ue-HlY" id="EnD-Lh-vuX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Heg-sA-Vkx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7348" y="-1649"/>
         </scene>
     </scenes>
     <designables>

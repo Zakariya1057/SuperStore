@@ -15,14 +15,13 @@ import UIKit
 protocol AllPromotionsBusinessLogic
 {
     func getAllPromotions(request: AllPromotions.GetAllPromotions.Request)
-    
-    func setPromotionSelected(promotionID: Int)
+    func setPromotionSelected(promotionGroup: String)
 }
 
 protocol AllPromotionsDataStore
 {
     var storeTypeID: Int { get set }
-    var selectedPromotionID: Int? { get set }
+    var selectedPromotionGroup: String? { get set }
 }
 
 class AllPromotionsInteractor: AllPromotionsBusinessLogic, AllPromotionsDataStore
@@ -32,15 +31,15 @@ class AllPromotionsInteractor: AllPromotionsBusinessLogic, AllPromotionsDataStor
     var promotionWorker = PromotionWorker(promotionAPI: PromotionAPI())
 
     var storeTypeID: Int = 2
-    var selectedPromotionID: Int? = nil
+    var selectedPromotionGroup: String? = nil
     
     var userSession: UserSessionWorker = UserSessionWorker()
     
     func getAllPromotions(request: AllPromotions.GetAllPromotions.Request)
     {
-        promotionWorker.getAllPromotions(storeTypeID: storeTypeID) { (promotions: [PromotionModel], error: String?) in
+        promotionWorker.getAllPromotions(storeTypeID: storeTypeID) { (promotionGroups: [String], error: String?) in
             
-            var response = AllPromotions.GetAllPromotions.Response(promotions: promotions, error: error)
+            var response = AllPromotions.GetAllPromotions.Response(promotionGroups: promotionGroups, error: error)
         
             if error != nil {
                 response.offline = !self.userSession.isOnline()
@@ -52,7 +51,7 @@ class AllPromotionsInteractor: AllPromotionsBusinessLogic, AllPromotionsDataStor
 }
 
 extension AllPromotionsInteractor {
-    public func setPromotionSelected(promotionID: Int){
-        self.selectedPromotionID = promotionID
+    public func setPromotionSelected(promotionGroup: String){
+        self.selectedPromotionGroup = promotionGroup
     }
 }

@@ -24,14 +24,14 @@ enum AllPromotions
     
     struct Response
     {
-        var promotions: [PromotionModel] = []
+        var promotionGroups: [String] = []
         var error: String?
         var offline: Bool = false
     }
     
     struct ViewModel
     {
-        var promotions: [PromotionModel] = []
+        var promotionGroups: [String] = []
         var error: String?
         var offline: Bool = false
     }

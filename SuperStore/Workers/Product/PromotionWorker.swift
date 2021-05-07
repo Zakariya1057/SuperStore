@@ -31,9 +31,9 @@ class PromotionWorker {
             let promotionModel = promotion
             
             if promotionModel != nil {
-//                if self.promotionStore.promotionExpired(promotion: promotionModel!){
-//                    promotionModel?.products = []
-//                }
+                if self.promotionStore.promotionExpired(promotion: promotionModel!){
+                    promotionModel?.products = []
+                }
 
                 self.promotionStore.createPromotion(promotion: promotionModel!)
             }
@@ -42,8 +42,14 @@ class PromotionWorker {
         }
     }
     
-    func getAllPromotions(storeTypeID: Int, completionHandler: @escaping (_ promotions: [PromotionModel], _ error: String?) -> Void){
-        promotionAPI.getAllPromotions(storeTypeID: storeTypeID) { (promotions: [PromotionModel], error: String?) in
+    func getAllPromotions(storeTypeID: Int, completionHandler: @escaping (_ promotionGroups: [String], _ error: String?) -> Void){
+        promotionAPI.getAllPromotions(storeTypeID: storeTypeID) { (promotionGroups: [String], error: String?) in
+            completionHandler(promotionGroups, error)
+        }
+    }
+    
+    func getPromotionGroup(storeTypeID: Int, title: String, completionHandler: @escaping (_ promotions: [PromotionModel], _ error: String?) -> Void){
+        promotionAPI.getPromotionGroup(storeTypeID: storeTypeID, title: title) { (promotions: [PromotionModel], error: String?) in
             completionHandler(promotions, error)
         }
     }
@@ -51,7 +57,8 @@ class PromotionWorker {
 
 protocol PromotionRequestProtocol {
     func getPromotion(promotionID: Int, completionHandler: @escaping (_ promotion: PromotionModel?, _ error: String?) -> Void)
-    func getAllPromotions(storeTypeID: Int, completionHandler: @escaping (_ promotions: [PromotionModel], _ error: String?) -> Void)
+    func getAllPromotions(storeTypeID: Int, completionHandler: @escaping (_ promotionGroups: [String], _ error: String?) -> Void)
+    func getPromotionGroup(storeTypeID: Int, title: String, completionHandler: @escaping (_ promotionGroups: [PromotionModel], _ error: String?) -> Void)
 }
 
 protocol PromotionStoreProtocol {

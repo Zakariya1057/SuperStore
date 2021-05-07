@@ -108,12 +108,12 @@
 		2C45E2D8264440060047887A /* ReportIssueInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2D2264440060047887A /* ReportIssueInteractor.swift */; };
 		2C45E2DB2644882C0047887A /* ReportWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2DA2644882C0047887A /* ReportWorker.swift */; };
 		2C45E2DD2644886B0047887A /* ReportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2DC2644886B0047887A /* ReportAPI.swift */; };
-		2C45E2E626454F6C0047887A /* AllPromotionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2E026454F6C0047887A /* AllPromotionsPresenter.swift */; };
-		2C45E2E726454F6C0047887A /* AllPromotionsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2E126454F6C0047887A /* AllPromotionsWorker.swift */; };
-		2C45E2E826454F6C0047887A /* AllPromotionsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2E226454F6C0047887A /* AllPromotionsRouter.swift */; };
-		2C45E2E926454F6C0047887A /* AllPromotionsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2E326454F6C0047887A /* AllPromotionsModels.swift */; };
-		2C45E2EA26454F6C0047887A /* AllPromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2E426454F6C0047887A /* AllPromotionsViewController.swift */; };
-		2C45E2EB26454F6C0047887A /* AllPromotionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2E526454F6C0047887A /* AllPromotionInteractor.swift */; };
+		2C45E2E626454F6C0047887A /* PromotionGroupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2E026454F6C0047887A /* PromotionGroupPresenter.swift */; };
+		2C45E2E826454F6C0047887A /* PromotionGroupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2E226454F6C0047887A /* PromotionGroupRouter.swift */; };
+		2C45E2E926454F6C0047887A /* PromotionGroupModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2E326454F6C0047887A /* PromotionGroupModels.swift */; };
+		2C45E2EA26454F6C0047887A /* PromotionGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2E426454F6C0047887A /* PromotionGroupViewController.swift */; };
+		2C45E2EB26454F6C0047887A /* PromotionGroupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2E526454F6C0047887A /* PromotionGroupInteractor.swift */; };
+		2C45E2F626456ECD0047887A /* PromotionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2F526456ECD0047887A /* PromotionGroup.swift */; };
 		2C4615052604B7E30009D0E7 /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4615042604B7E30009D0E7 /* NetworkWorker.swift */; };
 		2C48E7A625EA99D4001A5702 /* StoresMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C48E7A425EA99D4001A5702 /* StoresMapCell.xib */; };
 		2C48E7A725EA99D4001A5702 /* StoresMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7A525EA99D4001A5702 /* StoresMapCell.swift */; };
@@ -169,6 +169,11 @@
 		2C6146A925F149FA00D92CB7 /* ListItemWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6146A825F149FA00D92CB7 /* ListItemWorker.swift */; };
 		2C6146B325F14D0500D92CB7 /* ListValidationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6146B225F14D0500D92CB7 /* ListValidationWorker.swift */; };
 		2C6146B725F2809B00D92CB7 /* ListItemAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6146B625F2809B00D92CB7 /* ListItemAPI.swift */; };
+		2C65D9B92645730E00AC3F7E /* AllPromotionsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2EF26456D040047887A /* AllPromotionsRouter.swift */; };
+		2C65D9BA2645730E00AC3F7E /* AllPromotionsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2F226456D040047887A /* AllPromotionsModels.swift */; };
+		2C65D9BB2645730E00AC3F7E /* AllPromotionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2EE26456D040047887A /* AllPromotionInteractor.swift */; };
+		2C65D9BC2645730E00AC3F7E /* AllPromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2F326456D040047887A /* AllPromotionsViewController.swift */; };
+		2C65D9BD2645730E00AC3F7E /* AllPromotionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2F026456D040047887A /* AllPromotionsPresenter.swift */; };
 		2C69E252260A872F003863BF /* StoreViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E24E260A872F003863BF /* StoreViewControllerTests.swift */; };
 		2C69E253260A872F003863BF /* StoreInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E24F260A872F003863BF /* StoreInteractorTests.swift */; };
 		2C69E254260A872F003863BF /* StoreWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E250260A872F003863BF /* StoreWorkerTests.swift */; };
@@ -530,12 +535,17 @@
 		2C45E2D2264440060047887A /* ReportIssueInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIssueInteractor.swift; sourceTree = "<group>"; };
 		2C45E2DA2644882C0047887A /* ReportWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportWorker.swift; sourceTree = "<group>"; };
 		2C45E2DC2644886B0047887A /* ReportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAPI.swift; sourceTree = "<group>"; };
-		2C45E2E026454F6C0047887A /* AllPromotionsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPromotionsPresenter.swift; sourceTree = "<group>"; };
-		2C45E2E126454F6C0047887A /* AllPromotionsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPromotionsWorker.swift; sourceTree = "<group>"; };
-		2C45E2E226454F6C0047887A /* AllPromotionsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPromotionsRouter.swift; sourceTree = "<group>"; };
-		2C45E2E326454F6C0047887A /* AllPromotionsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPromotionsModels.swift; sourceTree = "<group>"; };
-		2C45E2E426454F6C0047887A /* AllPromotionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPromotionsViewController.swift; sourceTree = "<group>"; };
-		2C45E2E526454F6C0047887A /* AllPromotionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPromotionInteractor.swift; sourceTree = "<group>"; };
+		2C45E2E026454F6C0047887A /* PromotionGroupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionGroupPresenter.swift; sourceTree = "<group>"; };
+		2C45E2E226454F6C0047887A /* PromotionGroupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionGroupRouter.swift; sourceTree = "<group>"; };
+		2C45E2E326454F6C0047887A /* PromotionGroupModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionGroupModels.swift; sourceTree = "<group>"; };
+		2C45E2E426454F6C0047887A /* PromotionGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionGroupViewController.swift; sourceTree = "<group>"; };
+		2C45E2E526454F6C0047887A /* PromotionGroupInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionGroupInteractor.swift; sourceTree = "<group>"; };
+		2C45E2EE26456D040047887A /* AllPromotionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPromotionInteractor.swift; sourceTree = "<group>"; };
+		2C45E2EF26456D040047887A /* AllPromotionsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPromotionsRouter.swift; sourceTree = "<group>"; };
+		2C45E2F026456D040047887A /* AllPromotionsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPromotionsPresenter.swift; sourceTree = "<group>"; };
+		2C45E2F226456D040047887A /* AllPromotionsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPromotionsModels.swift; sourceTree = "<group>"; };
+		2C45E2F326456D040047887A /* AllPromotionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPromotionsViewController.swift; sourceTree = "<group>"; };
+		2C45E2F526456ECD0047887A /* PromotionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionGroup.swift; sourceTree = "<group>"; };
 		2C4615042604B7E30009D0E7 /* NetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
 		2C48E7A425EA99D4001A5702 /* StoresMapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoresMapCell.xib; sourceTree = "<group>"; };
 		2C48E7A525EA99D4001A5702 /* StoresMapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresMapCell.swift; sourceTree = "<group>"; };
@@ -1258,14 +1268,34 @@
 		2C45E2DF26454F470047887A /* AllPromotions */ = {
 			isa = PBXGroup;
 			children = (
-				2C45E2E026454F6C0047887A /* AllPromotionsPresenter.swift */,
-				2C45E2E126454F6C0047887A /* AllPromotionsWorker.swift */,
-				2C45E2E226454F6C0047887A /* AllPromotionsRouter.swift */,
-				2C45E2E326454F6C0047887A /* AllPromotionsModels.swift */,
-				2C45E2E426454F6C0047887A /* AllPromotionsViewController.swift */,
-				2C45E2E526454F6C0047887A /* AllPromotionInteractor.swift */,
+				2C45E2F026456D040047887A /* AllPromotionsPresenter.swift */,
+				2C45E2EF26456D040047887A /* AllPromotionsRouter.swift */,
+				2C45E2F226456D040047887A /* AllPromotionsModels.swift */,
+				2C45E2F326456D040047887A /* AllPromotionsViewController.swift */,
+				2C45E2EE26456D040047887A /* AllPromotionInteractor.swift */,
 			);
 			path = AllPromotions;
+			sourceTree = "<group>";
+		};
+		2C45E2EC26456CD80047887A /* Promotions */ = {
+			isa = PBXGroup;
+			children = (
+				2C45E2DF26454F470047887A /* AllPromotions */,
+				2C45E2ED26456CE10047887A /* PromotionGroup */,
+			);
+			path = Promotions;
+			sourceTree = "<group>";
+		};
+		2C45E2ED26456CE10047887A /* PromotionGroup */ = {
+			isa = PBXGroup;
+			children = (
+				2C45E2E026454F6C0047887A /* PromotionGroupPresenter.swift */,
+				2C45E2E226454F6C0047887A /* PromotionGroupRouter.swift */,
+				2C45E2E326454F6C0047887A /* PromotionGroupModels.swift */,
+				2C45E2E426454F6C0047887A /* PromotionGroupViewController.swift */,
+				2C45E2E526454F6C0047887A /* PromotionGroupInteractor.swift */,
+			);
+			path = PromotionGroup;
 			sourceTree = "<group>";
 		};
 		2C46150A2604BB360009D0E7 /* Date */ = {
@@ -1722,6 +1752,7 @@
 				2C48E7B625EA9DCF001A5702 /* ProductModel.swift */,
 				2CC72FF925FD7C68004E3987 /* ImageModel.swift */,
 				2C48E7D025EAA06E001A5702 /* StoreModel.swift */,
+				2C45E2F526456ECD0047887A /* PromotionGroup.swift */,
 				2CAB2F0925FFF9C50014FE8D /* LocationModel.swift */,
 				2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */,
 				2C48E7D425EAA078001A5702 /* ListModel.swift */,
@@ -2091,7 +2122,7 @@
 			children = (
 				2C45E2DE26454F1F0047887A /* Home */,
 				2C7CAC5D264061CF0024FDD8 /* Monitor */,
-				2C45E2DF26454F470047887A /* AllPromotions */,
+				2C45E2EC26456CD80047887A /* Promotions */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -2509,13 +2540,13 @@
 				2CDA613125ED157500FD3956 /* FontHighlight.swift in Sources */,
 				2C48E7CD25EAA064001A5702 /* UserModel.swift in Sources */,
 				2C55FA2625EE4C7C007BBFA8 /* ShowStoreResultsViewController.swift in Sources */,
-				2C45E2E726454F6C0047887A /* AllPromotionsWorker.swift in Sources */,
 				2C1429A025F2C7F1007D1EB7 /* ListPriceWorker.swift in Sources */,
 				2C45E2D8264440060047887A /* ReportIssueInteractor.swift in Sources */,
 				2CA11F7925EF8E5C0054AE19 /* ParentCategoriesViewController.swift in Sources */,
 				2C2BC80525EBBF040038882B /* ShowReviewsInteractor.swift in Sources */,
 				2C70829D25F013A700345147 /* EditNameWorker.swift in Sources */,
 				2C14299B25F2C282007D1EB7 /* EditListItemViewController.swift in Sources */,
+				2C65D9BC2645730E00AC3F7E /* AllPromotionsViewController.swift in Sources */,
 				2CAB2EFF25FFF90D0014FE8D /* LocationRealmStore.swift in Sources */,
 				2C70822B25F009BE00345147 /* VerifyCodeRouter.swift in Sources */,
 				2C7294C925ECF19C00D280B3 /* FavouritesInteractor.swift in Sources */,
@@ -2532,7 +2563,7 @@
 				2C55F9C825EE3B62007BBFA8 /* ShowSuggestionsModels.swift in Sources */,
 				2C14773025E90246000E8F66 /* RegisterWorker.swift in Sources */,
 				2C6146B325F14D0500D92CB7 /* ListValidationWorker.swift in Sources */,
-				2C45E2E926454F6C0047887A /* AllPromotionsModels.swift in Sources */,
+				2C45E2E926454F6C0047887A /* PromotionGroupModels.swift in Sources */,
 				2C70824B25F009ED00345147 /* NewPasswordModels.swift in Sources */,
 				2CB3DCF52527AFB600FC5792 /* RefineOptionCell.swift in Sources */,
 				2C6146A325F1266400D92CB7 /* CreateListViewController.swift in Sources */,
@@ -2565,6 +2596,7 @@
 				2C058FF725F52AE100B4A16B /* EditStoreModels.swift in Sources */,
 				2C0C84F0260DF81400F813E6 /* CreateListCell.swift in Sources */,
 				2C2BC80F25EBBF180038882B /* EditReviewWorker.swift in Sources */,
+				2C65D9BB2645730E00AC3F7E /* AllPromotionInteractor.swift in Sources */,
 				2C14775E25E9070D000E8F66 /* UserSessionWorker.swift in Sources */,
 				2CA11F9725EF90560054AE19 /* GroceryWorker.swift in Sources */,
 				2C2BC82E25EBBFD40038882B /* ShowPromotionWorker.swift in Sources */,
@@ -2603,6 +2635,7 @@
 				2C7CAC55264056B40024FDD8 /* MonitoredProductsPresenter.swift in Sources */,
 				2C058FF525F52AE100B4A16B /* EditStoreWorker.swift in Sources */,
 				2C7CAC57264056B40024FDD8 /* MonitoredProductsRouter.swift in Sources */,
+				2C65D9BA2645730E00AC3F7E /* AllPromotionsModels.swift in Sources */,
 				2C55F9C525EE3B62007BBFA8 /* ShowSuggestionsPresenter.swift in Sources */,
 				2CA11EEB25EE84620054AE19 /* ShowRefineWorker.swift in Sources */,
 				2C70824625F009ED00345147 /* NewPasswordRouter.swift in Sources */,
@@ -2615,13 +2648,13 @@
 				2C6146A225F1266400D92CB7 /* CreateListModels.swift in Sources */,
 				2C7082D025F01C7500345147 /* UserHistory.swift in Sources */,
 				2C2BC81125EBBF180038882B /* EditReviewModels.swift in Sources */,
-				2C45E2EB26454F6C0047887A /* AllPromotionInteractor.swift in Sources */,
+				2C45E2EB26454F6C0047887A /* PromotionGroupInteractor.swift in Sources */,
 				2CA11F8325EF8E6D0054AE19 /* ChildCategoriesPresenter.swift in Sources */,
 				2CB2CFC925EAA80200A00F7F /* StoreData.swift in Sources */,
-				2C45E2E626454F6C0047887A /* AllPromotionsPresenter.swift in Sources */,
+				2C45E2E626454F6C0047887A /* PromotionGroupPresenter.swift in Sources */,
 				2C70822C25F009BE00345147 /* VerifyCodeInteractor.swift in Sources */,
 				2C7082A125F013A700345147 /* EditNameInteractor.swift in Sources */,
-				2C45E2E826454F6C0047887A /* AllPromotionsRouter.swift in Sources */,
+				2C45E2E826454F6C0047887A /* PromotionGroupRouter.swift in Sources */,
 				2C7082A025F013A700345147 /* EditNameViewController.swift in Sources */,
 				2C2BC83125EBBFD40038882B /* ShowPromotionViewController.swift in Sources */,
 				2C05901125F6265F00B4A16B /* RequestLoginCell.swift in Sources */,
@@ -2632,6 +2665,7 @@
 				2C70828725F0108500345147 /* SettingsPresenter.swift in Sources */,
 				2C7CAC5A264056B40024FDD8 /* MonitoredProductsInteractor.swift in Sources */,
 				2CB911BB25F11B6100A8FC66 /* ShowListInteractor.swift in Sources */,
+				2C45E2F626456ECD0047887A /* PromotionGroup.swift in Sources */,
 				2C70824725F009ED00345147 /* NewPasswordInteractor.swift in Sources */,
 				2C6146A125F1266400D92CB7 /* CreateListRouter.swift in Sources */,
 				2C1476D125E7B388000E8F66 /* RequestWorker.swift in Sources */,
@@ -2684,6 +2718,7 @@
 				2CB911AB25F11B5500A8FC66 /* EditListModels.swift in Sources */,
 				2C70828825F0108500345147 /* SettingsWorker.swift in Sources */,
 				2C2BC84D25EBC2460038882B /* ReviewAPI.swift in Sources */,
+				2C65D9B92645730E00AC3F7E /* AllPromotionsRouter.swift in Sources */,
 				2C70822E25F009BE00345147 /* VerifyCodeModels.swift in Sources */,
 				2C55FA2225EE4C7C007BBFA8 /* ShowStoreResultsPresenter.swift in Sources */,
 				2C70822F25F009BE00345147 /* VerifyCodePresenter.swift in Sources */,
@@ -2694,7 +2729,7 @@
 				2C7294C625ECF19C00D280B3 /* FavouritesRouter.swift in Sources */,
 				2CA11F3F25EEB6A50054AE19 /* StoreModels.swift in Sources */,
 				2C2BC7D925EAF9220038882B /* ShowProductWorker.swift in Sources */,
-				2C45E2EA26454F6C0047887A /* AllPromotionsViewController.swift in Sources */,
+				2C45E2EA26454F6C0047887A /* PromotionGroupViewController.swift in Sources */,
 				2C5C987D25F6AA4000DF8B6D /* PromotionObject.swift in Sources */,
 				2C910B4125E7AABF00BCEACC /* LoginWorker.swift in Sources */,
 				2C55F9C625EE3B62007BBFA8 /* ShowSuggestionsWorker.swift in Sources */,
@@ -2726,6 +2761,7 @@
 				2C2BC81025EBBF180038882B /* EditReviewRouter.swift in Sources */,
 				2C2BC80025EBBF040038882B /* ShowReviewsPresenter.swift in Sources */,
 				2CB911B825F11B6100A8FC66 /* ShowListRouter.swift in Sources */,
+				2C65D9BD2645730E00AC3F7E /* AllPromotionsPresenter.swift in Sources */,
 				2C7294C725ECF19C00D280B3 /* FavouritesModels.swift in Sources */,
 				2CC72FFE25FD7CA1004E3987 /* ImageObject.swift in Sources */,
 				2CB2CFD125EAA81900A00F7F /* PromotionData.swift in Sources */,

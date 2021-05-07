@@ -29,15 +29,15 @@ class PromotionAPI: API, PromotionRequestProtocol {
         }
     }
     
-    func getAllPromotions(storeTypeID: Int, completionHandler: @escaping (_ promotions: [PromotionModel], _ error: String?) -> Void){
+    func getAllPromotions(storeTypeID: Int, completionHandler: @escaping (_ promotionGroups: [String], _ error: String?) -> Void){
         let url = Config.Route.Promotion.All + "/" + String(storeTypeID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let promotionsDataResponse =  try self.jsonDecoder.decode(AllPromotionsDataResponse.self, from: data)
-                let promotion = self.createPromotionsModel(promotionsDataResponse: promotionsDataResponse)
-                completionHandler(promotion, nil)
+                let promotionGroups = self.createPromotionGroups(promotionsDataResponse: promotionsDataResponse, storeTypeID: storeTypeID)
+                completionHandler(promotionGroups, nil)
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
                 completionHandler([], errorMessage)
@@ -48,14 +48,43 @@ class PromotionAPI: API, PromotionRequestProtocol {
         }
     }
     
+    func getPromotionGroup(storeTypeID: Int, title: String, completionHandler: @escaping (_ promotionGroups: [PromotionModel], _ error: String?) -> Void){
+        let url = Config.Route.Promotion.All + "/" + String(storeTypeID) + "/" + title
+        
+        requestWorker.get(url: url) { (response: () throws -> Data) in
+            do {
+                let data = try response()
+                let promotionsDataResponse =  try self.jsonDecoder.decode(PromotionGroupDataResponse.self, from: data)
+                let promotionGroups = self.createPromotionsModel(promotionsDataResponse: promotionsDataResponse, storeTypeID: storeTypeID)
+                completionHandler(promotionGroups, nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler([], errorMessage)
+            } catch {
+                print(error)
+                completionHandler([], "Failed to get offers. Decoding error, please try again later.")
+            }
+        }
+    }
 }
 
 extension PromotionAPI {
     
-    private func createPromotionsModel(promotionsDataResponse: AllPromotionsDataResponse?) -> [PromotionModel] {
+    private func createPromotionsModel(promotionsDataResponse: PromotionGroupDataResponse?, storeTypeID: Int) -> [PromotionModel] {
+        
         if let promotionsDataResponse = promotionsDataResponse {
-            let promotions = promotionsDataResponse.data
-            return promotions.map{ $0.getPromotionModel() }
+            let promotionsGroup = promotionsDataResponse.data
+            return promotionsGroup.map{ $0.getPromotionModel() }
+        }
+        
+        return []
+    }
+    
+    private func createPromotionGroups(promotionsDataResponse: AllPromotionsDataResponse?, storeTypeID: Int) -> [String] {
+        
+        if let promotionsDataResponse = promotionsDataResponse {
+            let promotionsGroup = promotionsDataResponse.data
+            return promotionsGroup.map{ $0 }
         }
         
         return []

@@ -69,14 +69,14 @@ class AllPromotionsViewController: UIViewController, AllPromotionsDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        setupCollectionView()
+        setupGroupsTableView()
         getPromotions()
     }
     
     var loading: Bool = false
-    var promotions: [PromotionModel] = []
+    var promotionGroups: [String] = []
     
-    @IBOutlet var offersCollectionView: UICollectionView!
+    @IBOutlet var groupsTableView: UITableView!
     
     func getPromotions()
     {
@@ -89,38 +89,49 @@ class AllPromotionsViewController: UIViewController, AllPromotionsDisplayLogic
         if let error = viewModel.error {
             showError(title: "Offers Error", error: error)
         } else {
-            promotions = viewModel.promotions
-            offersCollectionView.reloadData()
+            promotionGroups = viewModel.promotionGroups
+            groupsTableView.reloadData()
         }
     }
     
 }
 
-extension AllPromotionsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func setupCollectionView(){
-        offersCollectionView.register(UINib(nibName: "OfferCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "OfferCollectionViewCell")
-        offersCollectionView.delegate = self
-        offersCollectionView.dataSource = self
+extension AllPromotionsViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return loading ? 10 : promotionGroups.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return loading ? 4 : promotions.count
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return configureCategoryCell(indexPath: indexPath)
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = offersCollectionView.dequeueReusableCell(withReuseIdentifier: "OfferCollectionViewCell", for: indexPath) as! OfferCollectionViewCell
-        
-        cell.promotion = loading ? nil : promotions[indexPath.row]
-        
+    func configureCategoryCell(indexPath: IndexPath) -> CategoryTableViewCell {
+        let cell = groupsTableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath) as! CategoryTableViewCell
+
+        cell.nameLabel.text = promotionGroups[indexPath.row]
+
         cell.loading = loading
-        cell.configureUI()
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let promotion = promotions[indexPath.row]
+    func setupGroupsTableView(){
+        let categoryCellNib = UINib(nibName: "CategoryTableViewCell", bundle: nil)
+        groupsTableView.register(categoryCellNib, forCellReuseIdentifier: "CategoryTableViewCell")
         
-        interactor?.setPromotionSelected(promotionID: promotion.id)
-        router?.routeToShowPromotion(segue: nil)
+        groupsTableView.delegate = self
+        groupsTableView.dataSource = self
+    }
+}
+
+extension AllPromotionsViewController {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if !loading {
+            let promotionGroup = promotionGroups[indexPath.row]
+            interactor?.setPromotionSelected(promotionGroup: promotionGroup)
+            
+            router?.routeToPromotionGroup(segue: nil)
+        }
     }
 }

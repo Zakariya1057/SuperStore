@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol AllPromotionsRoutingLogic
 {
-    func routeToShowPromotion(segue: UIStoryboardSegue?)
+    func routeToPromotionGroup(segue: UIStoryboardSegue?)
 }
 
 protocol AllPromotionsDataPassing
@@ -29,15 +29,15 @@ class AllPromotionsRouter: NSObject, AllPromotionsRoutingLogic, AllPromotionsDat
     
     // MARK: Routing
     
-    func routeToShowPromotion(segue: UIStoryboardSegue?)
+    func routeToPromotionGroup(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
-            let destinationVC = segue.destination as! ShowPromotionViewController
+            let destinationVC = segue.destination as! PromotionGroupViewController
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowPromotion(source: dataStore!, destination: &destinationDS)
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowPromotionViewController") as! ShowPromotionViewController
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "PromotionGroupViewController") as! PromotionGroupViewController
             var destinationDS = destinationVC.router!.dataStore!
             passDataToShowPromotion(source: dataStore!, destination: &destinationDS)
             navigateToShowPromotion(source: viewController!, destination: destinationVC)
@@ -47,14 +47,15 @@ class AllPromotionsRouter: NSObject, AllPromotionsRoutingLogic, AllPromotionsDat
     
     // MARK: Navigation
     
-    func navigateToShowPromotion(source: AllPromotionsViewController, destination: ShowPromotionViewController)
+    func navigateToShowPromotion(source: AllPromotionsViewController, destination: PromotionGroupViewController)
     {
         source.show(destination, sender: nil)
     }
     // MARK: Passing data
     
-    func passDataToShowPromotion(source: AllPromotionsDataStore, destination: inout ShowPromotionDataStore)
+    func passDataToShowPromotion(source: AllPromotionsDataStore, destination: inout PromotionGroupDataStore)
     {
-        destination.promotionID = source.selectedPromotionID!
+        destination.promotionGroup = source.selectedPromotionGroup
+        destination.storeTypeID = source.storeTypeID
     }
 }

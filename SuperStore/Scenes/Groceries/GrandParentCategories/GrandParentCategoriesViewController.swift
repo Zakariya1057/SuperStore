@@ -80,7 +80,6 @@ class GrandParentCategoriesViewController: UIViewController, GrandParentCategori
     
     var categories: [GrandParentCategories.GetCategories.ViewModel.DisplayedCategory] = []
     
-    
     func getCategories()
     {
         let request = GrandParentCategories.GetCategories.Request()
