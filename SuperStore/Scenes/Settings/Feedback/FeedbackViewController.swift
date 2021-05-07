@@ -98,6 +98,7 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
         
         if message.replacingOccurrences(of: " ", with: "") != "" {
             startLoading()
+            dismissKeyboard()
             
             let request = Feedback.SendFeedback.Request(message: message)
             interactor?.sendFeedback(request: request)
@@ -115,6 +116,10 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
 extension FeedbackViewController {
     func openKeyboardOnTextView(){
         feedbackTextView.becomeFirstResponder()
+    }
+    
+    func dismissKeyboard(){
+        view.endEditing(true)
     }
 }
 

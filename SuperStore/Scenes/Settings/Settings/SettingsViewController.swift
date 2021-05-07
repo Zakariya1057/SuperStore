@@ -140,8 +140,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
 }
 
 extension SettingsViewController {
-    @IBAction func deleteButtonPressed(_ sender: Any) {
-        
+    private func deleteAccount(){
         let refreshAlert = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account. All your data will be permanently lost.", preferredStyle: UIAlertController.Style.alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Yes, delete", style: .default, handler: { (action: UIAlertAction!) in
@@ -156,6 +155,10 @@ extension SettingsViewController {
         }))
         
         present(refreshAlert, animated: true, completion: nil)
+    }
+    
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        deleteAccount()
     }
     
 }
@@ -229,14 +232,14 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             logoutPressed()
         case .login:
             loginButtonPressed()
-        case .notification:
-            print("Notification Pressed")
+        case .delete:
+            deleteAccount()
         case .feedback:
             feedbackPressed()
         case .reportIssue:
             reportIssuePressed()
-        default:
-            print("No function for type")
+        case .notification:
+            break
         }
     }
 }

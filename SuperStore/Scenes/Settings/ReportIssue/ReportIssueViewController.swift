@@ -87,6 +87,7 @@ class ReportIssueViewController: UIViewController, ReportIssueDisplayLogic
         
         if issue.replacingOccurrences(of: " ", with: "") != "" {
             startLoading()
+            dismissKeyboard()
             
             let request = ReportIssue.SendIssue.Request(issue: issue)
             interactor?.sendIssue(request: request)
@@ -142,6 +143,10 @@ extension ReportIssueViewController {
 extension ReportIssueViewController {
     func openKeyboardOnTextView(){
         issueTextView.becomeFirstResponder()
+    }
+    
+    func dismissKeyboard(){
+        view.endEditing(true)
     }
 }
 

@@ -15,11 +15,13 @@ import UIKit
 protocol CreateListBusinessLogic
 {
     func createList(request: CreateList.CreateList.Request)
+    
+    func getAddToList() -> Bool
 }
 
 protocol CreateListDataStore
 {
-    //var name: String { get set }
+    var addToList: Bool { get set }
 }
 
 class CreateListInteractor: CreateListBusinessLogic, CreateListDataStore
@@ -28,6 +30,8 @@ class CreateListInteractor: CreateListBusinessLogic, CreateListDataStore
     var listWorker: ListWorker = ListWorker(listAPI: ListAPI())
     var validationWorker: ListValidationWorker = ListValidationWorker()
     var userSessions = UserSessionWorker()
+    
+    var addToList: Bool = false
     
     func createList(request: CreateList.CreateList.Request)
     {
@@ -52,5 +56,11 @@ class CreateListInteractor: CreateListBusinessLogic, CreateListDataStore
                 self.presenter?.presentListCreated(response: response)
             }
         }
+    }
+}
+
+extension CreateListInteractor {
+    func getAddToList() -> Bool {
+        return addToList
     }
 }

@@ -34,8 +34,8 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UVG-ZF-VpY">
                                                         <rect key="frame" x="0.0" y="0.0" width="25" height="55"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5EG-H0-sL5">
-                                                                <rect key="frame" x="0.0" y="16" width="25" height="23"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle.badge.xmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5EG-H0-sL5">
+                                                                <rect key="frame" x="-1" y="15.5" width="26" height="24"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="25" id="ZFd-LB-zF6"/>
@@ -153,10 +153,12 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="detailStackView" destination="y0f-AZ-Z5G" id="opv-FD-WIM"/>
                 <outlet property="disclosureView" destination="qTY-OE-vai" id="5DN-mp-Y7k"/>
                 <outlet property="iconImageView" destination="5EG-H0-sL5" id="LQp-6s-Xc0"/>
                 <outlet property="keyLabel" destination="ZbV-vu-7j4" id="YM0-6f-NWu"/>
                 <outlet property="notificationSwitch" destination="TUg-gj-u9C" id="rpT-Bs-9bC"/>
+                <outlet property="stackViewWidth" destination="aya-ww-K4G" id="H1p-x6-ncG"/>
                 <outlet property="valueLabel" destination="l4U-vO-3j1" id="ioU-Qw-ejV"/>
             </connections>
             <point key="canvasLocation" x="47.10144927536232" y="78.348214285714278"/>
@@ -164,7 +166,7 @@
     </objects>
     <resources>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <image name="person" catalog="system" width="128" height="117"/>
+        <image name="person.crop.circle.badge.xmark" catalog="system" width="128" height="113"/>
         <namedColor name="LightBlack">
             <color red="0.48899999260902405" green="0.48899999260902405" blue="0.48899999260902405" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

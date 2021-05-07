@@ -21,14 +21,16 @@ protocol ShowSuggestionsBusinessLogic
     
     func textSearch(query: String)
     
-    var searchQueryRequest: SearchQueryRequest? { get set }
-    var selectedListID: Int? { get set }
+    func getSelectedListID() -> Int?
+    //    var searchQueryRequest: SearchQueryRequest? { get set }
+    //    var selectedListID: Int? { get set }
 }
 
 protocol ShowSuggestionsDataStore
 {
     var searchQueryRequest: SearchQueryRequest? { get set }
     var selectedListID: Int? { get set }
+    var storeTypeID: Int { get }
 }
 
 class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDataStore
@@ -84,5 +86,11 @@ extension ShowSuggestionsInteractor {
         searchWorker.suggestionSelected(suggestion: suggestion)
         
         searchQueryRequest = SearchQueryRequest(storeTypeID: storeTypeID, query: query, type: SearchType.product.rawValue, textSearch: true)
+    }
+}
+
+extension ShowSuggestionsInteractor {
+    func getSelectedListID() -> Int? {
+        return selectedListID
     }
 }

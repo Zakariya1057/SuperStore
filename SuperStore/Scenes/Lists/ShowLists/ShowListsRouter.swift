@@ -151,7 +151,7 @@ class ShowListsRouter: NSObject, ShowListsRoutingLogic, ShowListsDataPassing
     // MARK: Passing data
     func passDataToCreateList(source: ShowListsDataStore, destination: inout CreateListDataStore)
     {
-
+        destination.addToList = source.addToList
     }
     
     func passDataToEditList(source: ShowListsDataStore, destination: inout EditListDataStore)

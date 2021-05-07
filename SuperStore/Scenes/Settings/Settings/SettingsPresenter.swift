@@ -57,7 +57,8 @@ class SettingsPresenter: SettingsPresentationLogic
                 displayUserSections.append(
                     Settings.DisplayUserSection(fields: [
                         Settings.DisplayUserField(name: "Feedback", type: .feedback),
-                        Settings.DisplayUserField(name: "Report Issues", type: .reportIssue)
+                        Settings.DisplayUserField(name: "Report Issues", type: .reportIssue),
+                        Settings.DisplayUserField(name: "Delete Account", type: .delete)
                     ])
                 )
                 

@@ -71,11 +71,14 @@ class CreateListViewController: UIViewController, CreateListDisplayLogic
         super.viewDidLoad()
         setupFieldDelegate()
         openKeyboardOnTextField()
+        displayModelCreateButton()
     }
     
     let spinner: SpinnerViewController = SpinnerViewController()
     @IBOutlet weak var nameTextField: UITextField!
     
+    @IBOutlet var createButton: UIButton!
+
     func createList()
     {
         let name = nameTextField.text ?? ""
@@ -94,6 +97,11 @@ class CreateListViewController: UIViewController, CreateListDisplayLogic
         } else {
             router?.routeToShowLists(segue: nil)
         }
+    }
+    
+    func displayModelCreateButton(){
+        // Only show modally
+        createButton.isHidden = !interactor!.getAddToList()
     }
     
     @IBAction func createButtonPressed(_ sender: Any) {

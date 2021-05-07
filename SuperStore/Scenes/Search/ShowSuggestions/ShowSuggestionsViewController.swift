@@ -154,7 +154,7 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     }
     
     func displayRightBarButton(){
-        if interactor?.selectedListID == nil {
+        if interactor?.getSelectedListID() == nil {
             self.navigationItem.rightBarButtonItem = nil
         }
     }
@@ -201,8 +201,9 @@ extension ShowSuggestionsViewController {
         interactor?.suggestionSelected(suggestion: suggestion)
         
         if suggestion.type == .store {
-            router?.selectedStoreTypeID = suggestion.id
             router?.routeToShowStoreResults(segue: nil)
+        } else if suggestion.type == .storeSale {
+            router?.routeToAllPromotions(segue: nil)
         } else {
             router?.routeToShowProductResults(segue: nil)
         }

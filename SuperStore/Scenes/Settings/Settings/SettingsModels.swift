@@ -32,6 +32,7 @@ enum Settings
         case name, email, store, password, notification
         case feedback, reportIssue
         case logout, login
+        case delete
     }
     
     enum GetUserDetails

@@ -17,12 +17,13 @@ import UIKit
     func routeToShowProductResults(segue: UIStoryboardSegue?)
     func routeToShowStoreResults(segue: UIStoryboardSegue?)
     func routeToShowList(segue: UIStoryboardSegue?)
+    func routeToAllPromotions(segue: UIStoryboardSegue?)
 }
 
 protocol ShowSuggestionsDataPassing
 {
     var dataStore: ShowSuggestionsDataStore? { get }
-    var selectedStoreTypeID: Int? { get set }
+//    var selectedStoreTypeID: Int? { get set }
 }
 
 class ShowSuggestionsRouter: BackToShowListRouter, ShowSuggestionsRoutingLogic, ShowSuggestionsDataPassing
@@ -32,8 +33,8 @@ class ShowSuggestionsRouter: BackToShowListRouter, ShowSuggestionsRoutingLogic, 
     }
     
     var dataStore: ShowSuggestionsDataStore?
-    var selectedStoreTypeID: Int?
-    var selectedListID: Int?
+//    var selectedStoreTypeID: Int?
+//    var selectedListID: Int?
     
     // MARK: Routing
     
@@ -67,6 +68,20 @@ class ShowSuggestionsRouter: BackToShowListRouter, ShowSuggestionsRoutingLogic, 
         }
     }
     
+    func routeToAllPromotions(segue: UIStoryboardSegue?) {
+        if let segue = segue {
+            let destinationVC = segue.destination as! AllPromotionsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToAllOffers(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "AllPromotionsViewController") as! AllPromotionsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToAllOffers(source: dataStore!, destination: &destinationDS)
+            navigateToAllOffers(source: showSuggestionsViewController, destination: destinationVC)
+        }
+    }
+    
     // MARK: Navigation
     
     func navigateToShowStoreResults(source: ShowSuggestionsViewController, destination: ShowStoreResultsViewController)
@@ -79,12 +94,16 @@ class ShowSuggestionsRouter: BackToShowListRouter, ShowSuggestionsRoutingLogic, 
       source.show(destination, sender: nil)
     }
     
+    func navigateToAllOffers(source: ShowSuggestionsViewController, destination: AllPromotionsViewController)
+    {
+      source.show(destination, sender: nil)
+    }
     
     // MARK: Passing data
     
     func passDataToShowStoreResults(source: ShowSuggestionsDataStore, destination: inout ShowStoreResultsDataStore)
     {
-        destination.storeTypeID = selectedStoreTypeID!
+        destination.storeTypeID = source.storeTypeID
         destination.selectedListID = source.selectedListID
     }
     
@@ -94,5 +113,8 @@ class ShowSuggestionsRouter: BackToShowListRouter, ShowSuggestionsRoutingLogic, 
         destination.selectedListID = source.selectedListID
     }
     
-
+    func passDataToAllOffers(source: ShowSuggestionsDataStore, destination: inout AllPromotionsDataStore)
+    {
+        destination.storeTypeID = source.storeTypeID
+    }
 }

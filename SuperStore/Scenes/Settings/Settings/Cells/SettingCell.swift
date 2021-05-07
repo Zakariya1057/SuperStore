@@ -21,6 +21,7 @@ class SettingCell: UITableViewCell {
         
         "Feedback": UIImage(systemName: "bubble.left.and.bubble.right"),
         "Report Issues": UIImage(systemName: "pencil.circle"),
+        "Delete Accoubt": UIImage(systemName: "person.crop.circle.badge.xmark"),
         
         "Login": UIImage(systemName: "person.crop.circle"),
         "Logout": UIImage(named: "Logout")
@@ -29,6 +30,9 @@ class SettingCell: UITableViewCell {
     @IBOutlet var iconImageView: UIImageView!
     
     var field: Settings.DisplayUserField!
+    
+    @IBOutlet var detailStackView: UIStackView!
+    @IBOutlet var stackViewWidth: NSLayoutConstraint!
     
     @IBOutlet var keyLabel: UILabel!
     @IBOutlet var valueLabel: UILabel!
@@ -42,7 +46,8 @@ class SettingCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
@@ -54,8 +59,17 @@ class SettingCell: UITableViewCell {
         
         setNotification(enabled: field.on)
         
+        setWidth()
+        
         displayIcon()
         displayViews()
+    }
+    
+    private func setWidth(){
+        if field.type == .delete {
+            stackViewWidth.constant = 200
+            detailStackView.layoutIfNeeded()
+        }
     }
     
     private func displayIcon(){
@@ -65,18 +79,19 @@ class SettingCell: UITableViewCell {
     }
     
     private func displayViews(){
-        if field.type == .logout {
+        
+        notificationSwitch.isHidden = field.type != .notification
+        
+        if field.type == .logout ||
+            field.type == .notification ||
+            field.type == .delete ||
+            field.type == .login {
+            
             disclosureView.isHidden = true
             valueLabel.isHidden = true
-            notificationSwitch.isHidden = true
-        } else if field.type == .notification {
-            disclosureView.isHidden = true
-            valueLabel.isHidden = true
-            notificationSwitch.isHidden = false
         } else {
             disclosureView.isHidden = false
             valueLabel.isHidden = false
-            notificationSwitch.isHidden = true
         }
     }
     
