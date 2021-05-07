@@ -72,6 +72,11 @@ class ReportIssueViewController: UIViewController, ReportIssueDisplayLogic
         super.viewDidLoad()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        openKeyboardOnTextView()
+    }
+    
     let spinner: SpinnerViewController = SpinnerViewController()
     
     @IBOutlet var issueTextView: UITextView!
@@ -105,7 +110,9 @@ class ReportIssueViewController: UIViewController, ReportIssueDisplayLogic
     @IBAction func sendButtonPressed(_ sender: Any) {
         sendIssue()
     }
-    
+}
+
+extension ReportIssueViewController {
     func reportIssueSuccess(){
 
         let appearance = SCLAlertView.SCLAppearance(
@@ -129,6 +136,12 @@ class ReportIssueViewController: UIViewController, ReportIssueDisplayLogic
             circleIconImage: nil,
             animationStyle: .bottomToTop)
             
+    }
+}
+
+extension ReportIssueViewController {
+    func openKeyboardOnTextView(){
+        issueTextView.becomeFirstResponder()
     }
 }
 

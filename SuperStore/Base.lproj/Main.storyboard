@@ -5281,7 +5281,7 @@
             </objects>
             <point key="canvasLocation" x="5030" y="2750"/>
         </scene>
-        <!--Select Store-->
+        <!--Change Store-->
         <scene sceneID="4MZ-WA-k59">
             <objects>
                 <viewController storyboardIdentifier="EditStoreViewController" id="0I5-2D-5uz" customClass="EditStoreViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -5360,7 +5360,7 @@
                             <constraint firstItem="2fa-Qx-A4h" firstAttribute="top" secondItem="TDw-J8-G6B" secondAttribute="top" constant="40" id="pfK-eS-z5B"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Select Store" id="N63-Et-CzS"/>
+                    <navigationItem key="navigationItem" title="Change Store" id="N63-Et-CzS"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DOQ-co-ax9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -5448,10 +5448,9 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="300"/>
                                                 <color key="backgroundColor" name="LightGrey"/>
                                                 <color key="tintColor" name="LogoBlue"/>
-                                                <string key="text">Samsung is second most profitable Smartphone manufacturer. But that’s not a good fit either. An Apple owned Samsung would what? Compete with the iPhone? Or become part of a unified product line? Neither option is in Apple’s interest. Owning 100% of the profitable smartphone market might actually be bad for the company. Samsung is second most profitable Smartphone manufacturer. </string>
                                                 <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="send"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
                                             </textView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

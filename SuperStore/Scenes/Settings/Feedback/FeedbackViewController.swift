@@ -72,6 +72,11 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
         super.viewDidLoad()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        openKeyboardOnTextView()
+    }
+    
     let spinner: SpinnerViewController = SpinnerViewController()
     
     @IBOutlet var feedbackTextView: UITextView!
@@ -105,6 +110,15 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
         sendFeedback()
     }
     
+}
+
+extension FeedbackViewController {
+    func openKeyboardOnTextView(){
+        feedbackTextView.becomeFirstResponder()
+    }
+}
+
+extension FeedbackViewController {
     // Alert. Thank You for the feedback.
     func feedbackSuccess(){
         let appearance = SCLAlertView.SCLAppearance(
@@ -130,7 +144,6 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
         
     }
 }
-
 extension FeedbackViewController {
     func startLoading() {
         addChild(spinner)
