@@ -2198,6 +2198,7 @@
                     <connections>
                         <outlet property="addressLabel" destination="Tr2-4b-aIQ" id="VB0-HN-26u"/>
                         <outlet property="facilitiesTableView" destination="jUG-mF-WYb" id="h7K-hK-GBf"/>
+                        <outlet property="facilitiesTableViewHeight" destination="fZV-qV-9OP" id="Kgt-nx-2SM"/>
                         <outlet property="hoursTableView" destination="7JN-eL-ysM" id="Ade-er-wCu"/>
                         <outlet property="logoImageView" destination="vha-7q-B5X" id="yN7-6L-CZf"/>
                         <outlet property="nameLabel" destination="SVj-gh-CXc" id="8Q8-W7-rb6"/>
@@ -5429,7 +5430,7 @@
                                                 <color key="tintColor" name="LogoBlue"/>
                                                 <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="send"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes"/>
                                             </textView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -5493,7 +5494,7 @@
                                                 <color key="tintColor" name="LogoBlue"/>
                                                 <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" enablesReturnKeyAutomatically="YES"/>
                                             </textView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -5584,7 +5585,7 @@
         <image name="Asda2" width="133" height="133"/>
         <image name="ClearLogo" width="256" height="256"/>
         <image name="Digestives" width="180" height="180"/>
-        <image name="Logout" width="227.5" height="227.5"/>
+        <image name="Logout" width="170.5" height="170.5"/>
         <image name="bell" catalog="system" width="128" height="124"/>
         <image name="bubble.left.and.bubble.right" catalog="system" width="128" height="96"/>
         <image name="cart" catalog="system" width="128" height="102"/>

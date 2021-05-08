@@ -14,24 +14,43 @@ import UIKit
 
 enum PromotionGroup
 {
-  // MARK: Use cases
-  
-  enum GetPromotions
-  {
-    struct Request
+    // MARK: Use cases
+    
+    enum GetPromotions
     {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var promotions: [PromotionModel]
+            var error: String?
+            var offline: Bool = false
+        }
+        
+        struct ViewModel
+        {
+            var promotions: [PromotionModel]
+            var error: String?
+            var offline: Bool = false
+        }
     }
     
-    struct Response
+    enum GetPromotionGroup
     {
-        var promotionGroup: String
-        var promotions: [PromotionModel]
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var promotionGroup: PromotionGroupModel
+        }
+        
+        struct ViewModel
+        {
+            var promotionGroup: PromotionGroupModel
+        }
     }
-    
-    struct ViewModel
-    {
-        var promotionGroup: String
-        var promotions: [PromotionModel]
-    }
-  }
 }

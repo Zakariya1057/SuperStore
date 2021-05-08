@@ -15,6 +15,7 @@ import UIKit
 protocol PromotionGroupPresentationLogic
 {
     func presentAllPromotions(response: PromotionGroup.GetPromotions.Response)
+    func presentPromotionGroupName(response: PromotionGroup.GetPromotionGroup.Response)
 }
 
 class PromotionGroupPresenter: PromotionGroupPresentationLogic
@@ -23,7 +24,13 @@ class PromotionGroupPresenter: PromotionGroupPresentationLogic
     
     func presentAllPromotions(response: PromotionGroup.GetPromotions.Response)
     {
-        let viewModel = PromotionGroup.GetPromotions.ViewModel(promotionGroup: response.promotionGroup, promotions: response.promotions)
+        let viewModel = PromotionGroup.GetPromotions.ViewModel(promotions: response.promotions, error: response.error, offline: response.offline)
         viewController?.displayPromotions(viewModel: viewModel)
     }
+    
+    func presentPromotionGroupName(response: PromotionGroup.GetPromotionGroup.Response) {
+        let viewModel = PromotionGroup.GetPromotionGroup.ViewModel(promotionGroup: response.promotionGroup)
+        viewController?.displayPromotionGroupName(viewModel: viewModel)
+    }
+    
 }

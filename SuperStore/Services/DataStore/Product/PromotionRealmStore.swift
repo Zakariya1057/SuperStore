@@ -31,6 +31,12 @@ class PromotionRealmStore: DataStore, PromotionStoreProtocol {
         }
     }
     
+    func createPromotionGroups(promotionsGroups: [PromotionGroup]){
+        // Array Of Promotion Names. Contains Promotions. Contains Products.
+        
+        
+    }
+    
     func getPromotion(promotionID: Int) -> PromotionModel? {
         getPromotionObject(promotionID: promotionID)?.getPromotionModel()
     }

@@ -153,8 +153,10 @@ extension ShowPromotionViewController: UITableViewDelegate, UITableViewDataSourc
 
 extension ShowPromotionViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        router?.selectedProductID = products[indexPath.row].id
-        router?.routeToShowProduct(segue: nil)
+        if !loading {
+            router?.selectedProductID = products[indexPath.row].id
+            router?.routeToShowProduct(segue: nil)
+        }
     }
 }
 

@@ -85,6 +85,8 @@ class StoreViewController: UIViewController, StoreDisplayLogic
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     
+    @IBOutlet var facilitiesTableViewHeight: NSLayoutConstraint!
+    
     @IBOutlet var loadingViews: [UIView]!
     
     var loading: Bool = true {
@@ -125,6 +127,9 @@ class StoreViewController: UIViewController, StoreDisplayLogic
                 
                 facilities = store.facilities
                 facilitiesTableView.reloadData()
+                
+                facilitiesTableViewHeight.constant = CGFloat(facilities.count * 38)
+                facilitiesTableView.layoutIfNeeded()
             }
         }
         

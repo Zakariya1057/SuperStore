@@ -73,8 +73,10 @@ class AllPromotionsViewController: UIViewController, AllPromotionsDisplayLogic
         getPromotions()
     }
     
-    var loading: Bool = false
-    var promotionGroups: [String] = []
+    var loading: Bool = true
+    var promotionGroups: [PromotionGroupModel] = []
+    
+    var refreshControl = UIRefreshControl()
     
     @IBOutlet var groupsTableView: UITableView!
     
@@ -86,9 +88,14 @@ class AllPromotionsViewController: UIViewController, AllPromotionsDisplayLogic
     
     func displayPromotions(viewModel: AllPromotions.GetAllPromotions.ViewModel)
     {
+        refreshControl.endRefreshing()
+        
         if let error = viewModel.error {
-            showError(title: "Offers Error", error: error)
+            if !viewModel.offline {
+                showError(title: "Offers Error", error: error)
+            }
         } else {
+            loading = false
             promotionGroups = viewModel.promotionGroups
             groupsTableView.reloadData()
         }
@@ -108,7 +115,7 @@ extension AllPromotionsViewController: UITableViewDataSource, UITableViewDelegat
     func configureCategoryCell(indexPath: IndexPath) -> CategoryTableViewCell {
         let cell = groupsTableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath) as! CategoryTableViewCell
 
-        cell.nameLabel.text = promotionGroups[indexPath.row]
+        cell.nameLabel.text = loading ? "" : promotionGroups[indexPath.row].title
 
         cell.loading = loading
         
@@ -122,6 +129,18 @@ extension AllPromotionsViewController: UITableViewDataSource, UITableViewDelegat
         
         groupsTableView.delegate = self
         groupsTableView.dataSource = self
+        
+        setupRefreshControl()
+    }
+    
+    func setupRefreshControl(){
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
+        refreshControl.addTarget(self, action: #selector(refreshResults), for: .valueChanged)
+        groupsTableView.addSubview(refreshControl)
+    }
+    
+    @objc func refreshResults(){
+        getPromotions()
     }
 }
 

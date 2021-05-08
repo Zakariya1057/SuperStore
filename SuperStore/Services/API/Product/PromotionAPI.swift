@@ -29,7 +29,7 @@ class PromotionAPI: API, PromotionRequestProtocol {
         }
     }
     
-    func getAllPromotions(storeTypeID: Int, completionHandler: @escaping (_ promotionGroups: [String], _ error: String?) -> Void){
+    func getAllPromotions(storeTypeID: Int, completionHandler: @escaping (_ promotionGroups: [PromotionGroupModel], _ error: String?) -> Void){
         let url = Config.Route.Promotion.All + "/" + String(storeTypeID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
@@ -80,11 +80,11 @@ extension PromotionAPI {
         return []
     }
     
-    private func createPromotionGroups(promotionsDataResponse: AllPromotionsDataResponse?, storeTypeID: Int) -> [String] {
+    private func createPromotionGroups(promotionsDataResponse: AllPromotionsDataResponse?, storeTypeID: Int) -> [PromotionGroupModel] {
         
         if let promotionsDataResponse = promotionsDataResponse {
-            let promotionsGroup = promotionsDataResponse.data
-            return promotionsGroup.map{ $0 }
+            let promotionGroups = promotionsDataResponse.data
+            return promotionGroups.map{ PromotionGroupModel(title: $0, storeTypeID: storeTypeID) }
         }
         
         return []

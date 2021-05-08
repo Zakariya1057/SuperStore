@@ -15,10 +15,12 @@ import UIKit
 protocol PromotionGroupDisplayLogic: AnyObject
 {
     func displayPromotions(viewModel: PromotionGroup.GetPromotions.ViewModel)
+    func displayPromotionGroupName(viewModel: PromotionGroup.GetPromotionGroup.ViewModel)
 }
 
 class PromotionGroupViewController: UIViewController, PromotionGroupDisplayLogic
 {
+    
     var interactor: PromotionGroupBusinessLogic?
     var router: (NSObjectProtocol & PromotionGroupRoutingLogic & PromotionGroupDataPassing)?
     
@@ -70,12 +72,14 @@ class PromotionGroupViewController: UIViewController, PromotionGroupDisplayLogic
     {
         super.viewDidLoad()
         setupPromotionsTableView()
+        
+        getPromotionGroup()
         getPromotions()
     }
     
-    var loading: Bool = false
+    var loading: Bool = true
     
-    var promotionGroup: String!
+    var promotionGroup: PromotionGroupModel!
     var promotions: [PromotionModel] = []
     
     @IBOutlet var promotionsTableView: UITableView!
@@ -88,20 +92,39 @@ class PromotionGroupViewController: UIViewController, PromotionGroupDisplayLogic
         interactor?.getPromotions(request: request)
     }
     
+    func getPromotionGroup(){
+        let request = PromotionGroup.GetPromotionGroup.Request()
+        interactor?.getPromotionGroupName(request: request)
+    }
+    
     func displayPromotions(viewModel: PromotionGroup.GetPromotions.ViewModel)
     {
         refreshControl.endRefreshing()
         
-        promotionGroup = viewModel.promotionGroup
-        promotions = viewModel.promotions
-        
-        setTitle()
-        promotionsTableView.reloadData()
+        if let error = viewModel.error {
+            if !viewModel.offline {
+                showError(title: "Offer Error", error: error)
+            }
+        } else {
+            loading = false
+            promotions = viewModel.promotions
+            promotionsTableView.reloadData()
+        }
     }
     
-    private func setTitle(){
-        title = promotionGroup!
+    func displayPromotionGroupName(viewModel: PromotionGroup.GetPromotionGroup.ViewModel) {
+        promotionGroup = viewModel.promotionGroup
+        
+        title = promotionGroup.title
+        
+        promotions = promotionGroup.promotions
+
+        if promotions.count > 0 {
+            loading = false
+            promotionsTableView.reloadData()
+        }
     }
+    
 }
 
 extension PromotionGroupViewController: UITableViewDataSource, UITableViewDelegate {
@@ -118,11 +141,11 @@ extension PromotionGroupViewController: UITableViewDataSource, UITableViewDelega
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return promotions.count
+        return loading ? 1 : promotions.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? 1 : promotions[section].products.count
+        return loading ? 5 : promotions[section].products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

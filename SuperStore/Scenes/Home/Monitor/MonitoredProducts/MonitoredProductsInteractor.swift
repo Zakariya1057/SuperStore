@@ -33,7 +33,6 @@ class MonitoredProductsInteractor: MonitoredProductsBusinessLogic, MonitoredProd
     var productWorker: ProductWorker = ProductWorker(productAPI: ProductAPI())
     
     var storeTypeID: Int = 2
-    
     var selectedProductID: Int? = nil
     
     var userSession: UserSessionWorker = UserSessionWorker()

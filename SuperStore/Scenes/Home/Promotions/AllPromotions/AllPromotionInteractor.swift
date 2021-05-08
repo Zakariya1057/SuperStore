@@ -15,13 +15,13 @@ import UIKit
 protocol AllPromotionsBusinessLogic
 {
     func getAllPromotions(request: AllPromotions.GetAllPromotions.Request)
-    func setPromotionSelected(promotionGroup: String)
+    func setPromotionSelected(promotionGroup: PromotionGroupModel)
 }
 
 protocol AllPromotionsDataStore
 {
     var storeTypeID: Int { get set }
-    var selectedPromotionGroup: String? { get set }
+    var selectedPromotionGroup: PromotionGroupModel? { get set }
 }
 
 class AllPromotionsInteractor: AllPromotionsBusinessLogic, AllPromotionsDataStore
@@ -31,13 +31,13 @@ class AllPromotionsInteractor: AllPromotionsBusinessLogic, AllPromotionsDataStor
     var promotionWorker = PromotionWorker(promotionAPI: PromotionAPI())
 
     var storeTypeID: Int = 2
-    var selectedPromotionGroup: String? = nil
+    var selectedPromotionGroup: PromotionGroupModel? = nil
     
     var userSession: UserSessionWorker = UserSessionWorker()
     
     func getAllPromotions(request: AllPromotions.GetAllPromotions.Request)
     {
-        promotionWorker.getAllPromotions(storeTypeID: storeTypeID) { (promotionGroups: [String], error: String?) in
+        promotionWorker.getAllPromotions(storeTypeID: storeTypeID) { (promotionGroups: [PromotionGroupModel], error: String?) in
             
             var response = AllPromotions.GetAllPromotions.Response(promotionGroups: promotionGroups, error: error)
         
@@ -51,7 +51,7 @@ class AllPromotionsInteractor: AllPromotionsBusinessLogic, AllPromotionsDataStor
 }
 
 extension AllPromotionsInteractor {
-    public func setPromotionSelected(promotionGroup: String){
+    public func setPromotionSelected(promotionGroup: PromotionGroupModel){
         self.selectedPromotionGroup = promotionGroup
     }
 }

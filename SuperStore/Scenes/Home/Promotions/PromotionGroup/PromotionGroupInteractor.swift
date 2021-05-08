@@ -14,6 +14,7 @@ import UIKit
 
 protocol PromotionGroupBusinessLogic
 {
+    func getPromotionGroupName(request: PromotionGroup.GetPromotionGroup.Request)
     func getPromotions(request: PromotionGroup.GetPromotions.Request)
     func setProductSelected(productID: Int)
 }
@@ -21,29 +22,43 @@ protocol PromotionGroupBusinessLogic
 protocol PromotionGroupDataStore
 {
     var storeTypeID: Int { get set }
-    var promotionGroup: String? { get set }
+    var promotionGroup: PromotionGroupModel? { get set }
     var selectedProductID: Int? { get set }
 }
 
 class PromotionGroupInteractor: PromotionGroupBusinessLogic, PromotionGroupDataStore
 {
+    
     var presenter: PromotionGroupPresentationLogic?
 
-    var promotionGroup: String? = nil
+    var promotionGroup: PromotionGroupModel? = nil
    
     var storeTypeID: Int = 2
     var selectedProductID: Int?
     
     var promotionWorker = PromotionWorker(promotionAPI: PromotionAPI())
+    var userSession: UserSessionWorker = UserSessionWorker()
     
     func getPromotions(request: PromotionGroup.GetPromotions.Request)
     {
         
         if let promotionGroup = promotionGroup {
-            promotionWorker.getPromotionGroup(storeTypeID: storeTypeID, title: promotionGroup) { (promotions: [PromotionModel], error: String?) in
-                let response = PromotionGroup.GetPromotions.Response(promotionGroup: promotionGroup, promotions: promotions)
+            promotionWorker.getPromotionGroup(storeTypeID: storeTypeID, title: promotionGroup.title) { (promotions: [PromotionModel], error: String?) in
+                var response = PromotionGroup.GetPromotions.Response(promotions: promotions, error: error)
+                
+                if error != nil {
+                    response.offline = !self.userSession.isOnline()
+                }
+                
                 self.presenter?.presentAllPromotions(response: response)
             }
+        }
+    }
+    
+    func getPromotionGroupName(request: PromotionGroup.GetPromotionGroup.Request) {
+        if let promotionGroup = promotionGroup {
+            let response = PromotionGroup.GetPromotionGroup.Response(promotionGroup: promotionGroup)
+            self.presenter?.presentPromotionGroupName(response: response)
         }
     }
 }
