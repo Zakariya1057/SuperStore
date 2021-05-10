@@ -49,6 +49,8 @@ class ProductObject: Object {
     
     var childCategoryID = RealmOptional<Int>()
     @objc dynamic var childCategoryName: String? = nil
+    
+    @objc dynamic var productGroupName: String? = nil
 
     @objc dynamic var storage: String? = nil
     @objc dynamic var weight: String? = nil
@@ -105,6 +107,8 @@ class ProductObject: Object {
             
             parentCategoryID: parentCategoryID.value, parentCategoryName: parentCategoryName,
             childCategoryID: childCategoryID.value, childCategoryName: childCategoryName,
+            
+            productGroupName: productGroupName,
             
             dietaryInfo: dietaryInfo,
             allergenInfo: allergenInfo,

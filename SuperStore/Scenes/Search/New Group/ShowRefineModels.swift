@@ -28,7 +28,7 @@ enum ShowRefine
         struct ViewModel
         {
             var brands: [RefineBrandOptionModel]
-            var categories: [RefineCategoryOptionModel]
+            var productGroups: [RefineProductGroupOptionModel]
             var promotions: [RefinePromotionOptionModel]
         }
     }

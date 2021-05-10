@@ -58,6 +58,8 @@ struct ProductData:Decodable {
     var child_category_id: Int?
     var child_category_name: String?
     
+    var product_group_name: String?
+    
     var promotion: PromotionData?
     
     func getProductModel() -> ProductModel {
@@ -86,6 +88,7 @@ struct ProductData:Decodable {
             
             parentCategoryID: parent_category_id, parentCategoryName: parent_category_name,
             childCategoryID: child_category_id, childCategoryName: child_category_name,
+            productGroupName: product_group_name,
             
             dietaryInfo: dietary_info,
             allergenInfo: allergen_info,

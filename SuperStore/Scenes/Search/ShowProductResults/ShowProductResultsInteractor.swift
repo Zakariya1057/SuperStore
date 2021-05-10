@@ -59,7 +59,7 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     
     var userSession = UserSessionWorker()
     
-    var searchRefine: SearchRefine = SearchRefine(brands: [], categories: [], promotions: [])
+    var searchRefine: SearchRefine = SearchRefine(brands: [], productGroups: [], promotions: [])
     var searchQueryRequest: SearchQueryRequest = SearchQueryRequest(storeTypeID: 0, query: "", type: "")
     
     var products: [ProductModel] = []
@@ -119,8 +119,8 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         
 
         
-        if let selectedCategory = selectedRefineOptions.category.first {
-            searchQueryRequest.childCategory = removeCountFromString(text: selectedCategory.name)
+        if let selectedProductGroup = selectedRefineOptions.productGroup.first {
+            searchQueryRequest.productGroup = removeCountFromString(text: selectedProductGroup.name)
         }
         
         if let selectedBrand = selectedRefineOptions.brand.first {
@@ -151,14 +151,14 @@ extension ShowProductResultsInteractor {
         searchQueryRequest.dietary = ""
         searchQueryRequest.brand = ""
         searchQueryRequest.promotion = ""
-        searchQueryRequest.childCategory = ""
+        searchQueryRequest.productGroup = ""
     }
     
     func refineOptionsNotSet() -> Bool {
         return
             searchQueryRequest.dietary == "" &&
             searchQueryRequest.brand == "" &&
-            searchQueryRequest.childCategory == "" &&
+            searchQueryRequest.productGroup == "" &&
             searchQueryRequest.promotion == ""
     }
 }
@@ -247,7 +247,8 @@ extension ShowProductResultsInteractor {
     private func setRefineOptions(products: [ProductModel]){
         // Unique Brands. Unique Categories
         var uniqueBrands: [String: Int] = [:]
-        var uniqueCategories: [String: Int] = [:]
+        
+        var uniqueProductGroups: [String: Int] = [:]
         var uniquePromotions: [String: Int] = [:]
 
         for product in products {
@@ -259,11 +260,11 @@ extension ShowProductResultsInteractor {
                 }
             }
             
-            if let category = product.childCategoryName, category != "" {
-                if uniqueCategories[category] != nil {
-                    uniqueCategories[category]! += 1
+            if let productGroup = product.productGroupName, productGroup != "" {
+                if uniqueProductGroups[productGroup] != nil {
+                    uniqueProductGroups[productGroup]! += 1
                 } else {
-                    uniqueCategories[category] = 1
+                    uniqueProductGroups[productGroup] = 1
                 }
             }
             
@@ -277,7 +278,7 @@ extension ShowProductResultsInteractor {
         }
         
         self.searchRefine.brands = uniqueBrands.sorted(by: { brand1, brand2 in brand1.value > brand2.value }).compactMap{ "\($0.key)" }
-        self.searchRefine.categories = uniqueCategories.sorted(by: { category1, category2 in category1.value > category2.value }).compactMap{ "\($0.key)"}
+        self.searchRefine.productGroups = uniqueProductGroups.sorted(by: { productGroup1, productGroup2 in productGroup1.value > productGroup2.value }).compactMap{ "\($0.key)"}
         self.searchRefine.promotions = uniquePromotions.sorted(by: { promotion1, promotion2 in promotion1.value > promotion2.value }).compactMap{ "\($0.key)"}
     }
 }

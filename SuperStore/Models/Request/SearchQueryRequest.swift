@@ -17,7 +17,7 @@ struct SearchQueryRequest {
     var promotion: String = ""
     var dietary: String = ""
     var brand: String = ""
-    var childCategory: String = ""
+    var productGroup: String = ""
     var textSearch: Bool = false
     
     var refineSort: Bool = false

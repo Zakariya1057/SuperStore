@@ -43,6 +43,8 @@ class ProductModel {
 
     var childCategoryID: Int?
     var childCategoryName: String?
+    
+    var productGroupName: String?
 
     var storage: String?
     var weight: String? = nil
@@ -72,6 +74,7 @@ class ProductModel {
         
         parentCategoryID: Int?, parentCategoryName: String?,
         childCategoryID: Int?, childCategoryName: String?,
+        productGroupName: String?,
         
         dietaryInfo: String?,
         allergenInfo: String?, brand: String?, reviews: [ReviewModel],
@@ -95,6 +98,8 @@ class ProductModel {
         
         self.childCategoryID = childCategoryID
         self.childCategoryName = childCategoryName
+        
+        self.productGroupName = productGroupName
 
         self.weight = weight
         

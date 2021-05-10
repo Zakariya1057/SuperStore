@@ -45,7 +45,7 @@ struct PaginateResultsModel {
 
 struct SearchRefine {
     var brands: [String]
-    var categories: [String]
+    var productGroups: [String]
     var promotions: [String]
 }
 
@@ -57,5 +57,6 @@ enum SearchType: String {
     case promotion = "promotions"
     case childCategory = "child_categories"
     case parentCategory = "parent_categories"
+    case productGroup = "product_groups"
 }
 

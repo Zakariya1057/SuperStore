@@ -10,21 +10,21 @@ import Foundation
 
 class SelectedRefineOptions {
     var brand: [RefineBrandOptionModel] = []
-    var category: [RefineCategoryOptionModel] = []
+    var productGroup: [RefineProductGroupOptionModel] = []
     var dietary: [RefineDietaryOptionModel] = []
     var promotion: [RefinePromotionOptionModel] = []
 }
 
 class RefineSearchModel {
-    var category: RefineCategoryGroupModel
+    var productGroup: RefineProductGroupGroupModel
     var brand: RefineBrandGroupModel
     var promotion: RefinePromotionGroupModel
     var dietary: RefineDietaryGroupModel
     
-    init(promotion: RefinePromotionGroupModel, category: RefineCategoryGroupModel, brand: RefineBrandGroupModel,dietary: RefineDietaryGroupModel) {
+    init(promotion: RefinePromotionGroupModel, productGroup: RefineProductGroupGroupModel, brand: RefineBrandGroupModel,dietary: RefineDietaryGroupModel) {
         self.promotion = promotion
         self.brand = brand
-        self.category = category
+        self.productGroup = productGroup
         self.dietary = dietary
     }
 }
@@ -45,7 +45,7 @@ class RefineGroupModel {
 class RefineBrandGroupModel: RefineGroupModel { }
 
 // Category Model
-class RefineCategoryGroupModel: RefineGroupModel { }
+class RefineProductGroupGroupModel: RefineGroupModel { }
 
 // Dietary Model
 class RefineDietaryGroupModel: RefineGroupModel { }
@@ -147,7 +147,7 @@ class RefineBrandOptionModel: RefineOptionModel { }
 
 //MARK: - Category Option Model
 
-class RefineCategoryOptionModel: RefineOptionModel { }
+class RefineProductGroupOptionModel: RefineOptionModel { }
 
 //MARK: - Promotion Option Model
 

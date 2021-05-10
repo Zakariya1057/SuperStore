@@ -15,6 +15,7 @@ struct SearchSuggestionsDataResponse: Decodable {
 struct SearchSuggestionsData: Decodable {
     let stores: [SearchOptionData]
     let store_sales: [SearchOptionData]
+    let product_groups: [SearchOptionData]
     let child_categories: [SearchOptionData]
     let parent_categories: [SearchOptionData]
     let products: [SearchOptionData]

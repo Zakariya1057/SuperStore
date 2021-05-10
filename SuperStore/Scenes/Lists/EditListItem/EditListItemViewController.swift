@@ -76,6 +76,8 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        setupPlusMinusGesture()
         setupImageSlider()
         getListItem()
     }
@@ -90,7 +92,9 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
     
     @IBOutlet var quantityLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
-//    @IBOutlet var quantityStepper: UIStepper!
+    
+    @IBOutlet var minusView: UIView!
+    @IBOutlet var plusView: UIView!
     
     @IBOutlet var weightLabel: UILabel!
     @IBOutlet var promotionButton: UIButton!
@@ -253,6 +257,14 @@ extension EditListItemViewController: ImageSlideshowDelegate {
         slideshow.addGestureRecognizer(gestureRecognizer)
     }
     
+    func setupPlusMinusGesture(){
+        let plusViewGesture = UITapGestureRecognizer(target: self, action: #selector(plusButtonPressed))
+        plusView.addGestureRecognizer(plusViewGesture)
+        
+        let minusViewGesture = UITapGestureRecognizer(target: self, action: #selector(minusButtonPressed))
+        minusView.addGestureRecognizer(minusViewGesture)
+    }
+    
     @objc func imagePressed() {
         slideshow.presentFullScreenController(from: self)
     }
@@ -260,7 +272,7 @@ extension EditListItemViewController: ImageSlideshowDelegate {
 }
 
 extension EditListItemViewController {
-    @IBAction func addButtonPressed(_ sender: UIButton) {
+    @IBAction func plusButtonPressed(_ sender: UIButton) {
         quantity += 1
         updateQuantity()
     }

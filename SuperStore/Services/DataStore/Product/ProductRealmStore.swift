@@ -360,6 +360,8 @@ extension ProductRealmStore {
         
         savedProduct.childCategoryID.value = product.childCategoryID
         savedProduct.childCategoryName = product.childCategoryName
+        
+        savedProduct.productGroupName = product.productGroupName
     }
     
     func updateRecommended(product: ProductModel, savedProduct: ProductObject){

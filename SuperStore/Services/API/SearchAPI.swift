@@ -41,7 +41,7 @@ class SearchAPI: API, SearchRequestProtocol {
             "sort": data.sort,
             "order": data.order,
             "dietary": data.dietary,
-            "child_category": data.childCategory,
+            "product_group": data.productGroup,
             "brand": data.brand,
             "promotion": data.promotion,
             "text_search": data.textSearch
@@ -88,6 +88,7 @@ extension SearchAPI {
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.store_sales, type: .storeSale))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.promotions, type: .promotion))
         
+        suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.product_groups, type: .productGroup))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.child_categories, type: .childCategory))
         suggestions.append(contentsOf: createSuggestionModel(suggestionsData: suggestionData.parent_categories, type: .parentCategory))
 
