@@ -162,7 +162,7 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
 
 extension ShowSuggestionsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? 3 : suggestions.count
+        return loading ? 5 : suggestions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -138,7 +138,7 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
 
 extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return loading ? 1 : products.count
+        return loggedIn ? (loading ? 5 : products.count) : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

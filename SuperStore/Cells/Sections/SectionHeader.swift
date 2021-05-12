@@ -14,6 +14,7 @@ class SectionHeader: UITableViewHeaderFooterView {
 
     var showViewAllButton: Bool = false
     
+    @IBOutlet var viewAllView: UIView!
     @IBOutlet var viewAllButton: UIButton!
 
     var viewAllButtonPressed: (() -> Void)? = nil
@@ -26,6 +27,7 @@ class SectionHeader: UITableViewHeaderFooterView {
     func configureUI(){
         viewAllButton.isHidden = !showViewAllButton
         moveImageToRightSide()
+        setupViewAllGesture()
     }
     
     func moveImageToRightSide(){
@@ -34,6 +36,15 @@ class SectionHeader: UITableViewHeaderFooterView {
     }
     
     @IBAction func viewAllButtonPressed(_ sender: UIButton) {
+        viewAllViewPressed()
+    }
+    
+    func setupViewAllGesture(){
+        let viewAllViewGesture = UITapGestureRecognizer(target: self, action: #selector(viewAllViewPressed))
+        viewAllView.addGestureRecognizer(viewAllViewGesture)
+    }
+    
+    @objc func viewAllViewPressed(){
         if let viewAllButtonPressed = viewAllButtonPressed {
             viewAllButtonPressed()
         }
