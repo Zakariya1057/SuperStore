@@ -477,7 +477,7 @@
             </objects>
             <point key="canvasLocation" x="2255.072463768116" y="135.9375"/>
         </scene>
-        <!--Edit List-->
+        <!--Edit Shopping List-->
         <scene sceneID="9Sj-Wc-0oL">
             <objects>
                 <viewController storyboardIdentifier="EditListViewController" id="ZAM-DR-R8x" customClass="EditListViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -554,7 +554,7 @@
                             <constraint firstItem="JBQ-Z1-kk8" firstAttribute="top" secondItem="bve-ii-XXP" secondAttribute="top" constant="20" id="eqZ-Vp-rhM"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Edit List" id="Gac-k6-Msq">
+                    <navigationItem key="navigationItem" title="Edit Shopping List" id="Gac-k6-Msq">
                         <barButtonItem key="rightBarButtonItem" title="Save" id="Ic2-pf-J86">
                             <connections>
                                 <action selector="saveButtonPressed:" destination="ZAM-DR-R8x" id="H1h-jC-Nac"/>
@@ -569,7 +569,7 @@
             </objects>
             <point key="canvasLocation" x="3019" y="-2507"/>
         </scene>
-        <!--Create List-->
+        <!--Create Shopping List-->
         <scene sceneID="aWZ-HL-IXk">
             <objects>
                 <viewController storyboardIdentifier="CreateListViewController" id="TZX-nf-fZJ" customClass="CreateListViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -638,7 +638,7 @@
                             <constraint firstItem="nci-1y-Ttl" firstAttribute="leading" secondItem="BRF-Dj-GYY" secondAttribute="leading" constant="15" id="ukf-4l-o0H"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Create List" id="ExA-MU-gG2">
+                    <navigationItem key="navigationItem" title="Create Shopping List" id="ExA-MU-gG2">
                         <barButtonItem key="rightBarButtonItem" title="Create" id="9Me-CJ-xhh">
                             <connections>
                                 <action selector="createButtonPressed:" destination="TZX-nf-fZJ" id="NC2-3s-v5a"/>
@@ -654,7 +654,7 @@
             </objects>
             <point key="canvasLocation" x="3929" y="-2507"/>
         </scene>
-        <!--Lists-->
+        <!--Shopping Lists-->
         <scene sceneID="Qgd-t1-vzd">
             <objects>
                 <viewController storyboardIdentifier="ShowListsViewController" id="uEy-Pu-MzC" customClass="ShowListsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -686,7 +686,7 @@
                             <constraint firstItem="CVn-Hd-pPy" firstAttribute="trailing" secondItem="07b-ar-z00" secondAttribute="trailing" id="xBM-MM-Txo"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Lists" id="R8r-GU-eMS">
+                    <navigationItem key="navigationItem" title="Shopping Lists" id="R8r-GU-eMS">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Til-hC-UnH">
                             <connections>
                                 <segue destination="TZX-nf-fZJ" kind="show" id="X6X-D0-tAX"/>
@@ -2270,11 +2270,11 @@
             </objects>
             <point key="canvasLocation" x="3019" y="-763"/>
         </scene>
-        <!--Lists-->
+        <!--Shopping Lists-->
         <scene sceneID="hxg-Em-cDF">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8gq-0E-z1O" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Lists" image="list.bullet" catalog="system" id="SlF-wV-PVK"/>
+                    <tabBarItem key="tabBarItem" title="Shopping Lists" image="list.bullet" catalog="system" id="SlF-wV-PVK"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="48S-AV-dvT">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
