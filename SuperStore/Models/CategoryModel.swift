@@ -11,6 +11,7 @@ import Foundation
 struct GrandParentCategoryModel {
     var id: Int
     var name:String
+    var index: Int
     var storeTypeID: Int
     var parentCategories: [ParentCategoryModel]
 }
@@ -18,6 +19,7 @@ struct GrandParentCategoryModel {
 struct ParentCategoryModel {
     var id: Int
     var name: String
+    var index: Int
     var grandParentCategoryID: Int
     var storeTypeID: Int
     var childCategories: [ChildCategoryModel]
@@ -26,6 +28,7 @@ struct ParentCategoryModel {
 struct ChildCategoryModel {
     var id: Int
     var name: String
+    var index: Int
     var parentCategoryID: Int
     var storeTypeID: Int
     var products: [ProductModel]

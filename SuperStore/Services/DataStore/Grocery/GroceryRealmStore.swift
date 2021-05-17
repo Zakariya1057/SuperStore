@@ -57,7 +57,9 @@ class GroceryRealmStore: DataStore, GroceryStoreProtocol {
         // Only get grand parent and direct children only. No products
         var categories: [GrandParentCategoryModel] = []
         
-        let savedCategories = realm?.objects(GrandParentCategoryObject.self).filter("enabled = true AND storeTypeID = %@", storeTypeID)
+        let savedCategories = realm?
+            .objects(GrandParentCategoryObject.self).filter("enabled = true AND storeTypeID = %@", storeTypeID)
+            .sorted(byKeyPath: "index", ascending: true)
         
         if let savedCategories = savedCategories {
             for category in savedCategories {
@@ -73,7 +75,9 @@ class GroceryRealmStore: DataStore, GroceryStoreProtocol {
         // Child and products, no recommeneded
         var categories: [ChildCategoryModel] = []
         
-        let savedCategories = realm?.objects(ChildCategoryObject.self).filter("enabled = true AND parentCategoryID = %@", parentCategoryID)
+        let savedCategories = realm?
+            .objects(ChildCategoryObject.self).filter("enabled = true AND parentCategoryID = %@", parentCategoryID)
+            .sorted(byKeyPath: "index", ascending: true)
         
         if let savedCategories = savedCategories {
             for category in savedCategories {
@@ -158,6 +162,8 @@ extension GroceryRealmStore {
         
         savedCategory.id = category.id
         savedCategory.name = category.name
+        savedCategory.index = category.index
+        
         savedCategory.storeTypeID = category.storeTypeID
         savedCategory.parentCategoryID = category.parentCategoryID
         
@@ -189,6 +195,8 @@ extension GroceryRealmStore {
         
         savedCategory.id = category.id
         savedCategory.name = category.name
+        savedCategory.index = category.index
+        
         savedCategory.storeTypeID = category.storeTypeID
         
         savedCategory.enabled = true
@@ -211,6 +219,8 @@ extension GroceryRealmStore {
         
         savedCategory.id = category.id
         savedCategory.name = category.name
+        savedCategory.index = category.index
+        
         savedCategory.storeTypeID = category.storeTypeID
         
         savedCategory.enabled = true
@@ -229,6 +239,8 @@ extension GroceryRealmStore {
         try? realm?.write({
             savedCategory.name = category.name
             savedCategory.enabled = true
+            savedCategory.index = category.index
+            
             savedCategory.updatedAt = Date()
             
             savedCategory.parentCategories.removeAll()
@@ -243,6 +255,8 @@ extension GroceryRealmStore {
         try? realm?.write({
             savedCategory.name = category.name
             savedCategory.enabled = true
+            savedCategory.index = category.index
+            
             savedCategory.updatedAt = Date()
             
             savedCategory.childCategories.removeAll()
@@ -257,6 +271,8 @@ extension GroceryRealmStore {
         try? realm?.write({
             savedCategory.name = category.name
             savedCategory.enabled = true
+            savedCategory.index = category.index
+            
             savedCategory.updatedAt = Date()
             
             savedCategory.products.removeAll()

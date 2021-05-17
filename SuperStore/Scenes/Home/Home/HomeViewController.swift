@@ -118,6 +118,9 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     func getHome()
     {
+        //43.6532
+        //-79.3832
+        
         let request = Home.GetHome.Request(latitude: latitude, longitude: longitude)
         interactor?.getHome(request: request)
     }

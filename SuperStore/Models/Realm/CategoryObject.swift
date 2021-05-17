@@ -14,6 +14,8 @@ class GrandParentCategoryObject: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var storeTypeID: Int = 1
     
+    @objc dynamic var index: Int = 0
+    
     var parentCategories = List<ParentCategoryObject>()
     
     @objc dynamic var enabled: Bool = true
@@ -25,6 +27,7 @@ class GrandParentCategoryObject: Object {
         return GrandParentCategoryModel(
             id: id,
             name: name,
+            index: index,
             storeTypeID: storeTypeID,
             parentCategories: parentCategories.map{ $0.getParentCategoryModel() })
     }
@@ -40,6 +43,8 @@ class ParentCategoryObject: Object {
     @objc dynamic var name:String = ""
     @objc dynamic var storeTypeID: Int = 1
     
+    @objc dynamic var index: Int = 0
+    
     @objc dynamic var grandParentCategoryID: Int = 1
     
     var childCategories = List<ChildCategoryObject>()
@@ -53,6 +58,7 @@ class ParentCategoryObject: Object {
         return ParentCategoryModel(
             id: id,
             name: name,
+            index: index,
             grandParentCategoryID: grandParentCategoryID,
             storeTypeID: storeTypeID,
             childCategories: childCategories.map{ $0.getChildCategoryModel() }
@@ -70,6 +76,8 @@ class ChildCategoryObject: Object {
     @objc dynamic var name:String = ""
     @objc dynamic var storeTypeID: Int = 1
     
+    @objc dynamic var index: Int = 0
+    
     @objc dynamic var parentCategoryID: Int = 1
     
     var products = List<ProductObject>()
@@ -83,6 +91,7 @@ class ChildCategoryObject: Object {
         return ChildCategoryModel(
             id: id,
             name: name,
+            index: index,
             parentCategoryID: parentCategoryID,
             storeTypeID: storeTypeID,
             products: products.map{ $0.getProductModel() }
