@@ -244,24 +244,29 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
             loading = false
             paginate = resultsPaginate
             
-            if let paginate = resultsPaginate, paginate.current > 1 {
-                for product in resultsProducts {
-                    if uniqueProducts[product.id] == nil {
-                        uniqueProducts[product.id] = true
+            if let paginate = resultsPaginate {
+                if paginate.current > 1 {
+                    for product in resultsProducts {
+                        if uniqueProducts[product.id] == nil {
+                            uniqueProducts[product.id] = true
+                            products.append(product)
+                        }
+                    }
+                } else {
+                    uniqueProducts = [:]
+                    products = []
+
+                    for product in resultsProducts {
                         products.append(product)
+                        uniqueProducts[product.id] = true
                     }
                 }
             } else {
-                uniqueProducts = [:]
-                products = []
-
-                for product in resultsProducts {
-                    products.append(product)
-                    uniqueProducts[product.id] = true
-                }
+                products = resultsProducts
             }
-
+            
             totalProductsLabel.text = "\(products.count) Products"
+
             productsTableView.reloadData()
         }
         

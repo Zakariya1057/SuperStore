@@ -291,7 +291,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 extension HomeViewController {
     private func setupHomeCells(){
         homeCells = [
-            ListGroupProgressElement(title: "Lists Progress", lists: [], listPressed: listPressed),
+            ListGroupProgressElement(title: "Shopping Lists", lists: [], listPressed: listPressed),
             GroceriesGroupElement(title: "", groceriesPressed: groceriesPressed),
             StoreMapGroupElement(title: "Nearby Stores", stores: [], storePressed: storePressed, userLocationFetched: userLocationFetched),
             GroceryProductGroupElement(title: "Grocery Products", products: [], productPressed: productPressed),

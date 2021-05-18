@@ -117,18 +117,16 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         
         resetRefineResults()
         
-
-        
         if let selectedProductGroup = selectedRefineOptions.productGroup.first {
-            searchQueryRequest.productGroup = removeCountFromString(text: selectedProductGroup.name)
+            searchQueryRequest.productGroup = selectedProductGroup.name
         }
         
         if let selectedBrand = selectedRefineOptions.brand.first {
-            searchQueryRequest.brand = removeCountFromString(text: selectedBrand.name)
+            searchQueryRequest.brand = selectedBrand.name
         }
         
         if let selectedPromotion = selectedRefineOptions.promotion.first {
-            searchQueryRequest.promotion = removeCountFromString(text: selectedPromotion.name)
+            searchQueryRequest.promotion = removeTitleFromPromotion(text: selectedPromotion.name)
         }
 
         searchQueryRequest.refineSort = true
@@ -269,10 +267,13 @@ extension ShowProductResultsInteractor {
             }
             
             if let promotion = product.promotion, promotion.name != "" {
+                let title: String? = promotion.title ?? product.productGroupName ?? product.childCategoryName
+                let promotionName: String = title == nil ? promotion.name : "\(title!) - \(promotion.name)"
+                
                 if uniquePromotions[promotion.name] != nil {
-                    uniquePromotions[promotion.name]! += 1
+                    uniquePromotions[promotionName]! += 1
                 } else {
-                    uniquePromotions[promotion.name] = 1
+                    uniquePromotions[promotionName] = 1
                 }
             }
         }
@@ -284,9 +285,9 @@ extension ShowProductResultsInteractor {
 }
 
 extension ShowProductResultsInteractor {
-    private func removeCountFromString(text: String) -> String{
+    private func removeTitleFromPromotion(text: String) -> String{
         return text.replacingOccurrences(
-            of: "(\\s+\\(\\d+\\)$)",
+            of: "(.+\\s-\\s)",
             with: "",
             options: .regularExpression,
             range: text.startIndex ..< text.endIndex
