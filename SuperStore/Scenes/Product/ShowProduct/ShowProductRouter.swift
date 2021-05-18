@@ -285,7 +285,7 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     
     func passDataToShowDimensions(source: ShowProductDataStore, destination: inout ShowItemsDataStore)
     {
-        destination.title = "Dimensions"
+        destination.title = "Specifications"
         destination.items = source.product?.dimensions ?? []
     }
     

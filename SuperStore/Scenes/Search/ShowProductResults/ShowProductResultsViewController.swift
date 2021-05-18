@@ -184,34 +184,10 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     {
         refreshControl.endRefreshing()
         
-        if let error = viewModel.error {
-            if !viewModel.offline {
-                showError(title: "Search Error", error: error)
-            }
-        } else {
-            loading = false
-            paginate = viewModel.paginate
-
-            if let paginate = viewModel.paginate, paginate.current > 1 {
-                for product in viewModel.products {
-                    if uniqueProducts[product.id] == nil {
-                        uniqueProducts[product.id] = true
-                        products.append(product)
-                    }
-                }
-            } else {
-                uniqueProducts = [:]
-                products = []
-
-                for product in viewModel.products {
-                    products.append(product)
-                    uniqueProducts[product.id] = true
-                }
-            }
-
-            totalProductsLabel.text = "\(products.count) Products"
-            productsTableView.reloadData()
-        }
+        let products: [ProductModel] = viewModel.products
+        let paginate: PaginateResultsModel? = viewModel.paginate
+        
+        showProducts(products: products, paginate:paginate, error: viewModel.error, offline: viewModel.offline)
     }
     
     func displayListItems(viewModel: ShowProductResults.GetListItems.ViewModel) {
@@ -251,40 +227,42 @@ class ShowProductResultsViewController: UIViewController, ShowProductResultsDisp
     func displayCategoryProducts(viewModel: ShowProductResults.GetCategoryProducts.ViewModel) {
         refreshControl.endRefreshing()
         
-        if let error = viewModel.error {
-            if !viewModel.offline {
-                showError(title: "Grocery Error", error: error)
+        let category: ChildCategoryModel? = viewModel.category
+        
+        let products: [ProductModel] = category?.products ?? []
+        let paginate: PaginateResultsModel? = category?.paginate
+        
+        showProducts(products: products, paginate:paginate, error: viewModel.error, offline: viewModel.offline)
+    }
+    
+    func showProducts(products resultsProducts: [ProductModel], paginate resultsPaginate: PaginateResultsModel?, error: String? = nil, offline: Bool = false){
+        if let error = error {
+            if !offline {
+                showError(title: "Products Error", error: error)
             }
         } else {
-            
             loading = false
-            paginate = viewModel.category?.paginate
+            paginate = resultsPaginate
             
-            if let category = viewModel.category {
-                if let paginate = category.paginate, paginate.current > 1 {
-                    for product in category.products {
-                        if uniqueProducts[product.id] == nil {
-                            uniqueProducts[product.id] = true
-                            products.append(product)
-                        }
-                    }
-                } else {
-                    uniqueProducts = [:]
-                    products = []
-                    
-                    for product in category.products {
-                        products.append(product)
+            if let paginate = resultsPaginate, paginate.current > 1 {
+                for product in resultsProducts {
+                    if uniqueProducts[product.id] == nil {
                         uniqueProducts[product.id] = true
+                        products.append(product)
                     }
                 }
             } else {
                 uniqueProducts = [:]
                 products = []
+
+                for product in resultsProducts {
+                    products.append(product)
+                    uniqueProducts[product.id] = true
+                }
             }
-            
+
             totalProductsLabel.text = "\(products.count) Products"
             productsTableView.reloadData()
-
         }
         
     }
