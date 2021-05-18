@@ -42,6 +42,7 @@ class SearchAPI: API, SearchRequestProtocol {
             "order": data.order,
             "dietary": data.dietary,
             "product_group": data.productGroup,
+            "availability_type": data.availabilityType,
             "brand": data.brand,
             "promotion": data.promotion,
             "text_search": data.textSearch

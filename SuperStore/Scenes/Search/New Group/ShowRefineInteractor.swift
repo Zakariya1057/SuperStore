@@ -36,7 +36,7 @@ class ShowRefineInteractor: ShowRefineBusinessLogic, ShowRefineDataStore
     var worker: ShowRefineWorker?
     var selectedRefineOptions: SelectedRefineOptions = SelectedRefineOptions()
     
-    var searchRefine: SearchRefine = SearchRefine(brands: [], productGroups: [], promotions: [])
+    var searchRefine: SearchRefine = SearchRefine(availabilityType: [], brands: [], productGroups: [], promotions: [])
     
     func getSelectedOptions(request: ShowRefine.GetSelectedOptions.Request)
     {
@@ -56,6 +56,9 @@ class ShowRefineInteractor: ShowRefineBusinessLogic, ShowRefineDataStore
         
         switch option {
         
+        case is RefineAvailabilityTypeOptionModel:
+            selectedRefineOptions.availabilityType = checked ? [option as! RefineAvailabilityTypeOptionModel] : []
+            
         case is RefineProductGroupOptionModel:
             selectedRefineOptions.productGroup = checked ? [option as! RefineProductGroupOptionModel] : []
             

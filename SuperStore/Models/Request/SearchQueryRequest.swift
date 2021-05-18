@@ -10,15 +10,23 @@ import Foundation
 
 struct SearchQueryRequest {
     var storeTypeID: Int
+    
     var query: String
+    
     var type: String
+    
     var sort: String = ""
     var order: String = ""
+    
     var promotion: String = ""
+    
     var dietary: String = ""
     var brand: String = ""
+    
     var productGroup: String = ""
     var textSearch: Bool = false
+    
+    var availabilityType: String = ""
     
     var refineSort: Bool = false
 }

@@ -35,7 +35,13 @@ class ShowRefinePresenter: ShowRefinePresentationLogic
         
         let refinePromotions: [RefinePromotionOptionModel] = response.searchRefine.promotions.compactMap({RefinePromotionOptionModel(name: $0, checked: false)})
         
-        let viewModel = ShowRefine.GetSearchRefine.ViewModel(brands: refineBrands, productGroups: refineProductGroups, promotions: refinePromotions)
+        let availabilityType: [RefineAvailabilityTypeOptionModel] = response.searchRefine.availabilityType.compactMap({RefineAvailabilityTypeOptionModel(name: $0, checked: false)})
+        
+        let viewModel = ShowRefine.GetSearchRefine.ViewModel(
+            availabilityType: availabilityType,
+            brands: refineBrands,
+            productGroups: refineProductGroups,
+            promotions: refinePromotions)
         viewController?.displaySearchRefine(viewModel: viewModel)
     }
 }

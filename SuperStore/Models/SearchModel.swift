@@ -44,6 +44,7 @@ struct PaginateResultsModel {
 }
 
 struct SearchRefine {
+    var availabilityType: [String]
     var brands: [String]
     var productGroups: [String]
     var promotions: [String]

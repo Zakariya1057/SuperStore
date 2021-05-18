@@ -13,15 +13,24 @@ class SelectedRefineOptions {
     var productGroup: [RefineProductGroupOptionModel] = []
     var dietary: [RefineDietaryOptionModel] = []
     var promotion: [RefinePromotionOptionModel] = []
+    var availabilityType: [RefineAvailabilityTypeOptionModel] = []
 }
 
 class RefineSearchModel {
+    var availabilityType: RefineAvailabilityTypeGroupModel
     var productGroup: RefineProductGroupGroupModel
     var brand: RefineBrandGroupModel
     var promotion: RefinePromotionGroupModel
     var dietary: RefineDietaryGroupModel
     
-    init(promotion: RefinePromotionGroupModel, productGroup: RefineProductGroupGroupModel, brand: RefineBrandGroupModel,dietary: RefineDietaryGroupModel) {
+    init(
+        availabilityType: RefineAvailabilityTypeGroupModel,
+        promotion: RefinePromotionGroupModel,
+        productGroup: RefineProductGroupGroupModel,
+        brand: RefineBrandGroupModel,
+        dietary: RefineDietaryGroupModel
+    ) {
+        self.availabilityType = availabilityType
         self.promotion = promotion
         self.brand = brand
         self.productGroup = productGroup
@@ -41,17 +50,21 @@ class RefineGroupModel {
     }
 }
 
-// Brand Model
+//MARK: - Brand Model
 class RefineBrandGroupModel: RefineGroupModel { }
 
-// Category Model
+//MARK: - Category Model
 class RefineProductGroupGroupModel: RefineGroupModel { }
 
-// Dietary Model
+//MARK: - Dietary Model
 class RefineDietaryGroupModel: RefineGroupModel { }
 
-// Promotion Model
+//MARK: - Promotion Model
 class RefinePromotionGroupModel: RefineGroupModel { }
+
+//MARK: - Availability Type Model
+class RefineAvailabilityTypeGroupModel: RefineGroupModel  { }
+
 
 // Selection Type. Multiple Option In Groups
 enum RefineSelctionType {
@@ -64,7 +77,7 @@ class RefineOptionModel: Equatable {
     var name: String
     var checked: Bool
     
-    init(name: String, checked: Bool) {
+    init(name: String, checked: Bool = false) {
         self.name = name
         self.checked = checked
     }
@@ -152,3 +165,7 @@ class RefineProductGroupOptionModel: RefineOptionModel { }
 //MARK: - Promotion Option Model
 
 class RefinePromotionOptionModel: RefineOptionModel { }
+
+//MARK: - Availability Type Option Model
+
+class RefineAvailabilityTypeOptionModel: RefineOptionModel {}

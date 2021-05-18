@@ -59,7 +59,7 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     
     var userSession = UserSessionWorker()
     
-    var searchRefine: SearchRefine = SearchRefine(brands: [], productGroups: [], promotions: [])
+    var searchRefine: SearchRefine = SearchRefine(availabilityType: [], brands: [], productGroups: [], promotions: [])
     var searchQueryRequest: SearchQueryRequest = SearchQueryRequest(storeTypeID: 0, query: "", type: "")
     
     var products: [ProductModel] = []
@@ -128,6 +128,10 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
         if let selectedPromotion = selectedRefineOptions.promotion.first {
             searchQueryRequest.promotion = removeTitleFromPromotion(text: selectedPromotion.name)
         }
+        
+        if let selectedAvailabilityType = selectedRefineOptions.availabilityType.first {
+            searchQueryRequest.availabilityType = selectedAvailabilityType.name
+        }
 
         searchQueryRequest.refineSort = true
         searchQueryRequest.dietary = selectedRefineOptions.dietary.compactMap({ $0.name }).joined(separator: ",")
@@ -150,6 +154,7 @@ extension ShowProductResultsInteractor {
         searchQueryRequest.brand = ""
         searchQueryRequest.promotion = ""
         searchQueryRequest.productGroup = ""
+        searchQueryRequest.availabilityType = ""
     }
     
     func refineOptionsNotSet() -> Bool {
@@ -157,7 +162,8 @@ extension ShowProductResultsInteractor {
             searchQueryRequest.dietary == "" &&
             searchQueryRequest.brand == "" &&
             searchQueryRequest.productGroup == "" &&
-            searchQueryRequest.promotion == ""
+            searchQueryRequest.promotion == "" &&
+            searchQueryRequest.availabilityType == ""
     }
 }
 

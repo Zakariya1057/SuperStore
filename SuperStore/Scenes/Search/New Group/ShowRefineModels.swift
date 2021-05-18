@@ -27,6 +27,7 @@ enum ShowRefine
         }
         struct ViewModel
         {
+            var availabilityType: [RefineAvailabilityTypeOptionModel]
             var brands: [RefineBrandOptionModel]
             var productGroups: [RefineProductGroupOptionModel]
             var promotions: [RefinePromotionOptionModel]

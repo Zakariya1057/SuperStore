@@ -81,6 +81,11 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     
     var refineGroups: RefineSearchModel = RefineSearchModel(
 
+        availabilityType: RefineAvailabilityTypeGroupModel(name: "Availability", selectionType: .single, options: [
+            RefineAvailabilityTypeOptionModel(name: "In-Store"),
+            RefineAvailabilityTypeOptionModel(name: "Ship To Home")
+        ]),
+        
         promotion: RefinePromotionGroupModel(name: "Offers", selectionType: .single, options: []),
         
         productGroup: RefineProductGroupGroupModel(name: "Categories", selectionType: .single, options: []),
@@ -123,6 +128,7 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
         let storeTypeID: Int = interactor!.getStoreTypeID()
         
         var groups: [RefineGroupModel] = [
+            refineGroups.availabilityType,
             refineGroups.promotion,
             refineGroups.productGroup,
             refineGroups.brand,
@@ -150,11 +156,10 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     }
     
     func displaySearchRefine(viewModel: ShowRefine.GetSearchRefine.ViewModel){
-        // Add To Categories + Brands + Promotions
         let brands = viewModel.brands
         let productGroups = viewModel.productGroups
         let promotions = viewModel.promotions
-        
+
         refineGroups.brand.options = brands
         refineGroups.productGroup.options = productGroups
         refineGroups.promotion.options = promotions
@@ -165,6 +170,11 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     func displaySelectedOptions(viewModel: ShowRefine.GetSelectedOptions.ViewModel) {
         let selectedRefineOptions = viewModel.selectedRefineOptions
 
+        if selectedRefineOptions.availabilityType.count == 0 {
+            refineGroups.availabilityType.options.first!.checked = true
+        }
+        
+        setRefineCheckedOptions(selectedOptions: selectedRefineOptions.availabilityType, options: refineGroups.availabilityType.options)
         setRefineCheckedOptions(selectedOptions: selectedRefineOptions.brand, options: refineGroups.brand.options)
         setRefineCheckedOptions(selectedOptions: selectedRefineOptions.productGroup, options: refineGroups.productGroup.options)
         setRefineCheckedOptions(selectedOptions: selectedRefineOptions.promotion, options: refineGroups.promotion.options)
