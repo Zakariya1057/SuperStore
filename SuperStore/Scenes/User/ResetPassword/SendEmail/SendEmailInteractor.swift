@@ -33,7 +33,7 @@ class SendEmailInteractor: SendEmailBusinessLogic, SendEmailDataStore
     
     func sendEmail(request: SendEmail.SendEmail.Request)
     {
-        let email = request.email
+        let email = request.email.replacingOccurrences(of: " ", with: "")
         
         let error = validateForm(email: email)
         

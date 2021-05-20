@@ -38,7 +38,7 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
     
     func login(request: Login.Login.Request)
     {
-        let email = request.email
+        let email = request.email.replacingOccurrences(of: " ", with: "")
         let password = request.password
 
         self.email = email

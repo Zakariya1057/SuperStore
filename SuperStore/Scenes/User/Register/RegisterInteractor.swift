@@ -50,7 +50,7 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
     
     func register(request: Register.Register.Request){
         let name = request.name
-        let email = request.email
+        let email = request.email.replacingOccurrences(of: " ", with: "")
         let password = request.password
         let passwordConfirm = request.passwordConfirm
         let storeTypeID = request.storeTypeID
