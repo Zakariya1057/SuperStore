@@ -114,6 +114,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     
     func displayedLogout(viewModel: Settings.Logout.ViewModel) {
         stopLoading()
+        showRightBarButton()
         
         if let error = viewModel.error {
             showError(title: "Logout Error", error: error)
@@ -124,6 +125,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     
     func displayedDeleted(viewModel: Settings.Delete.ViewModel) {
         stopLoading()
+        showRightBarButton()
         
         if let error = viewModel.error {
             showError(title: "Delete Error", error: error)
@@ -145,6 +147,7 @@ extension SettingsViewController {
         
         refreshAlert.addAction(UIAlertAction(title: "Yes, delete", style: .default, handler: { (action: UIAlertAction!) in
             self.startLoading()
+            self.hideRightBarButton()
             
             let request = Settings.Delete.Request()
             self.interactor?.delete(request: request)
@@ -297,6 +300,8 @@ extension SettingsViewController {
         
         refreshAlert.addAction(UIAlertAction(title: "Yes, logout", style: .default, handler: { (action: UIAlertAction!) in
             self.startLoading()
+            self.hideRightBarButton()
+            
             let request = Settings.Logout.Request()
             self.interactor?.logout(request: request)
         }))

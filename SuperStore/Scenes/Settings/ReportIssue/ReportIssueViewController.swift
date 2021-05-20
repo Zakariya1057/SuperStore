@@ -88,6 +88,7 @@ class ReportIssueViewController: UIViewController, ReportIssueDisplayLogic
         if issue.replacingOccurrences(of: " ", with: "") != "" {
             startLoading()
             dismissKeyboard()
+            hideRightBarButton()
             
             let request = ReportIssue.SendIssue.Request(issue: issue)
             interactor?.sendIssue(request: request)
@@ -100,6 +101,7 @@ class ReportIssueViewController: UIViewController, ReportIssueDisplayLogic
     func displaySendIssue(viewModel: ReportIssue.SendIssue.ViewModel)
     {
         stopLoading()
+        showRightBarButton()
         
         if let error = viewModel.error {
             showError(title: "Report Issue Error", error: error)
@@ -115,7 +117,6 @@ class ReportIssueViewController: UIViewController, ReportIssueDisplayLogic
 
 extension ReportIssueViewController {
     func reportIssueSuccess(){
-
         let appearance = SCLAlertView.SCLAppearance(
             kTitleFont: UIFont(name: "HelveticaNeue", size: 22)!,
             kTextFont: UIFont(name: "HelveticaNeue", size: 16)!,
@@ -162,5 +163,15 @@ extension ReportIssueViewController {
         spinner.willMove(toParent: nil)
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
+    }
+}
+
+extension ReportIssueViewController {
+    func showRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+    
+    func hideRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
 }

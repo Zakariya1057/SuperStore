@@ -82,8 +82,8 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     var refineGroups: RefineSearchModel = RefineSearchModel(
 
         availabilityType: RefineAvailabilityTypeGroupModel(name: "Availability", selectionType: .single, options: [
-            RefineAvailabilityTypeOptionModel(name: "In-Store"),
-            RefineAvailabilityTypeOptionModel(name: "Ship To Home")
+            RefineAvailabilityTypeOptionModel(name: "In-store"),
+            RefineAvailabilityTypeOptionModel(name: "Ship to Home")
         ]),
         
         promotion: RefinePromotionGroupModel(name: "Offers", selectionType: .single, options: []),
@@ -169,10 +169,6 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
     
     func displaySelectedOptions(viewModel: ShowRefine.GetSelectedOptions.ViewModel) {
         let selectedRefineOptions = viewModel.selectedRefineOptions
-
-        if selectedRefineOptions.availabilityType.count == 0 {
-            refineGroups.availabilityType.options.first!.checked = true
-        }
         
         setRefineCheckedOptions(selectedOptions: selectedRefineOptions.availabilityType, options: refineGroups.availabilityType.options)
         setRefineCheckedOptions(selectedOptions: selectedRefineOptions.brand, options: refineGroups.brand.options)

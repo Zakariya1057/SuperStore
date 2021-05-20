@@ -134,6 +134,7 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
     
     func displayListItemDeleted(viewModel: EditListItem.DeleteListItem.ViewModel) {
         stopLoading()
+        showRightBarButton()
         
         if let error = viewModel.error, !viewModel.offline {
             showError(title: "Delete Error", error: error)
@@ -144,6 +145,7 @@ class EditListItemViewController: UIViewController, EditListItemDisplayLogic
     
     func displayListItemUpdate(viewModel: EditListItem.UpdateListItem.ViewModel) {
         stopLoading()
+        showRightBarButton()
         
         if let error = viewModel.error, !viewModel.offline {
             showError(title: "Update Error", error: error)
@@ -184,6 +186,7 @@ extension EditListItemViewController {
 extension EditListItemViewController {
     @IBAction func saveButtonPressed(_ button: UIButton) {
         startLoading()
+        hideRightBarButton()
         
         let request = EditListItem.UpdateListItem.Request()
         interactor?.updateListItem(request: request)
@@ -195,6 +198,7 @@ extension EditListItemViewController {
     
     @IBAction func deleteButtonPressed(_ button: UIButton) {
         startLoading()
+        hideRightBarButton()
         
         let request = EditListItem.DeleteListItem.Request()
         interactor?.deleteListItem(request: request)
@@ -289,5 +293,15 @@ extension EditListItemViewController {
         
         let request = EditListItem.UpdateQuantity.Request(quantity: quantity)
         interactor?.updateQuantity(request: request)
+    }
+}
+
+extension EditListItemViewController {
+    func showRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+    
+    func hideRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
 }

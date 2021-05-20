@@ -84,6 +84,7 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     func displaySendFeedback(viewModel: Feedback.SendFeedback.ViewModel)
     {
         stopLoading()
+        showRightBarButton()
         
         if let error = viewModel.error {
             showError(title: "Feedback Error", error: error)
@@ -99,6 +100,7 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
         if message.replacingOccurrences(of: " ", with: "") != "" {
             startLoading()
             dismissKeyboard()
+            hideRightBarButton()
             
             let request = Feedback.SendFeedback.Request(message: message)
             interactor?.sendFeedback(request: request)
@@ -161,5 +163,16 @@ extension FeedbackViewController {
         spinner.willMove(toParent: nil)
         spinner.view.removeFromSuperview()
         spinner.removeFromParent()
+    }
+}
+
+
+extension FeedbackViewController {
+    func showRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+    
+    func hideRightBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
 }
