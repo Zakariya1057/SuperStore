@@ -118,9 +118,6 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     func getHome()
     {
-        //43.6532
-        //-79.3832
-        
         let request = Home.GetHome.Request(latitude: latitude, longitude: longitude)
         interactor?.getHome(request: request)
     }
@@ -137,10 +134,14 @@ class HomeViewController: UIViewController, HomeDisplayLogic
                 showError(title: "Home Error", error: error)
             }
         } else {
-            homeModel = viewModel.home
-            loading = false
-            errorMessageDisplayed = false
-            populateCells()
+            if let home = viewModel.home {
+                if homeModel == nil || !(homeModel!.longitude != nil && home.longitude == nil) {
+                    homeModel = viewModel.home
+                    loading = false
+                    errorMessageDisplayed = false
+                    populateCells()
+                }
+            }
         }
     }
 }
@@ -549,7 +550,7 @@ extension HomeViewController {
                 banner.show()
             }
         }
-
+        
         if requestHome || homeModel == nil {
             getHome()
         }

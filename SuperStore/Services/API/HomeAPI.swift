@@ -23,7 +23,7 @@ class HomeAPI: API, HomeRequestProtocol {
             do {
                 let data = try response()
                 let homeDataResponse =  try self.jsonDecoder.decode(HomeDataRespone.self, from: data)
-                let home = self.createHomeModel(homeDataResponse: homeDataResponse)
+                let home = self.createHomeModel(homeDataResponse: homeDataResponse, latitude: latitude, longitude: longitude)
                 completionHandler(home, nil)
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
@@ -37,7 +37,7 @@ class HomeAPI: API, HomeRequestProtocol {
 }
 
 extension HomeAPI {
-    private func createHomeModel(homeDataResponse: HomeDataRespone?) -> HomeModel? {
+    private func createHomeModel(homeDataResponse: HomeDataRespone?, latitude: Double?, longitude: Double?) -> HomeModel? {
         
         if let homeDataResponse = homeDataResponse {
             let homeData = homeDataResponse.data
@@ -49,8 +49,10 @@ extension HomeAPI {
                 groceries: createProductModel(productData: homeData.groceries ?? []),
                 monitoring: createProductModel(productData: homeData.monitoring ?? []),
                 promotions: createPromotionModel(promotionData: homeData.promotions ?? []),
-                on_sale: createProductModel(productData: homeData.on_sale ?? []),
-                categories: createCategoriesModel(categoryData: homeData.categories)
+                categories: createCategoriesModel(categoryData: homeData.categories),
+                
+                latitude: latitude,
+                longitude: longitude
             )
         }
         

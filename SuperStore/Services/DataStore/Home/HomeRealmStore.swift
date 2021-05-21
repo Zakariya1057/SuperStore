@@ -49,11 +49,6 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
                 savedHome.monitoring.append(savedProduct)
             }
             
-            savedHome.on_sale.removeAll()
-            for savedProduct in home.on_sale.map({ productStore.createProductObject(product: $0) }) {
-                savedHome.on_sale.append(savedProduct)
-            }
-            
             savedHome.stores.removeAll()
             for savedStore in home.stores.map({ storeStore.createStoreObject(store: $0 ) }){
                 savedHome.stores.append(savedStore)
@@ -106,7 +101,6 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
             groceries: groceries,
             monitoring: monitoring,
             promotions: promotions,
-            on_sale: on_sale,
             categories: categories
         )
         
