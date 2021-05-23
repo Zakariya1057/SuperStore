@@ -16,6 +16,7 @@ import UIKit
 {
     func routeToShowList(segue: UIStoryboardSegue?)
     func routeToGrandParentCategories(segue: UIStoryboardSegue?)
+    func routeToFlyerList(segue: UIStoryboardSegue?)
 }
 
 protocol StoreDataPassing
@@ -25,6 +26,7 @@ protocol StoreDataPassing
 
 class StoreRouter: BackToShowListRouter, StoreRoutingLogic, StoreDataPassing
 {
+    
     var storeViewController: StoreViewController {
         return viewController as! StoreViewController
     }
@@ -48,9 +50,28 @@ class StoreRouter: BackToShowListRouter, StoreRoutingLogic, StoreDataPassing
         }
     }
     
+    func routeToFlyerList(segue: UIStoryboardSegue?) {
+        if let segue = segue {
+            let destinationVC = segue.destination as! FlyerListViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToFlyerList(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "FlyerListViewController") as! FlyerListViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToFlyerList(source: dataStore!, destination: &destinationDS)
+            navigateToFlyerList(source: storeViewController, destination: destinationVC)
+        }
+    }
+    
     // MARK: Navigation
     
     func navigateToGrandParentCategories(source: StoreViewController, destination: GrandParentCategoriesViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    func navigateToFlyerList(source: StoreViewController, destination: FlyerListViewController)
     {
         source.show(destination, sender: nil)
     }
@@ -61,5 +82,10 @@ class StoreRouter: BackToShowListRouter, StoreRoutingLogic, StoreDataPassing
     {
         destination.storeTypeID = source.store!.storeTypeID
         destination.selectedListID = source.selectedListID
+    }
+    
+    func passDataToFlyerList(source: StoreDataStore, destination: inout FlyerListDataStore)
+    {
+        destination.storeID = source.storeID
     }
 }

@@ -387,6 +387,24 @@
 		2CC72FFE25FD7CA1004E3987 /* ImageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC72FFD25FD7CA1004E3987 /* ImageObject.swift */; };
 		2CCBEB8225FF8CEC0068FFAF /* FacilityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCBEB8025FF8CEC0068FFAF /* FacilityTableViewCell.swift */; };
 		2CCBEB8325FF8CEC0068FFAF /* FacilityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CCBEB8125FF8CEC0068FFAF /* FacilityTableViewCell.xib */; };
+		2CD7227F265A581900D1D112 /* FlyerListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD72279265A581800D1D112 /* FlyerListPresenter.swift */; };
+		2CD72280265A581900D1D112 /* FlyerListWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7227A265A581800D1D112 /* FlyerListWorker.swift */; };
+		2CD72281265A581900D1D112 /* FlyerListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7227B265A581900D1D112 /* FlyerListRouter.swift */; };
+		2CD72282265A581900D1D112 /* FlyerListModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7227C265A581900D1D112 /* FlyerListModels.swift */; };
+		2CD72283265A581900D1D112 /* FlyerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7227D265A581900D1D112 /* FlyerListViewController.swift */; };
+		2CD72284265A581900D1D112 /* FlyerListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7227E265A581900D1D112 /* FlyerListInteractor.swift */; };
+		2CD7228B265A582800D1D112 /* ShowFlyerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD72285265A582800D1D112 /* ShowFlyerPresenter.swift */; };
+		2CD7228C265A582800D1D112 /* ShowFlyerWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD72286265A582800D1D112 /* ShowFlyerWorker.swift */; };
+		2CD7228D265A582800D1D112 /* ShowFlyerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD72287265A582800D1D112 /* ShowFlyerRouter.swift */; };
+		2CD7228E265A582800D1D112 /* ShowFlyerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD72288265A582800D1D112 /* ShowFlyerModels.swift */; };
+		2CD7228F265A582800D1D112 /* ShowFlyerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD72289265A582800D1D112 /* ShowFlyerViewController.swift */; };
+		2CD72290265A582800D1D112 /* ShowFlyerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7228A265A582800D1D112 /* ShowFlyerInteractor.swift */; };
+		2CD72292265A594A00D1D112 /* FlyerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD72291265A594A00D1D112 /* FlyerModel.swift */; };
+		2CD72294265A59C400D1D112 /* FlyerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD72293265A59C400D1D112 /* FlyerData.swift */; };
+		2CD72296265A5A0700D1D112 /* FlyerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD72295265A5A0700D1D112 /* FlyerObject.swift */; };
+		2CD72298265A5AA800D1D112 /* FlyerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD72297265A5AA800D1D112 /* FlyerAPI.swift */; };
+		2CD7229A265A5ACB00D1D112 /* FlyerWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD72299265A5ACB00D1D112 /* FlyerWorker.swift */; };
+		2CD7229C265A5B3600D1D112 /* FlyerRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7229B265A5B3600D1D112 /* FlyerRealmStore.swift */; };
 		2CDA612B25ED0FC700FD3956 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */; };
 		2CDA613125ED157500FD3956 /* FontHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA613025ED157500FD3956 /* FontHighlight.swift */; };
 		2CDA613525ED159900FD3956 /* DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA613425ED159900FD3956 /* DownloadImage.swift */; };
@@ -826,6 +844,24 @@
 		2CC72FFD25FD7CA1004E3987 /* ImageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageObject.swift; sourceTree = "<group>"; };
 		2CCBEB8025FF8CEC0068FFAF /* FacilityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityTableViewCell.swift; sourceTree = "<group>"; };
 		2CCBEB8125FF8CEC0068FFAF /* FacilityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FacilityTableViewCell.xib; sourceTree = "<group>"; };
+		2CD72279265A581800D1D112 /* FlyerListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerListPresenter.swift; sourceTree = "<group>"; };
+		2CD7227A265A581800D1D112 /* FlyerListWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerListWorker.swift; sourceTree = "<group>"; };
+		2CD7227B265A581900D1D112 /* FlyerListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerListRouter.swift; sourceTree = "<group>"; };
+		2CD7227C265A581900D1D112 /* FlyerListModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerListModels.swift; sourceTree = "<group>"; };
+		2CD7227D265A581900D1D112 /* FlyerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerListViewController.swift; sourceTree = "<group>"; };
+		2CD7227E265A581900D1D112 /* FlyerListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerListInteractor.swift; sourceTree = "<group>"; };
+		2CD72285265A582800D1D112 /* ShowFlyerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowFlyerPresenter.swift; sourceTree = "<group>"; };
+		2CD72286265A582800D1D112 /* ShowFlyerWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowFlyerWorker.swift; sourceTree = "<group>"; };
+		2CD72287265A582800D1D112 /* ShowFlyerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowFlyerRouter.swift; sourceTree = "<group>"; };
+		2CD72288265A582800D1D112 /* ShowFlyerModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowFlyerModels.swift; sourceTree = "<group>"; };
+		2CD72289265A582800D1D112 /* ShowFlyerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowFlyerViewController.swift; sourceTree = "<group>"; };
+		2CD7228A265A582800D1D112 /* ShowFlyerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowFlyerInteractor.swift; sourceTree = "<group>"; };
+		2CD72291265A594A00D1D112 /* FlyerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerModel.swift; sourceTree = "<group>"; };
+		2CD72293265A59C400D1D112 /* FlyerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerData.swift; sourceTree = "<group>"; };
+		2CD72295265A5A0700D1D112 /* FlyerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerObject.swift; sourceTree = "<group>"; };
+		2CD72297265A5AA800D1D112 /* FlyerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerAPI.swift; sourceTree = "<group>"; };
+		2CD72299265A5ACB00D1D112 /* FlyerWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerWorker.swift; sourceTree = "<group>"; };
+		2CD7229B265A5B3600D1D112 /* FlyerRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerRealmStore.swift; sourceTree = "<group>"; };
 		2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		2CDA613025ED157500FD3956 /* FontHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontHighlight.swift; sourceTree = "<group>"; };
 		2CDA613425ED159900FD3956 /* DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImage.swift; sourceTree = "<group>"; };
@@ -945,6 +981,7 @@
 			isa = PBXGroup;
 			children = (
 				2C1429AF25F38F96007D1EB7 /* StoreWorker.swift */,
+				2CD72299265A5ACB00D1D112 /* FlyerWorker.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -959,6 +996,7 @@
 				2CC0ADEA25FA1E2D00373AC4 /* StoreObject.swift */,
 				2C5C987C25F6AA4000DF8B6D /* PromotionObject.swift */,
 				2C65D9CD2646A08C00AC3F7E /* PromotionGroupObject.swift */,
+				2CD72295265A5A0700D1D112 /* FlyerObject.swift */,
 				2CAB2F0325FFF93B0014FE8D /* UserLocationObject.swift */,
 				2CF7A59425FA88C700172839 /* CategoryObject.swift */,
 				2CC72FFD25FD7CA1004E3987 /* ImageObject.swift */,
@@ -982,6 +1020,7 @@
 				2CC72FF525FD7BFF004E3987 /* ImageData.swift */,
 				2C7294CE25ECF4A000D280B3 /* FavouriteData.swift */,
 				2C7CAC5E2640622E0024FDD8 /* MonitoredProductsData.swift */,
+				2CD72293265A59C400D1D112 /* FlyerData.swift */,
 				2CB2CFD025EAA81900A00F7F /* PromotionData.swift */,
 				2C55F9E725EE478F007BBFA8 /* SearchData.swift */,
 				2CA11FA125EF92690054AE19 /* CategoryData.swift */,
@@ -1331,6 +1370,7 @@
 				2CA11F4625EEB92E0054AE19 /* StoreAPI.swift */,
 				2C55F9CD25EE3B9C007BBFA8 /* SearchAPI.swift */,
 				2CA11F9125EF90280054AE19 /* GroceryAPI.swift */,
+				2CD72297265A5AA800D1D112 /* FlyerAPI.swift */,
 				2C45E2C82643EFF40047887A /* FeedbackAPI.swift */,
 				2C45E2DC2644886B0047887A /* ReportAPI.swift */,
 				2CAB2EFA25FFF7C40014FE8D /* LocationAPI.swift */,
@@ -1732,6 +1772,7 @@
 				2CDFB61825EA6250002CE30D /* Home */,
 				2C7294A925ECF13000D280B3 /* Favourites */,
 				2CDA614625EE38E100FD3956 /* Search */,
+				2CD72276265A576000D1D112 /* Flyers */,
 				2CA11F2025EEB5FB0054AE19 /* Store */,
 				2CA11F5C25EF8CBC0054AE19 /* Groceries */,
 				2C2BC7EB25EBB8640038882B /* Product */,
@@ -1772,6 +1813,7 @@
 				2C45E2F526456ECD0047887A /* PromotionGroup.swift */,
 				2CAB2F0925FFF9C50014FE8D /* LocationModel.swift */,
 				2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */,
+				2CD72291265A594A00D1D112 /* FlyerModel.swift */,
 				2C48E7D425EAA078001A5702 /* ListModel.swift */,
 				2C55F9D125EE3C2E007BBFA8 /* SearchModel.swift */,
 				2CA11F9B25EF90F00054AE19 /* CategoryModel.swift */,
@@ -2080,6 +2122,7 @@
 			isa = PBXGroup;
 			children = (
 				2CC0ADE425FA1D6500373AC4 /* StoreRealmStore.swift */,
+				2CD7229B265A5B3600D1D112 /* FlyerRealmStore.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -2113,6 +2156,41 @@
 				2C0A705725FFA254006A3F6F /* OpeningHourTableViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		2CD72276265A576000D1D112 /* Flyers */ = {
+			isa = PBXGroup;
+			children = (
+				2CD72277265A57CF00D1D112 /* FlyersList */,
+				2CD72278265A57D700D1D112 /* ShowFlyer */,
+			);
+			path = Flyers;
+			sourceTree = "<group>";
+		};
+		2CD72277265A57CF00D1D112 /* FlyersList */ = {
+			isa = PBXGroup;
+			children = (
+				2CD72279265A581800D1D112 /* FlyerListPresenter.swift */,
+				2CD7227A265A581800D1D112 /* FlyerListWorker.swift */,
+				2CD7227B265A581900D1D112 /* FlyerListRouter.swift */,
+				2CD7227C265A581900D1D112 /* FlyerListModels.swift */,
+				2CD7227D265A581900D1D112 /* FlyerListViewController.swift */,
+				2CD7227E265A581900D1D112 /* FlyerListInteractor.swift */,
+			);
+			path = FlyersList;
+			sourceTree = "<group>";
+		};
+		2CD72278265A57D700D1D112 /* ShowFlyer */ = {
+			isa = PBXGroup;
+			children = (
+				2CD72285265A582800D1D112 /* ShowFlyerPresenter.swift */,
+				2CD72286265A582800D1D112 /* ShowFlyerWorker.swift */,
+				2CD72287265A582800D1D112 /* ShowFlyerRouter.swift */,
+				2CD72288265A582800D1D112 /* ShowFlyerModels.swift */,
+				2CD72289265A582800D1D112 /* ShowFlyerViewController.swift */,
+				2CD7228A265A582800D1D112 /* ShowFlyerInteractor.swift */,
+			);
+			path = ShowFlyer;
 			sourceTree = "<group>";
 		};
 		2CDA614625EE38E100FD3956 /* Search */ = {
@@ -2516,7 +2594,9 @@
 				2C70829E25F013A700345147 /* EditNameRouter.swift in Sources */,
 				2C2BC7DD25EAF9220038882B /* ShowProductInteractor.swift in Sources */,
 				2C1476E625E82B91000E8F66 /* UserData.swift in Sources */,
+				2CD7228C265A582800D1D112 /* ShowFlyerWorker.swift in Sources */,
 				2C7082B725F0155700345147 /* UserSettingAPI.swift in Sources */,
+				2CD7227F265A581900D1D112 /* FlyerListPresenter.swift in Sources */,
 				2C5C985D25F69AF100DF8B6D /* ProductRealmStore.swift in Sources */,
 				2C14299825F2C282007D1EB7 /* EditListItemWorker.swift in Sources */,
 				2C55F9D225EE3C2E007BBFA8 /* SearchModel.swift in Sources */,
@@ -2526,6 +2606,7 @@
 				2CAB2EFB25FFF7C40014FE8D /* LocationAPI.swift in Sources */,
 				2C7CAC6326415EC20024FDD8 /* SettingCell.swift in Sources */,
 				2C55FA0F25EE4BF9007BBFA8 /* ShowProductResultsRouter.swift in Sources */,
+				2CD72281265A581900D1D112 /* FlyerListRouter.swift in Sources */,
 				2C2BC7DB25EAF9220038882B /* ShowProductModels.swift in Sources */,
 				2C1429B025F38F96007D1EB7 /* StoreWorker.swift in Sources */,
 				2CA11F7A25EF8E5C0054AE19 /* ParentCategoriesInteractor.swift in Sources */,
@@ -2591,6 +2672,7 @@
 				2C70827425F0100700345147 /* EditPasswordPresenter.swift in Sources */,
 				2CAB2F0A25FFF9C50014FE8D /* LocationModel.swift in Sources */,
 				2CAC05FC252E314F00561509 /* FeaturedProductCollectionViewCell.swift in Sources */,
+				2CD7228F265A582800D1D112 /* ShowFlyerViewController.swift in Sources */,
 				2C17C0F82633087E0075DF1C /* GroceriesCell.swift in Sources */,
 				2CA11EEF25EE84620054AE19 /* ShowRefineInteractor.swift in Sources */,
 				2C65D9D02646A1B400AC3F7E /* PromotionGroupRealmStore.swift in Sources */,
@@ -2613,11 +2695,13 @@
 				2C70829C25F013A700345147 /* EditNamePresenter.swift in Sources */,
 				2CA11F6925EF8E490054AE19 /* GrandParentCategoriesRouter.swift in Sources */,
 				2C058FF725F52AE100B4A16B /* EditStoreModels.swift in Sources */,
+				2CD7228D265A582800D1D112 /* ShowFlyerRouter.swift in Sources */,
 				2C0C84F0260DF81400F813E6 /* CreateListCell.swift in Sources */,
 				2C2BC80F25EBBF180038882B /* EditReviewWorker.swift in Sources */,
 				2C65D9BB2645730E00AC3F7E /* AllPromotionInteractor.swift in Sources */,
 				2C14775E25E9070D000E8F66 /* UserSessionWorker.swift in Sources */,
 				2CA11F9725EF90560054AE19 /* GroceryWorker.swift in Sources */,
+				2CD7228E265A582800D1D112 /* ShowFlyerModels.swift in Sources */,
 				2C2BC82E25EBBFD40038882B /* ShowPromotionWorker.swift in Sources */,
 				2C61469F25F1266400D92CB7 /* CreateListPresenter.swift in Sources */,
 				2C9C1B9124CEEF90001ACA35 /* ListPriceUpdateTableViewCell.swift in Sources */,
@@ -2639,8 +2723,10 @@
 				2C7294A225ECEAEB00D280B3 /* FavouriteWorker.swift in Sources */,
 				2CDFB63725EA6359002CE30D /* HomeRouter.swift in Sources */,
 				2CA5601D2604AE7C00714AAC /* SpinnerViewController.swift in Sources */,
+				2CD72298265A5AA800D1D112 /* FlyerAPI.swift in Sources */,
 				2CA11F6825EF8E490054AE19 /* GrandParentCategoriesWorker.swift in Sources */,
 				2C2BC83225EBBFD40038882B /* ShowPromotionInteractor.swift in Sources */,
+				2CD72280265A581900D1D112 /* FlyerListWorker.swift in Sources */,
 				2C7082AD25F013B200345147 /* EditEmailModels.swift in Sources */,
 				2C70823925F009D000345147 /* SendEmailWorker.swift in Sources */,
 				2CA11F4125EEB6A50054AE19 /* StoreInteractor.swift in Sources */,
@@ -2649,6 +2735,7 @@
 				2C55FA0D25EE4BF9007BBFA8 /* ShowProductResultsPresenter.swift in Sources */,
 				2C2BC83E25EBC0680038882B /* ShowItemsRouter.swift in Sources */,
 				2CB9119A25F11B4500A8FC66 /* ShowListsPresenter.swift in Sources */,
+				2CD7228B265A582800D1D112 /* ShowFlyerPresenter.swift in Sources */,
 				2CC72FF625FD7BFF004E3987 /* ImageData.swift in Sources */,
 				2C7082AB25F013B200345147 /* EditEmailWorker.swift in Sources */,
 				2C7CAC55264056B40024FDD8 /* MonitoredProductsPresenter.swift in Sources */,
@@ -2674,11 +2761,13 @@
 				2C70822C25F009BE00345147 /* VerifyCodeInteractor.swift in Sources */,
 				2C7082A125F013A700345147 /* EditNameInteractor.swift in Sources */,
 				2C45E2E826454F6C0047887A /* PromotionGroupRouter.swift in Sources */,
+				2CD72283265A581900D1D112 /* FlyerListViewController.swift in Sources */,
 				2C7082A025F013A700345147 /* EditNameViewController.swift in Sources */,
 				2C2BC83125EBBFD40038882B /* ShowPromotionViewController.swift in Sources */,
 				2C05901125F6265F00B4A16B /* RequestLoginCell.swift in Sources */,
 				2CB15C9424D2FB8900461AFE /* ListItemCell.swift in Sources */,
 				2C4615052604B7E30009D0E7 /* NetworkWorker.swift in Sources */,
+				2CD72290265A582800D1D112 /* ShowFlyerInteractor.swift in Sources */,
 				2C2BC7E825EAFCFB0038882B /* ProductAPI.swift in Sources */,
 				2C2BC7E225EAFCEA0038882B /* ProductWorker.swift in Sources */,
 				2C70828725F0108500345147 /* SettingsPresenter.swift in Sources */,
@@ -2701,6 +2790,7 @@
 				2CC0ADDC25F9243500373AC4 /* ReviewRealmStore.swift in Sources */,
 				2C2BC80325EBBF040038882B /* ShowReviewsModels.swift in Sources */,
 				2CA11F8825EF8E6D0054AE19 /* ChildCategoriesInteractor.swift in Sources */,
+				2CD72294265A59C400D1D112 /* FlyerData.swift in Sources */,
 				2C55FA2525EE4C7C007BBFA8 /* ShowStoreResultsModels.swift in Sources */,
 				2C72949E25ECEAC300D280B3 /* FavouriteAPI.swift in Sources */,
 				2CB2CFCD25EAA80E00A00F7F /* ProductData.swift in Sources */,
@@ -2710,6 +2800,7 @@
 				2C14773425E90246000E8F66 /* RegisterInteractor.swift in Sources */,
 				2C3F537E24D184C80095C4B1 /* SearchSuggestionCell.swift in Sources */,
 				2C55FA2725EE4C7C007BBFA8 /* ShowStoreResultsInteractor.swift in Sources */,
+				2CD72296265A5A0700D1D112 /* FlyerObject.swift in Sources */,
 				2CB3DCFC252A180900FC5792 /* ListProgressCell.swift in Sources */,
 				2CB911AC25F11B5500A8FC66 /* EditListViewController.swift in Sources */,
 				2CEE6E0F261F24EC00280DBE /* SimilarWorker.swift in Sources */,
@@ -2730,6 +2821,7 @@
 				2C1476BF25E7ADAC000E8F66 /* UserAuthWorker.swift in Sources */,
 				2CA11F7825EF8E5C0054AE19 /* ParentCategoriesModels.swift in Sources */,
 				2CB2CFB325EAA68200A00F7F /* HomeData.swift in Sources */,
+				2CD72282265A581900D1D112 /* FlyerListModels.swift in Sources */,
 				2CB2CFB725EAA6C500A00F7F /* HomeModel.swift in Sources */,
 				2C70827725F0100700345147 /* EditPasswordModels.swift in Sources */,
 				2CF7A59A25FAB19D00172839 /* HomeRealmStore.swift in Sources */,
@@ -2740,6 +2832,7 @@
 				2C65D9B92645730E00AC3F7E /* AllPromotionsRouter.swift in Sources */,
 				2C70822E25F009BE00345147 /* VerifyCodeModels.swift in Sources */,
 				2C55FA2225EE4C7C007BBFA8 /* ShowStoreResultsPresenter.swift in Sources */,
+				2CD7229C265A5B3600D1D112 /* FlyerRealmStore.swift in Sources */,
 				2C70822F25F009BE00345147 /* VerifyCodePresenter.swift in Sources */,
 				2CA11F8725EF8E6D0054AE19 /* ChildCategoriesViewController.swift in Sources */,
 				2CBFFBD825F7D14800F27917 /* BackToShowListRouter.swift in Sources */,
@@ -2755,6 +2848,7 @@
 				2C5E388325FAB42D004298A1 /* HomeObject.swift in Sources */,
 				2C2BC80425EBBF040038882B /* ShowReviewsViewController.swift in Sources */,
 				2CA11F7525EF8E5C0054AE19 /* ParentCategoriesPresenter.swift in Sources */,
+				2CD72292265A594A00D1D112 /* FlyerModel.swift in Sources */,
 				2CB911A925F11B5500A8FC66 /* EditListWorker.swift in Sources */,
 				2CC72FFA25FD7C68004E3987 /* ImageModel.swift in Sources */,
 				2CB9119F25F11B4500A8FC66 /* ShowListsInteractor.swift in Sources */,
@@ -2782,6 +2876,7 @@
 				2CB911B825F11B6100A8FC66 /* ShowListRouter.swift in Sources */,
 				2C65D9BD2645730E00AC3F7E /* AllPromotionsPresenter.swift in Sources */,
 				2C7294C725ECF19C00D280B3 /* FavouritesModels.swift in Sources */,
+				2CD72284265A581900D1D112 /* FlyerListInteractor.swift in Sources */,
 				2CC72FFE25FD7CA1004E3987 /* ImageObject.swift in Sources */,
 				2CB2CFD125EAA81900A00F7F /* PromotionData.swift in Sources */,
 				2CA11EEC25EE84620054AE19 /* ShowRefineRouter.swift in Sources */,
@@ -2796,6 +2891,7 @@
 				2CA11EEE25EE84620054AE19 /* ShowRefineViewController.swift in Sources */,
 				2C7082AA25F013B200345147 /* EditEmailPresenter.swift in Sources */,
 				2C70822A25F009BE00345147 /* VerifyCodeWorker.swift in Sources */,
+				2CD7229A265A5ACB00D1D112 /* FlyerWorker.swift in Sources */,
 				2C70825325F00B2200345147 /* UserObject.swift in Sources */,
 				2C72945425EBE77900D280B3 /* PromotionAPI.swift in Sources */,
 				2CC600382643EA7900A1F7BE /* FeedbackModels.swift in Sources */,
@@ -3005,7 +3101,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3029,7 +3125,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3093,7 +3189,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore.PayloadModification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3115,7 +3211,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore.PayloadModification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

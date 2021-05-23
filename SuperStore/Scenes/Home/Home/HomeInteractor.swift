@@ -38,6 +38,8 @@ protocol HomeDataStore
     
     var viewAllSelectedParentCategoryName: String? { get set }
     var viewAllSelectedParentCategoryID: Int? { get set }
+    
+    var closestStoreID: Int { get set }
 }
 
 class HomeInteractor: HomeBusinessLogic, HomeDataStore
@@ -57,6 +59,8 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     var viewAllSelectedParentCategoryName: String? = nil
     var viewAllSelectedParentCategoryID: Int? = nil
     
+    var closestStoreID: Int = 1
+    
     var storeTypeID: Int {
         return userSession.getStore()
     }
@@ -71,6 +75,10 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
             
             if error != nil {
                 response.offline = !self.userSession.isOnline()
+            } else {
+                if let store = home?.stores.first {
+                    self.closestStoreID = store.id
+                }
             }
             
             self.presenter?.presentHome(response: response)

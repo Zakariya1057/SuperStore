@@ -12,29 +12,39 @@ class GroceriesGroupElement: HomeElementGroupModel {
     var title: String
     var type: HomeElementType = .groceries
     var items: [HomeElementItemModel] = [GroceriesElementModel()]
+    
     var groceriesPressed: () -> Void
+    var flyersPressed: () -> Void
+    
     var showViewAllButton: Bool = false
     
     var loading: Bool = true
     
-    init(title: String, groceriesPressed: @escaping () -> Void) {
+    init(title: String, groceriesPressed: @escaping () -> Void, flyersPressed: @escaping () -> Void) {
         self.title = title
+        
         self.groceriesPressed = groceriesPressed
+        self.flyersPressed = flyersPressed
         
         let groceryCell = items.first! as! GroceriesElementModel
         groceryCell.groceriesPressed = groceriesPressed
+        groceryCell.flyersPressed = flyersPressed
     }
 }
 
 class GroceriesElementModel: HomeElementItemModel {
     var loading: Bool = false
     var groceriesPressed: (() -> Void)? = nil
+    var flyersPressed: (() -> Void)? = nil
 }
 
 class GroceriesCell: UITableViewCell, HomeElementCell {
     
     @IBOutlet weak var browseButtonView: UIView!
+    @IBOutlet var flyersButtonView: UIView!
+    
     var groceriesPressed: (() -> Void)? = nil
+    var flyersPressed: (() -> Void)? = nil
     
     func configure(model elementModel: HomeElementItemModel) {
         guard let model = elementModel as? GroceriesElementModel else {
@@ -43,6 +53,7 @@ class GroceriesCell: UITableViewCell, HomeElementCell {
         }
         
         self.groceriesPressed = model.groceriesPressed
+        self.flyersPressed = model.flyersPressed
     }
 
     override func awakeFromNib() {
@@ -59,11 +70,21 @@ class GroceriesCell: UITableViewCell, HomeElementCell {
     func setupViewGesture(){
         let browseButtonPressed = UITapGestureRecognizer(target: self, action: #selector(groceriesButtonPressed))
         browseButtonView.addGestureRecognizer(browseButtonPressed)
+        
+        let flyersButtonPressed = UITapGestureRecognizer(target: self, action: #selector(flyersButtonPressed))
+        flyersButtonView.addGestureRecognizer(flyersButtonPressed)
     }
     
     @objc func groceriesButtonPressed() {
         if let groceriesPressed = groceriesPressed {
             groceriesPressed()
+        }
+    }
+    
+    @objc func flyersButtonPressed() {
+        if let flyersPressed = flyersPressed {
+            flyersPressed()
+            print("Reach")
         }
     }
     

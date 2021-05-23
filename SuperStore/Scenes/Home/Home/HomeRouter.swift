@@ -26,6 +26,8 @@ import UIKit
     
     func routeToMonitoredProducts(segue: UIStoryboardSegue?)
     func routeToAllOffers(segue: UIStoryboardSegue?)
+    
+    func routeToFlyerList(segue: UIStoryboardSegue?)
 }
 
 protocol HomeDataPassing
@@ -171,6 +173,20 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
         }
     }
     
+    func routeToFlyerList(segue: UIStoryboardSegue?){
+        if let segue = segue {
+            let destinationVC = segue.destination as! FlyerListViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToFlyerList(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "FlyerListViewController") as! FlyerListViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToFlyerList(source: dataStore!, destination: &destinationDS)
+            navigateToFlyerList(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     //    MARK: Navigation
     
     func navigateToShowList(source: HomeViewController, destination: ShowListViewController)
@@ -214,6 +230,11 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     }
     
     func navigateToAllOffers(source: HomeViewController, destination: AllPromotionsViewController)
+    {
+      source.show(destination, sender: nil)
+    }
+    
+    func navigateToFlyerList(source: HomeViewController, destination: FlyerListViewController)
     {
       source.show(destination, sender: nil)
     }
@@ -268,5 +289,10 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     func passDataToAllOffers(source: HomeDataStore, destination: inout AllPromotionsDataStore)
     {
         destination.storeTypeID = source.storeTypeID
+    }
+    
+    func passDataToFlyerList(source: HomeDataStore, destination: inout FlyerListDataStore)
+    {
+        destination.storeID = source.closestStoreID
     }
 }

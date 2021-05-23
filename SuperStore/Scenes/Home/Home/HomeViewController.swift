@@ -293,7 +293,7 @@ extension HomeViewController {
     private func setupHomeCells(){
         homeCells = [
             ListGroupProgressElement(title: "Shopping Lists", lists: [], listPressed: listPressed),
-            GroceriesGroupElement(title: "", groceriesPressed: groceriesPressed),
+            GroceriesGroupElement(title: "", groceriesPressed: groceriesPressed, flyersPressed: flyersPressed),
             StoreMapGroupElement(title: "Nearby Stores", stores: [], storePressed: storePressed, userLocationFetched: userLocationFetched),
             GroceryProductGroupElement(title: "Grocery Products", products: [], productPressed: productPressed),
             MonitoringProductGroupElement(title: "Monitored Products", products: [], productPressed: productPressed),
@@ -498,6 +498,10 @@ extension HomeViewController {
     
     private func groceriesPressed(){
         router?.routeToGrandParentCategories(segue: nil)
+    }
+    
+    private func flyersPressed(){
+        router?.routeToFlyerList(segue: nil)
     }
     
     private func cellScroll(_ title: String, _ position: CGFloat){
