@@ -9,14 +9,14 @@
 import Foundation
 
 class DateWorker {
+    let dateFormatter = DateFormatter()
+    
     func formatDate(date: String) -> Date {
-        let dateFormat: DateFormatter = DateFormatter()
-        dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return dateFormat.date(from: date) ?? Date()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return dateFormatter.date(from: date) ?? Date()
     }
     
     func formatDate(date: Date) -> String {
-        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d MMMM y"
         return dateFormatter.string(from: date)
     }
@@ -32,5 +32,12 @@ extension DateWorker {
         let components = calendar.dateComponents([.day], from: startDate, to: endDate)
         
         return components.day!
+    }
+}
+
+extension DateWorker {
+    func getDayAndMonth(date: Date) -> String {
+        dateFormatter.dateFormat = "d MMMM"
+        return dateFormatter.string(from: date)
     }
 }

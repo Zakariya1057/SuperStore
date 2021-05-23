@@ -14,18 +14,30 @@ import UIKit
 
 protocol ShowFlyerPresentationLogic
 {
-  func presentFlyer(response: ShowFlyer.GetFlyer.Response)
+    func presentFlyer(response: ShowFlyer.GetFlyer.Response)
 }
 
 class ShowFlyerPresenter: ShowFlyerPresentationLogic
 {
-  weak var viewController: ShowFlyerDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentFlyer(response: ShowFlyer.GetFlyer.Response)
-  {
-    let viewModel = ShowFlyer.GetFlyer.ViewModel(flyer: response.flyer)
-    viewController?.displayFlyer(viewModel: viewModel)
-  }
+    weak var viewController: ShowFlyerDisplayLogic?
+    
+    func presentFlyer(response: ShowFlyer.GetFlyer.Response)
+    {
+        let flyer = response.flyer
+        
+        let dateWorker = DateWorker()
+        
+        let validFrom = dateWorker.getDayAndMonth(date: flyer.validFrom)
+        let validTo = dateWorker.getDayAndMonth(date: flyer.validTo)
+        
+        let validDate = "\(validFrom) - \(validTo)"
+        
+        let displayedFlyer = ShowFlyer.GetFlyer.ViewModel.DisplayedFlyer(
+            name: flyer.name,
+            url: flyer.url,
+            validDate: validDate
+        )
+        
+        viewController?.displayFlyer(viewModel: displayedFlyer)
+    }
 }

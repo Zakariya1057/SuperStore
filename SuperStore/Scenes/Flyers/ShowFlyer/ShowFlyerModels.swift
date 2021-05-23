@@ -29,7 +29,13 @@ enum ShowFlyer
     
     struct ViewModel
     {
-        var flyer: FlyerModel
+        struct DisplayedFlyer {
+            var name: String
+            var url: String
+            var validDate: String
+        }
+        
+        var displayedFlyer: DisplayedFlyer
     }
   }
 }

@@ -3868,7 +3868,7 @@
             <objects>
                 <viewController id="HXj-j2-Hvf" customClass="ShowRefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wxa-Ye-bc0">
@@ -4061,27 +4061,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxp-tF-kzB">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VGH-ZD-l1e">
                                 <rect key="frame" x="0.0" y="140" width="414" height="673"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XUw-wJ-xu5">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3y8-Gq-qRg">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJJ-45-vzz">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                                        <subviews>
+                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mmw-Qx-I40">
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid From May 20 - May 25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CG4-iw-n8j">
+                                                                        <rect key="frame" x="15" y="11" width="399" height="18"/>
+                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                                                        <color key="highlightedColor" systemColor="labelColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="CG4-iw-n8j" firstAttribute="centerY" secondItem="Mmw-Qx-I40" secondAttribute="centerY" id="6gD-sD-QqM"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="CG4-iw-n8j" secondAttribute="trailing" id="RCT-ov-hFN"/>
+                                                                    <constraint firstAttribute="height" constant="40" id="TyH-cw-jW0"/>
+                                                                    <constraint firstItem="CG4-iw-n8j" firstAttribute="leading" secondItem="Mmw-Qx-I40" secondAttribute="leading" constant="15" id="p6e-JO-NRo"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" name="LightGrey"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="TJJ-45-vzz" secondAttribute="trailing" id="5yt-Nu-jOP"/>
+                                                    <constraint firstAttribute="bottom" secondItem="TJJ-45-vzz" secondAttribute="bottom" id="cCR-zL-LSO"/>
+                                                    <constraint firstItem="TJJ-45-vzz" firstAttribute="top" secondItem="3y8-Gq-qRg" secondAttribute="top" id="j5X-fB-wiB"/>
+                                                    <constraint firstItem="TJJ-45-vzz" firstAttribute="leading" secondItem="3y8-Gq-qRg" secondAttribute="leading" id="yeT-AB-QAe"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="irr-Se-XuZ" customClass="PDFView">
+                                        <rect key="frame" x="0.0" y="40" width="414" height="633"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QZ2-pz-C0I"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="QZ2-pz-C0I" firstAttribute="trailing" secondItem="bxp-tF-kzB" secondAttribute="trailing" id="G3h-zg-6LS"/>
-                            <constraint firstItem="QZ2-pz-C0I" firstAttribute="bottom" secondItem="bxp-tF-kzB" secondAttribute="bottom" id="It4-fA-eVV"/>
-                            <constraint firstItem="bxp-tF-kzB" firstAttribute="leading" secondItem="QZ2-pz-C0I" secondAttribute="leading" id="MiY-Nn-ahn"/>
-                            <constraint firstItem="bxp-tF-kzB" firstAttribute="top" secondItem="QZ2-pz-C0I" secondAttribute="top" id="x59-us-tTI"/>
+                            <constraint firstItem="VGH-ZD-l1e" firstAttribute="leading" secondItem="QZ2-pz-C0I" secondAttribute="leading" id="6w3-lx-sEg"/>
+                            <constraint firstItem="VGH-ZD-l1e" firstAttribute="top" secondItem="QZ2-pz-C0I" secondAttribute="top" id="PTh-Tn-7hM"/>
+                            <constraint firstItem="VGH-ZD-l1e" firstAttribute="trailing" secondItem="QZ2-pz-C0I" secondAttribute="trailing" id="UfN-Fp-mwi"/>
+                            <constraint firstItem="VGH-ZD-l1e" firstAttribute="bottom" secondItem="QZ2-pz-C0I" secondAttribute="bottom" id="W3t-zS-ABp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="8kX-Yk-ItL"/>
                     <connections>
-                        <outlet property="webView" destination="bxp-tF-kzB" id="pF9-vG-HM8"/>
+                        <outlet property="pdfView" destination="irr-Se-XuZ" id="kI2-d2-JJ3"/>
+                        <outlet property="validDateLabel" destination="CG4-iw-n8j" id="lq9-Su-4h5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KEF-yk-W1V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -11,11 +11,11 @@
 //
 
 import UIKit
-import WebKit
+import PDFKit
 
 protocol ShowFlyerDisplayLogic: AnyObject
 {
-    func displayFlyer(viewModel: ShowFlyer.GetFlyer.ViewModel)
+    func displayFlyer(viewModel: ShowFlyer.GetFlyer.ViewModel.DisplayedFlyer)
 }
 
 class ShowFlyerViewController: UIViewController, ShowFlyerDisplayLogic
@@ -73,23 +73,50 @@ class ShowFlyerViewController: UIViewController, ShowFlyerDisplayLogic
         getFlyer()
     }
     
-    @IBOutlet var webView: WKWebView!
+    @IBOutlet weak var pdfView: PDFView!
+    @IBOutlet var validDateLabel: UILabel!
     
     func getFlyer()
     {
+        startLoading()
+        
         let request = ShowFlyer.GetFlyer.Request()
         interactor?.getFlyer(request: request)
     }
     
-    func displayFlyer(viewModel: ShowFlyer.GetFlyer.ViewModel)
+    func displayFlyer(viewModel: ShowFlyer.GetFlyer.ViewModel.DisplayedFlyer)
     {
-        let flyer = viewModel.flyer
+        title = viewModel.name
+        displayValidDate(dateRange: viewModel.validDate)
         
-        title = flyer.name
-        
-        let url: URL! = URL(string: flyer.url)
-        let urlRequest = URLRequest(url: url)
-        
-        webView.load(urlRequest)
+        DispatchQueue.main.async {
+            self.showPDF(url: viewModel.url)
+            self.stopLoading()
+        }
+    }
+    
+    private func displayValidDate(dateRange: String){
+        validDateLabel.text = "Valid From \(dateRange)"
+    }
+    
+    private func showPDF(url: String){
+        if let url = URL(string: url) {
+            if let pdfDocument = PDFDocument(url: url) {
+                pdfView.displayMode = .singlePageContinuous
+                pdfView.autoScales = true
+                pdfView.document = pdfDocument
+            }
+        }
+    }
+}
+
+extension ShowFlyerViewController {
+    func startLoading(){
+        pdfView.isSkeletonable = true
+        pdfView.showAnimatedGradientSkeleton()
+    }
+    
+    func stopLoading(){
+        pdfView.hideSkeleton()
     }
 }
