@@ -44,6 +44,9 @@ enum Settings
         struct Response
         {
             var user: UserModel?
+            
+            var storeTypeName: String
+            var regionName: String
         }
         
         struct ViewModel

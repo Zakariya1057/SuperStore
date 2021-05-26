@@ -10,11 +10,16 @@ import Foundation
 
 struct UserModel {
     var id: Int
+    
     var name: String
     var token: String
     var email: String
+    
+    var regionID: Int
+    
     var storeTypeID: Int
-    var storeName: String?
+//    var storeName: String?
+
     var sendNotifications: Bool
 }
 

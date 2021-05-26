@@ -25,11 +25,6 @@ class SettingsPresenter: SettingsPresentationLogic
 {
     weak var viewController: SettingsDisplayLogic?
     
-//    var storeDetails: [Int: String] = [
-//        1: "Asda",
-//        2: "Real Canadian Superstore"
-//    ]
-    
     func presentUserDetails(response: Settings.GetUserDetails.Response)
     {
         var displayUserSections: [Settings.DisplayUserSection] = []
@@ -38,7 +33,8 @@ class SettingsPresenter: SettingsPresentationLogic
         
         if let user = response.user {
             
-            let storeName: String = user.storeName!
+            let storeTypeName: String = response.storeTypeName
+            let regionName: String = response.regionName
             
             if user.token != "" {
                 
@@ -49,8 +45,14 @@ class SettingsPresenter: SettingsPresentationLogic
                         Settings.DisplayUserField(name: "Name", value: user.name, type: .name),
                         Settings.DisplayUserField(name: "Email", value: user.email, type: .email),
                         Settings.DisplayUserField(name: "Password", value: "••••••••••••••", type: .password),
-                        Settings.DisplayUserField(name: "Store", value: storeName, type: .store),
                         Settings.DisplayUserField(name: "Notifications", on: user.sendNotifications, type: .notification),
+                    ])
+                )
+                
+                displayUserSections.append(
+                    Settings.DisplayUserSection(fields: [
+                        Settings.DisplayUserField(name: "Province", value: regionName, type: .store),
+                        Settings.DisplayUserField(name: "Store", value: storeTypeName, type: .store),
                     ])
                 )
                 
@@ -70,7 +72,8 @@ class SettingsPresenter: SettingsPresentationLogic
             } else {
                 displayUserSections.append(
                     Settings.DisplayUserSection(fields: [
-                        Settings.DisplayUserField(name: "Store", value: storeName, type: .store),
+                        Settings.DisplayUserField(name: "Province", value: regionName, type: .store),
+                        Settings.DisplayUserField(name: "Store", value: storeTypeName, type: .store),
                     ])
                 )
                 

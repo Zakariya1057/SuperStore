@@ -16,20 +16,57 @@ enum Register
 {
     // MARK: Use cases
     
+    enum GetRegions
+    {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var regions: [RegionModel]
+            var selectedRegion: RegionModel
+        }
+        struct ViewModel
+        {
+            var regions: [RegionModel]
+            var selectedRegion: RegionModel
+        }
+    }
+    
+    enum GetStoreTypes
+    {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var storeTypes: [StoreTypeModel]
+            var selectedStoreType: StoreTypeModel
+        }
+        struct ViewModel
+        {
+            var storeTypes: [StoreTypeModel]
+            var selectedStoreType: StoreTypeModel
+        }
+    }
+    
     enum Register
     {
         struct Request
         {
             var name: String
             var email: String
-            var storeTypeID: Int
             var password: String
             var passwordConfirm: String
+            var regionID: Int
+            var storeTypeID: Int
         }
+        
         struct Response
         {
             var error: String?
         }
+        
         struct ViewModel
         {
             var error: String?
@@ -50,20 +87,4 @@ enum Register
             var email: String?
         }
     }
-    
-    enum GetStore
-    {
-        struct Request
-        {
-        }
-        struct Response
-        {
-            var storeTypeID: Int
-        }
-        struct ViewModel
-        {
-            var storeTypeID: Int
-        }
-    }
-
 }

@@ -84,7 +84,6 @@ class GroceriesCell: UITableViewCell, HomeElementCell {
     @objc func flyersButtonPressed() {
         if let flyersPressed = flyersPressed {
             flyersPressed()
-            print("Reach")
         }
     }
     

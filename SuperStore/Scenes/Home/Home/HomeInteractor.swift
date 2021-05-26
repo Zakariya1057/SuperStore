@@ -76,8 +76,10 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
             if error != nil {
                 response.offline = !self.userSession.isOnline()
             } else {
-                if let store = home?.stores.first {
-                    self.closestStoreID = store.id
+                if let home = home, home.longitude != nil {
+                    if let store = home.stores.first {
+                        self.closestStoreID = store.id
+                    }
                 }
             }
             

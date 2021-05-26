@@ -14,8 +14,10 @@ class SettingCell: UITableViewCell {
         "Name": UIImage(systemName: "person"),
         "Email": UIImage(systemName: "envelope"),
         "Password": UIImage(systemName: "lock"),
-        "Store": UIImage(systemName: "cart"),
         "Notifications": UIImage(systemName: "bell"),
+        
+        "Store": UIImage(systemName: "cart"),
+        "Province": UIImage(systemName: "location.circle"),
         
         "Clear Cache": UIImage(systemName: "trash"),
         

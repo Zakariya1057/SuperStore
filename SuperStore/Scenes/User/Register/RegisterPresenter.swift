@@ -15,8 +15,10 @@ import UIKit
 protocol RegisterPresentationLogic
 {
     func presentUserEmail(response: Register.GetEmail.Response)
-    func presentStore(response: Register.GetStore.Response)
     func presentRegisteredUser(response: Register.Register.Response)
+    
+    func presentRegions(response: Register.GetRegions.Response)
+    func presentStoreTypes(response: Register.GetStoreTypes.Response)
 }
 
 class RegisterPresenter: RegisterPresentationLogic
@@ -29,13 +31,20 @@ class RegisterPresenter: RegisterPresentationLogic
         viewController?.displayUserEmail(viewModel: viewModel)
     }
     
-    func presentStore(response: Register.GetStore.Response) {
-        let viewModel = Register.GetStore.ViewModel(storeTypeID: response.storeTypeID)
-        viewController?.displayStore(viewModel: viewModel)
-    }
-    
     func presentRegisteredUser(response: Register.Register.Response){
         let viewModel = Register.Register.ViewModel(error: response.error)
         viewController?.displayRegisteredUser(viewModel: viewModel)
+    }
+}
+
+extension RegisterPresenter {
+    func presentRegions(response: Register.GetRegions.Response) {
+        let viewModel = Register.GetRegions.ViewModel(regions: response.regions, selectedRegion: response.selectedRegion)
+        viewController?.displayRegions(viewModel: viewModel)
+    }
+    
+    func presentStoreTypes(response: Register.GetStoreTypes.Response) {
+        let viewModel = Register.GetStoreTypes.ViewModel(storeTypes: response.storeTypes, selectedStoreType: response.selectedStoreType)
+        viewController?.displayStoreTypes(viewModel: viewModel)
     }
 }

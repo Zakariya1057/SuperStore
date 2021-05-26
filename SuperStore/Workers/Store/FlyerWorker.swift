@@ -20,6 +20,7 @@ class FlyerWorker
     
     func getFlyers(storeID: Int, completionHandler: @escaping (_ flyers: [FlyerModel], _ error: String?) -> Void){
         let flyers = flyerStore.getFlyers(storeID: storeID)
+
         if flyers.count > 0 {
             completionHandler(flyers, nil)
         }
@@ -31,10 +32,6 @@ class FlyerWorker
             
             completionHandler(flyers, error)
         }
-    }
-    
-    func getFlyer(flyerName: Int, completionHandler: @escaping (_ flyer: FlyerModel?, _ error: String?) -> Void){
-        
     }
 }
 

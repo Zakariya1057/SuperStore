@@ -34,7 +34,8 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
     var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     var userSession: UserSessionWorker = UserSessionWorker()
     
-    var storeWorker: StoreWorker = StoreWorker(storeAPI: StoreAPI())
+    var storeTypeWorker: StoreTypeWorker = StoreTypeWorker()
+    var regionWorker: RegionWorker = RegionWorker()
     
     var user: UserModel?
     
@@ -43,18 +44,19 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
         userWorker.getUser { (user: UserModel?) in
             self.user = user
             
-            self.user?.storeName = self.storeWorker.getStoreName(storeTypeID: user!.storeTypeID)
+            let storeTypeName: String = self.storeTypeWorker.getStoreName(storeTypeID: user!.storeTypeID)
+            let regionName: String = self.regionWorker.getRegionName(regionID: user!.regionID)
             
-            let response = Settings.GetUserDetails.Response(user: self.user)
+            let response = Settings.GetUserDetails.Response(user: self.user, storeTypeName: storeTypeName, regionName: regionName)
             self.presenter?.presentUserDetails(response: response)
         }
     }
     
     func getUserStore(request: Settings.GetStore.Request) {
         let storeTypeID: Int = userSession.getStore()
-        let storeName = storeWorker.getStoreName(storeTypeID: storeTypeID)
+        let storeName = storeTypeWorker.getStoreName(storeTypeID: storeTypeID)
         
-        let response = Settings.GetStore.Response(storeName: storeName!)
+        let response = Settings.GetStore.Response(storeName: storeName)
         self.presenter?.presentUserStore(response: response)
     }
     

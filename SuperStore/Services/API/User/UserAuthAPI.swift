@@ -45,18 +45,24 @@ class UserAuthAPI: API, UserAuthProtocol {
     func register(
         name: String,
         email: String,
-        storeTypeID: Int,
+        
         password: String,
         passwordConfirmation: String,
+        
         notificationToken: String? = "",
+        
         identifier: String? = nil,
         userToken: String? = nil,
+        
+        regionID: Int,
+        storeTypeID: Int,
         completionHandler: @escaping (UserModel?, String?) -> Void
     ) {
         
         let registerData: Parameters = [
             "name": name,
             "email": email,
+            "region_id": regionID,
             "store_type_id": storeTypeID,
             "password": password,
             "password_confirmation": passwordConfirmation,
@@ -93,6 +99,7 @@ extension UserAuthAPI {
             name: userData.name,
             token: userData.token,
             email: userData.email,
+            regionID: userData.region_id,
             storeTypeID: userData.store_type_id,
             sendNotifications: userData.send_notifications
         )

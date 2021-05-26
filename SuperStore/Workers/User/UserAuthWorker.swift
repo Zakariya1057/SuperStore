@@ -46,12 +46,16 @@ class UserAuthWorker {
         userAuth.register(
             name: name,
             email: email,
-            storeTypeID: storeTypeID,
+            
             password: password,
             passwordConfirmation: passwordConfirmation,
+            
             notificationToken: notificationToken,
             identifier: identifier,
-            userToken: userToken
+            userToken: userToken,
+            
+            regionID: 1,
+            storeTypeID: storeTypeID
         ) {  (user: UserModel?, error: String?) in
             
             if user != nil {
@@ -71,8 +75,19 @@ protocol UserAuthProtocol {
     )
     
     func register(
-        name: String, email: String, storeTypeID: Int, password: String, passwordConfirmation: String,
-        notificationToken: String?, identifier: String?, userToken: String?, 
+        name: String,
+        email: String,
+        
+        password: String,
+        passwordConfirmation: String,
+        
+        notificationToken: String?,
+        
+        identifier: String?,
+        userToken: String?,
+        
+        regionID: Int,
+        storeTypeID: Int,
         completionHandler: @escaping (UserModel?, String?) -> Void
     )
 }

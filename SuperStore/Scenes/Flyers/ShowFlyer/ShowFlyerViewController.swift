@@ -96,7 +96,7 @@ class ShowFlyerViewController: UIViewController, ShowFlyerDisplayLogic
     }
     
     private func displayValidDate(dateRange: String){
-        validDateLabel.text = "Valid From \(dateRange)"
+        validDateLabel.text = "Valid \(dateRange)"
     }
     
     private func showPDF(url: String){

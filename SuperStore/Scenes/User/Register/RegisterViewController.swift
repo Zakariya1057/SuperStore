@@ -15,8 +15,10 @@ import UIKit
 protocol RegisterDisplayLogic: AnyObject
 {
     func displayUserEmail(viewModel: Register.GetEmail.ViewModel)
-    func displayStore(viewModel: Register.GetStore.ViewModel)
     func displayRegisteredUser(viewModel: Register.Register.ViewModel)
+    
+    func displayRegions(viewModel: Register.GetRegions.ViewModel)
+    func displayStoreTypes(viewModel: Register.GetStoreTypes.ViewModel)
 }
 
 class RegisterViewController: UIViewController, RegisterDisplayLogic
@@ -75,27 +77,38 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         configureStorePicker()
         setupTextFieldDelegates()
         
+        getRegions()
+        getStoreTypes()
+        
         getEmail()
-        getStore()
     }
     
     // MARK: Outlets
     
-    var selectedStoreType: StoreTypeModel = StoreTypeModel(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore)
+    var regions: [RegionModel] = []
+    var storeTypes: [StoreTypeModel] = []
     
-    let storeTypes: [StoreTypeModel] = [
-        StoreTypeModel(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore),
-        StoreTypeModel(id: 1, name: "Asda", type: .asda),
-    ]
+    var selectedStoreType: StoreTypeModel!
+    var selectedRegion: RegionModel!
     
+//    var selectedStoreType: StoreTypeModel = StoreTypeModel(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore)
+//
+//    let storeTypes: [StoreTypeModel] = [
+//        StoreTypeModel(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore),
+//        StoreTypeModel(id: 1, name: "Asda", type: .asda),
+//    ]
+    
+    var regionPicker: UIPickerView = UIPickerView()
     var storeTypePicker: UIPickerView = UIPickerView()
-    
+
     let spinner: SpinnerViewController = SpinnerViewController()
     
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var passwordConfirmField: UITextField!
+    
+    @IBOutlet var regionField: UITextField!
     @IBOutlet var storeField: UITextField!
     
     @IBOutlet var textFields: [UITextField]!
@@ -109,10 +122,16 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     }
     
     func configureStorePicker(){
-        storeField.inputView = storeTypePicker
-        storeTypePicker.delegate = self
-        storeTypePicker.dataSource = self
-        storeField.text = selectedStoreType.name
+        let pickerFields: [UITextField: UIPickerView] = [
+            regionField: regionPicker,
+            storeField: storeTypePicker
+        ]
+        
+        for (field, picker) in pickerFields {
+            field.inputView = picker
+            picker.delegate = self
+            picker.dataSource = self
+        }
     }
     
     //MARK: - Display
@@ -120,19 +139,6 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     func displayUserEmail(viewModel: Register.GetEmail.ViewModel)
     {
         emailField.text = viewModel.email
-    }
-    
-    func displayStore(viewModel: Register.GetStore.ViewModel) {
-        let storeTypeID: Int = viewModel.storeTypeID
-        
-        let storeType = storeTypes.first { (storeType: StoreTypeModel) -> Bool in
-            return storeType.id == storeTypeID
-        }
-        
-        if let storeType = storeType {
-            selectedStoreType = storeType
-            storeField.text = storeType.name
-        }
     }
     
     func displayRegisteredUser(viewModel: Register.Register.ViewModel){
@@ -145,6 +151,19 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         } else {
             router?.routeToLoggedIn(segue: nil)
         }
+    }
+    
+    func displayRegions(viewModel: Register.GetRegions.ViewModel) {
+        regions = viewModel.regions
+        selectedRegion = viewModel.selectedRegion
+        regionField.text = selectedRegion.name
+    }
+    
+    func displayStoreTypes(viewModel: Register.GetStoreTypes.ViewModel) {
+        storeTypes = viewModel.storeTypes
+        selectedStoreType = viewModel.selectedStoreType
+        
+        storeField.text = selectedStoreType.name
     }
     
     //MARK: - Extra
@@ -162,25 +181,33 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         let request = Register.Register.Request(
             name: name,
             email: email,
-            storeTypeID: selectedStoreType.id,
+            
             password: password,
-            passwordConfirm: passwordConfirm
+            passwordConfirm: passwordConfirm,
+            
+            regionID: selectedRegion.id,
+            storeTypeID: selectedStoreType.id
         )
         
         interactor?.register(request: request)
     }
-    
-    func getEmail()
-    {
+}
+
+extension RegisterViewController {
+    func getEmail(){
         let request = Register.GetEmail.Request()
         interactor?.getEmail(request: request)
     }
     
-    func getStore(){
-        let request = Register.GetStore.Request()
-        interactor?.getStore(request: request)
+    func getRegions(){
+        let request = Register.GetRegions.Request()
+        interactor?.getRegions(request: request)
     }
     
+    func getStoreTypes(){
+        let request = Register.GetStoreTypes.Request()
+        interactor?.getStoreTypes(request: request)
+    }
 }
 
 extension RegisterViewController {
@@ -230,18 +257,22 @@ extension RegisterViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
-        return storeTypes.count
+        return pickerView == storeTypePicker ? storeTypes.count : regions.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
-        return storeTypes[row].name
+        return pickerView == storeTypePicker ? storeTypes[row].name :  regions[row].name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        selectedStoreType = storeTypes[row]
-        storeField.text = selectedStoreType.name
+        if pickerView == storeTypePicker {
+            selectedStoreType = storeTypes[row]
+            storeField.text = selectedStoreType.name
+        } else {
+            selectedRegion = regions[row]
+            regionField.text = selectedRegion.name
+        }
     }
-    
 }

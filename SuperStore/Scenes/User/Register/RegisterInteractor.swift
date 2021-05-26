@@ -16,7 +16,9 @@ protocol RegisterBusinessLogic
 {
     func register(request: Register.Register.Request)
     func getEmail(request: Register.GetEmail.Request)
-    func getStore(request: Register.GetStore.Request)
+    
+    func getRegions(request: Register.GetRegions.Request)
+    func getStoreTypes(request: Register.GetStoreTypes.Request)
 }
 
 protocol RegisterDataStore
@@ -31,6 +33,9 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
     var authWorker: UserAuthWorker = UserAuthWorker(userAuth: UserAuthAPI())
     var validationWorker: UserValidationWorker = UserValidationWorker()
     
+    var regionWorker: RegionWorker = RegionWorker()
+    var storeTypeWorker: StoreTypeWorker = StoreTypeWorker()
+    
     var userSession = UserSessionWorker()
     
     var email: String?
@@ -39,13 +44,6 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
     {
         let response = Register.GetEmail.Response(email: email)
         presenter?.presentUserEmail(response: response)
-    }
-    
-    func getStore(request: Register.GetStore.Request){
-        let storeTypeID = userSession.getStore()
-        
-        let response = Register.GetStore.Response(storeTypeID: storeTypeID)
-        presenter?.presentStore(response: response)
     }
     
     func register(request: Register.Register.Request){
@@ -100,6 +98,22 @@ extension RegisterInteractor {
         let response = Register.Register.Response(error: error)
         presenter?.presentRegisteredUser(response: response)
     }
+}
+
+extension RegisterInteractor {
+    func getRegions(request: Register.GetRegions.Request){
+        let regions = regionWorker.getRegions()
+        let selectedRegion = regionWorker.getSelectedRegion()
+        
+        let response = Register.GetRegions.Response(regions: regions, selectedRegion: selectedRegion)
+        presenter?.presentRegions(response: response)
+    }
     
-    
+    func getStoreTypes(request: Register.GetStoreTypes.Request){
+        let storeTypes = storeTypeWorker.getStoreTypes()
+        let selectedStoreType = storeTypeWorker.getSelectedStoreTypeID()
+        
+        let response = Register.GetStoreTypes.Response(storeTypes: storeTypes, selectedStoreType: selectedStoreType)
+        presenter?.presentStoreTypes(response: response)
+    }
 }

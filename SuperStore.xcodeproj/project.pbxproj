@@ -245,6 +245,15 @@
 		2C7294C825ECF19C00D280B3 /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7294C225ECF19C00D280B3 /* FavouritesViewController.swift */; };
 		2C7294C925ECF19C00D280B3 /* FavouritesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7294C325ECF19C00D280B3 /* FavouritesInteractor.swift */; };
 		2C7294CF25ECF4A000D280B3 /* FavouriteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7294CE25ECF4A000D280B3 /* FavouriteData.swift */; };
+		2C7AE0C0265EB55600ADF53A /* StoreTypeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0BF265EB55600ADF53A /* StoreTypeWorker.swift */; };
+		2C7AE0C2265ECBEB00ADF53A /* RegionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0C1265ECBEB00ADF53A /* RegionWorker.swift */; };
+		2C7AE0C4265ECC0F00ADF53A /* RegionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0C3265ECC0F00ADF53A /* RegionModel.swift */; };
+		2C7AE0CD265EDC6700ADF53A /* EditRegionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0C7265EDC6700ADF53A /* EditRegionPresenter.swift */; };
+		2C7AE0CE265EDC6700ADF53A /* EditRegionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0C8265EDC6700ADF53A /* EditRegionWorker.swift */; };
+		2C7AE0CF265EDC6700ADF53A /* EditRegionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0C9265EDC6700ADF53A /* EditRegionRouter.swift */; };
+		2C7AE0D0265EDC6700ADF53A /* EditRegionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0CA265EDC6700ADF53A /* EditRegionModels.swift */; };
+		2C7AE0D1265EDC6700ADF53A /* EditRegionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0CB265EDC6700ADF53A /* EditRegionViewController.swift */; };
+		2C7AE0D2265EDC6700ADF53A /* EditRegionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0CC265EDC6700ADF53A /* EditRegionInteractor.swift */; };
 		2C7CAC55264056B40024FDD8 /* MonitoredProductsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CAC4F264056B40024FDD8 /* MonitoredProductsPresenter.swift */; };
 		2C7CAC56264056B40024FDD8 /* MonitoredProductsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CAC50264056B40024FDD8 /* MonitoredProductsWorker.swift */; };
 		2C7CAC57264056B40024FDD8 /* MonitoredProductsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CAC51264056B40024FDD8 /* MonitoredProductsRouter.swift */; };
@@ -693,6 +702,15 @@
 		2C7294C225ECF19C00D280B3 /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
 		2C7294C325ECF19C00D280B3 /* FavouritesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesInteractor.swift; sourceTree = "<group>"; };
 		2C7294CE25ECF4A000D280B3 /* FavouriteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteData.swift; sourceTree = "<group>"; };
+		2C7AE0BF265EB55600ADF53A /* StoreTypeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTypeWorker.swift; sourceTree = "<group>"; };
+		2C7AE0C1265ECBEB00ADF53A /* RegionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionWorker.swift; sourceTree = "<group>"; };
+		2C7AE0C3265ECC0F00ADF53A /* RegionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionModel.swift; sourceTree = "<group>"; };
+		2C7AE0C7265EDC6700ADF53A /* EditRegionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegionPresenter.swift; sourceTree = "<group>"; };
+		2C7AE0C8265EDC6700ADF53A /* EditRegionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegionWorker.swift; sourceTree = "<group>"; };
+		2C7AE0C9265EDC6700ADF53A /* EditRegionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegionRouter.swift; sourceTree = "<group>"; };
+		2C7AE0CA265EDC6700ADF53A /* EditRegionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegionModels.swift; sourceTree = "<group>"; };
+		2C7AE0CB265EDC6700ADF53A /* EditRegionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegionViewController.swift; sourceTree = "<group>"; };
+		2C7AE0CC265EDC6700ADF53A /* EditRegionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegionInteractor.swift; sourceTree = "<group>"; };
 		2C7CAC4F264056B40024FDD8 /* MonitoredProductsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoredProductsPresenter.swift; sourceTree = "<group>"; };
 		2C7CAC50264056B40024FDD8 /* MonitoredProductsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoredProductsWorker.swift; sourceTree = "<group>"; };
 		2C7CAC51264056B40024FDD8 /* MonitoredProductsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoredProductsRouter.swift; sourceTree = "<group>"; };
@@ -981,7 +999,9 @@
 			isa = PBXGroup;
 			children = (
 				2C1429AF25F38F96007D1EB7 /* StoreWorker.swift */,
+				2C7AE0C1265ECBEB00ADF53A /* RegionWorker.swift */,
 				2CD72299265A5ACB00D1D112 /* FlyerWorker.swift */,
+				2C7AE0BF265EB55600ADF53A /* StoreTypeWorker.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1599,6 +1619,7 @@
 				2C70825D25F00F9400345147 /* EditName */,
 				2C70829525F0137A00345147 /* EditEmail */,
 				2C70825C25F00E3A00345147 /* EditPassword */,
+				2C7AE0C5265EDC4800ADF53A /* EditRegion */,
 				2C058FED25F52ACA00B4A16B /* EditStore */,
 			);
 			path = Settings;
@@ -1734,6 +1755,19 @@
 			path = Favourites;
 			sourceTree = "<group>";
 		};
+		2C7AE0C5265EDC4800ADF53A /* EditRegion */ = {
+			isa = PBXGroup;
+			children = (
+				2C7AE0C7265EDC6700ADF53A /* EditRegionPresenter.swift */,
+				2C7AE0C8265EDC6700ADF53A /* EditRegionWorker.swift */,
+				2C7AE0C9265EDC6700ADF53A /* EditRegionRouter.swift */,
+				2C7AE0CA265EDC6700ADF53A /* EditRegionModels.swift */,
+				2C7AE0CB265EDC6700ADF53A /* EditRegionViewController.swift */,
+				2C7AE0CC265EDC6700ADF53A /* EditRegionInteractor.swift */,
+			);
+			path = EditRegion;
+			sourceTree = "<group>";
+		};
 		2C7CAC4E264056870024FDD8 /* MonitoredProducts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1813,6 +1847,7 @@
 				2C45E2F526456ECD0047887A /* PromotionGroup.swift */,
 				2CAB2F0925FFF9C50014FE8D /* LocationModel.swift */,
 				2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */,
+				2C7AE0C3265ECC0F00ADF53A /* RegionModel.swift */,
 				2CD72291265A594A00D1D112 /* FlyerModel.swift */,
 				2C48E7D425EAA078001A5702 /* ListModel.swift */,
 				2C55F9D125EE3C2E007BBFA8 /* SearchModel.swift */,
@@ -2559,6 +2594,7 @@
 				2CC0ADE025F969BD00373AC4 /* PromotionRealmStore.swift in Sources */,
 				2C2BC80225EBBF040038882B /* ShowReviewsRouter.swift in Sources */,
 				2C90DFA425FB832A008977EB /* ProductCollectionViewCell.swift in Sources */,
+				2C7AE0C0265EB55600ADF53A /* StoreTypeWorker.swift in Sources */,
 				2C2BC81D25EBBF2E0038882B /* ShowDetscriptionWorker.swift in Sources */,
 				2C5C988725F6B14000DF8B6D /* ReviewObject.swift in Sources */,
 				2CA11F4025EEB6A50054AE19 /* StoreViewController.swift in Sources */,
@@ -2626,6 +2662,7 @@
 				2C7CAC58264056B40024FDD8 /* MonitoredProductsModels.swift in Sources */,
 				2C14299725F2C282007D1EB7 /* EditListItemPresenter.swift in Sources */,
 				2C70827825F0100700345147 /* EditPasswordViewController.swift in Sources */,
+				2C7AE0C4265ECC0F00ADF53A /* RegionModel.swift in Sources */,
 				2C058FF625F52AE100B4A16B /* EditStoreRouter.swift in Sources */,
 				2C2BC81C25EBBF2E0038882B /* ShowDescriptionPresenter.swift in Sources */,
 				2CDA612B25ED0FC700FD3956 /* ReviewModel.swift in Sources */,
@@ -2655,6 +2692,7 @@
 				2C5C986B25F69B9200DF8B6D /* ProductObject.swift in Sources */,
 				2C45E2DD2644886B0047887A /* ReportAPI.swift in Sources */,
 				2C14773125E90246000E8F66 /* RegisterRouter.swift in Sources */,
+				2C7AE0D0265EDC6700ADF53A /* EditRegionModels.swift in Sources */,
 				2CA11F8425EF8E6D0054AE19 /* ChildCategoriesWorker.swift in Sources */,
 				2CB911B625F11B6100A8FC66 /* ShowListPresenter.swift in Sources */,
 				2C2BC81E25EBBF2E0038882B /* ShowDescriptionRouter.swift in Sources */,
@@ -2666,6 +2704,7 @@
 				2C70824B25F009ED00345147 /* NewPasswordModels.swift in Sources */,
 				2CB3DCF52527AFB600FC5792 /* RefineOptionCell.swift in Sources */,
 				2C6146A325F1266400D92CB7 /* CreateListViewController.swift in Sources */,
+				2C7AE0CF265EDC6700ADF53A /* EditRegionRouter.swift in Sources */,
 				2C14773325E90246000E8F66 /* RegisterViewController.swift in Sources */,
 				2CA11EED25EE84620054AE19 /* ShowRefineModels.swift in Sources */,
 				2CB9119D25F11B4500A8FC66 /* ShowListsModels.swift in Sources */,
@@ -2692,6 +2731,7 @@
 				2C55FA2325EE4C7C007BBFA8 /* ShowStoreResultsWorker.swift in Sources */,
 				2CA11F8525EF8E6D0054AE19 /* ChildCategoriesRouter.swift in Sources */,
 				2CDFB63825EA6359002CE30D /* HomeModels.swift in Sources */,
+				2C7AE0D1265EDC6700ADF53A /* EditRegionViewController.swift in Sources */,
 				2C70829C25F013A700345147 /* EditNamePresenter.swift in Sources */,
 				2CA11F6925EF8E490054AE19 /* GrandParentCategoriesRouter.swift in Sources */,
 				2C058FF725F52AE100B4A16B /* EditStoreModels.swift in Sources */,
@@ -2753,6 +2793,7 @@
 				2C5C987725F69BD300DF8B6D /* ListItemObject.swift in Sources */,
 				2C6146A225F1266400D92CB7 /* CreateListModels.swift in Sources */,
 				2C7082D025F01C7500345147 /* UserHistory.swift in Sources */,
+				2C7AE0D2265EDC6700ADF53A /* EditRegionInteractor.swift in Sources */,
 				2C2BC81125EBBF180038882B /* EditReviewModels.swift in Sources */,
 				2C45E2EB26454F6C0047887A /* PromotionGroupInteractor.swift in Sources */,
 				2CA11F8325EF8E6D0054AE19 /* ChildCategoriesPresenter.swift in Sources */,
@@ -2763,6 +2804,7 @@
 				2C45E2E826454F6C0047887A /* PromotionGroupRouter.swift in Sources */,
 				2CD72283265A581900D1D112 /* FlyerListViewController.swift in Sources */,
 				2C7082A025F013A700345147 /* EditNameViewController.swift in Sources */,
+				2C7AE0CD265EDC6700ADF53A /* EditRegionPresenter.swift in Sources */,
 				2C2BC83125EBBFD40038882B /* ShowPromotionViewController.swift in Sources */,
 				2C05901125F6265F00B4A16B /* RequestLoginCell.swift in Sources */,
 				2CB15C9424D2FB8900461AFE /* ListItemCell.swift in Sources */,
@@ -2790,6 +2832,7 @@
 				2CC0ADDC25F9243500373AC4 /* ReviewRealmStore.swift in Sources */,
 				2C2BC80325EBBF040038882B /* ShowReviewsModels.swift in Sources */,
 				2CA11F8825EF8E6D0054AE19 /* ChildCategoriesInteractor.swift in Sources */,
+				2C7AE0C2265ECBEB00ADF53A /* RegionWorker.swift in Sources */,
 				2CD72294265A59C400D1D112 /* FlyerData.swift in Sources */,
 				2C55FA2525EE4C7C007BBFA8 /* ShowStoreResultsModels.swift in Sources */,
 				2C72949E25ECEAC300D280B3 /* FavouriteAPI.swift in Sources */,
@@ -2797,6 +2840,7 @@
 				2CA11F3C25EEB6A50054AE19 /* StorePresenter.swift in Sources */,
 				2CAB2EF525FFF6AF0014FE8D /* LocationManger.swift in Sources */,
 				2CDFB63525EA6359002CE30D /* HomePresenter.swift in Sources */,
+				2C7AE0CE265EDC6700ADF53A /* EditRegionWorker.swift in Sources */,
 				2C14773425E90246000E8F66 /* RegisterInteractor.swift in Sources */,
 				2C3F537E24D184C80095C4B1 /* SearchSuggestionCell.swift in Sources */,
 				2C55FA2725EE4C7C007BBFA8 /* ShowStoreResultsInteractor.swift in Sources */,
