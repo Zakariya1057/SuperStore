@@ -48,6 +48,9 @@ class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDa
         return userSession.getStore()
     }
     
+    var regionID: Int {
+        return userSession.getRegion()
+    }
     
     func getSuggestions(request: ShowSuggestions.GetSuggestions.Request)
     {
@@ -76,7 +79,13 @@ extension ShowSuggestionsInteractor {
     func suggestionSelected(suggestion: SuggestionModel){
         let type: String = suggestion.type.rawValue
         
-        searchQueryRequest = SearchQueryRequest(storeTypeID: storeTypeID, query: suggestion.name, type: type, textSearch: suggestion.textSearch)
+        searchQueryRequest = SearchQueryRequest(
+            query: suggestion.name,
+            type: type,
+            textSearch: suggestion.textSearch,
+            storeTypeID: storeTypeID,
+            regionID: regionID
+        )
         
         searchWorker.suggestionSelected(suggestion: suggestion)
     }
@@ -85,7 +94,13 @@ extension ShowSuggestionsInteractor {
         let suggestion = SuggestionModel(id: 0, name: query, type: .product, textSearch: true, storeTypeID: storeTypeID)
         searchWorker.suggestionSelected(suggestion: suggestion)
         
-        searchQueryRequest = SearchQueryRequest(storeTypeID: storeTypeID, query: query, type: SearchType.product.rawValue, textSearch: true)
+        searchQueryRequest = SearchQueryRequest(
+            query: query,
+            type: SearchType.product.rawValue,
+            textSearch: true,
+            storeTypeID: storeTypeID,
+            regionID: regionID
+        )
     }
 }
 

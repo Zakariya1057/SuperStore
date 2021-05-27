@@ -17,13 +17,13 @@ class ProductWorker {
         self.productStore = ProductRealmStore()
     }
     
-    func getProduct(productID: Int, completionHandler: @escaping (_ product: ProductModel?, _ error: String?) -> Void){
+    func getProduct(regionID: Int, productID: Int, completionHandler: @escaping (_ product: ProductModel?, _ error: String?) -> Void){
         
         if let product = productStore.getProduct(productID: productID){
             completionHandler(product, nil)
         }
         
-        productAPI.getProduct(productID: productID) { (product: ProductModel?, error: String?) in
+        productAPI.getProduct(regionID: regionID, productID: productID) { (product: ProductModel?, error: String?) in
             if let product = product {
                 // Remove expired promotion
                 // Remove expired sale
@@ -67,7 +67,7 @@ extension ProductWorker {
 }
 
 protocol ProductRequestProtocol {
-    func getProduct(productID: Int, completionHandler: @escaping (_ product: ProductModel?, _ error: String?) -> Void)
+    func getProduct(regionID: Int, productID: Int, completionHandler: @escaping (_ product: ProductModel?, _ error: String?) -> Void)
     
     func getMonitoredProducts(storeTypeID: Int, completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void)
     func updateMonitor(productID: Int, monitor: Bool, completionHandler: @escaping (String?) -> Void)

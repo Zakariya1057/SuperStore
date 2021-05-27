@@ -61,6 +61,8 @@ class GroceryAPI: API, GroceryRequestProtocol {
             "promotion": data.promotion,
             "product_group": data.productGroup,
             "availability_type": data.availabilityType,
+            
+            "region_id": data.regionID
         ]
         
         requestWorker.post(url: url, data: queryData) { (response: () throws -> Data) in

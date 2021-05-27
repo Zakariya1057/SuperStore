@@ -61,6 +61,10 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     
     var closestStoreID: Int = 1
     
+    var regionID: Int {
+        return userSession.getRegion()
+    }
+    
     var storeTypeID: Int {
         return userSession.getStore()
     }
@@ -70,7 +74,12 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
         let latitude: Double? = request.latitude
         let longitude: Double? = request.longitude
         
-        worker?.getHome(storeTypeID: storeTypeID,latitude: latitude, longitude: longitude, completionHandler: { (home: HomeModel?, error: String?) in
+        worker?.getHome(
+            regionID: regionID,
+            storeTypeID: storeTypeID,
+            latitude: latitude,
+            longitude: longitude,
+            completionHandler: { (home: HomeModel?, error: String?) in
             var response = Home.GetHome.Response(home: home, error: error)
             
             if error != nil {

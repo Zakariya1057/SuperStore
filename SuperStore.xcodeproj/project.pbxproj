@@ -1395,15 +1395,11 @@
 				2C72943525EBE73100D280B3 /* User */,
 				2C72944B25EBE76600D280B3 /* Product */,
 				2C6146C125F2973400D92CB7 /* List */,
-				2C48E7AE25EA9CC1001A5702 /* HomeAPI.swift */,
-				2CA11F4625EEB92E0054AE19 /* StoreAPI.swift */,
-				2C55F9CD25EE3B9C007BBFA8 /* SearchAPI.swift */,
-				2CA11F9125EF90280054AE19 /* GroceryAPI.swift */,
-				2CD72297265A5AA800D1D112 /* FlyerAPI.swift */,
-				2C45E2C82643EFF40047887A /* FeedbackAPI.swift */,
-				2C45E2DC2644886B0047887A /* ReportAPI.swift */,
-				2CAB2EFA25FFF7C40014FE8D /* LocationAPI.swift */,
-				2C72949D25ECEAC300D280B3 /* FavouriteAPI.swift */,
+				2C52E0C5266023A200FCF3BB /* Groceries */,
+				2C52E0C12660056400FCF3BB /* Store */,
+				2C52E0C32660059300FCF3BB /* Message */,
+				2C52E0C22660057900FCF3BB /* Search */,
+				2C52E0C42660059E00FCF3BB /* Home */,
 				2C45E2CA2643F0220047887A /* API.swift */,
 			);
 			path = API;
@@ -1422,6 +1418,48 @@
 				2C5C988025F6AB5E00DF8B6D /* DataStore.swift */,
 			);
 			path = DataStore;
+			sourceTree = "<group>";
+		};
+		2C52E0C12660056400FCF3BB /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				2CA11F4625EEB92E0054AE19 /* StoreAPI.swift */,
+				2CD72297265A5AA800D1D112 /* FlyerAPI.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		2C52E0C22660057900FCF3BB /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2C55F9CD25EE3B9C007BBFA8 /* SearchAPI.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		2C52E0C32660059300FCF3BB /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				2C45E2C82643EFF40047887A /* FeedbackAPI.swift */,
+				2C45E2DC2644886B0047887A /* ReportAPI.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		2C52E0C42660059E00FCF3BB /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				2C48E7AE25EA9CC1001A5702 /* HomeAPI.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		2C52E0C5266023A200FCF3BB /* Groceries */ = {
+			isa = PBXGroup;
+			children = (
+				2CA11F9125EF90280054AE19 /* GroceryAPI.swift */,
+			);
+			path = Groceries;
 			sourceTree = "<group>";
 		};
 		2C55F9BE25EE3B50007BBFA8 /* ShowSuggestions */ = {
@@ -1710,6 +1748,7 @@
 				2C1476C225E7AE15000E8F66 /* UserAuthAPI.swift */,
 				2C72943825EBE75500D280B3 /* ResetPasswordAPI.swift */,
 				2C7082B625F0155700345147 /* UserSettingAPI.swift */,
+				2CAB2EFA25FFF7C40014FE8D /* LocationAPI.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1718,6 +1757,7 @@
 			isa = PBXGroup;
 			children = (
 				2C2BC7E725EAFCFB0038882B /* ProductAPI.swift */,
+				2C72949D25ECEAC300D280B3 /* FavouriteAPI.swift */,
 				2C72945325EBE77900D280B3 /* PromotionAPI.swift */,
 				2C2BC84C25EBC2460038882B /* ReviewAPI.swift */,
 			);

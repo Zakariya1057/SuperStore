@@ -9,8 +9,6 @@
 import Foundation
 
 struct SearchQueryRequest {
-    var storeTypeID: Int
-    
     var query: String
     
     var type: String
@@ -27,6 +25,9 @@ struct SearchQueryRequest {
     var textSearch: Bool = false
     
     var availabilityType: String = ""
+    
+    var storeTypeID: Int
+    var regionID: Int
     
     var refineSort: Bool = false
 }

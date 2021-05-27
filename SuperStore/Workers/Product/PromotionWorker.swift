@@ -21,7 +21,7 @@ class PromotionWorker {
         self.promotionGroupStore = PromotionGroupRealmStore()
     }
     
-    func getPromotion(promotionID: Int, completionHandler: @escaping (_ promotion: PromotionModel?, _ error: String?) -> Void){
+    func getPromotion(regionID: Int, promotionID: Int, completionHandler: @escaping (_ promotion: PromotionModel?, _ error: String?) -> Void){
         
         let promotion = self.promotionStore.getPromotion(promotionID: promotionID)
         if let promotion = promotion {
@@ -30,7 +30,7 @@ class PromotionWorker {
             }
         }
         
-        promotionAPI.getPromotion(promotionID: promotionID) { (promotion: PromotionModel?, error: String?) in
+        promotionAPI.getPromotion(regionID: regionID, promotionID: promotionID) { (promotion: PromotionModel?, error: String?) in
             let promotionModel = promotion
             
             if promotionModel != nil {
@@ -60,13 +60,13 @@ class PromotionWorker {
         }
     }
     
-    func getPromotionGroup(storeTypeID: Int, title: String, completionHandler: @escaping (_ promotions: [PromotionModel], _ error: String?) -> Void){
+    func getPromotionGroup(regionID: Int, storeTypeID: Int, title: String, completionHandler: @escaping (_ promotions: [PromotionModel], _ error: String?) -> Void){
         let promotionGroup = promotionGroupStore.getPromotionGroup(storeTypeID: storeTypeID, title: title)
         if let promotionGroup = promotionGroup, promotionGroup.promotions.count > 0 {
             completionHandler(promotionGroup.promotions, nil)
         }
         
-        promotionAPI.getPromotionGroup(storeTypeID: storeTypeID, title: title) { (promotions: [PromotionModel], error: String?) in
+        promotionAPI.getPromotionGroup(regionID: regionID, storeTypeID: storeTypeID, title: title) { (promotions: [PromotionModel], error: String?) in
             if error == nil {
                 self.promotionGroupStore.setPromotionGroupPromotions(storeTypeID: storeTypeID, title: title, promotions: promotions)
             }
@@ -77,9 +77,9 @@ class PromotionWorker {
 }
 
 protocol PromotionRequestProtocol {
-    func getPromotion(promotionID: Int, completionHandler: @escaping (_ promotion: PromotionModel?, _ error: String?) -> Void)
+    func getPromotion(regionID: Int, promotionID: Int, completionHandler: @escaping (_ promotion: PromotionModel?, _ error: String?) -> Void)
     func getAllPromotions(storeTypeID: Int, completionHandler: @escaping (_ promotionGroups: [PromotionGroupModel], _ error: String?) -> Void)
-    func getPromotionGroup(storeTypeID: Int, title: String, completionHandler: @escaping (_ promotionGroups: [PromotionModel], _ error: String?) -> Void)
+    func getPromotionGroup(regionID: Int, storeTypeID: Int, title: String, completionHandler: @escaping (_ promotionGroups: [PromotionModel], _ error: String?) -> Void)
 }
 
 protocol PromotionStoreProtocol {

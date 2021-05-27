@@ -2097,7 +2097,7 @@
                                                                                             <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                         </state>
                                                                                         <connections>
-                                                                                            <segue destination="rE7-hw-dyv" kind="show" id="Smr-n4-Xt3"/>
+                                                                                            <segue destination="rE7-hw-dyv" kind="show" identifier="GrandParentCategories" id="Smr-n4-Xt3"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -2238,6 +2238,7 @@
                         <outletCollection property="loadingViews" destination="c0v-T1-E97" collectionClass="NSMutableArray" id="s4U-4h-wWn"/>
                         <outletCollection property="loadingViews" destination="gRt-Qc-tJG" collectionClass="NSMutableArray" id="9BY-Cd-GWE"/>
                         <outletCollection property="loadingViews" destination="mnl-39-Mil" collectionClass="NSMutableArray" id="lkG-qd-hkJ"/>
+                        <outletCollection property="loadingViews" destination="MKW-1B-hZB" collectionClass="NSMutableArray" id="ltD-Oc-OGR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dNH-Jp-K3l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

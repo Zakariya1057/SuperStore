@@ -10,8 +10,8 @@ import Foundation
 
 class ProductAPI: API, ProductRequestProtocol {
     
-    func getProduct(productID: Int, completionHandler: @escaping (ProductModel?, String?) -> Void) {
-        let url = Config.Route.Product.Show + String(productID)
+    func getProduct(regionID: Int, productID: Int, completionHandler: @escaping (ProductModel?, String?) -> Void) {
+        let url = Config.Route.Product.Show + String(productID) + "?region_id=\(regionID)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -28,7 +28,6 @@ class ProductAPI: API, ProductRequestProtocol {
             }
         }
     }
-    
 }
 
 extension ProductAPI {

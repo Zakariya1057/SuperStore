@@ -36,9 +36,13 @@ class ShowPromotionInteractor: ShowPromotionBusinessLogic, ShowPromotionDataStor
     
     var userSession = UserSessionWorker()
     
+    var regionID: Int {
+        return userSession.getRegion()
+    }
+    
     func getPromotion(request: ShowPromotion.GetPromotion.Request)
     {
-        promotionWorker.getPromotion(promotionID: promotionID) { (promotion: PromotionModel?, error: String?) in
+        promotionWorker.getPromotion(regionID: regionID, promotionID: promotionID) { (promotion: PromotionModel?, error: String?) in
             var response = ShowPromotion.GetPromotion.Response(promotion: promotion, error: error)
             
             if error != nil {

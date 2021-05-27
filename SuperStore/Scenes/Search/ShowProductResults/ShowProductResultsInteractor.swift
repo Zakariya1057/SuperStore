@@ -60,7 +60,7 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     var userSession = UserSessionWorker()
     
     var searchRefine: SearchRefine = SearchRefine(availabilityType: [], brands: [], productGroups: [], promotions: [])
-    var searchQueryRequest: SearchQueryRequest = SearchQueryRequest(storeTypeID: 0, query: "", type: "")
+    var searchQueryRequest: SearchQueryRequest = SearchQueryRequest(query: "", type: "", sort: "", storeTypeID: 0, regionID: 0)
     
     var products: [ProductModel] = []
     
@@ -71,6 +71,10 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     var selectedProductStoreTypeID: Int?
     
     var refineOptionsSet: Bool = false
+    
+    var regionID: Int {
+        return userSession.getRegion()
+    }
     
     var selectedSortOption: RefineSortOptionModel = RefineSortOptionModel(name: "Relevance", type: .relevance)
     
@@ -216,6 +220,8 @@ extension ShowProductResultsInteractor {
         let refineSort: Bool = request.refineSort
         
         searchQueryRequest.refineSort = refineSort
+        
+        searchQueryRequest.regionID = regionID
         
         groceryWorker.getCategoryProducts(
             childCategoryID: childCategoryID!,

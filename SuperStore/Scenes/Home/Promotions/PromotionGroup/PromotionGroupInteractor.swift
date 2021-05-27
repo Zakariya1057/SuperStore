@@ -39,11 +39,15 @@ class PromotionGroupInteractor: PromotionGroupBusinessLogic, PromotionGroupDataS
     var promotionWorker = PromotionWorker(promotionAPI: PromotionAPI())
     var userSession: UserSessionWorker = UserSessionWorker()
     
+    var regionID: Int {
+        return userSession.getRegion()
+    }
+    
     func getPromotions(request: PromotionGroup.GetPromotions.Request)
     {
         
         if let promotionGroup = promotionGroup {
-            promotionWorker.getPromotionGroup(storeTypeID: storeTypeID, title: promotionGroup.title) { (promotions: [PromotionModel], error: String?) in
+            promotionWorker.getPromotionGroup(regionID: regionID ,storeTypeID: storeTypeID, title: promotionGroup.title) { (promotions: [PromotionModel], error: String?) in
                 var response = PromotionGroup.GetPromotions.Response(promotions: promotions, error: error)
                 
                 if error != nil {

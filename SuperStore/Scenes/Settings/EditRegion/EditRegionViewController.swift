@@ -120,8 +120,6 @@ extension EditRegionViewController: UITableViewDataSource, UITableViewDelegate {
         
         let region = regions[indexPath.row]
         
-        print(selectedRegionID)
-        
         cell.selectedRegion = region.id == selectedRegionID
         cell.region = region
         

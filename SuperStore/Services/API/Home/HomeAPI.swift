@@ -11,9 +11,10 @@ import Alamofire
 
 class HomeAPI: API, HomeRequestProtocol {
 
-    func getHome(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void) {
+    func getHome(regionID: Int, storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void) {
         
         let homeData: Parameters = [
+            "region_id": regionID,
             "store_type_id": storeTypeID,
             "latitude": latitude ?? 0,
             "longitude": longitude ?? 0

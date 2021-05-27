@@ -10,8 +10,8 @@ import Foundation
 
 class PromotionAPI: API, PromotionRequestProtocol {
     
-    func getPromotion(promotionID: Int, completionHandler: @escaping (PromotionModel?, String?) -> Void) {
-        let url = Config.Route.Promotion.Show + "/" + String(promotionID)
+    func getPromotion(regionID: Int, promotionID: Int, completionHandler: @escaping (PromotionModel?, String?) -> Void) {
+        let url = Config.Route.Promotion.Show + "/" + String(promotionID) + "?region_id=\(regionID)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -48,8 +48,8 @@ class PromotionAPI: API, PromotionRequestProtocol {
         }
     }
     
-    func getPromotionGroup(storeTypeID: Int, title: String, completionHandler: @escaping (_ promotionGroups: [PromotionModel], _ error: String?) -> Void){
-        let url = Config.Route.Promotion.All + "/" + String(storeTypeID) + "/" + title
+    func getPromotionGroup(regionID: Int, storeTypeID: Int, title: String, completionHandler: @escaping (_ promotionGroups: [PromotionModel], _ error: String?) -> Void){
+        let url = Config.Route.Promotion.All + "/" + String(storeTypeID) + "/" + title + "?region_id=\(regionID)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {

@@ -35,17 +35,24 @@ class SearchAPI: API, SearchRequestProtocol {
         let url = Config.Route.Search.Results.Product + "?page=\(page)"
         
         let queryData: Parameters = [
-            "store_type_id": data.storeTypeID,
             "query": data.query,
+            
             "type": data.type,
             "sort": data.sort,
             "order": data.order,
+            
             "dietary": data.dietary,
+            
             "product_group": data.productGroup,
             "availability_type": data.availabilityType,
+            
             "brand": data.brand,
             "promotion": data.promotion,
-            "text_search": data.textSearch
+            
+            "text_search": data.textSearch,
+            
+            "store_type_id": data.storeTypeID,
+            "region_id": data.regionID,
         ]
         
         requestWorker.post(url: url, data: queryData) { (response: () throws -> Data) in
