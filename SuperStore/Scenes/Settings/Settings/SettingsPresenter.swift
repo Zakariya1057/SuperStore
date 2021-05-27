@@ -51,7 +51,7 @@ class SettingsPresenter: SettingsPresentationLogic
                 
                 displayUserSections.append(
                     Settings.DisplayUserSection(fields: [
-                        Settings.DisplayUserField(name: "Province", value: regionName, type: .store),
+                        Settings.DisplayUserField(name: "Province", value: regionName, type: .region),
                         Settings.DisplayUserField(name: "Store", value: storeTypeName, type: .store),
                     ])
                 )
@@ -72,7 +72,7 @@ class SettingsPresenter: SettingsPresentationLogic
             } else {
                 displayUserSections.append(
                     Settings.DisplayUserSection(fields: [
-                        Settings.DisplayUserField(name: "Province", value: regionName, type: .store),
+                        Settings.DisplayUserField(name: "Province", value: regionName, type: .region),
                         Settings.DisplayUserField(name: "Store", value: storeTypeName, type: .store),
                     ])
                 )

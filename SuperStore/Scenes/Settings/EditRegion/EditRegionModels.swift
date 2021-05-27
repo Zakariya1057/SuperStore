@@ -14,18 +14,40 @@ import UIKit
 
 enum EditRegion
 {
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
+    enum GetRegions
     {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var regions: [RegionModel]
+            var selectedRegionID: Int
+        }
+        
+        struct ViewModel
+        {
+            var regions: [RegionModel]
+            var selectedRegionID: Int
+        }
     }
-    struct Response
+    
+    enum UpdateRegion
     {
+        struct Request
+        {
+            var region: RegionModel
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
+        }
     }
-    struct ViewModel
-    {
-    }
-  }
 }

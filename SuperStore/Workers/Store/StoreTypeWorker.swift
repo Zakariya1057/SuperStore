@@ -7,23 +7,39 @@
 //
 
 import Foundation
+import UIKit
 
 class StoreTypeWorker
 {
     private var defaultStoreTypeID: Int = 2
     
+    private var userStore: UserStoreProtocol = UserRealmStore()
+    
     private var storeTypes: [StoreTypeModel] = [
-        StoreTypeModel(id: 1, name: "Asda", type: .asda),
-        StoreTypeModel(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore),
+        StoreTypeModel(
+            id: 1,
+            name: "Asda",
+            type: .asda,
+            color: UIColor(red:0.51, green:0.67, blue:0.24, alpha:1.0)
+        ),
+        
+        StoreTypeModel(
+            id: 2,
+            name: "Real Canadian Superstore",
+            type: .realCanadianSuperstore,
+            color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
+        ),
     ]
     
     func getStoreTypes() -> [StoreTypeModel]{
         return storeTypes
     }
     
-    func getSelectedStoreTypeID() -> StoreTypeModel {
+    func getSelectedStoreType() -> StoreTypeModel {
+        let storeTypeID = userStore.getStoreID() ?? defaultStoreTypeID
+        
         return storeTypes.first { (storeType: StoreTypeModel) in
-            storeType.id == defaultStoreTypeID
+            storeType.id == storeTypeID
         }!
     }
     

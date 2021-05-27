@@ -14,28 +14,42 @@ import UIKit
 
 protocol EditRegionBusinessLogic
 {
-  func doSomething(request: EditRegion.Something.Request)
+    func getRegions(request: EditRegion.GetRegions.Request)
+    func updateRegion(request: EditRegion.UpdateRegion.Request)
 }
 
 protocol EditRegionDataStore
 {
-  //var name: String { get set }
 }
 
 class EditRegionInteractor: EditRegionBusinessLogic, EditRegionDataStore
 {
-  var presenter: EditRegionPresentationLogic?
-  var worker: EditRegionWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: EditRegion.Something.Request)
-  {
-    worker = EditRegionWorker()
-    worker?.doSomeWork()
+    var presenter: EditRegionPresentationLogic?
+
+    var regionWorker: RegionWorker = RegionWorker()
     
-    let response = EditRegion.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var userSessionWorker: UserSessionWorker = UserSessionWorker()
+    var userSettingsWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
+    
+    // MARK: Do something
+    
+    func getRegions(request: EditRegion.GetRegions.Request)
+    {
+        let regions = regionWorker.getRegions()
+        let selectedRegionID = regionWorker.getSelectedRegion().id
+        
+        let response = EditRegion.GetRegions.Response(regions: regions, selectedRegionID: selectedRegionID)
+        presenter?.presentRegions(response: response)
+    }
+    
+    func updateRegion(request: EditRegion.UpdateRegion.Request){
+        let region = request.region
+        
+        let loggedIn: Bool = userSessionWorker.isLoggedIn()
+        
+        userSettingsWorker.updateRegion(regionID: region.id, loggedIn: loggedIn) { (error: String?) in
+            let response = EditRegion.UpdateRegion.Response(error: error)
+            self.presenter?.presentUpdatedRegion(response: response)
+        }
+    }
 }

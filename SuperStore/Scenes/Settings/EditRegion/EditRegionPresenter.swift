@@ -14,18 +14,22 @@ import UIKit
 
 protocol EditRegionPresentationLogic
 {
-  func presentSomething(response: EditRegion.Something.Response)
+    func presentRegions(response: EditRegion.GetRegions.Response)
+    func presentUpdatedRegion(response: EditRegion.UpdateRegion.Response)
 }
 
 class EditRegionPresenter: EditRegionPresentationLogic
 {
-  weak var viewController: EditRegionDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: EditRegion.Something.Response)
-  {
-    let viewModel = EditRegion.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+    weak var viewController: EditRegionDisplayLogic?
+    
+    func presentRegions(response: EditRegion.GetRegions.Response)
+    {
+        let viewModel = EditRegion.GetRegions.ViewModel(regions: response.regions, selectedRegionID: response.selectedRegionID)
+        viewController?.displayRegions(viewModel: viewModel)
+    }
+    
+    func presentUpdatedRegion(response: EditRegion.UpdateRegion.Response){
+        let viewModel = EditRegion.UpdateRegion.ViewModel(error: response.error)
+        viewController?.displayUpdatedRegion(viewModel: viewModel)
+    }
 }

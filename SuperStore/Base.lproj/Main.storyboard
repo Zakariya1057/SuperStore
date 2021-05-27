@@ -3869,7 +3869,7 @@
             <objects>
                 <viewController id="HXj-j2-Hvf" customClass="ShowRefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wxa-Ye-bc0">
@@ -5529,8 +5529,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IIH-no-Rky">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IIH-no-Rky">
+                                <rect key="frame" x="0.0" y="155" width="414" height="658"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -5540,12 +5540,12 @@
                             <constraint firstItem="IIH-no-Rky" firstAttribute="leading" secondItem="TDw-J8-G6B" secondAttribute="leading" id="8i7-sq-FWs"/>
                             <constraint firstItem="TDw-J8-G6B" firstAttribute="trailing" secondItem="IIH-no-Rky" secondAttribute="trailing" id="9zb-uT-KSa"/>
                             <constraint firstItem="TDw-J8-G6B" firstAttribute="bottom" secondItem="IIH-no-Rky" secondAttribute="bottom" id="kTy-Yz-Uld"/>
-                            <constraint firstItem="IIH-no-Rky" firstAttribute="top" secondItem="TDw-J8-G6B" secondAttribute="top" id="llZ-qf-Rdn"/>
+                            <constraint firstItem="IIH-no-Rky" firstAttribute="top" secondItem="TDw-J8-G6B" secondAttribute="top" constant="15" id="llZ-qf-Rdn"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Change Store" id="N63-Et-CzS"/>
                     <connections>
-                        <outlet property="storeTableView" destination="IIH-no-Rky" id="khp-iC-SmV"/>
+                        <outlet property="storeTypesTableView" destination="IIH-no-Rky" id="z2m-0O-K5e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DOQ-co-ax9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -5719,78 +5719,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="IpY-c2-oUv">
-                                <rect key="frame" x="15" y="180" width="384" height="110"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="AQo-Q3-hoQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="384" height="110"/>
-                                        <subviews>
-                                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ai-wf-FAM">
-                                                <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rls-ed-N6L">
-                                                        <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
-                                                        <color key="backgroundColor" red="0.098039215690000001" green="0.29411764709999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="ieP-EL-pZo"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                                        <state key="normal" title="Real Canadian Superstore">
-                                                            <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="logoutButtonPressed:" destination="sIM-J9-Ju3" eventType="touchUpInside" id="be8-M8-22M"/>
-                                                            <action selector="superstoreButtonPressed:" destination="Gnf-ga-Ko5" eventType="touchUpInside" id="f8q-a0-USV"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="Rls-ed-N6L" firstAttribute="centerY" secondItem="5Ai-wf-FAM" secondAttribute="centerY" id="f9z-90-X02"/>
-                                                    <constraint firstItem="Rls-ed-N6L" firstAttribute="leading" secondItem="5Ai-wf-FAM" secondAttribute="leading" id="fOT-0s-i5E"/>
-                                                    <constraint firstAttribute="height" constant="40" id="jMV-Y1-WAm"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Rls-ed-N6L" secondAttribute="trailing" id="zuv-HL-YHT"/>
-                                                </constraints>
-                                            </view>
-                                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dqh-dn-2zx">
-                                                <rect key="frame" x="0.0" y="70" width="384" height="40"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fmD-0b-FK1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
-                                                        <color key="backgroundColor" red="0.5113996904" green="0.67349547430000001" blue="0.23744052500000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="h8g-9i-HyB"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                                        <state key="normal" title="Asda">
-                                                            <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="asdaButtonPressed:" destination="Gnf-ga-Ko5" eventType="touchUpInside" id="MiQ-cZ-8e4"/>
-                                                            <action selector="logoutButtonPressed:" destination="sIM-J9-Ju3" eventType="touchUpInside" id="MDV-Yx-6nU"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="0m4-NV-ZeU"/>
-                                                    <constraint firstItem="fmD-0b-FK1" firstAttribute="centerY" secondItem="Dqh-dn-2zx" secondAttribute="centerY" id="9k1-T2-Jpn"/>
-                                                    <constraint firstAttribute="trailing" secondItem="fmD-0b-FK1" secondAttribute="trailing" id="ecS-e5-O7C"/>
-                                                    <constraint firstItem="fmD-0b-FK1" firstAttribute="leading" secondItem="Dqh-dn-2zx" secondAttribute="leading" id="yML-gh-52C"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wI7-jh-Hea">
+                                <rect key="frame" x="0.0" y="155" width="414" height="658"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="saa-2o-Lks"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="IpY-c2-oUv" firstAttribute="top" secondItem="saa-2o-Lks" secondAttribute="top" constant="40" id="NTQ-vp-7Xl"/>
-                            <constraint firstItem="IpY-c2-oUv" firstAttribute="leading" secondItem="saa-2o-Lks" secondAttribute="leading" constant="15" id="e3q-Nm-WSQ"/>
-                            <constraint firstItem="saa-2o-Lks" firstAttribute="trailing" secondItem="IpY-c2-oUv" secondAttribute="trailing" constant="15" id="tZ2-yz-VHn"/>
+                            <constraint firstItem="saa-2o-Lks" firstAttribute="trailing" secondItem="wI7-jh-Hea" secondAttribute="trailing" id="PQu-CD-OjZ"/>
+                            <constraint firstItem="wI7-jh-Hea" firstAttribute="top" secondItem="saa-2o-Lks" secondAttribute="top" constant="15" id="QMP-9i-xMB"/>
+                            <constraint firstItem="wI7-jh-Hea" firstAttribute="leading" secondItem="saa-2o-Lks" secondAttribute="leading" id="SGp-Xa-dGT"/>
+                            <constraint firstItem="saa-2o-Lks" firstAttribute="bottom" secondItem="wI7-jh-Hea" secondAttribute="bottom" id="sOz-33-mcm"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Change Province" id="Mrx-XI-lJE"/>
+                    <connections>
+                        <outlet property="regionsTableView" destination="wI7-jh-Hea" id="7e7-Zb-ubv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iFZ-ED-Gep" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

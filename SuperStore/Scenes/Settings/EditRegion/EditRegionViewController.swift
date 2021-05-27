@@ -12,78 +12,160 @@
 
 import UIKit
 
-protocol EditRegionDisplayLogic: class
+protocol EditRegionDisplayLogic: AnyObject
 {
-  func displaySomething(viewModel: EditRegion.Something.ViewModel)
+    func displayRegions(viewModel: EditRegion.GetRegions.ViewModel)
+    func displayUpdatedRegion(viewModel: EditRegion.UpdateRegion.ViewModel)
 }
 
 class EditRegionViewController: UIViewController, EditRegionDisplayLogic
 {
-  var interactor: EditRegionBusinessLogic?
-  var router: (NSObjectProtocol & EditRegionRoutingLogic & EditRegionDataPassing)?
-
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = EditRegionInteractor()
-    let presenter = EditRegionPresenter()
-    let router = EditRegionRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    var interactor: EditRegionBusinessLogic?
+    var router: (NSObjectProtocol & EditRegionRoutingLogic & EditRegionDataPassing)?
+    
+    // MARK: Object lifecycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-  }
-  
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = EditRegion.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: EditRegion.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup()
+    {
+        let viewController = self
+        let interactor = EditRegionInteractor()
+        let presenter = EditRegionPresenter()
+        let router = EditRegionRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        
+        setupRegionsTableView()
+        getRegions()
+    }
+    
+    let spinner: SpinnerViewController = SpinnerViewController()
+    
+    @IBOutlet var regionsTableView: UITableView!
+    
+    var regions: [RegionModel] = []
+    var selectedRegionID: Int = 1
+    
+    func getRegions()
+    {
+        let request = EditRegion.GetRegions.Request()
+        interactor?.getRegions(request: request)
+    }
+    
+    func displayRegions(viewModel: EditRegion.GetRegions.ViewModel)
+    {
+        selectedRegionID = viewModel.selectedRegionID
+        regions = viewModel.regions
+        regionsTableView.reloadData()
+    }
+    
+    func displayUpdatedRegion(viewModel: EditRegion.UpdateRegion.ViewModel) {
+        stopLoading()
+        
+        if let error = viewModel.error {
+            showError(title: "Region Change Error", error: error)
+        } else {
+            router?.routeToSettings(segue: nil)
+        }
+    }
+}
+
+extension EditRegionViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return regions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return configureRegionCell(indexPath: indexPath)
+    }
+    
+    func configureRegionCell(indexPath: IndexPath) -> RegionCell {
+        let cell = regionsTableView.dequeueReusableCell(withIdentifier: "RegionCell", for: indexPath) as! RegionCell
+        
+        let region = regions[indexPath.row]
+        
+        print(selectedRegionID)
+        
+        cell.selectedRegion = region.id == selectedRegionID
+        cell.region = region
+        
+        cell.configureUI()
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        
+        return cell
+    }
+    
+    func setupRegionsTableView(){
+        let regionCellNib = UINib(nibName: "RegionCell", bundle: nil)
+        regionsTableView.register(regionCellNib, forCellReuseIdentifier: "RegionCell")
+        
+        regionsTableView.delegate = self
+        regionsTableView.dataSource = self
+    }
+}
+
+extension EditRegionViewController {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let region = regions[indexPath.row]
+        regionselected(region: region)
+    }
+    
+    func regionselected(region: RegionModel){
+        startLoading()
+        
+        let request = EditRegion.UpdateRegion.Request(region: region)
+        interactor?.updateRegion(request: request)
+    }
+}
+
+extension EditRegionViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+    }
 }

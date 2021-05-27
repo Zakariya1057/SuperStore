@@ -36,6 +36,11 @@ class UserSettingAPI: API, UserRequestProtocol {
         requestUpdateUser(data: updateData, type: "store_type_id", completionHandler: completionHandler)
     }
     
+    func updateRegion(regionID: Int, completionHandler: @escaping (String?) -> Void) {
+        let updateData: Parameters = ["region_id": regionID]
+        requestUpdateUser(data: updateData, type: "region_id", completionHandler: completionHandler)
+    }
+    
     func updateNotifications(sendNotifications: Bool, notificationToken: String?, completionHandler: @escaping (String?) -> Void) {
         let updateData: Parameters = [
             "send_notifications": sendNotifications,

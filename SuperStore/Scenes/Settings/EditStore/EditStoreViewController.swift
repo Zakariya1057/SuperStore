@@ -15,10 +15,12 @@ import UIKit
 protocol EditStoreDisplayLogic: AnyObject
 {
     func displayUpdatedStore(viewModel: EditStore.UpdateStore.ViewModel)
+    func displayStoreTypes(viewModel: EditStore.GetStoreTypes.ViewModel)
 }
 
 class EditStoreViewController: UIViewController, EditStoreDisplayLogic
 {
+    
     var interactor: EditStoreBusinessLogic?
     var router: (NSObjectProtocol & EditStoreRoutingLogic & EditStoreDataPassing)?
     
@@ -78,6 +80,8 @@ class EditStoreViewController: UIViewController, EditStoreDisplayLogic
     
     @IBOutlet var storeTypesTableView: UITableView!
     
+    var selectedStoreTypeID: Int = 1
+    
     var userSession: UserSessionWorker = UserSessionWorker()
     var loggedIn: Bool {
         return userSession.isLoggedIn()
@@ -89,19 +93,24 @@ class EditStoreViewController: UIViewController, EditStoreDisplayLogic
     {
         stopLoading()
         
-        if loggedIn, let error = viewModel.error {
+        if let error = viewModel.error {
             showError(title: "Store Change Error", error: error)
         } else {
             router?.routeToSettings(segue: nil)
         }
     }
     
-    func getStoreTypes(){
-        
+    func displayStoreTypes(viewModel: EditStore.GetStoreTypes.ViewModel) {
+        selectedStoreTypeID = viewModel.selectedStoreTypeID
+        storeTypes = viewModel.storeTypes
+        storeTypesTableView.reloadData()
     }
-
+    
+    func getStoreTypes(){
+        let request = EditStore.GetStoreTypes.Request()
+        interactor?.getStoreTypes(request: request)
+    }
 }
-
 
 extension EditStoreViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -112,8 +121,13 @@ extension EditStoreViewController: UITableViewDataSource, UITableViewDelegate {
         return configureStoreTypeCell(indexPath: indexPath)
     }
     
-    func configureStoreTypeCell(indexPath: IndexPath) -> ProductCell {
-        let cell = storeTypesTableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
+    func configureStoreTypeCell(indexPath: IndexPath) -> StoreTypeCell {
+        let cell = storeTypesTableView.dequeueReusableCell(withIdentifier: "StoreTypeCell", for: indexPath) as! StoreTypeCell
+        
+        let storeType = storeTypes[indexPath.row]
+        
+        cell.selectedStoreType = storeType.id == selectedStoreTypeID
+        cell.storeType = storeType
         
         cell.configureUI()
         
@@ -123,11 +137,8 @@ extension EditStoreViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func setupStoreTypesTableView(){
-        let productCellNib = UINib(nibName: "ProductCell", bundle: nil)
-        storeTypesTableView.register(productCellNib, forCellReuseIdentifier: "ProductCell")
-
-        let requestLoginCellNib = UINib(nibName: "RequestLoginCell", bundle: nil)
-        storeTypesTableView.register(requestLoginCellNib, forCellReuseIdentifier: "RequestLoginCell")
+        let storeTypeCellNib = UINib(nibName: "StoreTypeCell", bundle: nil)
+        storeTypesTableView.register(storeTypeCellNib, forCellReuseIdentifier: "StoreTypeCell")
         
         storeTypesTableView.delegate = self
         storeTypesTableView.dataSource = self
@@ -136,26 +147,17 @@ extension EditStoreViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension EditStoreViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        router?.selectedProductID = storeTypes[indexPath.row].id
-//        router?.routeToShowProduct(segue: nil)
+        let storeType = storeTypes[indexPath.row]
+        storeTypeSelected(storeType: storeType)
+    }
+    
+    func storeTypeSelected(storeType: StoreTypeModel){
+        startLoading()
+
+        let request = EditStore.UpdateStore.Request(storeType: storeType)
+        interactor?.updateStore(request: request)
     }
 }
-
-//extension EditStoreViewController {
-//    @IBAction func superstoreButtonPressed(_ sender: Any) {
-//        startLoading()
-//
-//        let request = EditStore.UpdateStore.Request(storeTypeID: 2)
-//        interactor?.updateStore(request: request)
-//    }
-//
-//    @IBAction func asdaButtonPressed(_ sender: Any) {
-//        startLoading()
-//
-//        let request = EditStore.UpdateStore.Request(storeTypeID: 1)
-//        interactor?.updateStore(request: request)
-//    }
-//}
 
 extension EditStoreViewController {
     func startLoading() {

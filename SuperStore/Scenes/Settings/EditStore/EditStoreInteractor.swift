@@ -15,6 +15,7 @@ import UIKit
 protocol EditStoreBusinessLogic
 {
     func updateStore(request: EditStore.UpdateStore.Request)
+    func getStoreTypes(request: EditStore.GetStoreTypes.Request)
 }
 
 protocol EditStoreDataStore
@@ -25,14 +26,25 @@ protocol EditStoreDataStore
 class EditStoreInteractor: EditStoreBusinessLogic, EditStoreDataStore
 {
     var presenter: EditStorePresentationLogic?
-    var userSessionWorker = UserSessionWorker()
+    
+    var userSessionWorker: UserSessionWorker = UserSessionWorker()
     var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     
-
+    var storeTypeWorker: StoreTypeWorker = StoreTypeWorker()
+    
+    func getStoreTypes(request: EditStore.GetStoreTypes.Request){
+        let storeTypes = storeTypeWorker.getStoreTypes()
+        
+        let selectedStoreTypeID: Int = storeTypeWorker.getSelectedStoreType().id
+        
+        let response = EditStore.GetStoreTypes.Response(storeTypes: storeTypes, selectedStoreTypeID: selectedStoreTypeID)
+        presenter?.presentStoreTypes(response: response)
+    }
     
     func updateStore(request: EditStore.UpdateStore.Request)
     {
-        let storeTypeID = request.storeTypeID
+        let storeTypeID = request.storeType.id
+        
         let loggedIn: Bool = userSessionWorker.isLoggedIn()
         
         userWorker.updateStore(storeTypeID: storeTypeID, loggedIn: loggedIn) { (error: String?) in

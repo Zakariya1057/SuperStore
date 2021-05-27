@@ -69,11 +69,14 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
             let password = loginWorker.generatePassword()
             let identifier = userHistory.identifier
             let userToken = userHistory.userToken
+            
+            let regionID = userSession.getRegion()
             let storeTypeID = userSession.getStore()
             
             authWorker.register(
                 name: name,
                 email: email,
+                regionID: regionID,
                 storeTypeID: storeTypeID,
                 password: password,
                 passwordConfirmation: password,

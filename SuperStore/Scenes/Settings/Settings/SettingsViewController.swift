@@ -229,6 +229,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             emailPressed()
         case .password:
             passwordPressed()
+        case .region:
+            regionPressed()
         case .store:
             storePressed()
         case .logout:
@@ -289,6 +291,10 @@ extension SettingsViewController {
     
     @objc func passwordPressed(){
         router?.routeToEditPassword(segue: nil)
+    }
+    
+    @objc func regionPressed(){
+        router?.routeToEditRegion(segue: nil)
     }
     
     @objc func storePressed(){

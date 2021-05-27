@@ -35,6 +35,7 @@ class UserAuthWorker {
     func register(
         name: String,
         email: String,
+        regionID: Int,
         storeTypeID: Int,
         password: String,
         passwordConfirmation: String,
@@ -54,7 +55,7 @@ class UserAuthWorker {
             identifier: identifier,
             userToken: userToken,
             
-            regionID: 1,
+            regionID: regionID,
             storeTypeID: storeTypeID
         ) {  (user: UserModel?, error: String?) in
             

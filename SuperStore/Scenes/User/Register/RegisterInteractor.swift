@@ -51,6 +51,8 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
         let email = request.email.replacingOccurrences(of: " ", with: "")
         let password = request.password
         let passwordConfirm = request.passwordConfirm
+        
+        let regionID = request.regionID
         let storeTypeID = request.storeTypeID
         
         let error = validateForm(name: name, email: email, password: password, passwordConfirm: passwordConfirm)
@@ -59,6 +61,7 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
             authWorker.register(
                 name: name,
                 email: email,
+                regionID: regionID,
                 storeTypeID: storeTypeID,
                 password: password,
                 passwordConfirmation: passwordConfirm,
@@ -111,7 +114,7 @@ extension RegisterInteractor {
     
     func getStoreTypes(request: Register.GetStoreTypes.Request){
         let storeTypes = storeTypeWorker.getStoreTypes()
-        let selectedStoreType = storeTypeWorker.getSelectedStoreTypeID()
+        let selectedStoreType = storeTypeWorker.getSelectedStoreType()
         
         let response = Register.GetStoreTypes.Response(storeTypes: storeTypes, selectedStoreType: selectedStoreType)
         presenter?.presentStoreTypes(response: response)

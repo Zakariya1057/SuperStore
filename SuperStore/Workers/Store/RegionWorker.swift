@@ -10,7 +10,9 @@ import Foundation
 
 class RegionWorker
 {
-    private var defaultRegionID: Int = 1
+    private var defaultRegionID: Int = 3
+    
+    private var userStore: UserStoreProtocol = UserRealmStore()
     
     private var regions: [RegionModel] = [
         RegionModel(id: 1, name: "Onatario", country: "Canada", storeTypeID: 2),
@@ -26,8 +28,10 @@ class RegionWorker
     }
     
     func getSelectedRegion() -> RegionModel {
+        let regionID = userStore.getRegionID() ?? defaultRegionID
+        
         return regions.first { (regions: RegionModel) in
-            regions.id == defaultRegionID
+            regions.id == regionID
         }!
     }
     

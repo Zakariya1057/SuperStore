@@ -14,21 +14,40 @@ import UIKit
 
 enum EditStore
 {
-  // MARK: Use cases
-  
-  enum UpdateStore
-  {
-    struct Request
+    enum GetStoreTypes
     {
-        var storeTypeID: Int
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var storeTypes: [StoreTypeModel]
+            var selectedStoreTypeID: Int
+        }
+        
+        struct ViewModel
+        {
+            var storeTypes: [StoreTypeModel]
+            var selectedStoreTypeID: Int
+        }
     }
-    struct Response
+    
+    enum UpdateStore
     {
-        var error: String?
+        struct Request
+        {
+            var storeType: StoreTypeModel
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
+        }
     }
-    struct ViewModel
-    {
-        var error: String?
-    }
-  }
 }

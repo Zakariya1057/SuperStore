@@ -11,6 +11,9 @@ import RealmSwift
 
 class UserRealmStore: DataStore, UserStoreProtocol {
     
+    private lazy var storeTypeWorker: StoreTypeWorker = StoreTypeWorker()
+    private lazy var regionWorker: RegionWorker = RegionWorker()
+    
     private var user: UserObject? {
         return realm?.objects(UserObject.self).first
     }
@@ -24,6 +27,7 @@ class UserRealmStore: DataStore, UserStoreProtocol {
             savedUser.email = user.email
             savedUser.token = user.token
             savedUser.storeTypeID = user.storeTypeID
+            savedUser.regionID = user.regionID
             savedUser.id = user.id
             savedUser.sendNotifications = user.sendNotifications
             realm?.add(savedUser)
@@ -55,6 +59,14 @@ class UserRealmStore: DataStore, UserStoreProtocol {
         })
     }
     
+    func updateRegion(regionID: Int){
+        try? realm?.write({
+            if let savedUser: UserObject = self.user {
+                savedUser.regionID = regionID
+            }
+        })
+    }
+    
     func updateStore(storeTypeID: Int){
         try? realm?.write({
             if let savedUser: UserObject = self.user {
@@ -62,7 +74,6 @@ class UserRealmStore: DataStore, UserStoreProtocol {
             }
         })
     }
-    
     
     func updateNotifications(sendNotifications: Bool){
         try? realm?.write({
@@ -95,7 +106,11 @@ extension UserRealmStore {
         return user?.token == "" ? nil : user?.token
     }
     
-    func getStore() -> Int? {
+    func getRegionID() -> Int? {
+        return user?.regionID
+    }
+    
+    func getStoreID() -> Int? {
         return user?.storeTypeID
     }
     
@@ -108,7 +123,8 @@ extension UserRealmStore {
     func createEmptyUser() -> UserObject? {
         let savedUser = UserObject()
         
-        savedUser.storeTypeID = 2
+        savedUser.storeTypeID = storeTypeWorker.getSelectedStoreType().id
+        savedUser.regionID = regionWorker.getSelectedRegion().id
         
         try? realm?.write({
             realm?.add(savedUser)

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct UserModel {
     var id: Int
@@ -16,9 +17,7 @@ struct UserModel {
     var email: String
     
     var regionID: Int
-    
     var storeTypeID: Int
-//    var storeName: String?
 
     var sendNotifications: Bool
 }
@@ -27,6 +26,7 @@ struct StoreTypeModel {
     var id: Int
     var name: String
     var type: StoreType
+    var color: UIColor
 }
 
 enum StoreType: String {

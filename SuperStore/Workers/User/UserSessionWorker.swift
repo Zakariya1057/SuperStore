@@ -16,6 +16,9 @@ class UserSessionWorker {
     private var networkManager: NetworkWorker = NetworkWorker()
     private var userStore: UserStoreProtocol = UserRealmStore()
     
+    private var regionWorker: RegionWorker = RegionWorker()
+    private var storeTypeWorker: StoreTypeWorker = StoreTypeWorker()
+    
     func getUserToken() -> String? {
         return userStore.getToken()
     }
@@ -25,7 +28,11 @@ class UserSessionWorker {
     }
     
     func getStore() -> Int {
-        return userStore.getStore() ?? 2
+        return storeTypeWorker.getSelectedStoreType().id
+    }
+    
+    func getRegion() -> Int {
+        return regionWorker.getSelectedRegion().id
     }
     
     func getUserNotificationToken() -> String? {
@@ -39,7 +46,6 @@ class UserSessionWorker {
     func logOutUser(){
         userStore.logoutUser()
     }
-    
     
     func isLoggedIn() -> Bool {
         return getUserToken() != nil

@@ -49,6 +49,18 @@ class UserSettingsWorker {
         })
     }
     
+    func updateRegion(regionID: Int, loggedIn: Bool, completionHandler: @escaping (_ error: String?) -> Void){
+        self.userStore.updateRegion(regionID: regionID)
+        
+        if loggedIn {
+            userAPI.updateRegion(regionID: regionID, completionHandler: { (error: String?) in
+                completionHandler(error)
+            })
+        } else {
+            completionHandler(nil)
+        }
+    }
+    
     func updateStore(storeTypeID: Int, loggedIn: Bool, completionHandler: @escaping (_ error: String?) -> Void){
         self.userStore.updateStore(storeTypeID: storeTypeID)
         
@@ -73,7 +85,9 @@ extension UserSettingsWorker {
     func logout(completionHandler: @escaping (_ error: String?) -> Void){
         
         userAPI.logout { (error: String?) in
-            print(error)
+            if let error = error {
+                print(error)
+            }
             completionHandler(nil)
         }
         
@@ -96,7 +110,10 @@ extension UserSettingsWorker {
 protocol UserRequestProtocol {
     func updateName(name: String, completionHandler: @escaping (_ error: String?) -> Void)
     func updateEmail(email: String, completionHandler: @escaping (_ error: String?) -> Void)
+    
+    func updateRegion(regionID: Int, completionHandler: @escaping (_ error: String?) -> Void)
     func updateStore(storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void)
+    
     func updatePassword(currentPassword: String, newPassword: String, confirmPassword: String, completionHandler: @escaping (_ error: String?) -> Void)
     func updateNotifications(sendNotifications: Bool, notificationToken: String?, completionHandler: @escaping (_ error: String?) -> Void)
     
@@ -113,12 +130,16 @@ protocol UserStoreProtocol {
     
     func updateName(name: String) -> Void
     func updateEmail(email: String) -> Void
+    
+    func updateRegion(regionID: Int) -> Void
     func updateStore(storeTypeID: Int) -> Void
     
     func logoutUser() -> Void
     func deleteUser() -> Void
     
     func getToken() -> String?
-    func getStore() -> Int?
     func getUserID() -> Int?
+    
+    func getStoreID() -> Int?
+    func getRegionID() -> Int?
 }
