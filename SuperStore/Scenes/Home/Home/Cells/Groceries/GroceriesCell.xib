@@ -17,17 +17,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="186"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="r7N-gL-Z8S">
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="r7N-gL-Z8S">
                         <rect key="frame" x="15" y="15" width="345" height="40"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q4V-WV-jXX">
-                                <rect key="frame" x="0.0" y="0.0" width="165" height="40"/>
+                                <rect key="frame" x="0.0" y="0.0" width="162.5" height="40"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Le3-FC-TXX">
-                                        <rect key="frame" x="34" y="0.0" width="97" height="40"/>
+                                        <rect key="frame" x="48.5" y="0.0" width="66" height="40"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCR-nz-0A7">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCR-nz-0A7">
+                                                <rect key="frame" x="-30" y="0.0" width="30" height="40"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bag" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="O6Y-2q-0br">
                                                         <rect key="frame" x="0.0" y="6.5" width="30" height="24"/>
@@ -44,7 +44,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUH-vU-Nec">
-                                                <rect key="frame" x="31" y="0.0" width="66" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="66" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="1mC-LY-39N"/>
                                                 </constraints>
@@ -65,12 +65,12 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2A4-rW-pSX">
-                                <rect key="frame" x="180" y="0.0" width="165" height="40"/>
+                                <rect key="frame" x="182.5" y="0.0" width="162.5" height="40"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="gIh-kf-5uJ">
-                                        <rect key="frame" x="46.5" y="0.0" width="72" height="40"/>
+                                        <rect key="frame" x="61" y="0.0" width="41" height="40"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h0m-76-gj2">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h0m-76-gj2">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tag.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3HM-4p-oYy">
@@ -88,7 +88,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bZ0-c5-42s">
-                                                <rect key="frame" x="31" y="0.0" width="41" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="41" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="AQf-9g-Ylj"/>
                                                 </constraints>
