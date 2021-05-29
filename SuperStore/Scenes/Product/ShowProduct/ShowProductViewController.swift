@@ -129,8 +129,16 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet weak var reviewsTableView: UITableView!
     
     @IBOutlet weak var monitorButton: UIButton!
+    @IBOutlet weak var recommendedView: UIView!
     @IBOutlet weak var recommendedTableView: UITableView!
     @IBOutlet weak var addToListButton: UIButton!
+    
+    @IBOutlet var descriptionStackView: UIStackView!
+    @IBOutlet var descriptionExpandView: UIView!
+    @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var descriptionButton: UIButton!
+    
+    var fullDescription: Bool = false
     
     var product: ProductModel!
     var displayedProduct: ShowProduct.DisplayedProduct?
@@ -203,16 +211,18 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                     oldPriceLabel.text = oldPrice
                 }
                 
+                displayDescription(description: displayedProduct.description)
+                
                 weightLabel.text = displayedProduct.weight
                 
                 if let review = displayedProduct.review {
                     reviews.append(review)
                     reviewsStackView.isHidden = false
-                    allReviewsButton.isHidden = false
+                    allReviewsView.isHidden = false
                     reviewsTableView.reloadData()
                 } else {
                     reviewsStackView.isHidden = true
-                    allReviewsButton.isHidden = true
+                    allReviewsView.isHidden = true
                 }
                 
                 ratingView.rating = displayedProduct.avgRating
@@ -244,9 +254,21 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 
                 recommendedProducts = displayedProduct.recommended
                 recommendedTableView.reloadData()
-                recommendedTableView.isHidden = recommendedProducts.count == 0
+                recommendedView.isHidden = recommendedProducts.count == 0
             }
         }
+    }
+    
+    func displayDescription(description: String){
+        if description == "" {
+            descriptionStackView.isHidden = true
+        } else {
+            descriptionStackView.isHidden = false
+            descriptionLabel.text = description
+            
+            descriptionExpandView.isHidden = description.count < 150
+        }
+       
     }
     
     func displayFeatures(product: ShowProduct.DisplayedProduct){
@@ -408,6 +430,25 @@ extension ShowProductViewController {
     
 }
 
+extension ShowProductViewController {
+    func setupDescriptionGesture(){
+        let descriptionGesture = UITapGestureRecognizer(target: self, action: #selector(expandMinimiseDescription))
+        descriptionStackView.addGestureRecognizer(descriptionGesture)
+    }
+    
+    @objc func expandMinimiseDescription(){
+        descriptionLabel.numberOfLines = fullDescription ? 3 : 0
+        fullDescription = !fullDescription
+        showDescriptionButton()
+    }
+    
+    func showDescriptionButton(){
+        // Expand Or Minimise
+        let imageName: String = fullDescription ? "chevron.up" : "chevron.down"
+        descriptionButton.setImage(UIImage(systemName: imageName)!, for: .normal)
+    }
+}
+
 //MARK: - Setup View Gestures
 extension ShowProductViewController {
     
@@ -429,6 +470,8 @@ extension ShowProductViewController {
         
         let categoriesPressedGesture = UITapGestureRecognizer(target: self, action: #selector(categoriesButtonPressed))
         categoriesView.addGestureRecognizer(categoriesPressedGesture)
+        
+        setupDescriptionGesture()
     }
     
     @objc func promotionButtonPressed(){
