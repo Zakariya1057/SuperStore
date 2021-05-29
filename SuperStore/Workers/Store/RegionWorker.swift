@@ -10,7 +10,7 @@ import Foundation
 
 class RegionWorker
 {
-    private var defaultRegionID: Int = 3
+    private var defaultRegionID: Int = 1
     
     private var userStore: UserStoreProtocol = UserRealmStore()
     
@@ -38,6 +38,6 @@ class RegionWorker
     func getRegionName(regionID: Int) -> String {
         return regions.first { (region: RegionModel) in
             return region.id == regionID
-        }!.name
+        }?.name ?? regions.first!.name
     }
 }

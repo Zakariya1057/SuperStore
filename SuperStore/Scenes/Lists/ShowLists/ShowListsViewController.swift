@@ -171,7 +171,6 @@ class ShowListsViewController: UIViewController, ShowListsDisplayLogic
             showError(title: "List Sync Error", error: error)
         }
     }
-    
 }
 
 extension ShowListsViewController: UITableViewDataSource, UITableViewDelegate {

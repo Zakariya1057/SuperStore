@@ -16,12 +16,12 @@ class StoreTypeWorker
     private var userStore: UserStoreProtocol = UserRealmStore()
     
     private var storeTypes: [StoreTypeModel] = [
-        StoreTypeModel(
-            id: 1,
-            name: "Asda",
-            type: .asda,
-            color: UIColor(red:0.51, green:0.67, blue:0.24, alpha:1.0)
-        ),
+//        StoreTypeModel(
+//            id: 1,
+//            name: "Asda",
+//            type: .asda,
+//            color: UIColor(red:0.51, green:0.67, blue:0.24, alpha:1.0)
+//        ),
         
         StoreTypeModel(
             id: 2,
@@ -46,6 +46,6 @@ class StoreTypeWorker
     func getStoreName(storeTypeID: Int) -> String {
         return storeTypes.first { (storeType: StoreTypeModel) in
             return storeType.id == storeTypeID
-        }!.name
+        }?.name ?? storeTypes.first!.name
     }
 }
