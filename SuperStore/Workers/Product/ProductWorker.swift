@@ -38,14 +38,14 @@ class ProductWorker {
 
 extension ProductWorker {
     
-    func getMonitoredProducts(storeTypeID: Int, completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void){
+    func getMonitoredProducts(regionID: Int, storeTypeID: Int, completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void){
         let products = productStore.getMonitoredProducts(storeTypeID: storeTypeID)
         
         if products.count > 0 {
             completionHandler(products, nil)
         }
         
-        productAPI.getMonitoredProducts(storeTypeID: storeTypeID) { (products: [ProductModel], error: String?) in
+        productAPI.getMonitoredProducts(regionID: regionID, storeTypeID: storeTypeID) { (products: [ProductModel], error: String?) in
             if error == nil {
                 self.productStore.unmonitorAllProducts(storeTypeID: storeTypeID)
                 self.productStore.createProducts(products: products)
@@ -69,7 +69,7 @@ extension ProductWorker {
 protocol ProductRequestProtocol {
     func getProduct(regionID: Int, productID: Int, completionHandler: @escaping (_ product: ProductModel?, _ error: String?) -> Void)
     
-    func getMonitoredProducts(storeTypeID: Int, completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void)
+    func getMonitoredProducts(regionID: Int, storeTypeID: Int, completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void)
     func updateMonitor(productID: Int, monitor: Bool, completionHandler: @escaping (String?) -> Void)
 }
 

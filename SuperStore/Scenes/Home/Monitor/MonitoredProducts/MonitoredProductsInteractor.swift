@@ -22,6 +22,7 @@ protocol MonitoredProductsBusinessLogic
 
 protocol MonitoredProductsDataStore
 {
+    var regionID: Int { get set }
     var storeTypeID: Int { get set }
     var selectedProductID: Int? { get set }
 }
@@ -33,13 +34,15 @@ class MonitoredProductsInteractor: MonitoredProductsBusinessLogic, MonitoredProd
     var productWorker: ProductWorker = ProductWorker(productAPI: ProductAPI())
     
     var storeTypeID: Int = 2
+    var regionID: Int = 1
+    
     var selectedProductID: Int? = nil
     
     var userSession: UserSessionWorker = UserSessionWorker()
     
     func getMonitoredProducts(request: MonitoredProducts.GetMonitoredProducts.Request)
     {
-        productWorker.getMonitoredProducts(storeTypeID: storeTypeID, completionHandler: { (products: [ProductModel], error: String?) in
+        productWorker.getMonitoredProducts(regionID: regionID, storeTypeID: storeTypeID, completionHandler: { (products: [ProductModel], error: String?) in
             var response = MonitoredProducts.GetMonitoredProducts.Response(products: products, error: error)
             
             if error != nil {

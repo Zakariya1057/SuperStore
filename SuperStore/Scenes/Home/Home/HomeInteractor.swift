@@ -34,6 +34,7 @@ protocol HomeDataStore
     var selectedPromotionID: Int? { get set }
     var selectedStoreID: Int? { get set }
     
+    var regionID: Int { get }
     var storeTypeID: Int { get }
     
     var viewAllSelectedParentCategoryName: String? { get set }

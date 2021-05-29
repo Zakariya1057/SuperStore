@@ -32,10 +32,10 @@ class ProductAPI: API, ProductRequestProtocol {
 
 extension ProductAPI {
     
-    func getMonitoredProducts(storeTypeID: Int, completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void){
+    func getMonitoredProducts(regionID: Int, storeTypeID: Int, completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void){
         let url = Config.Route.Monitor.Products
         
-        requestWorker.post(url: url, data: ["store_type_id": storeTypeID]) { (response: () throws -> Data) in
+        requestWorker.post(url: url, data: ["region_id": regionID, "store_type_id": storeTypeID]) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let productDataResponse =  try self.jsonDecoder.decode(MonitoredProductsDataResponse.self, from: data)
