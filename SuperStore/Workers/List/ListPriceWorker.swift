@@ -10,17 +10,22 @@ import Foundation
 
 class ListPriceWorker {
     
-    func calculateItemPrice(listItem: ListItemModel) -> Double {
+    func calculateItemPrice(listItem: ListItemModel, includeMaxCalculation: Bool = true) -> Double {
         var price:Double = 0
         
         let quantity = listItem.quantity
         let itemPrice = listItem.price
         let promotion = listItem.promotion
         
-        if promotion == nil || ( promotion!.quantity == nil && promotion!.minimum == nil ){
+        if promotion == nil ||
+            (
+            promotion!.quantity == nil && promotion!.minimum == nil &&
+            (!includeMaxCalculation || includeMaxCalculation && promotion!.maximum == nil)
+        )
+        {
             price = ( Double(quantity) * itemPrice)
         } else {
-
+            
             if let promotion = promotion {
                 
                 if let minimum = promotion.minimum {
@@ -29,8 +34,17 @@ class ListPriceWorker {
                     } else {
                         price = ( Double(quantity) * itemPrice )
                     }
-                    
-                } else {
+                }
+                else if includeMaxCalculation, let maximum = promotion.maximum {
+                    for i in 0..<quantity {
+                        if i < maximum {
+                            price += promotion.price!
+                        } else {
+                            price += itemPrice
+                        }
+                    }
+                }
+                else {
                     if let promotionQuantity = promotion.quantity {
                         
                         let remainder = (quantity % promotionQuantity)
@@ -45,11 +59,10 @@ class ListPriceWorker {
                                 price = (Double(goesIntoFully) * promotion.price!) + (Double(remainder) * itemPrice)
                             }
                         }
-                        
-                    }
-                }
-                
 
+                    }
+                    
+                }
                 
             }
 
@@ -57,8 +70,7 @@ class ListPriceWorker {
         
         return price
     }
-        
-    
+       
     func calculateListPrice(items: [ListItemModel]) -> (Double, Double?){
 
         var totalPrice: Double = 0.00
@@ -71,40 +83,44 @@ class ListPriceWorker {
 
         for product in items {
 
-            let itemPrice = ( Double(product.quantity) * product.price )
-            
-            if let promotion = product.promotion {
-                if promotion.quantity != nil || promotion.minimum != nil {
-                    if let _ = promotions[product.promotion!.id] {
-                        promotions[promotion.id]!["items"]!.append(product)
+            for _ in 1...product.quantity {
+                
+                let itemPrice = product.price
+                
+                if let promotion = product.promotion {
+                    if promotion.quantity != nil || promotion.minimum != nil || promotion.maximum != nil {
+                        if let _ = promotions[product.promotion!.id] {
+                            promotions[promotion.id]!["items"]!.append(product)
+                        } else {
+                            promotions[promotion.id] = ["items": [product], "promotion": [product.promotion!]]
+                        }
                     } else {
-                        promotions[promotion.id] = ["items": [product], "promotion": [product.promotion!]]
+                        totalPriceWithoutPromotionItems += itemPrice
                     }
                 } else {
                     totalPriceWithoutPromotionItems += itemPrice
                 }
-            } else {
-                totalPriceWithoutPromotionItems += itemPrice
+                
+                totalPrice += calculateItemPrice(listItem: product, includeMaxCalculation: false)
+                priceNoPromotion += itemPrice
+                
             }
-            
-            totalPrice += calculateItemPrice(listItem: product)
-            priceNoPromotion += itemPrice
         }
 
         var promotionTotalPrice: Double = 0
+        
         
         for promotion in promotions {
             let items = promotion.value["items"] as! [ListItemModel]
             let promotion = promotion.value["promotion"]![0] as! PromotionModel
 
-            var totalQuantity = 0
+            let totalQuantity = items.count
             var totalItemsPrice: Double = 0
             
             for product in items {
-                totalQuantity += product.quantity
-                totalItemsPrice += ( Double(product.quantity) * product.price )
+                totalItemsPrice += product.price
             }
-
+            
             if let promotionQuantity = promotion.quantity {
                 
                 // Calculate Product Promotion By Group.
@@ -140,6 +156,14 @@ class ListPriceWorker {
                     promotionTotalPrice += Double(totalQuantity) * promotion.price!
                 } else {
                     promotionTotalPrice += totalItemsPrice
+                }
+            } else if let promotionMaximumQuantity = promotion.maximum {
+                for (index, product) in items.enumerated() {
+                    if index < promotionMaximumQuantity {
+                        promotionTotalPrice += promotion.price!
+                    } else {
+                        promotionTotalPrice += product.price
+                    }
                 }
             } else {
                 promotionTotalPrice += totalItemsPrice
