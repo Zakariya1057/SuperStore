@@ -12,9 +12,9 @@ struct Config {
     
     struct Route {
         
-//        private static let Host: String = "http://192.168.1.100/api"
+        private static let Host: String = "http://192.168.1.213/api"
 //        private static let Host: String = "http://2.27.142.255/api"
-        private static let Host: String = "http://superstoresite.com/api"
+//        private static let Host: String = "http://superstoresite.com/api"
         
         public struct User {
             
@@ -283,6 +283,10 @@ struct Config {
             public static var All: String {
                 return PromotionRoute + "/all"
             }
+        }
+        
+        public static var Flyers: String {
+            return Host + "/flyers/store/"
         }
     }
     
