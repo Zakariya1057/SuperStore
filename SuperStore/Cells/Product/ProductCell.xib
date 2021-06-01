@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -141,6 +142,7 @@
                                                         <subviews>
                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" value="1" maximumValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Dkq-5d-Un9">
                                                                 <rect key="frame" x="38" y="1.5" width="94" height="32"/>
+                                                                <color key="tintColor" name="LightBlack"/>
                                                                 <connections>
                                                                     <action selector="stepperPressed:" destination="KGk-i7-Jjw" eventType="valueChanged" id="a4T-l1-TNQ"/>
                                                                 </connections>
@@ -166,16 +168,17 @@
                                                     <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J6Z-Ao-uRh">
                                                         <rect key="frame" x="263.5" y="0.0" width="131.5" height="35"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dk3-Sy-9OV">
-                                                                <rect key="frame" x="46.5" y="0.0" width="85" height="35"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dk3-Sy-9OV">
+                                                                <rect key="frame" x="71.5" y="0.0" width="60" height="35"/>
                                                                 <color key="backgroundColor" red="0.098039215690000001" green="0.46299999949999998" blue="0.80400002000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="85" id="3GS-2V-hHa"/>
+                                                                    <constraint firstAttribute="width" constant="60" id="3GS-2V-hHa"/>
                                                                     <constraint firstAttribute="height" constant="35" id="9tj-fd-YXf"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                                                <state key="normal" title="Add">
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" image="plus" catalog="system">
                                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="21" weight="medium"/>
                                                                 </state>
                                                                 <connections>
                                                                     <action selector="addButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Fqr-Ac-6l3"/>
@@ -229,7 +232,7 @@
                 <outletCollection property="loadingViews" destination="f0j-5Z-GdY" collectionClass="NSMutableArray" id="Xwe-yS-gdP"/>
                 <outletCollection property="loadingViews" destination="AwN-09-Y6N" collectionClass="NSMutableArray" id="cPT-ms-NpG"/>
             </connections>
-            <point key="canvasLocation" x="126.08695652173914" y="125.89285714285714"/>
+            <point key="canvasLocation" x="116" y="126"/>
         </tableViewCell>
     </objects>
     <designables>
@@ -238,6 +241,10 @@
         </designable>
     </designables>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <namedColor name="LightBlack">
+            <color red="0.48899999260902405" green="0.48899999260902405" blue="0.48899999260902405" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

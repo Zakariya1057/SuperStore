@@ -79,6 +79,9 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        addBorders()
+        
         getProduct()
         setupImageSlider()
         registerReviewsTableView()
@@ -117,9 +120,13 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var oldPriceLabel: UILabel!
-    @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var lifeStyleLabel: UILabel!
     @IBOutlet weak var allergenLabel: UILabel!
+    
+    @IBOutlet var favouriteButton: UIButton!
+    
+    @IBOutlet weak var weightLabel: UILabel!
+    @IBOutlet var weightView: UIView!
     
     @IBOutlet weak var categoriesNameLabel: UILabel!
     @IBOutlet weak var promotionLabel: UILabel!
@@ -187,8 +194,8 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 
                 getListItem()
                 
-                updateFavouriteButton(favourite: displayedProduct.favourite)
-                updateMonitorButton(monitor: displayedProduct.monitoring)
+                toggleFavouriteButton(favourite: displayedProduct.favourite)
+                toggleMonitorButton(monitor: displayedProduct.monitoring)
                 
                 var images: [String] = []
                 
@@ -359,27 +366,42 @@ extension ShowProductViewController {
 }
 
 extension ShowProductViewController {
-    func updateMonitorButton(monitor: Bool){
-        if monitor {
-            monitorButton.setTitle("Stop Monitoring", for: .normal)
-        } else {
-            monitorButton.setTitle("Monitor Price", for: .normal)
-        }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+       if (traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection)) {
+            weightView.layer.borderColor = UIColor(named: "LightGrey")!.cgColor
+            addButton.layer.borderColor = UIColor(named: "LogoBlue.Light")!.cgColor
+       }
     }
     
-    func updateFavouriteButton(favourite: Bool) {
+    func addBorders(){
+        let views: [UIView] = [weightView, addButton]
+        
+        for (index, view) in views.enumerated() {
+            view.layer.borderWidth = 2
+            view.layer.borderColor = UIColor(named: index == 0 ? "LightGrey" : "LogoBlue.Light")!.cgColor
+            view.layer.cornerRadius = 4
+        }
+    }
+}
+extension ShowProductViewController {
+    func toggleMonitorButton(monitor: Bool) {
         let barItem:UIBarButtonItem
         
-        if favourite == true {
-            barItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(favouriteButtonPressed))
-            barItem.image = UIImage(systemName: "star.fill")
+        if monitor == true {
+            barItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(monitorButtonPressed))
+            barItem.image = UIImage(systemName: "bell.fill")
         } else {
-            barItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(favouriteButtonPressed))
-            barItem.image = UIImage(systemName: "star")
+            barItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(monitorButtonPressed))
+            barItem.image = UIImage(systemName: "bell")
         }
         
         barItem.tintColor = .systemYellow
         self.navigationItem.rightBarButtonItem = barItem
+    }
+    
+    func toggleFavouriteButton(favourite: Bool) {
+        let imageName: String = favourite ? "suit.heart.fill" : "suit.heart"
+        favouriteButton.setImage(UIImage(systemName: imageName)!, for: .normal)
     }
 }
 
@@ -393,7 +415,7 @@ extension ShowProductViewController {
                 let monitoring: Bool = !displayedProduct.monitoring
                 self.displayedProduct!.monitoring = monitoring
                 
-                updateMonitorButton(monitor: monitoring)
+                toggleMonitorButton(monitor: monitoring)
                 
                 let request = ShowProduct.UpdateMonitoring.Request(monitor: monitoring)
                 interactor?.updateMonitoring(request: request)
@@ -410,7 +432,7 @@ extension ShowProductViewController {
             if let displayedProduct = displayedProduct {
                 let favourite: Bool = !displayedProduct.favourite
                 
-                updateFavouriteButton(favourite: favourite)
+                toggleFavouriteButton(favourite: favourite)
                 
                 let request = ShowProduct.UpdateFavourite.Request(favourite: favourite)
                 interactor?.updateFavourite(request: request)
