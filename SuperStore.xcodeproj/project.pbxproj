@@ -1008,7 +1008,6 @@
 			isa = PBXGroup;
 			children = (
 				2C1429AF25F38F96007D1EB7 /* StoreWorker.swift */,
-				2C7AE0C1265ECBEB00ADF53A /* RegionWorker.swift */,
 				2CD72299265A5ACB00D1D112 /* FlyerWorker.swift */,
 				2C7AE0BF265EB55600ADF53A /* StoreTypeWorker.swift */,
 			);
@@ -1894,6 +1893,7 @@
 				2C55F9D525EE4077007BBFA8 /* Search */,
 				2CA11F9525EF90410054AE19 /* Grocery */,
 				2CB911D925F11D3600A8FC66 /* List */,
+				2CE71F632667EBC00037BDDD /* Region */,
 				2C1429AE25F38F87007D1EB7 /* Store */,
 				2CF7A59D25FAB20300172839 /* Home */,
 				2CAB2EF325FFF6990014FE8D /* Location */,
@@ -2405,6 +2405,14 @@
 				2C72949725ECEA1700D280B3 /* FeaturedProductCollection */,
 			);
 			path = Collections;
+			sourceTree = "<group>";
+		};
+		2CE71F632667EBC00037BDDD /* Region */ = {
+			isa = PBXGroup;
+			children = (
+				2C7AE0C1265ECBEB00ADF53A /* RegionWorker.swift */,
+			);
+			path = Region;
 			sourceTree = "<group>";
 		};
 		2CF7A59825FAB18A00172839 /* Home */ = {
