@@ -1651,7 +1651,7 @@
                                                                                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="35"/>
                                                                                                                 <subviews>
                                                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFG-eX-umO" customClass="CosmosView" customModule="Cosmos">
-                                                                                                                        <rect key="frame" x="74.5" y="2" width="235" height="31"/>
+                                                                                                                        <rect key="frame" x="72" y="1.5" width="240" height="32"/>
                                                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                                                         <userDefinedRuntimeAttributes>
                                                                                                                             <userDefinedRuntimeAttribute type="number" keyPath="rating">
@@ -1661,7 +1661,7 @@
                                                                                                                                 <integer key="value" value="5"/>
                                                                                                                             </userDefinedRuntimeAttribute>
                                                                                                                             <userDefinedRuntimeAttribute type="number" keyPath="starSize">
-                                                                                                                                <real key="value" value="31"/>
+                                                                                                                                <real key="value" value="32"/>
                                                                                                                             </userDefinedRuntimeAttribute>
                                                                                                                             <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
                                                                                                                                 <integer key="value" value="1"/>
@@ -1793,9 +1793,9 @@
                                                                                                                         <rect key="frame" x="249" y="5" width="135" height="38"/>
                                                                                                                         <subviews>
                                                                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGm-iR-Eia">
-                                                                                                                                <rect key="frame" x="85" y="0.0" width="50" height="38"/>
+                                                                                                                                <rect key="frame" x="90" y="0.0" width="45" height="38"/>
                                                                                                                                 <constraints>
-                                                                                                                                    <constraint firstAttribute="width" constant="50" id="CjQ-Hj-loi"/>
+                                                                                                                                    <constraint firstAttribute="width" constant="45" id="CjQ-Hj-loi"/>
                                                                                                                                 </constraints>
                                                                                                                                 <color key="tintColor" name="LogoBlue.Light"/>
                                                                                                                                 <state key="normal" image="plus" catalog="system">
@@ -2647,6 +2647,7 @@
                         <outlet property="slideshow" destination="KU0-eD-br2" id="DEs-uB-5A2"/>
                         <outlet property="stepperStackView" destination="VrZ-vP-b1p" id="X0L-mO-tOZ"/>
                         <outlet property="weightLabel" destination="EXx-ON-gGI" id="1IQ-fj-I9c"/>
+                        <outlet property="weightParentView" destination="tgh-rd-5xu" id="jxQ-xI-cS5"/>
                         <outlet property="weightView" destination="ZKb-hb-XhY" id="2Xh-eZ-25f"/>
                         <segue destination="GlI-wz-KoF" kind="show" identifier="showProductDetails" id="k0H-Uq-sqx"/>
                         <segue destination="NiB-m5-sPY" kind="show" identifier="ShowPromotion" id="oKE-l5-P9g"/>
@@ -3164,7 +3165,7 @@
             <objects>
                 <viewController id="HXj-j2-Hvf" customClass="ShowRefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wxa-Ye-bc0">
@@ -5043,7 +5044,7 @@
             <size key="intrinsicContentSize" width="255" height="35"/>
         </designable>
         <designable name="tFG-eX-umO">
-            <size key="intrinsicContentSize" width="234.849609375" height="31"/>
+            <size key="intrinsicContentSize" width="239.849609375" height="32"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>

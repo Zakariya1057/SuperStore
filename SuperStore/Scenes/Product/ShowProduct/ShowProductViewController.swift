@@ -126,6 +126,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet var favouriteButton: UIButton!
     
     @IBOutlet weak var weightLabel: UILabel!
+    @IBOutlet var weightParentView: UIView!
     @IBOutlet var weightView: UIView!
     
     @IBOutlet weak var categoriesNameLabel: UILabel!
@@ -197,53 +198,23 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 toggleFavouriteButton(favourite: displayedProduct.favourite)
                 toggleMonitorButton(monitor: displayedProduct.monitoring)
                 
-                var images: [String] = []
+                displayImages(largeImage: displayedProduct.largeImage, images: displayedProduct.images)
                 
-                if let image = displayedProduct.largeImage {
-                    images.append(image)
-                }
+                displayName(name: displayedProduct.name)
                 
-                for image in displayedProduct.images {
-                    images.append(image)
-                }
-                
-                createSlideShowImages(images: images)
-                
-                nameLabel.text = displayedProduct.name
-                
-                priceLabel.text = displayedProduct.price
-                oldPriceView.isHidden = displayedProduct.oldPrice == nil
-                
-                if let oldPrice = displayedProduct.oldPrice {
-                    oldPriceLabel.text = oldPrice
-                }
+                displayPrice(price: displayedProduct.price, oldPrice:  displayedProduct.oldPrice)
                 
                 displayDescription(description: displayedProduct.description)
                 
-                weightLabel.text = displayedProduct.weight
+                displayWeight(weight: displayedProduct.weight)
                 
-                if let review = displayedProduct.review {
-                    reviews.append(review)
-                    reviewsStackView.isHidden = false
-                    allReviewsView.isHidden = false
-                    reviewsTableView.reloadData()
-                } else {
-                    reviewsStackView.isHidden = true
-                    allReviewsView.isHidden = true
-                }
+                displayReview(review: displayedProduct.review, totalReviewsCount: displayedProduct.totalReviewsCount)
+
+                displayRating(rating: displayedProduct.avgRating, totalReviews: displayedProduct.totalReviewsCount)
                 
-                ratingView.rating = displayedProduct.avgRating
-                ratingView.text = "(\(displayedProduct.totalReviewsCount))"
+                displayIngredients(ingredients: displayedProduct.ingredients)
                 
-                allReviewsButton.setTitle("All Reviews (\(displayedProduct.totalReviewsCount))", for: .normal)
-                
-                ingredientsView.isHidden = displayedProduct.ingredients.count == 0
-                
-                promotionView.isHidden = displayedProduct.promotion == nil
-                
-                if let promotion = displayedProduct.promotion {
-                    promotionLabel.text = promotion.name
-                }
+                displayPromotion(promotion: displayedProduct.promotion)
                 
                 displayFeatures(product: displayedProduct)
                 displayDimensions(product: displayedProduct)
@@ -251,18 +222,77 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 displayAllergen(product: displayedProduct)
                 displaydietary(product: displayedProduct)
                 
+                displayCategory(category: displayedProduct.category)
                 
-                if let category = displayedProduct.category {
-                    categoriesView.isHidden = false
-                    categoriesNameLabel.text = category.name
-                } else {
-                    categoriesView.isHidden = true
-                }
-                
-                recommendedProducts = displayedProduct.recommended
-                recommendedTableView.reloadData()
-                recommendedView.isHidden = recommendedProducts.count == 0
+                displayRecommended(recommended: displayedProduct.recommended)
             }
+        }
+    }
+    
+    func displayListItem(viewModel: ShowProduct.GetListItem.ViewModel) {
+        if let listItem = viewModel.listItem {
+            displayStepper()
+            displayQuantity(quantity: listItem.quantity)
+        }
+    }
+    
+    func displayCreatedListItem(viewModel: ShowProduct.CreateListItem.ViewModel) {
+        // Update quantity, hide add button if success
+        if let error = viewModel.error, !viewModel.offline {
+            showError(title: "List Error", error: error)
+        } else {
+            if let listItem = viewModel.listItem {
+                displayStepper()
+                displayQuantity(quantity: listItem.quantity)
+            } else if viewModel.offline {
+                displayStepper()
+                displayQuantity(quantity: 1)
+            }
+        }
+        
+    }
+    
+    func displayUpdatedListItem(viewModel: ShowProduct.UpdateListItem.ViewModel) {
+        if let error = viewModel.error, !viewModel.offline {
+            showError(title: "List Error", error: error)
+        }
+    }
+}
+
+extension ShowProductViewController {
+    
+    func displayPromotion(promotion: ShowProduct.DisplayedPromotion?){
+        promotionView.isHidden = promotion == nil
+        
+        if let promotion = promotion {
+            promotionLabel.text = promotion.name
+        }
+    }
+    
+    func displayName(name: String){
+        nameLabel.text = name
+    }
+
+    func displayImages(largeImage: String?, images productImages: [String]){
+        var images: [String] = []
+        
+        if let image = largeImage {
+            images.append(image)
+        }
+        
+        for image in productImages {
+            images.append(image)
+        }
+        
+        createSlideShowImages(images: images)
+    }
+    
+    func displayPrice(price: String, oldPrice: String?){
+        priceLabel.text = price
+        oldPriceView.isHidden = oldPrice == nil
+        
+        if let oldPrice = oldPrice {
+            oldPriceLabel.text = oldPrice
         }
     }
     
@@ -276,6 +306,51 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
             descriptionExpandView.isHidden = description.count < 150
         }
        
+    }
+    
+    func displayWeight(weight: String?){
+        weightParentView.isHidden = weight == nil
+        
+        if let weight = weight {
+            weightLabel.text = weight
+        }
+    }
+    
+    func displayReview(review: ReviewModel?, totalReviewsCount: Int){
+        allReviewsButton.setTitle("All Reviews (\(totalReviewsCount))", for: .normal)
+        
+        if let review = review {
+            reviews.append(review)
+            reviewsStackView.isHidden = false
+            allReviewsView.isHidden = false
+            reviewsTableView.reloadData()
+        } else {
+            reviewsStackView.isHidden = true
+            allReviewsView.isHidden = true
+        }
+    }
+    
+    func displayRating(rating: Double, totalReviews: Int){
+        ratingView.rating = rating
+        ratingView.text = "(\(totalReviews))"
+    }
+    
+    func displayIngredients(ingredients: [String]){
+        ingredientsView.isHidden = ingredients.count == 0
+    }
+    
+    func displayCategory(category: ShowProduct.DisplayedCategory?){
+        categoriesView.isHidden = category == nil
+        
+        if let category = category {
+            categoriesNameLabel.text = category.name
+        }
+    }
+    
+    func displayRecommended(recommended: [ProductModel]){
+        recommendedProducts = recommended
+        recommendedTableView.reloadData()
+        recommendedView.isHidden = recommendedProducts.count == 0
     }
     
     func displayFeatures(product: ShowProduct.DisplayedProduct){
@@ -315,35 +390,6 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     func displayFavourite(viewModel: ShowProduct.UpdateFavourite.ViewModel) {
         if let error = viewModel.error {
             showError(title: "Favourite Error", error: error)
-        }
-    }
-    
-    func displayListItem(viewModel: ShowProduct.GetListItem.ViewModel) {
-        if let listItem = viewModel.listItem {
-            displayStepper()
-            displayQuantity(quantity: listItem.quantity)
-        }
-    }
-    
-    func displayCreatedListItem(viewModel: ShowProduct.CreateListItem.ViewModel) {
-        // Update quantity, hide add button if success
-        if let error = viewModel.error, !viewModel.offline {
-            showError(title: "List Error", error: error)
-        } else {
-            if let listItem = viewModel.listItem {
-                displayStepper()
-                displayQuantity(quantity: listItem.quantity)
-            } else if viewModel.offline {
-                displayStepper()
-                displayQuantity(quantity: 1)
-            }
-        }
-        
-    }
-    
-    func displayUpdatedListItem(viewModel: ShowProduct.UpdateListItem.ViewModel) {
-        if let error = viewModel.error, !viewModel.offline {
-            showError(title: "List Error", error: error)
         }
     }
 }
