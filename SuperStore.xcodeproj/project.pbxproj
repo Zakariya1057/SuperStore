@@ -1393,6 +1393,7 @@
 			children = (
 				2C72943525EBE73100D280B3 /* User */,
 				2C72944B25EBE76600D280B3 /* Product */,
+				2CE71F64266931F10037BDDD /* Promotion */,
 				2C6146C125F2973400D92CB7 /* List */,
 				2C52E0C5266023A200FCF3BB /* Groceries */,
 				2C52E0C12660056400FCF3BB /* Store */,
@@ -1408,8 +1409,9 @@
 			isa = PBXGroup;
 			children = (
 				2CC0ADE325FA1D4F00373AC4 /* Store */,
-				2C5C985B25F69AE400DF8B6D /* Product */,
 				2C5C986525F69B0C00DF8B6D /* Grocery */,
+				2C5C985B25F69AE400DF8B6D /* Product */,
+				2CE71F65266935E90037BDDD /* Promotion */,
 				2C5C985225F69A9E00DF8B6D /* Search */,
 				2C5C984F25F69A7900DF8B6D /* List */,
 				2C5C986225F69AF700DF8B6D /* User */,
@@ -1558,8 +1560,6 @@
 			isa = PBXGroup;
 			children = (
 				2C5C985C25F69AF100DF8B6D /* ProductRealmStore.swift */,
-				2CC0ADDF25F969BD00373AC4 /* PromotionRealmStore.swift */,
-				2C65D9CF2646A1B400AC3F7E /* PromotionGroupRealmStore.swift */,
 				2CC0ADDB25F9243500373AC4 /* ReviewRealmStore.swift */,
 			);
 			path = Product;
@@ -1757,7 +1757,6 @@
 			children = (
 				2C2BC7E725EAFCFB0038882B /* ProductAPI.swift */,
 				2C72949D25ECEAC300D280B3 /* FavouriteAPI.swift */,
-				2C72945325EBE77900D280B3 /* PromotionAPI.swift */,
 				2C2BC84C25EBC2460038882B /* ReviewAPI.swift */,
 			);
 			path = Product;
@@ -2413,6 +2412,23 @@
 				2C7AE0C1265ECBEB00ADF53A /* RegionWorker.swift */,
 			);
 			path = Region;
+			sourceTree = "<group>";
+		};
+		2CE71F64266931F10037BDDD /* Promotion */ = {
+			isa = PBXGroup;
+			children = (
+				2C72945325EBE77900D280B3 /* PromotionAPI.swift */,
+			);
+			path = Promotion;
+			sourceTree = "<group>";
+		};
+		2CE71F65266935E90037BDDD /* Promotion */ = {
+			isa = PBXGroup;
+			children = (
+				2CC0ADDF25F969BD00373AC4 /* PromotionRealmStore.swift */,
+				2C65D9CF2646A1B400AC3F7E /* PromotionGroupRealmStore.swift */,
+			);
+			path = Promotion;
 			sourceTree = "<group>";
 		};
 		2CF7A59825FAB18A00172839 /* Home */ = {

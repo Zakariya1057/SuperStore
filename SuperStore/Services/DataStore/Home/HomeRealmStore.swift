@@ -83,14 +83,13 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
         }
         
         let listLimit: Int = 4
-        let storeLimit: Int = 10
+        let storeLimit: Int = 20
         
         let lists: [ListModel] = getLists(storeTypeID: storeTypeID, limit: listLimit)
         let stores: [StoreModel] = getStores(storeTypeID: storeTypeID, limit: storeLimit)
         let featured: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: savedHome?.featured)
         let groceries: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: savedHome?.groceries)
         let monitoring: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: savedHome?.monitoring)
-        let on_sale: [ProductModel] = getProducts(storeTypeID: storeTypeID, savedProducts: savedHome?.on_sale)
         let promotions: [PromotionModel] = getPromotions(storeTypeID: storeTypeID, savedHome: savedHome)
         let categories: [ChildCategoryModel] = getCategories(storeTypeID: storeTypeID, savedHome: savedHome)
         

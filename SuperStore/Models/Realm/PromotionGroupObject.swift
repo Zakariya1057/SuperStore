@@ -11,6 +11,8 @@ import RealmSwift
 
 class PromotionGroupObject: Object {
     @objc dynamic var title: String = ""
+    
+    @objc dynamic var regionID: Int = 1
     @objc dynamic var storeTypeID: Int = 1
     
     var promotions = List<PromotionObject>()
@@ -19,11 +21,16 @@ class PromotionGroupObject: Object {
     @objc dynamic var updatedAt: Date = Date()
     
     func getPromotionGroupModel() -> PromotionGroupModel {
-        return PromotionGroupModel(title: title, storeTypeID: storeTypeID, promotions: promotions.map{ $0.getPromotionModel() })
+        return PromotionGroupModel(
+            title: title,
+            regionID: regionID,
+            storeTypeID: storeTypeID,
+            promotions: promotions.map{ $0.getPromotionModel() }
+        )
     }
     
     override static func indexedProperties() -> [String] {
-        return ["storeTypeID"]
+        return ["regionID", "storeTypeID"]
     }
 }
 

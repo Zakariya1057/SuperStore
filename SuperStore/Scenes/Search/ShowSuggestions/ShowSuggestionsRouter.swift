@@ -115,6 +115,5 @@ class ShowSuggestionsRouter: BackToShowListRouter, ShowSuggestionsRoutingLogic, 
     
     func passDataToAllOffers(source: ShowSuggestionsDataStore, destination: inout AllPromotionsDataStore)
     {
-        destination.storeTypeID = source.storeTypeID
     }
 }

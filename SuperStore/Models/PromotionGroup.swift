@@ -10,6 +10,7 @@ import Foundation
 
 struct PromotionGroupModel {
     var title: String
+    var regionID: Int
     var storeTypeID: Int
     var promotions: [PromotionModel] = []
 }

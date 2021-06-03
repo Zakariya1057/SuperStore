@@ -20,7 +20,6 @@ protocol AllPromotionsBusinessLogic
 
 protocol AllPromotionsDataStore
 {
-    var storeTypeID: Int { get set }
     var selectedPromotionGroup: PromotionGroupModel? { get set }
 }
 
@@ -29,15 +28,22 @@ class AllPromotionsInteractor: AllPromotionsBusinessLogic, AllPromotionsDataStor
     
     var presenter: AllPromotionsPresentationLogic?
     var promotionWorker = PromotionWorker(promotionAPI: PromotionAPI())
-
-    var storeTypeID: Int = 2
+    
     var selectedPromotionGroup: PromotionGroupModel? = nil
     
     var userSession: UserSessionWorker = UserSessionWorker()
     
+    var storeTypeID: Int {
+        userSession.getStore()
+    }
+    
+    var regionID: Int {
+        userSession.getRegion()
+    }
+    
     func getAllPromotions(request: AllPromotions.GetAllPromotions.Request)
     {
-        promotionWorker.getAllPromotions(storeTypeID: storeTypeID) { (promotionGroups: [PromotionGroupModel], error: String?) in
+        promotionWorker.getAllPromotions(regionID: regionID, storeTypeID: storeTypeID) { (promotionGroups: [PromotionGroupModel], error: String?) in
             
             var response = AllPromotions.GetAllPromotions.Response(promotionGroups: promotionGroups, error: error)
         

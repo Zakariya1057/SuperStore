@@ -289,7 +289,6 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     
     func passDataToAllOffers(source: HomeDataStore, destination: inout AllPromotionsDataStore)
     {
-        destination.storeTypeID = source.storeTypeID
     }
     
     func passDataToFlyerList(source: HomeDataStore, destination: inout FlyerListDataStore)

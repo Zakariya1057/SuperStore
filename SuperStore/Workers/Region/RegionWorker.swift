@@ -10,7 +10,7 @@ import Foundation
 
 class RegionWorker
 {
-    private var defaultRegionID: Int = 1
+    private var defaultRegionID: Int = 8
     
     private var userStore: UserStoreProtocol = UserRealmStore()
     

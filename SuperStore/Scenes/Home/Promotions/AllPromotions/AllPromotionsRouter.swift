@@ -56,6 +56,5 @@ class AllPromotionsRouter: NSObject, AllPromotionsRoutingLogic, AllPromotionsDat
     func passDataToShowPromotion(source: AllPromotionsDataStore, destination: inout PromotionGroupDataStore)
     {
         destination.promotionGroup = source.selectedPromotionGroup
-        destination.storeTypeID = source.storeTypeID
     }
 }
