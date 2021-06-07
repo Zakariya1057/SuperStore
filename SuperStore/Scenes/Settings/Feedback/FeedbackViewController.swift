@@ -16,10 +16,12 @@ import SCLAlertView
 protocol FeedbackDisplayLogic: AnyObject
 {
     func displaySendFeedback(viewModel: Feedback.SendFeedback.ViewModel)
+    func displayTitle(viewModel: Feedback.GetTitle.ViewModel)
 }
 
 class FeedbackViewController: UIViewController, FeedbackDisplayLogic
 {
+    
     var interactor: FeedbackBusinessLogic?
     var router: (NSObjectProtocol & FeedbackRoutingLogic & FeedbackDataPassing)?
     
@@ -70,6 +72,7 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        getTitle()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,13 +84,22 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     
     @IBOutlet var feedbackTextView: UITextView!
     
+    func getTitle(){
+        let request = Feedback.GetTitle.Request()
+        interactor?.getTitle(request: request)
+    }
+    
+    func displayTitle(viewModel: Feedback.GetTitle.ViewModel) {
+        title = viewModel.title
+    }
+    
     func displaySendFeedback(viewModel: Feedback.SendFeedback.ViewModel)
     {
         stopLoading()
         showRightBarButton()
         
         if let error = viewModel.error {
-            showError(title: "Feedback Error", error: error)
+            showError(title: "\(title!) Error", error: error)
         } else {
             feedbackSuccess()
         }
@@ -105,7 +117,7 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
             let request = Feedback.SendFeedback.Request(message: message)
             interactor?.sendFeedback(request: request)
         } else {
-            showError(title: "Feedback Error", error: "Feedback text required")
+            showError(title: "\(title!) Error", error: "Text required")
         }
     }
     
@@ -138,8 +150,8 @@ extension FeedbackViewController {
         let alert = SCLAlertView(appearance: appearance)
         
         alert.showSuccess(
-            "Feedback Sent",
-            subTitle: "Thank you for your feedback.",
+            "Message Sent",
+            subTitle: "Thanks for being awesome!",
             closeButtonTitle: "Okay",
             timeout: .init(timeoutValue: TimeInterval(2), timeoutAction: {
                 self.router?.routeToSettings(segue: nil)

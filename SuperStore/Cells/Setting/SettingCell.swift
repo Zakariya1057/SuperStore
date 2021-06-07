@@ -21,8 +21,12 @@ class SettingCell: UITableViewCell {
         
         "Clear Cache": UIImage(systemName: "trash"),
         
-        "Feedback": UIImage(systemName: "bubble.left.and.bubble.right"),
-        "Report Issues": UIImage(systemName: "pencil.circle"),
+        "Help & Feedback": UIImage(systemName: "questionmark.circle"),
+        "Help": UIImage(systemName: "questionmark.circle"),
+        "Suggest A Feature": UIImage(systemName: "lightbulb"),
+        "Feedback": UIImage(systemName: "bubble.left"),
+        "Report An Issue": UIImage(systemName: "exclamationmark.circle"),
+        
         "Delete Accoubt": UIImage(systemName: "person.crop.circle.badge.xmark"),
         
         "Login": UIImage(systemName: "person.crop.circle"),
@@ -31,7 +35,7 @@ class SettingCell: UITableViewCell {
     
     @IBOutlet var iconImageView: UIImageView!
     
-    var field: Settings.DisplayUserField!
+    var setting: SettingModel!
     
     @IBOutlet var detailStackView: UIStackView!
     @IBOutlet var stackViewWidth: NSLayoutConstraint!
@@ -56,10 +60,10 @@ class SettingCell: UITableViewCell {
     }
     
     func configureUI(){
-        keyLabel.text = field.name
-        valueLabel.text = field.value
+        keyLabel.text = setting.name
+        valueLabel.text = setting.value
         
-        setNotification(enabled: field.on)
+        setNotification(enabled: setting.on)
         
         setWidth()
         
@@ -68,26 +72,26 @@ class SettingCell: UITableViewCell {
     }
     
     private func setWidth(){
-        if field.type == .delete {
+        if setting.type != .password && setting.value == nil {
             stackViewWidth.constant = 200
             detailStackView.layoutIfNeeded()
         }
     }
     
     private func displayIcon(){
-        if let iconImage = icons[field.name]{
+        if let iconImage = icons[setting.name]{
             iconImageView.image = iconImage
         }
     }
     
     private func displayViews(){
         
-        notificationSwitch.isHidden = field.type != .notification
+        notificationSwitch.isHidden = setting.type != .notification
         
-        if field.type == .logout ||
-            field.type == .notification ||
-            field.type == .delete ||
-            field.type == .login {
+        if setting.type == .logout ||
+            setting.type == .notification ||
+            setting.type == .delete ||
+            setting.type == .login {
             
             disclosureView.isHidden = true
             valueLabel.isHidden = true

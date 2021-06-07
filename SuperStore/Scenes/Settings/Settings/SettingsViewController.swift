@@ -168,7 +168,7 @@ extension SettingsViewController {
 
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return displayUserSections[section].fields.count
+        return displayUserSections[section].settings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -178,9 +178,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     func configureSettingCell(indexPath: IndexPath) -> SettingCell {
         let cell = settingsTableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingCell
         
-        let field = displayUserSections[indexPath.section].fields[indexPath.row]
+        let setting = displayUserSections[indexPath.section].settings[indexPath.row]
         
-        cell.field = field
+        cell.setting = setting
         cell.notificationSwitchPressedCallback = notificationSwitchPressed
         
         cell.configureUI()
@@ -217,12 +217,12 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     //MARK: - Row Selected
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let field: Settings.DisplayUserField = displayUserSections[indexPath.section].fields[indexPath.row]
-        fieldPressed(field: field)
+        let setting: SettingModel = displayUserSections[indexPath.section].settings[indexPath.row]
+        settingPressed(setting: setting)
     }
     
-    func fieldPressed(field: Settings.DisplayUserField){
-        switch field.type {
+    func settingPressed(setting: SettingModel){
+        switch setting.type {
         case .name:
             namePressed()
         case .email:
@@ -239,12 +239,11 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             loginButtonPressed()
         case .delete:
             deleteAccount()
-        case .feedback:
-            feedbackPressed()
-        case .reportIssue:
-            reportIssuePressed()
+        case .helpFeedback, .help, .feedback, .feature, .reportIssue:
+            helpAndFeedbackPressed()
         case .notification:
             break
+
         }
     }
 }
@@ -318,15 +317,9 @@ extension SettingsViewController {
     }
     
     
-    
-    @objc func feedbackPressed(){
-        router?.routeToFeedback(segue: nil)
+    @objc func helpAndFeedbackPressed(){
+        router?.routeToHelpAndFeedback(segue: nil)
     }
-    
-    @objc func reportIssuePressed(){
-        router?.routeToReportIssue(segue: nil)
-    }
-    
 }
 
 extension SettingsViewController {
@@ -363,8 +356,8 @@ extension SettingsViewController {
     
     func setNotification(enabled: Bool){
         for (section, userSection) in displayUserSections.enumerated() {
-            for (row, field) in userSection.fields.enumerated() {
-                if field.type == .notification {
+            for (row, setting) in userSection.settings.enumerated() {
+                if setting.type == .notification {
                     let row = settingsTableView.cellForRow(at: IndexPath(row: row, section: section)) as! SettingCell
                     row.setNotification(enabled: enabled)
                 }

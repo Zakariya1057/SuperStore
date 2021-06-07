@@ -18,21 +18,7 @@ enum Settings
     
     struct DisplayUserSection {
         var title: String = ""
-        var fields: [DisplayUserField]
-    }
-    
-    struct DisplayUserField {
-        var name: String
-        var value: String? = nil
-        var on: Bool = false
-        var type: DisplayUserFieldType
-    }
-    
-    enum DisplayUserFieldType {
-        case name, email, store, region, password, notification
-        case feedback, reportIssue
-        case logout, login
-        case delete
+        var settings: [SettingModel]
     }
     
     enum GetUserDetails

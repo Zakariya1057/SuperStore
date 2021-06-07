@@ -16,13 +16,13 @@ class FeedbackWorker
         self.feedbackAPI = feedbackAPI
     }
     
-    func sendFeedback(message: String, completionHandler: @escaping (_ error: String?) -> Void){
-        feedbackAPI.sendFeedback(message: message, completionHandler: { (error) in
+    func sendFeedback(type: SettingType, message: String, completionHandler: @escaping (_ error: String?) -> Void){
+        feedbackAPI.sendFeedback(type: type, message: message, completionHandler: { (error) in
             completionHandler(error)
         })
     }
 }
 
 protocol FeedbackRequestProtocol {
-    func sendFeedback(message: String, completionHandler: @escaping (_ error: String?) -> Void)
+    func sendFeedback(type: SettingType, message: String, completionHandler: @escaping (_ error: String?) -> Void)
 }

@@ -14,14 +14,19 @@ import UIKit
 
 protocol FeedbackPresentationLogic
 {
+    func presentTitle(response: Feedback.GetTitle.Response)
     func presentSendFeedback(response: Feedback.SendFeedback.Response)
 }
 
 class FeedbackPresenter: FeedbackPresentationLogic
 {
+    
     weak var viewController: FeedbackDisplayLogic?
     
-    // MARK: Do something
+    func presentTitle(response: Feedback.GetTitle.Response) {
+        let viewModel = Feedback.GetTitle.ViewModel(title: response.title)
+        viewController?.displayTitle(viewModel: viewModel)
+    }
     
     func presentSendFeedback(response: Feedback.SendFeedback.Response)
     {

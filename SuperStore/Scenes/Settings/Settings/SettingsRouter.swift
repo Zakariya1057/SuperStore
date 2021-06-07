@@ -21,8 +21,7 @@ import UIKit
     func routeToEditRegion(segue: UIStoryboardSegue?)
     func routeToEditStore(segue: UIStoryboardSegue?)
     
-    func routeToFeedback(segue: UIStoryboardSegue?)
-    func routeToReportIssue(segue: UIStoryboardSegue?)
+    func routeToHelpAndFeedback(segue: UIStoryboardSegue?)
     
     func routeToLogin(segue: UIStoryboardSegue?)
 }
@@ -130,34 +129,21 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
         }
     }
     
-    func routeToFeedback(segue: UIStoryboardSegue?)
+    func routeToHelpAndFeedback(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
-            let destinationVC = segue.destination as! FeedbackViewController
+            let destinationVC = segue.destination as! HelpAndFeedbackViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToFeedback(source: dataStore!, destination: &destinationDS)
+            passDataToHelpAndFeedback(source: dataStore!, destination: &destinationDS)
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedbackViewController") as! FeedbackViewController
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "HelpAndFeedbackViewController") as! HelpAndFeedbackViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToFeedback(source: dataStore!, destination: &destinationDS)
-            navigateToFeedback(source: viewController!, destination: destinationVC)
+            passDataToHelpAndFeedback(source: dataStore!, destination: &destinationDS)
+            navigateToHelpAndFeedback(source: viewController!, destination: destinationVC)
         }
     }
-    
-    func routeToReportIssue(segue: UIStoryboardSegue?) {
-        if let segue = segue {
-            let destinationVC = segue.destination as! ReportIssueViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToReportIssue(source: dataStore!, destination: &destinationDS)
-        } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ReportIssueViewController") as! ReportIssueViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToReportIssue(source: dataStore!, destination: &destinationDS)
-            navigateToReportIssue(source: viewController!, destination: destinationVC)
-        }
-    }
+
     // MARK: Navigation
     
     func navigateToEditRegion(source: SettingsViewController, destination: EditRegionViewController)
@@ -190,16 +176,11 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
         source.show(destination, sender: nil)
     }
     
-    func navigateToFeedback(source: SettingsViewController, destination: FeedbackViewController)
+    func navigateToHelpAndFeedback(source: SettingsViewController, destination: HelpAndFeedbackViewController)
     {
         source.show(destination, sender: nil)
     }
-    
-    func navigateToReportIssue(source: SettingsViewController, destination: ReportIssueViewController)
-    {
-        source.show(destination, sender: nil)
-    }
-    
+
     // MARK: Passing data
     
     func passDataToEditRegion(source: SettingsDataStore, destination: inout EditRegionDataStore)
@@ -232,12 +213,7 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
         
     }
     
-    func passDataToFeedback(source: SettingsDataStore, destination: inout FeedbackDataStore)
-    {
-        
-    }
-    
-    func passDataToReportIssue(source: SettingsDataStore, destination: inout ReportIssueDataStore)
+    func passDataToHelpAndFeedback(source: SettingsDataStore, destination: inout HelpAndFeedbackDataStore)
     {
         
     }

@@ -41,52 +41,51 @@ class SettingsPresenter: SettingsPresentationLogic
                 loggedIn = true
                 
                 displayUserSections.append(
-                    Settings.DisplayUserSection(fields: [
-                        Settings.DisplayUserField(name: "Name", value: user.name, type: .name),
-                        Settings.DisplayUserField(name: "Email", value: user.email, type: .email),
-                        Settings.DisplayUserField(name: "Password", value: "••••••••••••••", type: .password),
-                        Settings.DisplayUserField(name: "Notifications", on: user.sendNotifications, type: .notification),
+                    Settings.DisplayUserSection(settings: [
+                        SettingModel(name: "Name", value: user.name, type: .name),
+                        SettingModel(name: "Email", value: user.email, type: .email),
+                        SettingModel(name: "Password", value: "••••••••••••••", type: .password),
+                        SettingModel(name: "Notifications", on: user.sendNotifications, type: .notification),
+                        SettingModel(name: "Help & Feedback", type: .helpFeedback),
                     ])
                 )
                 
                 displayUserSections.append(
-                    Settings.DisplayUserSection(fields: [
-                        Settings.DisplayUserField(name: "Province", value: regionName, type: .region),
-                        Settings.DisplayUserField(name: "Store", value: storeTypeName, type: .store),
+                    Settings.DisplayUserSection(settings: [
+                        SettingModel(name: "Province", value: regionName, type: .region),
+                        SettingModel(name: "Store", value: storeTypeName, type: .store),
                     ])
                 )
                 
                 displayUserSections.append(
-                    Settings.DisplayUserSection(fields: [
-                        Settings.DisplayUserField(name: "Feedback", type: .feedback),
-                        Settings.DisplayUserField(name: "Report Issues", type: .reportIssue),
-                        Settings.DisplayUserField(name: "Delete Account", type: .delete)
+                    Settings.DisplayUserSection(settings: [
+                       
+                        SettingModel(name: "Delete Account", type: .delete)
                     ])
                 )
                 
                 displayUserSections.append(
-                    Settings.DisplayUserSection(fields: [
-                        Settings.DisplayUserField(name: "Logout", type: .logout)
+                    Settings.DisplayUserSection(settings: [
+                        SettingModel(name: "Logout", type: .logout)
                     ])
                 )
             } else {
                 displayUserSections.append(
-                    Settings.DisplayUserSection(fields: [
-                        Settings.DisplayUserField(name: "Province", value: regionName, type: .region),
-                        Settings.DisplayUserField(name: "Store", value: storeTypeName, type: .store),
+                    Settings.DisplayUserSection(settings: [
+                        SettingModel(name: "Province", value: regionName, type: .region),
+                        SettingModel(name: "Store", value: storeTypeName, type: .store),
                     ])
                 )
                 
                 displayUserSections.append(
-                    Settings.DisplayUserSection(fields: [
-                        Settings.DisplayUserField(name: "Login", type: .login)
+                    Settings.DisplayUserSection(settings: [
+                        SettingModel(name: "Login", type: .login)
                     ])
                 )
                 
                 displayUserSections.append(
-                    Settings.DisplayUserSection(fields: [
-                        Settings.DisplayUserField(name: "Feedback", type: .feedback),
-                        Settings.DisplayUserField(name: "Report Issues", type: .reportIssue)
+                    Settings.DisplayUserSection(settings: [
+                        SettingModel(name: "Help & Feedback", type: .helpFeedback),
                     ])
                 )
             }

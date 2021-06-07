@@ -14,21 +14,39 @@ import UIKit
 
 enum Feedback
 {
-  // MARK: Use cases
-  
-  enum SendFeedback
-  {
-    struct Request
+    // MARK: Use cases
+    enum GetTitle
     {
-        var message: String
+      struct Request
+      {
+      }
+        
+      struct Response
+      {
+          var title: String
+      }
+        
+      struct ViewModel
+      {
+          var title: String
+      }
     }
-    struct Response
+    
+    enum SendFeedback
     {
-        var error: String?
+        struct Request
+        {
+            var message: String
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
+        }
     }
-    struct ViewModel
-    {
-        var error: String?
-    }
-  }
 }
