@@ -419,6 +419,9 @@
 		2CD8A4F1266E1F36003AAEF2 /* HelpAndFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8A4EB266E1F36003AAEF2 /* HelpAndFeedbackViewController.swift */; };
 		2CD8A4F2266E1F36003AAEF2 /* HelpAndFeedbackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8A4EC266E1F36003AAEF2 /* HelpAndFeedbackInteractor.swift */; };
 		2CD8A4F4266E244A003AAEF2 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8A4F3266E244A003AAEF2 /* SettingModel.swift */; };
+		2CD8A4F8266E39E4003AAEF2 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8A4F7266E39E4003AAEF2 /* MessageModel.swift */; };
+		2CD8A4FE266E5249003AAEF2 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8A4FC266E5249003AAEF2 /* MessageCell.swift */; };
+		2CD8A4FF266E5249003AAEF2 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CD8A4FD266E5249003AAEF2 /* MessageCell.xib */; };
 		2CDA612B25ED0FC700FD3956 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */; };
 		2CDA613125ED157500FD3956 /* FontHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA613025ED157500FD3956 /* FontHighlight.swift */; };
 		2CDA613525ED159900FD3956 /* DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA613425ED159900FD3956 /* DownloadImage.swift */; };
@@ -890,6 +893,9 @@
 		2CD8A4EB266E1F36003AAEF2 /* HelpAndFeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndFeedbackViewController.swift; sourceTree = "<group>"; };
 		2CD8A4EC266E1F36003AAEF2 /* HelpAndFeedbackInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndFeedbackInteractor.swift; sourceTree = "<group>"; };
 		2CD8A4F3266E244A003AAEF2 /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
+		2CD8A4F7266E39E4003AAEF2 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		2CD8A4FC266E5249003AAEF2 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		2CD8A4FD266E5249003AAEF2 /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		2CDA613025ED157500FD3956 /* FontHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontHighlight.swift; sourceTree = "<group>"; };
 		2CDA613425ED159900FD3956 /* DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImage.swift; sourceTree = "<group>"; };
@@ -1656,6 +1662,7 @@
 				2C058FED25F52ACA00B4A16B /* EditStore */,
 				2CD8A4E6266E1F18003AAEF2 /* HelpAndFeedback */,
 				2CC6002E2643EA6100A1F7BE /* Feedback */,
+				2CD8A4F6266E3839003AAEF2 /* Message */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1902,6 +1909,7 @@
 				2CAB2F0925FFF9C50014FE8D /* LocationModel.swift */,
 				2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */,
 				2C7AE0C3265ECC0F00ADF53A /* RegionModel.swift */,
+				2CD8A4F7266E39E4003AAEF2 /* MessageModel.swift */,
 				2CD72291265A594A00D1D112 /* FlyerModel.swift */,
 				2CD8A4F3266E244A003AAEF2 /* SettingModel.swift */,
 				2C48E7D425EAA078001A5702 /* ListModel.swift */,
@@ -2305,6 +2313,22 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
+		2CD8A4F6266E3839003AAEF2 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		2CD8A4F9266E5212003AAEF2 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				2CD8A4FC266E5249003AAEF2 /* MessageCell.swift */,
+				2CD8A4FD266E5249003AAEF2 /* MessageCell.xib */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 		2CDA614625EE38E100FD3956 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -2349,6 +2373,7 @@
 			isa = PBXGroup;
 			children = (
 				2CD8A4F5266E27B9003AAEF2 /* Setting */,
+				2CD8A4F9266E5212003AAEF2 /* Message */,
 				2CA560172604AC6700714AAC /* ListPriceUpdate */,
 				2C72942C25EBE58800D280B3 /* Product */,
 				2C2BC7EE25EBB8870038882B /* Review */,
@@ -2598,6 +2623,7 @@
 				2CB3DCF62527AFB600FC5792 /* RefineOptionCell.xib in Resources */,
 				2C90DF9825FB82B6008977EB /* ProductCollectionViewCell.xib in Resources */,
 				2CAC05F3252CE24E00561509 /* OfferCollectionViewCell.xib in Resources */,
+				2CD8A4FF266E5249003AAEF2 /* MessageCell.xib in Resources */,
 				2C05901225F6265F00B4A16B /* RequestLoginCell.xib in Resources */,
 				2C9C1B8724CDDDCE001ACA35 /* OpenSans-Bold.ttf in Resources */,
 				2C9C1B8824CDDDCE001ACA35 /* OpenSans-SemiBold.ttf in Resources */,
@@ -2815,6 +2841,7 @@
 				2CB9119D25F11B4500A8FC66 /* ShowListsModels.swift in Sources */,
 				2C70827425F0100700345147 /* EditPasswordPresenter.swift in Sources */,
 				2CAB2F0A25FFF9C50014FE8D /* LocationModel.swift in Sources */,
+				2CD8A4F8266E39E4003AAEF2 /* MessageModel.swift in Sources */,
 				2CAC05FC252E314F00561509 /* FeaturedProductCollectionViewCell.swift in Sources */,
 				2CD7228F265A582800D1D112 /* ShowFlyerViewController.swift in Sources */,
 				2C17C0F82633087E0075DF1C /* GroceriesCell.swift in Sources */,
@@ -2921,6 +2948,7 @@
 				2C70828725F0108500345147 /* SettingsPresenter.swift in Sources */,
 				2C7CAC5A264056B40024FDD8 /* MonitoredProductsInteractor.swift in Sources */,
 				2CB911BB25F11B6100A8FC66 /* ShowListInteractor.swift in Sources */,
+				2CD8A4FE266E5249003AAEF2 /* MessageCell.swift in Sources */,
 				2C45E2F626456ECD0047887A /* PromotionGroup.swift in Sources */,
 				2C70824725F009ED00345147 /* NewPasswordInteractor.swift in Sources */,
 				2C6146A125F1266400D92CB7 /* CreateListRouter.swift in Sources */,

@@ -89,7 +89,6 @@ class HelpAndFeedbackViewController: UIViewController, HelpAndFeedbackDisplayLog
     }
 }
 
-
 extension HelpAndFeedbackViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {

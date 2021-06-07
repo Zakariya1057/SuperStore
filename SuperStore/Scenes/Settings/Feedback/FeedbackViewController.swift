@@ -72,17 +72,32 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        setupMessageDelegate()
         getTitle()
+        
+        setupTableView()
+        setupMessageBorder()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        openKeyboardOnTextView()
+//        openKeyboardOnTextView()
     }
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
     @IBOutlet var feedbackTextView: UITextView!
+    @IBOutlet var messageTextView: UITextView!
+    
+    private var minHeight: CGFloat = 35
+    private var maxHeight: CGFloat = 220
+    
+    @IBOutlet var messageParentView: UIView!
+    
+    @IBOutlet var messageTableViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet var messageTextViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var messageTableView: UITableView!
     
     func getTitle(){
         let request = Feedback.GetTitle.Request()
@@ -103,6 +118,12 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
         } else {
             feedbackSuccess()
         }
+    }
+    
+    func setupMessageBorder(){
+        messageParentView.layer.borderWidth = 0.5
+        messageParentView.layer.borderColor = UIColor.gray.cgColor
+        messageParentView.layer.cornerRadius = 18
     }
     
     func sendFeedback()
@@ -186,5 +207,71 @@ extension FeedbackViewController {
     
     func hideRightBarButton(){
         navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+}
+
+extension FeedbackViewController: UITextViewDelegate {
+    func setupMessageDelegate() {
+        messageTextView.delegate = self
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        var height = self.minHeight
+
+        if textView.contentSize.height <= self.minHeight {
+            height = self.minHeight
+        } else if textView.contentSize.height >= self.maxHeight {
+            height = self.maxHeight
+        } else {
+            height = textView.contentSize.height
+        }
+
+        self.messageTextViewHeightConstraint.constant = height
+
+        UIView.animate(withDuration: 0.1) {
+            self.view.layoutIfNeeded()
+        }
+    }
+}
+
+
+extension FeedbackViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return configureMessageCell(indexPath: indexPath)
+    }
+    
+    func configureMessageCell(indexPath: IndexPath) -> MessageCell {
+        let cell = messageTableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
+
+        cell.configureUI()
+        
+        return cell
+    }
+    
+    func setupTableView(){
+        let settingCellNib = UINib(nibName: "MessageCell", bundle: nil)
+        messageTableView.register(settingCellNib, forCellReuseIdentifier: "MessageCell")
+        
+        messageTableView.delegate = self
+        messageTableView.dataSource = self
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "Grey.Clear")
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 0 ? 0 : 40
     }
 }

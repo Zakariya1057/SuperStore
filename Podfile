@@ -19,4 +19,5 @@ target 'SuperStore' do
   pod 'FuzzyMatchingSwift'
   pod 'SCLAlertView'
   pod 'FloatingPanel'
+  
 end
