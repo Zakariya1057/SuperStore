@@ -99,6 +99,21 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     
     @IBOutlet var messageTableView: UITableView!
     
+    var messages: [MessageModel] = [
+        MessageModel(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", type: .received, createdAt: Date()),
+        MessageModel(text: "Hello, Person B", type: .sent, createdAt: Date()),
+        MessageModel(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", type: .sent, createdAt: Date()),
+        MessageModel(text: "Hello, Person A. Hello, Person A. Hello, Person A", type: .received, createdAt: Date()),
+        
+        MessageModel(text: """
+        Hello, Person A.
+        
+        Hello, Person A. Hello,
+        
+        Person A
+        """, type: .sent, createdAt: Date()),
+    ]
+    
     func getTitle(){
         let request = Feedback.GetTitle.Request()
         interactor?.getTitle(request: request)
@@ -242,7 +257,7 @@ extension FeedbackViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -252,6 +267,8 @@ extension FeedbackViewController: UITableViewDataSource, UITableViewDelegate {
     func configureMessageCell(indexPath: IndexPath) -> MessageCell {
         let cell = messageTableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
 
+        cell.message = messages[indexPath.row]
+        
         cell.configureUI()
         
         return cell

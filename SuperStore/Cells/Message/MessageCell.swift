@@ -10,16 +10,57 @@ import UIKit
 
 class MessageCell: UITableViewCell {
     
-    @IBOutlet weak var bubbleImageView: UIImageView!
-    @IBOutlet weak var bubbleHeightConstraint: NSLayoutConstraint!
+    var message: MessageModel!
 
+    @IBOutlet var messageTextLabel: UILabel!
+    
+    @IBOutlet var sentView: UIView!
+    @IBOutlet var receivedView: UIView!
+    
+    @IBOutlet var sendImageView: UIImageView!
+    @IBOutlet var receivedImageView: UIImageView!
+    
+    @IBOutlet var sendTextLabel: UILabel!
+    @IBOutlet var receivedTextLabel: UILabel!
+    
+    @IBOutlet var receviedWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var sentWidthConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var parentStackView: UIStackView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
     func configureUI(){
-        receivedButtonTapped()
+        let label: UILabel
+        
+        var width: CGFloat = CGFloat(message.text.count * 10)
+        var multiLine: Bool = false
+        
+        if width >= ( sentView.frame.width - 35 ){
+            width = parentStackView.frame.width - 35
+            multiLine = true
+        }
+        
+        if message.type == .sent {
+            displaySent()
+            label = sendTextLabel
+            
+            sendTextLabel.textAlignment = multiLine ? .left : .right
+            
+            sentWidthConstraint.constant = CGFloat(width)
+            receivedImageView.layoutIfNeeded()
+        } else {
+            displayReceived()
+            label = receivedTextLabel
+            
+            receviedWidthConstraint.constant = CGFloat(width)
+            receivedImageView.layoutIfNeeded()
+        }
+    
+        label.text = message.text
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -28,24 +69,28 @@ class MessageCell: UITableViewCell {
         // Configure the view for the selected state
     }
   
-    func sentButtonTapped() {
-        changeImage("chat_bubble_sent")
-        bubbleImageView.tintColor = UIColor(named: "chat_bubble_color_sent")
+    func displaySent() {
+        receivedView.isHidden = true
+        sentView.isHidden = false
+        
+        changeImage(imageView: sendImageView!, "chat_bubble_sent")
+        sendImageView.tintColor = UIColor(named: "chat_bubble_color_sent")
+        messageTextLabel.textColor = .white
     }
     
-    func receivedButtonTapped() {
-        changeImage("chat_bubble_received")
-        bubbleImageView.tintColor = UIColor(named: "chat_bubble_color_received")
+    func displayReceived() {
+        sentView.isHidden = true
+        receivedView.isHidden = false
+        
+        changeImage(imageView: receivedImageView!, "chat_bubble_received")
+        receivedImageView.tintColor = UIColor(named: "chat_bubble_color_received")
+        messageTextLabel.textColor = .black
     }
     
-    func changeImage(_ name: String) {
+    func changeImage(imageView: UIImageView, _ name: String) {
         guard let image = UIImage(named: name) else { return }
-        bubbleImageView.image = image
+        imageView.image = image
             .resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 30, bottom: 17, right: 30), resizingMode: .stretch)
             .withRenderingMode(.alwaysTemplate)
-    }
-    
-    @IBAction func colorButtonTapped(_ sender: UIButton) {
-        bubbleImageView.tintColor = sender.backgroundColor
     }
 }
