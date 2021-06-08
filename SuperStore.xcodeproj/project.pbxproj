@@ -1901,22 +1901,15 @@
 			isa = PBXGroup;
 			children = (
 				2CB2CFB625EAA6C500A00F7F /* HomeModel.swift */,
-				2C48E7CC25EAA064001A5702 /* UserModel.swift */,
-				2C48E7B625EA9DCF001A5702 /* ProductModel.swift */,
-				2CC72FF925FD7C68004E3987 /* ImageModel.swift */,
-				2C48E7D025EAA06E001A5702 /* StoreModel.swift */,
-				2C45E2F526456ECD0047887A /* PromotionGroup.swift */,
-				2CAB2F0925FFF9C50014FE8D /* LocationModel.swift */,
-				2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */,
-				2C7AE0C3265ECC0F00ADF53A /* RegionModel.swift */,
-				2CD8A4F7266E39E4003AAEF2 /* MessageModel.swift */,
-				2CD72291265A594A00D1D112 /* FlyerModel.swift */,
-				2CD8A4F3266E244A003AAEF2 /* SettingModel.swift */,
+				2CD8A500266E7EAC003AAEF2 /* User */,
+				2CD8A501266E7EB8003AAEF2 /* Product */,
+				2CD8A506266E7F25003AAEF2 /* Promotion */,
+				2CD8A505266E7F0E003AAEF2 /* Store */,
+				2CD8A502266E7ECD003AAEF2 /* Setting */,
+				2CD8A503266E7EEA003AAEF2 /* Grocery */,
+				2CD8A504266E7EF4003AAEF2 /* Search */,
 				2C48E7D425EAA078001A5702 /* ListModel.swift */,
-				2C55F9D125EE3C2E007BBFA8 /* SearchModel.swift */,
-				2CA11F9B25EF90F00054AE19 /* CategoryModel.swift */,
-				2C48E7D825EAA089001A5702 /* PromotionModel.swift */,
-				2CA11F0125EE860C0054AE19 /* RefineModel.swift */,
+				2CC72FF925FD7C68004E3987 /* ImageModel.swift */,
 				2C461511260552360009D0E7 /* Request */,
 				2C7082D325F01CB500345147 /* History */,
 				2C1476EC25E82BE1000E8F66 /* Data */,
@@ -2327,6 +2320,69 @@
 				2CD8A4FD266E5249003AAEF2 /* MessageCell.xib */,
 			);
 			path = Message;
+			sourceTree = "<group>";
+		};
+		2CD8A500266E7EAC003AAEF2 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				2C48E7CC25EAA064001A5702 /* UserModel.swift */,
+				2CAB2F0925FFF9C50014FE8D /* LocationModel.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		2CD8A501266E7EB8003AAEF2 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				2C48E7B625EA9DCF001A5702 /* ProductModel.swift */,
+				2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */,
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
+		2CD8A502266E7ECD003AAEF2 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				2CD8A4F3266E244A003AAEF2 /* SettingModel.swift */,
+				2CD8A4F7266E39E4003AAEF2 /* MessageModel.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		2CD8A503266E7EEA003AAEF2 /* Grocery */ = {
+			isa = PBXGroup;
+			children = (
+				2CA11F9B25EF90F00054AE19 /* CategoryModel.swift */,
+				2C48E7D825EAA089001A5702 /* PromotionModel.swift */,
+			);
+			path = Grocery;
+			sourceTree = "<group>";
+		};
+		2CD8A504266E7EF4003AAEF2 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2CA11F0125EE860C0054AE19 /* RefineModel.swift */,
+				2C55F9D125EE3C2E007BBFA8 /* SearchModel.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		2CD8A505266E7F0E003AAEF2 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				2C48E7D025EAA06E001A5702 /* StoreModel.swift */,
+				2C7AE0C3265ECC0F00ADF53A /* RegionModel.swift */,
+				2CD72291265A594A00D1D112 /* FlyerModel.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		2CD8A506266E7F25003AAEF2 /* Promotion */ = {
+			isa = PBXGroup;
+			children = (
+				2C45E2F526456ECD0047887A /* PromotionGroup.swift */,
+			);
+			path = Promotion;
 			sourceTree = "<group>";
 		};
 		2CDA614625EE38E100FD3956 /* Search */ = {

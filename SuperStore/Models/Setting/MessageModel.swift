@@ -9,5 +9,11 @@
 import Foundation
 
 struct MessageModel {
-    
+    var text: String
+    var type: MessageType
+    var createdAt: Date
+}
+
+enum MessageType {
+    case sent, received
 }
