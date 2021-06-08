@@ -36,11 +36,12 @@ class MessageCell: UITableViewCell {
     func configureUI(){
         let label: UILabel
         
-        var width: CGFloat = CGFloat(message.text.count * 10)
+        var width: CGFloat = CGFloat( (message.text.count * 7) + 43 )
+        let maxWidth: CGFloat = UIScreen.main.bounds.width - 65
         var multiLine: Bool = false
         
-        if width >= ( sentView.frame.width - 35 ){
-            width = parentStackView.frame.width - 35
+        if width >= maxWidth {
+            width = maxWidth
             multiLine = true
         }
         

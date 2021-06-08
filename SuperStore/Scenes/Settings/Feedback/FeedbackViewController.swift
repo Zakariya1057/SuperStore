@@ -81,6 +81,7 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        messageTableView.reloadData()
 //        openKeyboardOnTextView()
     }
     
@@ -100,18 +101,21 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     @IBOutlet var messageTableView: UITableView!
     
     var messages: [MessageModel] = [
-        MessageModel(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", type: .received, createdAt: Date()),
-        MessageModel(text: "Hello, Person B", type: .sent, createdAt: Date()),
-        MessageModel(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", type: .sent, createdAt: Date()),
-        MessageModel(text: "Hello, Person A. Hello, Person A. Hello, Person A", type: .received, createdAt: Date()),
+        MessageModel(text: "How may I be of assinstance today?", type: .received, createdAt: Date()),
+        MessageModel(text: "I love your app, its amazing", type: .sent, createdAt: Date()),
         
-        MessageModel(text: """
-        Hello, Person A.
+        MessageModel(text: "Hey                                 Hey", type: .sent, createdAt: Date()),
         
-        Hello, Person A. Hello,
+        MessageModel(text: "L", type: .sent, createdAt: Date()),
         
-        Person A
-        """, type: .sent, createdAt: Date()),
+        MessageModel(text: "Hey                                 Hey", type: .received, createdAt: Date()),
+        
+        MessageModel(text: "The more polite expression is “How may I help you?” (“may,” not “many”). You will also hear people say “How can I help you?” To the punctilious, “may” is ..", type: .received, createdAt: Date()),
+        
+        
+        MessageModel(text: "The more polite expression is “How may I help you?” (“may,” not “many”). You will also hear people say “How can I help you?” To the punctilious, “may” is ..", type: .sent, createdAt: Date()),
+        
+        MessageModel(text: "Sorry about this?", type: .sent, createdAt: Date()),
     ]
     
     func getTitle(){
@@ -161,6 +165,21 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
         sendFeedback()
     }
     
+    @IBAction func sendMessageButtonPressed(_ sender: Any) {
+        let text = messageTextView.text ?? ""
+        
+        messages.append(
+            MessageModel(text: text, type: .sent, createdAt: Date())
+        )
+        
+        messageTextView.text = ""
+        
+        messageTableView.reloadData()
+        
+        messageTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .top, animated: true)
+        
+//        updateTextViewHeight()
+    }
 }
 
 extension FeedbackViewController {
@@ -230,15 +249,27 @@ extension FeedbackViewController: UITextViewDelegate {
         messageTextView.delegate = self
     }
     
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        updateTextViewHeight()
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        updateTextViewHeight()
+    }
+    
     func textViewDidChange(_ textView: UITextView) {
+        updateTextViewHeight()
+    }
+    
+    func updateTextViewHeight(){
         var height = self.minHeight
 
-        if textView.contentSize.height <= self.minHeight {
+        if messageTextView.contentSize.height <= self.minHeight {
             height = self.minHeight
-        } else if textView.contentSize.height >= self.maxHeight {
+        } else if messageTextView.contentSize.height >= self.maxHeight {
             height = self.maxHeight
         } else {
-            height = textView.contentSize.height
+            height = messageTextView.contentSize.height
         }
 
         self.messageTextViewHeightConstraint.constant = height

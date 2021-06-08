@@ -4906,6 +4906,9 @@
                                                                                     <color key="titleColor" systemColor="labelColor"/>
                                                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
                                                                                 </state>
+                                                                                <connections>
+                                                                                    <action selector="sendMessageButtonPressed:" destination="fIe-Ia-vcg" eventType="touchUpInside" id="cRt-or-IKK"/>
+                                                                                </connections>
                                                                             </button>
                                                                         </subviews>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
