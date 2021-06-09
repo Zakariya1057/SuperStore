@@ -15,7 +15,11 @@ import UIKit
 protocol FeedbackBusinessLogic
 {
     func getTitle(request: Feedback.GetTitle.Request)
+    
     func sendFeedback(request: Feedback.SendFeedback.Request)
+    func sendMessage(request: Feedback.SendMessage.Request)
+    
+    func getMessages(request: Feedback.GetMessages.Request)
 }
 
 protocol FeedbackDataStore
@@ -27,7 +31,9 @@ class FeedbackInteractor: FeedbackBusinessLogic, FeedbackDataStore
 {
     
     var presenter: FeedbackPresentationLogic?
+    
     var feedbackWorker: FeedbackWorker = FeedbackWorker(feedbackAPI: FeedbackAPI())
+    var messageWorker: MessageWorker = MessageWorker(messageAPI: MessageAPI())
     
     var setting: SettingModel!
     
@@ -43,6 +49,23 @@ class FeedbackInteractor: FeedbackBusinessLogic, FeedbackDataStore
         feedbackWorker.sendFeedback(type: setting.type, message: message) { (error: String?) in
             let response = Feedback.SendFeedback.Response(error: error)
             self.presenter?.presentSendFeedback(response: response)
+        }
+    }
+    
+    func sendMessage(request: Feedback.SendMessage.Request){
+        let message: String = request.message
+        let type: FeedbackType = request.type
+        
+        messageWorker.sendMessage(type: type, message: message) { (error: String?) in
+            let response = Feedback.SendMessage.Response(error: error)
+            self.presenter?.presentSendMessage(response: response)
+        }
+    }
+    
+    func getMessages(request: Feedback.GetMessages.Request){
+        messageWorker.getMessages { (messages: [MessageModel], error: String?) in
+            let response = Feedback.GetMessages.Response(messages: messages, error: error)
+            self.presenter?.presentMessages(response: response)
         }
     }
 }

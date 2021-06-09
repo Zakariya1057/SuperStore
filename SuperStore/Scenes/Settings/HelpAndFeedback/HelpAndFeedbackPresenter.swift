@@ -26,7 +26,6 @@ class HelpAndFeedbackPresenter: HelpAndFeedbackPresentationLogic
     func presentSettings(response: HelpAndFeedback.GetSettings.Response)
     {
         
-        
         let displaySections: [HelpAndFeedback.DisplaySection] = [
             HelpAndFeedback.DisplaySection(settings: [
                 SettingModel(name: "Help", type: .help),

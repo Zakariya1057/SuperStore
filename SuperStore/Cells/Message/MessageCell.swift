@@ -71,8 +71,9 @@ class MessageCell: UITableViewCell {
     }
   
     func displaySent() {
-        receivedView.isHidden = true
         sentView.isHidden = false
+        receivedView.isHidden = true
+
         
         changeImage(imageView: sendImageView!, "chat_bubble_sent")
         sendImageView.tintColor = UIColor(named: "chat_bubble_color_sent")
@@ -80,8 +81,8 @@ class MessageCell: UITableViewCell {
     }
     
     func displayReceived() {
-        sentView.isHidden = true
         receivedView.isHidden = false
+        sentView.isHidden = true
         
         changeImage(imageView: receivedImageView!, "chat_bubble_received")
         receivedImageView.tintColor = UIColor(named: "chat_bubble_color_received")

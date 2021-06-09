@@ -19,10 +19,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e4d-4Y-csJ">
-                        <rect key="frame" x="10" y="3" width="343" height="42"/>
+                        <rect key="frame" x="15" y="4" width="333" height="40"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7HW-1M-ena">
-                                <rect key="frame" x="0.0" y="42" width="343" height="10"/>
+                                <rect key="frame" x="0.0" y="40" width="343" height="10"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="chat_bubble_sent" translatesAutoresizingMaskIntoConstraints="NO" id="pDU-Ni-jcb">
                                         <rect key="frame" x="283" y="0.0" width="60" height="10"/>
@@ -49,7 +49,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y0F-Ym-dEL">
-                                <rect key="frame" x="0.0" y="42" width="343" height="10"/>
+                                <rect key="frame" x="0.0" y="40" width="343" height="10"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_bubble_received" translatesAutoresizingMaskIntoConstraints="NO" id="GMt-CR-O4e">
                                         <rect key="frame" x="0.0" y="0.0" width="70" height="10"/>
@@ -78,10 +78,10 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="e4d-4Y-csJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="1C0-ga-7uM"/>
-                    <constraint firstAttribute="bottom" secondItem="e4d-4Y-csJ" secondAttribute="bottom" constant="3" id="KzB-XD-CGT"/>
-                    <constraint firstAttribute="trailing" secondItem="e4d-4Y-csJ" secondAttribute="trailing" constant="10" id="bp7-4p-cor"/>
-                    <constraint firstItem="e4d-4Y-csJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="k2J-I8-83Z"/>
+                    <constraint firstItem="e4d-4Y-csJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="1C0-ga-7uM"/>
+                    <constraint firstAttribute="bottom" secondItem="e4d-4Y-csJ" secondAttribute="bottom" constant="4" id="KzB-XD-CGT"/>
+                    <constraint firstAttribute="trailing" secondItem="e4d-4Y-csJ" secondAttribute="trailing" constant="15" id="bp7-4p-cor"/>
+                    <constraint firstItem="e4d-4Y-csJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="k2J-I8-83Z"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

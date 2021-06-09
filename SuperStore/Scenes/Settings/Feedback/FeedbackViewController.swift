@@ -15,8 +15,12 @@ import SCLAlertView
 
 protocol FeedbackDisplayLogic: AnyObject
 {
-    func displaySendFeedback(viewModel: Feedback.SendFeedback.ViewModel)
     func displayTitle(viewModel: Feedback.GetTitle.ViewModel)
+    
+    func displaySendFeedback(viewModel: Feedback.SendFeedback.ViewModel)
+    func displaySendMessage(viewModel: Feedback.SendMessage.ViewModel)
+    
+    func displayMessages(viewModel: Feedback.GetMessages.ViewModel)
 }
 
 class FeedbackViewController: UIViewController, FeedbackDisplayLogic
@@ -72,23 +76,25 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        setupMessageDelegate()
-        getTitle()
+        displayViews()
         
-        setupTableView()
-        setupMessageBorder()
+        getMessages()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         messageTableView.reloadData()
-//        openKeyboardOnTextView()
     }
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
     @IBOutlet var feedbackTextView: UITextView!
     @IBOutlet var messageTextView: UITextView!
+    
+    var userSession: UserSessionWorker = UserSessionWorker()
+    var loggedIn: Bool {
+        return userSession.isLoggedIn()
+    }
     
     private var minHeight: CGFloat = 35
     private var maxHeight: CGFloat = 220
@@ -100,27 +106,40 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     
     @IBOutlet var messageTableView: UITableView!
     
-    var messages: [MessageModel] = [
-        MessageModel(text: "How may I be of assinstance today?", type: .received, createdAt: Date()),
-        MessageModel(text: "I love your app, its amazing", type: .sent, createdAt: Date()),
-        
-        MessageModel(text: "Hey                                 Hey", type: .sent, createdAt: Date()),
-        
-        MessageModel(text: "L", type: .sent, createdAt: Date()),
-        
-        MessageModel(text: "Hey                                 Hey", type: .received, createdAt: Date()),
-        
-        MessageModel(text: "The more polite expression is “How may I help you?” (“may,” not “many”). You will also hear people say “How can I help you?” To the punctilious, “may” is ..", type: .received, createdAt: Date()),
-        
-        
-        MessageModel(text: "The more polite expression is “How may I help you?” (“may,” not “many”). You will also hear people say “How can I help you?” To the punctilious, “may” is ..", type: .sent, createdAt: Date()),
-        
-        MessageModel(text: "Sorry about this?", type: .sent, createdAt: Date()),
-    ]
+    @IBOutlet var loggedInView: UIView!
+    @IBOutlet var loggedOutView: UIView!
+    
+    @IBOutlet var textViewBotomConstraint: NSLayoutConstraint!
+    
+    var keyboardHeight: CGFloat = 300
+    
+    var messages: [MessageModel] = []
+    
+    func getMessages(){
+        let request = Feedback.GetMessages.Request()
+        interactor?.getMessages(request: request)
+    }
     
     func getTitle(){
         let request = Feedback.GetTitle.Request()
         interactor?.getTitle(request: request)
+    }
+    
+    func displayViews(){
+        loggedInView.isHidden = !loggedIn
+        loggedOutView.isHidden = loggedIn
+        
+        if loggedIn {
+            navigationItem.rightBarButtonItem = nil
+        }
+        
+        setupMessageDelegate()
+        
+        getTitle()
+        
+        setupKeyboardDelegate()
+        setupTableView()
+        setupMessageBorder()
     }
     
     func displayTitle(viewModel: Feedback.GetTitle.ViewModel) {
@@ -139,10 +158,27 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
         }
     }
     
-    func setupMessageBorder(){
-        messageParentView.layer.borderWidth = 0.5
-        messageParentView.layer.borderColor = UIColor.gray.cgColor
-        messageParentView.layer.cornerRadius = 18
+    func displaySendMessage(viewModel: Feedback.SendMessage.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "Feedback Error", error: error)
+        }
+    }
+    
+    func displayMessages(viewModel: Feedback.GetMessages.ViewModel){
+        if let error = viewModel.error {
+            showError(title: "Message Error", error: error)
+        } else {
+            messages = viewModel.messages
+            
+            messageTableView.reloadData()
+            scrollToLastMessage()
+        }
+    }
+}
+
+extension FeedbackViewController {
+    @IBAction func sendButtonPressed(_ sender: Any) {
+        sendFeedback()
     }
     
     func sendFeedback()
@@ -160,25 +196,45 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
             showError(title: "\(title!) Error", error: "Text required")
         }
     }
-    
-    @IBAction func sendButtonPressed(_ sender: Any) {
-        sendFeedback()
+}
+
+extension FeedbackViewController {
+    @IBAction func sendMessageButtonPressed(_ sender: Any) {
+        let message = messageTextView.text ?? ""
+        sendMessage(message: message)
     }
     
-    @IBAction func sendMessageButtonPressed(_ sender: Any) {
-        let text = messageTextView.text ?? ""
+    func setupMessageBorder(){
+        messageParentView.layer.borderWidth = 0.5
+        messageParentView.layer.borderColor = UIColor.gray.cgColor
+        messageParentView.layer.cornerRadius = 18
+    }
+    
+    func sendMessage(message: String){
+        if message.replacingOccurrences(of: " ", with: "") == "" {
+            return
+        }
         
         messages.append(
-            MessageModel(text: text, type: .sent, createdAt: Date())
+            MessageModel(
+                type: .feedback,
+                text: message,
+                direction: .sent
+            )
         )
-        
-        messageTextView.text = ""
         
         messageTableView.reloadData()
         
-        messageTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .top, animated: true)
+        clearTextBox()
         
-//        updateTextViewHeight()
+        let request = Feedback.SendMessage.Request(message: message, type: .feedback)
+        interactor?.sendMessage(request: request)
+        
+        scrollToLastMessage()
+    }
+    
+    func clearTextBox(){
+        messageTextView.text = ""
     }
 }
 
@@ -193,7 +249,6 @@ extension FeedbackViewController {
 }
 
 extension FeedbackViewController {
-    // Alert. Thank You for the feedback.
     func feedbackSuccess(){
         let appearance = SCLAlertView.SCLAppearance(
             kTitleFont: UIFont(name: "HelveticaNeue", size: 22)!,
@@ -218,6 +273,7 @@ extension FeedbackViewController {
         
     }
 }
+
 extension FeedbackViewController {
     func startLoading() {
         addChild(spinner)
@@ -244,6 +300,27 @@ extension FeedbackViewController {
     }
 }
 
+extension FeedbackViewController {
+    func setupKeyboardDelegate(){
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            
+            keyboardHeight = keyboardRectangle.height - 70
+            textViewBotomConstraint.constant = keyboardHeight
+        }
+    }
+    
+}
+
 extension FeedbackViewController: UITextViewDelegate {
     func setupMessageDelegate() {
         messageTextView.delegate = self
@@ -254,7 +331,14 @@ extension FeedbackViewController: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
+        textViewBotomConstraint.constant = keyboardHeight
         updateTextViewHeight()
+        scrollToLastMessage()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textViewBotomConstraint.constant = 0
+        scrollToLastMessage()
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -276,6 +360,12 @@ extension FeedbackViewController: UITextViewDelegate {
 
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
+        }
+    }
+    
+    func scrollToLastMessage(){
+        if messages.count > 0 {
+            messageTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .top, animated: false)
         }
     }
 }

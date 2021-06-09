@@ -21,3 +21,10 @@ enum SettingType: String {
     case logout, login
     case delete
 }
+
+enum FeedbackType: String {
+    case help
+    case reportIssue = "report_issue"
+    case feedback
+    case feature
+}

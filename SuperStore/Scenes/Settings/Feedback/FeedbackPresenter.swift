@@ -15,7 +15,11 @@ import UIKit
 protocol FeedbackPresentationLogic
 {
     func presentTitle(response: Feedback.GetTitle.Response)
+    
     func presentSendFeedback(response: Feedback.SendFeedback.Response)
+    func presentSendMessage(response: Feedback.SendMessage.Response)
+    
+    func presentMessages(response: Feedback.GetMessages.Response)
 }
 
 class FeedbackPresenter: FeedbackPresentationLogic
@@ -32,5 +36,15 @@ class FeedbackPresenter: FeedbackPresentationLogic
     {
         let viewModel = Feedback.SendFeedback.ViewModel(error: response.error)
         viewController?.displaySendFeedback(viewModel: viewModel)
+    }
+    
+    func presentSendMessage(response: Feedback.SendMessage.Response){
+        let viewModel = Feedback.SendMessage.ViewModel(error: response.error)
+        viewController?.displaySendMessage(viewModel: viewModel)
+    }
+    
+    func presentMessages(response: Feedback.GetMessages.Response){
+        let viewModel = Feedback.GetMessages.ViewModel(messages: response.messages, error: response.error)
+        viewController?.displayMessages(viewModel: viewModel)
     }
 }

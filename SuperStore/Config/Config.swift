@@ -239,6 +239,20 @@ struct Config {
             }
         }
         
+        public struct Message {
+            private static var MessageRoute: String {
+                return Host + "/message"
+            }
+            
+            public static var All: String {
+                return MessageRoute + "/"
+            }
+            
+            public static var Create: String {
+                return MessageRoute + "/create"
+            }
+        }
+        
         public struct Feedback {
             private static var FeedbackRoute: String {
                 return Host + "/feedback"

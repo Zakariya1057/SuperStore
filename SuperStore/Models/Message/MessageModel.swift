@@ -9,11 +9,14 @@
 import Foundation
 
 struct MessageModel {
+    var id: Int = 1
+    var type: FeedbackType
     var text: String
-    var type: MessageType
-    var createdAt: Date
+    var direction: MessageDirection
+    var createdAt: Date = Date()
+    var updatedAt: Date = Date()
 }
 
-enum MessageType {
+enum MessageDirection: String {
     case sent, received
 }

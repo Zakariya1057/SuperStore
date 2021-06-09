@@ -172,6 +172,7 @@
 		2C65D9CA2645A9AD00AC3F7E /* StoresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C65D9C42645A9AD00AC3F7E /* StoresTableViewController.swift */; };
 		2C65D9CE2646A08C00AC3F7E /* PromotionGroupObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C65D9CD2646A08C00AC3F7E /* PromotionGroupObject.swift */; };
 		2C65D9D02646A1B400AC3F7E /* PromotionGroupRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C65D9CF2646A1B400AC3F7E /* PromotionGroupRealmStore.swift */; };
+		2C66F9C3267140DF009D6CF4 /* MessageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9C2267140DF009D6CF4 /* MessageData.swift */; };
 		2C69E252260A872F003863BF /* StoreViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E24E260A872F003863BF /* StoreViewControllerTests.swift */; };
 		2C69E253260A872F003863BF /* StoreInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E24F260A872F003863BF /* StoreInteractorTests.swift */; };
 		2C69E254260A872F003863BF /* StoreWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E250260A872F003863BF /* StoreWorkerTests.swift */; };
@@ -394,6 +395,8 @@
 		2CC72FFE25FD7CA1004E3987 /* ImageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC72FFD25FD7CA1004E3987 /* ImageObject.swift */; };
 		2CCBEB8225FF8CEC0068FFAF /* FacilityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCBEB8025FF8CEC0068FFAF /* FacilityTableViewCell.swift */; };
 		2CCBEB8325FF8CEC0068FFAF /* FacilityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CCBEB8125FF8CEC0068FFAF /* FacilityTableViewCell.xib */; };
+		2CCD7452267005CF006C56B8 /* MessageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD7451267005CF006C56B8 /* MessageWorker.swift */; };
+		2CCD74562670069B006C56B8 /* MessageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD74552670069B006C56B8 /* MessageAPI.swift */; };
 		2CD7227F265A581900D1D112 /* FlyerListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD72279265A581800D1D112 /* FlyerListPresenter.swift */; };
 		2CD72280265A581900D1D112 /* FlyerListWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7227A265A581800D1D112 /* FlyerListWorker.swift */; };
 		2CD72281265A581900D1D112 /* FlyerListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7227B265A581900D1D112 /* FlyerListRouter.swift */; };
@@ -636,6 +639,7 @@
 		2C65D9C42645A9AD00AC3F7E /* StoresTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresTableViewController.swift; sourceTree = "<group>"; };
 		2C65D9CD2646A08C00AC3F7E /* PromotionGroupObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionGroupObject.swift; sourceTree = "<group>"; };
 		2C65D9CF2646A1B400AC3F7E /* PromotionGroupRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionGroupRealmStore.swift; sourceTree = "<group>"; };
+		2C66F9C2267140DF009D6CF4 /* MessageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageData.swift; sourceTree = "<group>"; };
 		2C69E24E260A872F003863BF /* StoreViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewControllerTests.swift; sourceTree = "<group>"; };
 		2C69E24F260A872F003863BF /* StoreInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInteractorTests.swift; sourceTree = "<group>"; };
 		2C69E250260A872F003863BF /* StoreWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreWorkerTests.swift; sourceTree = "<group>"; };
@@ -868,6 +872,8 @@
 		2CC72FFD25FD7CA1004E3987 /* ImageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageObject.swift; sourceTree = "<group>"; };
 		2CCBEB8025FF8CEC0068FFAF /* FacilityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityTableViewCell.swift; sourceTree = "<group>"; };
 		2CCBEB8125FF8CEC0068FFAF /* FacilityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FacilityTableViewCell.xib; sourceTree = "<group>"; };
+		2CCD7451267005CF006C56B8 /* MessageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageWorker.swift; sourceTree = "<group>"; };
+		2CCD74552670069B006C56B8 /* MessageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAPI.swift; sourceTree = "<group>"; };
 		2CD72279265A581800D1D112 /* FlyerListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerListPresenter.swift; sourceTree = "<group>"; };
 		2CD7227A265A581800D1D112 /* FlyerListWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerListWorker.swift; sourceTree = "<group>"; };
 		2CD7227B265A581900D1D112 /* FlyerListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyerListRouter.swift; sourceTree = "<group>"; };
@@ -1057,6 +1063,7 @@
 				2C7294CE25ECF4A000D280B3 /* FavouriteData.swift */,
 				2C7CAC5E2640622E0024FDD8 /* MonitoredProductsData.swift */,
 				2CD72293265A59C400D1D112 /* FlyerData.swift */,
+				2C66F9C2267140DF009D6CF4 /* MessageData.swift */,
 				2CB2CFD025EAA81900A00F7F /* PromotionData.swift */,
 				2C55F9E725EE478F007BBFA8 /* SearchData.swift */,
 				2CA11FA125EF92690054AE19 /* CategoryData.swift */,
@@ -1394,6 +1401,7 @@
 				2C52E0C5266023A200FCF3BB /* Groceries */,
 				2C52E0C12660056400FCF3BB /* Store */,
 				2C52E0C32660059300FCF3BB /* Feedback */,
+				2CCD74542670068A006C56B8 /* Message */,
 				2C52E0C22660057900FCF3BB /* Search */,
 				2C52E0C42660059E00FCF3BB /* Home */,
 				2C45E2CA2643F0220047887A /* API.swift */,
@@ -1880,6 +1888,7 @@
 			isa = PBXGroup;
 			children = (
 				2C1477A725E96E06000E8F66 /* User */,
+				2CCD7453267005D7006C56B8 /* Message */,
 				2CC6003B2643EEB500A1F7BE /* Feedback */,
 				2C45E2D9264488180047887A /* Report */,
 				2C2BC7E025EAFCD30038882B /* Product */,
@@ -1908,6 +1917,7 @@
 				2CD8A502266E7ECD003AAEF2 /* Setting */,
 				2CD8A503266E7EEA003AAEF2 /* Grocery */,
 				2CD8A504266E7EF4003AAEF2 /* Search */,
+				2CCD74572670076D006C56B8 /* Message */,
 				2C48E7D425EAA078001A5702 /* ListModel.swift */,
 				2CC72FF925FD7C68004E3987 /* ImageModel.swift */,
 				2C461511260552360009D0E7 /* Request */,
@@ -2249,6 +2259,30 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		2CCD7453267005D7006C56B8 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				2CCD7451267005CF006C56B8 /* MessageWorker.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		2CCD74542670068A006C56B8 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				2CCD74552670069B006C56B8 /* MessageAPI.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		2CCD74572670076D006C56B8 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				2CD8A4F7266E39E4003AAEF2 /* MessageModel.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 		2CD72276265A576000D1D112 /* Flyers */ = {
 			isa = PBXGroup;
 			children = (
@@ -2344,7 +2378,6 @@
 			isa = PBXGroup;
 			children = (
 				2CD8A4F3266E244A003AAEF2 /* SettingModel.swift */,
-				2CD8A4F7266E39E4003AAEF2 /* MessageModel.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -2845,6 +2878,7 @@
 				2CDFB60925EA5EDA002CE30D /* Config.swift in Sources */,
 				2C2BC82125EBBF2E0038882B /* ShowDescriptionInteractor.swift in Sources */,
 				2CB911E525F11DDD00A8FC66 /* ListAPI.swift in Sources */,
+				2CCD7452267005CF006C56B8 /* MessageWorker.swift in Sources */,
 				2C55FA0E25EE4BF9007BBFA8 /* ShowProductResultsWorker.swift in Sources */,
 				2C70823825F009D000345147 /* SendEmailInteractor.swift in Sources */,
 				2C7CAC58264056B40024FDD8 /* MonitoredProductsModels.swift in Sources */,
@@ -2972,6 +3006,7 @@
 				2C7CAC57264056B40024FDD8 /* MonitoredProductsRouter.swift in Sources */,
 				2C65D9BA2645730E00AC3F7E /* AllPromotionsModels.swift in Sources */,
 				2C55F9C525EE3B62007BBFA8 /* ShowSuggestionsPresenter.swift in Sources */,
+				2C66F9C3267140DF009D6CF4 /* MessageData.swift in Sources */,
 				2CA11EEB25EE84620054AE19 /* ShowRefineWorker.swift in Sources */,
 				2C70824625F009ED00345147 /* NewPasswordRouter.swift in Sources */,
 				2CAC0601252E334F00561509 /* FeaturedProductCell.swift in Sources */,
@@ -3055,6 +3090,7 @@
 				2C70829F25F013A700345147 /* EditNameModels.swift in Sources */,
 				2C1476BF25E7ADAC000E8F66 /* UserAuthWorker.swift in Sources */,
 				2CA11F7825EF8E5C0054AE19 /* ParentCategoriesModels.swift in Sources */,
+				2CCD74562670069B006C56B8 /* MessageAPI.swift in Sources */,
 				2CB2CFB325EAA68200A00F7F /* HomeData.swift in Sources */,
 				2CD72282265A581900D1D112 /* FlyerListModels.swift in Sources */,
 				2CB2CFB725EAA6C500A00F7F /* HomeModel.swift in Sources */,

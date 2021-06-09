@@ -49,4 +49,42 @@ enum Feedback
             var error: String?
         }
     }
+    
+    enum SendMessage
+    {
+        struct Request
+        {
+            var message: String
+            var type: FeedbackType
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
+    
+    enum GetMessages
+    {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var messages: [MessageModel]
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var messages: [MessageModel]
+            var error: String?
+        }
+    }
 }
