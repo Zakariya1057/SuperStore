@@ -22,16 +22,16 @@
                         <rect key="frame" x="10" y="3" width="343" height="42"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7HW-1M-ena">
-                                <rect key="frame" x="0.0" y="-10" width="343" height="10"/>
+                                <rect key="frame" x="0.0" y="42" width="343" height="10"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_bubble_sent" translatesAutoresizingMaskIntoConstraints="NO" id="pDU-Ni-jcb">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="chat_bubble_sent" translatesAutoresizingMaskIntoConstraints="NO" id="pDU-Ni-jcb">
                                         <rect key="frame" x="283" y="0.0" width="60" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="TS6-oN-3vn"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFu-BG-HSq">
-                                        <rect key="frame" x="270.5" y="5" width="54.5" height="0.0"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Hey" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFu-BG-HSq">
+                                        <rect key="frame" x="271" y="5" width="54" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -41,24 +41,24 @@
                                 <constraints>
                                     <constraint firstItem="MFu-BG-HSq" firstAttribute="top" secondItem="7HW-1M-ena" secondAttribute="top" constant="5" id="073-Ka-Z5L"/>
                                     <constraint firstAttribute="bottom" secondItem="pDU-Ni-jcb" secondAttribute="bottom" id="Uam-h4-0CF"/>
-                                    <constraint firstItem="MFu-BG-HSq" firstAttribute="width" secondItem="pDU-Ni-jcb" secondAttribute="width" multiplier="0.905" id="bpo-ZW-KNQ"/>
+                                    <constraint firstItem="MFu-BG-HSq" firstAttribute="width" secondItem="pDU-Ni-jcb" secondAttribute="width" multiplier="0.9" id="bpo-ZW-KNQ"/>
                                     <constraint firstItem="pDU-Ni-jcb" firstAttribute="top" secondItem="7HW-1M-ena" secondAttribute="top" id="gdq-Fn-bgd"/>
                                     <constraint firstAttribute="trailing" secondItem="pDU-Ni-jcb" secondAttribute="trailing" id="mn0-NF-wzd"/>
                                     <constraint firstAttribute="trailing" secondItem="MFu-BG-HSq" secondAttribute="trailing" constant="18" id="u62-ER-VZ5"/>
                                     <constraint firstAttribute="bottom" secondItem="MFu-BG-HSq" secondAttribute="bottom" constant="5" id="x1o-vi-cCN"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y0F-Ym-dEL">
-                                <rect key="frame" x="0.0" y="0.0" width="343" height="42"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y0F-Ym-dEL">
+                                <rect key="frame" x="0.0" y="42" width="343" height="10"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_bubble_received" translatesAutoresizingMaskIntoConstraints="NO" id="GMt-CR-O4e">
-                                        <rect key="frame" x="0.0" y="0.0" width="70" height="42"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="HyT-3R-dsP"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9a-5w-HpX">
-                                        <rect key="frame" x="18" y="5" width="63.5" height="32"/>
+                                        <rect key="frame" x="18" y="5" width="63" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
@@ -66,7 +66,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="f9a-5w-HpX" firstAttribute="leading" secondItem="y0F-Ym-dEL" secondAttribute="leading" constant="18" id="0Ap-lB-R5t"/>
-                                    <constraint firstItem="f9a-5w-HpX" firstAttribute="width" secondItem="GMt-CR-O4e" secondAttribute="width" multiplier="0.905" id="3Y7-1c-ESU"/>
+                                    <constraint firstItem="f9a-5w-HpX" firstAttribute="width" secondItem="GMt-CR-O4e" secondAttribute="width" multiplier="0.9" id="3Y7-1c-ESU"/>
                                     <constraint firstAttribute="bottom" secondItem="f9a-5w-HpX" secondAttribute="bottom" constant="5" id="6PK-h6-0K0"/>
                                     <constraint firstItem="GMt-CR-O4e" firstAttribute="leading" secondItem="y0F-Ym-dEL" secondAttribute="leading" id="74x-dm-UsF"/>
                                     <constraint firstAttribute="bottom" secondItem="GMt-CR-O4e" secondAttribute="bottom" id="Lr6-U4-KgL"/>

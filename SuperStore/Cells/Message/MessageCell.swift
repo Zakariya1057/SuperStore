@@ -36,7 +36,7 @@ class MessageCell: UITableViewCell {
     func configureUI(){
         let label: UILabel
         
-        var width: CGFloat = CGFloat( (message.text.count * 7) + 43 )
+        var width: CGFloat = textWidth(text: message.text) + 30
         let maxWidth: CGFloat = UIScreen.main.bounds.width - 65
         var multiLine: Bool = false
         
@@ -45,7 +45,7 @@ class MessageCell: UITableViewCell {
             multiLine = true
         }
         
-        if message.type == .sent {
+        if message.direction == .sent {
             displaySent()
             label = sendTextLabel
             
@@ -93,5 +93,27 @@ class MessageCell: UITableViewCell {
         imageView.image = image
             .resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 30, bottom: 17, right: 30), resizingMode: .stretch)
             .withRenderingMode(.alwaysTemplate)
+    }
+}
+
+extension MessageCell {
+    func textWidth(text: String) -> CGFloat {
+        
+        let cellFontSize:CGFloat = 16
+        
+        let cellFont: UIFont = UIFont.systemFont(ofSize: cellFontSize, weight: .regular)
+
+        let cellParagraphStyle = NSMutableParagraphStyle()
+
+        let cellTextAttributes = [NSAttributedString.Key.font: cellFont, NSAttributedString.Key.paragraphStyle: cellParagraphStyle]
+        
+        let string = NSAttributedString(string: message.text, attributes: cellTextAttributes)
+        
+        let cellDrawingOptions: NSStringDrawingOptions = [
+        .usesLineFragmentOrigin, .usesFontLeading]
+        cellParagraphStyle.lineHeightMultiple = 1.0
+        cellParagraphStyle.lineBreakMode = .byWordWrapping
+
+        return string.boundingRect(with: CGSize(width: CGFloat.infinity, height: CGFloat.infinity), options: cellDrawingOptions, context: nil).width
     }
 }
