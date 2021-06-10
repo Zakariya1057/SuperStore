@@ -55,7 +55,6 @@ enum Feedback
         struct Request
         {
             var message: String
-            var type: FeedbackType
         }
         
         struct Response

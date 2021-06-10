@@ -239,7 +239,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             loginButtonPressed()
         case .delete:
             deleteAccount()
-        case .helpFeedback, .help, .feedback, .feature, .reportIssue:
+        case .helpFeedback, .help, .feedback, .feature, .issue:
             helpAndFeedbackPressed()
         case .notification:
             break

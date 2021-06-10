@@ -173,6 +173,8 @@
 		2C65D9CE2646A08C00AC3F7E /* PromotionGroupObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C65D9CD2646A08C00AC3F7E /* PromotionGroupObject.swift */; };
 		2C65D9D02646A1B400AC3F7E /* PromotionGroupRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C65D9CF2646A1B400AC3F7E /* PromotionGroupRealmStore.swift */; };
 		2C66F9C3267140DF009D6CF4 /* MessageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9C2267140DF009D6CF4 /* MessageData.swift */; };
+		2C66F9C62672854B009D6CF4 /* MessageRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9C52672854B009D6CF4 /* MessageRealmStore.swift */; };
+		2C66F9C82672861F009D6CF4 /* MessageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9C72672861F009D6CF4 /* MessageObject.swift */; };
 		2C69E252260A872F003863BF /* StoreViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E24E260A872F003863BF /* StoreViewControllerTests.swift */; };
 		2C69E253260A872F003863BF /* StoreInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E24F260A872F003863BF /* StoreInteractorTests.swift */; };
 		2C69E254260A872F003863BF /* StoreWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E250260A872F003863BF /* StoreWorkerTests.swift */; };
@@ -640,6 +642,8 @@
 		2C65D9CD2646A08C00AC3F7E /* PromotionGroupObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionGroupObject.swift; sourceTree = "<group>"; };
 		2C65D9CF2646A1B400AC3F7E /* PromotionGroupRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionGroupRealmStore.swift; sourceTree = "<group>"; };
 		2C66F9C2267140DF009D6CF4 /* MessageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageData.swift; sourceTree = "<group>"; };
+		2C66F9C52672854B009D6CF4 /* MessageRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRealmStore.swift; sourceTree = "<group>"; };
+		2C66F9C72672861F009D6CF4 /* MessageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageObject.swift; sourceTree = "<group>"; };
 		2C69E24E260A872F003863BF /* StoreViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewControllerTests.swift; sourceTree = "<group>"; };
 		2C69E24F260A872F003863BF /* StoreInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInteractorTests.swift; sourceTree = "<group>"; };
 		2C69E250260A872F003863BF /* StoreWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreWorkerTests.swift; sourceTree = "<group>"; };
@@ -1045,6 +1049,7 @@
 				2C5C987225F69BC200DF8B6D /* ListObject.swift */,
 				2C5C987625F69BD300DF8B6D /* ListItemObject.swift */,
 				2C70825225F00B2200345147 /* UserObject.swift */,
+				2C66F9C72672861F009D6CF4 /* MessageObject.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -1418,6 +1423,7 @@
 				2CE71F65266935E90037BDDD /* Promotion */,
 				2C5C985225F69A9E00DF8B6D /* Search */,
 				2C5C984F25F69A7900DF8B6D /* List */,
+				2C66F9C42672853A009D6CF4 /* Message */,
 				2C5C986225F69AF700DF8B6D /* User */,
 				2CF7A59825FAB18A00172839 /* Home */,
 				2C5C988025F6AB5E00DF8B6D /* DataStore.swift */,
@@ -1611,6 +1617,14 @@
 				2C65D9C42645A9AD00AC3F7E /* StoresTableViewController.swift */,
 			);
 			path = StoresTableView;
+			sourceTree = "<group>";
+		};
+		2C66F9C42672853A009D6CF4 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				2C66F9C52672854B009D6CF4 /* MessageRealmStore.swift */,
+			);
+			path = Message;
 			sourceTree = "<group>";
 		};
 		2C69E241260A86D1003863BF /* Store */ = {
@@ -2924,6 +2938,7 @@
 				2C45E2E926454F6C0047887A /* PromotionGroupModels.swift in Sources */,
 				2C70824B25F009ED00345147 /* NewPasswordModels.swift in Sources */,
 				2CB3DCF52527AFB600FC5792 /* RefineOptionCell.swift in Sources */,
+				2C66F9C62672854B009D6CF4 /* MessageRealmStore.swift in Sources */,
 				2C6146A325F1266400D92CB7 /* CreateListViewController.swift in Sources */,
 				2C7AE0CF265EDC6700ADF53A /* EditRegionRouter.swift in Sources */,
 				2C14773325E90246000E8F66 /* RegisterViewController.swift in Sources */,
@@ -2982,6 +2997,7 @@
 				2C1476C925E7AEEB000E8F66 /* UserValidationWorker.swift in Sources */,
 				2C55F9CE25EE3B9C007BBFA8 /* SearchAPI.swift in Sources */,
 				2C70828A25F0108500345147 /* SettingsModels.swift in Sources */,
+				2C66F9C82672861F009D6CF4 /* MessageObject.swift in Sources */,
 				2C48E7D125EAA06E001A5702 /* StoreModel.swift in Sources */,
 				2C7294A225ECEAEB00D280B3 /* FavouriteWorker.swift in Sources */,
 				2CDFB63725EA6359002CE30D /* HomeRouter.swift in Sources */,

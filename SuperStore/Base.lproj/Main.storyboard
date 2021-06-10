@@ -3164,7 +3164,7 @@
             <objects>
                 <viewController id="HXj-j2-Hvf" customClass="ShowRefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wxa-Ye-bc0">
@@ -4862,7 +4862,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                         <subviews>
                                             <textView multipleTouchEnabled="YES" contentMode="scaleToFill" canCancelContentTouches="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ury-o8-jBR">
-                                                <rect key="frame" x="15" y="50" width="384" height="300"/>
+                                                <rect key="frame" x="15" y="20" width="384" height="300"/>
                                                 <color key="backgroundColor" name="LightGrey"/>
                                                 <color key="tintColor" name="LogoBlue"/>
                                                 <constraints>
@@ -4877,7 +4877,7 @@
                                         <constraints>
                                             <constraint firstItem="Ury-o8-jBR" firstAttribute="leading" secondItem="HfM-tZ-8wb" secondAttribute="leading" constant="15" id="D0t-8a-v2U"/>
                                             <constraint firstAttribute="trailing" secondItem="Ury-o8-jBR" secondAttribute="trailing" constant="15" id="vx1-wp-e0F"/>
-                                            <constraint firstItem="Ury-o8-jBR" firstAttribute="top" secondItem="HfM-tZ-8wb" secondAttribute="top" constant="50" id="yhk-sn-VFZ"/>
+                                            <constraint firstItem="Ury-o8-jBR" firstAttribute="top" secondItem="HfM-tZ-8wb" secondAttribute="top" constant="20" id="yhk-sn-VFZ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Wp-d6-6OS">

@@ -12,6 +12,10 @@ struct MessagesDataResponse: Decodable {
     var data: [MessageData]
 }
 
+struct MessageDataResponse: Decodable {
+    var data: MessageData
+}
+
 struct MessageData: Decodable {
     var id: Int
     

@@ -17,14 +17,14 @@ struct SettingModel {
 
 enum SettingType: String {
     case name, email, store, region, password, notification
-    case helpFeedback, help, reportIssue, feedback, feature
+    case helpFeedback, help, issue, feedback, feature
     case logout, login
     case delete
 }
 
 enum FeedbackType: String {
     case help
-    case reportIssue = "report_issue"
+    case issue
     case feedback
     case feature
 }

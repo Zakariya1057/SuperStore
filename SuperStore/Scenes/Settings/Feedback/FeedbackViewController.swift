@@ -78,12 +78,13 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
         super.viewDidLoad()
         displayViews()
         
-        getMessages()
+        if loggedIn {
+            getMessages()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        messageTableView.reloadData()
     }
     
     let spinner: SpinnerViewController = SpinnerViewController()
@@ -116,6 +117,8 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     var messages: [MessageModel] = []
     
     func getMessages(){
+        startLoading()
+        
         let request = Feedback.GetMessages.Request()
         interactor?.getMessages(request: request)
     }
@@ -148,7 +151,6 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     
     func displaySendFeedback(viewModel: Feedback.SendFeedback.ViewModel)
     {
-        stopLoading()
         showRightBarButton()
         
         if let error = viewModel.error {
@@ -168,6 +170,8 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
         if let error = viewModel.error {
             showError(title: "Message Error", error: error)
         } else {
+            stopLoading()
+            
             messages = viewModel.messages
             
             messageTableView.reloadData()
@@ -223,14 +227,21 @@ extension FeedbackViewController {
             )
         )
         
-        messageTableView.reloadData()
+        updateTableView()
+        
+        scrollToLastMessage()
         
         clearTextBox()
         
-        let request = Feedback.SendMessage.Request(message: message, type: .feedback)
+        let request = Feedback.SendMessage.Request(message: message)
         interactor?.sendMessage(request: request)
-        
-        scrollToLastMessage()
+    }
+    
+    func updateTableView(){
+        UIView.setAnimationsEnabled(false)
+        messageTableView.beginUpdates()
+        messageTableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: UITableView.RowAnimation.none)
+        messageTableView.endUpdates()
     }
     
     func clearTextBox(){
@@ -365,18 +376,13 @@ extension FeedbackViewController: UITextViewDelegate {
     
     func scrollToLastMessage(){
         if messages.count > 0 {
-            messageTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .top, animated: false)
+            messageTableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .bottom, animated: true)
         }
     }
 }
 
 
 extension FeedbackViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
@@ -401,15 +407,5 @@ extension FeedbackViewController: UITableViewDataSource, UITableViewDelegate {
         
         messageTableView.delegate = self
         messageTableView.dataSource = self
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "Grey.Clear")
-        return view
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 0 : 40
     }
 }

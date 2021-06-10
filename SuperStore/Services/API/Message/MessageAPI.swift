@@ -10,8 +10,10 @@ import Foundation
 
 class MessageAPI: API, MessageRequestProtocol {
     
-    func getMessages(completionHandler: @escaping (_ messages: [MessageModel], _ error: String?) -> Void){
-        requestWorker.get(url: Config.Route.Message.All) { (response: () throws -> Data) in
+    func getMessages(type: FeedbackType, completionHandler: @escaping (_ messages: [MessageModel], _ error: String?) -> Void){
+        let url: String = "\(Config.Route.Message.All)?type=\(type)"
+        
+        requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let messagesDataResponse =  try self.jsonDecoder.decode(MessagesDataResponse.self, from: data)
@@ -27,17 +29,19 @@ class MessageAPI: API, MessageRequestProtocol {
         }
     }
     
-    func sendMessage(type: FeedbackType, message: String, completionHandler: @escaping (String?) -> Void) {
-        requestWorker.post(url: Config.Route.Message.Create , data: ["type": type.rawValue, "message": message]) { (response: () throws -> Data) in
+    func sendMessage(type: FeedbackType, message: String, completionHandler: @escaping (MessageModel?, String?) -> Void) {
+        requestWorker.post(url: Config.Route.Message.Create, data: ["type": type.rawValue, "message": message]) { (response: () throws -> Data) in
             do {
-                _ = try response()
-                completionHandler(nil)
+                let data = try response()
+                let messageDataResponse =  try self.jsonDecoder.decode(MessageDataResponse.self, from: data)
+                let message = self.createMessageModel(messageDataResponse: messageDataResponse)
+                completionHandler(message, nil)
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
-                completionHandler(errorMessage)
+                completionHandler(nil, errorMessage)
             } catch {
                 print(error)
-                completionHandler("Failed to send message. Decoding error, please try again later.")
+                completionHandler(nil, "Failed to send message. Decoding error, please try again later.")
             }
         }
     }
@@ -54,6 +58,14 @@ extension MessageAPI {
         }
         
         return []
+    }
+    
+    private func createMessageModel(messageDataResponse: MessageDataResponse?) -> MessageModel? {
+        if let messageDataResponse = messageDataResponse {
+            return messageDataResponse.data.getMessaageModel()
+        }
+        
+        return nil
     }
 }
 

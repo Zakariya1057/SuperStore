@@ -35,7 +35,7 @@ class HelpAndFeedbackPresenter: HelpAndFeedbackPresentationLogic
             ]),
             
             HelpAndFeedback.DisplaySection(settings: [
-                SettingModel(name: "Report An Issue", type: .reportIssue),
+                SettingModel(name: "Report An Issue", type: .issue),
             ])
         ]
         

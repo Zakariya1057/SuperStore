@@ -37,6 +37,10 @@ class FeedbackInteractor: FeedbackBusinessLogic, FeedbackDataStore
     
     var setting: SettingModel!
     
+    var type: FeedbackType {
+        return getMessageType()
+    }
+    
     func getTitle(request: Feedback.GetTitle.Request) {
         let response = Feedback.GetTitle.Response(title: setting.name)
         presenter?.presentTitle(response: response)
@@ -54,7 +58,6 @@ class FeedbackInteractor: FeedbackBusinessLogic, FeedbackDataStore
     
     func sendMessage(request: Feedback.SendMessage.Request){
         let message: String = request.message
-        let type: FeedbackType = request.type
         
         messageWorker.sendMessage(type: type, message: message) { (error: String?) in
             let response = Feedback.SendMessage.Response(error: error)
@@ -63,9 +66,15 @@ class FeedbackInteractor: FeedbackBusinessLogic, FeedbackDataStore
     }
     
     func getMessages(request: Feedback.GetMessages.Request){
-        messageWorker.getMessages { (messages: [MessageModel], error: String?) in
+        messageWorker.getMessages(type: type) { (messages: [MessageModel], error: String?) in
             let response = Feedback.GetMessages.Response(messages: messages, error: error)
             self.presenter?.presentMessages(response: response)
         }
+    }
+}
+
+extension FeedbackInteractor {
+    func getMessageType() -> FeedbackType {
+        return FeedbackType.init(rawValue: setting.type.rawValue)!
     }
 }

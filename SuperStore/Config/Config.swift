@@ -245,7 +245,7 @@ struct Config {
             }
             
             public static var All: String {
-                return MessageRoute + "/"
+                return MessageRoute
             }
             
             public static var Create: String {

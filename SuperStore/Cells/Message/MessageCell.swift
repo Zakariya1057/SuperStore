@@ -37,7 +37,7 @@ class MessageCell: UITableViewCell {
         let label: UILabel
         
         var width: CGFloat = textWidth(text: message.text) + 30
-        let maxWidth: CGFloat = UIScreen.main.bounds.width - 65
+        let maxWidth: CGFloat = UIScreen.main.bounds.width - 100
         var multiLine: Bool = false
         
         if width >= maxWidth {
