@@ -176,6 +176,7 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
             
             messageTableView.reloadData()
             scrollToLastMessage()
+            
         }
     }
 }
@@ -271,8 +272,8 @@ extension FeedbackViewController {
         let alert = SCLAlertView(appearance: appearance)
         
         alert.showSuccess(
-            "Message Sent",
-            subTitle: "Thanks for being awesome!",
+            "Successfully Sent",
+            subTitle: "You will not be able to get a response without logging in.",
             closeButtonTitle: "Okay",
             timeout: .init(timeoutValue: TimeInterval(2), timeoutAction: {
                 self.router?.routeToSettings(segue: nil)
@@ -280,8 +281,8 @@ extension FeedbackViewController {
             colorStyle: 0x1976CD,
             colorTextButton: 0xFFFFFF,
             circleIconImage: nil,
-            animationStyle: .bottomToTop)
-        
+            animationStyle: .bottomToTop
+        )
     }
 }
 

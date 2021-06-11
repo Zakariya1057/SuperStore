@@ -33,8 +33,6 @@ struct MessageData: Decodable {
         let createdDate: Date = dateWorker.formatDate(date: created_at)
         let updatedData: Date = dateWorker.formatDate(date: updated_at)
         
-        print(type)
-        
         return MessageModel(
             id: id,
             type: FeedbackType.init(rawValue: type)!,

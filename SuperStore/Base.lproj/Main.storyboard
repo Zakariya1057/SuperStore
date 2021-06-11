@@ -3164,7 +3164,7 @@
             <objects>
                 <viewController id="HXj-j2-Hvf" customClass="ShowRefineViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON1-c7-O7s">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wxa-Ye-bc0">
@@ -3341,7 +3341,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Flyers" largeTitleDisplayMode="always" id="kuD-qp-mqK"/>
                     <connections>
-                        <outlet property="tableView" destination="SS5-6U-BYt" id="qV6-zu-I9j"/>
+                        <outlet property="flyersTableView" destination="SS5-6U-BYt" id="dCn-k7-sX4"/>
                         <segue destination="hdY-QV-QHF" kind="show" identifier="ShowFlyer" id="cYp-tT-MWk"/>
                     </connections>
                 </viewController>
@@ -4891,16 +4891,16 @@
                                                 <rect key="frame" x="0.0" y="684" width="414" height="39"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zve-nl-ilk">
-                                                        <rect key="frame" x="15" y="-5" width="384" height="39"/>
+                                                        <rect key="frame" x="10" y="-5" width="394" height="39"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJ9-lN-2Wz">
-                                                                <rect key="frame" x="12" y="2" width="372" height="35"/>
+                                                                <rect key="frame" x="12" y="2" width="382" height="35"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZSP-6y-YbF">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="337" height="35"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="347" height="35"/>
                                                                         <subviews>
                                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XCp-cP-7tM">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="337" height="35"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="347" height="35"/>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                 <color key="textColor" systemColor="labelColor"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -4917,7 +4917,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fpl-Ha-XHC">
-                                                                        <rect key="frame" x="337" y="0.0" width="35" height="35"/>
+                                                                        <rect key="frame" x="347" y="0.0" width="35" height="35"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEO-au-ryi">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -4926,7 +4926,7 @@
                                                                                 </constraints>
                                                                                 <state key="normal" image="arrow.up.circle.fill" catalog="system">
                                                                                     <color key="titleColor" systemColor="labelColor"/>
-                                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="31"/>
+                                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="26"/>
                                                                                 </state>
                                                                                 <connections>
                                                                                     <action selector="sendMessageButtonPressed:" destination="fIe-Ia-vcg" eventType="touchUpInside" id="cRt-or-IKK"/>
@@ -4956,8 +4956,8 @@
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="Zve-nl-ilk" secondAttribute="bottom" constant="5" id="3ap-TB-2uQ"/>
-                                                    <constraint firstItem="Zve-nl-ilk" firstAttribute="leading" secondItem="75C-fy-rgY" secondAttribute="leading" constant="15" id="4dA-Jo-qsC"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Zve-nl-ilk" secondAttribute="trailing" constant="15" id="RY4-6Y-M7n"/>
+                                                    <constraint firstItem="Zve-nl-ilk" firstAttribute="leading" secondItem="75C-fy-rgY" secondAttribute="leading" constant="10" id="4dA-Jo-qsC"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Zve-nl-ilk" secondAttribute="trailing" constant="10" id="RY4-6Y-M7n"/>
                                                     <constraint firstAttribute="height" secondItem="Zve-nl-ilk" secondAttribute="height" id="obq-7f-r0a"/>
                                                 </constraints>
                                             </view>

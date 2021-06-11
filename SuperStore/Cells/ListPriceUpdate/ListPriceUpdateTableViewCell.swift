@@ -41,7 +41,6 @@ class ListPriceUpdateTableViewCell: UITableViewCell, HomeElementCell {
             return
         }
         
-//        self.loading = model.loading
         self.model = model
         
         configureUI()

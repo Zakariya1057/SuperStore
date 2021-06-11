@@ -33,6 +33,7 @@ enum HelpAndFeedback
         
         struct Response
         {
+            var loggedIn: Bool
         }
         
         struct ViewModel

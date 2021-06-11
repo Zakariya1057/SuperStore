@@ -29,11 +29,13 @@ class HelpAndFeedbackInteractor: HelpAndFeedbackBusinessLogic, HelpAndFeedbackDa
     var presenter: HelpAndFeedbackPresentationLogic?
     var worker: HelpAndFeedbackWorker?
     
+    var userSession: UserSessionWorker = UserSessionWorker()
+    
     var selectedSetting: SettingModel!
     
     func getSettings(request: HelpAndFeedback.GetSettings.Request)
     {
-        let response = HelpAndFeedback.GetSettings.Response()
+        let response = HelpAndFeedback.GetSettings.Response(loggedIn: userSession.isLoggedIn())
         presenter?.presentSettings(response: response)
     }
     
