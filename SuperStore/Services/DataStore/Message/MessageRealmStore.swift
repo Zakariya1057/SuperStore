@@ -15,6 +15,21 @@ class MessageRealmStore: DataStore, MessageStoreProtocol {
         return realm?.objects(MessageObject.self).filter("type = %@", type.rawValue).sorted(byKeyPath: "createdAt", ascending: true)
     }
     
+    private func getSuccessMessageObjects(type: FeedbackType) -> Results<MessageObject>? {
+        return realm?.objects(MessageObject.self).filter("type = %@ and status != %@", type.rawValue, "error").sorted(byKeyPath: "createdAt", ascending: true)
+    }
+    
+    private func getMessageObject(message: MessageModel) -> MessageObject? {
+        return realm?.objects(MessageObject.self).filter("""
+            id = %@ AND
+            type = %@ AND
+            text = %@ AND
+            direction = %@ AND
+            createdAt = %@ AND
+            updatedAt = %@
+        """, message.id, message.type.rawValue, message.text, message.direction.rawValue, message.createdAt, message.updatedAt).first
+    }
+    
     func getMessages(type: FeedbackType) -> [MessageModel] {
         return getMessageObjects(type: type)?.map{ $0.getMessageModel() } ?? []
     }
@@ -28,28 +43,64 @@ class MessageRealmStore: DataStore, MessageStoreProtocol {
     }
     
     func saveMessage(message: MessageModel){
+        if let savedMessage = getMessageObject(message: message){
+            updateMessage(message: message, savedMessage: savedMessage)
+        } else {
+            try? realm?.write({
+                let savedMessage = MessageObject()
+                setMessageObjectProperties(message: message, savedMessage: savedMessage)
+                realm?.add(savedMessage)
+            })
+        }
+    }
+    
+    func updateMessage(message: MessageModel, savedMessage: MessageObject){
         try? realm?.write({
-            let savedMessage = MessageObject()
-            
-            savedMessage.id = message.id
-            
-            savedMessage.text = message.text
-            
-            savedMessage.type = message.type.rawValue
-            savedMessage.direction = message.direction.rawValue
-            
-            savedMessage.createdAt = message.createdAt
-            savedMessage.updatedAt = message.updatedAt
-            
-            realm?.add(savedMessage)
+            setMessageObjectProperties(message: message, savedMessage: savedMessage)
         })
     }
     
+    func saveFailedMessage(message: MessageModel){
+        var failedMessage: MessageModel = message
+        failedMessage.status = .error
+        
+        print("Save failed message")
+        saveMessage(message: failedMessage)
+    }
+    
+    func deleteFailedMessage(message: MessageModel){
+        if let savedMessage = getMessageObject(message: message){
+            deleteMessage(message: savedMessage)
+        }
+    }
+    
     private func deleteAllMessage(type: FeedbackType){
-        if let savedMessages = getMessageObjects(type: type){
+        if let savedMessages = getSuccessMessageObjects(type: type){
             try? realm?.write({
                 realm?.delete(savedMessages)
             })
         }
+    }
+    
+    private func deleteMessage(message: MessageObject){
+        try? realm?.write({
+            realm?.delete(message)
+        })
+    }
+    
+}
+
+extension MessageRealmStore {
+    func setMessageObjectProperties(message: MessageModel, savedMessage: MessageObject){
+        savedMessage.id = message.id
+        
+        savedMessage.text = message.text
+        
+        savedMessage.type = message.type.rawValue
+        savedMessage.direction = message.direction.rawValue
+        savedMessage.status = message.status.rawValue
+        
+        savedMessage.createdAt = message.createdAt
+        savedMessage.updatedAt = message.updatedAt
     }
 }

@@ -20,9 +20,9 @@ class MessageWorker
     
     func getMessages(type: FeedbackType, completionHandler: @escaping (_ messages: [MessageModel], _ error: String?) -> Void){
         
-        let messages: [MessageModel] = messageStore.getMessages(type: type)
-        if messages.count > 0 {
-            completionHandler(messages, nil)
+        let savedMessages: [MessageModel] = messageStore.getMessages(type: type)
+        if savedMessages.count > 0 {
+            completionHandler(savedMessages, nil)
         }
         
         messageAPI.getMessages(type: type) { (messages: [MessageModel], error: String?) in
@@ -30,17 +30,35 @@ class MessageWorker
                 self.messageStore.saveMessages(type: type, messages: messages)
             }
             
-            completionHandler(messages, error)
+            // Combine returned successfull messages with failed outgoing messages and sort by date
+            completionHandler( self.combineMessages(savedMessages: savedMessages, receivedMessages: messages) , error)
         }
     }
     
-    func sendMessage(type: FeedbackType, message: String, completionHandler: @escaping (_ error: String?) -> Void){
-        messageAPI.sendMessage(type: type, message: message, completionHandler: { (message: MessageModel?, error: String?) in
+    func sendMessage(type: FeedbackType, message sendingMessage: MessageModel, completionHandler: @escaping (_ error: String?) -> Void){
+        messageAPI.sendMessage(type: type, message: sendingMessage.text, completionHandler: { (message: MessageModel?, error: String?) in
+            
+            self.messageStore.deleteFailedMessage(message: sendingMessage)
+            
             if let message = message {
                 self.messageStore.saveMessage(message: message)
+            } else if error != nil {
+                self.messageStore.saveFailedMessage(message: sendingMessage)
             }
             
             completionHandler(error)
+        })
+    }
+}
+
+extension MessageWorker {
+    func combineMessages(savedMessages: [MessageModel], receivedMessages: [MessageModel]) -> [MessageModel] {
+        var combinedMessages: [MessageModel] = receivedMessages
+        
+        savedMessages.filter({ message in message.status == .error }).forEach { message in combinedMessages.append(message) }
+        
+        return combinedMessages.sorted(by: { messageA, messageB in
+            return messageA.createdAt < messageB.createdAt
         })
     }
 }
@@ -53,6 +71,9 @@ protocol MessageRequestProtocol {
 protocol MessageStoreProtocol {
     func getMessages(type: FeedbackType) -> [MessageModel]
     func saveMessages(type: FeedbackType, messages: [MessageModel])
-    func saveMessage(message: MessageModel)
     
+    func deleteFailedMessage(message: MessageModel)
+    
+    func saveMessage(message: MessageModel)
+    func saveFailedMessage(message: MessageModel)
 }

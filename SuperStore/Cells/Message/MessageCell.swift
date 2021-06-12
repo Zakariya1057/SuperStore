@@ -11,22 +11,27 @@ import UIKit
 class MessageCell: UITableViewCell {
     
     var message: MessageModel!
+    
+    var retryButtonPressed: ((_ message: MessageModel) -> Void)? = nil
 
-    @IBOutlet var messageTextLabel: UILabel!
+    @IBOutlet private var messageTextLabel: UILabel!
     
-    @IBOutlet var sentView: UIView!
-    @IBOutlet var receivedView: UIView!
+    @IBOutlet private var sentView: UIView!
+    @IBOutlet private var receivedView: UIView!
     
-    @IBOutlet var sendImageView: UIImageView!
-    @IBOutlet var receivedImageView: UIImageView!
+    @IBOutlet private var sendImageView: UIImageView!
+    @IBOutlet private var receivedImageView: UIImageView!
     
-    @IBOutlet var sendTextLabel: UILabel!
-    @IBOutlet var receivedTextLabel: UILabel!
+    @IBOutlet private var sendTextLabel: UILabel!
+    @IBOutlet private var receivedTextLabel: UILabel!
     
-    @IBOutlet var receviedWidthConstraint: NSLayoutConstraint!
-    @IBOutlet var sentWidthConstraint: NSLayoutConstraint!
+    @IBOutlet private var parentStackView: UIStackView!
     
-    @IBOutlet var parentStackView: UIStackView!
+    @IBOutlet private var receviedWidthConstraint: NSLayoutConstraint!
+    @IBOutlet private var sentWidthConstraint: NSLayoutConstraint!
+    
+    
+    @IBOutlet private var errorViews: [UIView]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,6 +49,9 @@ class MessageCell: UITableViewCell {
             width = maxWidth
             multiLine = true
         }
+        
+        let showError: Bool = message.status == .error
+        errorViews.forEach { view in view.isHidden = !showError }
         
         if message.direction == .sent {
             displaySent()
@@ -94,6 +102,12 @@ class MessageCell: UITableViewCell {
         imageView.image = image
             .resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 30, bottom: 17, right: 30), resizingMode: .stretch)
             .withRenderingMode(.alwaysTemplate)
+    }
+    
+    @IBAction func retryButtonPressed(_ sender: Any) {
+        if let retryButtonPressed = retryButtonPressed {
+            retryButtonPressed(message)
+        }
     }
 }
 

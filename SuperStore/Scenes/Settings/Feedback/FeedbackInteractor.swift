@@ -20,6 +20,8 @@ protocol FeedbackBusinessLogic
     func sendMessage(request: Feedback.SendMessage.Request)
     
     func getMessages(request: Feedback.GetMessages.Request)
+    
+    func getMessageType() -> FeedbackType
 }
 
 protocol FeedbackDataStore
@@ -57,10 +59,10 @@ class FeedbackInteractor: FeedbackBusinessLogic, FeedbackDataStore
     }
     
     func sendMessage(request: Feedback.SendMessage.Request){
-        let message: String = request.message
+        let message: MessageModel = request.message
         
         messageWorker.sendMessage(type: type, message: message) { (error: String?) in
-            let response = Feedback.SendMessage.Response(error: error)
+            let response = Feedback.SendMessage.Response(sentMessage: message, error: error)
             self.presenter?.presentSendMessage(response: response)
         }
     }

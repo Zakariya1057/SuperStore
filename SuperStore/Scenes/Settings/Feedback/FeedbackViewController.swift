@@ -161,9 +161,18 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     }
     
     func displaySendMessage(viewModel: Feedback.SendMessage.ViewModel) {
-        if let error = viewModel.error {
-            showError(title: "Feedback Error", error: error)
+        let messageIndex: Array<MessageModel>.Index? = messages.firstIndex(of: viewModel.sentMessage)
+        let status: MessageStatus = viewModel.error == nil ? .success : .error
+        
+        if let messageIndex = messageIndex {
+            messages[messageIndex].status = status
         }
+        
+        if let error = viewModel.error {
+            showError(title: "Message Error", error: error)
+        }
+        
+        updateTableView()
     }
     
     func displayMessages(viewModel: Feedback.GetMessages.ViewModel){
@@ -206,7 +215,7 @@ extension FeedbackViewController {
 extension FeedbackViewController {
     @IBAction func sendMessageButtonPressed(_ sender: Any) {
         let message = messageTextView.text ?? ""
-        sendMessage(message: message)
+        sendTextMessage(message: message)
     }
     
     func setupMessageBorder(){
@@ -215,18 +224,19 @@ extension FeedbackViewController {
         messageParentView.layer.cornerRadius = 18
     }
     
-    func sendMessage(message: String){
+    func sendTextMessage(message: String){
         if message.replacingOccurrences(of: " ", with: "") == "" {
             return
         }
         
-        messages.append(
-            MessageModel(
-                type: .feedback,
-                text: message,
-                direction: .sent
-            )
+        let message: MessageModel = MessageModel(
+            type: interactor!.getMessageType(),
+            text: message,
+            direction: .sent,
+            status: .progress
         )
+        
+        messages.append( message )
         
         updateTableView()
         
@@ -234,6 +244,10 @@ extension FeedbackViewController {
         
         clearTextBox()
         
+        sendMessage(message: message)
+    }
+    
+    func sendMessage(message: MessageModel){
         let request = Feedback.SendMessage.Request(message: message)
         interactor?.sendMessage(request: request)
     }
@@ -247,6 +261,15 @@ extension FeedbackViewController {
     
     func clearTextBox(){
         messageTextView.text = ""
+    }
+}
+
+extension FeedbackViewController {
+    func retryMessagePressed(message: MessageModel){
+        print("Retry Message: ")
+        print(message)
+        
+        sendMessage(message: message)
     }
 }
 
@@ -397,6 +420,8 @@ extension FeedbackViewController: UITableViewDataSource, UITableViewDelegate {
 
         cell.message = messages[indexPath.row]
         
+        cell.retryButtonPressed = retryMessagePressed
+        
         cell.configureUI()
         
         return cell
@@ -408,5 +433,14 @@ extension FeedbackViewController: UITableViewDataSource, UITableViewDelegate {
         
         messageTableView.delegate = self
         messageTableView.dataSource = self
+    }
+}
+
+extension FeedbackViewController {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let message: MessageModel = messages[indexPath.row]
+        if message.status == .error {
+            print("Retry Request")
+        }
     }
 }

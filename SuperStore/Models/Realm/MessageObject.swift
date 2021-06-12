@@ -12,9 +12,11 @@ import RealmSwift
 class MessageObject: Object {
     @objc dynamic var id: Int = 1
     
-    @objc dynamic var type: String = ""
     @objc dynamic var text: String = ""
+    
+    @objc dynamic var type: String = ""
     @objc dynamic var direction: String = ""
+    @objc dynamic var status: String = ""
     
     @objc dynamic var createdAt: Date = Date()
     @objc dynamic var updatedAt: Date = Date()
@@ -25,6 +27,7 @@ class MessageObject: Object {
             type: FeedbackType.init(rawValue: type)!,
             text: text,
             direction: MessageDirection.init(rawValue: direction)!,
+            status: MessageStatus.init(rawValue: status)!,
             createdAt: createdAt,
             updatedAt: updatedAt
         )

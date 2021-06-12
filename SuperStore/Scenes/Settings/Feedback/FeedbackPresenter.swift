@@ -39,7 +39,7 @@ class FeedbackPresenter: FeedbackPresentationLogic
     }
     
     func presentSendMessage(response: Feedback.SendMessage.Response){
-        let viewModel = Feedback.SendMessage.ViewModel(error: response.error)
+        let viewModel = Feedback.SendMessage.ViewModel(sentMessage: response.sentMessage, error: response.error)
         viewController?.displaySendMessage(viewModel: viewModel)
     }
     

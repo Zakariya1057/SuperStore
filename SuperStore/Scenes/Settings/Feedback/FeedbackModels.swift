@@ -54,16 +54,18 @@ enum Feedback
     {
         struct Request
         {
-            var message: String
+            var message: MessageModel
         }
         
         struct Response
         {
+            var sentMessage: MessageModel
             var error: String?
         }
         
         struct ViewModel
         {
+            var sentMessage: MessageModel
             var error: String?
         }
     }
