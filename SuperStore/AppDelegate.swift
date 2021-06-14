@@ -87,23 +87,60 @@ import RealmSwift
 
             if let notificationData: AnyObject = aps["data"] {
                 
-                let productID: Int = notificationData["product_id"]! as! Int
+                let type: String = notificationData["type"]! as! String
                 
-                if let rootViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let rootViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController
+                
+                if type == "message" {
                     
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    if let rootViewController = rootViewController {
+                        
+                        print(notificationData)
+                        
+                        let messageType: String = notificationData["message_type"]! as! String
+                        
+                        if let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedbackViewController") as? FeedbackViewController,
+                            let tabBarController = rootViewController as? UITabBarController,
+                            let navController = tabBarController.selectedViewController as? UINavigationController {
+                            
+                            var dataStore = destinationVC.interactor as! FeedbackDataStore
+                            
+                            let settingMapping: [String: String] = [
+                                "help": "Help",
+                                "feature": "Suggest A Feature",
+                                "feedback": "Feedback",
+                                "issue": "Report An Issue",
+                            ]
+                            
+                            let settingName: String = settingMapping[messageType]!
+                            
+                            dataStore.setting = SettingModel(name: settingName, type: SettingType.init(rawValue: messageType)!)
 
-                    if let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowProductViewController") as? ShowProductViewController,
-                        let tabBarController = rootViewController as? UITabBarController,
-                        let navController = tabBarController.selectedViewController as? UINavigationController {
-                        destinationVC.interactor?.productID = productID
-                        navController.pushViewController(destinationVC, animated: true)
+                            navController.pushViewController(destinationVC, animated: true)
+                        }
+                        
+                    }
+                    
+                } else if type == "price" {
+                    
+                    let productID: Int = notificationData["product_id"]! as! Int
+                    
+                    if let rootViewController = rootViewController {
+                        
+                        if let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowProductViewController") as? ShowProductViewController,
+                            let tabBarController = rootViewController as? UITabBarController,
+                            let navController = tabBarController.selectedViewController as? UINavigationController {
+                            destinationVC.interactor?.productID = productID
+                            navController.pushViewController(destinationVC, animated: true)
+                        }
+                        
                     }
                     
                 }
-
+                
             }
-            
+
         }
     
         completionHandler()

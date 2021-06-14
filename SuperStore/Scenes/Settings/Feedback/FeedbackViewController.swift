@@ -266,9 +266,6 @@ extension FeedbackViewController {
 
 extension FeedbackViewController {
     func retryMessagePressed(message: MessageModel){
-        print("Retry Message: ")
-        print(message)
-        
         sendMessage(message: message)
     }
 }
@@ -291,7 +288,7 @@ extension FeedbackViewController {
             kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
             showCloseButton: false
         )
-
+        
         let alert = SCLAlertView(appearance: appearance)
         
         alert.showSuccess(
@@ -382,7 +379,7 @@ extension FeedbackViewController: UITextViewDelegate {
     
     func updateTextViewHeight(){
         var height = self.minHeight
-
+        
         if messageTextView.contentSize.height <= self.minHeight {
             height = self.minHeight
         } else if messageTextView.contentSize.height >= self.maxHeight {
@@ -390,9 +387,9 @@ extension FeedbackViewController: UITextViewDelegate {
         } else {
             height = messageTextView.contentSize.height
         }
-
+        
         self.messageTextViewHeightConstraint.constant = height
-
+        
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
@@ -417,7 +414,7 @@ extension FeedbackViewController: UITableViewDataSource, UITableViewDelegate {
     
     func configureMessageCell(indexPath: IndexPath) -> MessageCell {
         let cell = messageTableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-
+        
         cell.message = messages[indexPath.row]
         
         cell.retryButtonPressed = retryMessagePressed

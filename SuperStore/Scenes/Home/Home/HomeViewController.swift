@@ -501,7 +501,11 @@ extension HomeViewController {
     }
     
     private func flyersPressed(){
-        router?.routeToFlyerList(segue: nil)
+        if longitude == nil {
+            showError(title: "Flyer Error", error: "Location required to view flyers")
+        } else {
+            router?.routeToFlyerList(segue: nil)
+        }
     }
     
     private func cellScroll(_ title: String, _ position: CGFloat){

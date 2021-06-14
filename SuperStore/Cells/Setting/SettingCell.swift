@@ -72,10 +72,9 @@ class SettingCell: UITableViewCell {
     }
     
     private func setWidth(){
-        if setting.type != .password && setting.value == nil {
-            stackViewWidth.constant = 200
-            detailStackView.layoutIfNeeded()
-        }
+        let width: CGFloat = (setting.type != .password && setting.value == nil) ? 200 : 150
+        stackViewWidth.constant = width
+        detailStackView.layoutIfNeeded()
     }
     
     private func displayIcon(){

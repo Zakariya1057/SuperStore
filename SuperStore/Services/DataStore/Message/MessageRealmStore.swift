@@ -64,7 +64,6 @@ class MessageRealmStore: DataStore, MessageStoreProtocol {
         var failedMessage: MessageModel = message
         failedMessage.status = .error
         
-        print("Save failed message")
         saveMessage(message: failedMessage)
     }
     

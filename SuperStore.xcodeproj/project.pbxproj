@@ -1718,7 +1718,6 @@
 		2C70828025F0105F00345147 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				2C7CAC6026415E890024FDD8 /* Cells */,
 				2C70828125F0108500345147 /* SettingsPresenter.swift */,
 				2C70828225F0108500345147 /* SettingsWorker.swift */,
 				2C70828325F0108500345147 /* SettingsRouter.swift */,
@@ -1853,13 +1852,6 @@
 				2C7CAC4E264056870024FDD8 /* MonitoredProducts */,
 			);
 			path = Monitor;
-			sourceTree = "<group>";
-		};
-		2C7CAC6026415E890024FDD8 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		2C8A756B265F91CB00E201B2 /* Cells */ = {
