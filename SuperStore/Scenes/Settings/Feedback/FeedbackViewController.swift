@@ -264,6 +264,7 @@ extension FeedbackViewController {
         messageTableView.beginUpdates()
         messageTableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: UITableView.RowAnimation.none)
         messageTableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
     }
     
     func clearTextBox(){
