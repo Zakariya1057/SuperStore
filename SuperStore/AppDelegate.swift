@@ -12,7 +12,7 @@ import UIKit
 import RealmSwift
 
 @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-
+    
     var window: UIWindow?
     
     var navigationController: UINavigationController = UINavigationController()
@@ -26,7 +26,7 @@ import RealmSwift
             // Set the new schema version. This must be greater than the previously used
             // version (if you've never set a schema version before, the version is 0).
             schemaVersion: 4,
-
+            
             // Set the block which will be called automatically when opening a Realm with
             // a schema version lower than the one set above
             migrationBlock: { migration, oldSchemaVersion in
@@ -37,11 +37,11 @@ import RealmSwift
                     }
                 }
             })
-
-
+        
+        
         Realm.Configuration.defaultConfiguration = config
         
-//        try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
+        //        try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
         configureNotification(application: application)
@@ -52,13 +52,13 @@ import RealmSwift
     }
     
     // MARK: UISceneSession Lifecycle
-
+    
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
+    
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
@@ -71,20 +71,23 @@ import RealmSwift
         UserSessionWorker.notificationToken = token
     }
     
-
+    // This function will be called when notification is received
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound, .badge])
-      }
+        
+        print("Notification Received")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "messageNotificationReceived"), object: nil)
+    }
     
     // This function will be called right after user tap on the notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-
+        
         UIApplication.shared.applicationIconBadgeNumber = 0
         
         let content = response.notification.request.content.userInfo
         
         if let aps = content["aps"] as? [String: AnyObject] {
-
+            
             if let notificationData: AnyObject = aps["data"] {
                 
                 let type: String = notificationData["type"]! as! String
@@ -101,10 +104,8 @@ import RealmSwift
                         let messageType: String = notificationData["message_type"]! as! String
                         
                         if let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedbackViewController") as? FeedbackViewController,
-                            let tabBarController = rootViewController as? UITabBarController,
-                            let navController = tabBarController.selectedViewController as? UINavigationController {
-                            
-                            var dataStore = destinationVC.interactor as! FeedbackDataStore
+                           let tabBarController = rootViewController as? UITabBarController,
+                           let navController = tabBarController.selectedViewController as? UINavigationController {
                             
                             let settingMapping: [String: String] = [
                                 "help": "Help",
@@ -115,9 +116,26 @@ import RealmSwift
                             
                             let settingName: String = settingMapping[messageType]!
                             
-                            dataStore.setting = SettingModel(name: settingName, type: SettingType.init(rawValue: messageType)!)
-
-                            navController.pushViewController(destinationVC, animated: true)
+                            let setting: SettingModel =  SettingModel(name: settingName, type: SettingType.init(rawValue: messageType)!)
+                            
+                            var pushViewController: Bool = true
+                            
+                            // Only if current isn't view controller.
+                            if let viewController = navController.topViewController as? FeedbackViewController {
+                                let dataStore = viewController.interactor as! FeedbackDataStore
+                                
+                                if dataStore.setting.name == setting.name {
+                                    pushViewController = false
+                                }
+                                
+                            }
+                            
+                            if pushViewController {
+                                var dataStore = destinationVC.interactor as! FeedbackDataStore
+                                dataStore.setting = setting
+                                navController.pushViewController(destinationVC, animated: true)
+                            }
+                            
                         }
                         
                     }
@@ -129,8 +147,8 @@ import RealmSwift
                     if let rootViewController = rootViewController {
                         
                         if let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowProductViewController") as? ShowProductViewController,
-                            let tabBarController = rootViewController as? UITabBarController,
-                            let navController = tabBarController.selectedViewController as? UINavigationController {
+                           let tabBarController = rootViewController as? UITabBarController,
+                           let navController = tabBarController.selectedViewController as? UINavigationController {
                             destinationVC.interactor?.productID = productID
                             navController.pushViewController(destinationVC, animated: true)
                         }
@@ -140,22 +158,24 @@ import RealmSwift
                 }
                 
             }
-
+            
         }
-    
+        
         completionHandler()
     }
-
+    
     // Enables user permission
     func configureNotification(application: UIApplication) {
-           let center = UNUserNotificationCenter.current()
-           center.requestAuthorization(options: [.badge, .sound, .alert]) { granted, _ in
-               guard granted else { return }
-               DispatchQueue.main.async {
-                    UNUserNotificationCenter.current().delegate = self
-                    application.registerForRemoteNotifications()
-               }
-           }
-   }
-
+        
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.badge, .sound, .alert]) { granted, _ in
+            guard granted else { return }
+            DispatchQueue.main.async {
+                UNUserNotificationCenter.current().delegate = self
+                application.registerForRemoteNotifications()
+            }
+        }
+        
+    }
+    
 }

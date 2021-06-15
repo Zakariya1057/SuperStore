@@ -1684,7 +1684,6 @@
 				2C058FED25F52ACA00B4A16B /* EditStore */,
 				2CD8A4E6266E1F18003AAEF2 /* HelpAndFeedback */,
 				2CC6002E2643EA6100A1F7BE /* Feedback */,
-				2CD8A4F6266E3839003AAEF2 /* Message */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2344,13 +2343,6 @@
 				2C7CAC6226415EC20024FDD8 /* SettingCell.xib */,
 			);
 			path = Setting;
-			sourceTree = "<group>";
-		};
-		2CD8A4F6266E3839003AAEF2 /* Message */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Message;
 			sourceTree = "<group>";
 		};
 		2CD8A4F9266E5212003AAEF2 /* Message */ = {

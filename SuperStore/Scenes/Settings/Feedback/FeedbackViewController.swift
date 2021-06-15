@@ -78,9 +78,16 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
         super.viewDidLoad()
         displayViews()
         
+        setupNotificationObserver()
+        
         if loggedIn {
             getMessages()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+          super.viewWillDisappear(animated)
+          removeNotificationObserver()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -439,5 +446,24 @@ extension FeedbackViewController {
         if message.status == .error {
             print("Retry Request")
         }
+    }
+}
+
+extension FeedbackViewController {
+    func setupNotificationObserver(){
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(messageNotificationReceived(_:)),
+            name: NSNotification.Name(rawValue: "messageNotificationReceived"),
+            object: nil
+        )
+    }
+
+    func removeNotificationObserver(){
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "messageNotificationReceived"), object: nil)
+    }
+
+    @objc func messageNotificationReceived(_ notification:Notification) {
+        getMessages()
     }
 }
