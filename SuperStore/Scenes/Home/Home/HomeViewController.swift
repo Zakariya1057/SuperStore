@@ -159,6 +159,9 @@ extension HomeViewController {
                 case is GroceriesGroupElement:
                     break
                     
+                case is HomeFeedbackGroupElement:
+                    break
+                    
                 case is ListGroupProgressElement:
                     let listProgressElement = element as! ListGroupProgressElement
                     listProgressElement.items = homeModel.lists.map { ListProgressElement(list: $0) }
@@ -268,6 +271,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let groceriesCell = UINib(nibName: "GroceriesCell", bundle: nil)
         tableView.register(groceriesCell, forCellReuseIdentifier: "GroceriesCell")
         
+        let feedbackCell = UINib(nibName: "HomeFeedbackCell", bundle: nil)
+        tableView.register(feedbackCell, forCellReuseIdentifier: "HomeFeedbackCell")
+        
         setUpTableView()
         setupRefreshControl()
     }
@@ -291,6 +297,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension HomeViewController {
     private func setupHomeCells(){
+        
+        let unreadMessagesCount: Int = homeModel?.messages.count ?? 0
+        
         homeCells = [
             ListGroupProgressElement(title: "Shopping Lists", lists: [], listPressed: listPressed),
             GroceriesGroupElement(title: "", groceriesPressed: groceriesPressed, flyersPressed: flyersPressed),
@@ -299,6 +308,7 @@ extension HomeViewController {
             MonitoringProductGroupElement(title: "Monitored Products", products: [], productPressed: productPressed),
             PromotionGroupElement(title: "Offers", promotions: [], promotionPressed: promotionPressed),
             FeaturedProductGroupElement(title: "Featured Products", products: [], productPressed: productPressed),
+            HomeFeedbackGroupElement(title: "", chatButtonPressed: chatButtonPressed, badgeNumber: unreadMessagesCount),
         ]
         
         if loading {
@@ -508,6 +518,10 @@ extension HomeViewController {
         }
     }
     
+    private func chatButtonPressed(){
+        router?.routeToFeedback(segue: nil)
+    }
+    
     private func cellScroll(_ title: String, _ position: CGFloat){
         scrollPositions[title] = position
     }
@@ -591,4 +605,5 @@ enum HomeElementType: String {
     case featuredProducts = "FeaturedProductCell"
     case listPriceUpdate  = "ListPriceUpdate"
     case groceries        = "GroceriesCell"
+    case homeFeedback     = "HomeFeedbackCell"
 }

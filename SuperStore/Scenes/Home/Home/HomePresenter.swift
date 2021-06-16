@@ -14,16 +14,21 @@ import UIKit
 
 protocol HomePresentationLogic
 {
-  func presentHome(response: Home.GetHome.Response)
+    func presentHome(response: Home.GetHome.Response)
 }
 
 class HomePresenter: HomePresentationLogic
 {
-  weak var viewController: HomeDisplayLogic?
-  
-  func presentHome(response: Home.GetHome.Response)
-  {
-    let viewModel = Home.GetHome.ViewModel(home: response.home, error: response.error, offline: response.offline)
-    viewController?.displayHome(viewModel: viewModel)
-  }
+    weak var viewController: HomeDisplayLogic?
+    
+    func presentHome(response: Home.GetHome.Response)
+    {
+        let viewModel = Home.GetHome.ViewModel(
+            home: response.home,
+            error: response.error,
+            offline: response.offline
+        )
+        
+        viewController?.displayHome(viewModel: viewModel)
+    }
 }

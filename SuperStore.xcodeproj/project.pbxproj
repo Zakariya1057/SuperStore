@@ -177,6 +177,10 @@
 		2C66F9C82672861F009D6CF4 /* MessageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9C72672861F009D6CF4 /* MessageObject.swift */; };
 		2C66F9CD26793237009D6CF4 /* NotificationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9CC26793237009D6CF4 /* NotificationWorker.swift */; };
 		2C66F9D0267937B9009D6CF4 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9CF267937B9009D6CF4 /* NotificationModel.swift */; };
+		2C66F9DD267A7D35009D6CF4 /* HomeFeedbackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9DB267A7D34009D6CF4 /* HomeFeedbackCell.swift */; };
+		2C66F9DE267A7D35009D6CF4 /* HomeFeedbackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9DB267A7D34009D6CF4 /* HomeFeedbackCell.swift */; };
+		2C66F9DF267A7D35009D6CF4 /* HomeFeedbackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C66F9DC267A7D35009D6CF4 /* HomeFeedbackCell.xib */; };
+		2C66F9E0267A7D35009D6CF4 /* HomeFeedbackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C66F9DC267A7D35009D6CF4 /* HomeFeedbackCell.xib */; };
 		2C69E252260A872F003863BF /* StoreViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E24E260A872F003863BF /* StoreViewControllerTests.swift */; };
 		2C69E253260A872F003863BF /* StoreInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E24F260A872F003863BF /* StoreInteractorTests.swift */; };
 		2C69E254260A872F003863BF /* StoreWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E250260A872F003863BF /* StoreWorkerTests.swift */; };
@@ -638,6 +642,8 @@
 		2C66F9C72672861F009D6CF4 /* MessageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageObject.swift; sourceTree = "<group>"; };
 		2C66F9CC26793237009D6CF4 /* NotificationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationWorker.swift; sourceTree = "<group>"; };
 		2C66F9CF267937B9009D6CF4 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		2C66F9DB267A7D34009D6CF4 /* HomeFeedbackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFeedbackCell.swift; sourceTree = "<group>"; };
+		2C66F9DC267A7D35009D6CF4 /* HomeFeedbackCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeFeedbackCell.xib; sourceTree = "<group>"; };
 		2C69E24E260A872F003863BF /* StoreViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewControllerTests.swift; sourceTree = "<group>"; };
 		2C69E24F260A872F003863BF /* StoreInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInteractorTests.swift; sourceTree = "<group>"; };
 		2C69E250260A872F003863BF /* StoreWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreWorkerTests.swift; sourceTree = "<group>"; };
@@ -1625,6 +1631,15 @@
 			path = Notification;
 			sourceTree = "<group>";
 		};
+		2C66F9D1267A4782009D6CF4 /* HomeFeedback */ = {
+			isa = PBXGroup;
+			children = (
+				2C66F9DB267A7D34009D6CF4 /* HomeFeedbackCell.swift */,
+				2C66F9DC267A7D35009D6CF4 /* HomeFeedbackCell.xib */,
+			);
+			path = HomeFeedback;
+			sourceTree = "<group>";
+		};
 		2C69E241260A86D1003863BF /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -2450,6 +2465,7 @@
 		2CDFB62C25EA6324002CE30D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				2C66F9D1267A4782009D6CF4 /* HomeFeedback */,
 				2CD8A4F5266E27B9003AAEF2 /* Setting */,
 				2CD8A4F9266E5212003AAEF2 /* Message */,
 				2CA560172604AC6700714AAC /* ListPriceUpdate */,
@@ -2682,6 +2698,7 @@
 				2CD8A4FF266E5249003AAEF2 /* MessageCell.xib in Resources */,
 				2C05901225F6265F00B4A16B /* RequestLoginCell.xib in Resources */,
 				2C9C1B8724CDDDCE001ACA35 /* OpenSans-Bold.ttf in Resources */,
+				2C66F9DF267A7D35009D6CF4 /* HomeFeedbackCell.xib in Resources */,
 				2C9C1B8824CDDDCE001ACA35 /* OpenSans-SemiBold.ttf in Resources */,
 				2CB15C8324D2D7FE00461AFE /* ListCell.xib in Resources */,
 				2C85FEC3251FB49C00CECBD5 /* ListSectionHeader.xib in Resources */,
@@ -2709,6 +2726,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C66F9E0267A7D35009D6CF4 /* HomeFeedbackCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2854,6 +2872,7 @@
 				2C910B4425E7AABF00BCEACC /* LoginViewController.swift in Sources */,
 				2C0A705825FFA254006A3F6F /* OpeningHourTableViewCell.swift in Sources */,
 				2C058FE825F50CB000B4A16B /* UserLoggedInProtocol.swift in Sources */,
+				2C66F9DD267A7D35009D6CF4 /* HomeFeedbackCell.swift in Sources */,
 				2C70828925F0108500345147 /* SettingsRouter.swift in Sources */,
 				2CD8A4F2266E1F36003AAEF2 /* HelpAndFeedbackInteractor.swift in Sources */,
 				2CA11FA825EF96C70054AE19 /* CategoryTableViewCell.swift in Sources */,
@@ -3156,6 +3175,7 @@
 				2C69E25A260B3F94003863BF /* Seeds.swift in Sources */,
 				2C69E287260BD70F003863BF /* FavouritesInteractorTests.swift in Sources */,
 				2C69E252260A872F003863BF /* StoreViewControllerTests.swift in Sources */,
+				2C66F9DE267A7D35009D6CF4 /* HomeFeedbackCell.swift in Sources */,
 				2C69E289260BD70F003863BF /* FavouritesPresenterTests.swift in Sources */,
 				2C69E254260A872F003863BF /* StoreWorkerTests.swift in Sources */,
 				2C91F774260A8393009FF465 /* SuperStoreTests.swift in Sources */,

@@ -28,6 +28,8 @@ import UIKit
     func routeToAllOffers(segue: UIStoryboardSegue?)
     
     func routeToFlyerList(segue: UIStoryboardSegue?)
+    
+    func routeToFeedback(segue: UIStoryboardSegue?)
 }
 
 protocol HomeDataPassing
@@ -187,6 +189,20 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
         }
     }
     
+    func routeToFeedback(segue: UIStoryboardSegue?){
+        if let segue = segue {
+            let destinationVC = segue.destination as! FeedbackViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToFeedback(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedbackViewController") as! FeedbackViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToFeedback(source: dataStore!, destination: &destinationDS)
+            navigateToFeedback(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     //    MARK: Navigation
     
     func navigateToShowList(source: HomeViewController, destination: ShowListViewController)
@@ -221,22 +237,27 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     
     func navigateToShowStoreResults(source: HomeViewController, destination: ShowStoreResultsViewController)
     {
-      source.show(destination, sender: nil)
+        source.show(destination, sender: nil)
     }
     
     func navigateToMonitoredProducts(source: HomeViewController, destination: MonitoredProductsViewController)
     {
-      source.show(destination, sender: nil)
+        source.show(destination, sender: nil)
     }
     
     func navigateToAllOffers(source: HomeViewController, destination: AllPromotionsViewController)
     {
-      source.show(destination, sender: nil)
+        source.show(destination, sender: nil)
     }
     
     func navigateToFlyerList(source: HomeViewController, destination: FlyerListViewController)
     {
-      source.show(destination, sender: nil)
+        source.show(destination, sender: nil)
+    }
+    
+    func navigateToFeedback(source: HomeViewController, destination: FeedbackViewController)
+    {
+        source.show(destination, sender: nil)
     }
     
     //    MARK: Passing data
@@ -272,7 +293,7 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
             destination.parentCategoryID = parentCategoryID
             destination.title = parentCategoryName
         }
-
+        
         destination.storeTypeID = source.storeTypeID
     }
     
@@ -294,5 +315,10 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     func passDataToFlyerList(source: HomeDataStore, destination: inout FlyerListDataStore)
     {
         destination.storeID = source.closestStoreID
+    }
+    
+    func passDataToFeedback(source: HomeDataStore, destination: inout FeedbackDataStore)
+    {
+        destination.setting = SettingModel(name: "Feedback", type: .feedback)
     }
 }
