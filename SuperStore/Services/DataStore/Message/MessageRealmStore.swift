@@ -55,13 +55,18 @@ class MessageRealmStore: DataStore, MessageStoreProtocol {
         }
     }
     
+    func saveMessages(messages: [MessageModel]){
+        for message in messages {
+            saveMessage(message: message)
+        }
+    }
+    
     func saveMessage(message: MessageModel){
         if let savedMessage = getMessageObject(message: message){
             updateMessage(message: message, savedMessage: savedMessage)
         } else {
             try? realm?.write({
-                let savedMessage = MessageObject()
-                setMessageObjectProperties(message: message, savedMessage: savedMessage)
+                let savedMessage = createMessageObject(message: message)
                 realm?.add(savedMessage)
             })
         }
@@ -134,5 +139,13 @@ extension MessageRealmStore {
                 savedMessage.read = true
             }
         })
+    }
+}
+
+extension MessageRealmStore {
+    func createMessageObject(message: MessageModel) -> MessageObject {
+        let savedMessage = MessageObject()
+        setMessageObjectProperties(message: message, savedMessage: savedMessage)
+        return savedMessage
     }
 }

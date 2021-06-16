@@ -52,6 +52,8 @@ extension HomeAPI {
                 promotions: createPromotionModel(promotionData: homeData.promotions ?? []),
                 categories: createCategoriesModel(categoryData: homeData.categories),
                 
+                messages: createMessageModel(messageData: homeData.messages ?? []),
+                
                 latitude: latitude,
                 longitude: longitude
             )
@@ -59,6 +61,11 @@ extension HomeAPI {
         
         return nil
     }
+    
+}
+
+
+extension HomeAPI {
     
     private func createCategoriesModel(categoryData: [ChildCategoryData]) -> [ChildCategoryModel]{
         
@@ -87,4 +94,9 @@ extension HomeAPI {
     private func createStoresModel(storeData: [StoreData]) -> [StoreModel] {
         return storeData.map{ $0.getStoreModel() }
     }
+    
+    private func createMessageModel(messageData: [MessageData]) -> [MessageModel] {
+        return messageData.map{ var message = $0.getMessaageModel(); message.read = false; return message }
+    }
+    
 }

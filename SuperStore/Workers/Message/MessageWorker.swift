@@ -86,6 +86,8 @@ protocol MessageStoreProtocol {
     func getMessages(type: FeedbackType) -> [MessageModel]
     func saveMessages(type: FeedbackType, messages: [MessageModel])
     
+    func saveMessages(messages: [MessageModel])
+    
     func deleteFailedMessage(message: MessageModel)
     
     func saveMessage(message: MessageModel)

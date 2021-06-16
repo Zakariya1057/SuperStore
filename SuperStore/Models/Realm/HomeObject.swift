@@ -20,7 +20,6 @@ class HomeObject: Object {
     var groceries = List<ProductObject>()
     var monitoring = List<ProductObject>()
     
-    var on_sale = List<ProductObject>()
     var promotions = List<PromotionObject>()
     
     var categories = List<ChildCategoryObject>()

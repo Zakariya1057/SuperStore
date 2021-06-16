@@ -49,6 +49,8 @@ class HomeWorker
                 
                 self.homeStore.createHome(storeTypeID: storeTypeID, home: homeModel!)
                 
+                self.notificationWorker.updateBadgeNumber()
+                
             }
             
             completionHandler(homeModel, error)

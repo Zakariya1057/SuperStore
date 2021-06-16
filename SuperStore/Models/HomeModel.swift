@@ -17,6 +17,8 @@ struct HomeModel {
     var promotions: [PromotionModel]
     var categories: [ChildCategoryModel]
     
+    var messages: [MessageModel]
+    
     var latitude: Double?
     var longitude: Double?
 }

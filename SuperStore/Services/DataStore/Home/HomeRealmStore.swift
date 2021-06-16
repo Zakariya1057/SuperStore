@@ -20,6 +20,7 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
     var listStore: ListStoreProtocol = ListRealmStore()
     var categoryStore: GroceryStoreProtocol = GroceryRealmStore()
     var promotionStore: PromotionStoreProtocol = PromotionRealmStore()
+    var messageStore: MessageStoreProtocol = MessageRealmStore()
     
     func createHome(storeTypeID: Int, home: HomeModel){
 
@@ -70,8 +71,10 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
                 let savedCategory =  categoryStore.createCategoryObject(category: category)
                 savedHome.categories.append(savedCategory)
             }
-            
+
         })
+        
+        messageStore.saveMessages(messages: home.messages)
     }
     
     func getHome(storeTypeID: Int) -> HomeModel? {
@@ -100,7 +103,8 @@ class HomeRealmStore: DataStore, HomeStoreProtocol {
             groceries: groceries,
             monitoring: monitoring,
             promotions: promotions,
-            categories: categories
+            categories: categories,
+            messages: []
         )
         
     }

@@ -19,6 +19,6 @@ struct HomeData:Decodable {
     var groceries: [ProductData]?
     var monitoring: [ProductData]?
     var promotions: [PromotionData]?
-    var on_sale: [ProductData]?
+    var messages: [MessageData]?
     var categories: [ChildCategoryData]
 }
