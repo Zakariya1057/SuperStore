@@ -175,6 +175,8 @@
 		2C66F9C3267140DF009D6CF4 /* MessageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9C2267140DF009D6CF4 /* MessageData.swift */; };
 		2C66F9C62672854B009D6CF4 /* MessageRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9C52672854B009D6CF4 /* MessageRealmStore.swift */; };
 		2C66F9C82672861F009D6CF4 /* MessageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9C72672861F009D6CF4 /* MessageObject.swift */; };
+		2C66F9CD26793237009D6CF4 /* NotificationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9CC26793237009D6CF4 /* NotificationWorker.swift */; };
+		2C66F9D0267937B9009D6CF4 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66F9CF267937B9009D6CF4 /* NotificationModel.swift */; };
 		2C69E252260A872F003863BF /* StoreViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E24E260A872F003863BF /* StoreViewControllerTests.swift */; };
 		2C69E253260A872F003863BF /* StoreInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E24F260A872F003863BF /* StoreInteractorTests.swift */; };
 		2C69E254260A872F003863BF /* StoreWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69E250260A872F003863BF /* StoreWorkerTests.swift */; };
@@ -644,6 +646,8 @@
 		2C66F9C2267140DF009D6CF4 /* MessageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageData.swift; sourceTree = "<group>"; };
 		2C66F9C52672854B009D6CF4 /* MessageRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRealmStore.swift; sourceTree = "<group>"; };
 		2C66F9C72672861F009D6CF4 /* MessageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageObject.swift; sourceTree = "<group>"; };
+		2C66F9CC26793237009D6CF4 /* NotificationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationWorker.swift; sourceTree = "<group>"; };
+		2C66F9CF267937B9009D6CF4 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		2C69E24E260A872F003863BF /* StoreViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewControllerTests.swift; sourceTree = "<group>"; };
 		2C69E24F260A872F003863BF /* StoreInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInteractorTests.swift; sourceTree = "<group>"; };
 		2C69E250260A872F003863BF /* StoreWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreWorkerTests.swift; sourceTree = "<group>"; };
@@ -1627,6 +1631,22 @@
 			path = Message;
 			sourceTree = "<group>";
 		};
+		2C66F9CB26793227009D6CF4 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				2C66F9CC26793237009D6CF4 /* NotificationWorker.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		2C66F9CE267937AA009D6CF4 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				2C66F9CF267937B9009D6CF4 /* NotificationModel.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		2C69E241260A86D1003863BF /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -1903,6 +1923,7 @@
 				2CE71F632667EBC00037BDDD /* Region */,
 				2C1429AE25F38F87007D1EB7 /* Store */,
 				2CF7A59D25FAB20300172839 /* Home */,
+				2C66F9CB26793227009D6CF4 /* Notification */,
 				2CAB2EF325FFF6990014FE8D /* Location */,
 				2C46150A2604BB360009D0E7 /* Date */,
 				2C1476D025E7B388000E8F66 /* RequestWorker.swift */,
@@ -1923,6 +1944,7 @@
 				2CD8A503266E7EEA003AAEF2 /* Grocery */,
 				2CD8A504266E7EF4003AAEF2 /* Search */,
 				2CCD74572670076D006C56B8 /* Message */,
+				2C66F9CE267937AA009D6CF4 /* Notification */,
 				2C48E7D425EAA078001A5702 /* ListModel.swift */,
 				2CC72FF925FD7C68004E3987 /* ImageModel.swift */,
 				2C461511260552360009D0E7 /* Request */,
@@ -2823,6 +2845,7 @@
 				2CA11F3E25EEB6A50054AE19 /* StoreRouter.swift in Sources */,
 				2CDA613525ED159900FD3956 /* DownloadImage.swift in Sources */,
 				2C2BC82025EBBF2E0038882B /* ShowDescriptionViewController.swift in Sources */,
+				2C66F9D0267937B9009D6CF4 /* NotificationModel.swift in Sources */,
 				2C55FA2D25EE5637007BBFA8 /* SearchQueryRequest.swift in Sources */,
 				2C70823D25F009D000345147 /* ResetPasswordRouter.swift in Sources */,
 				2C910B4225E7AABF00BCEACC /* LoginRouter.swift in Sources */,
@@ -2863,6 +2886,7 @@
 				2C55FA0F25EE4BF9007BBFA8 /* ShowProductResultsRouter.swift in Sources */,
 				2CD72281265A581900D1D112 /* FlyerListRouter.swift in Sources */,
 				2C2BC7DB25EAF9220038882B /* ShowProductModels.swift in Sources */,
+				2C66F9CD26793237009D6CF4 /* NotificationWorker.swift in Sources */,
 				2C1429B025F38F96007D1EB7 /* StoreWorker.swift in Sources */,
 				2CA11F7A25EF8E5C0054AE19 /* ParentCategoriesInteractor.swift in Sources */,
 				2C910B4525E7AABF00BCEACC /* LoginInteractor.swift in Sources */,

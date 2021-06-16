@@ -8,7 +8,6 @@
 
 import UIKit
 import IQKeyboardManagerSwift
-import UIKit
 import RealmSwift
 
 @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -16,6 +15,8 @@ import RealmSwift
     var window: UIWindow?
     
     var navigationController: UINavigationController = UINavigationController()
+    
+    var notificationWorker: NotificationWorker?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -41,12 +42,12 @@ import RealmSwift
         
         Realm.Configuration.defaultConfiguration = config
         
-        //        try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
+//        try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
-        configureNotification(application: application)
+        notificationWorker = NotificationWorker()
         
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        configureNotification(application: application)
         
         return true
     }
@@ -74,93 +75,12 @@ import RealmSwift
     // This function will be called when notification is received
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound, .badge])
-        
-        print("Notification Received")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "messageNotificationReceived"), object: nil)
+        notificationWorker?.notificationReceived(data: notification.request.content.userInfo)
     }
     
     // This function will be called right after user tap on the notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-        UIApplication.shared.applicationIconBadgeNumber = 0
-        
-        let content = response.notification.request.content.userInfo
-        
-        if let aps = content["aps"] as? [String: AnyObject] {
-            
-            if let notificationData: AnyObject = aps["data"] {
-                
-                let type: String = notificationData["type"]! as! String
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let rootViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController
-                
-                if type == "message" {
-                    
-                    if let rootViewController = rootViewController {
-                        
-                        print(notificationData)
-                        
-                        let messageType: String = notificationData["message_type"]! as! String
-                        
-                        if let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedbackViewController") as? FeedbackViewController,
-                           let tabBarController = rootViewController as? UITabBarController,
-                           let navController = tabBarController.selectedViewController as? UINavigationController {
-                            
-                            let settingMapping: [String: String] = [
-                                "help": "Help",
-                                "feature": "Suggest A Feature",
-                                "feedback": "Feedback",
-                                "issue": "Report An Issue",
-                            ]
-                            
-                            let settingName: String = settingMapping[messageType]!
-                            
-                            let setting: SettingModel =  SettingModel(name: settingName, type: SettingType.init(rawValue: messageType)!)
-                            
-                            var pushViewController: Bool = true
-                            
-                            // Only if current isn't view controller.
-                            if let viewController = navController.topViewController as? FeedbackViewController {
-                                let dataStore = viewController.interactor as! FeedbackDataStore
-                                
-                                if dataStore.setting.name == setting.name {
-                                    pushViewController = false
-                                }
-                                
-                            }
-                            
-                            if pushViewController {
-                                var dataStore = destinationVC.interactor as! FeedbackDataStore
-                                dataStore.setting = setting
-                                navController.pushViewController(destinationVC, animated: true)
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                } else if type == "price" {
-                    
-                    let productID: Int = notificationData["product_id"]! as! Int
-                    
-                    if let rootViewController = rootViewController {
-                        
-                        if let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowProductViewController") as? ShowProductViewController,
-                           let tabBarController = rootViewController as? UITabBarController,
-                           let navController = tabBarController.selectedViewController as? UINavigationController {
-                            destinationVC.interactor?.productID = productID
-                            navController.pushViewController(destinationVC, animated: true)
-                        }
-                        
-                    }
-                    
-                }
-                
-            }
-            
-        }
-        
+        notificationWorker?.notificationPressed(response: response)
         completionHandler()
     }
     

@@ -24,6 +24,8 @@ struct MessageData: Decodable {
     var type: String
     var direction: String
     
+    var message_read: Bool
+    
     var created_at: String
     var updated_at: String
     
@@ -38,6 +40,7 @@ struct MessageData: Decodable {
             type: FeedbackType.init(rawValue: type)!,
             text: text,
             direction: MessageDirection(rawValue: direction)!,
+            read: true,
             createdAt: createdDate,
             updatedAt: updatedData
         )

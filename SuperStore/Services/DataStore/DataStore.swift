@@ -10,5 +10,5 @@ import Foundation
 import RealmSwift
 
 class DataStore {
-    let realm = try? Realm()
+    let realm: Realm? = try? Realm()
 }

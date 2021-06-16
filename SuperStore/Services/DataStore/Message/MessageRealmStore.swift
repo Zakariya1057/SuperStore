@@ -15,6 +15,10 @@ class MessageRealmStore: DataStore, MessageStoreProtocol {
         return realm?.objects(MessageObject.self).filter("type = %@", type.rawValue).sorted(byKeyPath: "createdAt", ascending: true)
     }
     
+    private func getUnreadMessageObjectsCount() -> Int {
+        return realm?.objects(MessageObject.self).filter("read = false").count ?? 0
+    }
+    
     private func getSuccessMessageObjects(type: FeedbackType) -> Results<MessageObject>? {
         return realm?.objects(MessageObject.self).filter("type = %@ and status != %@", type.rawValue, "error").sorted(byKeyPath: "createdAt", ascending: true)
     }
@@ -31,7 +35,12 @@ class MessageRealmStore: DataStore, MessageStoreProtocol {
     }
     
     func getMessages(type: FeedbackType) -> [MessageModel] {
-        return getMessageObjects(type: type)?.map{ $0.getMessageModel() } ?? []
+        if let savedMessageObjects = getMessageObjects(type: type) {
+            setAllMessagesToRead(savedMessages: savedMessageObjects)
+            return savedMessageObjects.map{ $0.getMessageModel() }
+        }
+        
+        return []
     }
     
     func saveMessages(type: FeedbackType, messages: [MessageModel]){
@@ -99,7 +108,23 @@ extension MessageRealmStore {
         savedMessage.direction = message.direction.rawValue
         savedMessage.status = message.status.rawValue
         
+        savedMessage.read = message.read
+        
         savedMessage.createdAt = message.createdAt
         savedMessage.updatedAt = message.updatedAt
+    }
+}
+
+extension MessageRealmStore {
+    func getUnreadMessagesCount() -> Int {
+        return getUnreadMessageObjectsCount()
+    }
+    
+    func setAllMessagesToRead(savedMessages: Results<MessageObject>){
+        try? realm?.write({
+            for savedMessage in savedMessages {
+                savedMessage.read = true
+            }
+        })
     }
 }

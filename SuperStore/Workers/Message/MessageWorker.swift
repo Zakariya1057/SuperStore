@@ -13,17 +13,20 @@ class MessageWorker
     private var messageAPI: MessageRequestProtocol
     private var messageStore: MessageStoreProtocol
     
+    private lazy var notificationWorker: NotificationWorker = NotificationWorker()
+    
     init(messageAPI: MessageRequestProtocol) {
         self.messageAPI = messageAPI
         self.messageStore = MessageRealmStore()
     }
     
     func getMessages(type: FeedbackType, completionHandler: @escaping (_ messages: [MessageModel], _ error: String?) -> Void){
-        
         let savedMessages: [MessageModel] = messageStore.getMessages(type: type)
         if savedMessages.count > 0 {
             completionHandler(savedMessages, nil)
         }
+        
+        notificationWorker.updateBadgeNumber()
         
         messageAPI.getMessages(type: type) { (messages: [MessageModel], error: String?) in
             if error == nil {
@@ -76,4 +79,6 @@ protocol MessageStoreProtocol {
     
     func saveMessage(message: MessageModel)
     func saveFailedMessage(message: MessageModel)
+    
+    func getUnreadMessagesCount() -> Int
 }

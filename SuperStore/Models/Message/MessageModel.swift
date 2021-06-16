@@ -14,6 +14,7 @@ struct MessageModel {
     var text: String
     var direction: MessageDirection
     var status: MessageStatus = .success
+    var read: Bool = true
     var createdAt: Date = Date()
     var updatedAt: Date = Date()
 }
@@ -26,6 +27,7 @@ extension MessageModel: Equatable {
             lhs.text == rhs.text &&
             lhs.direction == rhs.direction &&
             lhs.status == rhs.status &&
+            lhs.read == rhs.read &&
             lhs.createdAt == rhs.createdAt &&
             lhs.updatedAt == rhs.updatedAt
     }

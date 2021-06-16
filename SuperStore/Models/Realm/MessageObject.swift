@@ -18,6 +18,8 @@ class MessageObject: Object {
     @objc dynamic var direction: String = ""
     @objc dynamic var status: String = ""
     
+    @objc dynamic var read: Bool = false
+    
     @objc dynamic var createdAt: Date = Date()
     @objc dynamic var updatedAt: Date = Date()
     
@@ -28,6 +30,7 @@ class MessageObject: Object {
             text: text,
             direction: MessageDirection.init(rawValue: direction)!,
             status: MessageStatus.init(rawValue: status)!,
+            read: read,
             createdAt: createdAt,
             updatedAt: updatedAt
         )
