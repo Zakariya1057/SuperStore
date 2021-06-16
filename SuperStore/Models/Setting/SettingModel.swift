@@ -13,6 +13,7 @@ struct SettingModel {
     var value: String? = nil
     var on: Bool = false
     var type: SettingType
+    var badgeNumber: Int? = nil
 }
 
 enum SettingType: String {

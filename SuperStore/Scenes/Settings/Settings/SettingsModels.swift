@@ -31,6 +31,8 @@ enum Settings
         {
             var user: UserModel?
             
+            var unreadMessagesCount: Int
+            
             var storeTypeName: String
             var regionName: String
         }

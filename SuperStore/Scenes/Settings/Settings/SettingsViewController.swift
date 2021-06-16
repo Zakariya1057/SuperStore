@@ -73,9 +73,17 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setupNotificationObserver()
         setupSettingsTableView()
+        
         displayBarButton()
         getSettings()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeNotificationObserver()
     }
     
     let spinner: SpinnerViewController = SpinnerViewController()
@@ -373,6 +381,25 @@ extension SettingsViewController: UserLoggedInProtocol {
     }
     
     func userLoggedInSuccessfully(){
+        getSettings()
+    }
+}
+
+extension SettingsViewController {
+    func setupNotificationObserver(){
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(messageNotificationReceived(_:)),
+            name: NSNotification.Name(rawValue: "messageNotificationReceived"),
+            object: nil
+        )
+    }
+
+    func removeNotificationObserver(){
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "messageNotificationReceived"), object: nil)
+    }
+
+    @objc func messageNotificationReceived(_ notification:Notification) {
         getSettings()
     }
 }

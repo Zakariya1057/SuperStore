@@ -148,7 +148,7 @@ extension NotificationWorker {
         setSettingsBadgeNumber(unreadMessagesCount: unreadMessagesCount)
     }
     
-    func setSettingsBadgeNumber(unreadMessagesCount: Int){
+    private func setSettingsBadgeNumber(unreadMessagesCount: Int){
         if let tabBarController = rootViewController as? UITabBarController {
             if let settingsViewController = tabBarController.viewControllers?[4] {
                 settingsViewController.tabBarItem.badgeValue = unreadMessagesCount == 0 ? nil : String(unreadMessagesCount)

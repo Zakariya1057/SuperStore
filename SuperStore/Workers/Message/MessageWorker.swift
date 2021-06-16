@@ -52,6 +52,17 @@ class MessageWorker
             completionHandler(error)
         })
     }
+    
+}
+
+extension MessageWorker {
+    func getUnreadMessagesCount() -> Int {
+        return messageStore.getUnreadMessagesCount()
+    }
+    
+    func getUnreadMessagesCountByType(type: FeedbackType) -> Int {
+        return messageStore.getUnreadMessagesCountByType(type: type)
+    }
 }
 
 extension MessageWorker {
@@ -81,4 +92,5 @@ protocol MessageStoreProtocol {
     func saveFailedMessage(message: MessageModel)
     
     func getUnreadMessagesCount() -> Int
+    func getUnreadMessagesCountByType(type: FeedbackType) -> Int
 }

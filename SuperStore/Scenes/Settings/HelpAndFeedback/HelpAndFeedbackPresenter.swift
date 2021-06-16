@@ -27,20 +27,25 @@ class HelpAndFeedbackPresenter: HelpAndFeedbackPresentationLogic
     {
         var displaySections: [HelpAndFeedback.DisplaySection] = []
 
+        let unreadHelpMessages: Int = response.unreadHelpMessages
+        let unreadFeaturepMessages: Int = response.unreadFeaturepMessages
+        let unreadFeedbackMessages: Int = response.unreadFeedbackMessages
+        let unreadIssueMessages: Int = response.unreadIssueMessages
+
         if response.loggedIn {
             displaySections.append(HelpAndFeedback.DisplaySection(settings: [
-                SettingModel(name: "Help", type: .help)
+                SettingModel(name: "Help", type: .help, badgeNumber: unreadHelpMessages)
             ]))
         }
         
         displaySections.append(HelpAndFeedback.DisplaySection(settings: [
-            SettingModel(name: "Suggest A Feature", type: .feature),
-            SettingModel(name: "Feedback", type: .feedback)
+            SettingModel(name: "Suggest A Feature", type: .feature, badgeNumber: unreadFeaturepMessages),
+            SettingModel(name: "Feedback", type: .feedback, badgeNumber: unreadFeedbackMessages)
         ]))
         
         
         displaySections.append(HelpAndFeedback.DisplaySection(settings: [
-            SettingModel(name: "Report An Issue", type: .issue),
+            SettingModel(name: "Report An Issue", type: .issue, badgeNumber: unreadIssueMessages),
         ]))
         
         let viewModel = HelpAndFeedback.GetSettings.ViewModel(displaySections: displaySections)

@@ -66,11 +66,16 @@ class HelpAndFeedbackViewController: UIViewController, HelpAndFeedbackDisplayLog
     
     // MARK: View lifecycle
     
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupNotificationObserver()
         setupTableView()
         getSettings()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        removeNotificationObserver()
     }
     
     var displaySections: [HelpAndFeedback.DisplaySection] = []
@@ -142,5 +147,24 @@ extension HelpAndFeedbackViewController {
         let setting: SettingModel = displaySections[indexPath.section].settings[indexPath.row]
         interactor?.setFeedbackTitle(setting: setting)
         router?.routeToFeedback(segue: nil)
+    }
+}
+
+extension HelpAndFeedbackViewController {
+    func setupNotificationObserver(){
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(messageNotificationReceived(_:)),
+            name: NSNotification.Name(rawValue: "messageNotificationReceived"),
+            object: nil
+        )
+    }
+
+    func removeNotificationObserver(){
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "messageNotificationReceived"), object: nil)
+    }
+
+    @objc func messageNotificationReceived(_ notification:Notification) {
+        getSettings()
     }
 }

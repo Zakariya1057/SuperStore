@@ -33,6 +33,11 @@ enum HelpAndFeedback
         
         struct Response
         {
+            var unreadHelpMessages: Int
+            var unreadFeaturepMessages: Int
+            var unreadIssueMessages: Int
+            var unreadFeedbackMessages: Int
+            
             var loggedIn: Bool
         }
         

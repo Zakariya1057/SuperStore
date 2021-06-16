@@ -36,6 +36,8 @@ class SettingsPresenter: SettingsPresentationLogic
             let storeTypeName: String = response.storeTypeName
             let regionName: String = response.regionName
             
+            let unreadMessagesCount: Int = response.unreadMessagesCount
+            
             if user.token != "" {
                 
                 loggedIn = true
@@ -46,7 +48,7 @@ class SettingsPresenter: SettingsPresentationLogic
                         SettingModel(name: "Email", value: user.email, type: .email),
                         SettingModel(name: "Password", value: "••••••••••••••", type: .password),
                         SettingModel(name: "Notifications", on: user.sendNotifications, type: .notification),
-                        SettingModel(name: "Help & Feedback", type: .helpFeedback),
+                        SettingModel(name: "Help & Feedback", type: .helpFeedback, badgeNumber: unreadMessagesCount),
                     ])
                 )
                 
@@ -59,7 +61,6 @@ class SettingsPresenter: SettingsPresentationLogic
                 
                 displayUserSections.append(
                     Settings.DisplayUserSection(settings: [
-                       
                         SettingModel(name: "Delete Account", type: .delete)
                     ])
                 )

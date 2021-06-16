@@ -17,6 +17,8 @@ class HomeWorker
     private var homeAPI: HomeRequestProtocol
     private var homeStore: HomeStoreProtocol
     
+    private var notificationWorker: NotificationWorker = NotificationWorker()
+    
     private var promotionStore: PromotionStoreProtocol = PromotionRealmStore()
     
     init(homeAPI: HomeRequestProtocol) {
@@ -25,6 +27,8 @@ class HomeWorker
     }
     
     func getHome(regionID: Int, storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void){
+        
+        notificationWorker.updateBadgeNumber()
         
         if let home = homeStore.getHome(storeTypeID: storeTypeID) {
             completionHandler(home, nil)

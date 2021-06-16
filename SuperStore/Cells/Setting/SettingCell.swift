@@ -46,6 +46,10 @@ class SettingCell: UITableViewCell {
     
     @IBOutlet var disclosureView: UIView!
     
+    @IBOutlet var badgeParentView: UIView!
+    @IBOutlet var badgeView: UIView!
+    @IBOutlet var badgeText: UILabel!
+    
     var notificationSwitchPressedCallback: ((Bool) -> Void)?
     
     override func awakeFromNib() {
@@ -69,6 +73,8 @@ class SettingCell: UITableViewCell {
         
         displayIcon()
         displayViews()
+        
+        displayBadge()
     }
     
     private func setWidth(){
@@ -100,6 +106,15 @@ class SettingCell: UITableViewCell {
         }
     }
     
+    private func displayBadge(){
+        badgeParentView.isHidden = ( setting.badgeNumber == nil || setting.badgeNumber == 0)
+        
+        if let number = setting.badgeNumber, number > 0 {
+            setBadgeViewBorder()
+            badgeText.text = String(number)
+        }
+    }
+    
 }
 
 extension SettingCell {
@@ -111,5 +126,11 @@ extension SettingCell {
     
     func setNotification(enabled: Bool){
         notificationSwitch.setOn(enabled, animated: true)
+    }
+}
+
+extension SettingCell {
+    func setBadgeViewBorder(){
+        badgeView.layer.cornerRadius = 10
     }
 }

@@ -36,6 +36,7 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
     
     var storeTypeWorker: StoreTypeWorker = StoreTypeWorker()
     var regionWorker: RegionWorker = RegionWorker()
+    var messageWorker: MessageWorker = MessageWorker(messageAPI: MessageAPI())
     
     var user: UserModel?
     
@@ -46,8 +47,17 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
             
             let storeTypeName: String = self.storeTypeWorker.getStoreName(storeTypeID: user!.storeTypeID)
             let regionName: String = self.regionWorker.getRegionName(regionID: user!.regionID)
+            let unreadMessagesCount: Int = self.messageWorker.getUnreadMessagesCount()
             
-            let response = Settings.GetUserDetails.Response(user: self.user, storeTypeName: storeTypeName, regionName: regionName)
+            let response = Settings.GetUserDetails.Response(
+                user: self.user,
+                
+                unreadMessagesCount: unreadMessagesCount,
+                
+                storeTypeName: storeTypeName,
+                regionName: regionName
+            )
+            
             self.presenter?.presentUserDetails(response: response)
         }
     }
