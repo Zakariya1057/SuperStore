@@ -142,7 +142,18 @@ extension NotificationWorker {
 
 extension NotificationWorker {
     func updateBadgeNumber(){
-        UIApplication.shared.applicationIconBadgeNumber = messageStore.getUnreadMessagesCount()
-        print(messageStore.getUnreadMessagesCount())
+        let unreadMessagesCount: Int = messageStore.getUnreadMessagesCount()
+        
+        UIApplication.shared.applicationIconBadgeNumber = unreadMessagesCount
+        setSettingsBadgeNumber(unreadMessagesCount: unreadMessagesCount)
+    }
+    
+    func setSettingsBadgeNumber(unreadMessagesCount: Int){
+        if let tabBarController = rootViewController as? UITabBarController {
+            if let settingsViewController = tabBarController.viewControllers?[4] {
+                settingsViewController.tabBarItem.badgeValue = unreadMessagesCount == 0 ? nil : String(unreadMessagesCount)
+            }
+        }
     }
 }
+
