@@ -360,8 +360,6 @@
 		2CB3DCFD252A180900FC5792 /* ListProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB3DCFB252A180900FC5792 /* ListProgressCell.xib */; };
 		2CB3EDA525041F31000E7C7A /* ListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3EDA425041F31000E7C7A /* ListSectionHeader.swift */; };
 		2CB51C38254B2B560090F558 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB51C37254B2B560090F558 /* AuthenticationServices.framework */; };
-		2CB51CAA255489800090F558 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB51CA9255489800090F558 /* NotificationService.swift */; };
-		2CB51CAE255489800090F558 /* PayloadModification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2CB51CA7255489800090F558 /* PayloadModification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2CB9119A25F11B4500A8FC66 /* ShowListsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9119425F11B4500A8FC66 /* ShowListsPresenter.swift */; };
 		2CB9119B25F11B4500A8FC66 /* ShowListsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9119525F11B4500A8FC66 /* ShowListsWorker.swift */; };
 		2CB9119C25F11B4500A8FC66 /* ShowListsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9119625F11B4500A8FC66 /* ShowListsRouter.swift */; };
@@ -452,13 +450,6 @@
 			remoteGlobalIDString = 2C1567B524C77FD800B8DCB5;
 			remoteInfo = SuperStore;
 		};
-		2CB51CAC255489800090F558 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2C1567AE24C77FD800B8DCB5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2CB51CA6255489800090F558;
-			remoteInfo = PayloadModification;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -468,7 +459,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				2CB51CAE255489800090F558 /* PayloadModification.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -840,9 +830,6 @@
 		2CB3EDA425041F31000E7C7A /* ListSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSectionHeader.swift; sourceTree = "<group>"; };
 		2CB3EDA825041FDD000E7C7A /* ListSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListSectionHeader.xib; sourceTree = "<group>"; };
 		2CB51C37254B2B560090F558 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
-		2CB51CA7255489800090F558 /* PayloadModification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PayloadModification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		2CB51CA9255489800090F558 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		2CB51CAB255489800090F558 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CB9119425F11B4500A8FC66 /* ShowListsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListsPresenter.swift; sourceTree = "<group>"; };
 		2CB9119525F11B4500A8FC66 /* ShowListsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListsWorker.swift; sourceTree = "<group>"; };
 		2CB9119625F11B4500A8FC66 /* ShowListsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListsRouter.swift; sourceTree = "<group>"; };
@@ -938,13 +925,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2C91F76E260A8393009FF465 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2CB51CA4255489800090F558 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1171,7 +1151,6 @@
 			children = (
 				2C1567B824C77FD800B8DCB5 /* SuperStore */,
 				2C91F772260A8393009FF465 /* SuperStoreTests */,
-				2CB51CA8255489800090F558 /* PayloadModification */,
 				2C1567B724C77FD800B8DCB5 /* Products */,
 				429EF559B847C30D5A28936C /* Pods */,
 				B75C7985088D4A4D2A58A54C /* Frameworks */,
@@ -1182,7 +1161,6 @@
 			isa = PBXGroup;
 			children = (
 				2C1567B624C77FD800B8DCB5 /* SuperStore.app */,
-				2CB51CA7255489800090F558 /* PayloadModification.appex */,
 				2C91F771260A8393009FF465 /* SuperStoreTests.xctest */,
 			);
 			name = Products;
@@ -2135,15 +2113,6 @@
 			path = ShowProduct;
 			sourceTree = "<group>";
 		};
-		2CB51CA8255489800090F558 /* PayloadModification */ = {
-			isa = PBXGroup;
-			children = (
-				2CB51CA9255489800090F558 /* NotificationService.swift */,
-				2CB51CAB255489800090F558 /* Info.plist */,
-			);
-			path = PayloadModification;
-			sourceTree = "<group>";
-		};
 		2CB9119025F11A4900A8FC66 /* Lists */ = {
 			isa = PBXGroup;
 			children = (
@@ -2627,7 +2596,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				2CB51CAD255489800090F558 /* PBXTargetDependency */,
 			);
 			name = SuperStore;
 			productName = SuperStore;
@@ -2652,23 +2620,6 @@
 			productReference = 2C91F771260A8393009FF465 /* SuperStoreTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		2CB51CA6255489800090F558 /* PayloadModification */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2CB51CAF255489800090F558 /* Build configuration list for PBXNativeTarget "PayloadModification" */;
-			buildPhases = (
-				2CB51CA3255489800090F558 /* Sources */,
-				2CB51CA4255489800090F558 /* Frameworks */,
-				2CB51CA5255489800090F558 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = PayloadModification;
-			productName = PayloadModification;
-			productReference = 2CB51CA7255489800090F558 /* PayloadModification.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2686,9 +2637,6 @@
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = 2C1567B524C77FD800B8DCB5;
 					};
-					2CB51CA6255489800090F558 = {
-						CreatedOnToolsVersion = 12.1;
-					};
 				};
 			};
 			buildConfigurationList = 2C1567B124C77FD800B8DCB5 /* Build configuration list for PBXProject "SuperStore" */;
@@ -2705,7 +2653,6 @@
 			projectRoot = "";
 			targets = (
 				2C1567B524C77FD800B8DCB5 /* SuperStore */,
-				2CB51CA6255489800090F558 /* PayloadModification */,
 				2C91F770260A8393009FF465 /* SuperStoreTests */,
 			);
 		};
@@ -2759,13 +2706,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2C91F76F260A8393009FF465 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2CB51CA5255489800090F558 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3223,14 +3163,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2CB51CA3255489800090F558 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2CB51CAA255489800090F558 /* NotificationService.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -3238,11 +3170,6 @@
 			isa = PBXTargetDependency;
 			target = 2C1567B524C77FD800B8DCB5 /* SuperStore */;
 			targetProxy = 2C91F776260A8393009FF465 /* PBXContainerItemProxy */;
-		};
-		2CB51CAD255489800090F558 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2CB51CA6255489800090F558 /* PayloadModification */;
-			targetProxy = 2CB51CAC255489800090F558 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3472,50 +3399,6 @@
 			};
 			name = Release;
 		};
-		2CB51CB0255489800090F558 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5FCM3X5N8A;
-				INFOPLIST_FILE = PayloadModification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 2.2.3;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore.PayloadModification;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		2CB51CB1255489800090F558 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5FCM3X5N8A;
-				INFOPLIST_FILE = PayloadModification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 2.2.3;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore.PayloadModification;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3542,15 +3425,6 @@
 			buildConfigurations = (
 				2C91F779260A8393009FF465 /* Debug */,
 				2C91F77A260A8393009FF465 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2CB51CAF255489800090F558 /* Build configuration list for PBXNativeTarget "PayloadModification" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2CB51CB0255489800090F558 /* Debug */,
-				2CB51CB1255489800090F558 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
