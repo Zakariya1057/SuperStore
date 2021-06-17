@@ -92,6 +92,7 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        updateTextViewConstraint()
     }
     
     let spinner: SpinnerViewController = SpinnerViewController()
@@ -122,6 +123,10 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     var keyboardHeight: CGFloat = 300
     
     var messages: [MessageModel] = []
+    
+    var refreshControl = UIRefreshControl()
+    
+    var keyboardVisible: Bool = false
     
     func getMessages(){
         startLoading()
@@ -159,6 +164,7 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     func displaySendFeedback(viewModel: Feedback.SendFeedback.ViewModel)
     {
         showRightBarButton()
+        stopLoading()
         
         if let error = viewModel.error {
             showError(title: "\(title!) Error", error: error)
@@ -183,16 +189,16 @@ class FeedbackViewController: UIViewController, FeedbackDisplayLogic
     }
     
     func displayMessages(viewModel: Feedback.GetMessages.ViewModel){
+        refreshControl.endRefreshing()
+        stopLoading()
+        
         if let error = viewModel.error {
             showError(title: "Message Error", error: error)
         } else {
-            stopLoading()
-            
             messages = viewModel.messages
             
             messageTableView.reloadData()
             scrollToLastMessage()
-            
         }
     }
 }
@@ -371,12 +377,17 @@ extension FeedbackViewController: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textViewBotomConstraint.constant = keyboardHeight
+        keyboardVisible = true
+        updateTextViewConstraint()
+        
         updateTextViewHeight()
         scrollToLastMessage()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        keyboardVisible = false
+        updateTextViewConstraint()
+        
         textViewBotomConstraint.constant = 0
         scrollToLastMessage()
     }
@@ -401,6 +412,10 @@ extension FeedbackViewController: UITextViewDelegate {
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
+    }
+    
+    func updateTextViewConstraint(){
+        textViewBotomConstraint.constant = keyboardVisible ? keyboardHeight : 0
     }
     
     func scrollToLastMessage(){
@@ -438,6 +453,8 @@ extension FeedbackViewController: UITableViewDataSource, UITableViewDelegate {
         
         messageTableView.delegate = self
         messageTableView.dataSource = self
+        
+        setupRefreshControl()
     }
 }
 
@@ -465,6 +482,18 @@ extension FeedbackViewController {
     }
 
     @objc func messageNotificationReceived(_ notification:Notification) {
+        getMessages()
+    }
+}
+
+extension FeedbackViewController {
+    private func setupRefreshControl(){
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh")
+        refreshControl.addTarget(self, action: #selector(refreshResults), for: .valueChanged)
+        messageTableView.addSubview(refreshControl)
+    }
+    
+    @objc func refreshResults(){
         getMessages()
     }
 }
