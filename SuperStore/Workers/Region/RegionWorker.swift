@@ -15,7 +15,7 @@ class RegionWorker
     private var userStore: UserStoreProtocol = UserRealmStore()
     
     private var regions: [RegionModel] = [
-        RegionModel(id: 8, name: "Onatario", country: "Canada", storeTypeID: 2),
+        RegionModel(id: 8, name: "Ontario", country: "Canada", storeTypeID: 2),
         RegionModel(id: 9, name: "Alberta", country: "Canada", storeTypeID: 2),
         RegionModel(id: 10, name: "Manitoba", country: "Canada", storeTypeID: 2),
         RegionModel(id: 11, name: "British Columbia", country: "Canada", storeTypeID: 2),
