@@ -99,7 +99,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet var quantityStepper: UIStepper!
     @IBOutlet var quantityLabel: UILabel!
     
-    @IBOutlet weak var descriptionView: UIView!
+    @IBOutlet weak var nutritionView: UIView!
     @IBOutlet var featuresView: UIView!
     @IBOutlet var dimensionsView: UIView!
     @IBOutlet weak var ingredientsView: UIView!
@@ -524,8 +524,8 @@ extension ShowProductViewController {
         let ingredientsPressedGesture = UITapGestureRecognizer(target: self, action: #selector(ingredientsButtonPressed))
         ingredientsView.addGestureRecognizer(ingredientsPressedGesture)
         
-        let descriptionPressedGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionButtonPressed))
-        descriptionView.addGestureRecognizer(descriptionPressedGesture)
+        let descriptionPressedGesture = UITapGestureRecognizer(target: self, action: #selector(nutritionButtonPressed))
+        nutritionView.addGestureRecognizer(descriptionPressedGesture)
         
         let promotionPressedGesture = UITapGestureRecognizer(target: self, action: #selector(promotionButtonPressed))
         promotionView.addGestureRecognizer(promotionPressedGesture)
@@ -554,8 +554,8 @@ extension ShowProductViewController {
         router?.routeToChildCategories(segue: nil)
     }
     
-    @objc func descriptionButtonPressed(){
-        router?.routeToShowDescription(segue: nil)
+    @objc func nutritionButtonPressed(){
+        router?.routeToShowNutrition(segue: nil)
     }
     
     @objc func featuresButtonPressed(){

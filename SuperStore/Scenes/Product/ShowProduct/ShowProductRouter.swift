@@ -16,7 +16,7 @@ import UIKit
 {
     func routeToShowProduct(segue: UIStoryboardSegue?)
     func routeToShowPromotion(segue: UIStoryboardSegue?)
-    func routeToShowDescription(segue: UIStoryboardSegue?)
+    func routeToShowNutrition(segue: UIStoryboardSegue?)
     func routeToShowIngredients(segue: UIStoryboardSegue?)
     func routeToChildCategories(segue: UIStoryboardSegue?)
     
@@ -121,18 +121,18 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     }
     
     
-    func routeToShowDescription(segue: UIStoryboardSegue?)
+    func routeToShowNutrition(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
-            let destinationVC = segue.destination as! ShowDescriptionViewController
+            let destinationVC = segue.destination as! ShowNutritionViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToShowDescription(source: dataStore!, destination: &destinationDS)
+            passDataToShowNutrition(source: dataStore!, destination: &destinationDS)
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowDescriptionViewController") as! ShowDescriptionViewController
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowNutritionViewController") as! ShowNutritionViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToShowDescription(source: dataStore!, destination: &destinationDS)
-            navigateToShowDescription(source: viewController!, destination: destinationVC)
+            passDataToShowNutrition(source: dataStore!, destination: &destinationDS)
+            navigateToShowNutrition(source: viewController!, destination: destinationVC)
         }
     }
     
@@ -240,7 +240,7 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
         source.show(destination, sender: nil)
     }
     
-    func navigateToShowDescription(source: ShowProductViewController, destination: ShowDescriptionViewController)
+    func navigateToShowNutrition(source: ShowProductViewController, destination: ShowNutritionViewController)
     {
         source.show(destination, sender: nil)
     }
@@ -289,9 +289,9 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
         destination.items = source.product?.dimensions ?? []
     }
     
-    func passDataToShowDescription(source: ShowProductDataStore, destination: inout ShowDescriptionDataStore)
+    func passDataToShowNutrition(source: ShowProductDataStore, destination: inout ShowNutritionDataStore)
     {
-        destination.description = source.product?.description ?? ""
+//        destination.description = source.product?.description ?? ""
     }
     
     func passDataToShowPromotion(source: ShowProductDataStore, destination: inout ShowPromotionDataStore)

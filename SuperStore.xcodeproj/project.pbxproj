@@ -73,12 +73,6 @@
 		2C2BC81125EBBF180038882B /* EditReviewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC80B25EBBF180038882B /* EditReviewModels.swift */; };
 		2C2BC81225EBBF180038882B /* EditReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC80C25EBBF180038882B /* EditReviewViewController.swift */; };
 		2C2BC81325EBBF180038882B /* EditReviewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC80D25EBBF180038882B /* EditReviewInteractor.swift */; };
-		2C2BC81C25EBBF2E0038882B /* ShowDescriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC81625EBBF2E0038882B /* ShowDescriptionPresenter.swift */; };
-		2C2BC81D25EBBF2E0038882B /* ShowDetscriptionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC81725EBBF2E0038882B /* ShowDetscriptionWorker.swift */; };
-		2C2BC81E25EBBF2E0038882B /* ShowDescriptionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC81825EBBF2E0038882B /* ShowDescriptionRouter.swift */; };
-		2C2BC81F25EBBF2E0038882B /* ShowDescriptionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC81925EBBF2E0038882B /* ShowDescriptionModels.swift */; };
-		2C2BC82025EBBF2E0038882B /* ShowDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC81A25EBBF2E0038882B /* ShowDescriptionViewController.swift */; };
-		2C2BC82125EBBF2E0038882B /* ShowDescriptionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC81B25EBBF2E0038882B /* ShowDescriptionInteractor.swift */; };
 		2C2BC82D25EBBFD40038882B /* ShowPromotionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC82725EBBFD40038882B /* ShowPromotionPresenter.swift */; };
 		2C2BC82E25EBBFD40038882B /* ShowPromotionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC82825EBBFD40038882B /* ShowPromotionWorker.swift */; };
 		2C2BC82F25EBBFD40038882B /* ShowPromotionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BC82925EBBFD40038882B /* ShowPromotionRouter.swift */; };
@@ -441,6 +435,17 @@
 		2CDFB63825EA6359002CE30D /* HomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFB63225EA6359002CE30D /* HomeModels.swift */; };
 		2CDFB63925EA6359002CE30D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFB63325EA6359002CE30D /* HomeViewController.swift */; };
 		2CDFB63A25EA6359002CE30D /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFB63425EA6359002CE30D /* HomeInteractor.swift */; };
+		2CE2E103267FB79400994141 /* ShowNutritionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2E0FD267FB79400994141 /* ShowNutritionPresenter.swift */; };
+		2CE2E104267FB79400994141 /* ShowNutritionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2E0FE267FB79400994141 /* ShowNutritionWorker.swift */; };
+		2CE2E105267FB79400994141 /* ShowNutritionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2E0FF267FB79400994141 /* ShowNutritionRouter.swift */; };
+		2CE2E106267FB79400994141 /* ShowNutritionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2E100267FB79400994141 /* ShowNutritionModels.swift */; };
+		2CE2E107267FB79400994141 /* ShowNutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2E101267FB79400994141 /* ShowNutritionViewController.swift */; };
+		2CE2E108267FB79400994141 /* ShowNutritionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2E102267FB79400994141 /* ShowNutritionInteractor.swift */; };
+		2CE2E10A267FBE3B00994141 /* NutritionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2E109267FBE3B00994141 /* NutritionModel.swift */; };
+		2CE2E10E267FC00900994141 /* NutritionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2E10C267FC00900994141 /* NutritionCell.swift */; };
+		2CE2E10F267FC00900994141 /* NutritionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2E10D267FC00900994141 /* NutritionCell.xib */; };
+		2CE2E112267FC86900994141 /* NutrionSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2E111267FC86900994141 /* NutrionSectionHeader.swift */; };
+		2CE2E114267FCC1500994141 /* NutrionSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2E113267FC87200994141 /* NutrionSectionHeader.xib */; };
 		2CEE6E0F261F24EC00280DBE /* SimilarWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEE6E09261F24EC00280DBE /* SimilarWorker.swift */; };
 		2CF7A59525FA88C700172839 /* CategoryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7A59425FA88C700172839 /* CategoryObject.swift */; };
 		2CF7A59A25FAB19D00172839 /* HomeRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7A59925FAB19D00172839 /* HomeRealmStore.swift */; };
@@ -539,12 +544,6 @@
 		2C2BC80B25EBBF180038882B /* EditReviewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReviewModels.swift; sourceTree = "<group>"; };
 		2C2BC80C25EBBF180038882B /* EditReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReviewViewController.swift; sourceTree = "<group>"; };
 		2C2BC80D25EBBF180038882B /* EditReviewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReviewInteractor.swift; sourceTree = "<group>"; };
-		2C2BC81625EBBF2E0038882B /* ShowDescriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDescriptionPresenter.swift; sourceTree = "<group>"; };
-		2C2BC81725EBBF2E0038882B /* ShowDetscriptionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetscriptionWorker.swift; sourceTree = "<group>"; };
-		2C2BC81825EBBF2E0038882B /* ShowDescriptionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDescriptionRouter.swift; sourceTree = "<group>"; };
-		2C2BC81925EBBF2E0038882B /* ShowDescriptionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDescriptionModels.swift; sourceTree = "<group>"; };
-		2C2BC81A25EBBF2E0038882B /* ShowDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDescriptionViewController.swift; sourceTree = "<group>"; };
-		2C2BC81B25EBBF2E0038882B /* ShowDescriptionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDescriptionInteractor.swift; sourceTree = "<group>"; };
 		2C2BC82725EBBFD40038882B /* ShowPromotionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPromotionPresenter.swift; sourceTree = "<group>"; };
 		2C2BC82825EBBFD40038882B /* ShowPromotionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPromotionWorker.swift; sourceTree = "<group>"; };
 		2C2BC82925EBBFD40038882B /* ShowPromotionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPromotionRouter.swift; sourceTree = "<group>"; };
@@ -913,6 +912,17 @@
 		2CDFB63225EA6359002CE30D /* HomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModels.swift; sourceTree = "<group>"; };
 		2CDFB63325EA6359002CE30D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		2CDFB63425EA6359002CE30D /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
+		2CE2E0FD267FB79400994141 /* ShowNutritionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNutritionPresenter.swift; sourceTree = "<group>"; };
+		2CE2E0FE267FB79400994141 /* ShowNutritionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNutritionWorker.swift; sourceTree = "<group>"; };
+		2CE2E0FF267FB79400994141 /* ShowNutritionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNutritionRouter.swift; sourceTree = "<group>"; };
+		2CE2E100267FB79400994141 /* ShowNutritionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNutritionModels.swift; sourceTree = "<group>"; };
+		2CE2E101267FB79400994141 /* ShowNutritionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNutritionViewController.swift; sourceTree = "<group>"; };
+		2CE2E102267FB79400994141 /* ShowNutritionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNutritionInteractor.swift; sourceTree = "<group>"; };
+		2CE2E109267FBE3B00994141 /* NutritionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionModel.swift; sourceTree = "<group>"; };
+		2CE2E10C267FC00900994141 /* NutritionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionCell.swift; sourceTree = "<group>"; };
+		2CE2E10D267FC00900994141 /* NutritionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NutritionCell.xib; sourceTree = "<group>"; };
+		2CE2E111267FC86900994141 /* NutrionSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrionSectionHeader.swift; sourceTree = "<group>"; };
+		2CE2E113267FC87200994141 /* NutrionSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NutrionSectionHeader.xib; sourceTree = "<group>"; };
 		2CEE6E09261F24EC00280DBE /* SimilarWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarWorker.swift; sourceTree = "<group>"; };
 		2CF7A59425FA88C700172839 /* CategoryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryObject.swift; sourceTree = "<group>"; };
 		2CF7A59925FAB19D00172839 /* HomeRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRealmStore.swift; sourceTree = "<group>"; };
@@ -1220,7 +1230,7 @@
 			isa = PBXGroup;
 			children = (
 				2CB2CFE525EAF78F00A00F7F /* ShowProduct */,
-				2C2BC7F725EBBD210038882B /* ShowDescription */,
+				2CE2E0FC267FB73B00994141 /* ShowNutrition */,
 				2C2BC83525EBC04F0038882B /* ShowItems */,
 				2C2BC82425EBBF940038882B /* ShowPromotion */,
 				2C2BC7F525EBBCFF0038882B /* EditReview */,
@@ -1262,19 +1272,6 @@
 				2C2BC7FF25EBBF040038882B /* ShowReviewsInteractor.swift */,
 			);
 			path = ShowReviews;
-			sourceTree = "<group>";
-		};
-		2C2BC7F725EBBD210038882B /* ShowDescription */ = {
-			isa = PBXGroup;
-			children = (
-				2C2BC81625EBBF2E0038882B /* ShowDescriptionPresenter.swift */,
-				2C2BC81725EBBF2E0038882B /* ShowDetscriptionWorker.swift */,
-				2C2BC81825EBBF2E0038882B /* ShowDescriptionRouter.swift */,
-				2C2BC81925EBBF2E0038882B /* ShowDescriptionModels.swift */,
-				2C2BC81A25EBBF2E0038882B /* ShowDescriptionViewController.swift */,
-				2C2BC81B25EBBF2E0038882B /* ShowDescriptionInteractor.swift */,
-			);
-			path = ShowDescription;
 			sourceTree = "<group>";
 		};
 		2C2BC82425EBBF940038882B /* ShowPromotion */ = {
@@ -2374,6 +2371,7 @@
 			children = (
 				2C48E7B625EA9DCF001A5702 /* ProductModel.swift */,
 				2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */,
+				2CE2E109267FBE3B00994141 /* NutritionModel.swift */,
 			);
 			path = Product;
 			sourceTree = "<group>";
@@ -2536,6 +2534,39 @@
 			path = Collections;
 			sourceTree = "<group>";
 		};
+		2CE2E0FC267FB73B00994141 /* ShowNutrition */ = {
+			isa = PBXGroup;
+			children = (
+				2CE2E110267FC82A00994141 /* Sections */,
+				2CE2E10B267FBFF200994141 /* Cells */,
+				2CE2E0FD267FB79400994141 /* ShowNutritionPresenter.swift */,
+				2CE2E0FE267FB79400994141 /* ShowNutritionWorker.swift */,
+				2CE2E0FF267FB79400994141 /* ShowNutritionRouter.swift */,
+				2CE2E100267FB79400994141 /* ShowNutritionModels.swift */,
+				2CE2E101267FB79400994141 /* ShowNutritionViewController.swift */,
+				2CE2E102267FB79400994141 /* ShowNutritionInteractor.swift */,
+			);
+			path = ShowNutrition;
+			sourceTree = "<group>";
+		};
+		2CE2E10B267FBFF200994141 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2CE2E10C267FC00900994141 /* NutritionCell.swift */,
+				2CE2E10D267FC00900994141 /* NutritionCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		2CE2E110267FC82A00994141 /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				2CE2E111267FC86900994141 /* NutrionSectionHeader.swift */,
+				2CE2E113267FC87200994141 /* NutrionSectionHeader.xib */,
+			);
+			path = Sections;
+			sourceTree = "<group>";
+		};
 		2CE71F632667EBC00037BDDD /* Region */ = {
 			isa = PBXGroup;
 			children = (
@@ -2679,12 +2710,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CE2E114267FCC1500994141 /* NutrionSectionHeader.xib in Resources */,
 				2C52E0C0265F9ECA00FCF3BB /* StoreTypeCell.xib in Resources */,
 				2C48E7A625EA99D4001A5702 /* StoresMapCell.xib in Resources */,
 				2C9C1B8524CDDDCE001ACA35 /* OpenSans-Regular.ttf in Resources */,
 				2C322693263EB63D007139FE /* Roboto-Regular.ttf in Resources */,
 				2CB15C9524D2FB8900461AFE /* ListItemCell.xib in Resources */,
 				2CA11FA925EF96C70054AE19 /* CategoryTableViewCell.xib in Resources */,
+				2CE2E10F267FC00900994141 /* NutritionCell.xib in Resources */,
 				2C322697263EB7C6007139FE /* Roboto-Black.ttf in Resources */,
 				2C9C1B8624CDDDCE001ACA35 /* OpenSans-ExtraBold.ttf in Resources */,
 				2C322699263EB7C6007139FE /* Roboto-Bold.ttf in Resources */,
@@ -2779,7 +2812,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C2BC81F25EBBF2E0038882B /* ShowDescriptionModels.swift in Sources */,
 				2CA11F6A25EF8E490054AE19 /* GrandParentCategoriesModels.swift in Sources */,
 				2CF7A59525FA88C700172839 /* CategoryObject.swift in Sources */,
 				2CA11FA225EF92690054AE19 /* CategoryData.swift in Sources */,
@@ -2793,7 +2825,6 @@
 				2C2BC80225EBBF040038882B /* ShowReviewsRouter.swift in Sources */,
 				2C90DFA425FB832A008977EB /* ProductCollectionViewCell.swift in Sources */,
 				2C7AE0C0265EB55600ADF53A /* StoreTypeWorker.swift in Sources */,
-				2C2BC81D25EBBF2E0038882B /* ShowDetscriptionWorker.swift in Sources */,
 				2C5C988725F6B14000DF8B6D /* ReviewObject.swift in Sources */,
 				2CA11F4025EEB6A50054AE19 /* StoreViewController.swift in Sources */,
 				2C2BC83C25EBC0680038882B /* ShowItemsPresenter.swift in Sources */,
@@ -2802,11 +2833,11 @@
 				2C1476F625E82FF6000E8F66 /* UserRealmStore.swift in Sources */,
 				2CA11F3E25EEB6A50054AE19 /* StoreRouter.swift in Sources */,
 				2CDA613525ED159900FD3956 /* DownloadImage.swift in Sources */,
-				2C2BC82025EBBF2E0038882B /* ShowDescriptionViewController.swift in Sources */,
 				2C66F9D0267937B9009D6CF4 /* NotificationModel.swift in Sources */,
 				2C55FA2D25EE5637007BBFA8 /* SearchQueryRequest.swift in Sources */,
 				2C70823D25F009D000345147 /* ResetPasswordRouter.swift in Sources */,
 				2C910B4225E7AABF00BCEACC /* LoginRouter.swift in Sources */,
+				2CE2E103267FB79400994141 /* ShowNutritionPresenter.swift in Sources */,
 				2CB911AA25F11B5500A8FC66 /* EditListRouter.swift in Sources */,
 				2CB911B725F11B6100A8FC66 /* ShowListWorker.swift in Sources */,
 				2C2BC80125EBBF040038882B /* ShowReviewsWorker.swift in Sources */,
@@ -2825,11 +2856,13 @@
 				2C55F9CA25EE3B62007BBFA8 /* ShowSuggestionsInteractor.swift in Sources */,
 				2CA11F6C25EF8E490054AE19 /* GrandParentCategoriesInteractor.swift in Sources */,
 				2C7082AF25F013B200345147 /* EditEmailInteractor.swift in Sources */,
+				2CE2E10A267FBE3B00994141 /* NutritionModel.swift in Sources */,
 				2C5C987325F69BC200DF8B6D /* ListObject.swift in Sources */,
 				2C55F9C925EE3B62007BBFA8 /* ShowSuggestionsViewController.swift in Sources */,
 				2C70829E25F013A700345147 /* EditNameRouter.swift in Sources */,
 				2C2BC7DD25EAF9220038882B /* ShowProductInteractor.swift in Sources */,
 				2C1476E625E82B91000E8F66 /* UserData.swift in Sources */,
+				2CE2E112267FC86900994141 /* NutrionSectionHeader.swift in Sources */,
 				2CD7228C265A582800D1D112 /* ShowFlyerWorker.swift in Sources */,
 				2C7082B725F0155700345147 /* UserSettingAPI.swift in Sources */,
 				2CD7227F265A581900D1D112 /* FlyerListPresenter.swift in Sources */,
@@ -2856,7 +2889,6 @@
 				2C058FF925F52AE100B4A16B /* EditStoreInteractor.swift in Sources */,
 				2C9C1B8124CDD794001ACA35 /* ProductsCell.swift in Sources */,
 				2CDFB60925EA5EDA002CE30D /* Config.swift in Sources */,
-				2C2BC82125EBBF2E0038882B /* ShowDescriptionInteractor.swift in Sources */,
 				2CB911E525F11DDD00A8FC66 /* ListAPI.swift in Sources */,
 				2CCD7452267005CF006C56B8 /* MessageWorker.swift in Sources */,
 				2C55FA0E25EE4BF9007BBFA8 /* ShowProductResultsWorker.swift in Sources */,
@@ -2866,8 +2898,8 @@
 				2C70827825F0100700345147 /* EditPasswordViewController.swift in Sources */,
 				2C7AE0C4265ECC0F00ADF53A /* RegionModel.swift in Sources */,
 				2C058FF625F52AE100B4A16B /* EditStoreRouter.swift in Sources */,
-				2C2BC81C25EBBF2E0038882B /* ShowDescriptionPresenter.swift in Sources */,
 				2CDA612B25ED0FC700FD3956 /* ReviewModel.swift in Sources */,
+				2CE2E106267FB79400994141 /* ShowNutritionModels.swift in Sources */,
 				2CA11F6B25EF8E490054AE19 /* GrandParentCategoriesViewController.swift in Sources */,
 				2C910B4425E7AABF00BCEACC /* LoginViewController.swift in Sources */,
 				2C0A705825FFA254006A3F6F /* OpeningHourTableViewCell.swift in Sources */,
@@ -2897,7 +2929,6 @@
 				2C7AE0D0265EDC6700ADF53A /* EditRegionModels.swift in Sources */,
 				2CA11F8425EF8E6D0054AE19 /* ChildCategoriesWorker.swift in Sources */,
 				2CB911B625F11B6100A8FC66 /* ShowListPresenter.swift in Sources */,
-				2C2BC81E25EBBF2E0038882B /* ShowDescriptionRouter.swift in Sources */,
 				2C70824925F009ED00345147 /* NewPasswordViewController.swift in Sources */,
 				2C55F9C825EE3B62007BBFA8 /* ShowSuggestionsModels.swift in Sources */,
 				2C14773025E90246000E8F66 /* RegisterWorker.swift in Sources */,
@@ -2913,6 +2944,7 @@
 				2CB9119D25F11B4500A8FC66 /* ShowListsModels.swift in Sources */,
 				2C70827425F0100700345147 /* EditPasswordPresenter.swift in Sources */,
 				2CAB2F0A25FFF9C50014FE8D /* LocationModel.swift in Sources */,
+				2CE2E107267FB79400994141 /* ShowNutritionViewController.swift in Sources */,
 				2CD8A4F8266E39E4003AAEF2 /* MessageModel.swift in Sources */,
 				2CAC05FC252E314F00561509 /* FeaturedProductCollectionViewCell.swift in Sources */,
 				2CD7228F265A582800D1D112 /* ShowFlyerViewController.swift in Sources */,
@@ -2978,6 +3010,7 @@
 				2CA11F4125EEB6A50054AE19 /* StoreInteractor.swift in Sources */,
 				2C5C988125F6AB5E00DF8B6D /* DataStore.swift in Sources */,
 				2C5C985425F69AB500DF8B6D /* SuggestionRealmStore.swift in Sources */,
+				2CE2E108267FB79400994141 /* ShowNutritionInteractor.swift in Sources */,
 				2C55FA0D25EE4BF9007BBFA8 /* ShowProductResultsPresenter.swift in Sources */,
 				2C2BC83E25EBC0680038882B /* ShowItemsRouter.swift in Sources */,
 				2CB9119A25F11B4500A8FC66 /* ShowListsPresenter.swift in Sources */,
@@ -2991,6 +3024,7 @@
 				2C55F9C525EE3B62007BBFA8 /* ShowSuggestionsPresenter.swift in Sources */,
 				2C66F9C3267140DF009D6CF4 /* MessageData.swift in Sources */,
 				2CA11EEB25EE84620054AE19 /* ShowRefineWorker.swift in Sources */,
+				2CE2E10E267FC00900994141 /* NutritionCell.swift in Sources */,
 				2C70824625F009ED00345147 /* NewPasswordRouter.swift in Sources */,
 				2CAC0601252E334F00561509 /* FeaturedProductCell.swift in Sources */,
 				2C14772F25E90246000E8F66 /* RegisterPresenter.swift in Sources */,
@@ -3035,6 +3069,7 @@
 				2CA11F6725EF8E490054AE19 /* GrandParentCategoriesPresenter.swift in Sources */,
 				2C14299A25F2C282007D1EB7 /* EditListItemModels.swift in Sources */,
 				2C2BC82D25EBBFD40038882B /* ShowPromotionPresenter.swift in Sources */,
+				2CE2E104267FB79400994141 /* ShowNutritionWorker.swift in Sources */,
 				2C2BC84125EBC0680038882B /* ShowItemsInteractor.swift in Sources */,
 				2C70824A25F009ED00345147 /* NewPasswordPresenter.swift in Sources */,
 				2CC0ADDC25F9243500373AC4 /* ReviewRealmStore.swift in Sources */,
@@ -3149,6 +3184,7 @@
 				2C70825325F00B2200345147 /* UserObject.swift in Sources */,
 				2C72945425EBE77900D280B3 /* PromotionAPI.swift in Sources */,
 				2CC600382643EA7900A1F7BE /* FeedbackModels.swift in Sources */,
+				2CE2E105267FB79400994141 /* ShowNutritionRouter.swift in Sources */,
 				2C2BC84025EBC0680038882B /* ShowItemsViewController.swift in Sources */,
 				2CDFB63A25EA6359002CE30D /* HomeInteractor.swift in Sources */,
 				2C910B4325E7AABF00BCEACC /* LoginModels.swift in Sources */,
@@ -3344,10 +3380,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.3;
+				MARKETING_VERSION = 2.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3368,10 +3405,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.3;
+				MARKETING_VERSION = 2.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
