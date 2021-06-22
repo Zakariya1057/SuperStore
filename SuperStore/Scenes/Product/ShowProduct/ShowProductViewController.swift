@@ -222,9 +222,12 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
                 displayAllergen(product: displayedProduct)
                 displaydietary(product: displayedProduct)
                 
+                displayNutritions(product: displayedProduct)
+                
                 displayCategory(category: displayedProduct.category)
                 
                 displayRecommended(recommended: displayedProduct.recommended)
+                
             }
         }
     }
@@ -391,6 +394,10 @@ extension ShowProductViewController {
         if let error = viewModel.error {
             showError(title: "Favourite Error", error: error)
         }
+    }
+    
+    func displayNutritions(product: ShowProduct.DisplayedProduct){
+        nutritionView.isHidden = product.nutritions.count == 0
     }
 }
 

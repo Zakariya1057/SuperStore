@@ -14,28 +14,23 @@ import UIKit
 
 protocol ShowNutritionBusinessLogic
 {
-  func doSomething(request: ShowNutrition.Something.Request)
+    func getNutritions(request: ShowNutrition.GetNutritions.Request)
 }
 
 protocol ShowNutritionDataStore
 {
-  //var name: String { get set }
+    var nutritions: [NutritionModel] { get set }
 }
 
 class ShowNutritionInteractor: ShowNutritionBusinessLogic, ShowNutritionDataStore
 {
-  var presenter: ShowNutritionPresentationLogic?
-  var worker: ShowNutritionWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: ShowNutrition.Something.Request)
-  {
-    worker = ShowNutritionWorker()
-    worker?.doSomeWork()
+    var presenter: ShowNutritionPresentationLogic?
     
-    let response = ShowNutrition.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var nutritions: [NutritionModel] = []
+    
+    func getNutritions(request: ShowNutrition.GetNutritions.Request)
+    {
+        let response = ShowNutrition.GetNutritions.Response(nutritions: nutritions)
+        presenter?.presentNutrition(response: response)
+    }
 }

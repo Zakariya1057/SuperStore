@@ -65,6 +65,8 @@ class ProductObject: Object {
 
     var recommended = List<ProductObject>()
     
+    var nutritions = List<NutritionObject>()
+    
     @objc dynamic var enabled: Bool = true
     
     @objc dynamic var monitoredUpdatedAt: Date = Date()
@@ -116,7 +118,11 @@ class ProductObject: Object {
             reviews: reviews.map{ $0.getReviewModel() },
             favourite: favourite,
             monitoring: monitoring,
+            
             ingredients: ingredients.map{ String($0) },
+            
+            nutritions: nutritions.map{ $0.getNutritionModel() },
+            
             recommended: []
         )
     }

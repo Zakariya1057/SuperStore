@@ -66,6 +66,8 @@ struct ProductData:Decodable {
     
     var promotion: PromotionData?
     
+    var nutritions: [NutritionData]?
+    
     func getProductModel() -> ProductModel {
         let dateWorker = DateWorker()
         
@@ -108,6 +110,8 @@ struct ProductData:Decodable {
             ingredients: ingredients?.map({ (ingredient: IngredientsData) in
                 return ingredient.name
             }) ?? [],
+            
+            nutritions: nutritions?.map{ $0.getNutritionModel() } ?? [],
             
             recommended: recommended?.map({ (product: ProductData) in
                 return product.getProductModel()

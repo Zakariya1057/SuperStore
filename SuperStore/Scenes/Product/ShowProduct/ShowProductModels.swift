@@ -51,6 +51,8 @@ enum ShowProduct
         var category: DisplayedCategory?
 
         var recommended: [ProductModel]
+        
+        var nutritions: [NutritionModel]
     }
     
     struct DisplayedCategory {

@@ -10,12 +10,17 @@ import UIKit
 
 class NutrionSectionHeader: UITableViewHeaderFooterView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var weightLabel: UILabel!
+    @IBOutlet var percentageLabel: UILabel!
+    
+    var nutrition: NutritionModel!
+    
+    func configureUI(){
+        nameLabel.text = nutrition.name
+        weightLabel.text = nutrition.grams
+        percentageLabel.text = nutrition.percentage
     }
-    */
+
 
 }

@@ -14,18 +14,26 @@ import UIKit
 
 enum ShowNutrition
 {
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
+    // MARK: Use cases
+    
+    enum GetNutritions
     {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var nutritions: [NutritionModel]
+        }
+        
+        struct ViewModel
+        {
+            var calories: String?
+            var sodium: String?
+            var protein: String?
+            
+            var nutritions: [NutritionModel]
+        }
     }
-    struct Response
-    {
-    }
-    struct ViewModel
-    {
-    }
-  }
 }

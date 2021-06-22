@@ -95,6 +95,11 @@
                 <constraint firstAttribute="trailing" secondItem="sBz-so-dG9" secondAttribute="trailing" id="khn-x8-lZT"/>
             </constraints>
             <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="nameLabel" destination="qFe-tr-xDM" id="b3l-Sq-Uuc"/>
+                <outlet property="percentageLabel" destination="BEN-b5-EBp" id="9ql-3l-oe1"/>
+                <outlet property="weightLabel" destination="R09-6O-7gx" id="APV-4F-KNt"/>
+            </connections>
             <point key="canvasLocation" x="25" y="94"/>
         </view>
     </objects>

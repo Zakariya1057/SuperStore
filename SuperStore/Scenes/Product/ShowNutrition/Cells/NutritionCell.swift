@@ -10,10 +10,11 @@ import UIKit
 
 class NutritionCell: UITableViewCell {
 
-    var nutrion: ChildNutritionModel!
+    var nutrion: NutritionModel!
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var percentageLabel: UILabel!
+    @IBOutlet var weightLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,13 +23,13 @@ class NutritionCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
     func configureUI(){
-//        nameLabel.text = nutrion.name
-//        percentageLabel.text = nutrion.percentage
+        nameLabel.text = nutrion.name
+        percentageLabel.text = nutrion.percentage
+        weightLabel.text = nutrion.grams
     }
     
 }

@@ -96,7 +96,8 @@ extension ShowProductPresenter {
             
             category: createChildCategory(childCategoryName: product.childCategoryName),
             
-            recommended: product.recommended
+            recommended: product.recommended,
+            nutritions: product.nutritions
         )
     }
     

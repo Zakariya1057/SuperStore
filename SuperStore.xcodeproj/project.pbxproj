@@ -243,6 +243,10 @@
 		2C7294C825ECF19C00D280B3 /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7294C225ECF19C00D280B3 /* FavouritesViewController.swift */; };
 		2C7294C925ECF19C00D280B3 /* FavouritesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7294C325ECF19C00D280B3 /* FavouritesInteractor.swift */; };
 		2C7294CF25ECF4A000D280B3 /* FavouriteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7294CE25ECF4A000D280B3 /* FavouriteData.swift */; };
+		2C77B0F526825B760052164A /* NutritionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77B0F426825B750052164A /* NutritionData.swift */; };
+		2C77B0F726825DE50052164A /* NutritionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77B0F626825DE50052164A /* NutritionObject.swift */; };
+		2C77B0F926825F430052164A /* NutritionRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77B0F826825F430052164A /* NutritionRealmStore.swift */; };
+		2C77B0FB268269030052164A /* ChildNutritionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77B0FA268269030052164A /* ChildNutritionObject.swift */; };
 		2C7AE0C0265EB55600ADF53A /* StoreTypeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0BF265EB55600ADF53A /* StoreTypeWorker.swift */; };
 		2C7AE0C2265ECBEB00ADF53A /* RegionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0C1265ECBEB00ADF53A /* RegionWorker.swift */; };
 		2C7AE0C4265ECC0F00ADF53A /* RegionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0C3265ECC0F00ADF53A /* RegionModel.swift */; };
@@ -710,6 +714,10 @@
 		2C7294C225ECF19C00D280B3 /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
 		2C7294C325ECF19C00D280B3 /* FavouritesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesInteractor.swift; sourceTree = "<group>"; };
 		2C7294CE25ECF4A000D280B3 /* FavouriteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteData.swift; sourceTree = "<group>"; };
+		2C77B0F426825B750052164A /* NutritionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionData.swift; sourceTree = "<group>"; };
+		2C77B0F626825DE50052164A /* NutritionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionObject.swift; sourceTree = "<group>"; };
+		2C77B0F826825F430052164A /* NutritionRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionRealmStore.swift; sourceTree = "<group>"; };
+		2C77B0FA268269030052164A /* ChildNutritionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildNutritionObject.swift; sourceTree = "<group>"; };
 		2C7AE0BF265EB55600ADF53A /* StoreTypeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTypeWorker.swift; sourceTree = "<group>"; };
 		2C7AE0C1265ECBEB00ADF53A /* RegionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionWorker.swift; sourceTree = "<group>"; };
 		2C7AE0C3265ECC0F00ADF53A /* RegionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionModel.swift; sourceTree = "<group>"; };
@@ -1035,6 +1043,8 @@
 				2C5E388225FAB42D004298A1 /* HomeObject.swift */,
 				2C5C986A25F69B9200DF8B6D /* ProductObject.swift */,
 				2C5C988625F6B14000DF8B6D /* ReviewObject.swift */,
+				2C77B0F626825DE50052164A /* NutritionObject.swift */,
+				2C77B0FA268269030052164A /* ChildNutritionObject.swift */,
 				2C5C986E25F69BB200DF8B6D /* SearchObject.swift */,
 				2CC0ADEA25FA1E2D00373AC4 /* StoreObject.swift */,
 				2C5C987C25F6AA4000DF8B6D /* PromotionObject.swift */,
@@ -1061,6 +1071,7 @@
 				2CB2CFBE25EAA7E800A00F7F /* ListData.swift */,
 				2CB2CFC825EAA80200A00F7F /* StoreData.swift */,
 				2CB2CFCC25EAA80E00A00F7F /* ProductData.swift */,
+				2C77B0F426825B750052164A /* NutritionData.swift */,
 				2CC72FF525FD7BFF004E3987 /* ImageData.swift */,
 				2C7294CE25ECF4A000D280B3 /* FavouriteData.swift */,
 				2CD72293265A59C400D1D112 /* FlyerData.swift */,
@@ -1551,6 +1562,7 @@
 			children = (
 				2C5C985C25F69AF100DF8B6D /* ProductRealmStore.swift */,
 				2CC0ADDB25F9243500373AC4 /* ReviewRealmStore.swift */,
+				2C77B0F826825F430052164A /* NutritionRealmStore.swift */,
 			);
 			path = Product;
 			sourceTree = "<group>";
@@ -2844,6 +2856,7 @@
 				2CC600352643EA7900A1F7BE /* FeedbackPresenter.swift in Sources */,
 				2C2BC83025EBBFD40038882B /* ShowPromotionModels.swift in Sources */,
 				2C1476F625E82FF6000E8F66 /* UserRealmStore.swift in Sources */,
+				2C77B0FB268269030052164A /* ChildNutritionObject.swift in Sources */,
 				2CA11F3E25EEB6A50054AE19 /* StoreRouter.swift in Sources */,
 				2CDA613525ED159900FD3956 /* DownloadImage.swift in Sources */,
 				2C66F9D0267937B9009D6CF4 /* NotificationModel.swift in Sources */,
@@ -3025,6 +3038,7 @@
 				2C5C985425F69AB500DF8B6D /* SuggestionRealmStore.swift in Sources */,
 				2CE2E108267FB79400994141 /* ShowNutritionInteractor.swift in Sources */,
 				2C55FA0D25EE4BF9007BBFA8 /* ShowProductResultsPresenter.swift in Sources */,
+				2C77B0F526825B760052164A /* NutritionData.swift in Sources */,
 				2C2BC83E25EBC0680038882B /* ShowItemsRouter.swift in Sources */,
 				2CB9119A25F11B4500A8FC66 /* ShowListsPresenter.swift in Sources */,
 				2CD7228B265A582800D1D112 /* ShowFlyerPresenter.swift in Sources */,
@@ -3050,6 +3064,7 @@
 				2C2BC81125EBBF180038882B /* EditReviewModels.swift in Sources */,
 				2C45E2EB26454F6C0047887A /* PromotionGroupInteractor.swift in Sources */,
 				2CA11F8325EF8E6D0054AE19 /* ChildCategoriesPresenter.swift in Sources */,
+				2C77B0F926825F430052164A /* NutritionRealmStore.swift in Sources */,
 				2CB2CFC925EAA80200A00F7F /* StoreData.swift in Sources */,
 				2C45E2E626454F6C0047887A /* PromotionGroupPresenter.swift in Sources */,
 				2C70822C25F009BE00345147 /* VerifyCodeInteractor.swift in Sources */,
@@ -3205,6 +3220,7 @@
 				2C48E7B725EA9DCF001A5702 /* ProductModel.swift in Sources */,
 				2CD8A4EE266E1F36003AAEF2 /* HelpAndFeedbackWorker.swift in Sources */,
 				2CB911AD25F11B5500A8FC66 /* EditListInteractor.swift in Sources */,
+				2C77B0F726825DE50052164A /* NutritionObject.swift in Sources */,
 				2CA11F8625EF8E6D0054AE19 /* ChildCategoriesModels.swift in Sources */,
 				2C65D9CA2645A9AD00AC3F7E /* StoresTableViewController.swift in Sources */,
 				2CB911DB25F11D5000A8FC66 /* ListWorker.swift in Sources */,

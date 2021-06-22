@@ -14,18 +14,42 @@ import UIKit
 
 protocol ShowNutritionPresentationLogic
 {
-  func presentSomething(response: ShowNutrition.Something.Response)
+    func presentNutrition(response: ShowNutrition.GetNutritions.Response)
 }
 
 class ShowNutritionPresenter: ShowNutritionPresentationLogic
 {
-  weak var viewController: ShowNutritionDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: ShowNutrition.Something.Response)
-  {
-    let viewModel = ShowNutrition.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+    weak var viewController: ShowNutritionDisplayLogic?
+    
+    func presentNutrition(response: ShowNutrition.GetNutritions.Response)
+    {
+        var nutritions: [NutritionModel] = []
+        
+        var calories: String?
+        var sodium: String?
+        var protein: String?
+        
+        for nutrition in response.nutritions {
+            let name: String = nutrition.name.lowercased()
+            
+            if name.contains("sodium"){
+                sodium = nutrition.grams
+            } else if name.contains("calories") {
+                calories = nutrition.grams
+            } else if name.contains("protein") {
+                protein = nutrition.grams
+            } else {
+                nutritions.append(nutrition)
+            }
+        }
+        
+        let viewModel = ShowNutrition.GetNutritions.ViewModel(
+            calories: calories,
+            sodium: sodium,
+            protein: protein,
+            nutritions: nutritions
+        )
+        
+        viewController?.displayNutritions(viewModel: viewModel)
+    }
 }

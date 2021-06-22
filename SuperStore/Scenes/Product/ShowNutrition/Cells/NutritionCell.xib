@@ -101,6 +101,7 @@
             <connections>
                 <outlet property="nameLabel" destination="btp-Zd-UyB" id="Owk-iB-dBj"/>
                 <outlet property="percentageLabel" destination="MOy-Jm-fCg" id="qV6-TS-D2a"/>
+                <outlet property="weightLabel" destination="b7s-cO-uEl" id="qXD-58-WnO"/>
             </connections>
             <point key="canvasLocation" x="-33.333333333333336" y="88.392857142857139"/>
         </tableViewCell>

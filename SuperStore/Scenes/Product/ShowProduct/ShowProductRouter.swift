@@ -291,7 +291,7 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     
     func passDataToShowNutrition(source: ShowProductDataStore, destination: inout ShowNutritionDataStore)
     {
-//        destination.description = source.product?.description ?? ""
+        destination.nutritions = source.product?.nutritions ?? []
     }
     
     func passDataToShowPromotion(source: ShowProductDataStore, destination: inout ShowPromotionDataStore)

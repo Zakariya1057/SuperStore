@@ -56,6 +56,8 @@ class ProductModel {
     var reviews: [ReviewModel] = []
 
     var ingredients: [String] = []
+    
+    var nutritions: [NutritionModel] = []
 
     var recommended: [ProductModel] = []
 
@@ -79,7 +81,7 @@ class ProductModel {
         dietaryInfo: String?,
         allergenInfo: String?, brand: String?, reviews: [ReviewModel],
         favourite: Bool, monitoring: Bool, ingredients: [String],
-        recommended: [ProductModel]
+        nutritions: [NutritionModel], recommended: [ProductModel]
     ) {
 
         self.id = id
@@ -127,6 +129,8 @@ class ProductModel {
         
         setPromotion(dateWorker: dateWorker, promotion: promotion)
         setSalePrices(dateWorker: dateWorker, oldPrice: oldPrice, isOnSale: isOnSale, saleEndsAt: saleEndsAt)
+        
+        self.nutritions = nutritions
     }
     
     

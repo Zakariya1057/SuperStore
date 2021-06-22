@@ -5374,7 +5374,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Nutrition Facts" largeTitleDisplayMode="always" id="h66-II-PT5"/>
                     <connections>
+                        <outlet property="caloriesLabel" destination="O88-5f-zDJ" id="24Y-QN-xoa"/>
                         <outlet property="nutritionTableView" destination="gnF-nh-mQY" id="dUF-Ll-zbY"/>
+                        <outlet property="proteinLabel" destination="g68-7Z-zcG" id="q5m-Wm-6n8"/>
+                        <outlet property="sodiumLabel" destination="GUo-tO-xVT" id="Uu0-Gp-bEF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mzs-Ni-AD7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

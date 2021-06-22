@@ -13,6 +13,7 @@ class ProductRealmStore: DataStore, ProductStoreProtocol {
     
     private var reviewStore: ReviewRealmStore = ReviewRealmStore()
     private lazy var promotionStore: PromotionRealmStore = PromotionRealmStore()
+    private var nutritionRealmStore: NutritionRealmStore = NutritionRealmStore()
     
     private func getProductObject(productID: Int) -> ProductObject? {
         return realm?.objects(ProductObject.self).filter("id = %@", productID).first
@@ -201,6 +202,8 @@ extension ProductRealmStore {
             savedProduct.ingredients.append(ingredient)
         }
         
+        setProductNutritions(product: product, savedProduct: savedProduct)
+        
         savedProduct.updatedAt = Date()
         
         return savedProduct
@@ -261,6 +264,8 @@ extension ProductRealmStore {
             updateReviews(product: product, savedProduct: savedProduct)
             
             updateIngredients(product: product, savedProduct: savedProduct)
+            
+            setProductNutritions(product: product, savedProduct: savedProduct)
             
         })
     }
@@ -402,5 +407,18 @@ extension ProductRealmStore {
         }
         
         savedProduct.monitoring = product.monitoring
+    }
+}
+
+extension ProductRealmStore {
+    func setProductNutritions(product: ProductModel, savedProduct: ProductObject){
+        // Create nutrition objects, save for product
+        if product.nutritions.count > savedProduct.nutritions.count {
+            savedProduct.nutritions.removeAll()
+            for nutrition in product.nutritions {
+                let savedNutrition = nutritionRealmStore.createNutritionObject(nutrition: nutrition)
+                savedProduct.nutritions.append(savedNutrition)
+            }
+        }
     }
 }

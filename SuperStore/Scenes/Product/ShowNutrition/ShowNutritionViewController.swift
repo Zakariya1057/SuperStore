@@ -14,7 +14,7 @@ import UIKit
 
 protocol ShowNutritionDisplayLogic: AnyObject
 {
-    func displaySomething(viewModel: ShowNutrition.Something.ViewModel)
+    func displayNutritions(viewModel: ShowNutrition.GetNutritions.ViewModel)
 }
 
 class ShowNutritionViewController: UIViewController, ShowNutritionDisplayLogic
@@ -76,28 +76,26 @@ class ShowNutritionViewController: UIViewController, ShowNutritionDisplayLogic
     
     @IBOutlet var nutritionTableView: UITableView!
     
-    var nutritions: [NutritionModel] = [
-        NutritionModel(name: "", grams: "", percentage: "", childNutritions: [
-            ChildNutritionModel(name: "", grams: "", percentage: ""),
-            ChildNutritionModel(name: "", grams: "", percentage: ""),
-            ChildNutritionModel(name: "", grams: "", percentage: ""),
-            ChildNutritionModel(name: "", grams: "", percentage: ""),
-        ]),
-        NutritionModel(name: "Total Carbohydrate", grams: "", percentage: "10"),
-        NutritionModel(name: "Total Carbohydrate", grams: "", percentage: "10"),
-        NutritionModel(name: "Total Carbohydrate", grams: "", percentage: ""),
-        NutritionModel(name: "", grams: "", percentage: ""),
-    ]
+    var nutritions: [NutritionModel] = []
+    
+    @IBOutlet var caloriesLabel: UILabel!
+    @IBOutlet var sodiumLabel: UILabel!
+    @IBOutlet var proteinLabel: UILabel!
     
     func getNutritions()
     {
-        let request = ShowNutrition.Something.Request()
-        interactor?.doSomething(request: request)
+        let request = ShowNutrition.GetNutritions.Request()
+        interactor?.getNutritions(request: request)
     }
     
-    func displaySomething(viewModel: ShowNutrition.Something.ViewModel)
+    func displayNutritions(viewModel: ShowNutrition.GetNutritions.ViewModel)
     {
-        //nameTextField.text = viewModel.name
+        nutritions = viewModel.nutritions
+        nutritionTableView.reloadData()
+        
+        caloriesLabel.text = viewModel.calories ?? ""
+        sodiumLabel.text = viewModel.sodium ?? ""
+        proteinLabel.text = viewModel.protein ?? ""
     }
 }
 
@@ -140,8 +138,9 @@ extension ShowNutritionViewController {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = nutritionTableView.dequeueReusableHeaderFooterView(withIdentifier: "NutrionSectionHeader") as! NutrionSectionHeader
 
-//        let categoryName = loading ? "" : displayedList!.categories[section].name
-//        header.headingLabel.text = categoryName
+        header.nutrition = nutritions[section]
+        
+        header.configureUI()
         
         return header
     }
