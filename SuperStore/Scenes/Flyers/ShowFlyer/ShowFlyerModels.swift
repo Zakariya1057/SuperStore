@@ -14,28 +14,50 @@ import UIKit
 
 enum ShowFlyer
 {
-  // MARK: Use cases
-  
-  enum GetFlyer
-  {
-    struct Request
-    {
-    }
+    // MARK: Use cases
     
-    struct Response
+    enum GetFlyer
     {
-        var flyer: FlyerModel
-    }
-    
-    struct ViewModel
-    {
-        struct DisplayedFlyer {
-            var name: String
-            var url: String
-            var validDate: String
+        struct Request
+        {
         }
         
-        var displayedFlyer: DisplayedFlyer
+        struct Response
+        {
+            var flyer: FlyerModel
+        }
+        
+        struct ViewModel
+        {
+            struct DisplayedFlyer {
+                var id: Int
+                var name: String
+                var url: String
+                var validDate: String
+            }
+            
+            var displayedFlyer: DisplayedFlyer
+        }
     }
-  }
+    
+    enum GetProducts
+    {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var products: [ProductModel]
+            var error: String?
+            var offline: Bool = false
+        }
+        
+        struct ViewModel
+        {
+            var products: [ProductModel]
+            var error: String?
+            var offline: Bool
+        }
+    }
 }

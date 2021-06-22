@@ -281,10 +281,6 @@ struct Config {
             return Host + "/favourites"
         }
         
-//        public static var Promotion: String {
-//            return Host + "/promotion"
-//        }
-        
         public struct Promotion {
             private static var PromotionRoute: String {
                 return Host + "/promotion"
@@ -299,8 +295,18 @@ struct Config {
             }
         }
         
-        public static var Flyers: String {
-            return Host + "/flyers/store/"
+        public struct Flyers {
+            private static var FlyerRoute: String {
+                return Host + "/flyers"
+            }
+            
+            public static var Show: String {
+                return FlyerRoute + "/store/"
+            }
+            
+            public static var Products: String {
+                return FlyerRoute + "/products/"
+            }
         }
     }
     

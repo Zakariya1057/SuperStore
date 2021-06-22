@@ -10,13 +10,13 @@ import Foundation
 
 class FlyerAPI: API, FlyerRequestProtocol {
     func getFlyers(storeID: Int, completionHandler: @escaping ([FlyerModel], String?) -> Void) {
-        let url = Config.Route.Flyers + String(storeID)
+        let url = Config.Route.Flyers.Show + String(storeID)
         
         requestWorker.get(url:url) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let flyersDataResponse =  try self.jsonDecoder.decode(FlyersDataResponse.self, from: data)
-                let flyers = self.createFlyersModel(flyersDataResponse: flyersDataResponse)
+                let flyers = self.createFlyerModels(flyersDataResponse: flyersDataResponse)
                 completionHandler(flyers, nil)
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
@@ -27,13 +27,37 @@ class FlyerAPI: API, FlyerRequestProtocol {
             }
         }
     }
+    
+    func getFlyerProducts(flyerID: Int, completionHandler: @escaping ([ProductModel], String?) -> Void) {
+        let url = Config.Route.Flyers.Products + String(flyerID)
+        
+        requestWorker.get(url:url) { (response: () throws -> Data) in
+            do {
+                let data = try response()
+                let productsDataResponse =  try self.jsonDecoder.decode(ProductsDataResponse.self, from: data)
+                let products = self.createProductModels(productsDataResponse: productsDataResponse)
+                completionHandler(products, nil)
+            } catch RequestError.Error(let errorMessage){
+                print(errorMessage)
+                completionHandler([], errorMessage)
+            } catch {
+                print(error)
+                completionHandler([], "Failed to get products. Decoding error, please try again later.")
+            }
+        }
+    }
 }
 
 extension FlyerAPI {
-    private func createFlyersModel(flyersDataResponse: FlyersDataResponse) -> [FlyerModel] {
+    private func createFlyerModels(flyersDataResponse: FlyersDataResponse) -> [FlyerModel] {
         let flyersData: [FlyerData] = flyersDataResponse.data
         return flyersData.map { (flyer: FlyerData) in
             return flyer.getFlyerModel()
         }
+    }
+    
+    private func createProductModels(productsDataResponse: ProductsDataResponse) -> [ProductModel] {
+        let productsData = productsDataResponse.data
+        return productsData.map{ $0.getProductModel() }
     }
 }

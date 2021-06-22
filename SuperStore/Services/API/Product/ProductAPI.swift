@@ -38,7 +38,7 @@ extension ProductAPI {
         requestWorker.post(url: url, data: ["region_id": regionID, "store_type_id": storeTypeID]) { (response: () throws -> Data) in
             do {
                 let data = try response()
-                let productDataResponse =  try self.jsonDecoder.decode(MonitoredProductsDataResponse.self, from: data)
+                let productDataResponse =  try self.jsonDecoder.decode(ProductsDataResponse.self, from: data)
                 let products = self.createProductModel(productsDataResponse: productDataResponse)
                 completionHandler(products, nil)
             } catch RequestError.Error(let errorMessage){
@@ -72,7 +72,7 @@ extension ProductAPI {
 
 extension ProductAPI {
     
-    private func createProductModel(productsDataResponse: MonitoredProductsDataResponse) -> [ProductModel] {
+    private func createProductModel(productsDataResponse: ProductsDataResponse) -> [ProductModel] {
         return productsDataResponse.data.map{ $0.getProductModel() }
     }
     

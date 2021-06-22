@@ -15,25 +15,52 @@ import UIKit
 protocol ShowFlyerBusinessLogic
 {
     func getFlyer(request: ShowFlyer.GetFlyer.Request)
+    func getProducts(request: ShowFlyer.GetProducts.Request)
+    
+    func setSelectedProduct(product: ProductModel)
 }
 
 protocol ShowFlyerDataStore
 {
     var flyer: FlyerModel? { get set }
+    var selectedProduct: ProductModel? { get set }
 }
 
 class ShowFlyerInteractor: ShowFlyerBusinessLogic, ShowFlyerDataStore
 {
     var presenter: ShowFlyerPresentationLogic?
-    var worker: ShowFlyerWorker?
+    var flyerWorker: FlyerWorker = FlyerWorker(flyerAPI: FlyerAPI())
+    
+    var userSession: UserSessionWorker = UserSessionWorker()
     
     var flyer: FlyerModel?
     
-    func getFlyer(request: ShowFlyer.GetFlyer.Request)
-    {
+    var selectedProduct: ProductModel?
+    
+    func getFlyer(request: ShowFlyer.GetFlyer.Request){
         if let flyer = flyer {
             let response = ShowFlyer.GetFlyer.Response(flyer: flyer)
             presenter?.presentFlyer(response: response)
         }
+    }
+    
+    func getProducts(request: ShowFlyer.GetProducts.Request){
+        if let flyer = flyer {
+            flyerWorker.getFlyerProducts(flyerID: flyer.id) { (products: [ProductModel], error: String?) in
+                var response = ShowFlyer.GetProducts.Response(products: products, error: error)
+                
+                if error != nil {
+                    response.offline = !self.userSession.isOnline()
+                }
+                
+                self.presenter?.presentProducts(response: response)
+            }
+        }
+    }
+}
+
+extension ShowFlyerInteractor {
+    func setSelectedProduct(product: ProductModel){
+        self.selectedProduct = product
     }
 }

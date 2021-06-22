@@ -14,47 +14,47 @@ import UIKit
 
 @objc protocol ShowFlyerRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToShowProduct(segue: UIStoryboardSegue?)
 }
 
 protocol ShowFlyerDataPassing
 {
-  var dataStore: ShowFlyerDataStore? { get }
+    var dataStore: ShowFlyerDataStore? { get }
 }
 
 class ShowFlyerRouter: NSObject, ShowFlyerRoutingLogic, ShowFlyerDataPassing
 {
-  weak var viewController: ShowFlyerViewController?
-  var dataStore: ShowFlyerDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: ShowFlyerViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: ShowFlyerDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    weak var viewController: ShowFlyerViewController?
+    var dataStore: ShowFlyerDataStore?
+    
+    // MARK: Routing
+    
+    func routeToShowProduct(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ShowProductViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowProduct(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ShowProductViewController") as! ShowProductViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToShowProduct(source: dataStore!, destination: &destinationDS)
+            navigateToShowProduct(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    //    MARK: Navigation
+    
+    func navigateToShowProduct(source: ShowFlyerViewController, destination: ShowProductViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    //    MARK: Passing data
+    
+    func passDataToShowProduct(source: ShowFlyerDataStore, destination: inout ShowProductDataStore)
+    {
+        destination.productID = source.selectedProduct!.id
+    }
 }

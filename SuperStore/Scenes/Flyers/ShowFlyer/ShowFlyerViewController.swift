@@ -16,6 +16,7 @@ import PDFKit
 protocol ShowFlyerDisplayLogic: AnyObject
 {
     func displayFlyer(viewModel: ShowFlyer.GetFlyer.ViewModel.DisplayedFlyer)
+    func displayProduct(viewModel: ShowFlyer.GetProducts.ViewModel)
 }
 
 class ShowFlyerViewController: UIViewController, ShowFlyerDisplayLogic
@@ -70,36 +71,102 @@ class ShowFlyerViewController: UIViewController, ShowFlyerDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        setupProductsTable()
+        
         getFlyer()
+        getProducts()
     }
     
-    @IBOutlet weak var pdfView: PDFView!
+    override func viewDidDisappear(_ animated: Bool) {
+        workItem?.cancel()
+    }
+    
     @IBOutlet var validDateLabel: UILabel!
+    
+    var url: String? = nil
+    var workItem: DispatchWorkItem?
+    
+    var refreshControl = UIRefreshControl()
+    let spinner: SpinnerViewController = SpinnerViewController()
+    
+    @IBOutlet var productsTableView: UITableView!
+    
+    var loading: Bool = true
+    
+    var products: [ProductModel] = []
     
     func getFlyer()
     {
-        startLoading()
-        
         let request = ShowFlyer.GetFlyer.Request()
         interactor?.getFlyer(request: request)
+    }
+    
+    @objc func getProducts(){
+        let request = ShowFlyer.GetProducts.Request()
+        interactor?.getProducts(request: request)
     }
     
     func displayFlyer(viewModel: ShowFlyer.GetFlyer.ViewModel.DisplayedFlyer)
     {
         title = viewModel.name
         displayValidDate(dateRange: viewModel.validDate)
+        url = viewModel.url
+    }
+    
+    func displayProduct(viewModel: ShowFlyer.GetProducts.ViewModel){
+        loading = false
+        refreshControl.endRefreshing()
         
-        DispatchQueue.main.async {
-            self.showPDF(url: viewModel.url)
-            self.stopLoading()
+        if let error = viewModel.error {
+            if viewModel.offline == false {
+                showError(title: "Flyer Error", error: error)
+            }
+        } else {
+            products = viewModel.products
+            productsTableView.reloadData()
         }
     }
     
     private func displayValidDate(dateRange: String){
         validDateLabel.text = "Valid \(dateRange)"
     }
+}
+
+extension ShowFlyerViewController {
+    @IBAction func viewPDFButtonPressed(_ sender: Any) {
+        openPDF()
+    }
     
-    private func showPDF(url: String){
+    private func openPDF(){
+        if let url = url {
+            hideBarButton()
+            startLoading()
+            
+            let pdfView: PDFView = PDFView(frame: view.frame)
+            
+            self.workItem = DispatchWorkItem { self.PDFLoaded(pdfView: pdfView) }
+            
+            if let workItem = workItem {
+                DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+                    self.showPDF(pdfView: pdfView, url: url)
+                    DispatchQueue.global(qos: .userInitiated).async(execute: workItem)
+                }
+            }
+        }
+    }
+    
+    private func PDFLoaded(pdfView: PDFView){
+        DispatchQueue.main.async {
+            let viewController = UIViewController()
+            viewController.view.addSubview(pdfView)
+            self.show(viewController, sender: nil)
+            self.showBarButton()
+            self.stopLoading()
+        }
+    }
+    
+    private func showPDF(pdfView: PDFView, url: String){
         if let url = URL(string: url) {
             if let pdfDocument = PDFDocument(url: url) {
                 pdfView.displayMode = .singlePageContinuous
@@ -110,13 +177,67 @@ class ShowFlyerViewController: UIViewController, ShowFlyerDisplayLogic
     }
 }
 
+
+extension ShowFlyerViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return loading ? 5 : products.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return configureFlyerCell(indexPath: indexPath)
+    }
+    
+    func configureFlyerCell(indexPath: IndexPath) -> ProductCell {
+        let cell = productsTableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
+        
+        cell.product = loading ? nil : products[indexPath.row]
+        cell.loading = loading
+        
+        cell.configureUI()
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        return cell
+    }
+    
+    func setupProductsTable(){
+        let productCellNib = UINib(nibName: "ProductCell", bundle: nil)
+        productsTableView.register(productCellNib, forCellReuseIdentifier: "ProductCell")
+        
+        productsTableView.delegate = self
+        productsTableView.dataSource = self
+    }
+}
+    
 extension ShowFlyerViewController {
-    func startLoading(){
-        pdfView.isSkeletonable = true
-        pdfView.showAnimatedGradientSkeleton()
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if !loading {
+            let product: ProductModel = products[indexPath.row]
+            interactor?.setSelectedProduct(product: product)
+            router?.routeToShowProduct(segue: nil)
+        }
+    }
+}
+
+
+extension ShowFlyerViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
     }
     
     func stopLoading(){
-        pdfView.hideSkeleton()
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+    }
+    
+    func showBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+    
+    func hideBarButton(){
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
 }

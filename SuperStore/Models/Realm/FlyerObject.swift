@@ -20,6 +20,8 @@ class FlyerObject: Object {
     @objc dynamic var storeID: Int = 0
     @objc dynamic var storeTypeID: Int = 0
     
+    var products = List<ProductObject>()
+    
     @objc dynamic var validFrom: Date = Date()
     @objc dynamic var validTo: Date = Date()
     

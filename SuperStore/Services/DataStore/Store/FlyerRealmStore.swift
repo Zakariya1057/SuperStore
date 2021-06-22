@@ -10,9 +10,14 @@ import Foundation
 import RealmSwift
 
 class FlyerRealmStore: DataStore, FlyerStoreProtocol {
+    private lazy var productStore: ProductStoreProtocol = ProductRealmStore()
     
     private func getFlyerObject(url: String) -> FlyerObject? {
         return realm?.objects(FlyerObject.self).filter("url = %@", url).first
+    }
+    
+    private func getFlyerObject(id: Int) -> FlyerObject? {
+        return realm?.objects(FlyerObject.self).filter("id = %@", id).first
     }
     
     private func getFlyerObjects(storeID: Int) -> Results<FlyerObject>? {
@@ -46,6 +51,23 @@ class FlyerRealmStore: DataStore, FlyerStoreProtocol {
 }
 
 extension FlyerRealmStore {
+    func createFlyerProducts(flyerID: Int, products: [ProductModel]) {
+        if let savedFlyer = getFlyerObject(id: flyerID){
+            try? realm?.write({
+                setFlyerProducts(products: products, savedFlyer: savedFlyer)
+            })
+        }
+    }
+    
+    func getFlyerProducts(flyerID: Int) -> [ProductModel] {
+        if let savedFlyer = getFlyerObject(id: flyerID){
+            return savedFlyer.products.map{ $0.getProductModel() }
+        }
+        return []
+    }
+}
+
+extension FlyerRealmStore {
     func createFlyerObject(flyer: FlyerModel) -> FlyerObject {
         
         if let savedFlyer = getFlyerObject(url: flyer.url){
@@ -64,6 +86,15 @@ extension FlyerRealmStore {
         savedFlyer.validTo = flyer.validTo
         
         return savedFlyer
+    }
+    
+    func setFlyerProducts(products: [ProductModel], savedFlyer: FlyerObject){
+        savedFlyer.products.removeAll()
+        
+        for product in products {
+            let savedProduct = productStore.createProductObject(product: product)
+            savedFlyer.products.append(savedProduct)
+        }
     }
     
     func updateFlyer(flyer: FlyerModel, savedFlyer: FlyerObject){

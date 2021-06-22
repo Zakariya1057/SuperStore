@@ -3314,7 +3314,7 @@
             </objects>
             <point key="canvasLocation" x="8393" y="944"/>
         </scene>
-        <!--Show Flyer View Controller-->
+        <!--Weekly Flyers-->
         <scene sceneID="rmJ-Zu-w6o">
             <objects>
                 <viewController storyboardIdentifier="ShowFlyerViewController" id="hdY-QV-QHF" customClass="ShowFlyerViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
@@ -3323,7 +3323,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VGH-ZD-l1e">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XUw-wJ-xu5">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
@@ -3363,11 +3363,17 @@
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="irr-Se-XuZ" customClass="PDFView">
-                                        <rect key="frame" x="0.0" y="40" width="414" height="633"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gBZ-LQ-fRB">
+                                        <rect key="frame" x="0.0" y="40" width="414" height="685"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </view>
+                                    </tableView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="gBZ-LQ-fRB" firstAttribute="top" secondItem="XUw-wJ-xu5" secondAttribute="bottom" id="3Et-HU-rnJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="gBZ-LQ-fRB" secondAttribute="trailing" id="8gT-iX-Lsh"/>
+                                    <constraint firstAttribute="bottom" secondItem="gBZ-LQ-fRB" secondAttribute="bottom" id="j4L-UG-7Zz"/>
+                                    <constraint firstItem="gBZ-LQ-fRB" firstAttribute="leading" secondItem="VGH-ZD-l1e" secondAttribute="leading" id="mIL-Qf-cxD"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QZ2-pz-C0I"/>
@@ -3379,9 +3385,15 @@
                             <constraint firstItem="VGH-ZD-l1e" firstAttribute="bottom" secondItem="QZ2-pz-C0I" secondAttribute="bottom" id="W3t-zS-ABp"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="8kX-Yk-ItL"/>
+                    <navigationItem key="navigationItem" title="Weekly Flyers" largeTitleDisplayMode="never" id="8kX-Yk-ItL">
+                        <barButtonItem key="rightBarButtonItem" title="View PDF" id="LDm-4P-qiV">
+                            <connections>
+                                <action selector="viewPDFButtonPressed:" destination="hdY-QV-QHF" id="aSZ-f9-KXk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="pdfView" destination="irr-Se-XuZ" id="kI2-d2-JJ3"/>
+                        <outlet property="productsTableView" destination="gBZ-LQ-fRB" id="Ifi-2T-RhT"/>
                         <outlet property="validDateLabel" destination="CG4-iw-n8j" id="lq9-Su-4h5"/>
                     </connections>
                 </viewController>

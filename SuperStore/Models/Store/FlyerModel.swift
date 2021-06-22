@@ -11,6 +11,7 @@ import Foundation
 struct FlyerModel {
     var id: Int
     var name: String
+    var products: [ProductModel] = []
     var week: String?
     var url: String
     var storeID: Int

@@ -15,6 +15,7 @@ import UIKit
 protocol ShowFlyerPresentationLogic
 {
     func presentFlyer(response: ShowFlyer.GetFlyer.Response)
+    func presentProducts(response: ShowFlyer.GetProducts.Response)
 }
 
 class ShowFlyerPresenter: ShowFlyerPresentationLogic
@@ -33,11 +34,17 @@ class ShowFlyerPresenter: ShowFlyerPresentationLogic
         let validDate = "\(validFrom) - \(validTo)"
         
         let displayedFlyer = ShowFlyer.GetFlyer.ViewModel.DisplayedFlyer(
+            id: flyer.id,
             name: flyer.name,
             url: flyer.url,
             validDate: validDate
         )
         
         viewController?.displayFlyer(viewModel: displayedFlyer)
+    }
+    
+    func presentProducts(response: ShowFlyer.GetProducts.Response){
+        let viewModel = ShowFlyer.GetProducts.ViewModel(products: response.products, error: response.error, offline: response.offline)
+        viewController?.displayProduct(viewModel: viewModel)
     }
 }
