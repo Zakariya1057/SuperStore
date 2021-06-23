@@ -43,7 +43,9 @@ class HomeWorker
                 // If home promotions expired, then remove them
                 for (index, promotion) in homeModel!.promotions.enumerated() {
                     if self.promotionStore.promotionExpired(promotion: promotion){
-                        homeModel!.promotions.remove(at: index)
+                        if homeModel!.promotions.indices.contains(index){
+                            homeModel!.promotions.remove(at: index)
+                        }
                     }
                 }
                 

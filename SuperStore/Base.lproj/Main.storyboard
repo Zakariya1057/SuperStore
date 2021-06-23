@@ -5136,8 +5136,8 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="136" height="40"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFL-jg-jfe">
-                                                                                <rect key="frame" x="34.5" y="10" width="67" height="20"/>
-                                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                                <rect key="frame" x="32.5" y="10" width="71" height="20"/>
+                                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -5187,8 +5187,8 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="136" height="40"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sodium" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOV-jf-EMw">
-                                                                                <rect key="frame" x="37" y="10" width="62" height="20"/>
-                                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                                <rect key="frame" x="35.5" y="10" width="65.5" height="20"/>
+                                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -5238,8 +5238,8 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="136" height="40"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protein" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdr-Ad-Rya">
-                                                                                <rect key="frame" x="38.5" y="10" width="59" height="20"/>
-                                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                                <rect key="frame" x="37" y="10" width="62.5" height="20"/>
+                                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
