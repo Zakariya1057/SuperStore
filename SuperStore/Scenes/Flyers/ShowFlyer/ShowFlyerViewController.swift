@@ -145,24 +145,13 @@ extension ShowFlyerViewController {
             
             let pdfView: PDFView = PDFView(frame: view.frame)
             
-            self.workItem = DispatchWorkItem { self.PDFLoaded(pdfView: pdfView) }
-            
-            if let workItem = workItem {
-                DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
-                    self.showPDF(pdfView: pdfView, url: url)
-                    DispatchQueue.global(qos: .userInitiated).async(execute: workItem)
-                }
-            }
+            self.showPDF(pdfView: pdfView, url: url)
         }
     }
     
     private func PDFLoaded(pdfView: PDFView){
         DispatchQueue.main.async {
-            let viewController = UIViewController()
-            viewController.view.addSubview(pdfView)
-            self.show(viewController, sender: nil)
-            self.showBarButton()
-            self.stopLoading()
+
         }
     }
     

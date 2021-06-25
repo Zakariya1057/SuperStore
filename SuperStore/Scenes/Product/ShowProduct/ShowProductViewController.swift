@@ -88,8 +88,7 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
         setupGestureRecognizer()
     }
     
-    @IBOutlet var slideshow: ImageSlideshow!
-    
+    let spinner: SpinnerViewController = SpinnerViewController()
     
     // MARK: IB Outlets
     
@@ -115,6 +114,8 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     @IBOutlet weak var favouriteBarItem: UIBarButtonItem!
     
     @IBOutlet weak var oldPriceView: UIView!
+    
+    @IBOutlet var slideshow: ImageSlideshow!
     
     // Field Labels
     @IBOutlet weak var nameLabel: UILabel!
@@ -165,6 +166,8 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     
     func getProduct()
     {
+        startLoading()
+        
         let request = ShowProduct.GetProduct.Request()
         interactor?.getProduct(request: request)
     }
@@ -178,6 +181,9 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     
     func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
     {
+        
+        stopLoading()
+        
         if let error = viewModel.error {
             
             if !viewModel.offline {
@@ -759,4 +765,19 @@ extension ShowProductViewController: ImageSlideshowDelegate {
         slideshow.presentFullScreenController(from: self)
     }
     
+}
+
+extension ShowProductViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
+    }
 }

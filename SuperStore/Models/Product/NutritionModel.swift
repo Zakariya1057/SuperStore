@@ -8,23 +8,10 @@
 
 import Foundation
 
-class NutritionModel: ChildNutritionModel {
-    var childNutritions: [ChildNutritionModel] = []
-    
-    init(name: String, grams: String, percentage: String, childNutritions: [ChildNutritionModel] = []) {
-        self.childNutritions = childNutritions
-        super.init(name: name, grams: grams, percentage: percentage)
-    }
+struct NutritionModel {
+    var name: String
+    var grams: String?
+    var percentage: String?
+    var childNutritions: [NutritionModel] = []
 }
 
-class ChildNutritionModel {
-    var name: String
-    var grams: String
-    var percentage: String
-    
-    init(name: String, grams: String, percentage: String) {
-        self.name = name
-        self.grams = grams
-        self.percentage = percentage
-    }
-}
