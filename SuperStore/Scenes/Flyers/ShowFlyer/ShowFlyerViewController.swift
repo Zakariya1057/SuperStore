@@ -141,17 +141,16 @@ extension ShowFlyerViewController {
     private func openPDF(){
         if let url = url {
             hideBarButton()
-            startLoading()
             
             let pdfView: PDFView = PDFView(frame: view.frame)
             
             self.showPDF(pdfView: pdfView, url: url)
-        }
-    }
-    
-    private func PDFLoaded(pdfView: PDFView){
-        DispatchQueue.main.async {
-
+            
+            showBarButton()
+            
+            let viewController = UIViewController()
+            viewController.view.addSubview(pdfView)
+            self.show(viewController, sender: nil)
         }
     }
     
