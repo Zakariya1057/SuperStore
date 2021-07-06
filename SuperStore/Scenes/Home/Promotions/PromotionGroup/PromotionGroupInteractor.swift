@@ -21,7 +21,7 @@ protocol PromotionGroupBusinessLogic
 
 protocol PromotionGroupDataStore
 {
-    var storeTypeID: Int { get set }
+    var supermarketChainID: Int { get set }
     var promotionGroup: PromotionGroupModel? { get set }
     var selectedProductID: Int? { get set }
 }
@@ -33,7 +33,7 @@ class PromotionGroupInteractor: PromotionGroupBusinessLogic, PromotionGroupDataS
 
     var promotionGroup: PromotionGroupModel? = nil
    
-    var storeTypeID: Int = 2
+    var supermarketChainID: Int = 2
     var selectedProductID: Int?
     
     var promotionWorker = PromotionWorker(promotionAPI: PromotionAPI())
@@ -47,7 +47,7 @@ class PromotionGroupInteractor: PromotionGroupBusinessLogic, PromotionGroupDataS
     {
         
         if let promotionGroup = promotionGroup {
-            promotionWorker.getPromotionGroup(regionID: regionID ,storeTypeID: storeTypeID, title: promotionGroup.title) { (promotions: [PromotionModel], error: String?) in
+            promotionWorker.getPromotionGroup(regionID: regionID ,supermarketChainID: supermarketChainID, title: promotionGroup.title) { (promotions: [PromotionModel], error: String?) in
                 var response = PromotionGroup.GetPromotions.Response(promotions: promotions, error: error)
                 
                 if error != nil {

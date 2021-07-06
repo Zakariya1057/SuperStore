@@ -13,14 +13,13 @@ class StoreObject: Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
     @objc dynamic var address: String = ""
-    @objc dynamic var logo: String = ""
     
     var facilities = List<String>()
     
     var openingHours = List<OpeningHourObject>()
     @objc dynamic var location: LocationObject?
     
-    @objc dynamic var storeTypeID: Int = 1
+    @objc dynamic var supermarketChainID: Int = 1
     
     @objc dynamic var enabled: Bool = true
     
@@ -31,12 +30,11 @@ class StoreObject: Object {
         return StoreModel(
             id: id,
             name: name,
-            logo: logo,
             address: address,
             openingHours: openingHours.map{ $0.getOpeningHourModel() },
             location: location!.getLocationModel(),
             facilities: facilities.map{ String($0) },
-            storeTypeID: storeTypeID
+            supermarketChainID: supermarketChainID
         )
     }
 }

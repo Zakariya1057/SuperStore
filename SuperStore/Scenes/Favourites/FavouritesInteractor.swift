@@ -32,10 +32,13 @@ class FavouritesInteractor: FavouritesBusinessLogic, FavouritesDataStore
     var regionID: Int {
         return userSession.getRegion()
     }
+    var supermarketChainID: Int {
+        return userSession.getSupermarketChainID()
+    }
     
     func getFavourites(request: Favourites.GetFavourites.Request)
     {
-        favouriteWorker.getFavourites(regionID: regionID) { (products: [ProductModel], error: String?) in
+        favouriteWorker.getFavourites(regionID: regionID, supermarketChainID: supermarketChainID) { (products: [ProductModel], error: String?) in
             var response = Favourites.GetFavourites.Response(products: products, error: error)
             
             if error != nil {

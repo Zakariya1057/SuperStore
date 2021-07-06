@@ -83,7 +83,7 @@ extension ResetPasswordAPI {
             token: userData.token,
             email: userData.email,
             regionID: userData.region_id,
-            storeTypeID: userData.store_type_id,
+            supermarketChainID: userData.supermarket_chain_id,
             sendNotifications: userData.send_notifications
         )
     }

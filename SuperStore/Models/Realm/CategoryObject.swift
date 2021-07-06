@@ -12,7 +12,7 @@ import RealmSwift
 class GrandParentCategoryObject: Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
-    @objc dynamic var storeTypeID: Int = 1
+    @objc dynamic var companyID: Int = 1
     
     @objc dynamic var index: Int = 0
     
@@ -28,7 +28,7 @@ class GrandParentCategoryObject: Object {
             id: id,
             name: name,
             index: index,
-            storeTypeID: storeTypeID,
+            companyID: companyID,
             parentCategories: parentCategories.map{ $0.getParentCategoryModel() })
     }
     
@@ -41,7 +41,7 @@ class GrandParentCategoryObject: Object {
 class ParentCategoryObject: Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name:String = ""
-    @objc dynamic var storeTypeID: Int = 1
+    @objc dynamic var companyID: Int = 1
     
     @objc dynamic var index: Int = 0
     
@@ -60,7 +60,7 @@ class ParentCategoryObject: Object {
             name: name,
             index: index,
             grandParentCategoryID: grandParentCategoryID,
-            storeTypeID: storeTypeID,
+            companyID: companyID,
             childCategories: childCategories.map{ $0.getChildCategoryModel() }
         )
     }
@@ -74,7 +74,7 @@ class ParentCategoryObject: Object {
 class ChildCategoryObject: Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name:String = ""
-    @objc dynamic var storeTypeID: Int = 1
+    @objc dynamic var companyID: Int = 1
     
     @objc dynamic var index: Int = 0
     
@@ -93,8 +93,8 @@ class ChildCategoryObject: Object {
             name: name,
             index: index,
             parentCategoryID: parentCategoryID,
-            storeTypeID: storeTypeID,
-            products: products.map{ $0.getProductModel() }
+            companyID: companyID,
+            products: products.map{ $0.getProductModel() }.compactMap ({ $0 })
         )
     }
     

@@ -57,7 +57,7 @@ class StorePresenterTests: XCTestCase
                 return
                     store.name == displayedStore.name &&
                     store.logo == displayedStore.logo &&
-                    store.storeTypeID == displayedStore.storeTypeID &&
+                    store.supermarketChainID == displayedStore.supermarketChainID &&
                     
                     verifyAddressMatches(actualLocation: store.location, displayLocation: displayedStore.address) &&
                     verifyHoursMatch(actualOpeningHours: store.openingHours, displayOpeningHours: displayedStore.openingHours) &&

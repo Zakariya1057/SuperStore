@@ -59,7 +59,7 @@ class StoreInteractorTests: XCTestCase
             completionHandler(store, nil)
         }
         
-        func getStores(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping ([StoreModel], String?) -> Void) {
+        func getStores(supermarketChainID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping ([StoreModel], String?) -> Void) {
             let stores = Seeds.StoreSeed.Stores
             completionHandler(stores, nil)
         }

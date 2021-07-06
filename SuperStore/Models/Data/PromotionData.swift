@@ -35,7 +35,7 @@ struct PromotionData:Decodable {
     var minimum: Int?
     
     var products: [ProductData]?
-    var store_type_id: Int
+    var supermarket_chain_id: Int
     
     var expires: Bool?
     var starts_at: String?
@@ -48,7 +48,7 @@ struct PromotionData:Decodable {
             id: id,
             title: title,
             name: name,
-            storeTypeID: store_type_id,
+            supermarketChainID: supermarket_chain_id,
             
             quantity: quantity,
             price: price,

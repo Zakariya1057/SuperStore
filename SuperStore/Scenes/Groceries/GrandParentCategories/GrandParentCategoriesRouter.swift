@@ -65,7 +65,7 @@ class GrandParentCategoriesRouter: BackToShowListRouter, GrandParentCategoriesRo
         destination.title = selectedCategory.name
         destination.categories = selectedCategory.parentCategories
         
-        destination.storeTypeID = source.storeTypeID
+        destination.supermarketChainID = source.supermarketChainID
         
         destination.selectedListID = source.selectedListID
     }

@@ -12,23 +12,16 @@ import UIKit
 struct StoreModel {
     var id: Int
     var name: String
-    var logo: String
+    var logo: String? = nil
     var address: String
     var openingHours: [OpeningHourModel]
     var location: LocationModel
     var facilities: [String]
-    var storeTypeID: Int
+    var supermarketChainID: Int
     
     func getLogoImage() -> UIImage? {
-        var image: UIImage? = nil
-        
-        if(storeTypeID == 1){
-            image = UIImage(named: "Asda2")
-        } else if(storeTypeID == 2){
-            image = UIImage(named: "Canadian SuperStore")
-        }
-
-        return image
+        let supermarketChainWorker = SupermarketChainWorker()
+        return supermarketChainWorker.getSupermarketChainLogo(supermarketChainID: supermarketChainID)
     }
     
     func getAddress() -> String {

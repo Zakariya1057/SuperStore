@@ -11,8 +11,8 @@ import Alamofire
 
 class ListAPI: API, ListRequestProtocol {
     
-    func getLists(storeTypeID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
-        let url: String = Config.Route.List.All + "/" + String(storeTypeID)
+    func getLists(supermarketChainID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
+        let url: String = Config.Route.List.All + "/" + String(supermarketChainID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -49,8 +49,8 @@ class ListAPI: API, ListRequestProtocol {
         }
     }
     
-    func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ list: ListModel?, _ error: String?) -> Void){
-        let createData:Parameters = ["name": name, "identifier": identifier, "store_type_id": storeTypeID]
+    func createList(name: String, identifier: String, supermarketChainID: Int, completionHandler: @escaping (_ list: ListModel?, _ error: String?) -> Void){
+        let createData:Parameters = ["name": name, "identifier": identifier, "supermarket_chain_id": supermarketChainID]
         
         requestWorker.post(url:  Config.Route.List.Create, data: createData) { (response: () throws -> Data) in
             do {
@@ -68,8 +68,8 @@ class ListAPI: API, ListRequestProtocol {
         }
     }
     
-    func updateList(listID: Int, name: String, storeTypeID: Int, completionHandler: @escaping (String?) -> Void) {
-        let updateData:Parameters = ["list_id": listID, "name": name, "store_type_id": storeTypeID]
+    func updateList(listID: Int, name: String, supermarketChainID: Int, completionHandler: @escaping (String?) -> Void) {
+        let updateData:Parameters = ["list_id": listID, "name": name, "supermarket_chain_id": supermarketChainID]
         
         requestWorker.post(url:  Config.Route.List.Update, data: updateData) { (response: () throws -> Data) in
             do {

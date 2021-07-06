@@ -33,7 +33,7 @@ enum Settings
             
             var unreadMessagesCount: Int
             
-            var storeTypeName: String
+            var supermarketChainName: String
             var regionName: String
         }
         

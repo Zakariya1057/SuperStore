@@ -78,7 +78,7 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         setupTextFieldDelegates()
         
         getRegions()
-        getStoreTypes()
+        getSupermarketChains()
         
         getEmail()
     }
@@ -86,20 +86,20 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     // MARK: Outlets
     
     var regions: [RegionModel] = []
-    var storeTypes: [StoreTypeModel] = []
+    var supermarketChain: [SupermarketChain] = []
     
-    var selectedStoreType: StoreTypeModel!
+    var selectedStoreType: SupermarketChain!
     var selectedRegion: RegionModel!
     
-//    var selectedStoreType: StoreTypeModel = StoreTypeModel(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore)
+//    var selectedStoreType: SupermarketChain = SupermarketChain(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore)
 //
-//    let storeTypes: [StoreTypeModel] = [
-//        StoreTypeModel(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore),
-//        StoreTypeModel(id: 1, name: "Asda", type: .asda),
+//    let supermarketChain: [SupermarketChain] = [
+//        SupermarketChain(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore),
+//        SupermarketChain(id: 1, name: "Asda", type: .asda),
 //    ]
     
     var regionPicker: UIPickerView = UIPickerView()
-    var storeTypePicker: UIPickerView = UIPickerView()
+    var supermarketChainPicker: UIPickerView = UIPickerView()
 
     let spinner: SpinnerViewController = SpinnerViewController()
     
@@ -124,7 +124,7 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     func configureStorePicker(){
         let pickerFields: [UITextField: UIPickerView] = [
             regionField: regionPicker,
-            storeField: storeTypePicker
+            storeField: supermarketChainPicker
         ]
         
         for (field, picker) in pickerFields {
@@ -160,7 +160,7 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     }
     
     func displayStoreTypes(viewModel: Register.GetStoreTypes.ViewModel) {
-        storeTypes = viewModel.storeTypes
+        supermarketChain = viewModel.supermarketChain
         selectedStoreType = viewModel.selectedStoreType
         
         storeField.text = selectedStoreType.name
@@ -186,7 +186,7 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
             passwordConfirm: passwordConfirm,
             
             regionID: selectedRegion.id,
-            storeTypeID: selectedStoreType.id
+            supermarketChainID: selectedStoreType.id
         )
         
         interactor?.register(request: request)
@@ -204,9 +204,9 @@ extension RegisterViewController {
         interactor?.getRegions(request: request)
     }
     
-    func getStoreTypes(){
+    func getSupermarketChains(){
         let request = Register.GetStoreTypes.Request()
-        interactor?.getStoreTypes(request: request)
+        interactor?.getSupermarketChains(request: request)
     }
 }
 
@@ -257,18 +257,18 @@ extension RegisterViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
-        return pickerView == storeTypePicker ? storeTypes.count : regions.count
+        return pickerView == supermarketChainPicker ? supermarketChain.count : regions.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
-        return pickerView == storeTypePicker ? storeTypes[row].name :  regions[row].name
+        return pickerView == supermarketChainPicker ? supermarketChain[row].name :  regions[row].name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        if pickerView == storeTypePicker {
-            selectedStoreType = storeTypes[row]
+        if pickerView == supermarketChainPicker {
+            selectedStoreType = supermarketChain[row]
             storeField.text = selectedStoreType.name
         } else {
             selectedRegion = regions[row]

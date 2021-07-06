@@ -22,7 +22,7 @@ protocol HomeBusinessLogic
     var selectedPromotionID: Int? { get set }
     var selectedStoreID: Int? { get set }
     
-    var storeTypeID: Int { get }
+    var supermarketChainID: Int { get }
     
     func setViewAllSelectedCategory(parentCategoryID: Int, parentCategoryName: String)
 }
@@ -35,7 +35,7 @@ protocol HomeDataStore
     var selectedStoreID: Int? { get set }
     
     var regionID: Int { get }
-    var storeTypeID: Int { get }
+    var supermarketChainID: Int { get }
     
     var viewAllSelectedParentCategoryName: String? { get set }
     var viewAllSelectedParentCategoryID: Int? { get set }
@@ -66,8 +66,8 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
         return userSession.getRegion()
     }
     
-    var storeTypeID: Int {
-        return userSession.getStore()
+    var supermarketChainID: Int {
+        return userSession.getSupermarketChainID()
     }
     
     func getHome(request: Home.GetHome.Request)
@@ -77,7 +77,7 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
         
         homeWorker?.getHome(
             regionID: regionID,
-            storeTypeID: storeTypeID,
+            supermarketChainID: supermarketChainID,
             latitude: latitude,
             longitude: longitude,
             completionHandler: { (home: HomeModel?, error: String?) in

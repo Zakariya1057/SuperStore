@@ -33,8 +33,8 @@ class ListValidationWorker {
                 }
             }
 
-            if type == .storeTypeID {
-                if !isValidStoreTypeID(value){
+            if type == .supermarketChainID {
+                if !isValidsupermarketChainID(value){
                     return "\(fieldName) must be at least 8 characters long."
                 }
             }
@@ -53,7 +53,7 @@ class ListValidationWorker {
         return identifierPred.evaluate(with: identifier)
     }
 
-    func isValidStoreTypeID(_ storeTypeID: String) -> Bool {
+    func isValidsupermarketChainID(_ supermarketChainID: String) -> Bool {
         return true
     }
 }
@@ -73,6 +73,6 @@ class ListFormField {
 
 enum ListFormType {
     case name
-    case storeTypeID
+    case supermarketChainID
     case identifier
 }

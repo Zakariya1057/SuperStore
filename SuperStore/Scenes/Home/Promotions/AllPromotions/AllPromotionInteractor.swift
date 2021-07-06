@@ -33,8 +33,8 @@ class AllPromotionsInteractor: AllPromotionsBusinessLogic, AllPromotionsDataStor
     
     var userSession: UserSessionWorker = UserSessionWorker()
     
-    var storeTypeID: Int {
-        userSession.getStore()
+    var supermarketChainID: Int {
+        userSession.getSupermarketChainID()
     }
     
     var regionID: Int {
@@ -43,7 +43,7 @@ class AllPromotionsInteractor: AllPromotionsBusinessLogic, AllPromotionsDataStor
     
     func getAllPromotions(request: AllPromotions.GetAllPromotions.Request)
     {
-        promotionWorker.getAllPromotions(regionID: regionID, storeTypeID: storeTypeID) { (promotionGroups: [PromotionGroupModel], error: String?) in
+        promotionWorker.getAllPromotions(regionID: regionID, supermarketChainID: supermarketChainID) { (promotionGroups: [PromotionGroupModel], error: String?) in
             
             var response = AllPromotions.GetAllPromotions.Response(promotionGroups: promotionGroups, error: error)
         

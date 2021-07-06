@@ -13,24 +13,24 @@ class PromotionGroupRealmStore: DataStore, PromotionGroupStoreProtocol {
     
     private lazy var promotionStore: PromotionRealmStore = PromotionRealmStore()
     
-    private func getPromotionGroupObject(regionID: Int, storeTypeID: Int, title: String) -> PromotionGroupObject? {
-        return realm?.objects(PromotionGroupObject.self).filter("regionID = %@ AND storeTypeID = %@ AND title = %@", regionID, storeTypeID, title).first
+    private func getPromotionGroupObject(regionID: Int, supermarketChainID: Int, title: String) -> PromotionGroupObject? {
+        return realm?.objects(PromotionGroupObject.self).filter("regionID = %@ AND supermarketChainID = %@ AND title = %@", regionID, supermarketChainID, title).first
     }
     
-    private func getStorePromotionGroups(regionID: Int, storeTypeID: Int) -> Results<PromotionGroupObject>? {
-        return realm?.objects(PromotionGroupObject.self).filter("regionID = %@ AND storeTypeID = %@", regionID, storeTypeID)
+    private func getStorePromotionGroups(regionID: Int, supermarketChainID: Int) -> Results<PromotionGroupObject>? {
+        return realm?.objects(PromotionGroupObject.self).filter("regionID = %@ AND supermarketChainID = %@", regionID, supermarketChainID)
     }
     
-    private func getNotFoundPromotionGroups(regionID: Int, storeTypeID: Int, titles: [String]) -> Results<PromotionGroupObject>? {
-        return realm?.objects(PromotionGroupObject.self).filter("regionID = %@ AND storeTypeID = %@ AND NOT title in %@", regionID, storeTypeID, titles)
+    private func getNotFoundPromotionGroups(regionID: Int, supermarketChainID: Int, titles: [String]) -> Results<PromotionGroupObject>? {
+        return realm?.objects(PromotionGroupObject.self).filter("regionID = %@ AND supermarketChainID = %@ AND NOT title in %@", regionID, supermarketChainID, titles)
     }
     
-    func createPromotionGroups(regionID: Int, storeTypeID: Int, promotionsGroups: [PromotionGroupModel]){
+    func createPromotionGroups(regionID: Int, supermarketChainID: Int, promotionsGroups: [PromotionGroupModel]){
         // Array Of Promotion Names. Contains Promotions. Contains Products.
-        deletePromotionGroupsByStoreType(regionID: regionID, storeTypeID: storeTypeID, promotionsGroups: promotionsGroups)
+        deletePromotionGroupsByStoreType(regionID: regionID, supermarketChainID: supermarketChainID, promotionsGroups: promotionsGroups)
         
         for promotionGroup in promotionsGroups {
-            if getPromotionGroupObject(regionID: regionID, storeTypeID: promotionGroup.storeTypeID, title: promotionGroup.title) == nil {
+            if getPromotionGroupObject(regionID: regionID, supermarketChainID: promotionGroup.supermarketChainID, title: promotionGroup.title) == nil {
                 try? realm?.write({
                     let savedPromotionGroupObject = createPromotionGroupObject(promotionGroup: promotionGroup)
                     realm?.add(savedPromotionGroupObject)
@@ -40,12 +40,12 @@ class PromotionGroupRealmStore: DataStore, PromotionGroupStoreProtocol {
     }
     
     
-    func setPromotionGroupPromotions(regionID: Int, storeTypeID: Int, title: String, promotions: [PromotionModel]){
-        if let savedPromotionGroup = getPromotionGroupObject(regionID: regionID, storeTypeID: storeTypeID, title: title){
+    func setPromotionGroupPromotions(regionID: Int, supermarketChainID: Int, title: String, promotions: [PromotionModel]){
+        if let savedPromotionGroup = getPromotionGroupObject(regionID: regionID, supermarketChainID: supermarketChainID, title: title){
             try? realm?.write({
                 savedPromotionGroup.promotions.removeAll()
                 
-                promotions.forEach{ $0.products.forEach{ $0.promotion = nil}}
+                promotions.forEach{ $0.products.forEach{ $0.price!.promotion = nil}}
                 
                 for savedPromotion in promotions.map({ promotionStore.createPromotionObject(promotion: $0)}) {
                     savedPromotionGroup.promotions.append(savedPromotion)
@@ -57,23 +57,23 @@ class PromotionGroupRealmStore: DataStore, PromotionGroupStoreProtocol {
 }
 
 extension PromotionGroupRealmStore {
-    func getPromotionGroups(regionID: Int, storeTypeID: Int) -> [PromotionGroupModel]{
-        if let savedPromotionGroups = getStorePromotionGroups(regionID: regionID, storeTypeID: storeTypeID) {
+    func getPromotionGroups(regionID: Int, supermarketChainID: Int) -> [PromotionGroupModel]{
+        if let savedPromotionGroups = getStorePromotionGroups(regionID: regionID, supermarketChainID: supermarketChainID) {
             return savedPromotionGroups.map{ $0.getPromotionGroupModel() }
         }
         
         return []
     }
     
-    func getPromotionGroup(regionID: Int, storeTypeID: Int, title: String) -> PromotionGroupModel? {
-        return getPromotionGroupObject(regionID: regionID, storeTypeID: storeTypeID, title: title)?.getPromotionGroupModel()
+    func getPromotionGroup(regionID: Int, supermarketChainID: Int, title: String) -> PromotionGroupModel? {
+        return getPromotionGroupObject(regionID: regionID, supermarketChainID: supermarketChainID, title: title)?.getPromotionGroupModel()
     }
 }
 
 extension PromotionGroupRealmStore {
     func createPromotionGroupObject(promotionGroup: PromotionGroupModel) -> PromotionGroupObject {
         
-        if let savedPromotionGroup = getPromotionGroupObject(regionID: promotionGroup.regionID, storeTypeID: promotionGroup.storeTypeID, title: promotionGroup.title){
+        if let savedPromotionGroup = getPromotionGroupObject(regionID: promotionGroup.regionID, supermarketChainID: promotionGroup.supermarketChainID, title: promotionGroup.title){
             return savedPromotionGroup
         }
 
@@ -82,16 +82,16 @@ extension PromotionGroupRealmStore {
         savedPromotionGroup.title = promotionGroup.title
         
         savedPromotionGroup.regionID = promotionGroup.regionID
-        savedPromotionGroup.storeTypeID = promotionGroup.storeTypeID
+        savedPromotionGroup.supermarketChainID = promotionGroup.supermarketChainID
         
         return savedPromotionGroup
     }
     
-    private func deletePromotionGroupsByStoreType(regionID: Int, storeTypeID: Int, promotionsGroups: [PromotionGroupModel]){
+    private func deletePromotionGroupsByStoreType(regionID: Int, supermarketChainID: Int, promotionsGroups: [PromotionGroupModel]){
         // Delete all promotion groups by store
         let titles: [String] = promotionsGroups.map{ $0.title }
         
-        if let unfoundPromotionGroups = getNotFoundPromotionGroups(regionID: regionID, storeTypeID: storeTypeID, titles: titles){
+        if let unfoundPromotionGroups = getNotFoundPromotionGroups(regionID: regionID, supermarketChainID: supermarketChainID, titles: titles){
             try? realm?.write({
                 realm?.delete(unfoundPromotionGroups)
             })

@@ -296,7 +296,7 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     
     func passDataToShowPromotion(source: ShowProductDataStore, destination: inout ShowPromotionDataStore)
     {
-        destination.promotionID = source.product!.promotion!.id
+        destination.promotionID = source.product!.price!.promotion!.id
     }
     
     func passDataToShowProduct(source: ShowProductDataStore, destination: inout ShowProductDataStore)
@@ -311,7 +311,7 @@ class ShowProductRouter: NSObject, ShowProductRoutingLogic, ShowProductDataPassi
     
     func passDataToShowLists(source: ShowProductDataStore, destination: inout ShowListsDataStore)
     {
-        destination.storeTypeID = source.product!.storeTypeID
+        destination.companyID = source.product!.companyID
         destination.addToList = true
     }
     

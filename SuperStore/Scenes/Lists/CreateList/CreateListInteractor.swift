@@ -36,12 +36,12 @@ class CreateListInteractor: CreateListBusinessLogic, CreateListDataStore
     func createList(request: CreateList.CreateList.Request)
     {
         let name = request.name
-        let storeTypeID = userSessions.getStore()
+        let supermarketChainID = userSessions.getSupermarketChainID()
         let identifier = UUID().uuidString
         
         let formFields: [ListFormField] = [
             ListFormField(name: "Name", value: name, type: .name),
-            ListFormField(name: "Store", value: String(storeTypeID), type: .storeTypeID),
+            ListFormField(name: "Store", value: String(supermarketChainID), type: .supermarketChainID),
             ListFormField(name: "Identifier", value: identifier, type: .identifier)
         ]
         
@@ -51,7 +51,7 @@ class CreateListInteractor: CreateListBusinessLogic, CreateListDataStore
             let response = CreateList.CreateList.Response(error: error)
             presenter?.presentListCreated(response: response)
         } else {
-            listWorker.createList(name: name, identifier: identifier, storeTypeID: storeTypeID) { (error: String?) in
+            listWorker.createList(name: name, identifier: identifier, supermarketChainID: supermarketChainID) { (error: String?) in
                 let response = CreateList.CreateList.Response(error: error)
                 self.presenter?.presentListCreated(response: response)
             }

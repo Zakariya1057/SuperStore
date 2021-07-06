@@ -44,7 +44,7 @@ extension RegisterPresenter {
     }
     
     func presentStoreTypes(response: Register.GetStoreTypes.Response) {
-        let viewModel = Register.GetStoreTypes.ViewModel(storeTypes: response.storeTypes, selectedStoreType: response.selectedStoreType)
+        let viewModel = Register.GetStoreTypes.ViewModel(supermarketChain: response.supermarketChain, selectedStoreType: response.selectedStoreType)
         viewController?.displayStoreTypes(viewModel: viewModel)
     }
 }

@@ -10,14 +10,14 @@ import Foundation
 
 class PromotionAPI: API, PromotionRequestProtocol {
     
-    func getAllPromotions(regionID: Int, storeTypeID: Int, completionHandler: @escaping (_ promotionGroups: [PromotionGroupModel], _ error: String?) -> Void){
-        let url = Config.Route.Promotion.All + "/" + String(storeTypeID) + "?region_id=\(regionID)"
+    func getAllPromotions(regionID: Int, supermarketChainID: Int, completionHandler: @escaping (_ promotionGroups: [PromotionGroupModel], _ error: String?) -> Void){
+        let url = Config.Route.Promotion.All + "/" + String(supermarketChainID) + "?region_id=\(regionID)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let promotionsDataResponse =  try self.jsonDecoder.decode(AllPromotionsDataResponse.self, from: data)
-                let promotionGroups = self.createPromotionGroups(promotionsDataResponse: promotionsDataResponse, regionID: regionID, storeTypeID: storeTypeID)
+                let promotionGroups = self.createPromotionGroups(promotionsDataResponse: promotionsDataResponse, regionID: regionID, supermarketChainID: supermarketChainID)
                 completionHandler(promotionGroups, nil)
             } catch RequestError.Error(let errorMessage){
                 print(errorMessage)
@@ -29,8 +29,8 @@ class PromotionAPI: API, PromotionRequestProtocol {
         }
     }
     
-    func getPromotionGroup(regionID: Int, storeTypeID: Int, title: String, completionHandler: @escaping (_ promotionGroups: [PromotionModel], _ error: String?) -> Void){
-        let url = Config.Route.Promotion.All + "/" + String(storeTypeID) + "/" + title + "?region_id=\(regionID)"
+    func getPromotionGroup(regionID: Int, supermarketChainID: Int, title: String, completionHandler: @escaping (_ promotionGroups: [PromotionModel], _ error: String?) -> Void){
+        let url = Config.Route.Promotion.All + "/" + String(supermarketChainID) + "/" + title + "?region_id=\(regionID)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -81,11 +81,11 @@ extension PromotionAPI {
         return []
     }
     
-    private func createPromotionGroups(promotionsDataResponse: AllPromotionsDataResponse?, regionID: Int, storeTypeID: Int) -> [PromotionGroupModel] {
+    private func createPromotionGroups(promotionsDataResponse: AllPromotionsDataResponse?, regionID: Int, supermarketChainID: Int) -> [PromotionGroupModel] {
         
         if let promotionsDataResponse = promotionsDataResponse {
             let promotionGroups = promotionsDataResponse.data
-            return promotionGroups.map{ PromotionGroupModel(title: $0, regionID: regionID, storeTypeID: storeTypeID) }
+            return promotionGroups.map{ PromotionGroupModel(title: $0, regionID: regionID, supermarketChainID: supermarketChainID) }
         }
         
         return []

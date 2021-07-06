@@ -15,12 +15,12 @@ class RegionWorker
     private var userStore: UserStoreProtocol = UserRealmStore()
     
     private var regions: [RegionModel] = [
-        RegionModel(id: 8, name: "Ontario", country: "Canada", storeTypeID: 2),
-        RegionModel(id: 9, name: "Alberta", country: "Canada", storeTypeID: 2),
-        RegionModel(id: 10, name: "Manitoba", country: "Canada", storeTypeID: 2),
-        RegionModel(id: 11, name: "British Columbia", country: "Canada", storeTypeID: 2),
-        RegionModel(id: 12, name: "Saskatchewan", country: "Canada", storeTypeID: 2),
-        RegionModel(id: 13, name: "Yukon", country: "Canada", storeTypeID: 2),
+        RegionModel(id: 8, name: "Ontario", country: "Canada", supermarketChainID: 2),
+        RegionModel(id: 9, name: "Alberta", country: "Canada", supermarketChainID: 2),
+        RegionModel(id: 10, name: "Manitoba", country: "Canada", supermarketChainID: 2),
+        RegionModel(id: 11, name: "British Columbia", country: "Canada", supermarketChainID: 2),
+        RegionModel(id: 12, name: "Saskatchewan", country: "Canada", supermarketChainID: 2),
+        RegionModel(id: 13, name: "Yukon", country: "Canada", supermarketChainID: 2),
     ]
     
     func getRegions() -> [RegionModel]{

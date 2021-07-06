@@ -34,7 +34,7 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
     var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     var userSession: UserSessionWorker = UserSessionWorker()
     
-    var storeTypeWorker: StoreTypeWorker = StoreTypeWorker()
+    var supermarketChainWorker: SupermarketChainWorker = SupermarketChainWorker()
     var regionWorker: RegionWorker = RegionWorker()
     var messageWorker: MessageWorker = MessageWorker(messageAPI: MessageAPI())
     
@@ -45,7 +45,7 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
         userWorker.getUser { (user: UserModel?) in
             self.user = user
             
-            let storeTypeName: String = self.storeTypeWorker.getStoreName(storeTypeID: user!.storeTypeID)
+            let supermarketChainName: String = self.supermarketChainWorker.getSupermarketChainName(supermarketChainID: user!.supermarketChainID)
             let regionName: String = self.regionWorker.getRegionName(regionID: user!.regionID)
             let unreadMessagesCount: Int = self.messageWorker.getUnreadMessagesCount()
             
@@ -54,7 +54,7 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
                 
                 unreadMessagesCount: unreadMessagesCount,
                 
-                storeTypeName: storeTypeName,
+                supermarketChainName: supermarketChainName,
                 regionName: regionName
             )
             
@@ -63,8 +63,8 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
     }
     
     func getUserStore(request: Settings.GetStore.Request) {
-        let storeTypeID: Int = userSession.getStore()
-        let storeName = storeTypeWorker.getStoreName(storeTypeID: storeTypeID)
+        let supermarketChainID: Int = userSession.getSupermarketChainID()
+        let storeName = supermarketChainWorker.getSupermarketChainName(supermarketChainID: supermarketChainID)
         
         let response = Settings.GetStore.Response(storeName: storeName)
         self.presenter?.presentUserStore(response: response)

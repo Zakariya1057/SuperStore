@@ -15,8 +15,8 @@ class StoreRealmStore: DataStore, StoreStoreProtocol {
         return realm?.objects(StoreObject.self).filter("id = %@", storeID).first
     }
     
-    private func getStoreObjects(storeTypeID: Int) -> Results<StoreObject>? {
-        return realm?.objects(StoreObject.self).filter("storeTypeID = %@", storeTypeID)
+    private func getStoreObjects(supermarketChainID: Int) -> Results<StoreObject>? {
+        return realm?.objects(StoreObject.self).filter("supermarketChainID = %@", supermarketChainID)
     }
     
     
@@ -24,8 +24,8 @@ class StoreRealmStore: DataStore, StoreStoreProtocol {
         return getStoreObject(storeID: storeID)?.getStoreModel()
     }
     
-    func getStores(storeTypeID: Int) -> [StoreModel] {
-        return getStoreObjects(storeTypeID: storeTypeID)?.map { $0.getStoreModel() } ?? []
+    func getStores(supermarketChainID: Int) -> [StoreModel] {
+        return getStoreObjects(supermarketChainID: supermarketChainID)?.map { $0.getStoreModel() } ?? []
     }
     
     func createStores(stores: [StoreModel]) {
@@ -50,7 +50,6 @@ class StoreRealmStore: DataStore, StoreStoreProtocol {
         try? realm?.write({
             savedStore.name = store.name
             savedStore.address = store.address
-            savedStore.logo = store.logo
             
             if let savedLocation = savedStore.location {
                 realm?.delete(savedLocation)
@@ -73,7 +72,7 @@ class StoreRealmStore: DataStore, StoreStoreProtocol {
                 }
             }
 
-            savedStore.storeTypeID = store.storeTypeID
+            savedStore.supermarketChainID = store.supermarketChainID
         })
     }
 }
@@ -91,13 +90,12 @@ extension StoreRealmStore {
         savedStore.id = store.id
         savedStore.name = store.name
         savedStore.address = store.address
-        savedStore.logo = store.logo
         
         savedStore.location = createLocationObject(location: store.location)
         savedStore.openingHours = createOpeningHoursObject(openingHours: store.openingHours)
         savedStore.facilities = createFacilitiesObject(facilities: store.facilities)
         
-        savedStore.storeTypeID = store.storeTypeID
+        savedStore.supermarketChainID = store.supermarketChainID
         
         return savedStore
     }

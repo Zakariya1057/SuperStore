@@ -33,7 +33,7 @@ class SettingsPresenter: SettingsPresentationLogic
         
         if let user = response.user {
             
-            let storeTypeName: String = response.storeTypeName
+            let supermarketChainName: String = response.supermarketChainName
             let regionName: String = response.regionName
             
             let unreadMessagesCount: Int = response.unreadMessagesCount
@@ -55,7 +55,7 @@ class SettingsPresenter: SettingsPresentationLogic
                 displayUserSections.append(
                     Settings.DisplayUserSection(settings: [
                         SettingModel(name: "Province", value: regionName, type: .region),
-                        SettingModel(name: "Store", value: storeTypeName, type: .store),
+                        SettingModel(name: "Store", value: supermarketChainName, type: .store),
                     ])
                 )
                 
@@ -74,7 +74,7 @@ class SettingsPresenter: SettingsPresentationLogic
                 displayUserSections.append(
                     Settings.DisplayUserSection(settings: [
                         SettingModel(name: "Province", value: regionName, type: .region),
-                        SettingModel(name: "Store", value: storeTypeName, type: .store),
+                        SettingModel(name: "Store", value: supermarketChainName, type: .store),
                     ])
                 )
                 

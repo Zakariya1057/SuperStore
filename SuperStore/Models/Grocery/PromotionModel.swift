@@ -21,7 +21,7 @@ class PromotionModel {
     var maximum: Int?
     
     var products:[ProductModel]
-    var storeTypeID: Int
+    var supermarketChainID: Int
     
     var expires: Bool = false
     var startsAt: Date? = nil
@@ -31,7 +31,7 @@ class PromotionModel {
         id: Int,
         title: String?,
         name: String,
-        storeTypeID: Int,
+        supermarketChainID: Int,
         quantity: Int?,
         price: Double?,
         forQuantity: Int?,
@@ -54,7 +54,7 @@ class PromotionModel {
         self.minimum = minimum
         self.maximum = maximum
         
-        self.storeTypeID = storeTypeID
+        self.supermarketChainID = supermarketChainID
 
         self.products = products
         

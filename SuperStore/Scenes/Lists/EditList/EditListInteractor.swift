@@ -38,7 +38,7 @@ class EditListInteractor: EditListBusinessLogic, EditListDataStore
     
     func getList(request: EditList.GetList.Request)
     {
-        let response = EditList.GetList.Response(name: list.name, storeTypeID: list.storeTypeID)
+        let response = EditList.GetList.Response(name: list.name, supermarketChainID: list.supermarketChainID)
         presenter?.presentList(response: response)
     }
     
@@ -53,7 +53,7 @@ class EditListInteractor: EditListBusinessLogic, EditListDataStore
             let response = EditList.UpdateList.Response(error: error)
             presenter?.presentListUpdated(response: response)
         } else {
-            listWorker.updateList(listID: list.id, name: request.name, storeTypeID: list.storeTypeID) { (error: String?) in
+            listWorker.updateList(listID: list.id, name: request.name, supermarketChainID: list.supermarketChainID) { (error: String?) in
                 let response = EditList.UpdateList.Response(error: error)
                 self.presenter?.presentListUpdated(response: response)
             }

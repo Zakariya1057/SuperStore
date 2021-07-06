@@ -16,7 +16,7 @@ class PromotionObject: Object {
     @objc dynamic var title: String? = nil
     @objc dynamic var name: String = ""
     
-    @objc dynamic var storeTypeID: Int = 0
+    @objc dynamic var supermarketChainID: Int = 0
     
     var quantity = RealmOptional<Int>()
     var forQuantity = RealmOptional<Int>()
@@ -42,13 +42,13 @@ class PromotionObject: Object {
             id: id,
             title: title,
             name: name,
-            storeTypeID: storeTypeID,
+            supermarketChainID: supermarketChainID,
             quantity: quantity.value,
             price: price.value,
             forQuantity: forQuantity.value,
             minimum: minimum.value,
             maximum: maximum.value,
-            products: products.map{$0.getProductModel()},
+            products: products.map{ $0.getProductModel() }.compactMap ({ $0 }),
             expires: expires,
             startsAt: startsAt,
             endsAt: endsAt

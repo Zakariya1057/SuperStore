@@ -357,7 +357,7 @@ extension ShowProductResultsViewController: SelectListProtocol {
             updateProductQuantity(productID: product.id, quantity: 1, listID: interactor?.selectedListID)
             productsTableView.reloadData()
         } else {
-            interactor?.selectedProductStoreTypeID = product.storeTypeID
+            interactor?.selectedProductCompanyID = product.companyID
             router?.routeToShowLists(segue: nil)
         }
     }

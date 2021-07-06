@@ -21,7 +21,7 @@ protocol ShowStoreResultsBusinessLogic
 protocol ShowStoreResultsDataStore
 {
     var stores: [StoreModel] { get set }
-    var storeTypeID: Int { get set }
+    var supermarketChainID: Int { get set }
     var selectedListID: Int? { get set }
 }
 
@@ -34,7 +34,7 @@ class ShowStoreResultsInteractor: ShowStoreResultsBusinessLogic, ShowStoreResult
     
     var selectedListID: Int?
     
-    var storeTypeID: Int = 1
+    var supermarketChainID: Int = 1
     var stores: [StoreModel] = []
 
     func getStores(request: ShowStoreResults.GetStores.Request)
@@ -42,7 +42,7 @@ class ShowStoreResultsInteractor: ShowStoreResultsBusinessLogic, ShowStoreResult
         let latitude: Double? = request.latitude
         let longitude: Double? = request.longitude
         
-        storeWorker.getStores(storeTypeID: storeTypeID, latitude: latitude, longitude: longitude) { (stores: [StoreModel], error: String?) in
+        storeWorker.getStores(supermarketChainID: supermarketChainID, latitude: latitude, longitude: longitude) { (stores: [StoreModel], error: String?) in
             var response = ShowStoreResults.GetStores.Response(stores: stores, error: error)
             
             if error != nil {

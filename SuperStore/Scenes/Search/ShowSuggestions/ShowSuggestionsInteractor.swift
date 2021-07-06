@@ -30,7 +30,7 @@ protocol ShowSuggestionsDataStore
 {
     var searchQueryRequest: SearchQueryRequest? { get set }
     var selectedListID: Int? { get set }
-    var storeTypeID: Int { get }
+    var supermarketChainID: Int { get }
 }
 
 class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDataStore
@@ -44,8 +44,8 @@ class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDa
     
     var selectedListID: Int?
     
-    var storeTypeID: Int {
-        return userSession.getStore()
+    var supermarketChainID: Int {
+        return userSession.getSupermarketChainID()
     }
     
     var regionID: Int {
@@ -56,7 +56,7 @@ class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDa
     {
         let offline: Bool = !userSession.isOnline()
         
-        searchWorker.getSuggestions(storeTypeID: storeTypeID, query: request.query, offline: offline) { (suggestions: [SuggestionModel], error: String?) in
+        searchWorker.getSuggestions(supermarketChainID: supermarketChainID, query: request.query, offline: offline) { (suggestions: [SuggestionModel], error: String?) in
             var response = ShowSuggestions.GetSuggestions.Response(suggestions: suggestions, error: error)
             
             if error != nil {
@@ -68,7 +68,7 @@ class ShowSuggestionsInteractor: ShowSuggestionsBusinessLogic, ShowSuggestionsDa
     }
     
     func getRecentSuggestions(request: ShowSuggestions.GetRecentSuggestions.Request){
-        searchWorker.getRecentSuggestions(storeTypeID: storeTypeID, limit: request.limit) { (suggestions: [SuggestionModel], error: String?) in
+        searchWorker.getRecentSuggestions(supermarketChainID: supermarketChainID, limit: request.limit) { (suggestions: [SuggestionModel], error: String?) in
             let response = ShowSuggestions.GetRecentSuggestions.Response(suggestions: suggestions, error: error)
             self.presenter?.presentRecentSuggestions(response: response)
         }
@@ -83,7 +83,7 @@ extension ShowSuggestionsInteractor {
             query: suggestion.name,
             type: type,
             textSearch: suggestion.textSearch,
-            storeTypeID: storeTypeID,
+            supermarketChainID: supermarketChainID,
             regionID: regionID
         )
         
@@ -91,14 +91,14 @@ extension ShowSuggestionsInteractor {
     }
     
     func textSearch(query: String){
-        let suggestion = SuggestionModel(id: 0, name: query, type: .product, textSearch: true, storeTypeID: storeTypeID)
+        let suggestion = SuggestionModel(id: 0, name: query, type: .product, textSearch: true, supermarketChainID: supermarketChainID)
         searchWorker.suggestionSelected(suggestion: suggestion)
         
         searchQueryRequest = SearchQueryRequest(
             query: query,
             type: SearchType.product.rawValue,
             textSearch: true,
-            storeTypeID: storeTypeID,
+            supermarketChainID: supermarketChainID,
             regionID: regionID
         )
     }

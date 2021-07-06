@@ -22,14 +22,14 @@ enum EditStore
         
         struct Response
         {
-            var storeTypes: [StoreTypeModel]
-            var selectedStoreTypeID: Int
+            var supermarketChain: [SupermarketChain]
+            var selectedsupermarketChainID: Int
         }
         
         struct ViewModel
         {
-            var storeTypes: [StoreTypeModel]
-            var selectedStoreTypeID: Int
+            var supermarketChain: [SupermarketChain]
+            var selectedsupermarketChainID: Int
         }
     }
     
@@ -37,7 +37,7 @@ enum EditStore
     {
         struct Request
         {
-            var storeType: StoreTypeModel
+            var supermarketChain: SupermarketChain
         }
         
         struct Response

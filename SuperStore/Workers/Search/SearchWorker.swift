@@ -20,18 +20,18 @@ class SearchWorker {
         self.searchResultsStore = ProductResultsRealmStore()
     }
     
-    func getSuggestions(storeTypeID: Int, query: String, offline: Bool, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void){
+    func getSuggestions(supermarketChainID: Int, query: String, offline: Bool, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void){
         
         if offline {
-            let savedSuggestions = searchSuggestionStore.searchSuggestion(storeTypeID: storeTypeID, query: query)
+            let savedSuggestions = searchSuggestionStore.searchSuggestion(supermarketChainID: supermarketChainID, query: query)
             if savedSuggestions.count > 0 {
                 completionHandler(savedSuggestions, nil)
             }
         }
 
-        searchAPI.getSuggestions(storeTypeID: storeTypeID, query: query) { (suggestions: [SuggestionModel], error: String?) in
+        searchAPI.getSuggestions(supermarketChainID: supermarketChainID, query: query) { (suggestions: [SuggestionModel], error: String?) in
             if error == nil {
-                self.searchSuggestionStore.createSuggestions(suggestions: suggestions, storeTypeID: storeTypeID)
+                self.searchSuggestionStore.createSuggestions(suggestions: suggestions, supermarketChainID: supermarketChainID)
             }
 
             completionHandler(suggestions, error)
@@ -56,8 +56,8 @@ class SearchWorker {
         }
     }
     
-    func getRecentSuggestions(storeTypeID: Int, limit: Int, completionHandler: @escaping (_ suggestions: [SuggestionModel], _ error: String?) -> Void){
-        let savedSuggestion = searchSuggestionStore.getRecentSuggestions(storeTypeID: storeTypeID, limit: limit)
+    func getRecentSuggestions(supermarketChainID: Int, limit: Int, completionHandler: @escaping (_ suggestions: [SuggestionModel], _ error: String?) -> Void){
+        let savedSuggestion = searchSuggestionStore.getRecentSuggestions(supermarketChainID: supermarketChainID, limit: limit)
         completionHandler(savedSuggestion, nil)
     }
 
@@ -68,16 +68,16 @@ class SearchWorker {
 }
 
 protocol SearchRequestProtocol {
-    func getSuggestions(storeTypeID: Int, query: String, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void)
+    func getSuggestions(supermarketChainID: Int, query: String, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void)
     func getProductResults(data: SearchQueryRequest, page: Int, completionHandler: @escaping ( _ ResultsModel: ProductResultsModel?, _ error: String?) -> Void)
 }
 
 protocol SuggestionStoreProtocol {
-    func createSuggestions(suggestions: [SuggestionModel], storeTypeID: Int)
-    func createSuggestion(suggestion: SuggestionModel, storeTypeID: Int)
+    func createSuggestions(suggestions: [SuggestionModel], supermarketChainID: Int)
+    func createSuggestion(suggestion: SuggestionModel, supermarketChainID: Int)
     
-    func searchSuggestion(storeTypeID: Int, query: String) -> [SuggestionModel]
-    func getRecentSuggestions(storeTypeID: Int, limit count: Int) -> [SuggestionModel]
+    func searchSuggestion(supermarketChainID: Int, query: String) -> [SuggestionModel]
+    func getRecentSuggestions(supermarketChainID: Int, limit count: Int) -> [SuggestionModel]
     
     func suggestionSelected(suggestion: SuggestionModel)
 }

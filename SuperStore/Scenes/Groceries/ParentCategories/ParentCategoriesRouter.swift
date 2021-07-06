@@ -65,7 +65,7 @@ class ParentCategoriesRouter: BackToShowListRouter, ParentCategoriesRoutingLogic
         destination.parentCategoryID = selectedCategory.id
         destination.title = selectedCategory.name
         
-        destination.storeTypeID = source.storeTypeID
+        destination.supermarketChainID = source.supermarketChainID
         
         destination.selectedListID = source.selectedListID
     }

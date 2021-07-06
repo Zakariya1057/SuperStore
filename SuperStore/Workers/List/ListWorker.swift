@@ -20,8 +20,8 @@ class ListWorker {
         self.listAPI = listAPI
     }
     
-    func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
-        listAPI.createList(name: name, identifier: identifier, storeTypeID: storeTypeID) { (list: ListModel?, error: String?) in
+    func createList(name: String, identifier: String, supermarketChainID: Int, completionHandler: @escaping (_ error: String?) -> Void){
+        listAPI.createList(name: name, identifier: identifier, supermarketChainID: supermarketChainID) { (list: ListModel?, error: String?) in
             if let list = list {
                 self.listStore.createList(list: list, ignoreCategories: true)
             }
@@ -60,13 +60,13 @@ class ListWorker {
         }
     }
     
-    func getLists(storeTypeID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
-        let lists = listStore.getLists(storeTypeID: storeTypeID)
+    func getLists(supermarketChainID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
+        let lists = listStore.getLists(supermarketChainID: supermarketChainID)
         if !userSession.isOnline() || lists.count > 0 {
             completionHandler(lists, nil)
         }
         
-        listAPI.getLists(storeTypeID: storeTypeID) { (lists: [ListModel], error: String?) in
+        listAPI.getLists(supermarketChainID: supermarketChainID) { (lists: [ListModel], error: String?) in
             
             var activeLists: [ListModel] = []
             
@@ -81,13 +81,13 @@ class ListWorker {
         }
     }
     
-    func searchLists(storeTypeID: Int, query: String, completionHandler: @escaping ( _ lists: [ListModel]) -> Void){
-        let lists = listStore.searchLists(storeTypeID: storeTypeID, query: query)
+    func searchLists(supermarketChainID: Int, query: String, completionHandler: @escaping ( _ lists: [ListModel]) -> Void){
+        let lists = listStore.searchLists(supermarketChainID: supermarketChainID, query: query)
         completionHandler(lists)
     }
     
-    func updateList(listID: Int, name: String, storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void){
-        listAPI.updateList(listID: listID, name: name, storeTypeID: storeTypeID, completionHandler: completionHandler)
+    func updateList(listID: Int, name: String, supermarketChainID: Int, completionHandler: @escaping (_ error: String?) -> Void){
+        listAPI.updateList(listID: listID, name: name, supermarketChainID: supermarketChainID, completionHandler: completionHandler)
     }
     
     func restartList(listID: Int, completionHandler: @escaping (String?) -> Void){
@@ -168,10 +168,10 @@ extension ListWorker {
 
 protocol ListRequestProtocol {
     func getList(listID: Int, completionHandler: @escaping ( _ list: ListModel?, _ error: String?) -> Void)
-    func getLists(storeTypeID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void)
+    func getLists(supermarketChainID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void)
     
-    func createList(name: String, identifier: String, storeTypeID: Int, completionHandler: @escaping (_ list: ListModel?, _ error: String?) -> Void)
-    func updateList(listID: Int, name: String, storeTypeID: Int, completionHandler: @escaping (String?) -> Void)
+    func createList(name: String, identifier: String, supermarketChainID: Int, completionHandler: @escaping (_ list: ListModel?, _ error: String?) -> Void)
+    func updateList(listID: Int, name: String, supermarketChainID: Int, completionHandler: @escaping (String?) -> Void)
     func restartList(listID: Int, completionHandler: @escaping (String?) -> Void)
     func deleteList(listID: Int, completionHandler: @escaping (String?) -> Void)
     
@@ -181,11 +181,11 @@ protocol ListRequestProtocol {
 
 protocol ListStoreProtocol {
     func getList(listID: Int) -> ListModel?
-    func getLists(storeTypeID: Int) -> [ListModel]
+    func getLists(supermarketChainID: Int) -> [ListModel]
     func createList(list: ListModel, ignoreCategories: Bool)
     func deleteList(listID: Int, offline: Bool)
     
-    func searchLists(storeTypeID: Int, query: String) -> [ListModel]
+    func searchLists(supermarketChainID: Int, query: String) -> [ListModel]
     
     func updateListTotalPrice(listID: Int)
     func restartList(listID: Int)

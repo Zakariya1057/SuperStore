@@ -24,7 +24,7 @@ protocol ParentCategoriesDataStore
     var title: String { get set }
     
     var selectedListID: Int? { get set }
-    var storeTypeID: Int { get set }
+    var supermarketChainID: Int { get set }
 }
 
 class ParentCategoriesInteractor: ParentCategoriesBusinessLogic, ParentCategoriesDataStore
@@ -33,7 +33,7 @@ class ParentCategoriesInteractor: ParentCategoriesBusinessLogic, ParentCategorie
     var groceryWorker: GroceryWorker = GroceryWorker(groceryAPI: GroceryAPI())
     
     var selectedListID: Int?
-    var storeTypeID: Int = 1
+    var supermarketChainID: Int = 1
     
     var title: String = ""
     var categories: [ParentCategoryModel] = []

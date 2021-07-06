@@ -26,15 +26,15 @@ class HomeWorker
         self.homeStore = HomeRealmStore()
     }
     
-    func getHome(regionID: Int, storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void){
+    func getHome(regionID: Int, supermarketChainID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void){
         
         notificationWorker.updateBadgeNumber()
         
-        if let home = homeStore.getHome(storeTypeID: storeTypeID) {
+        if let home = homeStore.getHome(supermarketChainID: supermarketChainID) {
             completionHandler(home, nil)
         }
         
-        homeAPI.getHome(regionID: regionID, storeTypeID: storeTypeID, latitude: latitude, longitude: longitude) { (home: HomeModel?, error: String?) in
+        homeAPI.getHome(regionID: regionID, supermarketChainID: supermarketChainID, latitude: latitude, longitude: longitude) { (home: HomeModel?, error: String?) in
             
             var homeModel = home
             
@@ -49,7 +49,7 @@ class HomeWorker
                     }
                 }
                 
-                self.homeStore.createHome(storeTypeID: storeTypeID, home: homeModel!)
+                self.homeStore.createHome(supermarketChainID: supermarketChainID, home: homeModel!)
                 
                 self.notificationWorker.updateBadgeNumber()
                 
@@ -61,10 +61,10 @@ class HomeWorker
 }
 
 protocol HomeRequestProtocol {
-    func getHome(regionID: Int, storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void)
+    func getHome(regionID: Int, supermarketChainID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ home: HomeModel?, _ error: String?) -> Void)
 }
 
 protocol HomeStoreProtocol {
-    func createHome(storeTypeID: Int, home: HomeModel)
-    func getHome(storeTypeID: Int) -> HomeModel?
+    func createHome(supermarketChainID: Int, home: HomeModel)
+    func getHome(supermarketChainID: Int) -> HomeModel?
 }

@@ -15,7 +15,7 @@ class ListObject: Object {
     @objc dynamic var status: String = ""
     
     @objc dynamic var identifier: String = ""
-    @objc dynamic var storeTypeID: Int = 1
+    @objc dynamic var supermarketChainID: Int = 1
     
     var categories = List<ListCategoryObject>()
     
@@ -39,7 +39,7 @@ class ListObject: Object {
             name: name,
             status: ListStatus.init(rawValue: status)!,
             identifier: identifier,
-            storeTypeID: storeTypeID,
+            supermarketChainID: supermarketChainID,
             categories: categories.map{ $0.getListCategoryModel() },
             totalPrice: totalPrice,
             oldTotalPrice: oldTotalPrice.value,

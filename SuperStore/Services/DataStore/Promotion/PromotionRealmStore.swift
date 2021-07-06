@@ -75,7 +75,7 @@ extension PromotionRealmStore {
             savedPromotion.title = promotion.title
             savedPromotion.name = promotion.name
             
-            savedPromotion.storeTypeID = promotion.storeTypeID
+            savedPromotion.supermarketChainID = promotion.supermarketChainID
             
             let quantity = RealmOptional<Int>()
             let forQuantity = RealmOptional<Int>()
@@ -127,7 +127,7 @@ extension PromotionRealmStore {
         savedPromotion.title = promotion.title
         savedPromotion.name = promotion.name
         
-        savedPromotion.storeTypeID = promotion.storeTypeID
+        savedPromotion.supermarketChainID = promotion.supermarketChainID
         
         let quantity = RealmOptional<Int>()
         let forQuantity = RealmOptional<Int>()

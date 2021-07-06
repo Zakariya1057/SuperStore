@@ -10,8 +10,8 @@ import Foundation
 
 class FavouriteAPI: API, FavouriteRequestProtocol {
     
-    func getFavourites(regionID: Int, completionHandler: @escaping ([ProductModel], String?) -> Void) {
-        let url = Config.Route.Favourites + "?region_id=\(regionID)"
+    func getFavourites(regionID: Int, supermarketChainID: Int, completionHandler: @escaping ([ProductModel], String?) -> Void) {
+        let url = Config.Route.Favourites + "?region_id=\(regionID)&supermarket_chain_id=\(supermarketChainID)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {

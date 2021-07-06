@@ -36,7 +36,7 @@ class UserAuthWorker {
         name: String,
         email: String,
         regionID: Int,
-        storeTypeID: Int,
+        supermarketChainID: Int,
         password: String,
         passwordConfirmation: String,
         identifier: String?, userToken: String?,
@@ -56,7 +56,7 @@ class UserAuthWorker {
             userToken: userToken,
             
             regionID: regionID,
-            storeTypeID: storeTypeID
+            supermarketChainID: supermarketChainID
         ) {  (user: UserModel?, error: String?) in
             
             if user != nil {
@@ -88,7 +88,7 @@ protocol UserAuthProtocol {
         userToken: String?,
         
         regionID: Int,
-        storeTypeID: Int,
+        supermarketChainID: Int,
         completionHandler: @escaping (UserModel?, String?) -> Void
     )
 }

@@ -18,10 +18,8 @@ struct StoreDataResponse: Decodable {
 
 struct StoreData: Decodable {
     var id: Int
-    var store_type_id: Int
+    var supermarket_chain_id: Int
     let name: String
-    var small_logo: String
-    var large_logo: String
     let opening_hours: [OpeningHoursData]?
     var location: LocationData
     var facilities: [FacilityData]?
@@ -34,7 +32,6 @@ struct StoreData: Decodable {
         return StoreModel(
             id: id,
             name: name,
-            logo: small_logo,
             address: address,
             openingHours: opening_hours?.map({ (hour: OpeningHoursData) in
                 return hour.getOpeningHourModel(storeID: id)
@@ -43,7 +40,7 @@ struct StoreData: Decodable {
             facilities: facilities?.map({ (facility: FacilityData) in
                 return facility.name
             }) ?? [],
-            storeTypeID: store_type_id
+            supermarketChainID: supermarket_chain_id
         )
     }
 }

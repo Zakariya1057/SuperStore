@@ -11,7 +11,7 @@ import RealmSwift
 
 class HomeObject: Object {
     
-    @objc dynamic var storeTypeID: Int = 0
+    @objc dynamic var supermarketChainID: Int = 0
     
     var lists = List<ListObject>()
     var stores = List<StoreObject>()

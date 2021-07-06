@@ -103,6 +103,9 @@
 		2C45E2EB26454F6C0047887A /* PromotionGroupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2E526454F6C0047887A /* PromotionGroupInteractor.swift */; };
 		2C45E2F626456ECD0047887A /* PromotionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45E2F526456ECD0047887A /* PromotionGroup.swift */; };
 		2C4615052604B7E30009D0E7 /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4615042604B7E30009D0E7 /* NetworkWorker.swift */; };
+		2C48543726935313005D9BF0 /* ProductPriceObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48543626935313005D9BF0 /* ProductPriceObject.swift */; };
+		2C485439269353C3005D9BF0 /* ProductPriceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C485438269353C3005D9BF0 /* ProductPriceModel.swift */; };
+		2C48543B2693607F005D9BF0 /* ProductPriceRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48543A2693607F005D9BF0 /* ProductPriceRealmStore.swift */; };
 		2C48E7A625EA99D4001A5702 /* StoresMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C48E7A425EA99D4001A5702 /* StoresMapCell.xib */; };
 		2C48E7A725EA99D4001A5702 /* StoresMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7A525EA99D4001A5702 /* StoresMapCell.swift */; };
 		2C48E7AF25EA9CC1001A5702 /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C48E7AE25EA9CC1001A5702 /* HomeAPI.swift */; };
@@ -247,7 +250,7 @@
 		2C77B0F726825DE50052164A /* NutritionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77B0F626825DE50052164A /* NutritionObject.swift */; };
 		2C77B0F926825F430052164A /* NutritionRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77B0F826825F430052164A /* NutritionRealmStore.swift */; };
 		2C77B0FB268269030052164A /* ChildNutritionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C77B0FA268269030052164A /* ChildNutritionObject.swift */; };
-		2C7AE0C0265EB55600ADF53A /* StoreTypeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0BF265EB55600ADF53A /* StoreTypeWorker.swift */; };
+		2C7AE0C0265EB55600ADF53A /* SupermarketChainWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0BF265EB55600ADF53A /* SupermarketChainWorker.swift */; };
 		2C7AE0C2265ECBEB00ADF53A /* RegionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0C1265ECBEB00ADF53A /* RegionWorker.swift */; };
 		2C7AE0C4265ECC0F00ADF53A /* RegionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0C3265ECC0F00ADF53A /* RegionModel.swift */; };
 		2C7AE0CD265EDC6700ADF53A /* EditRegionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7AE0C7265EDC6700ADF53A /* EditRegionPresenter.swift */; };
@@ -582,6 +585,9 @@
 		2C45E2F326456D040047887A /* AllPromotionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPromotionsViewController.swift; sourceTree = "<group>"; };
 		2C45E2F526456ECD0047887A /* PromotionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionGroup.swift; sourceTree = "<group>"; };
 		2C4615042604B7E30009D0E7 /* NetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
+		2C48543626935313005D9BF0 /* ProductPriceObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPriceObject.swift; sourceTree = "<group>"; };
+		2C485438269353C3005D9BF0 /* ProductPriceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPriceModel.swift; sourceTree = "<group>"; };
+		2C48543A2693607F005D9BF0 /* ProductPriceRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPriceRealmStore.swift; sourceTree = "<group>"; };
 		2C48E7A425EA99D4001A5702 /* StoresMapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoresMapCell.xib; sourceTree = "<group>"; };
 		2C48E7A525EA99D4001A5702 /* StoresMapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoresMapCell.swift; sourceTree = "<group>"; };
 		2C48E7AE25EA9CC1001A5702 /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
@@ -718,7 +724,7 @@
 		2C77B0F626825DE50052164A /* NutritionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionObject.swift; sourceTree = "<group>"; };
 		2C77B0F826825F430052164A /* NutritionRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionRealmStore.swift; sourceTree = "<group>"; };
 		2C77B0FA268269030052164A /* ChildNutritionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildNutritionObject.swift; sourceTree = "<group>"; };
-		2C7AE0BF265EB55600ADF53A /* StoreTypeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTypeWorker.swift; sourceTree = "<group>"; };
+		2C7AE0BF265EB55600ADF53A /* SupermarketChainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupermarketChainWorker.swift; sourceTree = "<group>"; };
 		2C7AE0C1265ECBEB00ADF53A /* RegionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionWorker.swift; sourceTree = "<group>"; };
 		2C7AE0C3265ECC0F00ADF53A /* RegionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionModel.swift; sourceTree = "<group>"; };
 		2C7AE0C7265EDC6700ADF53A /* EditRegionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegionPresenter.swift; sourceTree = "<group>"; };
@@ -1032,7 +1038,6 @@
 			isa = PBXGroup;
 			children = (
 				2C1429AF25F38F96007D1EB7 /* StoreWorker.swift */,
-				2C7AE0BF265EB55600ADF53A /* StoreTypeWorker.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1042,6 +1047,7 @@
 			children = (
 				2C5E388225FAB42D004298A1 /* HomeObject.swift */,
 				2C5C986A25F69B9200DF8B6D /* ProductObject.swift */,
+				2C48543626935313005D9BF0 /* ProductPriceObject.swift */,
 				2C5C988625F6B14000DF8B6D /* ReviewObject.swift */,
 				2C77B0F626825DE50052164A /* NutritionObject.swift */,
 				2C77B0FA268269030052164A /* ChildNutritionObject.swift */,
@@ -1388,6 +1394,14 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
+		2C48543526931022005D9BF0 /* SupermarketChain */ = {
+			isa = PBXGroup;
+			children = (
+				2C7AE0BF265EB55600ADF53A /* SupermarketChainWorker.swift */,
+			);
+			path = SupermarketChain;
+			sourceTree = "<group>";
+		};
 		2C48E7B225EA9CCB001A5702 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -1560,6 +1574,7 @@
 		2C5C985B25F69AE400DF8B6D /* Product */ = {
 			isa = PBXGroup;
 			children = (
+				2C48543A2693607F005D9BF0 /* ProductPriceRealmStore.swift */,
 				2C5C985C25F69AF100DF8B6D /* ProductRealmStore.swift */,
 				2CC0ADDB25F9243500373AC4 /* ReviewRealmStore.swift */,
 				2C77B0F826825F430052164A /* NutritionRealmStore.swift */,
@@ -1917,6 +1932,7 @@
 				2CA11F9525EF90410054AE19 /* Grocery */,
 				2CB911D925F11D3600A8FC66 /* List */,
 				2CE71F632667EBC00037BDDD /* Region */,
+				2C48543526931022005D9BF0 /* SupermarketChain */,
 				2C1429AE25F38F87007D1EB7 /* Store */,
 				2CE6D3CA2681F73600BD3AC2 /* Flyer */,
 				2CF7A59D25FAB20300172839 /* Home */,
@@ -2380,6 +2396,7 @@
 				2C48E7B625EA9DCF001A5702 /* ProductModel.swift */,
 				2CDA612A25ED0FC700FD3956 /* ReviewModel.swift */,
 				2CE2E109267FBE3B00994141 /* NutritionModel.swift */,
+				2C485438269353C3005D9BF0 /* ProductPriceModel.swift */,
 			);
 			path = Product;
 			sourceTree = "<group>";
@@ -2849,7 +2866,7 @@
 				2CC0ADE025F969BD00373AC4 /* PromotionRealmStore.swift in Sources */,
 				2C2BC80225EBBF040038882B /* ShowReviewsRouter.swift in Sources */,
 				2C90DFA425FB832A008977EB /* ProductCollectionViewCell.swift in Sources */,
-				2C7AE0C0265EB55600ADF53A /* StoreTypeWorker.swift in Sources */,
+				2C7AE0C0265EB55600ADF53A /* SupermarketChainWorker.swift in Sources */,
 				2C5C988725F6B14000DF8B6D /* ReviewObject.swift in Sources */,
 				2CA11F4025EEB6A50054AE19 /* StoreViewController.swift in Sources */,
 				2C2BC83C25EBC0680038882B /* ShowItemsPresenter.swift in Sources */,
@@ -2917,6 +2934,7 @@
 				2CDFB60925EA5EDA002CE30D /* Config.swift in Sources */,
 				2CB911E525F11DDD00A8FC66 /* ListAPI.swift in Sources */,
 				2CCD7452267005CF006C56B8 /* MessageWorker.swift in Sources */,
+				2C48543726935313005D9BF0 /* ProductPriceObject.swift in Sources */,
 				2C55FA0E25EE4BF9007BBFA8 /* ShowProductResultsWorker.swift in Sources */,
 				2C70823825F009D000345147 /* SendEmailInteractor.swift in Sources */,
 				2C7CAC58264056B40024FDD8 /* MonitoredProductsModels.swift in Sources */,
@@ -2925,6 +2943,7 @@
 				2C7AE0C4265ECC0F00ADF53A /* RegionModel.swift in Sources */,
 				2C058FF625F52AE100B4A16B /* EditStoreRouter.swift in Sources */,
 				2CDA612B25ED0FC700FD3956 /* ReviewModel.swift in Sources */,
+				2C48543B2693607F005D9BF0 /* ProductPriceRealmStore.swift in Sources */,
 				2CE2E106267FB79400994141 /* ShowNutritionModels.swift in Sources */,
 				2CA11F6B25EF8E490054AE19 /* GrandParentCategoriesViewController.swift in Sources */,
 				2C910B4425E7AABF00BCEACC /* LoginViewController.swift in Sources */,
@@ -3167,6 +3186,7 @@
 				2CD72292265A594A00D1D112 /* FlyerModel.swift in Sources */,
 				2CB911A925F11B5500A8FC66 /* EditListWorker.swift in Sources */,
 				2CC72FFA25FD7C68004E3987 /* ImageModel.swift in Sources */,
+				2C485439269353C3005D9BF0 /* ProductPriceModel.swift in Sources */,
 				2CB9119F25F11B4500A8FC66 /* ShowListsInteractor.swift in Sources */,
 				2C45E2DB2644882C0047887A /* ReportWorker.swift in Sources */,
 				2C2BC84925EBC1D70038882B /* ReviewWorker.swift in Sources */,
@@ -3408,7 +3428,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.5;
+				MARKETING_VERSION = 2.2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3433,7 +3453,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.5;
+				MARKETING_VERSION = 2.2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zakariya.SuperStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

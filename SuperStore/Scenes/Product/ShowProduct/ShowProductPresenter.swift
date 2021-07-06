@@ -77,7 +77,7 @@ extension ShowProductPresenter {
             name: product.name,
             price: product.getPrice(),
             oldPrice: product.getOldPrice(),
-            promotion: createDisplayedPromotion(promotion: product.promotion),
+            promotion: createDisplayedPromotion(promotion: product.price!.promotion),
             largeImage: product.largeImage,
             images: product.images.map{ $0.name },
             description: product.description ?? "",

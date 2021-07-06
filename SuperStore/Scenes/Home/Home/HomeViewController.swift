@@ -72,20 +72,26 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        KingfisherManager.shared.cache.clearMemoryCache()
-        KingfisherManager.shared.cache.clearDiskCache()
-        KingfisherManager.shared.cache.cleanExpiredDiskCache()
-        
+//        KingfisherManager.shared.cache.clearMemoryCache()
+//        KingfisherManager.shared.cache.clearDiskCache()
+//        KingfisherManager.shared.cache.cleanExpiredDiskCache()
         registerTableViewCells()
         setupHomeCells()
-        currentStoreTypeID = userSession.getStore()
         getHome()
+        
+        currentSupermarketChainID = userSession.getSupermarketChainID()
+        currentRegionID = userSession.getRegion()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if userSession.getStore() != currentStoreTypeID || currentLoggedIn != loggedIn {
-            currentStoreTypeID = userSession.getStore()
+        if
+            userSession.getSupermarketChainID() != currentSupermarketChainID ||
+            currentLoggedIn != loggedIn ||
+            currentRegionID != userSession.getRegion()
+        {
+            currentSupermarketChainID = userSession.getSupermarketChainID()
+            currentRegionID = userSession.getRegion()
+            
             currentLoggedIn = loggedIn
             getHome()
         }
@@ -93,7 +99,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     // Used to decide to refresh page or not
     var currentLoggedIn: Bool = false
-    var currentStoreTypeID: Int = 0
+    var currentSupermarketChainID: Int = 0
+    var currentRegionID: Int = 0
     
     var loading: Bool = true
     

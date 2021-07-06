@@ -15,7 +15,7 @@ struct Seeds
         static let Products: [ProductModel] = [
             ProductModel(
                 id: 1,
-                storeTypeID: 1,
+                supermarketChainID: 1,
                 name: "",
                 smallImage: "",
                 largeImage: "",
@@ -87,7 +87,7 @@ struct Seeds
                     "The Mobile Shop",
                     "Tim Hortons"
                 ],
-                storeTypeID: 2
+                supermarketChainID: 2
             )
         ]
         
@@ -95,9 +95,9 @@ struct Seeds
             Store.DisplayedStore(
                 name: "Don Mills and Eglinton",
                 logo: "",
-                logoImage: UIImage(named: "Canadian SuperStore"),
+                logoImage: UIImage(named: "Real Canadian SuperStore"),
                 address: "100 Country Village Rd NE, Calgary",
-                storeTypeID: 2,
+                supermarketChainID: 2,
                 
                 openingHours: [
                     Store.DisplayOpeningHour(today: true, hours: "07:00AM - 11:00PM", day: "Monday", dayOfWeek: 0, closedToday: false),

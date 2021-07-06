@@ -11,10 +11,10 @@ import Alamofire
 
 class StoreAPI: API, StoreRequestProtocol {
     
-    func getStores(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void){
+    func getStores(supermarketChainID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void){
         
         let storeData: Parameters = [
-            "store_type_id": storeTypeID,
+            "supermarket_chain_id": supermarketChainID,
             "latitude": latitude ?? 0,
             "longitude": longitude ?? 0
         ]

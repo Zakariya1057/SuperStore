@@ -12,7 +12,7 @@ struct GrandParentCategoryModel {
     var id: Int
     var name:String
     var index: Int
-    var storeTypeID: Int
+    var companyID: Int
     var parentCategories: [ParentCategoryModel]
 }
 
@@ -21,7 +21,7 @@ struct ParentCategoryModel {
     var name: String
     var index: Int
     var grandParentCategoryID: Int
-    var storeTypeID: Int
+    var companyID: Int
     var childCategories: [ChildCategoryModel]
 }
 
@@ -30,7 +30,7 @@ struct ChildCategoryModel {
     var name: String
     var index: Int
     var parentCategoryID: Int
-    var storeTypeID: Int
+    var companyID: Int
     var products: [ProductModel]
     
     var paginate: PaginateResultsModel?

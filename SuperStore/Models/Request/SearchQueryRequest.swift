@@ -26,7 +26,7 @@ struct SearchQueryRequest {
     
     var availabilityType: String = ""
     
-    var storeTypeID: Int
+    var supermarketChainID: Int
     var regionID: Int
     
     var refineSort: Bool = false

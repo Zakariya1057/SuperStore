@@ -48,7 +48,7 @@ class ListItemRealmStore: DataStore, ListItemStoreProtocol {
             
             if let product = product {
                 listItem.image = product.largeImage
-                listItem.promotion = product.promotion
+                listItem.promotion = product.price!.promotion
             }
             
             let savedListItem = createListItemObject(listItem: listItem, listID: listID)

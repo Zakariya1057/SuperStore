@@ -48,10 +48,10 @@ class ListRealmStore: DataStore, ListStoreProtocol {
         return nil
     }
     
-    func getLists(storeTypeID: Int) -> [ListModel] {
+    func getLists(supermarketChainID: Int) -> [ListModel] {
         var lists: [ListModel] = []
         
-        let savedLists = realm?.objects(ListObject.self).filter("deleted = false AND storeTypeID = %@", storeTypeID).sorted(byKeyPath: "updatedAt", ascending: false)
+        let savedLists = realm?.objects(ListObject.self).filter("deleted = false").sorted(byKeyPath: "updatedAt", ascending: false)
         
         if let savedLists = savedLists {
             for list in savedLists {
@@ -122,9 +122,9 @@ class ListRealmStore: DataStore, ListStoreProtocol {
         })
     }
     
-    func searchLists(storeTypeID: Int, query: String) -> [ListModel] {
+    func searchLists(supermarketChainID: Int, query: String) -> [ListModel] {
         let savedLists = realm?.objects(ListObject.self)
-            .filter("deleted = false AND storeTypeID = %@ AND name contains[c] %@",storeTypeID, query)
+            .filter("deleted = false AND name contains[c] %@", query)
             .sorted(byKeyPath: "updatedAt", ascending: false)
         
         if let savedLists = savedLists {
@@ -151,7 +151,7 @@ extension ListRealmStore {
         savedList.edited = false
 
         savedList.identifier = list.identifier
-        savedList.storeTypeID = list.storeTypeID
+        savedList.supermarketChainID = list.supermarketChainID
 
         savedList.currency = list.currency
         savedList.totalPrice = list.totalPrice

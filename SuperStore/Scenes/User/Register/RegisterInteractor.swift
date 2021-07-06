@@ -18,7 +18,7 @@ protocol RegisterBusinessLogic
     func getEmail(request: Register.GetEmail.Request)
     
     func getRegions(request: Register.GetRegions.Request)
-    func getStoreTypes(request: Register.GetStoreTypes.Request)
+    func getSupermarketChains(request: Register.GetStoreTypes.Request)
 }
 
 protocol RegisterDataStore
@@ -34,7 +34,7 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
     var validationWorker: UserValidationWorker = UserValidationWorker()
     
     var regionWorker: RegionWorker = RegionWorker()
-    var storeTypeWorker: StoreTypeWorker = StoreTypeWorker()
+    var supermarketChainWorker: SupermarketChainWorker = SupermarketChainWorker()
     
     var userSession = UserSessionWorker()
     
@@ -53,7 +53,7 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
         let passwordConfirm = request.passwordConfirm
         
         let regionID = request.regionID
-        let storeTypeID = request.storeTypeID
+        let supermarketChainID = request.supermarketChainID
         
         let error = validateForm(name: name, email: email, password: password, passwordConfirm: passwordConfirm)
         
@@ -62,7 +62,7 @@ class RegisterInteractor: RegisterBusinessLogic, RegisterDataStore
                 name: name,
                 email: email,
                 regionID: regionID,
-                storeTypeID: storeTypeID,
+                supermarketChainID: supermarketChainID,
                 password: password,
                 passwordConfirmation: passwordConfirm,
                 identifier: nil,
@@ -112,11 +112,11 @@ extension RegisterInteractor {
         presenter?.presentRegions(response: response)
     }
     
-    func getStoreTypes(request: Register.GetStoreTypes.Request){
-        let storeTypes = storeTypeWorker.getStoreTypes()
-        let selectedStoreType = storeTypeWorker.getSelectedStoreType()
+    func getSupermarketChains(request: Register.GetStoreTypes.Request){
+        let supermarketChain = supermarketChainWorker.getSupermarketChains()
+        let selectedStoreType = supermarketChainWorker.getSelectedSupermarketChain()
         
-        let response = Register.GetStoreTypes.Response(storeTypes: storeTypes, selectedStoreType: selectedStoreType)
+        let response = Register.GetStoreTypes.Response(supermarketChain: supermarketChain, selectedStoreType: selectedStoreType)
         presenter?.presentStoreTypes(response: response)
     }
 }

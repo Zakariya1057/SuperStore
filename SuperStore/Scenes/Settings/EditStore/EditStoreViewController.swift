@@ -73,21 +73,21 @@ class EditStoreViewController: UIViewController, EditStoreDisplayLogic
         super.viewDidLoad()
         
         setupStoreTypesTableView()
-        getStoreTypes()
+        getSupermarketChains()
     }
     
     let spinner: SpinnerViewController = SpinnerViewController()
     
-    @IBOutlet var storeTypesTableView: UITableView!
+    @IBOutlet var supermarketChainTableView: UITableView!
     
-    var selectedStoreTypeID: Int = 1
+    var selectedsupermarketChainID: Int = 1
     
     var userSession: UserSessionWorker = UserSessionWorker()
     var loggedIn: Bool {
         return userSession.isLoggedIn()
     }
     
-    var storeTypes: [StoreTypeModel] = []
+    var supermarketChain: [SupermarketChain] = []
     
     func displayUpdatedStore(viewModel: EditStore.UpdateStore.ViewModel)
     {
@@ -101,20 +101,20 @@ class EditStoreViewController: UIViewController, EditStoreDisplayLogic
     }
     
     func displayStoreTypes(viewModel: EditStore.GetStoreTypes.ViewModel) {
-        selectedStoreTypeID = viewModel.selectedStoreTypeID
-        storeTypes = viewModel.storeTypes
-        storeTypesTableView.reloadData()
+        selectedsupermarketChainID = viewModel.selectedsupermarketChainID
+        supermarketChain = viewModel.supermarketChain
+        supermarketChainTableView.reloadData()
     }
     
-    func getStoreTypes(){
+    func getSupermarketChains(){
         let request = EditStore.GetStoreTypes.Request()
-        interactor?.getStoreTypes(request: request)
+        interactor?.getSupermarketChains(request: request)
     }
 }
 
 extension EditStoreViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return storeTypes.count
+        return supermarketChain.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -122,12 +122,12 @@ extension EditStoreViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func configureStoreTypeCell(indexPath: IndexPath) -> StoreTypeCell {
-        let cell = storeTypesTableView.dequeueReusableCell(withIdentifier: "StoreTypeCell", for: indexPath) as! StoreTypeCell
+        let cell = supermarketChainTableView.dequeueReusableCell(withIdentifier: "StoreTypeCell", for: indexPath) as! StoreTypeCell
         
-        let storeType = storeTypes[indexPath.row]
+        let supermarketChain = supermarketChain[indexPath.row]
         
-        cell.selectedStoreType = storeType.id == selectedStoreTypeID
-        cell.storeType = storeType
+        cell.selectedStoreType = supermarketChain.id == selectedsupermarketChainID
+        cell.supermarketChain = supermarketChain
         
         cell.configureUI()
         
@@ -137,24 +137,24 @@ extension EditStoreViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func setupStoreTypesTableView(){
-        let storeTypeCellNib = UINib(nibName: "StoreTypeCell", bundle: nil)
-        storeTypesTableView.register(storeTypeCellNib, forCellReuseIdentifier: "StoreTypeCell")
+        let supermarketChainCellNib = UINib(nibName: "StoreTypeCell", bundle: nil)
+        supermarketChainTableView.register(supermarketChainCellNib, forCellReuseIdentifier: "StoreTypeCell")
         
-        storeTypesTableView.delegate = self
-        storeTypesTableView.dataSource = self
+        supermarketChainTableView.delegate = self
+        supermarketChainTableView.dataSource = self
     }
 }
 
 extension EditStoreViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storeType = storeTypes[indexPath.row]
-        storeTypeSelected(storeType: storeType)
+        let supermarketChain = supermarketChain[indexPath.row]
+        supermarketChainSelected(supermarketChain: supermarketChain)
     }
     
-    func storeTypeSelected(storeType: StoreTypeModel){
+    func supermarketChainSelected(supermarketChain: SupermarketChain){
         startLoading()
 
-        let request = EditStore.UpdateStore.Request(storeType: storeType)
+        let request = EditStore.UpdateStore.Request(supermarketChain: supermarketChain)
         interactor?.updateStore(request: request)
     }
 }

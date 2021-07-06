@@ -25,17 +25,17 @@ class GroceryRealmStore: DataStore, GroceryStoreProtocol {
         return realm?.objects(ChildCategoryObject.self).filter("id = %@", category.id).first
     }
     
-    func getAllGrandParentCategoriesByStoreType(storeTypeID: Int) -> Results<GrandParentCategoryObject>? {
-        return realm?.objects(GrandParentCategoryObject.self).filter("storeTypeID = %@", storeTypeID)
+    func getAllGrandParentCategoriesByStoreType(companyID: Int) -> Results<GrandParentCategoryObject>? {
+        return realm?.objects(GrandParentCategoryObject.self).filter("companyID = %@", companyID)
     }
     
-    func getAllChildCategoriesByStoreType(storeTypeID: Int) -> Results<ChildCategoryObject>? {
-        return realm?.objects(ChildCategoryObject.self).filter("storeTypeID = %@", storeTypeID)
+    func getAllChildCategoriesByStoreType(companyID: Int) -> Results<ChildCategoryObject>? {
+        return realm?.objects(ChildCategoryObject.self).filter("companyID = %@", companyID)
     }
 
     func createCategories(categories: [GrandParentCategoryModel]) {
-        if let storeTypeID = categories.first?.storeTypeID {
-            disableAllGrandParentCategories(storeTypeID: storeTypeID)
+        if let companyID = categories.first?.companyID {
+            disableAllGrandParentCategories(companyID: companyID)
         }
 
         for category in categories {
@@ -44,8 +44,8 @@ class GroceryRealmStore: DataStore, GroceryStoreProtocol {
     }
     
     func createCategories(categories: [ChildCategoryModel]) {
-        if let storeTypeID = categories.first?.storeTypeID {
-            disableAllChildCategories(storeTypeID: storeTypeID)
+        if let companyID = categories.first?.companyID {
+            disableAllChildCategories(companyID: companyID)
         }
 
         for category in categories {
@@ -53,12 +53,12 @@ class GroceryRealmStore: DataStore, GroceryStoreProtocol {
         }
     }
     
-    func getGrandParentCategories(storeTypeID: Int) -> [GrandParentCategoryModel] {
+    func getGrandParentCategories(companyID: Int) -> [GrandParentCategoryModel] {
         // Only get grand parent and direct children only. No products
         var categories: [GrandParentCategoryModel] = []
         
         let savedCategories = realm?
-            .objects(GrandParentCategoryObject.self).filter("enabled = true AND storeTypeID = %@", storeTypeID)
+            .objects(GrandParentCategoryObject.self).filter("enabled = true AND companyID = %@", companyID)
             .sorted(byKeyPath: "index", ascending: true)
         
         if let savedCategories = savedCategories {
@@ -95,8 +95,8 @@ class GroceryRealmStore: DataStore, GroceryStoreProtocol {
 }
 
 extension GroceryRealmStore {
-    private func disableAllGrandParentCategories(storeTypeID: Int){
-        if let savedCategories = getAllGrandParentCategoriesByStoreType(storeTypeID: storeTypeID) {
+    private func disableAllGrandParentCategories(companyID: Int){
+        if let savedCategories = getAllGrandParentCategoriesByStoreType(companyID: companyID) {
             for savedCategory in savedCategories {
                 try? realm?.write({
                     savedCategory.enabled = false
@@ -105,8 +105,8 @@ extension GroceryRealmStore {
         }
     }
     
-    private func disableAllChildCategories(storeTypeID: Int){
-        if let savedCategories = getAllChildCategoriesByStoreType(storeTypeID: storeTypeID) {
+    private func disableAllChildCategories(companyID: Int){
+        if let savedCategories = getAllChildCategoriesByStoreType(companyID: companyID) {
             for savedCategory in savedCategories {
                 try? realm?.write({
                     savedCategory.enabled = false
@@ -164,7 +164,7 @@ extension GroceryRealmStore {
         savedCategory.name = category.name
         savedCategory.index = category.index
         
-        savedCategory.storeTypeID = category.storeTypeID
+        savedCategory.companyID = category.companyID
         savedCategory.parentCategoryID = category.parentCategoryID
         
         savedCategory.enabled = true
@@ -197,7 +197,7 @@ extension GroceryRealmStore {
         savedCategory.name = category.name
         savedCategory.index = category.index
         
-        savedCategory.storeTypeID = category.storeTypeID
+        savedCategory.companyID = category.companyID
         
         savedCategory.enabled = true
         
@@ -221,7 +221,7 @@ extension GroceryRealmStore {
         savedCategory.name = category.name
         savedCategory.index = category.index
         
-        savedCategory.storeTypeID = category.storeTypeID
+        savedCategory.companyID = category.companyID
         
         savedCategory.enabled = true
         

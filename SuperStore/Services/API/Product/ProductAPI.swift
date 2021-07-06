@@ -10,8 +10,8 @@ import Foundation
 
 class ProductAPI: API, ProductRequestProtocol {
     
-    func getProduct(regionID: Int, productID: Int, completionHandler: @escaping (ProductModel?, String?) -> Void) {
-        let url = Config.Route.Product.Show + String(productID) + "?region_id=\(regionID)"
+    func getProduct(regionID: Int, supermarketChainID: Int, productID: Int, completionHandler: @escaping (ProductModel?, String?) -> Void) {
+        let url = Config.Route.Product.Show + String(productID) + "?region_id=\(regionID)&supermarket_chain_id=\(supermarketChainID)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -32,10 +32,10 @@ class ProductAPI: API, ProductRequestProtocol {
 
 extension ProductAPI {
     
-    func getMonitoredProducts(regionID: Int, storeTypeID: Int, completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void){
+    func getMonitoredProducts(regionID: Int, supermarketChainID: Int, completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void){
         let url = Config.Route.Monitor.Products
         
-        requestWorker.post(url: url, data: ["region_id": regionID, "store_type_id": storeTypeID]) { (response: () throws -> Data) in
+        requestWorker.post(url: url, data: ["region_id": regionID, "supermarket_chain_id": supermarketChainID]) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let productDataResponse =  try self.jsonDecoder.decode(ProductsDataResponse.self, from: data)

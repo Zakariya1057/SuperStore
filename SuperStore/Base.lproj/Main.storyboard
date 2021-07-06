@@ -4817,7 +4817,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Change Store" id="N63-Et-CzS"/>
                     <connections>
-                        <outlet property="storeTypesTableView" destination="IIH-no-Rky" id="z2m-0O-K5e"/>
+                        <outlet property="supermarketChainTableView" destination="IIH-no-Rky" id="z2m-0O-K5e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DOQ-co-ax9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -5129,14 +5129,21 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E2n-6V-ixM">
                                                         <rect key="frame" x="0.0" y="0.0" width="138" height="70"/>
                                                         <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHV-Ov-sx8" userLabel="Seperator View">
+                                                                <rect key="frame" x="0.0" y="0.0" width="2" height="70"/>
+                                                                <color key="backgroundColor" name="LightGrey"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="2" id="sZC-So-IU6"/>
+                                                                </constraints>
+                                                            </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="FjL-uv-1nW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="136" height="70"/>
+                                                                <rect key="frame" x="2" y="0.0" width="134" height="70"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GkT-t8-t0N">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="136" height="40"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="134" height="40"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFL-jg-jfe">
-                                                                                <rect key="frame" x="32.5" y="10" width="71" height="20"/>
+                                                                                <rect key="frame" x="31.5" y="10" width="71" height="20"/>
                                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -5151,10 +5158,10 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kRV-6E-ZWp">
-                                                                        <rect key="frame" x="0.0" y="40" width="136" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="40" width="134" height="30"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="70 cal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O88-5f-zDJ">
-                                                                                <rect key="frame" x="46.5" y="0.0" width="43.5" height="19.5"/>
+                                                                                <rect key="frame" x="45.5" y="0.0" width="43.5" height="19.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>

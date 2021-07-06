@@ -23,7 +23,7 @@ class EditStorePresenter: EditStorePresentationLogic
     weak var viewController: EditStoreDisplayLogic?
     
     func presentStoreTypes(response: EditStore.GetStoreTypes.Response) {
-        let viewModel = EditStore.GetStoreTypes.ViewModel(storeTypes: response.storeTypes, selectedStoreTypeID: response.selectedStoreTypeID)
+        let viewModel = EditStore.GetStoreTypes.ViewModel(supermarketChain: response.supermarketChain, selectedsupermarketChainID: response.selectedsupermarketChainID)
         viewController?.displayStoreTypes(viewModel: viewModel)
     }
     

@@ -15,7 +15,7 @@ import UIKit
 protocol EditStoreBusinessLogic
 {
     func updateStore(request: EditStore.UpdateStore.Request)
-    func getStoreTypes(request: EditStore.GetStoreTypes.Request)
+    func getSupermarketChains(request: EditStore.GetStoreTypes.Request)
 }
 
 protocol EditStoreDataStore
@@ -30,24 +30,24 @@ class EditStoreInteractor: EditStoreBusinessLogic, EditStoreDataStore
     var userSessionWorker: UserSessionWorker = UserSessionWorker()
     var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     
-    var storeTypeWorker: StoreTypeWorker = StoreTypeWorker()
+    var supermarketChainWorker: SupermarketChainWorker = SupermarketChainWorker()
     
-    func getStoreTypes(request: EditStore.GetStoreTypes.Request){
-        let storeTypes = storeTypeWorker.getStoreTypes()
+    func getSupermarketChains(request: EditStore.GetStoreTypes.Request){
+        let supermarketChain = supermarketChainWorker.getSupermarketChains()
         
-        let selectedStoreTypeID: Int = storeTypeWorker.getSelectedStoreType().id
+        let selectedsupermarketChainID: Int = supermarketChainWorker.getSelectedSupermarketChain().id
         
-        let response = EditStore.GetStoreTypes.Response(storeTypes: storeTypes, selectedStoreTypeID: selectedStoreTypeID)
+        let response = EditStore.GetStoreTypes.Response(supermarketChain: supermarketChain, selectedsupermarketChainID: selectedsupermarketChainID)
         presenter?.presentStoreTypes(response: response)
     }
     
     func updateStore(request: EditStore.UpdateStore.Request)
     {
-        let storeTypeID = request.storeType.id
+        let supermarketChainID = request.supermarketChain.id
         
         let loggedIn: Bool = userSessionWorker.isLoggedIn()
         
-        userWorker.updateStore(storeTypeID: storeTypeID, loggedIn: loggedIn) { (error: String?) in
+        userWorker.updateStore(supermarketChainID: supermarketChainID, loggedIn: loggedIn) { (error: String?) in
             let response = EditStore.UpdateStore.Response(error: error)
             self.presenter?.presentUpdatedStore(response: response)
         }

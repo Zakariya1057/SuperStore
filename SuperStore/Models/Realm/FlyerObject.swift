@@ -18,7 +18,7 @@ class FlyerObject: Object {
     @objc dynamic var url: String = ""
     
     @objc dynamic var storeID: Int = 0
-    @objc dynamic var storeTypeID: Int = 0
+    @objc dynamic var supermarketChainID: Int = 0
     
     var products = List<ProductObject>()
     
@@ -32,7 +32,7 @@ class FlyerObject: Object {
             week: week,
             url: url,
             storeID: storeID,
-            storeTypeID: storeTypeID,
+            supermarketChainID: supermarketChainID,
             validFrom: validFrom,
             validTo: validTo
         )
