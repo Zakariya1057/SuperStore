@@ -105,18 +105,19 @@ class FavouritesViewController: UIViewController, FavouritesDisplayLogic
     
     func displayFavourites(viewModel: Favourites.GetFavourites.ViewModel)
     {
-        
         refreshControl.endRefreshing()
         
         if let error = viewModel.error {
             if !viewModel.offline {
+                products = []
                 showError(title: "Favourite Error", error: error)
             }
         } else {
             loading = false
             products = viewModel.products
-            favouriteTableView.reloadData()
         }
+        
+        favouriteTableView.reloadData()
 
     }
     

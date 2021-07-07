@@ -182,8 +182,6 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
     func displayProduct(viewModel: ShowProduct.GetProduct.ViewModel)
     {
         
-        stopLoading()
-        
         if let error = viewModel.error {
             
             if !viewModel.offline {
@@ -191,6 +189,8 @@ class ShowProductViewController: UIViewController, ShowProductDisplayLogic
             }
             
         } else {
+            
+            stopLoading()
             
             loading = false
             
@@ -769,9 +769,13 @@ extension ShowProductViewController: ImageSlideshowDelegate {
 
 extension ShowProductViewController {
     func startLoading() {
+        spinner.configureUI(alpha: 1)
+        
         addChild(spinner)
+        
         spinner.view.frame = view.frame
         view.addSubview(spinner.view)
+        
         spinner.didMove(toParent: self)
     }
     

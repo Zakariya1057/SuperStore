@@ -107,14 +107,6 @@ class ProductObject: Object {
             features: productFeatures,
             dimensions: productDimensions,
             
-            // How do I get the correct price for all situations?
-            
-            // I'll need to pass in the region, supermarket chain for getting the product (gettting the price)
-            
-            // Pass the optional supermarket_chain_id, region_id.
-            // If found then use that to get the price will be optional. (If no product price, then ignore it)
-            // If not found, then use the setting ones instead.
-            
             price: price,
             
             currency: currency,
