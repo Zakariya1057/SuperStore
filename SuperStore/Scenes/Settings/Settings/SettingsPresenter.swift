@@ -42,15 +42,15 @@ class SettingsPresenter: SettingsPresentationLogic
                     ]),
                     
                     Settings.DisplayUserSection(settings: [
+                        SettingModel(name: "Regions & Stores", type: .regionAndSupermarketChain)
+                    ]),
+                    
+                    Settings.DisplayUserSection(settings: [
                         SettingModel(name: "Device Storage", type: .deviceStorage)
                     ]),
                     
                     Settings.DisplayUserSection(settings: [
                         SettingModel(name: "Help & Feedback", type: .helpAndFeedback, badgeNumber: unreadMessagesCount)
-                    ]),
-                    
-                    Settings.DisplayUserSection(settings: [
-                        SettingModel(name: "Regions & Stores", type: .regionAndSupermarketChain)
                     ]),
                     
                 ])
