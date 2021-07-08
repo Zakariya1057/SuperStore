@@ -30,11 +30,7 @@ enum Settings
         struct Response
         {
             var user: UserModel?
-            
             var unreadMessagesCount: Int
-            
-            var supermarketChainName: String
-            var regionName: String
         }
         
         struct ViewModel
@@ -78,23 +74,6 @@ enum Settings
     }
     
     enum Logout
-    {
-        struct Request
-        {
-        }
-        
-        struct Response
-        {
-            var error: String?
-        }
-        
-        struct ViewModel
-        {
-            var error: String?
-        }
-    }
-    
-    enum Delete
     {
         struct Request
         {

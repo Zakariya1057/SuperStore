@@ -14,11 +14,9 @@ import UIKit
 
 protocol SettingsDisplayLogic: AnyObject
 {
-    func displayUserStore(viewModel: Settings.GetStore.ViewModel)
     func displayUserDetails(viewModel: Settings.GetUserDetails.ViewModel)
     func displayUpdateNotifications(viewModel: Settings.UpdateNotifications.ViewModel)
     func displayedLogout(viewModel: Settings.Logout.ViewModel)
-    func displayedDeleted(viewModel: Settings.Delete.ViewModel)
 }
 
 class SettingsViewController: UIViewController, SettingsDisplayLogic
@@ -111,15 +109,6 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
         settingsTableView.reloadData()
     }
     
-    func getUserStore(){
-        let request = Settings.GetStore.Request()
-        interactor?.getUserStore(request: request)
-    }
-    
-    func displayUserStore(viewModel: Settings.GetStore.ViewModel) {
-        //        storeLoggedOutNameLabel!.text = viewModel.storeName
-    }
-    
     func displayedLogout(viewModel: Settings.Logout.ViewModel) {
         stopLoading()
         showRightBarButton()
@@ -131,47 +120,11 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
         }
     }
     
-    func displayedDeleted(viewModel: Settings.Delete.ViewModel) {
-        stopLoading()
-        showRightBarButton()
-        
-        if let error = viewModel.error {
-            showError(title: "Delete Error", error: error)
-        } else {
-            getSettings()
-        }
-    }
-    
     func displayUpdateNotifications(viewModel: Settings.UpdateNotifications.ViewModel) {
         if let error = viewModel.error {
             showError(title: "Settings Error", error: error)
         }
     }
-}
-
-extension SettingsViewController {
-    private func deleteAccount(){
-        let refreshAlert = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account. All your data will be permanently lost.", preferredStyle: UIAlertController.Style.alert)
-        
-        refreshAlert.addAction(UIAlertAction(title: "Yes, delete", style: .default, handler: { (action: UIAlertAction!) in
-            self.startLoading()
-            self.hideRightBarButton()
-            
-            let request = Settings.Delete.Request()
-            self.interactor?.delete(request: request)
-        }))
-        
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-            print("Cancel Delete")
-        }))
-        
-        present(refreshAlert, animated: true, completion: nil)
-    }
-    
-    @IBAction func deleteButtonPressed(_ sender: Any) {
-        deleteAccount()
-    }
-    
 }
 
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -231,25 +184,17 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func settingPressed(setting: SettingModel){
         switch setting.type {
-        case .name:
-            namePressed()
-        case .email:
-            emailPressed()
-        case .password:
-            passwordPressed()
-        case .region:
-            regionPressed()
-        case .store:
-            storePressed()
+        
+        case .userSettings, .deviceStorage, .helpAndFeedback, .regionAndSupermarketChain:
+            advancedSettingsPressed(setting: setting)
+            
         case .logout:
             logoutPressed()
+        
         case .login:
             loginButtonPressed()
-        case .delete:
-            deleteAccount()
-        case .helpFeedback, .help, .feedback, .feature, .issue:
-            helpAndFeedbackPressed()
-        case .notification:
+            
+        default:
             break
 
         }
@@ -288,27 +233,7 @@ extension SettingsViewController {
 }
 
 extension SettingsViewController {
-    @objc func namePressed(){
-        router?.routeToEditName(segue: nil)
-    }
-    
-    @objc func emailPressed(){
-        router?.routeToEditEmail(segue: nil)
-    }
-    
-    @objc func passwordPressed(){
-        router?.routeToEditPassword(segue: nil)
-    }
-    
-    @objc func regionPressed(){
-        router?.routeToEditRegion(segue: nil)
-    }
-    
-    @objc func storePressed(){
-        router?.routeToEditStore(segue: nil)
-    }
-    
-    @objc func logoutPressed(){
+    func logoutPressed(){
         let refreshAlert = UIAlertController(title: "Logout", message: "Are you sure you want to logout? Your data won't be lost.", preferredStyle: UIAlertController.Style.alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Yes, logout", style: .default, handler: { (action: UIAlertAction!) in
@@ -325,8 +250,9 @@ extension SettingsViewController {
     }
     
     
-    @objc func helpAndFeedbackPressed(){
-        router?.routeToHelpAndFeedback(segue: nil)
+    func advancedSettingsPressed(setting: SettingModel){
+        interactor?.setSelectedSetting(setting: setting)
+        router?.routeToAdvancedSettings(segue: nil)
     }
 }
 

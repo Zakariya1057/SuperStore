@@ -1,5 +1,5 @@
 //
-//  HelpAndFeedbackModels.swift
+//  AdvancedSettingsModels.swift
 //  SuperStore
 //
 //  Created by Zakariya Mohummed on 07/06/2021.
@@ -12,7 +12,7 @@
 
 import UIKit
 
-enum HelpAndFeedback
+enum AdvancedSettings
 {
     // MARK: Use cases
     
@@ -33,6 +33,13 @@ enum HelpAndFeedback
         
         struct Response
         {
+            var parentSetting: SettingModel
+            
+            var user: UserModel?
+            
+            var supermarketChainName: String
+            var regionName: String
+            
             var unreadHelpMessages: Int
             var unreadFeaturepMessages: Int
             var unreadIssueMessages: Int
@@ -43,7 +50,26 @@ enum HelpAndFeedback
         
         struct ViewModel
         {
+            var parentSetting: SettingModel
             var displaySections: [DisplaySection]
+        }
+    }
+    
+    
+    enum Delete
+    {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
         }
     }
 }

@@ -15,10 +15,8 @@ import UIKit
 protocol SettingsPresentationLogic
 {
     func presentUserDetails(response: Settings.GetUserDetails.Response)
-    func presentUserStore(response: Settings.GetStore.Response)
     func presentUpdateNotifications(response: Settings.UpdateNotifications.Response)
     func presentLogout(response: Settings.Logout.Response)
-    func presentDeleted(response: Settings.Delete.Response)
 }
 
 class SettingsPresenter: SettingsPresentationLogic
@@ -33,37 +31,30 @@ class SettingsPresenter: SettingsPresentationLogic
         
         if let user = response.user {
             
-            let supermarketChainName: String = response.supermarketChainName
-            let regionName: String = response.regionName
-            
             let unreadMessagesCount: Int = response.unreadMessagesCount
             
             if user.token != "" {
                 
                 loggedIn = true
-                
-                displayUserSections.append(
+
+                displayUserSections.append(contentsOf: [
                     Settings.DisplayUserSection(settings: [
-                        SettingModel(name: "Name", value: user.name, type: .name),
-                        SettingModel(name: "Email", value: user.email, type: .email),
-                        SettingModel(name: "Password", value: "••••••••••••••", type: .password),
-                        SettingModel(name: "Notifications", on: user.sendNotifications, type: .notification),
-                        SettingModel(name: "Help & Feedback", type: .helpFeedback, badgeNumber: unreadMessagesCount),
-                    ])
-                )
-                
-                displayUserSections.append(
+                        SettingModel(name: "User Settings", type: .userSettings),
+                    ]),
+                    
                     Settings.DisplayUserSection(settings: [
-                        SettingModel(name: "Province", value: regionName, type: .region),
-                        SettingModel(name: "Store", value: supermarketChainName, type: .store),
-                    ])
-                )
-                
-                displayUserSections.append(
+                        SettingModel(name: "Device Storage", type: .deviceStorage)
+                    ]),
+                    
                     Settings.DisplayUserSection(settings: [
-                        SettingModel(name: "Delete Account", type: .delete)
-                    ])
-                )
+                        SettingModel(name: "Help & Feedback", type: .helpAndFeedback, badgeNumber: unreadMessagesCount)
+                    ]),
+                    
+                    Settings.DisplayUserSection(settings: [
+                        SettingModel(name: "Regions & Stores", type: .regionAndSupermarketChain)
+                    ]),
+                    
+                ])
                 
                 displayUserSections.append(
                     Settings.DisplayUserSection(settings: [
@@ -71,35 +62,25 @@ class SettingsPresenter: SettingsPresentationLogic
                     ])
                 )
             } else {
-                displayUserSections.append(
+                displayUserSections.append(contentsOf: [
                     Settings.DisplayUserSection(settings: [
-                        SettingModel(name: "Province", value: regionName, type: .region),
-                        SettingModel(name: "Store", value: supermarketChainName, type: .store),
-                    ])
-                )
-                
-                displayUserSections.append(
+                        SettingModel(name: "Regions & Stores", type: .regionAndSupermarketChain)
+                    ]),
+                    
                     Settings.DisplayUserSection(settings: [
                         SettingModel(name: "Login", type: .login)
-                    ])
-                )
-                
-                displayUserSections.append(
+                    ]),
+                    
                     Settings.DisplayUserSection(settings: [
-                        SettingModel(name: "Help & Feedback", type: .helpFeedback),
+                        SettingModel(name: "Help & Feedback", type: .helpAndFeedback)
                     ])
-                )
+                ])
             }
         }
         
         let viewModel = Settings.GetUserDetails.ViewModel(displayUserSections: displayUserSections, loggedIn: loggedIn)
         
         viewController?.displayUserDetails(viewModel: viewModel)
-    }
-    
-    func presentUserStore(response: Settings.GetStore.Response) {
-        let viewModel = Settings.GetStore.ViewModel(storeName: response.storeName)
-        viewController?.displayUserStore(viewModel: viewModel)
     }
     
     func presentUpdateNotifications(response: Settings.UpdateNotifications.Response) {
@@ -110,10 +91,5 @@ class SettingsPresenter: SettingsPresentationLogic
     func presentLogout(response: Settings.Logout.Response) {
         let viewModel = Settings.Logout.ViewModel(error: response.error)
         viewController?.displayedLogout(viewModel: viewModel)
-    }
-    
-    func presentDeleted(response: Settings.Delete.Response) {
-        let viewModel = Settings.Delete.ViewModel(error: response.error)
-        viewController?.displayedDeleted(viewModel: viewModel)
     }
 }

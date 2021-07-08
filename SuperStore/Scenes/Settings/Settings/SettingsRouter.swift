@@ -14,15 +14,7 @@ import UIKit
 
 @objc protocol SettingsRoutingLogic
 {
-    func routeToEditName(segue: UIStoryboardSegue?)
-    func routeToEditEmail(segue: UIStoryboardSegue?)
-    func routeToEditPassword(segue: UIStoryboardSegue?)
-    
-    func routeToEditRegion(segue: UIStoryboardSegue?)
-    func routeToEditStore(segue: UIStoryboardSegue?)
-    
-    func routeToHelpAndFeedback(segue: UIStoryboardSegue?)
-    
+    func routeToAdvancedSettings(segue: UIStoryboardSegue?)
     func routeToLogin(segue: UIStoryboardSegue?)
 }
 
@@ -39,36 +31,6 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
     
     // MARK: Routing
     
-    func routeToEditRegion(segue: UIStoryboardSegue?)
-    {
-        if let segue = segue {
-            let destinationVC = segue.destination as! EditRegionViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToEditRegion(source: dataStore!, destination: &destinationDS)
-        } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditRegionViewController") as! EditRegionViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToEditRegion(source: dataStore!, destination: &destinationDS)
-            navigateToEditRegion(source: viewController!, destination: destinationVC)
-        }
-    }
-    
-    func routeToEditStore(segue: UIStoryboardSegue?)
-    {
-        if let segue = segue {
-            let destinationVC = segue.destination as! EditStoreViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToEditStore(source: dataStore!, destination: &destinationDS)
-        } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditStoreViewController") as! EditStoreViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToEditStore(source: dataStore!, destination: &destinationDS)
-            navigateToEditStore(source: viewController!, destination: destinationVC)
-        }
-    }
-    
     func routeToLogin(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
@@ -84,136 +46,41 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
         }
     }
     
-    func routeToEditName(segue: UIStoryboardSegue?)
+    func routeToAdvancedSettings(segue: UIStoryboardSegue?)
     {
         if let segue = segue {
-            let destinationVC = segue.destination as! EditNameViewController
+            let destinationVC = segue.destination as! AdvancedSettingsViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToEditName(source: dataStore!, destination: &destinationDS)
+            passDataToAdvancedSettings(source: dataStore!, destination: &destinationDS)
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditNameViewController") as! EditNameViewController
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "AdvancedSettingsViewController") as! AdvancedSettingsViewController
             var destinationDS = destinationVC.router!.dataStore!
-            passDataToEditName(source: dataStore!, destination: &destinationDS)
-            navigateToEditName(source: viewController!, destination: destinationVC)
-        }
-    }
-    
-    func routeToEditEmail(segue: UIStoryboardSegue?)
-    {
-        if let segue = segue {
-            let destinationVC = segue.destination as! EditEmailViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToEditEmail(source: dataStore!, destination: &destinationDS)
-        } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditEmailViewController") as! EditEmailViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToEditEmail(source: dataStore!, destination: &destinationDS)
-            navigateToEditEmail(source: viewController!, destination: destinationVC)
-        }
-    }
-    
-    func routeToEditPassword(segue: UIStoryboardSegue?)
-    {
-        if let segue = segue {
-            let destinationVC = segue.destination as! EditPasswordViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToEditPassword(source: dataStore!, destination: &destinationDS)
-        } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditPasswordViewController") as! EditPasswordViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToEditPassword(source: dataStore!, destination: &destinationDS)
-            navigateToEditPassword(source: viewController!, destination: destinationVC)
-        }
-    }
-    
-    func routeToHelpAndFeedback(segue: UIStoryboardSegue?)
-    {
-        if let segue = segue {
-            let destinationVC = segue.destination as! HelpAndFeedbackViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToHelpAndFeedback(source: dataStore!, destination: &destinationDS)
-        } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "HelpAndFeedbackViewController") as! HelpAndFeedbackViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            passDataToHelpAndFeedback(source: dataStore!, destination: &destinationDS)
-            navigateToHelpAndFeedback(source: viewController!, destination: destinationVC)
+            passDataToAdvancedSettings(source: dataStore!, destination: &destinationDS)
+            navigateToAdvancedSettings(source: viewController!, destination: destinationVC)
         }
     }
 
     // MARK: Navigation
     
-    func navigateToEditRegion(source: SettingsViewController, destination: EditRegionViewController)
+    func navigateToAdvancedSettings(source: SettingsViewController, destination: AdvancedSettingsViewController)
     {
         source.show(destination, sender: nil)
     }
-    
-    func navigateToEditStore(source: SettingsViewController, destination: EditStoreViewController)
-    {
-        source.show(destination, sender: nil)
-    }
-    
+
     func navigateToLogin(source: SettingsViewController, destination: LoginViewController)
     {
         source.present(destination, animated: true, completion: nil)
     }
     
-    func navigateToEditName(source: SettingsViewController, destination: EditNameViewController)
-    {
-        source.show(destination, sender: nil)
-    }
-    
-    func navigateToEditEmail(source: SettingsViewController, destination: EditEmailViewController)
-    {
-        source.show(destination, sender: nil)
-    }
-    
-    func navigateToEditPassword(source: SettingsViewController, destination: EditPasswordViewController)
-    {
-        source.show(destination, sender: nil)
-    }
-    
-    func navigateToHelpAndFeedback(source: SettingsViewController, destination: HelpAndFeedbackViewController)
-    {
-        source.show(destination, sender: nil)
-    }
-
     // MARK: Passing data
     
-    func passDataToEditRegion(source: SettingsDataStore, destination: inout EditRegionDataStore)
+    func passDataToAdvancedSettings(source: SettingsDataStore, destination: inout AdvancedSettingsDataStore)
     {
-        
-    }
-    
-    func passDataToEditStore(source: SettingsDataStore, destination: inout EditStoreDataStore)
-    {
-        
+        destination.parentSetting = source.selectedSetting!
     }
     
     func passDataToLogin(source: SettingsDataStore, destination: inout LoginDataStore)
-    {
-        
-    }
-    
-    func passDataToEditName(source: SettingsDataStore, destination: inout EditNameDataStore)
-    {
-        destination.name = source.user!.name
-    }
-    
-    func passDataToEditEmail(source: SettingsDataStore, destination: inout EditEmailDataStore)
-    {
-        destination.email = source.user!.email
-    }
-    
-    func passDataToEditPassword(source: SettingsDataStore, destination: inout EditPasswordDataStore)
-    {
-        
-    }
-    
-    func passDataToHelpAndFeedback(source: SettingsDataStore, destination: inout HelpAndFeedbackDataStore)
     {
         
     }

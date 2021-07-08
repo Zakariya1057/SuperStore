@@ -837,9 +837,6 @@
                     <navigationItem key="navigationItem" title="Settings" id="Kbr-bB-h5c"/>
                     <connections>
                         <outlet property="settingsTableView" destination="ujy-l4-pJO" id="2IX-7X-Iey"/>
-                        <segue destination="EIN-HB-Uy4" kind="show" identifier="settingsToChangePassword" id="06b-UV-g00"/>
-                        <segue destination="SzX-4m-Fpe" kind="show" id="C7z-JW-Rzr"/>
-                        <segue destination="nph-2y-VSK" kind="show" id="xk2-3c-8X5"/>
                         <segue destination="0I5-2D-5uz" kind="show" id="JQJ-3Y-fu1"/>
                         <segue destination="Gnf-ga-Ko5" kind="show" id="1SD-Wx-3fZ"/>
                         <segue destination="MMW-mQ-96i" kind="show" id="hiW-MQ-mDY"/>
@@ -997,7 +994,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qIV-G4-FLT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3929" y="2750"/>
+            <point key="canvasLocation" x="8639" y="1842"/>
         </scene>
         <!--Change Name-->
         <scene sceneID="D8Q-gF-Rxs">
@@ -1071,7 +1068,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmj-Y5-7AU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5031" y="1841"/>
+            <point key="canvasLocation" x="6286" y="1842"/>
         </scene>
         <!--Search-->
         <scene sceneID="WTz-jE-ek7">
@@ -4791,7 +4788,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O02-45-Z8d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6193" y="1842"/>
+            <point key="canvasLocation" x="7504" y="1842"/>
         </scene>
         <!--Change Store-->
         <scene sceneID="4MZ-WA-k59">
@@ -4822,7 +4819,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DOQ-co-ax9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5030" y="2750"/>
+            <point key="canvasLocation" x="3929" y="2750"/>
         </scene>
         <!--Feedback-->
         <scene sceneID="EH0-fx-LAd">
@@ -4994,7 +4991,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZF-Ho-cMk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7241" y="2750"/>
+            <point key="canvasLocation" x="6286" y="2750"/>
         </scene>
         <!--Promotion Group View Controller-->
         <scene sceneID="MV9-xv-JOs">
@@ -5056,12 +5053,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iFZ-ED-Gep" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6193" y="2750"/>
+            <point key="canvasLocation" x="5029" y="2750"/>
         </scene>
-        <!--Help & Feedback-->
+        <!--Advanced Settings View Controller-->
         <scene sceneID="mks-kk-vqL">
             <objects>
-                <viewController storyboardIdentifier="HelpAndFeedbackViewController" id="MMW-mQ-96i" customClass="HelpAndFeedbackViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AdvancedSettingsViewController" id="MMW-mQ-96i" customClass="AdvancedSettingsViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5gU-yq-zE2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5092,15 +5089,19 @@
                             <constraint firstAttribute="trailing" secondItem="cWm-0n-LwM" secondAttribute="trailing" id="pgV-ui-1XU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Help &amp; Feedback" id="Ho9-Xj-Mb2"/>
+                    <navigationItem key="navigationItem" id="Ho9-Xj-Mb2"/>
                     <connections>
                         <outlet property="tableView" destination="o5g-KJ-mgu" id="pRb-4e-zGL"/>
                         <segue destination="fIe-Ia-vcg" kind="show" identifier="" id="iK4-1r-EwB"/>
+                        <segue destination="SzX-4m-Fpe" kind="show" id="gGh-eC-Gyu"/>
+                        <segue destination="nph-2y-VSK" kind="show" id="4Px-MP-tDd"/>
+                        <segue destination="EIN-HB-Uy4" kind="show" id="8q7-xS-LBI"/>
+                        <segue destination="H6F-dc-KP8" kind="show" id="9Sw-Le-CX5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFy-Bp-4Af" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7241" y="1841"/>
+            <point key="canvasLocation" x="5029" y="1842"/>
         </scene>
         <!--Nutrition Facts-->
         <scene sceneID="i7H-Jr-CtU">
@@ -5390,6 +5391,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mzs-Ni-AD7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="14209" y="654"/>
+        </scene>
+        <!--Device Storage-->
+        <scene sceneID="crC-j8-X6r">
+            <objects>
+                <viewController storyboardIdentifier="DeviceStorageViewController" id="H6F-dc-KP8" customClass="DeviceStorageViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8lP-yP-Sh6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gKE-s4-ivi">
+                                <rect key="frame" x="15" y="140" width="384" height="150"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="537-3w-5LD">
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cached Information Stuff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8Q-4U-0BI">
+                                                <rect key="frame" x="0.0" y="16" width="384" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.45500968990000001" green="0.44913556189999998" blue="0.47121355339999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="t8Q-4U-0BI" secondAttribute="trailing" id="07r-8l-dKc"/>
+                                            <constraint firstAttribute="height" constant="50" id="0Ln-sO-kPX"/>
+                                            <constraint firstItem="t8Q-4U-0BI" firstAttribute="centerY" secondItem="537-3w-5LD" secondAttribute="centerY" id="QiM-3K-sOs"/>
+                                            <constraint firstItem="t8Q-4U-0BI" firstAttribute="leading" secondItem="537-3w-5LD" secondAttribute="leading" id="hSq-zm-kRW"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="pdX-v5-NxE">
+                                        <rect key="frame" x="0.0" y="50" width="384" height="100"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I3Q-C4-zm3">
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
+                                                <color key="backgroundColor" red="0.098039215690000001" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="itG-OJ-oAt"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <state key="normal" title="Clear Cached Images">
+                                                    <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axp-An-h6V">
+                                                <rect key="frame" x="0.0" y="60" width="384" height="40"/>
+                                                <color key="backgroundColor" red="0.098039215690000001" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="eSd-fQ-jvQ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <state key="normal" title="Clear Cached Suggestions">
+                                                    <color key="titleColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="J84-qE-jL8"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="J84-qE-jL8" firstAttribute="trailing" secondItem="gKE-s4-ivi" secondAttribute="trailing" constant="15" id="UVv-S1-VUC"/>
+                            <constraint firstItem="gKE-s4-ivi" firstAttribute="leading" secondItem="J84-qE-jL8" secondAttribute="leading" constant="15" id="XcA-OD-2ca"/>
+                            <constraint firstItem="gKE-s4-ivi" firstAttribute="top" secondItem="J84-qE-jL8" secondAttribute="top" id="in2-YG-ptC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Device Storage" id="Ld2-fb-Uhb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ADf-oe-a0t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7503" y="2750"/>
         </scene>
     </scenes>
     <designables>

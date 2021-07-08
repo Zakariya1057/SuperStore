@@ -1,5 +1,5 @@
 //
-//  HelpAndFeedbackViewController.swift
+//  AdvancedSettingsViewController.swift
 //  SuperStore
 //
 //  Created by Zakariya Mohummed on 07/06/2021.
@@ -12,15 +12,16 @@
 
 import UIKit
 
-protocol HelpAndFeedbackDisplayLogic: AnyObject
+protocol AdvancedSettingsDisplayLogic: AnyObject
 {
-    func displaySettings(viewModel: HelpAndFeedback.GetSettings.ViewModel)
+    func displaySettings(viewModel: AdvancedSettings.GetSettings.ViewModel)
+    func displayedDeleted(viewModel: AdvancedSettings.Delete.ViewModel)
 }
 
-class HelpAndFeedbackViewController: UIViewController, HelpAndFeedbackDisplayLogic
+class AdvancedSettingsViewController: UIViewController, AdvancedSettingsDisplayLogic
 {
-    var interactor: HelpAndFeedbackBusinessLogic?
-    var router: (NSObjectProtocol & HelpAndFeedbackRoutingLogic & HelpAndFeedbackDataPassing)?
+    var interactor: AdvancedSettingsBusinessLogic?
+    var router: (NSObjectProtocol & AdvancedSettingsRoutingLogic & AdvancedSettingsDataPassing)?
     
     // MARK: Object lifecycle
     
@@ -41,9 +42,9 @@ class HelpAndFeedbackViewController: UIViewController, HelpAndFeedbackDisplayLog
     private func setup()
     {
         let viewController = self
-        let interactor = HelpAndFeedbackInteractor()
-        let presenter = HelpAndFeedbackPresenter()
-        let router = HelpAndFeedbackRouter()
+        let interactor = AdvancedSettingsInteractor()
+        let presenter = AdvancedSettingsPresenter()
+        let router = AdvancedSettingsRouter()
         viewController.interactor = interactor
         viewController.router = router
         interactor.presenter = presenter
@@ -64,6 +65,8 @@ class HelpAndFeedbackViewController: UIViewController, HelpAndFeedbackDisplayLog
         }
     }
     
+    let spinner: SpinnerViewController = SpinnerViewController()
+    
     // MARK: View lifecycle
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,23 +81,34 @@ class HelpAndFeedbackViewController: UIViewController, HelpAndFeedbackDisplayLog
         removeNotificationObserver()
     }
     
-    var displaySections: [HelpAndFeedback.DisplaySection] = []
+    var displaySections: [AdvancedSettings.DisplaySection] = []
     
     @IBOutlet var tableView: UITableView!
     
     func getSettings()
     {
-        let request = HelpAndFeedback.GetSettings.Request()
+        let request = AdvancedSettings.GetSettings.Request()
         interactor?.getSettings(request: request)
     }
     
-    func displaySettings(viewModel: HelpAndFeedback.GetSettings.ViewModel) {
+    func displaySettings(viewModel: AdvancedSettings.GetSettings.ViewModel) {
+        title = viewModel.parentSetting.name
         displaySections = viewModel.displaySections
         tableView.reloadData()
     }
+    
+    func displayedDeleted(viewModel: AdvancedSettings.Delete.ViewModel) {
+        stopLoading()
+        
+        if let error = viewModel.error {
+            showError(title: "Delete Error", error: error)
+        } else {
+            router?.routeToSettings(segue: nil)
+        }
+    }
 }
 
-extension HelpAndFeedbackViewController: UITableViewDataSource, UITableViewDelegate {
+extension AdvancedSettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return displaySections.count
@@ -142,15 +156,93 @@ extension HelpAndFeedbackViewController: UITableViewDataSource, UITableViewDeleg
     }
 }
     
-extension HelpAndFeedbackViewController {
+extension AdvancedSettingsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let setting: SettingModel = displaySections[indexPath.section].settings[indexPath.row]
+        settingPressed(setting: setting)
+    }
+}
+
+extension AdvancedSettingsViewController {
+    func settingPressed(setting: SettingModel){
+        switch setting.type {
+        
+        case .name:
+            namePressed()
+            
+        case .email:
+            emailPressed()
+            
+        case .password:
+            passwordPressed()
+            
+        case .delete:
+            deleteAccount()
+            
+        case .region:
+            regionPressed()
+            
+        case .store:
+            storePressed()
+            
+        case .feedback, .help, .issue, .feature:
+            helpAndFeedbackPressed(setting: setting)
+            
+        default:
+            print("Unknown Setting Type Pressed: \(type(of: setting.type))")
+            
+        }
+    }
+}
+
+extension AdvancedSettingsViewController {
+    func namePressed(){
+        router?.routeToEditName(segue: nil)
+    }
+    
+    func emailPressed(){
+        router?.routeToEditEmail(segue: nil)
+    }
+    
+    func passwordPressed(){
+        router?.routeToEditPassword(segue: nil)
+    }
+    
+    func regionPressed(){
+        router?.routeToEditRegion(segue: nil)
+    }
+    
+    func storePressed(){
+        router?.routeToEditStore(segue: nil)
+    }
+    
+    func helpAndFeedbackPressed(setting: SettingModel){
         interactor?.setFeedbackTitle(setting: setting)
         router?.routeToFeedback(segue: nil)
     }
 }
 
-extension HelpAndFeedbackViewController {
+
+extension AdvancedSettingsViewController {
+    private func deleteAccount(){
+        let refreshAlert = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account. All your data will be permanently lost.", preferredStyle: UIAlertController.Style.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Yes, delete", style: .default, handler: { (action: UIAlertAction!) in
+            self.startLoading()
+            
+            let request = AdvancedSettings.Delete.Request()
+            self.interactor?.delete(request: request)
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Cancel Delete")
+        }))
+        
+        present(refreshAlert, animated: true, completion: nil)
+    }
+}
+
+extension AdvancedSettingsViewController {
     func setupNotificationObserver(){
         NotificationCenter.default.addObserver(
             self,
@@ -166,5 +258,20 @@ extension HelpAndFeedbackViewController {
 
     @objc func messageNotificationReceived(_ notification:Notification) {
         getSettings()
+    }
+}
+
+extension AdvancedSettingsViewController {
+    func startLoading() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+    
+    func stopLoading(){
+        spinner.willMove(toParent: nil)
+        spinner.view.removeFromSuperview()
+        spinner.removeFromParent()
     }
 }

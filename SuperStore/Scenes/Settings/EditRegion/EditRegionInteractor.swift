@@ -31,8 +31,6 @@ class EditRegionInteractor: EditRegionBusinessLogic, EditRegionDataStore
     var userSessionWorker: UserSessionWorker = UserSessionWorker()
     var userSettingsWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     
-    // MARK: Do something
-    
     func getRegions(request: EditRegion.GetRegions.Request)
     {
         let regions = regionWorker.getRegions()
