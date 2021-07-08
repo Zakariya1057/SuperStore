@@ -13,9 +13,9 @@ class StoreTypeCell: UITableViewCell {
     @IBOutlet var storeButton: UIButton!
     
     @IBOutlet var buttonView: UIView!
-    var selectedStoreType: Bool = false
+    var selectedSupermarketChain: Bool = false
     
-    var supermarketChain: SupermarketChain!
+    var supermarketChain: SupermarketChainModel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,7 +32,7 @@ class StoreTypeCell: UITableViewCell {
         storeButton.setTitle(supermarketChain.name, for: .normal)
         storeButton.backgroundColor = supermarketChain.color
         
-        if selectedStoreType {
+        if selectedSupermarketChain {
             buttonView.layer.borderWidth = 2
             buttonView.layer.borderColor = UIColor.red.cgColor
         } else {

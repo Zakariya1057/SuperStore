@@ -18,7 +18,6 @@ protocol RegisterBusinessLogic
     func getEmail(request: Register.GetEmail.Request)
     
     func getRegions(request: Register.GetRegions.Request)
-    func getSupermarketChains(request: Register.GetStoreTypes.Request)
 }
 
 protocol RegisterDataStore
@@ -110,13 +109,5 @@ extension RegisterInteractor {
         
         let response = Register.GetRegions.Response(regions: regions, selectedRegion: selectedRegion)
         presenter?.presentRegions(response: response)
-    }
-    
-    func getSupermarketChains(request: Register.GetStoreTypes.Request){
-        let supermarketChain = supermarketChainWorker.getSupermarketChains()
-        let selectedStoreType = supermarketChainWorker.getSelectedSupermarketChain()
-        
-        let response = Register.GetStoreTypes.Response(supermarketChain: supermarketChain, selectedStoreType: selectedStoreType)
-        presenter?.presentStoreTypes(response: response)
     }
 }

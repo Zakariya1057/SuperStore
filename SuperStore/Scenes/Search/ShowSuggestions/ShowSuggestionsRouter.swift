@@ -23,7 +23,6 @@ import UIKit
 protocol ShowSuggestionsDataPassing
 {
     var dataStore: ShowSuggestionsDataStore? { get }
-//    var selectedsupermarketChainID: Int? { get set }
 }
 
 class ShowSuggestionsRouter: BackToShowListRouter, ShowSuggestionsRoutingLogic, ShowSuggestionsDataPassing
@@ -33,8 +32,6 @@ class ShowSuggestionsRouter: BackToShowListRouter, ShowSuggestionsRoutingLogic, 
     }
     
     var dataStore: ShowSuggestionsDataStore?
-//    var selectedsupermarketChainID: Int?
-//    var selectedListID: Int?
     
     // MARK: Routing
     

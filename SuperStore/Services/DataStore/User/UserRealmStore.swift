@@ -63,6 +63,11 @@ class UserRealmStore: DataStore, UserStoreProtocol {
         try? realm?.write({
             if let savedUser: UserObject = self.user {
                 savedUser.regionID = regionID
+                
+                // If the selected region doesn't have the selected supermarket chain, use another one
+                if supermarketChainChangeRequired(regionID: regionID, supermarketChainID: savedUser.supermarketChainID) {
+                    savedUser.supermarketChainID = regionWorker.getRegionSupermarketChainID(regionID: regionID)
+                }
             }
         })
     }
@@ -131,5 +136,14 @@ extension UserRealmStore {
         })
         
         return savedUser
+    }
+}
+
+extension UserRealmStore {
+    func supermarketChainChangeRequired(regionID: Int, supermarketChainID: Int) -> Bool {
+        // If the selected supermarket chain isn't available for the region
+        // Change to another supermarket chain
+        let region = regionWorker.getRegion(regionID: regionID)
+        return !region!.supermarketChains.contains(where: { $0.id == supermarketChainID })
     }
 }

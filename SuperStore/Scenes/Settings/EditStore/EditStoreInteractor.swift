@@ -15,12 +15,12 @@ import UIKit
 protocol EditStoreBusinessLogic
 {
     func updateStore(request: EditStore.UpdateStore.Request)
-    func getSupermarketChains(request: EditStore.GetStoreTypes.Request)
+    func getSupermarketChains(request: EditStore.GetSupermarketChains.Request)
 }
 
 protocol EditStoreDataStore
 {
-    //var name: String { get set }
+
 }
 
 class EditStoreInteractor: EditStoreBusinessLogic, EditStoreDataStore
@@ -32,13 +32,13 @@ class EditStoreInteractor: EditStoreBusinessLogic, EditStoreDataStore
     
     var supermarketChainWorker: SupermarketChainWorker = SupermarketChainWorker()
     
-    func getSupermarketChains(request: EditStore.GetStoreTypes.Request){
-        let supermarketChain = supermarketChainWorker.getSupermarketChains()
+    func getSupermarketChains(request: EditStore.GetSupermarketChains.Request){
+        let supermarketChains = supermarketChainWorker.getCurrentRegionSupermarketChains()
         
         let selectedsupermarketChainID: Int = supermarketChainWorker.getSelectedSupermarketChain().id
         
-        let response = EditStore.GetStoreTypes.Response(supermarketChain: supermarketChain, selectedsupermarketChainID: selectedsupermarketChainID)
-        presenter?.presentStoreTypes(response: response)
+        let response = EditStore.GetSupermarketChains.Response(supermarketChains: supermarketChains, selectedsupermarketChainID: selectedsupermarketChainID)
+        presenter?.presentSupermarketChains(response: response)
     }
     
     func updateStore(request: EditStore.UpdateStore.Request)

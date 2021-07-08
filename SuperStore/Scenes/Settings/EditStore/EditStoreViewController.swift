@@ -15,7 +15,7 @@ import UIKit
 protocol EditStoreDisplayLogic: AnyObject
 {
     func displayUpdatedStore(viewModel: EditStore.UpdateStore.ViewModel)
-    func displayStoreTypes(viewModel: EditStore.GetStoreTypes.ViewModel)
+    func displaySupermarketChains(viewModel: EditStore.GetSupermarketChains.ViewModel)
 }
 
 class EditStoreViewController: UIViewController, EditStoreDisplayLogic
@@ -72,7 +72,7 @@ class EditStoreViewController: UIViewController, EditStoreDisplayLogic
     {
         super.viewDidLoad()
         
-        setupStoreTypesTableView()
+        setupSupermarketChainsTableView()
         getSupermarketChains()
     }
     
@@ -87,7 +87,7 @@ class EditStoreViewController: UIViewController, EditStoreDisplayLogic
         return userSession.isLoggedIn()
     }
     
-    var supermarketChain: [SupermarketChain] = []
+    var supermarketChains: [SupermarketChainModel] = []
     
     func displayUpdatedStore(viewModel: EditStore.UpdateStore.ViewModel)
     {
@@ -100,21 +100,21 @@ class EditStoreViewController: UIViewController, EditStoreDisplayLogic
         }
     }
     
-    func displayStoreTypes(viewModel: EditStore.GetStoreTypes.ViewModel) {
+    func displaySupermarketChains(viewModel: EditStore.GetSupermarketChains.ViewModel) {
         selectedsupermarketChainID = viewModel.selectedsupermarketChainID
-        supermarketChain = viewModel.supermarketChain
+        supermarketChains = viewModel.supermarketChains
         supermarketChainTableView.reloadData()
     }
     
     func getSupermarketChains(){
-        let request = EditStore.GetStoreTypes.Request()
+        let request = EditStore.GetSupermarketChains.Request()
         interactor?.getSupermarketChains(request: request)
     }
 }
 
 extension EditStoreViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return supermarketChain.count
+        return supermarketChains.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -124,9 +124,9 @@ extension EditStoreViewController: UITableViewDataSource, UITableViewDelegate {
     func configureStoreTypeCell(indexPath: IndexPath) -> StoreTypeCell {
         let cell = supermarketChainTableView.dequeueReusableCell(withIdentifier: "StoreTypeCell", for: indexPath) as! StoreTypeCell
         
-        let supermarketChain = supermarketChain[indexPath.row]
+        let supermarketChain = supermarketChains[indexPath.row]
         
-        cell.selectedStoreType = supermarketChain.id == selectedsupermarketChainID
+        cell.selectedSupermarketChain = supermarketChain.id == selectedsupermarketChainID
         cell.supermarketChain = supermarketChain
         
         cell.configureUI()
@@ -136,7 +136,7 @@ extension EditStoreViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func setupStoreTypesTableView(){
+    func setupSupermarketChainsTableView(){
         let supermarketChainCellNib = UINib(nibName: "StoreTypeCell", bundle: nil)
         supermarketChainTableView.register(supermarketChainCellNib, forCellReuseIdentifier: "StoreTypeCell")
         
@@ -147,11 +147,11 @@ extension EditStoreViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension EditStoreViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let supermarketChain = supermarketChain[indexPath.row]
+        let supermarketChain = supermarketChains[indexPath.row]
         supermarketChainSelected(supermarketChain: supermarketChain)
     }
     
-    func supermarketChainSelected(supermarketChain: SupermarketChain){
+    func supermarketChainSelected(supermarketChain: SupermarketChainModel){
         startLoading()
 
         let request = EditStore.UpdateStore.Request(supermarketChain: supermarketChain)

@@ -11,12 +11,14 @@ import UIKit
 
 class SupermarketChainWorker
 {
-    private var defaultSupermarketChainID: Int = 1
+    private var defaultSupermarketChainID: Int = 3
     
     private var userStore: UserStoreProtocol = UserRealmStore()
+    private lazy var regionWorker: RegionWorker = RegionWorker()
     
-    private var supermarketChains: [SupermarketChain] = [
-        SupermarketChain(
+    // Only show some supermarket chains for some regions.
+    private var supermarketChains: [SupermarketChainModel] = [
+        SupermarketChainModel(
             id: 1,
             name: "Real Canadian Superstore",
             type: .realCanadianSuperstore,
@@ -24,7 +26,7 @@ class SupermarketChainWorker
             color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
         ),
         
-        SupermarketChain(
+        SupermarketChainModel(
             id: 2,
             name: "No Frills",
             type: .noFrills,
@@ -32,7 +34,7 @@ class SupermarketChainWorker
             color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
         ),
         
-        SupermarketChain(
+        SupermarketChainModel(
             id: 3,
             name: "Atlantic Superstore",
             type: .atlanticSuperstore,
@@ -40,7 +42,7 @@ class SupermarketChainWorker
             color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
         ),
         
-        SupermarketChain(
+        SupermarketChainModel(
             id: 4,
             name: "Maxi",
             type: .maxi,
@@ -49,20 +51,20 @@ class SupermarketChainWorker
         ),
     ]
     
-    func getSupermarketChains() -> [SupermarketChain]{
+    func getSupermarketChains() -> [SupermarketChainModel]{
         return supermarketChains
     }
     
-    func getSelectedSupermarketChain() -> SupermarketChain {
+    func getSelectedSupermarketChain() -> SupermarketChainModel {
         let supermarketChainID = userStore.getStoreID() ?? defaultSupermarketChainID
         
-        return supermarketChains.first { (supermarketChain: SupermarketChain) in
+        return supermarketChains.first { (supermarketChain: SupermarketChainModel) in
             supermarketChain.id == supermarketChainID
         }!
     }
     
-    func getSupermarketChainByID(supermarketChainID: Int) -> SupermarketChain? {
-        return supermarketChains.first { (supermarketChain: SupermarketChain) in
+    func getSupermarketChainByID(supermarketChainID: Int) -> SupermarketChainModel? {
+        return supermarketChains.first { (supermarketChain: SupermarketChainModel) in
             return supermarketChain.id == supermarketChainID
         }
     }
@@ -77,5 +79,29 @@ class SupermarketChainWorker
         }
 
         return nil
+    }
+}
+
+extension SupermarketChainWorker {
+    func getSupermarketChainsSorted(excludeSupermarketChainIDs: [Int] = []) -> [SupermarketChainModel] {
+        var supermarketChains = getSupermarketChainsExcluding(excludeSupermarketChainIDs: excludeSupermarketChainIDs)
+        let selectedSupermarketChain = getSelectedSupermarketChain()
+        
+        if let index = supermarketChains.firstIndex(where: { $0.id == selectedSupermarketChain.id }) {
+            supermarketChains.remove(at: index)
+            supermarketChains.insert(selectedSupermarketChain, at: 0)
+        }
+        
+        return supermarketChains
+    }
+    
+    func getSupermarketChainsExcluding(excludeSupermarketChainIDs: [Int]) -> [SupermarketChainModel] {
+        return supermarketChains.filter { supermarketChain in !excludeSupermarketChainIDs.contains(supermarketChain.id) }
+    }
+}
+
+extension SupermarketChainWorker {
+    func getCurrentRegionSupermarketChains() -> [SupermarketChainModel] {
+        return regionWorker.getSelectedRegion().supermarketChains
     }
 }

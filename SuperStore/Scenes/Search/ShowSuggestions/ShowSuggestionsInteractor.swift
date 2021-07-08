@@ -22,8 +22,6 @@ protocol ShowSuggestionsBusinessLogic
     func textSearch(query: String)
     
     func getSelectedListID() -> Int?
-    //    var searchQueryRequest: SearchQueryRequest? { get set }
-    //    var selectedListID: Int? { get set }
 }
 
 protocol ShowSuggestionsDataStore

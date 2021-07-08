@@ -18,7 +18,6 @@ protocol RegisterDisplayLogic: AnyObject
     func displayRegisteredUser(viewModel: Register.Register.ViewModel)
     
     func displayRegions(viewModel: Register.GetRegions.ViewModel)
-    func displayStoreTypes(viewModel: Register.GetStoreTypes.ViewModel)
 }
 
 class RegisterViewController: UIViewController, RegisterDisplayLogic
@@ -78,7 +77,6 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         setupTextFieldDelegates()
         
         getRegions()
-        getSupermarketChains()
         
         getEmail()
     }
@@ -86,17 +84,10 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     // MARK: Outlets
     
     var regions: [RegionModel] = []
-    var supermarketChain: [SupermarketChain] = []
+    var supermarketChains: [SupermarketChainModel] { selectedRegion?.supermarketChains ?? [] }
     
-    var selectedStoreType: SupermarketChain!
+    var selectedSupermarketChain: SupermarketChainModel!
     var selectedRegion: RegionModel!
-    
-//    var selectedStoreType: SupermarketChain = SupermarketChain(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore)
-//
-//    let supermarketChain: [SupermarketChain] = [
-//        SupermarketChain(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore),
-//        SupermarketChain(id: 1, name: "Asda", type: .asda),
-//    ]
     
     var regionPicker: UIPickerView = UIPickerView()
     var supermarketChainPicker: UIPickerView = UIPickerView()
@@ -157,15 +148,19 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         regions = viewModel.regions
         selectedRegion = viewModel.selectedRegion
         regionField.text = selectedRegion.name
-    }
-    
-    func displayStoreTypes(viewModel: Register.GetStoreTypes.ViewModel) {
-        supermarketChain = viewModel.supermarketChain
-        selectedStoreType = viewModel.selectedStoreType
         
-        storeField.text = selectedStoreType.name
+        displaySupermarketChain()
     }
     
+    func displaySupermarketChain(){
+        let supermarketChain = supermarketChains.first(where: { $0.id == selectedSupermarketChain?.id }) ?? supermarketChains.first
+
+        if let supermarketChain = supermarketChain {
+            selectedSupermarketChain = supermarketChain
+            storeField.text = supermarketChain.name
+        }
+    }
+
     //MARK: - Extra
     
     private func dismissKeyboard(){
@@ -186,7 +181,7 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
             passwordConfirm: passwordConfirm,
             
             regionID: selectedRegion.id,
-            supermarketChainID: selectedStoreType.id
+            supermarketChainID: selectedSupermarketChain.id
         )
         
         interactor?.register(request: request)
@@ -202,11 +197,6 @@ extension RegisterViewController {
     func getRegions(){
         let request = Register.GetRegions.Request()
         interactor?.getRegions(request: request)
-    }
-    
-    func getSupermarketChains(){
-        let request = Register.GetStoreTypes.Request()
-        interactor?.getSupermarketChains(request: request)
     }
 }
 
@@ -257,22 +247,23 @@ extension RegisterViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
-        return pickerView == supermarketChainPicker ? supermarketChain.count : regions.count
+        return pickerView == supermarketChainPicker ? supermarketChains.count : regions.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
-        return pickerView == supermarketChainPicker ? supermarketChain[row].name :  regions[row].name
+        return pickerView == supermarketChainPicker ? supermarketChains[row].name :  regions[row].name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         if pickerView == supermarketChainPicker {
-            selectedStoreType = supermarketChain[row]
-            storeField.text = selectedStoreType.name
+            selectedSupermarketChain = supermarketChains[row]
+            storeField.text = selectedSupermarketChain.name
         } else {
             selectedRegion = regions[row]
             regionField.text = selectedRegion.name
+            displaySupermarketChain()
         }
     }
 }

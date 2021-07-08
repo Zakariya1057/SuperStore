@@ -14,13 +14,6 @@ class ProductModel {
     var companyID: Int
     
     var price: ProductPriceModel?
-    
-//    var promotion: PromotionModel?
-    
-//    var price: Double
-//    var oldPrice: Double?
-//    var isOnSale: Bool?
-//    var saleEndsAt: Date?
 
     var currency: String
     

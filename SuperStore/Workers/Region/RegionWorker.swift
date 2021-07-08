@@ -10,34 +10,117 @@ import Foundation
 
 class RegionWorker
 {
-    private var defaultRegionID: Int = 8
+    private var defaultRegionID: Int = 10
     
     private var userStore: UserStoreProtocol = UserRealmStore()
     
-    private var regions: [RegionModel] = [
-        RegionModel(id: 8, name: "Ontario", country: "Canada", supermarketChainID: 2),
-        RegionModel(id: 9, name: "Alberta", country: "Canada", supermarketChainID: 2),
-        RegionModel(id: 10, name: "Manitoba", country: "Canada", supermarketChainID: 2),
-        RegionModel(id: 11, name: "British Columbia", country: "Canada", supermarketChainID: 2),
-        RegionModel(id: 12, name: "Saskatchewan", country: "Canada", supermarketChainID: 2),
-        RegionModel(id: 13, name: "Yukon", country: "Canada", supermarketChainID: 2),
-    ]
+    private lazy var supermarketChainWorker: SupermarketChainWorker = SupermarketChainWorker()
+    
+    // Select your regions, see supermarket chains in those regions
+    private var regions: [RegionModel] {
+        [
+            RegionModel(
+                id: 8,
+                name: "Ontario",
+                country: "Canada",
+                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted()
+            ),
+
+            RegionModel(
+                id: 9,
+                name: "Alberta",
+                country: "Canada",
+                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted()
+            ),
+
+            RegionModel(
+                id: 10,
+                name: "Manitoba",
+                country: "Canada",
+                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted()
+            ),
+
+            RegionModel(
+                id: 11,
+                name: "British Columbia",
+                country: "Canada",
+                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted()
+            ),
+
+            RegionModel(
+                id: 12,
+                name: "Saskatchewan",
+                country: "Canada",
+                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted()
+            ),
+
+            RegionModel(
+                id: 13,
+                name: "Yukon",
+                country: "Canada",
+                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted()
+            ),
+
+
+            RegionModel(
+                id: 14,
+                name: "Newfoundland and Labrador",
+                country: "Canada",
+                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [1])
+            ),
+
+            RegionModel(
+                id: 15,
+                name: "Nova Scotia",
+                country: "Canada",
+                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [1])
+            ),
+
+            RegionModel(
+                id: 16,
+                name: "Prince Edward Island",
+                country: "Canada",
+                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [1])
+            ),
+
+            RegionModel(
+                id: 17,
+                name: "New Brunswick",
+                country: "Canada",
+                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [1])
+            ),
+
+        ]
+    
+    }
     
     func getRegions() -> [RegionModel]{
         return regions
     }
     
-    func getSelectedRegion() -> RegionModel {
-        let regionID = userStore.getRegionID() ?? defaultRegionID
-        
-        return regions.first { (regions: RegionModel) in
-            regions.id == regionID
-        }!
-    }
-    
-    func getRegionName(regionID: Int) -> String {
+}
+
+extension RegionWorker {
+    func getRegion(regionID: Int) -> RegionModel? {
         return regions.first { (region: RegionModel) in
             return region.id == regionID
-        }?.name ?? regions.first!.name
+        }
+    }
+}
+
+extension RegionWorker {
+    func getSelectedRegion() -> RegionModel {
+        let regionID = userStore.getRegionID() ?? defaultRegionID
+        return getRegion(regionID: regionID)!
+    }
+    
+    
+    func getRegionName(regionID: Int) -> String {
+        return getRegion(regionID: regionID)?.name ?? regions.first!.name
+    }
+    
+    func getRegionSupermarketChainID(regionID: Int) -> Int {
+        let region: RegionModel = getRegion(regionID: regionID) ?? regions.first!
+        return region.supermarketChains.first!.id
     }
 }

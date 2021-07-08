@@ -22,7 +22,7 @@ struct UserModel {
     var sendNotifications: Bool
 }
 
-struct SupermarketChain {
+struct SupermarketChainModel {
     var id: Int
     var name: String
     var type: SupermarketChainType

@@ -17,11 +17,6 @@ class ProductObject: Object {
     @objc dynamic var companyID: Int = 0
     
     var prices = List<ProductPriceObject>()
-//    @objc dynamic var price: Double = 0
-//    var oldPrice = RealmOptional<Double>()
-//    var isOnSale = RealmOptional<Bool>()
-//    
-//    @objc dynamic var saleEndsAt: Date? = nil
     
     @objc dynamic var currency: String = ""
     
@@ -29,10 +24,6 @@ class ProductObject: Object {
     @objc dynamic var largeImage: String? = nil
     
     var images = List<ImageObject>()
-    
-//    @objc dynamic var promotion: PromotionObject? = nil
-    
-//    var promotionID = RealmOptional<Int>()
     
     @objc dynamic var productDescription: String? = nil
     var features = List<String>()

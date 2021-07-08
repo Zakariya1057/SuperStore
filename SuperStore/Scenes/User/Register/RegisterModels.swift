@@ -33,23 +33,6 @@ enum Register
         }
     }
     
-    enum GetStoreTypes
-    {
-        struct Request
-        {
-        }
-        struct Response
-        {
-            var supermarketChain: [SupermarketChain]
-            var selectedStoreType: SupermarketChain
-        }
-        struct ViewModel
-        {
-            var supermarketChain: [SupermarketChain]
-            var selectedStoreType: SupermarketChain
-        }
-    }
-    
     enum Register
     {
         struct Request
