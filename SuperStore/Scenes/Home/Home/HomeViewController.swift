@@ -13,7 +13,6 @@
 import UIKit
 import MapKit
 import NotificationBannerSwift
-import Kingfisher
 
 protocol HomeDisplayLogic: AnyObject
 {
@@ -72,9 +71,6 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-//        KingfisherManager.shared.cache.clearMemoryCache()
-//        KingfisherManager.shared.cache.clearDiskCache()
-//        KingfisherManager.shared.cache.cleanExpiredDiskCache()
         registerTableViewCells()
         setupHomeCells()
         getHome()

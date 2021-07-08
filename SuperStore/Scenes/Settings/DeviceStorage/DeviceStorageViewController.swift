@@ -86,3 +86,11 @@ class DeviceStorageViewController: UIViewController, DeviceStorageDisplayLogic
         //nameTextField.text = viewModel.name
     }
 }
+
+extension DeviceStorageViewController {
+
+    
+    func clearSearchCache(){
+        
+    }
+}

@@ -67,6 +67,12 @@ class SearchWorker {
     
 }
 
+extension SearchWorker {
+    func clearSearchCache(){
+        searchSuggestionStore.clearSearchCache()
+    }
+}
+
 protocol SearchRequestProtocol {
     func getSuggestions(supermarketChainID: Int, query: String, completionHandler: @escaping ( _ suggestions: [SuggestionModel], _ error: String?) -> Void)
     func getProductResults(data: SearchQueryRequest, page: Int, completionHandler: @escaping ( _ ResultsModel: ProductResultsModel?, _ error: String?) -> Void)
@@ -80,6 +86,8 @@ protocol SuggestionStoreProtocol {
     func getRecentSuggestions(supermarketChainID: Int, limit count: Int) -> [SuggestionModel]
     
     func suggestionSelected(suggestion: SuggestionModel)
+    
+    func clearSearchCache()
 }
 
 protocol ProductResultsStoreProtocol {

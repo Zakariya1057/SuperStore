@@ -130,3 +130,13 @@ extension SuggestionRealmStore {
         return recentSuggestions
     }
 }
+
+extension SuggestionRealmStore {
+    func clearSearchCache() {
+        try? realm?.write({
+            if let suggestions = realm?.objects(SuggestionObject.self) {
+                realm?.delete(suggestions)
+            }
+        })
+    }
+}

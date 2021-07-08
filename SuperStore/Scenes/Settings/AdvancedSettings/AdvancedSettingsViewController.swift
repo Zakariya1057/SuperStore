@@ -11,12 +11,15 @@
 //
 
 import UIKit
+import Kingfisher
+import SCLAlertView
 
 protocol AdvancedSettingsDisplayLogic: AnyObject
 {
     func displaySettings(viewModel: AdvancedSettings.GetSettings.ViewModel)
-    func displayedDeleted(viewModel: AdvancedSettings.Delete.ViewModel)
+    func displayClearSearchCache(viewModel: AdvancedSettings.ClearSearchCache.ViewModel)
     func displayUpdateNotifications(viewModel: AdvancedSettings.UpdateNotifications.ViewModel)
+    func displayedDeleted(viewModel: AdvancedSettings.Delete.ViewModel)
 }
 
 class AdvancedSettingsViewController: UIViewController, AdvancedSettingsDisplayLogic
@@ -98,6 +101,23 @@ class AdvancedSettingsViewController: UIViewController, AdvancedSettingsDisplayL
         tableView.reloadData()
     }
     
+    func displayClearSearchCache(viewModel: AdvancedSettings.ClearSearchCache.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "Cache Error", error: error)
+        } else {
+            cacheClearSuccess(subtitle: "All suggestions cache cleared.")
+        }
+    }
+    
+    func displayUpdateNotifications(viewModel: AdvancedSettings.UpdateNotifications.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "Notification Error", error: error)
+        } else {
+            
+        }
+    }
+    
+    
     func displayedDeleted(viewModel: AdvancedSettings.Delete.ViewModel) {
         stopLoading()
         
@@ -105,12 +125,6 @@ class AdvancedSettingsViewController: UIViewController, AdvancedSettingsDisplayL
             showError(title: "Delete Error", error: error)
         } else {
             router?.routeToSettings(segue: nil)
-        }
-    }
-    
-    func displayUpdateNotifications(viewModel: AdvancedSettings.UpdateNotifications.ViewModel) {
-        if let error = viewModel.error {
-            showError(title: "Notification Error", error: error)
         }
     }
 }
@@ -194,6 +208,12 @@ extension AdvancedSettingsViewController {
         case .store:
             storePressed()
             
+        case .imageCache:
+            clearImageCache()
+            
+        case .searchCache:
+            clearSearchCache()
+            
         case .feedback, .help, .issue, .feature:
             helpAndFeedbackPressed(setting: setting)
             
@@ -273,6 +293,44 @@ extension AdvancedSettingsViewController {
             }
         }
     }
+}
+
+extension AdvancedSettingsViewController {
+    func clearImageCache(){
+        KingfisherManager.shared.cache.clearMemoryCache()
+        KingfisherManager.shared.cache.clearDiskCache()
+        KingfisherManager.shared.cache.cleanExpiredDiskCache()
+        
+        cacheClearSuccess(subtitle: "Image cache cleared successfully.")
+    }
+    
+    func clearSearchCache(){
+        let request = AdvancedSettings.ClearSearchCache.Request()
+        interactor?.clearSearchCache(request: request)
+    }
+    
+    func cacheClearSuccess(subtitle: String){
+        let appearance = SCLAlertView.SCLAppearance(
+            kTitleFont: UIFont(name: "HelveticaNeue", size: 22)!,
+            kTextFont: UIFont(name: "HelveticaNeue", size: 16)!,
+            kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+            showCloseButton: false
+        )
+        
+        let alert = SCLAlertView(appearance: appearance)
+        
+        alert.showSuccess(
+            "Cache Cleared",
+            subTitle: subtitle,
+            closeButtonTitle: "Okay",
+            timeout: .init(timeoutValue: TimeInterval(2), timeoutAction: {}),
+            colorStyle: 0x1976CD,
+            colorTextButton: 0xFFFFFF,
+            circleIconImage: nil,
+            animationStyle: .bottomToTop
+        )
+    }
+    
 }
 
 extension AdvancedSettingsViewController {

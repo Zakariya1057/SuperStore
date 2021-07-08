@@ -21,6 +21,8 @@ import UIKit
     func routeToEditRegion(segue: UIStoryboardSegue?)
     func routeToEditStore(segue: UIStoryboardSegue?)
     
+    func routeToDeviceStorage(segue: UIStoryboardSegue?)
+    
     func routeToSettings(segue: UIStoryboardSegue?)
     
     func routeToFeedback(segue: UIStoryboardSegue?)
@@ -143,7 +145,19 @@ class AdvancedSettingsRouter: NSObject, AdvancedSettingsRoutingLogic, AdvancedSe
         }
     }
     
-    // MARK: Navigation
+    func routeToDeviceStorage(segue: UIStoryboardSegue?){
+        if let segue = segue {
+            let destinationVC = segue.destination as! DeviceStorageViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToDeviceStorage(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "DeviceStorageViewController") as! DeviceStorageViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToDeviceStorage(source: dataStore!, destination: &destinationDS)
+            navigateToDeviceStorage(source: viewController!, destination: destinationVC)
+        }
+    }
     
     // MARK: Navigation
     
@@ -182,6 +196,10 @@ class AdvancedSettingsRouter: NSObject, AdvancedSettingsRoutingLogic, AdvancedSe
         source.navigationController?.popViewController(animated: true)
     }
     
+    func navigateToDeviceStorage(source: AdvancedSettingsViewController, destination: DeviceStorageViewController)
+    {
+        source.show(destination, sender: nil)
+    }
 
     // MARK: Passing data
     
@@ -217,6 +235,10 @@ class AdvancedSettingsRouter: NSObject, AdvancedSettingsRoutingLogic, AdvancedSe
     }
     
     func passDataToSettings(source: AdvancedSettingsDataStore, destination: inout SettingsDataStore)
+    {
+    }
+    
+    func passDataToDeviceStorage(source: AdvancedSettingsDataStore, destination: inout DeviceStorageDataStore)
     {
     }
 }

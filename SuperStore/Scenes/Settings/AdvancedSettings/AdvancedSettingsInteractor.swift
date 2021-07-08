@@ -14,13 +14,12 @@ import UIKit
 
 protocol AdvancedSettingsBusinessLogic
 {
+    func setFeedbackTitle(setting: SettingModel)
     func getSettings(request: AdvancedSettings.GetSettings.Request)
     
-    func delete(request: AdvancedSettings.Delete.Request)
-    
     func updateNotification(request: AdvancedSettings.UpdateNotifications.Request)
-    
-    func setFeedbackTitle(setting: SettingModel)
+    func clearSearchCache(request: AdvancedSettings.ClearSearchCache.Request)
+    func delete(request: AdvancedSettings.Delete.Request)
 }
 
 protocol AdvancedSettingsDataStore
@@ -42,6 +41,8 @@ class AdvancedSettingsInteractor: AdvancedSettingsBusinessLogic, AdvancedSetting
     
     var supermarketChainWorker: SupermarketChainWorker = SupermarketChainWorker()
     var regionWorker: RegionWorker = RegionWorker()
+    
+    var searchWorker: SearchWorker = SearchWorker(searchAPI: SearchAPI())
     
     var parentSetting: SettingModel!
     var selectedSetting: SettingModel!
@@ -106,5 +107,14 @@ extension AdvancedSettingsInteractor {
             let response = AdvancedSettings.UpdateNotifications.Response(error: error)
             self.presenter?.presentUpdateNotifications(response: response)
         }
+    }
+}
+
+extension AdvancedSettingsInteractor {
+    func clearSearchCache(request: AdvancedSettings.ClearSearchCache.Request){
+        searchWorker.clearSearchCache()
+        
+        let response = AdvancedSettings.ClearSearchCache.Response(error: nil)
+        self.presenter?.presentSearchCache(response: response)
     }
 }

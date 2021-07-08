@@ -91,4 +91,21 @@ enum AdvancedSettings
             var error: String?
         }
     }
+    
+    enum ClearSearchCache
+    {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
 }

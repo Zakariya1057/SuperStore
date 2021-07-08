@@ -15,14 +15,14 @@ import UIKit
 protocol AdvancedSettingsPresentationLogic
 {
     func presentSettings(response: AdvancedSettings.GetSettings.Response)
-    
+    func presentSearchCache(response: AdvancedSettings.ClearSearchCache.Response)
+    func presentUpdateNotifications(response: AdvancedSettings.UpdateNotifications.Response)
     func presentDeleted(response: AdvancedSettings.Delete.Response)
-    
-    func presentUpdateNotifications(response: AdvancedSettings.UpdateNotifications.Response) 
 }
 
 class AdvancedSettingsPresenter: AdvancedSettingsPresentationLogic
 {
+    
     weak var viewController: AdvancedSettingsDisplayLogic?
     
     func presentSettings(response: AdvancedSettings.GetSettings.Response)
@@ -47,6 +47,10 @@ class AdvancedSettingsPresenter: AdvancedSettingsPresentationLogic
         viewController?.displayUpdateNotifications(viewModel: viewModel)
     }
     
+    func presentSearchCache(response: AdvancedSettings.ClearSearchCache.Response) {
+        let viewModel = AdvancedSettings.ClearSearchCache.ViewModel(error: response.error)
+        viewController?.displayClearSearchCache(viewModel: viewModel)
+    }
 }
 
 extension AdvancedSettingsPresenter {
@@ -138,7 +142,11 @@ extension AdvancedSettingsPresenter {
     func deviceStorageSections() -> [AdvancedSettings.DisplaySection] {
         return [
             AdvancedSettings.DisplaySection(settings: [
-                SettingModel(name: "Cached Images", type: .imageCache)
+                SettingModel(name: "Clear Cached Images", type: .imageCache)
+            ]),
+            
+            AdvancedSettings.DisplaySection(settings: [
+                SettingModel(name: "Clear Cached Suggestions", type: .searchCache)
             ])
         ]
     }
