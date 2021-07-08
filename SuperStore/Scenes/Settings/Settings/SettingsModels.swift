@@ -40,39 +40,6 @@ enum Settings
         }
     }
     
-    enum GetStore
-    {
-        struct Request
-        {
-        }
-        struct Response
-        {
-            var storeName: String
-        }
-        struct ViewModel
-        {
-            var storeName: String
-        }
-    }
-    
-    enum UpdateNotifications
-    {
-        struct Request
-        {
-            var sendNotifications: Bool
-        }
-        
-        struct Response
-        {
-            var error: String?
-        }
-        
-        struct ViewModel
-        {
-            var error: String?
-        }
-    }
-    
     enum Logout
     {
         struct Request

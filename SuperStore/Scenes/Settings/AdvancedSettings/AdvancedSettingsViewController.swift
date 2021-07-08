@@ -16,6 +16,7 @@ protocol AdvancedSettingsDisplayLogic: AnyObject
 {
     func displaySettings(viewModel: AdvancedSettings.GetSettings.ViewModel)
     func displayedDeleted(viewModel: AdvancedSettings.Delete.ViewModel)
+    func displayUpdateNotifications(viewModel: AdvancedSettings.UpdateNotifications.ViewModel)
 }
 
 class AdvancedSettingsViewController: UIViewController, AdvancedSettingsDisplayLogic
@@ -106,6 +107,12 @@ class AdvancedSettingsViewController: UIViewController, AdvancedSettingsDisplayL
             router?.routeToSettings(segue: nil)
         }
     }
+    
+    func displayUpdateNotifications(viewModel: AdvancedSettings.UpdateNotifications.ViewModel) {
+        if let error = viewModel.error {
+            showError(title: "Notification Error", error: error)
+        }
+    }
 }
 
 extension AdvancedSettingsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -128,6 +135,8 @@ extension AdvancedSettingsViewController: UITableViewDataSource, UITableViewDele
         let setting = displaySections[indexPath.section].settings[indexPath.row]
         
         cell.setting = setting
+        
+        cell.notificationSwitchPressedCallback = notificationSwitchPressed
         
         cell.configureUI()
         
@@ -222,6 +231,49 @@ extension AdvancedSettingsViewController {
     }
 }
 
+extension AdvancedSettingsViewController {
+    func notificationSwitchPressed(sendNotifications: Bool) {
+
+        if sendNotifications {
+            var errorMessage: String? = nil
+            
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                // Enable or disable features based on the authorization.
+                if !granted {
+                    errorMessage = "Please enable notifications from your apple settings. Message us in help section if you need help."
+                } else if let error = error {
+                    errorMessage = error.localizedDescription
+                }
+                
+                DispatchQueue.main.async {
+                    if let errorMessage = errorMessage {
+                        self.setNotification(enabled: false)
+                        self.showError(title: "Notification Error", error: errorMessage)
+                    } else {
+                        let request = AdvancedSettings.UpdateNotifications.Request(sendNotifications: sendNotifications)
+                        self.interactor?.updateNotification(request: request)
+                    }
+                }
+            }
+            
+        } else {
+            let request = AdvancedSettings.UpdateNotifications.Request(sendNotifications: sendNotifications)
+            self.interactor?.updateNotification(request: request)
+        }
+    }
+    
+    func setNotification(enabled: Bool){
+        for (section, userSection) in displaySections.enumerated() {
+            for (row, setting) in userSection.settings.enumerated() {
+                if setting.type == .notification {
+                    let row = tableView.cellForRow(at: IndexPath(row: row, section: section)) as! SettingCell
+                    row.setNotification(enabled: enabled)
+                }
+            }
+        }
+    }
+}
 
 extension AdvancedSettingsViewController {
     private func deleteAccount(){

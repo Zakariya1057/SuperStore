@@ -72,4 +72,23 @@ enum AdvancedSettings
             var error: String?
         }
     }
+    
+    
+    enum UpdateNotifications
+    {
+        struct Request
+        {
+            var sendNotifications: Bool
+        }
+        
+        struct Response
+        {
+            var error: String?
+        }
+        
+        struct ViewModel
+        {
+            var error: String?
+        }
+    }
 }

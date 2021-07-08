@@ -18,6 +18,8 @@ protocol AdvancedSettingsBusinessLogic
     
     func delete(request: AdvancedSettings.Delete.Request)
     
+    func updateNotification(request: AdvancedSettings.UpdateNotifications.Request)
+    
     func setFeedbackTitle(setting: SettingModel)
 }
 
@@ -94,6 +96,15 @@ extension AdvancedSettingsInteractor {
             let response = AdvancedSettings.Delete.Response(error: error)
             self.presenter?.presentDeleted(response: response)
         }
+    }
+    
+    func updateNotification(request: AdvancedSettings.UpdateNotifications.Request){
+        let sendNotification: Bool = request.sendNotifications
+        let notificationToken: String? = userSession.getUserNotificationToken()
         
+        userWorker.updateNotifications(sendNotifications: sendNotification, notificationToken: notificationToken) { (error: String?) in
+            let response = AdvancedSettings.UpdateNotifications.Response(error: error)
+            self.presenter?.presentUpdateNotifications(response: response)
+        }
     }
 }

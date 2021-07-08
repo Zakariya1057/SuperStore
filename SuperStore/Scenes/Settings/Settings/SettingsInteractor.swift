@@ -15,10 +15,7 @@ import UIKit
 protocol SettingsBusinessLogic
 {
     func getSettings(request: Settings.GetUserDetails.Request)
-    func updateNotification(request: Settings.UpdateNotifications.Request)
-    
     func logout(request: Settings.Logout.Request)
-    
     func setSelectedSetting(setting: SettingModel)
 }
 
@@ -56,16 +53,6 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
             )
             
             self.presenter?.presentUserDetails(response: response)
-        }
-    }
-    
-    func updateNotification(request: Settings.UpdateNotifications.Request){
-        let sendNotification: Bool = request.sendNotifications
-        let notificationToken: String? = userSession.getUserNotificationToken()
-        
-        userWorker.updateNotifications(sendNotifications: sendNotification, notificationToken: notificationToken) { (error: String?) in
-            let response = Settings.UpdateNotifications.Response(error: error)
-            self.presenter?.presentUpdateNotifications(response: response)
         }
     }
     

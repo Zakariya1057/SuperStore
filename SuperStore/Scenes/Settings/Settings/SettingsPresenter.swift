@@ -15,7 +15,6 @@ import UIKit
 protocol SettingsPresentationLogic
 {
     func presentUserDetails(response: Settings.GetUserDetails.Response)
-    func presentUpdateNotifications(response: Settings.UpdateNotifications.Response)
     func presentLogout(response: Settings.Logout.Response)
 }
 
@@ -82,12 +81,7 @@ class SettingsPresenter: SettingsPresentationLogic
         
         viewController?.displayUserDetails(viewModel: viewModel)
     }
-    
-    func presentUpdateNotifications(response: Settings.UpdateNotifications.Response) {
-        let viewModel = Settings.UpdateNotifications.ViewModel(error: response.error)
-        viewController?.displayUpdateNotifications(viewModel: viewModel)
-    }
-    
+
     func presentLogout(response: Settings.Logout.Response) {
         let viewModel = Settings.Logout.ViewModel(error: response.error)
         viewController?.displayedLogout(viewModel: viewModel)

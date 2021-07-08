@@ -17,6 +17,8 @@ protocol AdvancedSettingsPresentationLogic
     func presentSettings(response: AdvancedSettings.GetSettings.Response)
     
     func presentDeleted(response: AdvancedSettings.Delete.Response)
+    
+    func presentUpdateNotifications(response: AdvancedSettings.UpdateNotifications.Response) 
 }
 
 class AdvancedSettingsPresenter: AdvancedSettingsPresentationLogic
@@ -38,6 +40,13 @@ class AdvancedSettingsPresenter: AdvancedSettingsPresentationLogic
         let viewModel = AdvancedSettings.Delete.ViewModel(error: response.error)
         viewController?.displayedDeleted(viewModel: viewModel)
     }
+    
+    
+    func presentUpdateNotifications(response: AdvancedSettings.UpdateNotifications.Response) {
+        let viewModel = AdvancedSettings.UpdateNotifications.ViewModel(error: response.error)
+        viewController?.displayUpdateNotifications(viewModel: viewModel)
+    }
+    
 }
 
 extension AdvancedSettingsPresenter {

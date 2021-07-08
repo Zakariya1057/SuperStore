@@ -15,7 +15,6 @@ import UIKit
 protocol SettingsDisplayLogic: AnyObject
 {
     func displayUserDetails(viewModel: Settings.GetUserDetails.ViewModel)
-    func displayUpdateNotifications(viewModel: Settings.UpdateNotifications.ViewModel)
     func displayedLogout(viewModel: Settings.Logout.ViewModel)
 }
 
@@ -119,12 +118,6 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic
             getSettings()
         }
     }
-    
-    func displayUpdateNotifications(viewModel: Settings.UpdateNotifications.ViewModel) {
-        if let error = viewModel.error {
-            showError(title: "Settings Error", error: error)
-        }
-    }
 }
 
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -142,7 +135,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         let setting = displayUserSections[indexPath.section].settings[indexPath.row]
         
         cell.setting = setting
-        cell.notificationSwitchPressedCallback = notificationSwitchPressed
         
         cell.configureUI()
         
@@ -253,50 +245,6 @@ extension SettingsViewController {
     func advancedSettingsPressed(setting: SettingModel){
         interactor?.setSelectedSetting(setting: setting)
         router?.routeToAdvancedSettings(segue: nil)
-    }
-}
-
-extension SettingsViewController {
-    func notificationSwitchPressed(sendNotifications: Bool) {
-        
-        if sendNotifications {
-            var errorMessage: String? = nil
-            
-            let center = UNUserNotificationCenter.current()
-            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-                // Enable or disable features based on the authorization.
-                if !granted {
-                    errorMessage = "Please enable notifications from your apple settings."
-                } else if let error = error {
-                    errorMessage = error.localizedDescription
-                }
-                
-                DispatchQueue.main.async {
-                    if let errorMessage = errorMessage {
-                        self.setNotification(enabled: false)
-                        self.showError(title: "Notification Error", error: errorMessage)
-                    } else {
-                        let request = Settings.UpdateNotifications.Request(sendNotifications: sendNotifications)
-                        self.interactor?.updateNotification(request: request)
-                    }
-                }
-            }
-            
-        } else {
-            let request = Settings.UpdateNotifications.Request(sendNotifications: sendNotifications)
-            self.interactor?.updateNotification(request: request)
-        }
-    }
-    
-    func setNotification(enabled: Bool){
-        for (section, userSection) in displayUserSections.enumerated() {
-            for (row, setting) in userSection.settings.enumerated() {
-                if setting.type == .notification {
-                    let row = settingsTableView.cellForRow(at: IndexPath(row: row, section: section)) as! SettingCell
-                    row.setNotification(enabled: enabled)
-                }
-            }
-        }
     }
 }
 
