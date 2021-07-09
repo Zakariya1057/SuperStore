@@ -38,7 +38,7 @@ class SupermarketChainWorker
             id: 3,
             name: "Atlantic Superstore",
             type: .atlanticSuperstore,
-            logo: UIImage(named: "Real Canadian SuperStore")!,
+            logo: UIImage(named: "Atlantic Superstore")!,
             color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
         ),
         
@@ -46,7 +46,7 @@ class SupermarketChainWorker
             id: 4,
             name: "Maxi",
             type: .maxi,
-            logo: UIImage(named: "Real Canadian SuperStore")!,
+            logo: UIImage(named: "Maxi")!,
             color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
         ),
     ]

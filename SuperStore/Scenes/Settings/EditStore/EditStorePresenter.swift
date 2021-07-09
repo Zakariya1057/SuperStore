@@ -23,7 +23,15 @@ class EditStorePresenter: EditStorePresentationLogic
     weak var viewController: EditStoreDisplayLogic?
     
     func presentSupermarketChains(response: EditStore.GetSupermarketChains.Response) {
-        let viewModel = EditStore.GetSupermarketChains.ViewModel(supermarketChains: response.supermarketChains, selectedsupermarketChainID: response.selectedsupermarketChainID)
+        let supermarketChainsSorted = response.supermarketChains.sorted { supermarketChainA, supermarketChainB in
+            return supermarketChainA.name < supermarketChainB.name
+        }
+        
+        let viewModel = EditStore.GetSupermarketChains.ViewModel(
+            supermarketChains: supermarketChainsSorted,
+            selectedsupermarketChainID: response.selectedsupermarketChainID
+        )
+        
         viewController?.displaySupermarketChains(viewModel: viewModel)
     }
     
