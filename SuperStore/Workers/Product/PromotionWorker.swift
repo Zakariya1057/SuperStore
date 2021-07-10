@@ -92,7 +92,6 @@ protocol PromotionStoreProtocol {
     func deletePromotion(promotionID: Int)
     
     func createPromotionObject(promotion: PromotionModel) -> PromotionObject
-    
 }
 
 protocol PromotionGroupStoreProtocol {

@@ -21,7 +21,7 @@ protocol PromotionGroupBusinessLogic
 
 protocol PromotionGroupDataStore
 {
-    var supermarketChainID: Int { get set }
+    var supermarketChainID: Int { get }
     var promotionGroup: PromotionGroupModel? { get set }
     var selectedProductID: Int? { get set }
 }
@@ -32,12 +32,15 @@ class PromotionGroupInteractor: PromotionGroupBusinessLogic, PromotionGroupDataS
     var presenter: PromotionGroupPresentationLogic?
 
     var promotionGroup: PromotionGroupModel? = nil
-   
-    var supermarketChainID: Int = 2
+    
     var selectedProductID: Int?
     
     var promotionWorker = PromotionWorker(promotionAPI: PromotionAPI())
     var userSession: UserSessionWorker = UserSessionWorker()
+    
+    var supermarketChainID: Int {
+        userSession.getSupermarketChainID()
+    }
     
     var regionID: Int {
         return userSession.getRegion()

@@ -81,7 +81,6 @@ extension FlyerRealmStore {
         savedFlyer.week = flyer.week
         savedFlyer.url = flyer.url
         savedFlyer.storeID = flyer.storeID
-        savedFlyer.supermarketChainID = flyer.supermarketChainID
         savedFlyer.validFrom = flyer.validFrom
         savedFlyer.validTo = flyer.validTo
         
@@ -104,7 +103,6 @@ extension FlyerRealmStore {
             savedFlyer.week = flyer.week
             savedFlyer.url = flyer.url
             savedFlyer.storeID = flyer.storeID
-            savedFlyer.supermarketChainID = flyer.supermarketChainID
             savedFlyer.validFrom = flyer.validFrom
             savedFlyer.validTo = flyer.validTo
         })
