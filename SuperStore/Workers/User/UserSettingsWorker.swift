@@ -12,6 +12,8 @@ class UserSettingsWorker {
     private var userStore: UserStoreProtocol
     private var userAPI: UserRequestProtocol
     
+    private lazy var regionWorker: RegionWorker = RegionWorker()
+    
     init(userStore: UserStoreProtocol) {
         self.userStore = userStore
         self.userAPI = UserSettingAPI()
@@ -50,12 +52,22 @@ class UserSettingsWorker {
     }
     
     func updateRegion(regionID: Int, loggedIn: Bool, completionHandler: @escaping (_ error: String?) -> Void){
+        
         self.userStore.updateRegion(regionID: regionID)
         
         if loggedIn {
             userAPI.updateRegion(regionID: regionID, completionHandler: { (error: String?) in
                 completionHandler(error)
             })
+            
+            // If the selected region doesn't have the selected supermarket chain, use another one
+            if let supermarketChainID = userStore.getSupermarketChainID() {
+                if userStore.supermarketChainChangeRequired(regionID: regionID, supermarketChainID: supermarketChainID ){
+                    let supermarketChainID = regionWorker.getRegionSupermarketChainID(regionID: regionID)
+                    self.updateStore(supermarketChainID: supermarketChainID, loggedIn: loggedIn) { _ in }
+                }
+            }
+    
         } else {
             completionHandler(nil)
         }
@@ -134,12 +146,14 @@ protocol UserStoreProtocol {
     func updateRegion(regionID: Int) -> Void
     func updateStore(supermarketChainID: Int) -> Void
     
+    func supermarketChainChangeRequired(regionID: Int, supermarketChainID: Int) -> Bool
+    
     func logoutUser() -> Void
     func deleteUser() -> Void
     
     func getToken() -> String?
     func getUserID() -> Int?
     
-    func getStoreID() -> Int?
+    func getSupermarketChainID() -> Int?
     func getRegionID() -> Int?
 }

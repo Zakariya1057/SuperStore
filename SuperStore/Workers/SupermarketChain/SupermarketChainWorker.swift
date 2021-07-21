@@ -56,7 +56,7 @@ class SupermarketChainWorker
     }
     
     func getSelectedSupermarketChain() -> SupermarketChainModel {
-        let supermarketChainID = userStore.getStoreID() ?? defaultSupermarketChainID
+        let supermarketChainID = userStore.getSupermarketChainID() ?? defaultSupermarketChainID
         
         return supermarketChains.first { (supermarketChain: SupermarketChainModel) in
             supermarketChain.id == supermarketChainID
