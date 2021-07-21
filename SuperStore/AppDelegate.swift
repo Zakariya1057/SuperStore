@@ -40,7 +40,7 @@ import RealmSwift
                     }
                 }
                 
-                if (oldSchemaVersion < 6){
+                if (oldSchemaVersion < 7){
                     migration.enumerateObjects(ofType: UserObject.className()) { oldObject, newObject in
                         newObject!["supermarketChainID"] = 1
                     }
