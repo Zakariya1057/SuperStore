@@ -32,11 +32,15 @@ import RealmSwift
             // a schema version lower than the one set above
             migrationBlock: { migration, oldSchemaVersion in
                 // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                print(oldSchemaVersion)
+                
                 if (oldSchemaVersion < 4) {
                     migration.enumerateObjects(ofType: UserObject.className()) { oldObject, newObject in
                         newObject!["regionID"] = 8
                     }
-                } else if (oldSchemaVersion < 6){
+                }
+                
+                if (oldSchemaVersion < 6){
                     migration.enumerateObjects(ofType: UserObject.className()) { oldObject, newObject in
                         newObject!["supermarketChainID"] = 1
                     }
