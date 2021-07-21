@@ -17,7 +17,7 @@ class UserObject: Object {
     @objc dynamic var email: String = ""
     
     @objc dynamic var regionID: Int = 1
-    @objc dynamic var supermarketChainID: Int = 2
+    @objc dynamic var supermarketChainID: Int = 1
 
     @objc dynamic var sendNotifications: Bool = true
     

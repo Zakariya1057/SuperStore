@@ -36,6 +36,10 @@ import RealmSwift
                     migration.enumerateObjects(ofType: UserObject.className()) { oldObject, newObject in
                         newObject!["regionID"] = 8
                     }
+                } else if (oldSchemaVersion < 6){
+                    migration.enumerateObjects(ofType: UserObject.className()) { oldObject, newObject in
+                        newObject!["supermarketChainID"] = 1
+                    }
                 }
             })
         
