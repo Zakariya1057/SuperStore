@@ -39,7 +39,7 @@ class GrandParentCategoriesInteractor: GrandParentCategoriesBusinessLogic, Grand
     
     func getCategories(request: GrandParentCategories.GetCategories.Request)
     {
-        groceryWorker.getGrandParentCategories(companyID: 1) { (categories: [GrandParentCategoryModel], error: String?) in
+        groceryWorker.getGrandParentCategories(companyID: 2) { (categories: [GrandParentCategoryModel], error: String?) in
             
             var response = GrandParentCategories.GetCategories.Response(categories: categories, error: error)
             

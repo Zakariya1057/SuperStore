@@ -64,7 +64,7 @@ extension AdvancedSettingsPresenter {
         case .helpAndFeedback:
             displaySections = helpAndFeedbackSections(response: response)
         
-        case .userSettings:
+        case .userManagement:
             displaySections = userSettingSections(user: response.user!)
         
         case .deviceStorage:

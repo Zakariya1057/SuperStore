@@ -17,7 +17,7 @@ struct SettingModel {
 }
 
 enum SettingType: String {
-    case userSettings = "User Settings"
+    case userManagement = "User Management"
     case deviceStorage = "Device Storage"
     case helpAndFeedback = "Help & Feedback"
     case regionAndSupermarketChain = "Regions & Store"

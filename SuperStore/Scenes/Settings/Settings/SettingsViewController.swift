@@ -177,7 +177,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     func settingPressed(setting: SettingModel){
         switch setting.type {
         
-        case .userSettings, .deviceStorage, .helpAndFeedback, .regionAndSupermarketChain:
+        case .userManagement, .deviceStorage, .helpAndFeedback, .regionAndSupermarketChain:
             advancedSettingsPressed(setting: setting)
             
         case .logout:

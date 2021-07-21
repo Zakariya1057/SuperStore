@@ -11,7 +11,7 @@ import UIKit
 class SettingCell: UITableViewCell {
 
     var icons: [String: UIImage?] = [
-        "User Settings": UIImage(systemName: "person.circle"),
+        "User Management": UIImage(systemName: "person.circle"),
         "Device Storage": UIImage(systemName: "archivebox"),
         "Regions & Stores": UIImage(systemName: "location.circle"),
         

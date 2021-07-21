@@ -38,7 +38,7 @@ class SettingsPresenter: SettingsPresentationLogic
 
                 displayUserSections.append(contentsOf: [
                     Settings.DisplayUserSection(settings: [
-                        SettingModel(name: "User Settings", type: .userSettings),
+                        SettingModel(name: "User Management", type: .userManagement),
                     ]),
                     
                     Settings.DisplayUserSection(settings: [
