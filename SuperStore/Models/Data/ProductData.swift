@@ -93,14 +93,13 @@ struct ProductData:Decodable {
             brand: brand, description: description,
             features: features,
             dimensions: dimensions,
+
             price: price,
-            //            oldPrice: old_price,
-            //            isOnSale: is_on_sale,
-            //            saleEndsAt: sale_ends_at == nil ? nil : dateWorker.formatDate(date: sale_ends_at!),
+
             currency: currency,
             avgRating: avg_rating,
             totalReviewsCount: total_reviews_count,
-            //            promotion: promotion?.getPromotionModel(),
+
             reviews: reviews?.map({ (review: ReviewData) in
                 return review.getReviewModel()
             }) ?? [], storage: storage,
