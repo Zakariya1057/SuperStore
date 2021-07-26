@@ -19,7 +19,7 @@ enum Store
         var logo: String
         var logoImage: UIImage?
         var address: String
-        var storeTypeID: Int
+        var supermarketChainID: Int
         
         var openingHours: [DisplayOpeningHour]
         var facilities: [DisplayFacility]

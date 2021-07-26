@@ -26,15 +26,22 @@ import RealmSwift
         let config = Realm.Configuration(
             // Set the new schema version. This must be greater than the previously used
             // version (if you've never set a schema version before, the version is 0).
-            schemaVersion: 6,
+            schemaVersion: 7,
             
             // Set the block which will be called automatically when opening a Realm with
             // a schema version lower than the one set above
             migrationBlock: { migration, oldSchemaVersion in
                 // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                
                 if (oldSchemaVersion < 4) {
                     migration.enumerateObjects(ofType: UserObject.className()) { oldObject, newObject in
                         newObject!["regionID"] = 8
+                    }
+                }
+                
+                if (oldSchemaVersion < 7){
+                    migration.enumerateObjects(ofType: UserObject.className()) { oldObject, newObject in
+                        newObject!["supermarketChainID"] = 1
                     }
                 }
             })

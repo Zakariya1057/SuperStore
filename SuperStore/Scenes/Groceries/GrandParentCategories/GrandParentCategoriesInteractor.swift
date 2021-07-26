@@ -20,7 +20,7 @@ protocol GrandParentCategoriesBusinessLogic
 
 protocol GrandParentCategoriesDataStore
 {
-    var storeTypeID: Int { get set }
+    var supermarketChainID: Int { get set }
     var categories: [GrandParentCategoryModel] { get set }
     var selectedListID: Int? { get set }
 }
@@ -34,12 +34,12 @@ class GrandParentCategoriesInteractor: GrandParentCategoriesBusinessLogic, Grand
     
     var selectedListID: Int?
     
-    var storeTypeID: Int = 1
+    var supermarketChainID: Int = 1
     var categories: [GrandParentCategoryModel] = []
     
     func getCategories(request: GrandParentCategories.GetCategories.Request)
     {
-        groceryWorker.getGrandParentCategories(storeTypeID: storeTypeID) { (categories: [GrandParentCategoryModel], error: String?) in
+        groceryWorker.getGrandParentCategories(companyID: 2) { (categories: [GrandParentCategoryModel], error: String?) in
             
             var response = GrandParentCategories.GetCategories.Response(categories: categories, error: error)
             

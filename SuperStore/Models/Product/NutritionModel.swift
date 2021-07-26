@@ -14,4 +14,3 @@ struct NutritionModel {
     var percentage: String?
     var childNutritions: [NutritionModel] = []
 }
-

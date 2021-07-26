@@ -48,12 +48,12 @@ class ListItemWorker {
                 name: product.name,
                 productID: product.id,
                 image: product.largeImage,
-                price: product.price,
+                price: product.price!.price,
                 currency: product.currency,
-                totalPrice: product.price,
+                totalPrice: product.price!.price,
                 quantity: 1,
                 weight: nil,
-                promotion: product.promotion,
+                promotion: product.price!.promotion,
                 tickedOff: false
             )
             

@@ -11,14 +11,9 @@ import Foundation
 class ProductModel {
     var id: Int
     var name: String
-    var storeTypeID: Int
+    var companyID: Int
     
-    var promotion: PromotionModel?
-    
-    var price: Double
-    var oldPrice: Double?
-    var isOnSale: Bool?
-    var saleEndsAt: Date?
+    var price: ProductPriceModel?
 
     var currency: String
     
@@ -64,28 +59,51 @@ class ProductModel {
     var listID: Int? = nil
     
     init(
-        id: Int, storeTypeID: Int, name: String,
-        smallImage: String?, largeImage: String?,
-        images: [ImageModel], description: String?, features: [String]?,
+        id: Int,
+        companyID: Int,
+        name: String,
+        
+        smallImage: String?,
+        largeImage: String?,
+        images: [ImageModel],
+        
+        brand: String?,
+        description: String?,
+        
+        features: [String]?,
         dimensions: [String]?,
-        price:Double, oldPrice: Double?, isOnSale: Bool?, saleEndsAt: Date?,
+        
+        price: ProductPriceModel?,
+        
         currency: String,
-        avgRating: Double?, totalReviewsCount: Int?,
-        promotion: PromotionModel?, storage: String?,
+        
+        avgRating: Double?,
+        totalReviewsCount: Int?,
+        reviews: [ReviewModel],
+        
+        storage: String?,
         weight: String?,
         
-        parentCategoryID: Int?, parentCategoryName: String?,
-        childCategoryID: Int?, childCategoryName: String?,
+        parentCategoryID: Int?,
+        parentCategoryName: String?,
+        childCategoryID: Int?,
+        childCategoryName: String?,
         productGroupName: String?,
         
         dietaryInfo: String?,
-        allergenInfo: String?, brand: String?, reviews: [ReviewModel],
-        favourite: Bool, monitoring: Bool, ingredients: [String],
-        nutritions: [NutritionModel], recommended: [ProductModel]
+        allergenInfo: String?,
+        
+        favourite: Bool,
+        monitoring: Bool,
+        
+        ingredients: [String],
+        nutritions: [NutritionModel],
+        
+        recommended: [ProductModel]
     ) {
 
         self.id = id
-        self.storeTypeID = storeTypeID
+        self.companyID = companyID
         self.description = description
         self.features = features
         self.dimensions = dimensions
@@ -125,44 +143,7 @@ class ProductModel {
         self.price = price
         self.currency = currency
         
-        let dateWorker = DateWorker()
-        
-        setPromotion(dateWorker: dateWorker, promotion: promotion)
-        setSalePrices(dateWorker: dateWorker, oldPrice: oldPrice, isOnSale: isOnSale, saleEndsAt: saleEndsAt)
-        
         self.nutritions = nutritions
-    }
-    
-    
-    private func setPromotion(dateWorker: DateWorker, promotion: PromotionModel?){
-        if let promotion = promotion {
-            if let endsAt = promotion.endsAt {
-                if dateWorker.dateDiff(date: endsAt) >= 0 {
-                    self.promotion = promotion
-                }
-            } else {
-                self.promotion = promotion
-            }
-        }
-    }
-    
-    private func setSalePrices(dateWorker: DateWorker, oldPrice: Double?, isOnSale: Bool?, saleEndsAt: Date?){
-        // On model creation, check if sale, promotion expired. If has, then never set in the model.
-        self.saleEndsAt = saleEndsAt
-        
-        if let saleEndsAt = saleEndsAt, let oldPrice = oldPrice {
-            if dateWorker.dateDiff(date: saleEndsAt) < 0 {
-                self.price = oldPrice
-                self.isOnSale = false
-                self.oldPrice = nil
-            } else {
-                self.oldPrice = oldPrice
-                self.isOnSale = isOnSale
-            }
-        } else {
-            self.oldPrice = oldPrice
-            self.isOnSale = isOnSale
-        }
     }
 
 }
@@ -175,10 +156,10 @@ extension ProductModel: Equatable  {
 
 extension ProductModel  {
     func getPrice() -> String {
-        return currency + String(format: "%.2f", price)
+        return currency + String(format: "%.2f", price!.price)
     }
     
     func getOldPrice() -> String? {
-        return oldPrice == nil ? nil : currency + String(format: "%.2f", oldPrice!)
+        return price!.oldPrice == nil ? nil : currency + String(format: "%.2f", price!.oldPrice!)
     }
 }

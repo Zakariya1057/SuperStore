@@ -31,9 +31,9 @@ class UserSettingAPI: API, UserRequestProtocol {
         requestUpdateUser(data: updateData, type: "email", completionHandler: completionHandler)
     }
     
-    func updateStore(storeTypeID: Int, completionHandler: @escaping (String?) -> Void) {
-        let updateData: Parameters = ["store_type_id": storeTypeID]
-        requestUpdateUser(data: updateData, type: "store_type_id", completionHandler: completionHandler)
+    func updateStore(supermarketChainID: Int, completionHandler: @escaping (String?) -> Void) {
+        let updateData: Parameters = ["supermarket_chain_id": supermarketChainID]
+        requestUpdateUser(data: updateData, type: "supermarket_chain_id", completionHandler: completionHandler)
     }
     
     func updateRegion(regionID: Int, completionHandler: @escaping (String?) -> Void) {

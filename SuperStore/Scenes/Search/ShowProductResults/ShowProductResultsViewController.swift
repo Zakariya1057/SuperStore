@@ -357,7 +357,7 @@ extension ShowProductResultsViewController: SelectListProtocol {
             updateProductQuantity(productID: product.id, quantity: 1, listID: interactor?.selectedListID)
             productsTableView.reloadData()
         } else {
-            interactor?.selectedProductStoreTypeID = product.storeTypeID
+            interactor?.selectedProductCompanyID = product.companyID
             router?.routeToShowLists(segue: nil)
         }
     }
@@ -434,10 +434,6 @@ extension ShowProductResultsViewController {
             alert.addAction(UIAlertAction(title: option.name, style: .default , handler:{ _ in self.sortOptionSelected(option: option) }))
         }
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:{ (UIAlertAction)in
-            print("User click Dismiss button")
-        }))
-
         if let viewRect = sender as? UIView {
             
             alert.modalPresentationStyle = .popover
@@ -446,10 +442,6 @@ extension ShowProductResultsViewController {
                 presenter.sourceView = viewRect;
                 presenter.sourceRect = viewRect.bounds;
             }
-
-            self.present(alert, animated: true, completion: {
-                print("completion block")
-            })
         }
     }
     

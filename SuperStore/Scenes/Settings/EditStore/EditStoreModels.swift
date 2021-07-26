@@ -14,7 +14,7 @@ import UIKit
 
 enum EditStore
 {
-    enum GetStoreTypes
+    enum GetSupermarketChains
     {
         struct Request
         {
@@ -22,14 +22,14 @@ enum EditStore
         
         struct Response
         {
-            var storeTypes: [StoreTypeModel]
-            var selectedStoreTypeID: Int
+            var supermarketChains: [SupermarketChainModel]
+            var selectedsupermarketChainID: Int
         }
         
         struct ViewModel
         {
-            var storeTypes: [StoreTypeModel]
-            var selectedStoreTypeID: Int
+            var supermarketChains: [SupermarketChainModel]
+            var selectedsupermarketChainID: Int
         }
     }
     
@@ -37,7 +37,7 @@ enum EditStore
     {
         struct Request
         {
-            var storeType: StoreTypeModel
+            var supermarketChain: SupermarketChainModel
         }
         
         struct Response

@@ -15,16 +15,24 @@ import UIKit
 protocol EditStorePresentationLogic
 {
     func presentUpdatedStore(response: EditStore.UpdateStore.Response)
-    func presentStoreTypes(response: EditStore.GetStoreTypes.Response)
+    func presentSupermarketChains(response: EditStore.GetSupermarketChains.Response)
 }
 
 class EditStorePresenter: EditStorePresentationLogic
 {
     weak var viewController: EditStoreDisplayLogic?
     
-    func presentStoreTypes(response: EditStore.GetStoreTypes.Response) {
-        let viewModel = EditStore.GetStoreTypes.ViewModel(storeTypes: response.storeTypes, selectedStoreTypeID: response.selectedStoreTypeID)
-        viewController?.displayStoreTypes(viewModel: viewModel)
+    func presentSupermarketChains(response: EditStore.GetSupermarketChains.Response) {
+        let supermarketChainsSorted = response.supermarketChains.sorted { supermarketChainA, supermarketChainB in
+            return supermarketChainA.name < supermarketChainB.name
+        }
+        
+        let viewModel = EditStore.GetSupermarketChains.ViewModel(
+            supermarketChains: supermarketChainsSorted,
+            selectedsupermarketChainID: response.selectedsupermarketChainID
+        )
+        
+        viewController?.displaySupermarketChains(viewModel: viewModel)
     }
     
     func presentUpdatedStore(response: EditStore.UpdateStore.Response){

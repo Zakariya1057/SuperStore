@@ -28,7 +28,7 @@ protocol ShowListsDataStore
 {
     var lists: [ListModel] { get set }
     var addToList: Bool { get set }
-    var storeTypeID: Int? { get set }
+    var companyID: Int? { get set }
 }
 
 class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
@@ -41,7 +41,7 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
     var addToList: Bool = false
     var lists: [ListModel] = []
     
-    var storeTypeID: Int? = nil
+    var companyID: Int? = nil
     
     var offline: Bool {
         return !self.userSession.isOnline()
@@ -49,9 +49,9 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
     
     func getLists(request: ShowLists.GetLists.Request)
     {
-        let storeTypeID: Int = self.storeTypeID == nil ? userSession.getStore() : self.storeTypeID!
+        let supermarketChainID: Int = self.companyID == nil ? userSession.getSupermarketChainID() : self.companyID!
         
-        listWorker.getLists(storeTypeID: storeTypeID) { (lists: [ListModel], error: String?) in
+        listWorker.getLists(supermarketChainID: supermarketChainID) { (lists: [ListModel], error: String?) in
             
             var response = ShowLists.GetLists.Response(lists: lists, error: error)
             
@@ -87,7 +87,7 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
     
     func searchList(request: ShowLists.SearchList.Request){
         let query = request.query
-        listWorker.searchLists(storeTypeID: userSession.getStore() ,query: query) { (lists: [ListModel]) in
+        listWorker.searchLists(supermarketChainID: userSession.getSupermarketChainID() ,query: query) { (lists: [ListModel]) in
             let response = ShowLists.GetLists.Response(lists: lists, error: nil)
             self.presenter?.presentLists(response: response)
         }

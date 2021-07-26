@@ -18,7 +18,6 @@ protocol RegisterDisplayLogic: AnyObject
     func displayRegisteredUser(viewModel: Register.Register.ViewModel)
     
     func displayRegions(viewModel: Register.GetRegions.ViewModel)
-    func displayStoreTypes(viewModel: Register.GetStoreTypes.ViewModel)
 }
 
 class RegisterViewController: UIViewController, RegisterDisplayLogic
@@ -78,7 +77,6 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         setupTextFieldDelegates()
         
         getRegions()
-        getStoreTypes()
         
         getEmail()
     }
@@ -86,20 +84,13 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     // MARK: Outlets
     
     var regions: [RegionModel] = []
-    var storeTypes: [StoreTypeModel] = []
+    var supermarketChains: [SupermarketChainModel] { selectedRegion?.supermarketChains ?? [] }
     
-    var selectedStoreType: StoreTypeModel!
+    var selectedSupermarketChain: SupermarketChainModel!
     var selectedRegion: RegionModel!
     
-//    var selectedStoreType: StoreTypeModel = StoreTypeModel(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore)
-//
-//    let storeTypes: [StoreTypeModel] = [
-//        StoreTypeModel(id: 2, name: "Real Canadian Superstore", type: .realCanadianSuperstore),
-//        StoreTypeModel(id: 1, name: "Asda", type: .asda),
-//    ]
-    
     var regionPicker: UIPickerView = UIPickerView()
-    var storeTypePicker: UIPickerView = UIPickerView()
+    var supermarketChainPicker: UIPickerView = UIPickerView()
 
     let spinner: SpinnerViewController = SpinnerViewController()
     
@@ -124,7 +115,7 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     func configureStorePicker(){
         let pickerFields: [UITextField: UIPickerView] = [
             regionField: regionPicker,
-            storeField: storeTypePicker
+            storeField: supermarketChainPicker
         ]
         
         for (field, picker) in pickerFields {
@@ -157,15 +148,19 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
         regions = viewModel.regions
         selectedRegion = viewModel.selectedRegion
         regionField.text = selectedRegion.name
-    }
-    
-    func displayStoreTypes(viewModel: Register.GetStoreTypes.ViewModel) {
-        storeTypes = viewModel.storeTypes
-        selectedStoreType = viewModel.selectedStoreType
         
-        storeField.text = selectedStoreType.name
+        displaySupermarketChain()
     }
     
+    func displaySupermarketChain(){
+        let supermarketChain = supermarketChains.first(where: { $0.id == selectedSupermarketChain?.id }) ?? supermarketChains.first
+
+        if let supermarketChain = supermarketChain {
+            selectedSupermarketChain = supermarketChain
+            storeField.text = supermarketChain.name
+        }
+    }
+
     //MARK: - Extra
     
     private func dismissKeyboard(){
@@ -186,7 +181,7 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
             passwordConfirm: passwordConfirm,
             
             regionID: selectedRegion.id,
-            storeTypeID: selectedStoreType.id
+            supermarketChainID: selectedSupermarketChain.id
         )
         
         interactor?.register(request: request)
@@ -202,11 +197,6 @@ extension RegisterViewController {
     func getRegions(){
         let request = Register.GetRegions.Request()
         interactor?.getRegions(request: request)
-    }
-    
-    func getStoreTypes(){
-        let request = Register.GetStoreTypes.Request()
-        interactor?.getStoreTypes(request: request)
     }
 }
 
@@ -257,22 +247,23 @@ extension RegisterViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
-        return pickerView == storeTypePicker ? storeTypes.count : regions.count
+        return pickerView == supermarketChainPicker ? supermarketChains.count : regions.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
-        return pickerView == storeTypePicker ? storeTypes[row].name :  regions[row].name
+        return pickerView == supermarketChainPicker ? supermarketChains[row].name :  regions[row].name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        if pickerView == storeTypePicker {
-            selectedStoreType = storeTypes[row]
-            storeField.text = selectedStoreType.name
+        if pickerView == supermarketChainPicker {
+            selectedSupermarketChain = supermarketChains[row]
+            storeField.text = selectedSupermarketChain.name
         } else {
             selectedRegion = regions[row]
             regionField.text = selectedRegion.name
+            displaySupermarketChain()
         }
     }
 }

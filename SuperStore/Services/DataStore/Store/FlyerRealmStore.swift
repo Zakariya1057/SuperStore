@@ -61,7 +61,7 @@ extension FlyerRealmStore {
     
     func getFlyerProducts(flyerID: Int) -> [ProductModel] {
         if let savedFlyer = getFlyerObject(id: flyerID){
-            return savedFlyer.products.map{ $0.getProductModel() }
+            return savedFlyer.products.map{ $0.getProductModel() }.compactMap ({ $0 })
         }
         return []
     }
@@ -81,7 +81,6 @@ extension FlyerRealmStore {
         savedFlyer.week = flyer.week
         savedFlyer.url = flyer.url
         savedFlyer.storeID = flyer.storeID
-        savedFlyer.storeTypeID = flyer.storeTypeID
         savedFlyer.validFrom = flyer.validFrom
         savedFlyer.validTo = flyer.validTo
         
@@ -104,7 +103,6 @@ extension FlyerRealmStore {
             savedFlyer.week = flyer.week
             savedFlyer.url = flyer.url
             savedFlyer.storeID = flyer.storeID
-            savedFlyer.storeTypeID = flyer.storeTypeID
             savedFlyer.validFrom = flyer.validFrom
             savedFlyer.validTo = flyer.validTo
         })

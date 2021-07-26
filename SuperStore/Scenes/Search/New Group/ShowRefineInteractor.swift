@@ -21,7 +21,7 @@ protocol ShowRefineBusinessLogic
     var selectedRefineOptions: SelectedRefineOptions { get set }
     var searchRefine: SearchRefine { get set }
     
-    func getStoreTypeID() -> Int
+    func getsupermarketChainID() -> Int
 }
 
 protocol ShowRefineDataStore
@@ -93,8 +93,8 @@ class ShowRefineInteractor: ShowRefineBusinessLogic, ShowRefineDataStore
 }
 
 extension ShowRefineInteractor {
-    func getStoreTypeID() -> Int {
+    func getsupermarketChainID() -> Int {
         let userSession: UserSessionWorker = UserSessionWorker()
-        return userSession.getStore()
+        return userSession.getSupermarketChainID()
     }
 }

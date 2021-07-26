@@ -284,7 +284,7 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     
     func passDataToGrandParentCategories(source: HomeDataStore, destination: inout GrandParentCategoriesDataStore)
     {
-        destination.storeTypeID = source.storeTypeID
+        destination.supermarketChainID = source.supermarketChainID
     }
     
     func passDataToChildCategories(source: HomeDataStore, destination: inout ChildCategoriesDataStore)
@@ -294,18 +294,18 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
             destination.title = parentCategoryName
         }
         
-        destination.storeTypeID = source.storeTypeID
+        destination.supermarketChainID = source.supermarketChainID
     }
     
     func passDataToShowStoreResults(source: HomeDataStore, destination: inout ShowStoreResultsDataStore)
     {
-        destination.storeTypeID = source.storeTypeID
+        destination.supermarketChainID = source.supermarketChainID
     }
     
     func passDataToMonitoredProducts(source: HomeDataStore, destination: inout MonitoredProductsDataStore)
     {
         destination.regionID = source.regionID
-        destination.storeTypeID = source.storeTypeID
+        destination.supermarketChainID = source.supermarketChainID
     }
     
     func passDataToAllOffers(source: HomeDataStore, destination: inout AllPromotionsDataStore)

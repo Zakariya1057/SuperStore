@@ -79,8 +79,8 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if userSession.getStore() != currentStoreTypeID  {
-            currentStoreTypeID = userSession.getStore()
+        if userSession.getSupermarketChainID() != currentsupermarketChainID  {
+            currentsupermarketChainID = userSession.getSupermarketChainID()
             search()
         }
     }
@@ -96,7 +96,7 @@ class ShowSuggestionsViewController: UIViewController, ShowSuggestionsDisplayLog
     
     var suggestions: [SuggestionModel] = []
     
-    var currentStoreTypeID: Int = 0
+    var currentsupermarketChainID: Int = 0
     var userSession: UserSessionWorker = UserSessionWorker()
     
     var displayRecentSuggestions: Bool = false
@@ -393,7 +393,7 @@ extension ShowSuggestionsViewController {
     }
     
     private func addChangedSuggestion(searchText: String){
-        suggestions.append(SuggestionModel(id: 1, name: searchText, type: .product, textSearch: true, storeTypeID: currentStoreTypeID))
+        suggestions.append(SuggestionModel(id: 1, name: searchText, type: .product, textSearch: true, supermarketChainID: currentsupermarketChainID))
         suggestionsTableView.reloadData()
     }
 

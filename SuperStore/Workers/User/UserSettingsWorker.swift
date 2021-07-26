@@ -12,6 +12,8 @@ class UserSettingsWorker {
     private var userStore: UserStoreProtocol
     private var userAPI: UserRequestProtocol
     
+    private lazy var regionWorker: RegionWorker = RegionWorker()
+    
     init(userStore: UserStoreProtocol) {
         self.userStore = userStore
         self.userAPI = UserSettingAPI()
@@ -50,22 +52,32 @@ class UserSettingsWorker {
     }
     
     func updateRegion(regionID: Int, loggedIn: Bool, completionHandler: @escaping (_ error: String?) -> Void){
+        
         self.userStore.updateRegion(regionID: regionID)
         
         if loggedIn {
             userAPI.updateRegion(regionID: regionID, completionHandler: { (error: String?) in
                 completionHandler(error)
             })
+            
+            // If the selected region doesn't have the selected supermarket chain, use another one
+            if let supermarketChainID = userStore.getSupermarketChainID() {
+                if userStore.supermarketChainChangeRequired(regionID: regionID, supermarketChainID: supermarketChainID ){
+                    let supermarketChainID = regionWorker.getRegionSupermarketChainID(regionID: regionID)
+                    self.updateStore(supermarketChainID: supermarketChainID, loggedIn: loggedIn) { _ in }
+                }
+            }
+    
         } else {
             completionHandler(nil)
         }
     }
     
-    func updateStore(storeTypeID: Int, loggedIn: Bool, completionHandler: @escaping (_ error: String?) -> Void){
-        self.userStore.updateStore(storeTypeID: storeTypeID)
+    func updateStore(supermarketChainID: Int, loggedIn: Bool, completionHandler: @escaping (_ error: String?) -> Void){
+        self.userStore.updateStore(supermarketChainID: supermarketChainID)
         
         if loggedIn {
-            userAPI.updateStore(storeTypeID: storeTypeID, completionHandler: { (error: String?) in
+            userAPI.updateStore(supermarketChainID: supermarketChainID, completionHandler: { (error: String?) in
                 completionHandler(error)
             })
         } else {
@@ -112,7 +124,7 @@ protocol UserRequestProtocol {
     func updateEmail(email: String, completionHandler: @escaping (_ error: String?) -> Void)
     
     func updateRegion(regionID: Int, completionHandler: @escaping (_ error: String?) -> Void)
-    func updateStore(storeTypeID: Int, completionHandler: @escaping (_ error: String?) -> Void)
+    func updateStore(supermarketChainID: Int, completionHandler: @escaping (_ error: String?) -> Void)
     
     func updatePassword(currentPassword: String, newPassword: String, confirmPassword: String, completionHandler: @escaping (_ error: String?) -> Void)
     func updateNotifications(sendNotifications: Bool, notificationToken: String?, completionHandler: @escaping (_ error: String?) -> Void)
@@ -132,7 +144,9 @@ protocol UserStoreProtocol {
     func updateEmail(email: String) -> Void
     
     func updateRegion(regionID: Int) -> Void
-    func updateStore(storeTypeID: Int) -> Void
+    func updateStore(supermarketChainID: Int) -> Void
+    
+    func supermarketChainChangeRequired(regionID: Int, supermarketChainID: Int) -> Bool
     
     func logoutUser() -> Void
     func deleteUser() -> Void
@@ -140,6 +154,6 @@ protocol UserStoreProtocol {
     func getToken() -> String?
     func getUserID() -> Int?
     
-    func getStoreID() -> Int?
+    func getSupermarketChainID() -> Int?
     func getRegionID() -> Int?
 }

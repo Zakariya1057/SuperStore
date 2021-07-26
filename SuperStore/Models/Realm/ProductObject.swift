@@ -14,13 +14,9 @@ class ProductObject: Object {
     @objc dynamic var id: Int = 1
     @objc dynamic var name: String = ""
     
-    @objc dynamic var storeTypeID: Int = 0
+    @objc dynamic var companyID: Int = 0
     
-    @objc dynamic var price: Double = 0
-    var oldPrice =  RealmOptional<Double>()
-    var isOnSale =  RealmOptional<Bool>()
-    
-    @objc dynamic var saleEndsAt: Date? = nil
+    var prices = List<ProductPriceObject>()
     
     @objc dynamic var currency: String = ""
     
@@ -28,10 +24,6 @@ class ProductObject: Object {
     @objc dynamic var largeImage: String? = nil
     
     var images = List<ImageObject>()
-    
-    @objc dynamic var promotion: PromotionObject? = nil
-    
-    var promotionID = RealmOptional<Int>()
     
     @objc dynamic var productDescription: String? = nil
     var features = List<String>()
@@ -74,7 +66,14 @@ class ProductObject: Object {
     @objc dynamic var updatedAt: Date = Date()
     @objc dynamic var createdAt: Date = Date()
     
-    func getProductModel() -> ProductModel {
+    func getProductModel(regionID: Int? = nil, supermarketChainID: Int? = nil) -> ProductModel? {
+        
+        let price = getProductPriceModel(regionID: regionID, supermarketChainID: supermarketChainID)
+        
+        if(price == nil){
+            return nil
+        }
+        
         var productFeatures: [String]? = nil
         var productDimensions: [String]? = nil
         
@@ -88,34 +87,37 @@ class ProductObject: Object {
 
         return ProductModel(
             id: id,
-            storeTypeID: storeTypeID,
+            companyID: companyID,
             name: name,
+            
             smallImage: smallImage,
             largeImage: largeImage,
             images: images.map{ $0.getImageModel() },
-            description: productDescription,
+            
+            brand: brand, description: productDescription,
             features: productFeatures,
             dimensions: productDimensions,
+            
             price: price,
-            oldPrice: oldPrice.value,
-            isOnSale: isOnSale.value,
-            saleEndsAt: saleEndsAt,
+            
             currency: currency,
+            
             avgRating: avgRating,
             totalReviewsCount: totalReviewsCount,
-            promotion: nil,
+            reviews: reviews.map{ $0.getReviewModel() },
+            
             storage: storage,
             weight: weight,
             
-            parentCategoryID: parentCategoryID.value, parentCategoryName: parentCategoryName,
-            childCategoryID: childCategoryID.value, childCategoryName: childCategoryName,
+            parentCategoryID: parentCategoryID.value,
+            parentCategoryName: parentCategoryName,
+            childCategoryID: childCategoryID.value,
+            childCategoryName: childCategoryName,
             
             productGroupName: productGroupName,
             
             dietaryInfo: dietaryInfo,
             allergenInfo: allergenInfo,
-            brand: brand,
-            reviews: reviews.map{ $0.getReviewModel() },
             favourite: favourite,
             monitoring: monitoring,
             
@@ -127,6 +129,17 @@ class ProductObject: Object {
         )
     }
     
+    private func getProductPriceModel(regionID: Int?, supermarketChainID: Int?) -> ProductPriceModel? {
+        let userSession = UserSessionWorker()
+        
+        let regionID = regionID ?? userSession.getRegion()
+        let supermarketChainID = supermarketChainID ?? userSession.getSupermarketChainID()
+        
+        // If no region/supermarketChainID given then get from user session
+        return self.prices.first { price in
+            price.regionID == regionID && price.supermarketChainID == supermarketChainID
+        }?.getProductPriceModel()
+    }
     
     override static func primaryKey() -> String? {
          return "id"

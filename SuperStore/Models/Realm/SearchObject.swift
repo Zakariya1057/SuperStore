@@ -14,7 +14,7 @@ class SuggestionObject: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var type: String = ""
     
-    @objc dynamic var storeTypeID: Int = 1
+    @objc dynamic var supermarketChainID: Int = 1
     
     @objc dynamic var textSearch: Bool = false
     
@@ -24,10 +24,10 @@ class SuggestionObject: Object {
     
     func getSuggestionModel() -> SuggestionModel {
         let searchType: SearchType = SearchType.init(rawValue: type)!
-        return SuggestionModel(id: id, name: name, type: searchType, textSearch: textSearch, storeTypeID: storeTypeID)
+        return SuggestionModel(id: id, name: name, type: searchType, textSearch: textSearch, supermarketChainID: supermarketChainID)
     }
     
     override static func indexedProperties() -> [String] {
-        return ["name", "type", "storeTypeID"]
+        return ["name", "type", "supermarketChainID"]
     }
 }

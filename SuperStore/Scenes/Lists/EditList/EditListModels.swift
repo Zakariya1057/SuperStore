@@ -24,12 +24,12 @@ enum EditList
         struct Response
         {
             var name: String
-            var storeTypeID: Int
+            var supermarketChainID: Int
         }
         struct ViewModel
         {
             var name: String
-            var storeTypeID: Int
+            var supermarketChainID: Int
         }
     }
     

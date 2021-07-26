@@ -13,7 +13,6 @@
 import UIKit
 import MapKit
 import NotificationBannerSwift
-import Kingfisher
 
 protocol HomeDisplayLogic: AnyObject
 {
@@ -72,20 +71,23 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        KingfisherManager.shared.cache.clearMemoryCache()
-        KingfisherManager.shared.cache.clearDiskCache()
-        KingfisherManager.shared.cache.cleanExpiredDiskCache()
-        
         registerTableViewCells()
         setupHomeCells()
-        currentStoreTypeID = userSession.getStore()
         getHome()
+        
+        currentSupermarketChainID = userSession.getSupermarketChainID()
+        currentRegionID = userSession.getRegion()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if userSession.getStore() != currentStoreTypeID || currentLoggedIn != loggedIn {
-            currentStoreTypeID = userSession.getStore()
+        if
+            userSession.getSupermarketChainID() != currentSupermarketChainID ||
+            currentLoggedIn != loggedIn ||
+            currentRegionID != userSession.getRegion()
+        {
+            currentSupermarketChainID = userSession.getSupermarketChainID()
+            currentRegionID = userSession.getRegion()
+            
             currentLoggedIn = loggedIn
             getHome()
         }
@@ -93,7 +95,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     // Used to decide to refresh page or not
     var currentLoggedIn: Bool = false
-    var currentStoreTypeID: Int = 0
+    var currentSupermarketChainID: Int = 0
+    var currentRegionID: Int = 0
     
     var loading: Bool = true
     
@@ -566,7 +569,7 @@ extension HomeViewController {
         } else {
             // No location found
             if(homeModel == nil){
-                let banner = StatusBarNotificationBanner(title: "Please enable user location to see nearby stores.", style: .info)
+                let banner = StatusBarNotificationBanner(title: "Please allow Location Services from your Apple settings to view nearby stores.", style: .info)
                 banner.dismissOnTap = true
                 banner.dismissOnSwipeUp = true
                 banner.show()

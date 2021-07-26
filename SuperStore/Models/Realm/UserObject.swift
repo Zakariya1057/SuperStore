@@ -17,11 +17,19 @@ class UserObject: Object {
     @objc dynamic var email: String = ""
     
     @objc dynamic var regionID: Int = 1
-    @objc dynamic var storeTypeID: Int = 2
+    @objc dynamic var supermarketChainID: Int = 1
 
     @objc dynamic var sendNotifications: Bool = true
     
     func getUserModel() -> UserModel {
-        return UserModel(id: id, name: name, token: token, email: email, regionID: regionID, storeTypeID: storeTypeID, sendNotifications: sendNotifications)
+        return UserModel(
+            id: id,
+            name: name,
+            token: token,
+            email: email,
+            regionID: regionID,
+            supermarketChainID: supermarketChainID,
+            sendNotifications: sendNotifications
+        )
     }
 }

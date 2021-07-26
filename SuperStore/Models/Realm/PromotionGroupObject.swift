@@ -13,7 +13,7 @@ class PromotionGroupObject: Object {
     @objc dynamic var title: String = ""
     
     @objc dynamic var regionID: Int = 1
-    @objc dynamic var storeTypeID: Int = 1
+    @objc dynamic var supermarketChainID: Int = 1
     
     var promotions = List<PromotionObject>()
     
@@ -24,13 +24,13 @@ class PromotionGroupObject: Object {
         return PromotionGroupModel(
             title: title,
             regionID: regionID,
-            storeTypeID: storeTypeID,
+            supermarketChainID: supermarketChainID,
             promotions: promotions.map{ $0.getPromotionModel() }
         )
     }
     
     override static func indexedProperties() -> [String] {
-        return ["regionID", "storeTypeID"]
+        return ["regionID", "supermarketChainID"]
     }
 }
 

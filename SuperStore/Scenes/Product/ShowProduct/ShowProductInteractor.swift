@@ -53,12 +53,16 @@ class ShowProductInteractor: ShowProductBusinessLogic, ShowProductDataStore
         return userSession.getRegion()
     }
     
+    var supermarketChainID: Int {
+        return userSession.getSupermarketChainID()
+    }
+    
     var productID: Int = 1
     var product: ProductModel?
     
     func getProduct(request: ShowProduct.GetProduct.Request)
     {
-        productWorker.getProduct(regionID: regionID, productID: productID) { (product: ProductModel?, error: String?) in
+        productWorker.getProduct(regionID: regionID, supermarketChainID: supermarketChainID, productID: productID) { (product: ProductModel?, error: String?) in
             
             var response = ShowProduct.GetProduct.Response(product: product, error: error)
             

@@ -11,8 +11,8 @@ import Alamofire
 
 class GroceryAPI: API, GroceryRequestProtocol {
     
-    func getGrandParentCategories(storeTypeID: Int, completionHandler: @escaping ([GrandParentCategoryModel], String?) -> Void) {
-        let url: String = Config.Route.Groceries.GrandParentCategories + "/" + String(storeTypeID)
+    func getGrandParentCategories(companyID: Int, completionHandler: @escaping ([GrandParentCategoryModel], String?) -> Void) {
+        let url: String = Config.Route.Groceries.GrandParentCategories + "/" + String(companyID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -62,6 +62,7 @@ class GroceryAPI: API, GroceryRequestProtocol {
             "product_group": data.productGroup,
             "availability_type": data.availabilityType,
             
+            "supermarket_chain_id": data.supermarketChainID,
             "region_id": data.regionID
         ]
         

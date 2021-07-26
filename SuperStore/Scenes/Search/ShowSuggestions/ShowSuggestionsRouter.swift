@@ -23,7 +23,6 @@ import UIKit
 protocol ShowSuggestionsDataPassing
 {
     var dataStore: ShowSuggestionsDataStore? { get }
-//    var selectedStoreTypeID: Int? { get set }
 }
 
 class ShowSuggestionsRouter: BackToShowListRouter, ShowSuggestionsRoutingLogic, ShowSuggestionsDataPassing
@@ -33,8 +32,6 @@ class ShowSuggestionsRouter: BackToShowListRouter, ShowSuggestionsRoutingLogic, 
     }
     
     var dataStore: ShowSuggestionsDataStore?
-//    var selectedStoreTypeID: Int?
-//    var selectedListID: Int?
     
     // MARK: Routing
     
@@ -103,7 +100,7 @@ class ShowSuggestionsRouter: BackToShowListRouter, ShowSuggestionsRoutingLogic, 
     
     func passDataToShowStoreResults(source: ShowSuggestionsDataStore, destination: inout ShowStoreResultsDataStore)
     {
-        destination.storeTypeID = source.storeTypeID
+        destination.supermarketChainID = source.supermarketChainID
         destination.selectedListID = source.selectedListID
     }
     

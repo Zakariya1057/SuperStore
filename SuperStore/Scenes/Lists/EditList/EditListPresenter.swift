@@ -25,7 +25,7 @@ class EditListPresenter: EditListPresentationLogic
     
     func presentList(response: EditList.GetList.Response)
     {
-        let viewModel = EditList.GetList.ViewModel(name: response.name, storeTypeID: response.storeTypeID)
+        let viewModel = EditList.GetList.ViewModel(name: response.name, supermarketChainID: response.supermarketChainID)
         viewController?.displayList(viewModel: viewModel)
     }
     

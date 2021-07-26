@@ -25,7 +25,7 @@ struct ListData: Decodable {
     var identifier: String
     var name: String
     var status: String
-    var store_type_id: Int
+    var supermarket_chain_id: Int
     var user_id: Int
     
     var total_price: Double
@@ -60,7 +60,7 @@ struct ListData: Decodable {
             name: name,
             status: listStatus,
             identifier: identifier,
-            storeTypeID: store_type_id,
+            supermarketChainID: supermarket_chain_id,
             categories: (categories ?? []).map{ $0.getCategoryModel() },
             totalPrice: total_price,
             oldTotalPrice: old_total_price,

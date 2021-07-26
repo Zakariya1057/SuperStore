@@ -17,7 +17,7 @@ class UserSessionWorker {
     private var userStore: UserStoreProtocol = UserRealmStore()
     
     private var regionWorker: RegionWorker = RegionWorker()
-    private var storeTypeWorker: StoreTypeWorker = StoreTypeWorker()
+    private var supermarketChainWorker: SupermarketChainWorker = SupermarketChainWorker()
     
     func getUserToken() -> String? {
         return userStore.getToken()
@@ -27,8 +27,8 @@ class UserSessionWorker {
         return userStore.getUserID()
     }
     
-    func getStore() -> Int {
-        return storeTypeWorker.getSelectedStoreType().id
+    func getSupermarketChainID() -> Int {
+        return supermarketChainWorker.getSelectedSupermarketChain().id
     }
     
     func getRegion() -> Int {

@@ -22,7 +22,7 @@ protocol ShowProductResultsBusinessLogic
     var searchRefine: SearchRefine { get set }
     
     var selectedListID: Int? { get set }
-    var selectedProductStoreTypeID: Int? { get set }
+    var selectedProductCompanyID: Int? { get set }
     
     var title: String { get set }
     var childCategoryID: Int? { get set }
@@ -42,7 +42,7 @@ protocol ShowProductResultsDataStore
     var searchRefine: SearchRefine { get set }
     
     var selectedListID: Int? { get set }
-    var selectedProductStoreTypeID: Int? { get set }
+    var selectedProductCompanyID: Int? { get set }
     
     var title: String { get set }
     var childCategoryID: Int? { get set }
@@ -60,7 +60,7 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     var userSession = UserSessionWorker()
     
     var searchRefine: SearchRefine = SearchRefine(availabilityType: [], brands: [], productGroups: [], promotions: [])
-    var searchQueryRequest: SearchQueryRequest = SearchQueryRequest(query: "", type: "", sort: "", storeTypeID: 0, regionID: 0)
+    var searchQueryRequest: SearchQueryRequest = SearchQueryRequest(query: "", type: "", sort: "", supermarketChainID: 0, regionID: 0)
     
     var products: [ProductModel] = []
     
@@ -68,12 +68,16 @@ class ShowProductResultsInteractor: ShowProductResultsBusinessLogic, ShowProduct
     var childCategoryID: Int? = nil
     
     var selectedListID: Int?
-    var selectedProductStoreTypeID: Int?
+    var selectedProductCompanyID: Int?
     
     var refineOptionsSet: Bool = false
     
     var regionID: Int {
         return userSession.getRegion()
+    }
+    
+    var supermarketChainID: Int {
+        return userSession.getSupermarketChainID()
     }
     
     var selectedSortOption: RefineSortOptionModel = RefineSortOptionModel(name: "Relevance", type: .relevance)
@@ -222,6 +226,7 @@ extension ShowProductResultsInteractor {
         searchQueryRequest.refineSort = refineSort
         
         searchQueryRequest.regionID = regionID
+        searchQueryRequest.supermarketChainID = supermarketChainID
         
         groceryWorker.getCategoryProducts(
             childCategoryID: childCategoryID!,
@@ -278,7 +283,7 @@ extension ShowProductResultsInteractor {
                 }
             }
             
-            if let promotion = product.promotion, promotion.name != "" {
+            if let price = product.price, let promotion = price.promotion, promotion.name != "" {
                 let title: String? = promotion.title ?? product.productGroupName ?? product.childCategoryName
                 let promotionName: String = title == nil ? promotion.name : "\(title!) - \(promotion.name)"
                 

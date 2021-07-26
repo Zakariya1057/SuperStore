@@ -11,6 +11,10 @@ import UIKit
 class SettingCell: UITableViewCell {
 
     var icons: [String: UIImage?] = [
+        "User Management": UIImage(systemName: "person.circle"),
+        "Device Storage": UIImage(systemName: "archivebox"),
+        "Regions & Stores": UIImage(systemName: "location.circle"),
+        
         "Name": UIImage(systemName: "person"),
         "Email": UIImage(systemName: "envelope"),
         "Password": UIImage(systemName: "lock"),
@@ -19,7 +23,8 @@ class SettingCell: UITableViewCell {
         "Store": UIImage(systemName: "cart"),
         "Province": UIImage(systemName: "location.circle"),
         
-        "Clear Cache": UIImage(systemName: "trash"),
+        "Clear Cached Images": UIImage(systemName: "trash"),
+        "Clear Cached Suggestions": UIImage(systemName: "trash"),
         
         "Help & Feedback": UIImage(systemName: "questionmark.circle"),
         "Help": UIImage(systemName: "questionmark.circle"),
@@ -96,7 +101,11 @@ class SettingCell: UITableViewCell {
         if setting.type == .logout ||
             setting.type == .notification ||
             setting.type == .delete ||
-            setting.type == .login {
+            setting.type == .login ||
+            
+            setting.type == .searchCache ||
+            setting.type == .imageCache
+            {
             
             disclosureView.isHidden = true
             valueLabel.isHidden = true

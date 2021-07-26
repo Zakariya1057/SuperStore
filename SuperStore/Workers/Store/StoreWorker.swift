@@ -18,14 +18,14 @@ class StoreWorker
         self.storeStore = StoreRealmStore()
     }
     
-    func getStores(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void){
+    func getStores(supermarketChainID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void){
         
-        let stores = storeStore.getStores(storeTypeID: storeTypeID)
+        let stores = storeStore.getStores(supermarketChainID: supermarketChainID)
         if stores.count > 0 {
             completionHandler(stores, nil)
         }
         
-        storeAPI.getStores(storeTypeID: storeTypeID, latitude: latitude, longitude: longitude) { (stores: [StoreModel], error: String?) in
+        storeAPI.getStores(supermarketChainID: supermarketChainID, latitude: latitude, longitude: longitude) { (stores: [StoreModel], error: String?) in
             if stores.count > 0 {
                 self.storeStore.createStores(stores: stores)
             }
@@ -52,14 +52,14 @@ class StoreWorker
 
 protocol StoreRequestProtocol {
     func getStore(storeID: Int, completionHandler: @escaping (_ product: StoreModel?, _ error: String?) -> Void)
-    func getStores(storeTypeID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void)
+    func getStores(supermarketChainID: Int, latitude: Double?, longitude: Double?, completionHandler: @escaping (_ stores: [StoreModel], _ error: String?) -> Void)
 }
 
 protocol StoreStoreProtocol {
     func createStore(store: StoreModel)
     func createStores(stores: [StoreModel])
     func getStore(storeID: Int) -> StoreModel?
-    func getStores(storeTypeID: Int) -> [StoreModel]
+    func getStores(supermarketChainID: Int) -> [StoreModel]
     
     func createStoreObject(store: StoreModel) -> StoreObject
 }

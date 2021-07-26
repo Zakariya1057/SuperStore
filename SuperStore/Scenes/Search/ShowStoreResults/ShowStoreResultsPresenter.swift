@@ -55,7 +55,7 @@ class ShowStoreResultsPresenter: ShowStoreResultsPresentationLogic
             displayedStores.append(
                 ShowStoreResults.DisplayedStore(
                     name: store.name,
-                    logo: store.logo,
+                    logo: "",
                     logoImage: store.getLogoImage(),
                     address: store.address,
                     openingHour: openingHour

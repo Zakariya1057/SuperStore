@@ -15,7 +15,6 @@ struct FlyerModel {
     var week: String?
     var url: String
     var storeID: Int
-    var storeTypeID: Int
     var validFrom: Date
     var validTo: Date
 }

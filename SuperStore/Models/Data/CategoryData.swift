@@ -26,7 +26,7 @@ struct GrandParentCategoryData: Decodable {
     
     var index: Int
     
-    var store_type_id: Int
+    var company_id: Int
     
     var parent_categories: [ParentCategoryData]
     
@@ -35,7 +35,7 @@ struct GrandParentCategoryData: Decodable {
             id: id,
             name: name,
             index: index,
-            storeTypeID: store_type_id,
+            companyID: company_id,
             parentCategories: parent_categories.map { $0.getParentCategoryModel() }
         )
     }
@@ -48,7 +48,7 @@ struct ParentCategoryData: Decodable {
     
     var index: Int
     
-    var store_type_id: Int
+    var company_id: Int
     
     var child_categories: [ChildCategoryData]?
     
@@ -58,7 +58,7 @@ struct ParentCategoryData: Decodable {
             name: name,
             index: index,
             grandParentCategoryID: parent_category_id,
-            storeTypeID: store_type_id,
+            companyID: company_id,
             childCategories: (child_categories ?? []).map { $0.getChildCategoryModel() }
         )
     }
@@ -71,7 +71,7 @@ struct ChildCategoryData:Decodable {
     
     var index: Int
     
-    var store_type_id: Int
+    var company_id: Int
     
     var products: [ProductData]?
     
@@ -83,7 +83,7 @@ struct ChildCategoryData:Decodable {
             name: name,
             index: index,
             parentCategoryID: parent_category_id,
-            storeTypeID: store_type_id,
+            companyID: company_id,
             products: products?.map{ $0.getProductModel() } ?? [],
             paginate: paginate?.getPaginateResultsModel()
         )

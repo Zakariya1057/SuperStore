@@ -18,7 +18,7 @@ protocol ChildCategoriesBusinessLogic
     
     var title: String { get set }
     var selectedListID: Int? { get set }
-    var selectedProductStoreTypeID: Int? { get set }
+    var selectedProductsupermarketChainID: Int? { get set }
 }
 
 protocol ChildCategoriesDataStore
@@ -26,9 +26,9 @@ protocol ChildCategoriesDataStore
     var parentCategoryID: Int { get set }
     var title: String { get set }
     
-    var storeTypeID: Int { get set }
+    var supermarketChainID: Int { get set }
     var selectedListID: Int? { get set }
-    var selectedProductStoreTypeID: Int? { get set }
+    var selectedProductsupermarketChainID: Int? { get set }
     
     var categories: [ChildCategoryModel] { get set }
 }
@@ -47,9 +47,9 @@ class ChildCategoriesInteractor: ChildCategoriesBusinessLogic, ChildCategoriesDa
     var title: String = ""
     var parentCategoryID: Int = 1
     
-    var storeTypeID: Int = 1
+    var supermarketChainID: Int = 1
     
-    var selectedProductStoreTypeID: Int?
+    var selectedProductsupermarketChainID: Int?
     
     var categories: [ChildCategoryModel] = []
 

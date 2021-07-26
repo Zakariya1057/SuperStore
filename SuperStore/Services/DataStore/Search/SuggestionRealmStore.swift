@@ -15,29 +15,22 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
         return realm?.objects(SuggestionObject.self).filter("type = %@ AND name = %@", type, name).first
     }
 
-    func createSuggestions(suggestions: [SuggestionModel], storeTypeID: Int){
+    func createSuggestions(suggestions: [SuggestionModel], supermarketChainID: Int){
         for suggestion in suggestions {
-            createSuggestion(suggestion: suggestion, storeTypeID: storeTypeID)
+            createSuggestion(suggestion: suggestion, supermarketChainID: supermarketChainID)
         }
     }
     
     var defaultSuggestions: [SuggestionModel] = [
-        SuggestionModel(id: 1, name: "Bakery", type: .parentCategory, storeTypeID: 2, visited: true, visitedAt: Date()),
-        SuggestionModel(id: 1, name: "Dairy & Eggs", type: .parentCategory, storeTypeID: 2, visited: true, visitedAt: Date()),
-        SuggestionModel(id: 1, name: "Fruits & Vegetables", type: .parentCategory, storeTypeID: 2, visited: true, visitedAt: Date()),
-        SuggestionModel(id: 2, name: "Real Canadian Superstore Offers", type: .storeSale, storeTypeID: 2, visited: true, visitedAt: Date()),
-        SuggestionModel(id: 2, name: "Real Canadian Superstore", type: .store, storeTypeID: 2, visited: true, visitedAt: Date()),
-
-        
-        SuggestionModel(id: 1, name: "Asda", type: .store, storeTypeID: 1, visited: true, visitedAt: Date()),
-        SuggestionModel(id: 1, name: "Fruit", type: .parentCategory, storeTypeID: 1, visited: true, visitedAt: Date()),
-        SuggestionModel(id: 1, name: "Coffee, Tea & Hot Chocolate", type: .parentCategory, storeTypeID: 1, visited: true, visitedAt: Date()),
-        SuggestionModel(id: 1, name: "Rice, Pasta & Noodles", type: .parentCategory, storeTypeID: 1, visited: true, visitedAt: Date()),
-        SuggestionModel(id: 1, name: "Laundry", type: .parentCategory, storeTypeID: 1, visited: true, visitedAt: Date()),
+        SuggestionModel(id: 1, name: "Bakery", type: .parentCategory, supermarketChainID: 2, visited: true, visitedAt: Date()),
+        SuggestionModel(id: 1, name: "Dairy & Eggs", type: .parentCategory, supermarketChainID: 2, visited: true, visitedAt: Date()),
+        SuggestionModel(id: 1, name: "Fruits & Vegetables", type: .parentCategory, supermarketChainID: 2, visited: true, visitedAt: Date()),
+        SuggestionModel(id: 2, name: "Offers", type: .storeSale, supermarketChainID: 2, visited: true, visitedAt: Date()),
+        SuggestionModel(id: 2, name: "Nearby Stores", type: .store, supermarketChainID: 2, visited: true, visitedAt: Date())
     ]
     
     
-    func createSuggestion(suggestion: SuggestionModel, storeTypeID: Int){
+    func createSuggestion(suggestion: SuggestionModel, supermarketChainID: Int){
         
         let name: String = suggestion.name
         let type: String = suggestion.type.rawValue
@@ -52,7 +45,7 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
                 savedSuggestion.name = suggestion.name
                 savedSuggestion.type = suggestion.type.rawValue
                 savedSuggestion.textSearch = suggestion.textSearch
-                savedSuggestion.storeTypeID = suggestion.storeTypeID ?? storeTypeID
+                savedSuggestion.supermarketChainID = suggestion.supermarketChainID ?? supermarketChainID
                 
                 savedSuggestion.visited = suggestion.visited
                 savedSuggestion.visitedAt = suggestion.visitedAt
@@ -62,8 +55,8 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
         }
     }
     
-    func searchSuggestion(storeTypeID: Int, query: String) -> [SuggestionModel] {
-        let savedSuggestions = realm?.objects(SuggestionObject.self).filter("storeTypeID = %@ AND name CONTAINS[c] %@", storeTypeID, query)
+    func searchSuggestion(supermarketChainID: Int, query: String) -> [SuggestionModel] {
+        let savedSuggestions = realm?.objects(SuggestionObject.self).filter("supermarketChainID = %@ AND name CONTAINS[c] %@", supermarketChainID, query)
         
         if let savedSuggestions = savedSuggestions {
             return savedSuggestions.map{ $0.getSuggestionModel() }
@@ -85,7 +78,7 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
             if let savedSelectedSuggestion = getSuggestionObject(name: suggestion.name, type: suggestion.type.rawValue){
                 savedSuggestion = savedSelectedSuggestion
             } else {
-                createSuggestion(suggestion: suggestion, storeTypeID: suggestion.storeTypeID!)
+                createSuggestion(suggestion: suggestion, supermarketChainID: suggestion.supermarketChainID!)
                 if let savedSelectedSuggestion = getSuggestionObject(name: suggestion.name, type: suggestion.type.rawValue){
                     savedSuggestion = savedSelectedSuggestion
                 }
@@ -108,26 +101,20 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
 }
 
 extension SuggestionRealmStore {
-    func getRecentSuggestions(storeTypeID: Int, limit count: Int) -> [SuggestionModel] {
+    func getRecentSuggestions(supermarketChainID: Int, limit count: Int) -> [SuggestionModel] {
         // Get last X suggestions
         
         var limit: Int = count
         
         var recentSuggestions: [SuggestionModel] = []
         
-        let savedSuggestions = realm?.objects(SuggestionObject.self).filter("storeTypeID = %@ AND visited = %@", storeTypeID, true).sorted(byKeyPath: "visitedAt", ascending: false)
+        let savedSuggestions = realm?.objects(SuggestionObject.self).filter("visited = %@", true).sorted(byKeyPath: "visitedAt", ascending: false)
         
         if let savedSuggestions = savedSuggestions {
             
             if savedSuggestions.count == 0 {
-                createSuggestions(suggestions: defaultSuggestions, storeTypeID: storeTypeID)
-                
-                for suggestion in defaultSuggestions {
-                    if suggestion.storeTypeID == storeTypeID {
-                        recentSuggestions.append(suggestion)
-                    }
-                }
-                
+                createSuggestions(suggestions: defaultSuggestions, supermarketChainID: supermarketChainID)
+                recentSuggestions = defaultSuggestions
             } else {
                 if savedSuggestions.count < count {
                     limit = savedSuggestions.count
@@ -141,5 +128,15 @@ extension SuggestionRealmStore {
         }
         
         return recentSuggestions
+    }
+}
+
+extension SuggestionRealmStore {
+    func clearSearchCache() {
+        try? realm?.write({
+            if let suggestions = realm?.objects(SuggestionObject.self) {
+                realm?.delete(suggestions)
+            }
+        })
     }
 }

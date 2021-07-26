@@ -12,36 +12,42 @@ import RealmSwift
 class ProductRealmStore: DataStore, ProductStoreProtocol {
     
     private var reviewStore: ReviewRealmStore = ReviewRealmStore()
-    private lazy var promotionStore: PromotionRealmStore = PromotionRealmStore()
+    private lazy var productPriceStore: ProductPriceRealmStore = ProductPriceRealmStore()
+//    private lazy var promotionStore: PromotionRealmStore = PromotionRealmStore()
     private var nutritionRealmStore: NutritionRealmStore = NutritionRealmStore()
     
     private func getProductObject(productID: Int) -> ProductObject? {
         return realm?.objects(ProductObject.self).filter("id = %@", productID).first
     }
     
-    private func getMonitoredProductObjects(storeTypeID: Int) -> Results<ProductObject>? {
-        return realm?.objects(ProductObject.self).filter("monitoring = true AND storeTypeID = %@", storeTypeID).sorted(byKeyPath: "monitoredUpdatedAt", ascending: true)
+    private func getMonitoredProductObjects() -> Results<ProductObject>? {
+        return realm?.objects(ProductObject.self).filter("monitoring = true").sorted(byKeyPath: "monitoredUpdatedAt", ascending: true)
     }
     
-    func getProduct(productID: Int) -> ProductModel? {
+    func getProduct(regionID: Int, supermarketChainID: Int, productID: Int) -> ProductModel? {
         
         if let productObject = getProductObject(productID: productID) {
-            let product = productObject.getProductModel()
+            let product = productObject.getProductModel(regionID: regionID, supermarketChainID: supermarketChainID)
             
-            if let promotionID = productObject.promotionID.value {
-                let promotion: PromotionModel? = promotionStore.getPromotion(promotionID: promotionID)
-                
-                if let promotion = promotion {
-                    if promotionStore.promotionExpired(promotion: promotion){
-                        deleteProductPromotion(productID: product.id, promotionID: promotion.id)
-                    }
-                }
-                
-                product.promotion = promotion
-                
+//            if let price = productPriceStore.getProductPrice(regionID: regionID, supermarketChainID: supermarketChainID, savedPrices: productObject.prices)
+            // Get product price, for region and supermarket chain.
+            
+//            if let promotionID = productObject.promotionID.value {
+//                let promotion: PromotionModel? = promotionStore.getPromotion(promotionID: promotionID)
+//
+//                if let promotion = promotion {
+//                    if promotionStore.promotionExpired(promotion: promotion){
+//                        deleteProductPromotion(productID: product.id, promotionID: promotion.id)
+//                    }
+//                }
+//
+//                product.promotion = promotion
+//
+//            }
+            
+            if product != nil {
+                product!.recommended = productObject.recommended.map({ $0.getProductModel() }).compactMap({ $0 })
             }
-            
-            product.recommended = productObject.recommended.map({ $0.getProductModel() })
             
             return product
         }
@@ -75,8 +81,8 @@ class ProductRealmStore: DataStore, ProductStoreProtocol {
 //MARK: - Monitored Products
 extension ProductRealmStore {
     
-    func unmonitorAllProducts(storeTypeID: Int){
-        if let savedProducts = getMonitoredProductObjects(storeTypeID: storeTypeID){
+    func unmonitorAllProducts(){
+        if let savedProducts = getMonitoredProductObjects(){
             try? realm?.write({
                 for product in savedProducts {
                     product.monitoring = false
@@ -85,9 +91,9 @@ extension ProductRealmStore {
         }
     }
     
-    func getMonitoredProducts(storeTypeID: Int) -> [ProductModel] {
-        if let savedProducts = getMonitoredProductObjects(storeTypeID: storeTypeID){
-            return savedProducts.map{ $0.getProductModel() }
+    func getMonitoredProducts(regionID: Int, supermarketChainID: Int) -> [ProductModel] {
+        if let savedProducts = getMonitoredProductObjects(){
+            return savedProducts.map{ $0.getProductModel(regionID: regionID, supermarketChainID: supermarketChainID) }.compactMap({ $0 })
         }
         
         return []
@@ -105,19 +111,19 @@ extension ProductRealmStore {
 }
 
 extension ProductRealmStore {
-    func deleteProductPromotion(productID: Int, promotionID: Int){
-        if let savedProduct = getProductObject(productID: productID){
-            if let inWrite = realm?.isInWriteTransaction, inWrite {
-                savedProduct.promotionID.value = nil
-            } else {
-                try? realm?.write({
-                    savedProduct.promotionID.value = nil
-                })
-            }
-        }
-        
-        promotionStore.deletePromotion(promotionID: promotionID)
-    }
+//    func deleteProductPromotion(productID: Int, promotionID: Int){
+//        if let savedProduct = getProductObject(productID: productID){
+//            if let inWrite = realm?.isInWriteTransaction, inWrite {
+//                savedProduct.promotionID.value = nil
+//            } else {
+//                try? realm?.write({
+//                    savedProduct.promotionID.value = nil
+//                })
+//            }
+//        }
+//        
+//        promotionStore.deletePromotion(promotionID: promotionID)
+//    }
 }
 
 extension ProductRealmStore {
@@ -141,7 +147,7 @@ extension ProductRealmStore {
     }
     
     func getFavouriteProducts() -> [ProductModel] {
-        return realm?.objects(ProductObject.self).filter("favourite = %@", true).map{ $0.getProductModel() } ?? []
+        return realm?.objects(ProductObject.self).filter("favourite = %@", true).map{ $0.getProductModel() }.compactMap({ $0 }) ?? []
     }
 }
 
@@ -157,17 +163,19 @@ extension ProductRealmStore {
         savedProduct.largeImage = product.largeImage
         savedProduct.smallImage = product.smallImage
         
-        savedProduct.storeTypeID = product.storeTypeID
+        savedProduct.companyID = product.companyID
         
         savedProduct.id = product.id
         savedProduct.name = product.name
         
-        savedProduct.price = product.price
-        updateOldTotalPrice(product: product, savedProduct: savedProduct)
+//        savedProduct.price = product.price
+//        updateOldTotalPrice(product: product, savedProduct: savedProduct)
+        
+        savedProduct.prices.append( productPriceStore.createProductPriceRealmObject(price: product.price!) )
         
         savedProduct.currency = product.currency
         
-        createPromotion(product: product, savedProduct: savedProduct)
+//        createPromotion(product: product, savedProduct: savedProduct)
         
         for product in product.recommended {
             savedProduct.recommended.append( createProductObject(product: product) )
@@ -225,16 +233,11 @@ extension ProductRealmStore {
         try? realm?.write({
             savedProduct.name = product.name
             
-            savedProduct.storeTypeID = product.storeTypeID
+            savedProduct.companyID = product.companyID
             
-            savedProduct.price = product.price
-            updateOldTotalPrice(product: product, savedProduct: savedProduct)
-            
-            savedProduct.saleEndsAt = product.saleEndsAt
+            productPriceStore.updateProductPrices(savedProduct: savedProduct, price: product.price!)
             
             savedProduct.currency = product.currency
-            
-            updatePromotion(product: product, savedProduct: savedProduct)
             
             updateRecommended(product: product, savedProduct: savedProduct)
             
@@ -272,75 +275,8 @@ extension ProductRealmStore {
     
 }
 
-
 extension ProductRealmStore {
-    
-    func createPromotion(product: ProductModel, savedProduct: ProductObject){
-        // If promotion already expired, don't insert that
-        
-        if let promotion = product.promotion {
-            if !promotionStore.promotionExpired(promotion: promotion) {
-                savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
-                savedProduct.promotionID.value = promotion.id
-            }
-        }
-    }
-    
-    func updatePromotion(product: ProductModel, savedProduct: ProductObject){
-        if let promotion = product.promotion {
-            if promotionStore.promotionExpired(promotion: promotion) {
-                // If present locally, then delete
-//                print("Delete Old Promotion")
-                if savedProduct.promotionID.value != nil {
-                    promotionStore.deletePromotion(promotionID: savedProduct.promotionID.value!)
-                    savedProduct.promotionID.value = nil
-                }
-            } else {
-//                print("Store New Promotion")
-                savedProduct.promotion = promotionStore.createPromotionObject(promotion: promotion)
-                savedProduct.promotionID.value = promotion.id
-            }
-        } else {
-//            print("Delete Old Promotion")
-            if savedProduct.promotionID.value != nil {
-                promotionStore.deletePromotion(promotionID: savedProduct.promotionID.value!)
-                savedProduct.promotionID.value = nil
-            }
-        }
-    }
-}
 
-extension ProductRealmStore {
-        
-    func updateOldTotalPrice(product: ProductModel, savedProduct: ProductObject){
-        var saleEndsAt = product.saleEndsAt
-        
-        let dateWorker = DateWorker()
-        
-        if product.oldPrice != nil {
-            if let endsAt = saleEndsAt {
-                if dateWorker.dateDiff(date: endsAt) > 0 {
-                    savedProduct.oldPrice.value = product.oldPrice!
-                    savedProduct.isOnSale.value = true
-                } else {
-                    saleEndsAt = nil
-                    savedProduct.isOnSale.value = nil
-                    savedProduct.oldPrice.value = nil
-                    savedProduct.price = product.oldPrice!
-                }
-            } else {
-                savedProduct.oldPrice.value = product.oldPrice!
-                savedProduct.isOnSale.value = true
-            }
-        } else {
-            savedProduct.oldPrice.value = nil
-            savedProduct.isOnSale.value = nil
-            saleEndsAt = nil
-        }
-        
-        savedProduct.saleEndsAt = saleEndsAt
-    }
-    
     func updateRatings(product: ProductModel, savedProduct: ProductObject){
         savedProduct.avgRating = product.avgRating
         savedProduct.totalReviewsCount = product.totalReviewsCount

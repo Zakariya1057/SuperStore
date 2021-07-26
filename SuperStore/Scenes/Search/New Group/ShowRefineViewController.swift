@@ -125,7 +125,7 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
         refineData = [:]
         
         // If Not Asda. Then Hide Dietary.
-        let storeTypeID: Int = interactor!.getStoreTypeID()
+        let supermarketChainID: Int = interactor!.getsupermarketChainID()
         
         var groups: [RefineGroupModel] = [
             refineGroups.availabilityType,
@@ -134,7 +134,7 @@ class ShowRefineViewController: UIViewController, ShowRefineDisplayLogic
             refineGroups.brand,
         ]
         
-        if storeTypeID == 1 {
+        if supermarketChainID == 1 {
             groups.append(refineGroups.dietary)
         }
         

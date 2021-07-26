@@ -32,10 +32,10 @@ class StorePresenter: StorePresentationLogic
             
             displayedStore = Store.DisplayedStore(
                 name: store.name,
-                logo: store.logo,
+                logo: "",
                 logoImage: store.getLogoImage(),
                 address: store.getAddress(),
-                storeTypeID: store.storeTypeID,
+                supermarketChainID: store.supermarketChainID,
                 openingHours: openingHours,
                 facilities: facilities
             )

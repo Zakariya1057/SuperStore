@@ -11,7 +11,7 @@ import RealmSwift
 
 class UserRealmStore: DataStore, UserStoreProtocol {
     
-    private lazy var storeTypeWorker: StoreTypeWorker = StoreTypeWorker()
+    private lazy var supermarketChainWorker: SupermarketChainWorker = SupermarketChainWorker()
     private lazy var regionWorker: RegionWorker = RegionWorker()
     
     private var user: UserObject? {
@@ -26,7 +26,7 @@ class UserRealmStore: DataStore, UserStoreProtocol {
             savedUser.name = user.name
             savedUser.email = user.email
             savedUser.token = user.token
-            savedUser.storeTypeID = user.storeTypeID
+            savedUser.supermarketChainID = user.supermarketChainID
             savedUser.regionID = user.regionID
             savedUser.id = user.id
             savedUser.sendNotifications = user.sendNotifications
@@ -67,10 +67,10 @@ class UserRealmStore: DataStore, UserStoreProtocol {
         })
     }
     
-    func updateStore(storeTypeID: Int){
+    func updateStore(supermarketChainID: Int){
         try? realm?.write({
             if let savedUser: UserObject = self.user {
-                savedUser.storeTypeID = storeTypeID
+                savedUser.supermarketChainID = supermarketChainID
             }
         })
     }
@@ -110,8 +110,8 @@ extension UserRealmStore {
         return user?.regionID
     }
     
-    func getStoreID() -> Int? {
-        return user?.storeTypeID
+    func getSupermarketChainID() -> Int? {
+        return user?.supermarketChainID
     }
     
     func getUserID() -> Int? {
@@ -123,7 +123,7 @@ extension UserRealmStore {
     func createEmptyUser() -> UserObject? {
         let savedUser = UserObject()
         
-        savedUser.storeTypeID = storeTypeWorker.getSelectedStoreType().id
+        savedUser.supermarketChainID = supermarketChainWorker.getSelectedSupermarketChain().id
         savedUser.regionID = regionWorker.getSelectedRegion().id
         
         try? realm?.write({
@@ -131,5 +131,14 @@ extension UserRealmStore {
         })
         
         return savedUser
+    }
+}
+
+extension UserRealmStore {
+    func supermarketChainChangeRequired(regionID: Int, supermarketChainID: Int) -> Bool {
+        // If the selected supermarket chain isn't available for the region
+        // Change to another supermarket chain
+        let region = regionWorker.getRegion(regionID: regionID)
+        return !region!.supermarketChains.contains(where: { $0.id == supermarketChainID })
     }
 }

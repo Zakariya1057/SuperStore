@@ -80,7 +80,7 @@ class StoreRouter: BackToShowListRouter, StoreRoutingLogic, StoreDataPassing
     
     func passDataToGrandParentCategories(source: StoreDataStore, destination: inout GrandParentCategoriesDataStore)
     {
-        destination.storeTypeID = source.store!.storeTypeID
+        destination.supermarketChainID = source.store!.supermarketChainID
         destination.selectedListID = source.selectedListID
     }
     

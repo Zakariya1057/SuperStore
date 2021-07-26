@@ -15,16 +15,14 @@ import UIKit
 protocol SettingsBusinessLogic
 {
     func getSettings(request: Settings.GetUserDetails.Request)
-    func getUserStore(request: Settings.GetStore.Request)
-    func updateNotification(request: Settings.UpdateNotifications.Request)
-    
     func logout(request: Settings.Logout.Request)
-    func delete(request: Settings.Delete.Request)
+    func setSelectedSetting(setting: SettingModel)
 }
 
 protocol SettingsDataStore
 {
     var user: UserModel? { get set }
+    var selectedSetting: SettingModel? { get set }
 }
 
 class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
@@ -34,9 +32,11 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
     var userWorker: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     var userSession: UserSessionWorker = UserSessionWorker()
     
-    var storeTypeWorker: StoreTypeWorker = StoreTypeWorker()
+    var supermarketChainWorker: SupermarketChainWorker = SupermarketChainWorker()
     var regionWorker: RegionWorker = RegionWorker()
     var messageWorker: MessageWorker = MessageWorker(messageAPI: MessageAPI())
+    
+    var selectedSetting: SettingModel?
     
     var user: UserModel?
     
@@ -44,39 +44,15 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
     {
         userWorker.getUser { (user: UserModel?) in
             self.user = user
-            
-            let storeTypeName: String = self.storeTypeWorker.getStoreName(storeTypeID: user!.storeTypeID)
-            let regionName: String = self.regionWorker.getRegionName(regionID: user!.regionID)
+
             let unreadMessagesCount: Int = self.messageWorker.getUnreadMessagesCount()
             
             let response = Settings.GetUserDetails.Response(
                 user: self.user,
-                
-                unreadMessagesCount: unreadMessagesCount,
-                
-                storeTypeName: storeTypeName,
-                regionName: regionName
+                unreadMessagesCount: unreadMessagesCount
             )
             
             self.presenter?.presentUserDetails(response: response)
-        }
-    }
-    
-    func getUserStore(request: Settings.GetStore.Request) {
-        let storeTypeID: Int = userSession.getStore()
-        let storeName = storeTypeWorker.getStoreName(storeTypeID: storeTypeID)
-        
-        let response = Settings.GetStore.Response(storeName: storeName)
-        self.presenter?.presentUserStore(response: response)
-    }
-    
-    func updateNotification(request: Settings.UpdateNotifications.Request){
-        let sendNotification: Bool = request.sendNotifications
-        let notificationToken: String? = userSession.getUserNotificationToken()
-        
-        userWorker.updateNotifications(sendNotifications: sendNotification, notificationToken: notificationToken) { (error: String?) in
-            let response = Settings.UpdateNotifications.Response(error: error)
-            self.presenter?.presentUpdateNotifications(response: response)
         }
     }
     
@@ -87,11 +63,10 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore
         }
     }
     
-    func delete(request: Settings.Delete.Request) {
-        userWorker.deleteUser { (error: String?) in
-            let response = Settings.Delete.Response(error: error)
-            self.presenter?.presentDeleted(response: response)
-        }
-        
+}
+
+extension SettingsInteractor {
+    func setSelectedSetting(setting: SettingModel){
+        self.selectedSetting = setting
     }
 }

@@ -17,10 +17,19 @@ struct SettingModel {
 }
 
 enum SettingType: String {
-    case name, email, store, region, password, notification
-    case helpFeedback, help, issue, feedback, feature
-    case logout, login
-    case delete
+    case userManagement = "User Management"
+    case deviceStorage = "Device Storage"
+    case helpAndFeedback = "Help & Feedback"
+    case regionAndSupermarketChain = "Regions & Store"
+
+    
+    case store, region
+    case login, logout
+    
+    case name, email, password, notification, delete
+    case help, issue, feedback, feature
+    
+    case imageCache, searchCache
 }
 
 enum FeedbackType: String {

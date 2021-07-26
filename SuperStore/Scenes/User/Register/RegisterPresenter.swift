@@ -18,7 +18,6 @@ protocol RegisterPresentationLogic
     func presentRegisteredUser(response: Register.Register.Response)
     
     func presentRegions(response: Register.GetRegions.Response)
-    func presentStoreTypes(response: Register.GetStoreTypes.Response)
 }
 
 class RegisterPresenter: RegisterPresentationLogic
@@ -41,10 +40,5 @@ extension RegisterPresenter {
     func presentRegions(response: Register.GetRegions.Response) {
         let viewModel = Register.GetRegions.ViewModel(regions: response.regions, selectedRegion: response.selectedRegion)
         viewController?.displayRegions(viewModel: viewModel)
-    }
-    
-    func presentStoreTypes(response: Register.GetStoreTypes.Response) {
-        let viewModel = Register.GetStoreTypes.ViewModel(storeTypes: response.storeTypes, selectedStoreType: response.selectedStoreType)
-        viewController?.displayStoreTypes(viewModel: viewModel)
     }
 }

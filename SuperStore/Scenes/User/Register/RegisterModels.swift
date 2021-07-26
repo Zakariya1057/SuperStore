@@ -33,23 +33,6 @@ enum Register
         }
     }
     
-    enum GetStoreTypes
-    {
-        struct Request
-        {
-        }
-        struct Response
-        {
-            var storeTypes: [StoreTypeModel]
-            var selectedStoreType: StoreTypeModel
-        }
-        struct ViewModel
-        {
-            var storeTypes: [StoreTypeModel]
-            var selectedStoreType: StoreTypeModel
-        }
-    }
-    
     enum Register
     {
         struct Request
@@ -59,7 +42,7 @@ enum Register
             var password: String
             var passwordConfirm: String
             var regionID: Int
-            var storeTypeID: Int
+            var supermarketChainID: Int
         }
         
         struct Response

@@ -71,13 +71,13 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
             let userToken = userHistory.userToken
             
             let regionID = userSession.getRegion()
-            let storeTypeID = userSession.getStore()
+            let supermarketChainID = userSession.getSupermarketChainID()
             
             authWorker.register(
                 name: name,
                 email: email,
                 regionID: regionID,
-                storeTypeID: storeTypeID,
+                supermarketChainID: supermarketChainID,
                 password: password,
                 passwordConfirmation: password,
                 identifier: identifier,

@@ -18,6 +18,6 @@ struct UserData: Decodable {
     var token: String
     var email: String
     var region_id: Int
-    var store_type_id: Int
+    var supermarket_chain_id: Int
     var send_notifications: Bool
 }

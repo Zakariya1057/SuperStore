@@ -11,10 +11,10 @@ import Alamofire
 
 class SearchAPI: API, SearchRequestProtocol {
     
-    func getSuggestions(storeTypeID: Int, query: String, completionHandler: @escaping ([SuggestionModel], String?) -> Void) {
+    func getSuggestions(supermarketChainID: Int, query: String, completionHandler: @escaping ([SuggestionModel], String?) -> Void) {
         let url = Config.Route.Search.Suggestions
         
-        requestWorker.post(url: url, data: ["query": query, "store_type_id": storeTypeID]) { (response: () throws -> Data) in
+        requestWorker.post(url: url, data: ["query": query, "supermarket_chain_id": supermarketChainID]) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let suggestionDataResponse =  try self.jsonDecoder.decode(SearchSuggestionsDataResponse.self, from: data)
@@ -51,7 +51,7 @@ class SearchAPI: API, SearchRequestProtocol {
             
             "text_search": data.textSearch,
             
-            "store_type_id": data.storeTypeID,
+            "supermarket_chain_id": data.supermarketChainID,
             "region_id": data.regionID,
         ]
         

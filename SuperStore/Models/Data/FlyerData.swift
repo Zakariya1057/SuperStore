@@ -18,7 +18,6 @@ struct FlyerData: Decodable {
     var week: String?
     var url: String
     var store_id: Int
-    var store_type_id: Int
     var valid_from: String
     var valid_to: String
     
@@ -34,7 +33,6 @@ struct FlyerData: Decodable {
             week: week,
             url: url,
             storeID: store_id,
-            storeTypeID: store_type_id,
             validFrom: validFrom,
             validTo: validTo
         )

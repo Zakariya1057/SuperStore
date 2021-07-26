@@ -19,14 +19,14 @@ class GroceryWorker {
         self.groceryStore = GroceryRealmStore()
     }
     
-    func getGrandParentCategories(storeTypeID: Int, completionHandler: @escaping ( _ categories: [GrandParentCategoryModel], _ error: String?) -> Void){
+    func getGrandParentCategories(companyID: Int, completionHandler: @escaping ( _ categories: [GrandParentCategoryModel], _ error: String?) -> Void){
         
-        let categories = groceryStore.getGrandParentCategories(storeTypeID: storeTypeID)
+        let categories = groceryStore.getGrandParentCategories(companyID: companyID)
         if categories.count > 0 {
             completionHandler(categories, nil)
         }
         
-        groceryAPI.getGrandParentCategories(storeTypeID: storeTypeID) { (categories: [GrandParentCategoryModel], error: String?) in
+        groceryAPI.getGrandParentCategories(companyID: companyID) { (categories: [GrandParentCategoryModel], error: String?) in
             if error == nil {
                 self.groceryStore.createCategories(categories: categories)
             }
@@ -73,7 +73,7 @@ class GroceryWorker {
 }
 
 protocol GroceryRequestProtocol {
-    func getGrandParentCategories(storeTypeID: Int, completionHandler: @escaping ( _ categories: [GrandParentCategoryModel], _ error: String?) -> Void)
+    func getGrandParentCategories(companyID: Int, completionHandler: @escaping ( _ categories: [GrandParentCategoryModel], _ error: String?) -> Void)
     func getChildCategories(parentCategoryID: Int, completionHandler: @escaping (_ categories: [ChildCategoryModel], _ error: String?) -> Void)
     func getCategoryProducts(childCategoryID: Int, data: SearchQueryRequest, page: Int, completionHandler: @escaping (ChildCategoryModel?, String?) -> Void)
 }
@@ -82,7 +82,7 @@ protocol GroceryStoreProtocol {
     func createCategories(categories: [GrandParentCategoryModel])
     func createCategories(categories: [ChildCategoryModel])
     
-    func getGrandParentCategories(storeTypeID: Int) -> [GrandParentCategoryModel]
+    func getGrandParentCategories(companyID: Int) -> [GrandParentCategoryModel]
     func getChildCategories(parentCategoryID: Int) -> [ChildCategoryModel]
     func getCategoryProducts(childCategoryID: Int) -> ChildCategoryModel?
     

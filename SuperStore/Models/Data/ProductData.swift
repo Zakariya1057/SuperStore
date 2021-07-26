@@ -25,7 +25,9 @@ struct ProductData:Decodable {
     
     var images: [ImageData]?
     
-    var store_type_id: Int
+    var company_id: Int
+    var region_id: Int
+    var supermarket_chain_id: Int
     
     var description: String?
     var features: [String]?
@@ -71,25 +73,36 @@ struct ProductData:Decodable {
     func getProductModel() -> ProductModel {
         let dateWorker = DateWorker()
         
+        let price = ProductPriceModel(
+            regionID: region_id,
+            supermarketChainID: supermarket_chain_id,
+            price: price,
+            oldPrice: old_price,
+            isOnSale: is_on_sale,
+            saleEndsAt:  sale_ends_at == nil ? nil : dateWorker.formatDate(date: sale_ends_at!),
+            promotion: promotion?.getPromotionModel()
+        )
+        
         return ProductModel(
             id: id,
-            storeTypeID: store_type_id,
+            companyID: company_id,
             name: name,
             smallImage: small_image,
             largeImage: large_image,
             images: images?.map({ $0.getImageModel() }) ?? [],
-            description: description,
+            brand: brand, description: description,
             features: features,
             dimensions: dimensions,
+
             price: price,
-            oldPrice: old_price,
-            isOnSale: is_on_sale,
-            saleEndsAt: sale_ends_at == nil ? nil : dateWorker.formatDate(date: sale_ends_at!),
+
             currency: currency,
             avgRating: avg_rating,
             totalReviewsCount: total_reviews_count,
-            promotion: promotion?.getPromotionModel(),
-            storage: storage,
+
+            reviews: reviews?.map({ (review: ReviewData) in
+                return review.getReviewModel()
+            }) ?? [], storage: storage,
             weight: weight,
             
             parentCategoryID: parent_category_id, parentCategoryName: parent_category_name,
@@ -98,11 +111,6 @@ struct ProductData:Decodable {
             
             dietaryInfo: dietary_info,
             allergenInfo: allergen_info,
-            brand: brand,
-            
-            reviews: reviews?.map({ (review: ReviewData) in
-                return review.getReviewModel()
-            }) ?? [],
             
             favourite: favourite ?? false,
             monitoring: monitoring ?? false,

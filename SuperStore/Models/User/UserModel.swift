@@ -17,19 +17,22 @@ struct UserModel {
     var email: String
     
     var regionID: Int
-    var storeTypeID: Int
+    var supermarketChainID: Int
 
     var sendNotifications: Bool
 }
 
-struct StoreTypeModel {
+struct SupermarketChainModel {
     var id: Int
     var name: String
-    var type: StoreType
+    var type: SupermarketChainType
+    var logo: UIImage
     var color: UIColor
 }
 
-enum StoreType: String {
-    case asda = "Asda"
+enum SupermarketChainType: String {
     case realCanadianSuperstore = "Real Canadian Superstore"
+    case noFrills = "No Frills"
+    case atlanticSuperstore = "Atlantic Superstore"
+    case maxi = "Maxi"
 }

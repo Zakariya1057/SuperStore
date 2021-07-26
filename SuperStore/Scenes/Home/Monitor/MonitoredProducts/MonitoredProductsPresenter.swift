@@ -22,8 +22,6 @@ class MonitoredProductsPresenter: MonitoredProductsPresentationLogic
 {
     weak var viewController: MonitoredProductsDisplayLogic?
     
-    // MARK: Do something
-    
     func presentMonitoredProducts(response: MonitoredProducts.GetMonitoredProducts.Response)
     {
         let viewModel = MonitoredProducts.GetMonitoredProducts.ViewModel(products: response.products, error: response.error, offline: response.offline)

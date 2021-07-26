@@ -24,7 +24,11 @@ class EditRegionPresenter: EditRegionPresentationLogic
     
     func presentRegions(response: EditRegion.GetRegions.Response)
     {
-        let viewModel = EditRegion.GetRegions.ViewModel(regions: response.regions, selectedRegionID: response.selectedRegionID)
+        let viewModel = EditRegion.GetRegions.ViewModel(
+            regions: response.regions,
+            selectedRegionID: response.selectedRegionID
+        )
+        
         viewController?.displayRegions(viewModel: viewModel)
     }
     

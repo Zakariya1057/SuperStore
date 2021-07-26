@@ -55,7 +55,7 @@ class UserAuthAPI: API, UserAuthProtocol {
         userToken: String? = nil,
         
         regionID: Int,
-        storeTypeID: Int,
+        supermarketChainID: Int,
         completionHandler: @escaping (UserModel?, String?) -> Void
     ) {
         
@@ -63,7 +63,7 @@ class UserAuthAPI: API, UserAuthProtocol {
             "name": name,
             "email": email,
             "region_id": regionID,
-            "store_type_id": storeTypeID,
+            "supermarket_chain_id": supermarketChainID,
             "password": password,
             "password_confirmation": passwordConfirmation,
             "notification_token": notificationToken ?? "",
@@ -100,7 +100,7 @@ extension UserAuthAPI {
             token: userData.token,
             email: userData.email,
             regionID: userData.region_id,
-            storeTypeID: userData.store_type_id,
+            supermarketChainID: userData.supermarket_chain_id,
             sendNotifications: userData.send_notifications
         )
     }
