@@ -22,6 +22,14 @@ class UserObject: Object {
     @objc dynamic var sendNotifications: Bool = true
     
     func getUserModel() -> UserModel {
-        return UserModel(id: id, name: name, token: token, email: email, regionID: regionID, supermarketChainID: supermarketChainID, sendNotifications: sendNotifications)
+        return UserModel(
+            id: id,
+            name: name,
+            token: token,
+            email: email,
+            regionID: regionID,
+            supermarketChainID: supermarketChainID,
+            sendNotifications: sendNotifications
+        )
     }
 }

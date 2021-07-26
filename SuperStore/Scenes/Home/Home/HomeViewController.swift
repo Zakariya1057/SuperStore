@@ -569,7 +569,7 @@ extension HomeViewController {
         } else {
             // No location found
             if(homeModel == nil){
-                let banner = StatusBarNotificationBanner(title: "Please enable user location to see nearby stores.", style: .info)
+                let banner = StatusBarNotificationBanner(title: "Please allow Location Services from your Apple settings to view nearby stores.", style: .info)
                 banner.dismissOnTap = true
                 banner.dismissOnSwipeUp = true
                 banner.show()
