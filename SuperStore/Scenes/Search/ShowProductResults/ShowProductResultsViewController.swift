@@ -434,6 +434,8 @@ extension ShowProductResultsViewController {
             alert.addAction(UIAlertAction(title: option.name, style: .default , handler:{ _ in self.sortOptionSelected(option: option) }))
         }
 
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
         if let viewRect = sender as? UIView {
             
             alert.modalPresentationStyle = .popover
@@ -442,6 +444,8 @@ extension ShowProductResultsViewController {
                 presenter.sourceView = viewRect;
                 presenter.sourceRect = viewRect.bounds;
             }
+            
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
