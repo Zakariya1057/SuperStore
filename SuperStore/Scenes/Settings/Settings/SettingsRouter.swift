@@ -14,8 +14,9 @@ import UIKit
 
 @objc protocol SettingsRoutingLogic
 {
-    func routeToAdvancedSettings(segue: UIStoryboardSegue?)
     func routeToLogin(segue: UIStoryboardSegue?)
+    func routeToAdvancedSettings(segue: UIStoryboardSegue?)
+    func routeToEditRegion(segue: UIStoryboardSegue?)
 }
 
 protocol SettingsDataPassing
@@ -61,6 +62,21 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
         }
     }
 
+    func routeToEditRegion(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! EditRegionViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToEditRegion(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "EditRegionViewController") as! EditRegionViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToEditRegion(source: dataStore!, destination: &destinationDS)
+            navigateToEditRegion(source: viewController!, destination: destinationVC)
+        }
+    }
+    
     // MARK: Navigation
     
     func navigateToAdvancedSettings(source: SettingsViewController, destination: AdvancedSettingsViewController)
@@ -73,6 +89,11 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
         source.present(destination, animated: true, completion: nil)
     }
     
+    func navigateToEditRegion(source: SettingsViewController, destination: EditRegionViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
     // MARK: Passing data
     
     func passDataToAdvancedSettings(source: SettingsDataStore, destination: inout AdvancedSettingsDataStore)
@@ -81,6 +102,11 @@ class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing
     }
     
     func passDataToLogin(source: SettingsDataStore, destination: inout LoginDataStore)
+    {
+        
+    }
+    
+    func passDataToEditRegion(source: SettingsDataStore, destination: inout EditRegionDataStore)
     {
         
     }

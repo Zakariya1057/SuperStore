@@ -70,11 +70,11 @@ extension AdvancedSettingsPresenter {
         case .deviceStorage:
             displaySections = deviceStorageSections()
             
-        case .regionAndSupermarketChain:
-            displaySections = regionAndSupermarketSections(
-                regionName: response.regionName,
-                supermarketChainName: response.supermarketChainName
-            )
+//        case .regionAndSupermarketChain:
+//            displaySections = regionAndSupermarketSections(
+//                regionName: response.regionName,
+//                supermarketChainName: response.supermarketChainName
+//            )
             
         default:
             print("Unknown Setting Type: \( type(of: setting.type) )")

@@ -33,7 +33,7 @@ class EditRegionInteractor: EditRegionBusinessLogic, EditRegionDataStore
     
     func getRegions(request: EditRegion.GetRegions.Request)
     {
-        let regions = regionWorker.getRegions()
+        let regions = regionWorker.getRegionsForSupermarketChain()
         let selectedRegionID = regionWorker.getSelectedRegion().id
         
         let response = EditRegion.GetRegions.Response(regions: regions, selectedRegionID: selectedRegionID)

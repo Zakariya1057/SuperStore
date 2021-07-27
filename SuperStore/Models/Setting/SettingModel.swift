@@ -20,7 +20,6 @@ enum SettingType: String {
     case userManagement = "User Management"
     case deviceStorage = "Device Storage"
     case helpAndFeedback = "Help & Feedback"
-    case regionAndSupermarketChain = "Regions & Store"
 
     
     case store, region

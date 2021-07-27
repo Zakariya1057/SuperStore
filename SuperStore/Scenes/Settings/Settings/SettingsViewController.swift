@@ -177,7 +177,10 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     func settingPressed(setting: SettingModel){
         switch setting.type {
         
-        case .userManagement, .deviceStorage, .helpAndFeedback, .regionAndSupermarketChain:
+        case .region:
+            regionPressed()
+            
+        case .userManagement, .deviceStorage, .helpAndFeedback:
             advancedSettingsPressed(setting: setting)
             
         case .logout:
@@ -225,6 +228,10 @@ extension SettingsViewController {
 }
 
 extension SettingsViewController {
+    func regionPressed(){
+        router?.routeToEditRegion(segue: nil)
+    }
+    
     func logoutPressed(){
         let refreshAlert = UIAlertController(title: "Logout", message: "Are you sure you want to logout? Your data won't be lost.", preferredStyle: UIAlertController.Style.alert)
         

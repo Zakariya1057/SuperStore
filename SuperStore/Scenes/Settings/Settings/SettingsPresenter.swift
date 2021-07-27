@@ -42,7 +42,7 @@ class SettingsPresenter: SettingsPresentationLogic
                     ]),
                     
                     Settings.DisplayUserSection(settings: [
-                        SettingModel(name: "Regions & Stores", type: .regionAndSupermarketChain)
+                        SettingModel(name: "Provinces", type: .region)
                     ]),
                     
                     Settings.DisplayUserSection(settings: [
@@ -63,7 +63,7 @@ class SettingsPresenter: SettingsPresentationLogic
             } else {
                 displayUserSections.append(contentsOf: [
                     Settings.DisplayUserSection(settings: [
-                        SettingModel(name: "Regions & Stores", type: .regionAndSupermarketChain)
+                        SettingModel(name: "Provinces", type: .region)
                     ]),
                     
                     Settings.DisplayUserSection(settings: [

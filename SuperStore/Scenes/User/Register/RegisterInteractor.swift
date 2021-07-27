@@ -104,7 +104,7 @@ extension RegisterInteractor {
 
 extension RegisterInteractor {
     func getRegions(request: Register.GetRegions.Request){
-        let regions = regionWorker.getRegions()
+        let regions = regionWorker.getRegionsForSupermarketChain()
         let selectedRegion = regionWorker.getSelectedRegion()
         
         let response = Register.GetRegions.Response(regions: regions, selectedRegion: selectedRegion)

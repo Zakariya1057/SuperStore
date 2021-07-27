@@ -13,15 +13,15 @@ class SettingCell: UITableViewCell {
     var icons: [String: UIImage?] = [
         "User Management": UIImage(systemName: "person.circle"),
         "Device Storage": UIImage(systemName: "archivebox"),
-        "Regions & Stores": UIImage(systemName: "location.circle"),
+        "Provinces & Stores": UIImage(systemName: "location.circle"),
         
         "Name": UIImage(systemName: "person"),
         "Email": UIImage(systemName: "envelope"),
         "Password": UIImage(systemName: "lock"),
         "Notifications": UIImage(systemName: "bell"),
         
-        "Store": UIImage(systemName: "cart"),
-        "Province": UIImage(systemName: "location.circle"),
+        "Storse": UIImage(systemName: "cart"),
+        "Provinces": UIImage(systemName: "location.circle"),
         
         "Clear Cached Images": UIImage(systemName: "trash"),
         "Clear Cached Suggestions": UIImage(systemName: "trash"),

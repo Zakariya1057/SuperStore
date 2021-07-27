@@ -26,6 +26,7 @@ struct SupermarketChainModel {
     var id: Int
     var name: String
     var type: SupermarketChainType
+    var regions: [RegionModel] = []
     var logo: UIImage
     var color: UIColor
 }
