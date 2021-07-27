@@ -33,7 +33,8 @@ class EditStoreInteractor: EditStoreBusinessLogic, EditStoreDataStore
     var supermarketChainWorker: SupermarketChainWorker = SupermarketChainWorker()
     
     func getSupermarketChains(request: EditStore.GetSupermarketChains.Request){
-        let supermarketChains = supermarketChainWorker.getCurrentRegionSupermarketChains()
+//        let supermarketChains = supermarketChainWorker.getCurrentRegionSupermarketChains()
+        let supermarketChains: [SupermarketChainModel] = []
         
         let selectedsupermarketChainID: Int = supermarketChainWorker.getSelectedSupermarketChain().id
         

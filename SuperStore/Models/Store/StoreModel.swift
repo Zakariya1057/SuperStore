@@ -41,6 +41,8 @@ struct OpeningHourModel {
 
 struct LocationModel {
     let storeID: Int
+    
+    let regionID: Int
 
     let city: String
     let addressLine1: String

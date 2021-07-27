@@ -21,6 +21,8 @@ class UserObject: Object {
 
     @objc dynamic var sendNotifications: Bool = true
     
+    @objc dynamic var regionHasChanged: Bool = false
+    
     func getUserModel() -> UserModel {
         return UserModel(
             id: id,

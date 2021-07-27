@@ -16,18 +16,20 @@ enum Register
 {
     // MARK: Use cases
     
-    enum GetRegions
+    enum GetRegionSupermarketChain
     {
         struct Request
         {
         }
         struct Response
         {
+            var supermarketChainID: Int
             var regions: [RegionModel]
             var selectedRegion: RegionModel
         }
         struct ViewModel
         {
+            var supermarketChainID: Int
             var regions: [RegionModel]
             var selectedRegion: RegionModel
         }

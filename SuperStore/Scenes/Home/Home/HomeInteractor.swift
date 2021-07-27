@@ -51,6 +51,7 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     var locationWorker: LocationWorker = LocationWorker(locationAPI: LocationAPI())
     
     var userSession: UserSessionWorker = UserSessionWorker()
+    var userSettings: UserSettingsWorker = UserSettingsWorker(userStore: UserRealmStore())
     
     var selectedList: ListModel?
     var selectedProductID: Int?
@@ -90,6 +91,11 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
                     if let home = home, home.longitude != nil {
                         if let store = home.stores.first {
                             self.closestStoreID = store.id
+                            
+                            if !self.userSession.isLoggedIn() {
+                                let regionID: Int = store.location.regionID
+                                self.userSettings.updateNewUserRegionID(regionID: regionID)
+                            }
                         }
                     }
                 }
@@ -104,9 +110,7 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
         let longitude: Double = request.longitude
         let loggedIn: Bool = userSession.isLoggedIn()
         
-        locationWorker.updateLocation(loggedIn: loggedIn, latitude: latitude, longitude: longitude) { (error: String?) in
-            //            print(error)
-        }
+        locationWorker.updateLocation(loggedIn: loggedIn, latitude: latitude, longitude: longitude) { (error: String?) in }
     }
 }
 

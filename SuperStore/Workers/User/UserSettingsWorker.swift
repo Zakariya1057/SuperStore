@@ -61,12 +61,12 @@ class UserSettingsWorker {
             })
             
             // If the selected region doesn't have the selected supermarket chain, use another one
-            if let supermarketChainID = userStore.getSupermarketChainID() {
-                if userStore.supermarketChainChangeRequired(regionID: regionID, supermarketChainID: supermarketChainID ){
-                    let supermarketChainID = regionWorker.getRegionSupermarketChainID(regionID: regionID)
-                    self.updateStore(supermarketChainID: supermarketChainID, loggedIn: loggedIn) { _ in }
-                }
-            }
+//            if let supermarketChainID = userStore.getSupermarketChainID() {
+//                if userStore.supermarketChainChangeRequired(regionID: regionID, supermarketChainID: supermarketChainID ){
+//                    let supermarketChainID = regionWorker.getRegionSupermarketChainID(regionID: regionID)
+//                    self.updateStore(supermarketChainID: supermarketChainID, loggedIn: loggedIn) { _ in }
+//                }
+//            }
     
         } else {
             completionHandler(nil)
@@ -90,6 +90,15 @@ class UserSettingsWorker {
             currentPassword: currentPassword, newPassword: newPassword,
             confirmPassword: confirmPassword, completionHandler: completionHandler
         )
+    }
+}
+
+extension UserSettingsWorker {
+    func updateNewUserRegionID(regionID: Int){
+        // For first time new users, use closest store to update default region id
+        if !userStore.defaultRegionChanged(){
+            self.userStore.updateRegion(regionID: regionID)
+        }
     }
 }
 
@@ -146,7 +155,8 @@ protocol UserStoreProtocol {
     func updateRegion(regionID: Int) -> Void
     func updateStore(supermarketChainID: Int) -> Void
     
-    func supermarketChainChangeRequired(regionID: Int, supermarketChainID: Int) -> Bool
+    func defaultRegionChanged() -> Bool
+//    func supermarketChainChangeRequired(regionID: Int, supermarketChainID: Int) -> Bool
     
     func logoutUser() -> Void
     func deleteUser() -> Void

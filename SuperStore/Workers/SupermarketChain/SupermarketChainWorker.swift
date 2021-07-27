@@ -17,40 +17,48 @@ class SupermarketChainWorker
     private lazy var regionWorker: RegionWorker = RegionWorker()
     
     // Only show some supermarket chains for some regions.
-    private var supermarketChains: [SupermarketChainModel] = [
-        SupermarketChainModel(
-            id: 1,
-            name: "Real Canadian Superstore",
-            type: .realCanadianSuperstore,
-            logo: UIImage(named: "Real Canadian SuperStore")!,
-            color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
-        ),
-        
-        SupermarketChainModel(
-            id: 2,
-            name: "No Frills",
-            type: .noFrills,
-            logo: UIImage(named: "No Frills")!,
-            color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
-        ),
-        
-        SupermarketChainModel(
-            id: 3,
-            name: "Atlantic Superstore",
-            type: .atlanticSuperstore,
-            logo: UIImage(named: "Atlantic Superstore")!,
-            color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
-        ),
-        
-        SupermarketChainModel(
-            id: 4,
-            name: "Maxi",
-            type: .maxi,
-            logo: UIImage(named: "Maxi")!,
-            color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
-        ),
-    ]
-    
+    private var supermarketChains: [SupermarketChainModel] {
+        [
+            SupermarketChainModel(
+                id: 1,
+                name: "Real Canadian Superstore",
+                type: .realCanadianSuperstore,
+                regions: regionWorker.getRegionsByID(ids: [8,9,10,11,12,13]),
+                logo: UIImage(named: "Real Canadian SuperStore")!,
+                color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
+            ),
+            
+            SupermarketChainModel(
+                id: 2,
+                name: "No Frills",
+                type: .noFrills,
+                regions: [],
+                logo: UIImage(named: "No Frills")!,
+                color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
+            ),
+            
+            SupermarketChainModel(
+                id: 3,
+                name: "Atlantic Superstore",
+                type: .atlanticSuperstore,
+                regions: [],
+                logo: UIImage(named: "Atlantic Superstore")!,
+                color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
+            ),
+            
+            SupermarketChainModel(
+                id: 4,
+                name: "Maxi",
+                type: .maxi,
+                regions: [],
+                logo: UIImage(named: "Maxi")!,
+                color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
+            ),
+        ]
+    }
+}
+
+extension SupermarketChainWorker {
     func getSupermarketChains() -> [SupermarketChainModel]{
         return supermarketChains
     }
@@ -68,7 +76,9 @@ class SupermarketChainWorker
             return supermarketChain.id == supermarketChainID
         }
     }
-    
+}
+
+extension SupermarketChainWorker {
     func getSupermarketChainName(supermarketChainID: Int) -> String {
         return getSupermarketChainByID(supermarketChainID: supermarketChainID)?.name ?? supermarketChains.first!.name
     }
@@ -100,8 +110,8 @@ extension SupermarketChainWorker {
     }
 }
 
-extension SupermarketChainWorker {
-    func getCurrentRegionSupermarketChains() -> [SupermarketChainModel] {
-        return regionWorker.getSelectedRegion().supermarketChains
-    }
-}
+//extension SupermarketChainWorker {
+//    func getCurrentRegionSupermarketChains() -> [SupermarketChainModel] {
+//        return regionWorker.getSelectedRegion().supermarketChains
+//    }
+//}

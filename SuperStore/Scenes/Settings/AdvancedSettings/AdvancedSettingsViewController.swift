@@ -344,9 +344,7 @@ extension AdvancedSettingsViewController {
             self.interactor?.delete(request: request)
         }))
         
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-            print("Cancel Delete")
-        }))
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in }))
         
         present(refreshAlert, animated: true, completion: nil)
     }

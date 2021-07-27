@@ -61,6 +61,8 @@ class OpeningHourObject: Object {
 class LocationObject: Object {
     var storeID: Int = 1
     
+    var regionID: Int = 1
+    
     @objc dynamic var city: String = ""
     @objc dynamic var addressLine1: String = ""
     
@@ -75,6 +77,9 @@ class LocationObject: Object {
     func getLocationModel() -> LocationModel {
         return LocationModel(
             storeID: storeID,
+            
+            regionID: regionID,
+            
             city: city,
             addressLine1: addressLine1,
             addressLine2: addressLine2,

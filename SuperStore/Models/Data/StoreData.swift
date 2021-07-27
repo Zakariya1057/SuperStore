@@ -33,13 +33,17 @@ struct StoreData: Decodable {
             id: id,
             name: name,
             address: address,
+            
             openingHours: opening_hours?.map({ (hour: OpeningHoursData) in
                 return hour.getOpeningHourModel(storeID: id)
             }) ?? [],
+            
             location: location.getLocationModel(storeID: id),
+            
             facilities: facilities?.map({ (facility: FacilityData) in
                 return facility.name
             }) ?? [],
+            
             supermarketChainID: supermarket_chain_id
         )
     }
@@ -72,9 +76,14 @@ struct LocationData:Decodable {
     var latitude: Double?
     var longitude: Double?
     
+    var region_id: Int
+    
     func getLocationModel(storeID: Int) -> LocationModel {
         return LocationModel(
             storeID: storeID,
+            
+            regionID: region_id,
+            
             city: city,
             addressLine1: address_line1,
             addressLine2: address_line2,

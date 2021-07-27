@@ -12,5 +12,4 @@ struct RegionModel {
     var id: Int
     var name: String
     var country: String
-    var supermarketChains: [SupermarketChainModel]
 }

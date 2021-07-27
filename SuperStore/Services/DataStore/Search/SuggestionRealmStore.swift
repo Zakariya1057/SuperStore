@@ -36,7 +36,7 @@ class SuggestionRealmStore: DataStore, SuggestionStoreProtocol {
         let type: String = suggestion.type.rawValue
         
         if getSuggestionObject(name: name, type: type) != nil {
-//            print("Duplicate Search Item Found. Ignoring")
+            
         } else {
             try? realm?.write({
                 let savedSuggestion = SuggestionObject()

@@ -35,7 +35,7 @@ class EditRegionInteractor: EditRegionBusinessLogic, EditRegionDataStore
     {
         let regions = regionWorker.getRegionsForSupermarketChain()
         let selectedRegionID = regionWorker.getSelectedRegion().id
-        
+
         let response = EditRegion.GetRegions.Response(regions: regions, selectedRegionID: selectedRegionID)
         presenter?.presentRegions(response: response)
     }

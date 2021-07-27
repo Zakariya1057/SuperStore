@@ -22,80 +22,69 @@ class RegionWorker
             RegionModel(
                 id: 8,
                 name: "Ontario",
-                country: "Canada",
-                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [4,3])
+                country: "Canada"
             ),
 
             RegionModel(
                 id: 9,
                 name: "Alberta",
-                country: "Canada",
-                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [4,3])
+                country: "Canada"
             ),
 
             RegionModel(
                 id: 10,
                 name: "Manitoba",
-                country: "Canada",
-                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [4,3])
+                country: "Canada"
             ),
 
             RegionModel(
                 id: 11,
                 name: "British Columbia",
-                country: "Canada",
-                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [4,3])
+                country: "Canada"
             ),
 
             RegionModel(
                 id: 12,
                 name: "Saskatchewan",
-                country: "Canada",
-                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [4,3])
+                country: "Canada"
             ),
 
             RegionModel(
                 id: 13,
                 name: "Yukon",
-                country: "Canada",
-                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [2,4,3])
+                country: "Canada"
             ),
 
             
             RegionModel(
                 id: 18,
                 name: "Quebec",
-                country: "Canada",
-                supermarketChains: [ supermarketChainWorker.getSupermarketChainByID(supermarketChainID: 4)! ]
+                country: "Canada"
             ),
             
         
             RegionModel(
                 id: 14,
                 name: "Newfoundland and Labrador",
-                country: "Canada",
-                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [1,4,3])
+                country: "Canada"
             ),
 
             RegionModel(
                 id: 15,
                 name: "Nova Scotia",
-                country: "Canada",
-                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [1, 4])
+                country: "Canada"
             ),
 
             RegionModel(
                 id: 16,
                 name: "Prince Edward Island",
-                country: "Canada",
-                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [1, 4])
+                country: "Canada"
             ),
 
             RegionModel(
                 id: 17,
                 name: "New Brunswick",
-                country: "Canada",
-                supermarketChains: supermarketChainWorker.getSupermarketChainsSorted(excludeSupermarketChainIDs: [1, 4])
+                country: "Canada"
             ),
 
         ]
@@ -127,8 +116,19 @@ extension RegionWorker {
         return getRegion(regionID: regionID)?.name ?? regions.first!.name
     }
     
-    func getRegionSupermarketChainID(regionID: Int) -> Int {
-        let region: RegionModel = getRegion(regionID: regionID) ?? regions.first!
-        return region.supermarketChains.first!.id
+//    func getRegionSupermarketChainID(regionID: Int) -> Int {
+//        let region: RegionModel = getRegion(regionID: regionID) ?? regions.first!
+//        return region.supermarketChains.first!.id
+//    }
+}
+
+extension RegionWorker {
+    func getRegionsForSupermarketChain() -> [RegionModel] {
+        return supermarketChainWorker.getSelectedSupermarketChain().regions
     }
+    
+    func getRegionsByID(ids: [Int]) -> [RegionModel] {
+        return regions.filter { region in ids.contains(region.id) }
+    }
+    
 }

@@ -512,21 +512,23 @@ extension HomeViewController {
     private func groceriesPressed(){
         router?.routeToGrandParentCategories(segue: nil)
     }
-    
-    private func flyersPressed(){
-        if longitude == nil {
-            showError(title: "Flyer Error", error: "Location required to view flyers")
-        } else {
-            router?.routeToFlyerList(segue: nil)
-        }
-    }
-    
+
     private func chatButtonPressed(){
         router?.routeToFeedback(segue: nil)
     }
     
     private func cellScroll(_ title: String, _ position: CGFloat){
         scrollPositions[title] = position
+    }
+}
+
+extension HomeViewController {
+    private func flyersPressed(){
+        if longitude == nil {
+            showError(title: "Flyer Error", error: "Location required to view flyers")
+        } else {
+            router?.routeToFlyerList(segue: nil)
+        }
     }
 }
 

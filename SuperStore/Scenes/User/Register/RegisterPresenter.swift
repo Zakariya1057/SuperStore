@@ -17,7 +17,7 @@ protocol RegisterPresentationLogic
     func presentUserEmail(response: Register.GetEmail.Response)
     func presentRegisteredUser(response: Register.Register.Response)
     
-    func presentRegions(response: Register.GetRegions.Response)
+    func presentRegions(response: Register.GetRegionSupermarketChain.Response)
 }
 
 class RegisterPresenter: RegisterPresentationLogic
@@ -37,8 +37,13 @@ class RegisterPresenter: RegisterPresentationLogic
 }
 
 extension RegisterPresenter {
-    func presentRegions(response: Register.GetRegions.Response) {
-        let viewModel = Register.GetRegions.ViewModel(regions: response.regions, selectedRegion: response.selectedRegion)
-        viewController?.displayRegions(viewModel: viewModel)
+    func presentRegions(response: Register.GetRegionSupermarketChain.Response) {
+        let viewModel = Register.GetRegionSupermarketChain.ViewModel(
+            supermarketChainID: response.supermarketChainID,
+            regions: response.regions,
+            selectedRegion: response.selectedRegion
+        )
+        
+        viewController?.displayRegionSupermarketChain(viewModel: viewModel)
     }
 }
