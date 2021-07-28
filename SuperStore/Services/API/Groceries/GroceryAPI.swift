@@ -12,7 +12,7 @@ import Alamofire
 class GroceryAPI: API, GroceryRequestProtocol {
     
     func getGrandParentCategories(companyID: Int, completionHandler: @escaping ([GrandParentCategoryModel], String?) -> Void) {
-        let url: String = Config.Route.Groceries.GrandParentCategories + "/" + String(companyID)
+        let url: String = Config.Routes.Groceries.GrandParentCategories + "/" + String(companyID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -31,7 +31,7 @@ class GroceryAPI: API, GroceryRequestProtocol {
     }
     
     func getChildCategories(parentCategoryID: Int, completionHandler: @escaping ([ChildCategoryModel], String?) -> Void){
-        let url: String = Config.Route.Groceries.ChildCategories + "/" + String(parentCategoryID)
+        let url: String = Config.Routes.Groceries.ChildCategories + "/" + String(parentCategoryID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -51,7 +51,7 @@ class GroceryAPI: API, GroceryRequestProtocol {
     
     
     func getCategoryProducts(childCategoryID: Int, data: SearchQueryRequest, page: Int, completionHandler: @escaping (ChildCategoryModel?, String?) -> Void){
-        let url: String = Config.Route.Groceries.CategoryProducts + "/" + String(childCategoryID)  + "?page=\(page)"
+        let url: String = Config.Routes.Groceries.CategoryProducts + "/" + String(childCategoryID)  + "?page=\(page)"
         
         let queryData: Parameters = [
             "sort": data.sort,

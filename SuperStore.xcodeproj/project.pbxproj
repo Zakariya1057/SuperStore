@@ -144,6 +144,8 @@
 		2C55FA2625EE4C7C007BBFA8 /* ShowStoreResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C55FA2025EE4C7C007BBFA8 /* ShowStoreResultsViewController.swift */; };
 		2C55FA2725EE4C7C007BBFA8 /* ShowStoreResultsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C55FA2125EE4C7C007BBFA8 /* ShowStoreResultsInteractor.swift */; };
 		2C55FA2D25EE5637007BBFA8 /* SearchQueryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C55FA2C25EE5637007BBFA8 /* SearchQueryRequest.swift */; };
+		2C576F4826B1D6B200C1023C /* SupermarketChainsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C576F4726B1D6B200C1023C /* SupermarketChainsConfig.swift */; };
+		2C576F4A26B1D6CB00C1023C /* RoutesConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C576F4926B1D6CB00C1023C /* RoutesConfig.swift */; };
 		2C5C984825F69A6000DF8B6D /* ListItemRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C984725F69A6000DF8B6D /* ListItemRealmStore.swift */; };
 		2C5C984C25F69A6C00DF8B6D /* ListRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C984B25F69A6C00DF8B6D /* ListRealmStore.swift */; };
 		2C5C985425F69AB500DF8B6D /* SuggestionRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C985325F69AB500DF8B6D /* SuggestionRealmStore.swift */; };
@@ -631,6 +633,8 @@
 		2C55FA2025EE4C7C007BBFA8 /* ShowStoreResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowStoreResultsViewController.swift; sourceTree = "<group>"; };
 		2C55FA2125EE4C7C007BBFA8 /* ShowStoreResultsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowStoreResultsInteractor.swift; sourceTree = "<group>"; };
 		2C55FA2C25EE5637007BBFA8 /* SearchQueryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryRequest.swift; sourceTree = "<group>"; };
+		2C576F4726B1D6B200C1023C /* SupermarketChainsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupermarketChainsConfig.swift; sourceTree = "<group>"; };
+		2C576F4926B1D6CB00C1023C /* RoutesConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesConfig.swift; sourceTree = "<group>"; };
 		2C5C984725F69A6000DF8B6D /* ListItemRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemRealmStore.swift; sourceTree = "<group>"; };
 		2C5C984B25F69A6C00DF8B6D /* ListRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRealmStore.swift; sourceTree = "<group>"; };
 		2C5C985325F69AB500DF8B6D /* SuggestionRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionRealmStore.swift; sourceTree = "<group>"; };
@@ -2486,6 +2490,8 @@
 			isa = PBXGroup;
 			children = (
 				2CDFB60825EA5EDA002CE30D /* Config.swift */,
+				2C576F4926B1D6CB00C1023C /* RoutesConfig.swift */,
+				2C576F4726B1D6B200C1023C /* SupermarketChainsConfig.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -3106,6 +3112,7 @@
 				2C14772F25E90246000E8F66 /* RegisterPresenter.swift in Sources */,
 				2C70823B25F009D000345147 /* SendEmailRouter.swift in Sources */,
 				2C2BC83D25EBC0680038882B /* ShowItemsWorker.swift in Sources */,
+				2C576F4826B1D6B200C1023C /* SupermarketChainsConfig.swift in Sources */,
 				2C5C987725F69BD300DF8B6D /* ListItemObject.swift in Sources */,
 				2C6146A225F1266400D92CB7 /* CreateListModels.swift in Sources */,
 				2C7082D025F01C7500345147 /* UserHistory.swift in Sources */,
@@ -3250,6 +3257,7 @@
 				2CA11EEC25EE84620054AE19 /* ShowRefineRouter.swift in Sources */,
 				2C14299925F2C282007D1EB7 /* EditListItemRouter.swift in Sources */,
 				2CC0ADEB25FA1E2D00373AC4 /* StoreObject.swift in Sources */,
+				2C576F4A26B1D6CB00C1023C /* RoutesConfig.swift in Sources */,
 				2C7082AC25F013B200345147 /* EditEmailRouter.swift in Sources */,
 				2C55FA2425EE4C7C007BBFA8 /* ShowStoreResultsRouter.swift in Sources */,
 				2CC600392643EA7900A1F7BE /* FeedbackViewController.swift in Sources */,

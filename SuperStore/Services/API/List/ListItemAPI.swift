@@ -12,7 +12,7 @@ import Alamofire
 class ListItemAPI: API, ListItemRequestProtocol {
 
     func updateItem(listID: Int, productID: Int, quanity: Int, tickedOff: Bool, completionHandler: @escaping ( _ error: String?) -> Void){
-        let url: String = Config.Route.List.ListRoute + "/" + String(listID) + Config.Route.List.Item.Update
+        let url: String = Config.Routes.List.ListRoute + "/" + String(listID) + Config.Routes.List.Item.Update
         
         let itemData: Parameters = [
             "product_id": productID,
@@ -35,7 +35,7 @@ class ListItemAPI: API, ListItemRequestProtocol {
     }
     
     func deleteItem(listID: Int, productID: Int, completionHandler: @escaping (String?) -> Void) {
-        let url: String = Config.Route.List.ListRoute + "/" + String(listID) + Config.Route.List.Item.Delete
+        let url: String = Config.Routes.List.ListRoute + "/" + String(listID) + Config.Routes.List.Item.Delete
         
         requestWorker.post(url: url, data: ["product_id": productID]) { (response: () throws -> Data) in
             do {
@@ -52,7 +52,7 @@ class ListItemAPI: API, ListItemRequestProtocol {
     }
     
     func createItem(listID: Int, productID: Int, parentCategoryID: Int, completionHandler: @escaping (ListItemModel?, String?) -> Void) {
-        let url: String = Config.Route.List.ListRoute + "/" + String(listID) + Config.Route.List.Item.Create
+        let url: String = Config.Routes.List.ListRoute + "/" + String(listID) + Config.Routes.List.Item.Create
         
         let itemData: Parameters = [
             "list_id": listID,

@@ -11,7 +11,7 @@ import Foundation
 class FavouriteAPI: API, FavouriteRequestProtocol {
     
     func getFavourites(regionID: Int, supermarketChainID: Int, completionHandler: @escaping ([ProductModel], String?) -> Void) {
-        let url = Config.Route.Favourites + "?region_id=\(regionID)&supermarket_chain_id=\(supermarketChainID)"
+        let url = Config.Routes.Favourites + "?region_id=\(regionID)&supermarket_chain_id=\(supermarketChainID)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -30,7 +30,7 @@ class FavouriteAPI: API, FavouriteRequestProtocol {
     }
     
     func updateFavourite(productID: Int, favourite: Bool, completionHandler: @escaping (String?) -> Void) {
-        let url = Config.Route.Product.Show + String(productID) +  Config.Route.Product.Favourite
+        let url = Config.Routes.Product.Show + String(productID) +  Config.Routes.Product.Favourite
 
         requestWorker.post(url: url, data: ["favourite": favourite]) { (response: () throws -> Data) in
             do {
@@ -47,7 +47,7 @@ class FavouriteAPI: API, FavouriteRequestProtocol {
     }
     
     func deleteFavourite(productID: Int, completionHandler: @escaping (_ error: String?) -> Void){
-        let url = Config.Route.Product.Show + String(productID) +  Config.Route.Product.Favourite
+        let url = Config.Routes.Product.Show + String(productID) +  Config.Routes.Product.Favourite
         
         requestWorker.post(url: url, data: ["favourite": false]) { (response: () throws -> Data) in
             do {

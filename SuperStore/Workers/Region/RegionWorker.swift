@@ -10,7 +10,7 @@ import Foundation
 
 class RegionWorker
 {
-    private var defaultRegionID: Int = 8
+    private var defaultRegionID: Int = Config.SupermarketChains.SelectedSupermarketChain.RegionID
     
     private var userStore: UserStoreProtocol = UserRealmStore()
     

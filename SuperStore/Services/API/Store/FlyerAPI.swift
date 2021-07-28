@@ -10,7 +10,7 @@ import Foundation
 
 class FlyerAPI: API, FlyerRequestProtocol {
     func getFlyers(storeID: Int, completionHandler: @escaping ([FlyerModel], String?) -> Void) {
-        let url = Config.Route.Flyers.Show + String(storeID)
+        let url = Config.Routes.Flyers.Show + String(storeID)
         
         requestWorker.get(url:url) { (response: () throws -> Data) in
             do {
@@ -29,7 +29,7 @@ class FlyerAPI: API, FlyerRequestProtocol {
     }
     
     func getFlyerProducts(flyerID: Int, completionHandler: @escaping ([ProductModel], String?) -> Void) {
-        let url = Config.Route.Flyers.Products + String(flyerID)
+        let url = Config.Routes.Flyers.Products + String(flyerID)
         
         requestWorker.get(url:url) { (response: () throws -> Data) in
             do {

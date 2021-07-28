@@ -11,7 +11,7 @@ import UIKit
 
 class SupermarketChainWorker
 {
-    private var defaultSupermarketChainID: Int = 1
+    private var defaultSupermarketChainID: Int = Config.SupermarketChains.SelectedSupermarketChain.SupermarketChainID
     
     private var userStore: UserStoreProtocol = UserRealmStore()
     private lazy var regionWorker: RegionWorker = RegionWorker()

@@ -12,7 +12,7 @@ import Alamofire
 class ListAPI: API, ListRequestProtocol {
     
     func getLists(supermarketChainID: Int, completionHandler: @escaping ( _ lists: [ListModel], _ error: String?) -> Void){
-        let url: String = Config.Route.List.All + "/" + String(supermarketChainID)
+        let url: String = Config.Routes.List.All + "/" + String(supermarketChainID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -31,7 +31,7 @@ class ListAPI: API, ListRequestProtocol {
     }
     
     func getList(listID: Int, completionHandler: @escaping ( _ list: ListModel?, _ error: String?) -> Void){
-        let url: String = Config.Route.List.Show + String(listID)
+        let url: String = Config.Routes.List.Show + String(listID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -52,7 +52,7 @@ class ListAPI: API, ListRequestProtocol {
     func createList(name: String, identifier: String, supermarketChainID: Int, completionHandler: @escaping (_ list: ListModel?, _ error: String?) -> Void){
         let createData:Parameters = ["name": name, "identifier": identifier, "supermarket_chain_id": supermarketChainID]
         
-        requestWorker.post(url:  Config.Route.List.Create, data: createData) { (response: () throws -> Data) in
+        requestWorker.post(url:  Config.Routes.List.Create, data: createData) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let listDataResponse =  try self.jsonDecoder.decode(ListDataResponse.self, from: data)
@@ -71,7 +71,7 @@ class ListAPI: API, ListRequestProtocol {
     func updateList(listID: Int, name: String, supermarketChainID: Int, completionHandler: @escaping (String?) -> Void) {
         let updateData:Parameters = ["list_id": listID, "name": name, "supermarket_chain_id": supermarketChainID]
         
-        requestWorker.post(url:  Config.Route.List.Update, data: updateData) { (response: () throws -> Data) in
+        requestWorker.post(url:  Config.Routes.List.Update, data: updateData) { (response: () throws -> Data) in
             do {
                 _ = try response()
                 completionHandler(nil)
@@ -86,7 +86,7 @@ class ListAPI: API, ListRequestProtocol {
     }
     
     func restartList(listID: Int, completionHandler: @escaping (String?) -> Void) {
-        requestWorker.post(url:  Config.Route.List.Restart, data: ["list_id": listID]) { (response: () throws -> Data) in
+        requestWorker.post(url:  Config.Routes.List.Restart, data: ["list_id": listID]) { (response: () throws -> Data) in
             do {
                 _ = try response()
                 completionHandler(nil)
@@ -101,7 +101,7 @@ class ListAPI: API, ListRequestProtocol {
     }
     
     func deleteList(listID: Int, completionHandler: @escaping (String?) -> Void) {
-        requestWorker.post(url:  Config.Route.List.Delete, data: ["list_id": listID]) { (response: () throws -> Data) in
+        requestWorker.post(url:  Config.Routes.List.Delete, data: ["list_id": listID]) { (response: () throws -> Data) in
             do {
                 _ = try response()
                 completionHandler(nil)
@@ -119,7 +119,7 @@ class ListAPI: API, ListRequestProtocol {
 
 extension ListAPI {
     func offlineDeletedLists(listIDs: [Int], completionHandler: @escaping (String?) -> Void){
-        requestWorker.post(url: Config.Route.List.Offline.Delete, data: ["list_ids": listIDs]) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.List.Offline.Delete, data: ["list_ids": listIDs]) { (response: () throws -> Data) in
             do {
                 _ = try response()
                 completionHandler(nil)
@@ -137,7 +137,7 @@ extension ListAPI {
 
         let listsData = createListData(lists: lists)
         
-        requestWorker.post(url: Config.Route.List.Offline.Edited, data: ["lists": listsData]) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.List.Offline.Edited, data: ["lists": listsData]) { (response: () throws -> Data) in
             do {
                 _ = try response()
                 completionHandler(nil)

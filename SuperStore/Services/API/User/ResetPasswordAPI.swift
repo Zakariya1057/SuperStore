@@ -13,7 +13,7 @@ class ResetPasswordAPI: API, ResetPasswordProtocol {
     
     func sendEmail(email: String, completionHandler: @escaping (String?) -> Void) {
         
-        requestWorker.post(url: Config.Route.User.ResetPassword.SendEmail, data: ["email": email]) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.User.ResetPassword.SendEmail, data: ["email": email]) { (response: () throws -> Data) in
             do {
                 _ = try response()
                 completionHandler(nil)
@@ -32,7 +32,7 @@ class ResetPasswordAPI: API, ResetPasswordProtocol {
         
         let verifyData: Parameters = ["email": email, "code": code]
         
-        requestWorker.post(url: Config.Route.User.ResetPassword.VerifyCode, data: verifyData) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.User.ResetPassword.VerifyCode, data: verifyData) { (response: () throws -> Data) in
             do {
                 _ = try response()
                 completionHandler(nil)
@@ -55,7 +55,7 @@ class ResetPasswordAPI: API, ResetPasswordProtocol {
             "notification_token": notificationToken
         ]
         
-        requestWorker.post(url: Config.Route.User.ResetPassword.NewPassword, data: verifyData) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.User.ResetPassword.NewPassword, data: verifyData) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 

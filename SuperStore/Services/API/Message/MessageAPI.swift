@@ -11,7 +11,7 @@ import Foundation
 class MessageAPI: API, MessageRequestProtocol {
     
     func getMessages(type: FeedbackType, completionHandler: @escaping (_ messages: [MessageModel], _ error: String?) -> Void){
-        let url: String = "\(Config.Route.Message.All)?type=\(type)"
+        let url: String = "\(Config.Routes.Message.All)?type=\(type)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -30,7 +30,7 @@ class MessageAPI: API, MessageRequestProtocol {
     }
     
     func sendMessage(type: FeedbackType, message: String, completionHandler: @escaping (MessageModel?, String?) -> Void) {
-        requestWorker.post(url: Config.Route.Message.Create, data: ["type": type.rawValue, "message": message]) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.Message.Create, data: ["type": type.rawValue, "message": message]) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let messageDataResponse =  try self.jsonDecoder.decode(MessageDataResponse.self, from: data)
