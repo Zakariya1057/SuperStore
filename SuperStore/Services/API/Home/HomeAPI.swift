@@ -20,7 +20,7 @@ class HomeAPI: API, HomeRequestProtocol {
             "longitude": longitude ?? 0
         ]
         
-        requestWorker.post(url: Config.Route.Home, data: homeData) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.Home, data: homeData) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let homeDataResponse =  try self.jsonDecoder.decode(HomeDataRespone.self, from: data)

@@ -24,7 +24,7 @@ class UserAuthAPI: API, UserAuthProtocol {
             "notification_token": notificationToken ?? ""
         ]
         
-        requestWorker.post(url: Config.Route.User.Login, data: registerData) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.User.Login, data: registerData) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 
@@ -71,7 +71,7 @@ class UserAuthAPI: API, UserAuthProtocol {
             "user_token": userToken ?? ""
         ]
         
-        requestWorker.post(url: Config.Route.User.Register, data: registerData) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.User.Register, data: registerData) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 

@@ -12,7 +12,7 @@ import Alamofire
 class ReviewAPI: API, ReviewRequestProtocol {
     
     func getReview(productID: Int, completionHandler: @escaping (ReviewModel?, String?) -> Void) {
-        let url = Config.Route.Review.ReviewRoute + "/" + String(productID) + Config.Route.Review.Show
+        let url = Config.Routes.Review.ReviewRoute + "/" + String(productID) + Config.Routes.Review.Show
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -33,7 +33,7 @@ class ReviewAPI: API, ReviewRequestProtocol {
     
     func getReviews(productID: Int, completionHandler: @escaping ([ReviewModel], String?) -> Void) {
         
-        let url = Config.Route.Review.ReviewRoute + "/" + String(productID) + Config.Route.Review.All
+        let url = Config.Routes.Review.ReviewRoute + "/" + String(productID) + Config.Routes.Review.All
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -53,7 +53,7 @@ class ReviewAPI: API, ReviewRequestProtocol {
     }
     
     func deleteReview(productID: Int, completionHandler: @escaping (String?) -> Void){
-        let url = Config.Route.Review.ReviewRoute + "/" + String(productID) + Config.Route.Review.Delete
+        let url = Config.Routes.Review.ReviewRoute + "/" + String(productID) + Config.Routes.Review.Delete
         
         requestWorker.post(url: url, data: nil) { (response: () throws -> Data) in
             do {
@@ -70,7 +70,7 @@ class ReviewAPI: API, ReviewRequestProtocol {
     }
 
     func createReview(review: ReviewModel, completionHandler: @escaping (ReviewModel?, String?) -> Void){
-        let url = Config.Route.Review.ReviewRoute + "/" + String(review.productID) + Config.Route.Review.Create
+        let url = Config.Routes.Review.ReviewRoute + "/" + String(review.productID) + Config.Routes.Review.Create
         
         let reviewData: Parameters = [
             "text": review.text,
@@ -95,7 +95,7 @@ class ReviewAPI: API, ReviewRequestProtocol {
     }
     
     func updateReview(review: ReviewModel, completionHandler: @escaping (String?) -> Void){
-        let url = Config.Route.Review.ReviewRoute + "/" + String(review.productID) + Config.Route.Review.Create
+        let url = Config.Routes.Review.ReviewRoute + "/" + String(review.productID) + Config.Routes.Review.Create
         
         let reviewData: Parameters = [
             "text": review.text,

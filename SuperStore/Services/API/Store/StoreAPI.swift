@@ -19,7 +19,7 @@ class StoreAPI: API, StoreRequestProtocol {
             "longitude": longitude ?? 0
         ]
         
-        requestWorker.post(url: Config.Route.Search.Results.Store, data: storeData) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.Search.Results.Store, data: storeData) { (response: () throws -> Data) in
             do {
                 let data = try response()
                 let storesDataResponse =  try self.jsonDecoder.decode(StoresDataResponse.self, from: data)
@@ -36,7 +36,7 @@ class StoreAPI: API, StoreRequestProtocol {
     }
     
     func getStore(storeID: Int, completionHandler: @escaping (StoreModel?, String?) -> Void) {
-        let url: String = Config.Route.Store + "/" + String(storeID)
+        let url: String = Config.Routes.Store + "/" + String(storeID)
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {

@@ -11,7 +11,7 @@ import Foundation
 class ProductAPI: API, ProductRequestProtocol {
     
     func getProduct(regionID: Int, supermarketChainID: Int, productID: Int, completionHandler: @escaping (ProductModel?, String?) -> Void) {
-        let url = Config.Route.Product.Show + String(productID) + "?region_id=\(regionID)&supermarket_chain_id=\(supermarketChainID)"
+        let url = Config.Routes.Product.Show + String(productID) + "?region_id=\(regionID)&supermarket_chain_id=\(supermarketChainID)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -33,7 +33,7 @@ class ProductAPI: API, ProductRequestProtocol {
 extension ProductAPI {
     
     func getMonitoredProducts(regionID: Int, supermarketChainID: Int, completionHandler: @escaping (_ products: [ProductModel], _ error: String?) -> Void){
-        let url = Config.Route.Monitor.Products
+        let url = Config.Routes.Monitor.Products
         
         requestWorker.post(url: url, data: ["region_id": regionID, "supermarket_chain_id": supermarketChainID]) { (response: () throws -> Data) in
             do {
@@ -52,7 +52,7 @@ extension ProductAPI {
     }
     
     func updateMonitor(productID: Int, monitor: Bool, completionHandler: @escaping (String?) -> Void){
-        let url = Config.Route.Product.Show + String(productID) + Config.Route.Product.Monitor
+        let url = Config.Routes.Product.Show + String(productID) + Config.Routes.Product.Monitor
         
         requestWorker.post(url: url, data: ["monitor": monitor]) { (response: () throws -> Data) in
             do {

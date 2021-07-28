@@ -52,7 +52,7 @@ class UserSettingAPI: API, UserRequestProtocol {
     
     
     func logout(completionHandler: @escaping (_ error: String?) -> Void){
-        requestWorker.post(url: Config.Route.User.Logout, data: nil) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.User.Logout, data: nil) { (response: () throws -> Data) in
             do {
                 _ = try response()
                 completionHandler(nil)
@@ -67,7 +67,7 @@ class UserSettingAPI: API, UserRequestProtocol {
     
     func deleteUser(completionHandler: @escaping (_ error: String?) -> Void){
         
-        requestWorker.post(url: Config.Route.User.Delete, data: nil) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.User.Delete, data: nil) { (response: () throws -> Data) in
             do {
                 _ = try response()
                 completionHandler(nil)
@@ -86,7 +86,7 @@ extension UserSettingAPI {
         var updateData: Parameters = data
         updateData["type"] = type.lowercased()
 
-        requestWorker.post(url: Config.Route.User.Update, data: updateData) { (response: () throws -> Data) in
+        requestWorker.post(url: Config.Routes.User.Update, data: updateData) { (response: () throws -> Data) in
             do {
                 _ = try response()
                 completionHandler(nil)

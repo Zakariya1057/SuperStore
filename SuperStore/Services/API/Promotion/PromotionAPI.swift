@@ -11,7 +11,7 @@ import Foundation
 class PromotionAPI: API, PromotionRequestProtocol {
     
     func getAllPromotions(regionID: Int, supermarketChainID: Int, completionHandler: @escaping (_ promotionGroups: [PromotionGroupModel], _ error: String?) -> Void){
-        let url = Config.Route.Promotion.All + "/" + String(supermarketChainID) + "?region_id=\(regionID)"
+        let url = Config.Routes.Promotion.All + "/" + String(supermarketChainID) + "?region_id=\(regionID)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -30,7 +30,7 @@ class PromotionAPI: API, PromotionRequestProtocol {
     }
     
     func getPromotionGroup(regionID: Int, supermarketChainID: Int, title: String, completionHandler: @escaping (_ promotionGroups: [PromotionModel], _ error: String?) -> Void){
-        let url = Config.Route.Promotion.All + "/" + String(supermarketChainID) + "/" + title + "?region_id=\(regionID)"
+        let url = Config.Routes.Promotion.All + "/" + String(supermarketChainID) + "/" + title + "?region_id=\(regionID)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {
@@ -49,7 +49,7 @@ class PromotionAPI: API, PromotionRequestProtocol {
     }
     
     func getPromotion(regionID: Int, promotionID: Int, completionHandler: @escaping (PromotionModel?, String?) -> Void) {
-        let url = Config.Route.Promotion.Show + "/" + String(promotionID) + "?region_id=\(regionID)"
+        let url = Config.Routes.Promotion.Show + "/" + String(promotionID) + "?region_id=\(regionID)"
         
         requestWorker.get(url: url) { (response: () throws -> Data) in
             do {

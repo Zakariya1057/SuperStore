@@ -12,7 +12,7 @@ import Alamofire
 class SearchAPI: API, SearchRequestProtocol {
     
     func getSuggestions(supermarketChainID: Int, query: String, completionHandler: @escaping ([SuggestionModel], String?) -> Void) {
-        let url = Config.Route.Search.Suggestions
+        let url = Config.Routes.Search.Suggestions
         
         requestWorker.post(url: url, data: ["query": query, "supermarket_chain_id": supermarketChainID]) { (response: () throws -> Data) in
             do {
@@ -32,7 +32,7 @@ class SearchAPI: API, SearchRequestProtocol {
     
     func getProductResults(data: SearchQueryRequest, page: Int, completionHandler: @escaping (ProductResultsModel?, String?) -> Void) {
         
-        let url = Config.Route.Search.Results.Product + "?page=\(page)"
+        let url = Config.Routes.Search.Results.Product + "?page=\(page)"
         
         let queryData: Parameters = [
             "query": data.query,

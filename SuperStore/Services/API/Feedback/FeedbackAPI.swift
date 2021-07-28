@@ -10,7 +10,7 @@ import Foundation
 
 class FeedbackAPI: API, FeedbackRequestProtocol {
     func sendFeedback(type: SettingType, message: String, completionHandler: @escaping (String?) -> Void) {
-        let url: String = Config.Route.Feedback.Create
+        let url: String = Config.Routes.Feedback.Create
         
         requestWorker.post(url: url, data: ["type": type.rawValue, "message": message]) { (response: () throws -> Data) in
             do {
