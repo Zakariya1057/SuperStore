@@ -32,7 +32,7 @@ class SupermarketChainWorker
                 id: 2,
                 name: "No Frills",
                 type: .noFrills,
-                regions: [],
+                regions: regionWorker.getRegionsByID(ids: [8,9,10,11,12, 14,15,16,17,18]),
                 logo: UIImage(named: "No Frills")!,
                 color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
             ),
@@ -41,7 +41,7 @@ class SupermarketChainWorker
                 id: 3,
                 name: "Atlantic Superstore",
                 type: .atlanticSuperstore,
-                regions: [],
+                regions: regionWorker.getRegionsByID(ids: [15,16,17]),
                 logo: UIImage(named: "Atlantic Superstore")!,
                 color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
             ),
@@ -50,7 +50,7 @@ class SupermarketChainWorker
                 id: 4,
                 name: "Maxi",
                 type: .maxi,
-                regions: [],
+                regions: regionWorker.getRegionsByID(ids: [18]),
                 logo: UIImage(named: "Maxi")!,
                 color: UIColor(red:0.10, green:0.29, blue:0.62, alpha:1.0)
             ),
