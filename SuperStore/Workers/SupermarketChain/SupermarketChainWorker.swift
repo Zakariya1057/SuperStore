@@ -63,6 +63,10 @@ extension SupermarketChainWorker {
         return supermarketChains
     }
     
+    func getSupermarketChainID() -> Int {
+        return defaultSupermarketChainID
+    }
+    
     func getSelectedSupermarketChain() -> SupermarketChainModel {
         let supermarketChainID = userStore.getSupermarketChainID() ?? defaultSupermarketChainID
         

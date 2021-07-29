@@ -26,7 +26,7 @@ class UserRealmStore: DataStore, UserStoreProtocol {
             savedUser.name = user.name
             savedUser.email = user.email
             savedUser.token = user.token
-//            savedUser.supermarketChainID = user.supermarketChainID
+            savedUser.supermarketChainID = supermarketChainWorker.getSupermarketChainID()
             savedUser.regionID = user.regionID
             savedUser.id = user.id
             savedUser.sendNotifications = user.sendNotifications
