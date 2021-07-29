@@ -15,7 +15,7 @@ protocol SupermarketChainDetails {
 
 
 struct SupermarketChainsConfig {
-    private static var selectedSupermarketChainID: Int = 1
+    private static var selectedSupermarketChainID: Int = 2
     
     public static var SelectedSupermarketChain: SupermarketChainDetails! {
         
