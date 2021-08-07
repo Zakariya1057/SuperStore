@@ -16,7 +16,7 @@ import RealmSwift
     
     var navigationController: UINavigationController = UINavigationController()
     
-    var notificationWorker: NotificationWorker?
+    var notificationWorker: NotificationWorker = NotificationWorker()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -53,8 +53,6 @@ import RealmSwift
 //        try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
-        notificationWorker = NotificationWorker()
-        
         configureNotification(application: application)
         
         return true
@@ -83,12 +81,12 @@ import RealmSwift
     // This function will be called when notification is received
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound, .badge])
-        notificationWorker?.notificationReceived(data: notification.request.content.userInfo)
+        notificationWorker.notificationReceived(data: notification.request.content.userInfo)
     }
     
     // This function will be called right after user tap on the notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        notificationWorker?.notificationPressed(response: response)
+        notificationWorker.notificationPressed(response: response, window: self.window)
         completionHandler()
     }
     

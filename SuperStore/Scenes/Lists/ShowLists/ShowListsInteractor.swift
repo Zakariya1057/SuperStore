@@ -49,9 +49,8 @@ class ShowListsInteractor: ShowListsBusinessLogic, ShowListsDataStore
     
     func getLists(request: ShowLists.GetLists.Request)
     {
-        let supermarketChainID: Int = self.companyID == nil ? userSession.getSupermarketChainID() : self.companyID!
-        
-        listWorker.getLists(supermarketChainID: supermarketChainID) { (lists: [ListModel], error: String?) in
+
+        listWorker.getLists(supermarketChainID: userSession.getSupermarketChainID()) { (lists: [ListModel], error: String?) in
             
             var response = ShowLists.GetLists.Response(lists: lists, error: error)
             
