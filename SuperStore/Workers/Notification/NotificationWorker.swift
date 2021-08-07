@@ -35,15 +35,15 @@ class NotificationWorker {
         updateBadgeNumber()
     }
     
-    func notificationPressed(response: UNNotificationResponse){
-        
+    func notificationPressed(response: UNNotificationResponse, window: UIWindow?){
+
         let content = response.notification.request.content.userInfo
         
         let notificationData: AnyObject = getNotificationData(data: content)
         let type: NotificationType = getNotificationType(data: notificationData)
-    
+        
         if type == .message {
-            messageNotificationPressed(data: notificationData)
+            messageNotificationPressed(data: notificationData, window: window)
         } else if type == .price {
             priceNotificationPressed(data: notificationData)
         }
@@ -52,25 +52,16 @@ class NotificationWorker {
         
     }
     
-    private func messageNotificationPressed(data: AnyObject){
+    private func messageNotificationPressed(data: AnyObject, window: UIWindow?){
         
         let messageData = data["message"] as! [String: AnyObject]
         let messageType: String = messageData["type"] as! String
         
+        let setting: SettingModel = getMessageSetting(messageTypeString: messageType)
+        
         if let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedbackViewController") as? FeedbackViewController,
            let tabBarController = rootViewController as? UITabBarController,
            let navController = tabBarController.selectedViewController as? UINavigationController {
-            
-            let settingMapping: [String: String] = [
-                "help": "Help",
-                "feature": "Suggest A Feature",
-                "feedback": "Feedback",
-                "issue": "Report An Issue",
-            ]
-            
-            let settingName: String = settingMapping[messageType]!
-            
-            let setting: SettingModel =  SettingModel(name: settingName, type: SettingType.init(rawValue: messageType)!)
             
             var pushViewController: Bool = true
             
@@ -85,11 +76,16 @@ class NotificationWorker {
             }
             
             if pushViewController {
-                var dataStore = destinationVC.interactor as! FeedbackDataStore
-                dataStore.setting = setting
+                setViewControllerDataStore(destinationVC: destinationVC, setting: setting)
                 navController.pushViewController(destinationVC, animated: true)
             }
             
+        } else {
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "FeedbackViewController") as! FeedbackViewController
+            setViewControllerDataStore(destinationVC: destinationVC, setting: setting)
+            
+            window?.rootViewController = destinationVC
+            window?.makeKeyAndVisible()
         }
         
     }
@@ -117,6 +113,19 @@ extension NotificationWorker {
     func getNotificationType(data: AnyObject) -> NotificationType {
         let type: String = data["type"]! as! String
         return NotificationType.init(rawValue: type)!
+    }
+    
+    func getMessageSetting(messageTypeString: String) -> SettingModel {
+        let settingMapping: [String: String] = [
+            "help": "Help",
+            "feature": "Suggest A Feature",
+            "feedback": "Feedback",
+            "issue": "Report An Issue",
+        ]
+        
+        let settingName: String = settingMapping[messageTypeString]!
+        
+        return SettingModel(name: settingName, type: SettingType.init(rawValue: messageTypeString)!)
     }
     
     func createMessageModel(message: [String: AnyObject]) -> MessageModel {
@@ -157,3 +166,10 @@ extension NotificationWorker {
     }
 }
 
+
+extension NotificationWorker {
+    func setViewControllerDataStore(destinationVC: FeedbackViewController, setting: SettingModel){
+        var dataStore = destinationVC.interactor as! FeedbackDataStore
+        dataStore.setting = setting
+    }
+}
