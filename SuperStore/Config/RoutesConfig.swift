@@ -10,9 +10,9 @@ import Foundation
 
 struct RoutesConfig {
     
-//    private static let Host: String = "http://192.168.1.187/api"
+    private static let Host: String = "http://192.168.1.187/api"
 //        private static let Host: String = "http://18.130.214.33/api"
-        private static let Host: String = "http://superstoresite.com/api"
+//        private static let Host: String = "http://superstoresite.com/api"
     
     public struct User {
         

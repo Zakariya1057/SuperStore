@@ -463,6 +463,15 @@
 		2CEE6E0F261F24EC00280DBE /* SimilarWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEE6E09261F24EC00280DBE /* SimilarWorker.swift */; };
 		2CF7A59525FA88C700172839 /* CategoryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7A59425FA88C700172839 /* CategoryObject.swift */; };
 		2CF7A59A25FAB19D00172839 /* HomeRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7A59925FAB19D00172839 /* HomeRealmStore.swift */; };
+		2CFF9B7726D5722E00E57810 /* PersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9B7526D5722E00E57810 /* PersonCell.swift */; };
+		2CFF9B7826D5722E00E57810 /* PersonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CFF9B7626D5722E00E57810 /* PersonCell.xib */; };
+		2CFF9B8C26D6CFC900E57810 /* PeoplePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9B8626D6CFC900E57810 /* PeoplePresenter.swift */; };
+		2CFF9B8D26D6CFC900E57810 /* PeopleWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9B8726D6CFC900E57810 /* PeopleWorker.swift */; };
+		2CFF9B8E26D6CFC900E57810 /* PeopleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9B8826D6CFC900E57810 /* PeopleRouter.swift */; };
+		2CFF9B8F26D6CFC900E57810 /* PeopleModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9B8926D6CFC900E57810 /* PeopleModels.swift */; };
+		2CFF9B9026D6CFC900E57810 /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9B8A26D6CFC900E57810 /* PeopleViewController.swift */; };
+		2CFF9B9126D6CFC900E57810 /* PeopleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9B8B26D6CFC900E57810 /* PeopleInteractor.swift */; };
+		2CFF9B9326D6D1D400E57810 /* PersonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9B9226D6D1D400E57810 /* PersonModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -954,6 +963,15 @@
 		2CEE6E09261F24EC00280DBE /* SimilarWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarWorker.swift; sourceTree = "<group>"; };
 		2CF7A59425FA88C700172839 /* CategoryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryObject.swift; sourceTree = "<group>"; };
 		2CF7A59925FAB19D00172839 /* HomeRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRealmStore.swift; sourceTree = "<group>"; };
+		2CFF9B7526D5722E00E57810 /* PersonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCell.swift; sourceTree = "<group>"; };
+		2CFF9B7626D5722E00E57810 /* PersonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonCell.xib; sourceTree = "<group>"; };
+		2CFF9B8626D6CFC900E57810 /* PeoplePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeoplePresenter.swift; sourceTree = "<group>"; };
+		2CFF9B8726D6CFC900E57810 /* PeopleWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleWorker.swift; sourceTree = "<group>"; };
+		2CFF9B8826D6CFC900E57810 /* PeopleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleRouter.swift; sourceTree = "<group>"; };
+		2CFF9B8926D6CFC900E57810 /* PeopleModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleModels.swift; sourceTree = "<group>"; };
+		2CFF9B8A26D6CFC900E57810 /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
+		2CFF9B8B26D6CFC900E57810 /* PeopleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleInteractor.swift; sourceTree = "<group>"; };
+		2CFF9B9226D6D1D400E57810 /* PersonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModel.swift; sourceTree = "<group>"; };
 		78A3D23A2EFDF10530DC6D40 /* Pods-SuperStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuperStore.debug.xcconfig"; path = "Target Support Files/Pods-SuperStore/Pods-SuperStore.debug.xcconfig"; sourceTree = "<group>"; };
 		81D954E4C76C0EAE824B9E7D /* Pods-SuperStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuperStore.release.xcconfig"; path = "Target Support Files/Pods-SuperStore/Pods-SuperStore.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1743,7 +1761,7 @@
 				2C70825C25F00E3A00345147 /* EditPassword */,
 				2C70825D25F00F9400345147 /* EditName */,
 				2C70829525F0137A00345147 /* EditEmail */,
-				2CC6002E2643EA6100A1F7BE /* Feedback */,
+				2CFF9B6426D570FD00E57810 /* Messages */,
 				2C48543C269704F5005D9BF0 /* DeviceStorage */,
 			);
 			path = Settings;
@@ -2290,18 +2308,6 @@
 			path = Store;
 			sourceTree = "<group>";
 		};
-		2CC6002E2643EA6100A1F7BE /* Feedback */ = {
-			isa = PBXGroup;
-			children = (
-				2CC6002F2643EA7800A1F7BE /* FeedbackPresenter.swift */,
-				2CC600312643EA7800A1F7BE /* FeedbackRouter.swift */,
-				2CC600322643EA7800A1F7BE /* FeedbackModels.swift */,
-				2CC600332643EA7800A1F7BE /* FeedbackViewController.swift */,
-				2CC600342643EA7800A1F7BE /* FeedbackInteractor.swift */,
-			);
-			path = Feedback;
-			sourceTree = "<group>";
-		};
 		2CC6003B2643EEB500A1F7BE /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
@@ -2341,6 +2347,7 @@
 			isa = PBXGroup;
 			children = (
 				2CD8A4F7266E39E4003AAEF2 /* MessageModel.swift */,
+				2CFF9B9226D6D1D400E57810 /* PersonModel.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -2522,7 +2529,7 @@
 			children = (
 				2C66F9D1267A4782009D6CF4 /* HomeFeedback */,
 				2CD8A4F5266E27B9003AAEF2 /* Setting */,
-				2CD8A4F9266E5212003AAEF2 /* Message */,
+				2CFF9B7426D571FF00E57810 /* Messages */,
 				2CA560172604AC6700714AAC /* ListPriceUpdate */,
 				2C72942C25EBE58800D280B3 /* Product */,
 				2C2BC7EE25EBB8870038882B /* Review */,
@@ -2682,6 +2689,58 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		2CFF9B6426D570FD00E57810 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				2CFF9B8526D6CF8400E57810 /* People */,
+				2CFF9B6526D5710500E57810 /* Message */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
+		2CFF9B6526D5710500E57810 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				2CC6002F2643EA7800A1F7BE /* FeedbackPresenter.swift */,
+				2CC600312643EA7800A1F7BE /* FeedbackRouter.swift */,
+				2CC600322643EA7800A1F7BE /* FeedbackModels.swift */,
+				2CC600332643EA7800A1F7BE /* FeedbackViewController.swift */,
+				2CC600342643EA7800A1F7BE /* FeedbackInteractor.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		2CFF9B7326D571F000E57810 /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				2CFF9B7526D5722E00E57810 /* PersonCell.swift */,
+				2CFF9B7626D5722E00E57810 /* PersonCell.xib */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
+		2CFF9B7426D571FF00E57810 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				2CFF9B7326D571F000E57810 /* Person */,
+				2CD8A4F9266E5212003AAEF2 /* Message */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
+		2CFF9B8526D6CF8400E57810 /* People */ = {
+			isa = PBXGroup;
+			children = (
+				2CFF9B8626D6CFC900E57810 /* PeoplePresenter.swift */,
+				2CFF9B8726D6CFC900E57810 /* PeopleWorker.swift */,
+				2CFF9B8826D6CFC900E57810 /* PeopleRouter.swift */,
+				2CFF9B8926D6CFC900E57810 /* PeopleModels.swift */,
+				2CFF9B8A26D6CFC900E57810 /* PeopleViewController.swift */,
+				2CFF9B8B26D6CFC900E57810 /* PeopleInteractor.swift */,
+			);
+			path = People;
+			sourceTree = "<group>";
+		};
 		429EF559B847C30D5A28936C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2796,6 +2855,7 @@
 				2C9C1B8624CDDDCE001ACA35 /* OpenSans-ExtraBold.ttf in Resources */,
 				2C322699263EB7C6007139FE /* Roboto-Bold.ttf in Resources */,
 				2C9C1B9224CEEF90001ACA35 /* ListPriceUpdateTableViewCell.xib in Resources */,
+				2CFF9B7826D5722E00E57810 /* PersonCell.xib in Resources */,
 				2CB19B832565A8C900C19550 /* ProductCell.xib in Resources */,
 				2CB3DCFD252A180900FC5792 /* ListProgressCell.xib in Resources */,
 				2C8A756F265F91E200E201B2 /* RegionCell.xib in Resources */,
@@ -2897,6 +2957,7 @@
 				2CB911BA25F11B6100A8FC66 /* ShowListViewController.swift in Sources */,
 				2C48544726970515005D9BF0 /* DeviceStorageViewController.swift in Sources */,
 				2CC0ADE025F969BD00373AC4 /* PromotionRealmStore.swift in Sources */,
+				2CFF9B9126D6CFC900E57810 /* PeopleInteractor.swift in Sources */,
 				2C2BC80225EBBF040038882B /* ShowReviewsRouter.swift in Sources */,
 				2C90DFA425FB832A008977EB /* ProductCollectionViewCell.swift in Sources */,
 				2C7AE0C0265EB55600ADF53A /* SupermarketChainWorker.swift in Sources */,
@@ -2943,6 +3004,7 @@
 				2C7082B725F0155700345147 /* UserSettingAPI.swift in Sources */,
 				2CD7227F265A581900D1D112 /* FlyerListPresenter.swift in Sources */,
 				2C5C985D25F69AF100DF8B6D /* ProductRealmStore.swift in Sources */,
+				2CFF9B9326D6D1D400E57810 /* PersonModel.swift in Sources */,
 				2C14299825F2C282007D1EB7 /* EditListItemWorker.swift in Sources */,
 				2C55F9D225EE3C2E007BBFA8 /* SearchModel.swift in Sources */,
 				2CB9119B25F11B4500A8FC66 /* ShowListsWorker.swift in Sources */,
@@ -2973,6 +3035,7 @@
 				2C7CAC58264056B40024FDD8 /* MonitoredProductsModels.swift in Sources */,
 				2C14299725F2C282007D1EB7 /* EditListItemPresenter.swift in Sources */,
 				2C70827825F0100700345147 /* EditPasswordViewController.swift in Sources */,
+				2CFF9B8E26D6CFC900E57810 /* PeopleRouter.swift in Sources */,
 				2C7AE0C4265ECC0F00ADF53A /* RegionModel.swift in Sources */,
 				2C058FF625F52AE100B4A16B /* EditStoreRouter.swift in Sources */,
 				2CDA612B25ED0FC700FD3956 /* ReviewModel.swift in Sources */,
@@ -3057,6 +3120,7 @@
 				2C14775E25E9070D000E8F66 /* UserSessionWorker.swift in Sources */,
 				2CA11F9725EF90560054AE19 /* GroceryWorker.swift in Sources */,
 				2CD7228E265A582800D1D112 /* ShowFlyerModels.swift in Sources */,
+				2CFF9B8C26D6CFC900E57810 /* PeoplePresenter.swift in Sources */,
 				2C2BC82E25EBBFD40038882B /* ShowPromotionWorker.swift in Sources */,
 				2C61469F25F1266400D92CB7 /* CreateListPresenter.swift in Sources */,
 				2C9C1B9124CEEF90001ACA35 /* ListPriceUpdateTableViewCell.swift in Sources */,
@@ -3095,6 +3159,7 @@
 				2C77B0F526825B760052164A /* NutritionData.swift in Sources */,
 				2C48544526970515005D9BF0 /* DeviceStorageRouter.swift in Sources */,
 				2C2BC83E25EBC0680038882B /* ShowItemsRouter.swift in Sources */,
+				2CFF9B9026D6CFC900E57810 /* PeopleViewController.swift in Sources */,
 				2CB9119A25F11B4500A8FC66 /* ShowListsPresenter.swift in Sources */,
 				2CD7228B265A582800D1D112 /* ShowFlyerPresenter.swift in Sources */,
 				2CC72FF625FD7BFF004E3987 /* ImageData.swift in Sources */,
@@ -3114,6 +3179,7 @@
 				2C2BC83D25EBC0680038882B /* ShowItemsWorker.swift in Sources */,
 				2C576F4826B1D6B200C1023C /* SupermarketChainsConfig.swift in Sources */,
 				2C5C987725F69BD300DF8B6D /* ListItemObject.swift in Sources */,
+				2CFF9B8D26D6CFC900E57810 /* PeopleWorker.swift in Sources */,
 				2C6146A225F1266400D92CB7 /* CreateListModels.swift in Sources */,
 				2C7082D025F01C7500345147 /* UserHistory.swift in Sources */,
 				2C7AE0D2265EDC6700ADF53A /* EditRegionInteractor.swift in Sources */,
@@ -3200,6 +3266,7 @@
 				2C48544426970515005D9BF0 /* DeviceStorageWorker.swift in Sources */,
 				2CF7A59A25FAB19D00172839 /* HomeRealmStore.swift in Sources */,
 				2C2BC83F25EBC0680038882B /* ShowItemsModels.swift in Sources */,
+				2CFF9B7726D5722E00E57810 /* PersonCell.swift in Sources */,
 				2CB911AB25F11B5500A8FC66 /* EditListModels.swift in Sources */,
 				2C70828825F0108500345147 /* SettingsWorker.swift in Sources */,
 				2C2BC84D25EBC2460038882B /* ReviewAPI.swift in Sources */,
@@ -3241,6 +3308,7 @@
 				2CD8A4F0266E1F36003AAEF2 /* AdvancedSettingsModels.swift in Sources */,
 				2CB2CFBF25EAA7E800A00F7F /* ListData.swift in Sources */,
 				2C7294C425ECF19C00D280B3 /* FavouritesPresenter.swift in Sources */,
+				2CFF9B8F26D6CFC900E57810 /* PeopleModels.swift in Sources */,
 				2C72945A25EBE79C00D280B3 /* PromotionWorker.swift in Sources */,
 				2CC0ADE525FA1D6500373AC4 /* StoreRealmStore.swift in Sources */,
 				2C55FA1025EE4BF9007BBFA8 /* ShowProductResultsModels.swift in Sources */,

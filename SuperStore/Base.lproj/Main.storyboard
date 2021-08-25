@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pZG-ZY-ksW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xe6-O2-cLE">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -4821,6 +4821,38 @@
             </objects>
             <point key="canvasLocation" x="3929" y="2750"/>
         </scene>
+        <!--Messages-->
+        <scene sceneID="59U-OO-yln">
+            <objects>
+                <viewController id="xe6-O2-cLE" customClass="PeopleViewController" customModule="SuperStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8v8-d3-A2n">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LEB-qh-KKm">
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="rS0-ty-DsS"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="rS0-ty-DsS" firstAttribute="bottom" secondItem="LEB-qh-KKm" secondAttribute="bottom" id="0WD-fZ-GEI"/>
+                            <constraint firstItem="LEB-qh-KKm" firstAttribute="leading" secondItem="rS0-ty-DsS" secondAttribute="leading" id="Luz-Mr-O7u"/>
+                            <constraint firstItem="LEB-qh-KKm" firstAttribute="top" secondItem="rS0-ty-DsS" secondAttribute="top" id="VZT-w8-Q25"/>
+                            <constraint firstItem="rS0-ty-DsS" firstAttribute="trailing" secondItem="LEB-qh-KKm" secondAttribute="trailing" id="j5v-4V-JND"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Messages" id="9iY-eE-6gY"/>
+                    <connections>
+                        <outlet property="peopleTableView" destination="LEB-qh-KKm" id="WzV-g4-TsM"/>
+                        <segue destination="fIe-Ia-vcg" kind="show" id="JYT-ql-7PT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ltD-1j-34S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6286" y="2750"/>
+        </scene>
         <!--Feedback-->
         <scene sceneID="EH0-fx-LAd">
             <objects>
@@ -4991,7 +5023,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZF-Ho-cMk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6286" y="2750"/>
+            <point key="canvasLocation" x="6336" y="3490"/>
         </scene>
         <!--Promotion Group View Controller-->
         <scene sceneID="MV9-xv-JOs">
@@ -5092,11 +5124,11 @@
                     <navigationItem key="navigationItem" id="Ho9-Xj-Mb2"/>
                     <connections>
                         <outlet property="tableView" destination="o5g-KJ-mgu" id="pRb-4e-zGL"/>
-                        <segue destination="fIe-Ia-vcg" kind="show" identifier="" id="iK4-1r-EwB"/>
                         <segue destination="SzX-4m-Fpe" kind="show" id="gGh-eC-Gyu"/>
                         <segue destination="nph-2y-VSK" kind="show" id="4Px-MP-tDd"/>
                         <segue destination="EIN-HB-Uy4" kind="show" id="8q7-xS-LBI"/>
                         <segue destination="H6F-dc-KP8" kind="show" id="9Sw-Le-CX5"/>
+                        <segue destination="xe6-O2-cLE" kind="show" id="eIX-Vy-E7w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFy-Bp-4Af" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
